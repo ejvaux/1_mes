@@ -430,18 +430,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="modal hide fade in" role="dialog" id="editmoldrepair" data-keyboard="false" data-backdrop="static" >
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -588,19 +576,6 @@
                         </select>
                     </div>
                     <div class="col-sm-6">
-                        <label for="inputFirstname" class="col-form-label-sm">REPAIR REMARKS:</label>
-                        <select id="erepairremarks" type="text" class="form-control form-control-sm" name="repairremarks" placeholder="">
-
-                            <option value="GOOD">GOOD</option>
-                            <option value="NO GOOD">NO GOOD</option>
-
-                        </select>
-                    </div>                    
-                </div>
-                
-                <div class="form-group row">
-
-                    <div class="col-sm-6">
                         <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
                         <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
                         <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
@@ -611,8 +586,31 @@
                             <option value="FINISHED">FINISHED</option>
 
                         </select>
+                    </div> 
+                    <!-- <div class="col-sm-6">
+                        <label for="inputFirstname" class="col-form-label-sm">REPAIR REMARKS:</label>
+                        <select id="erepairremarks" type="text" class="form-control form-control-sm" name="repairremarks" placeholder="">
+
+                            <option value="GOOD">GOOD</option>
+                            <option value="NO GOOD">NO GOOD</option>
+
+                        </select>
+                    </div>  -->                   
+                </div>
+                
+                <!-- <div class="form-group row">
+
+                    <div class="col-sm-6">                        
+                        <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
+                        <select id="emoldstatus" type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
+                                
+                            <option value="PENDING">PENDING</option>
+                            <option value="ON-GOING">ON-GOING</option>
+                            <option value="FINISHED">FINISHED</option>
+
+                        </select>
                     </div>                
-                </div>                           
+                </div>   -->                         
 
                 <div class="modal-footer">
                     <button type="button" name='submit' class="btn btn-primary" id="editformsubmit"><i class="far fa-save"></i> Save</button>
