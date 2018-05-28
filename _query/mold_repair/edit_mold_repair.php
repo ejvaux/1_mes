@@ -17,7 +17,7 @@
     $itemname = $_POST['itemname'];
     $itemcode = $_POST['itemcode'];
     $customername = $_POST['customername'];
-    $moldshot = $_POST['moldshot'];
+    /* $moldshot = $_POST['moldshot']; */
     $machinecode = $_POST['machinecode'];
     $daterequired = $_POST['daterequired'];
     $timerequired = $_POST['timerequired'];
@@ -32,12 +32,10 @@
         ITEM_NAME = '$itemname',
         ITEM_CODE = '$itemcode',
         CUSTOMER_NAME = '$customername', 
-        MOLD_SHOT = '$moldshot',
         MACHINE_CODE = '$machinecode',
         DATE_REQUIRED = '$daterequired',
         TIME_REQUIRED = '$timerequired',
         DEFECT_NAME = '$defectname',
-        /* REPAIR_REMARKS = '$repairremarks', */
         MOLD_STATUS = '$moldstatus'
     WHERE MOLD_REPAIR_CONTROL_NO = $repaircontrol";
 

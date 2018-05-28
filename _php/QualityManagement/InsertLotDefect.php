@@ -8,7 +8,7 @@
         header('Location: /1_mes/');
         exit();
     }
-    
+    $rejectremarks = 'PENDING'
     $packing = $_POST['danplaTag'];
     $defectQty = $_POST['defectQty'];
     $lotNumber = $_POST['lotNumber'];
@@ -35,6 +35,10 @@
     $lotqty = $row['LOT_QTY'];
     $conn->close();
     
+    if($lotqty==$defectQty){
+        $rejectremarks = 'DEFECT'
+    }
+
 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
     
 
@@ -50,17 +54,18 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         DEFECT_NAME,
         DEF_QUANTITY,
         LOT_QTY,
+        REJECTION_REMARKS
         INSERT_DATETIME,
         INSERT_USER
     )
 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
         $stmt1 = $conn->prepare($sql);
 
         $stmt1->bind_param(
 
-            'ssssssssiiss',
+            'ssssssssiisss',
             $divCode,
             $jobOrder,
             $lotNumber,
@@ -71,6 +76,7 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             $defectName,
             $defectQty,
             $lotqty,
+            $rejectremarks,
             $insertDate,
             $insertUser
             );

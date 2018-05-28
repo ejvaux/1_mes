@@ -530,25 +530,6 @@
                         </select>
                     </div>
                     <div class="col-sm-6">
-                        <label for="inputLastname" class="col-form-label-sm">MOLD SHOT:</label>
-                        <input id="emoldshot" type="text" class="form-control form-control-sm" name="moldshot" placeholder="" readonly>
-                    </div>                    
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <label for="inputLastname" class="col-form-label-sm">DATE REQUIRED:</label>
-                        <input id="edaterequired" type="date" class="form-control form-control-sm" name="daterequired" placeholder="" value="<?php echo date('Y-m-d'); ?>">
-                    </div>
-                    <div class="col-sm-6">
-                        <label for="inputFirstname" class="col-form-label-sm">TIME REQUIRED:</label>
-                        <input id="etimerequired" type="time" class="form-control form-control-sm" name="timerequired" placeholder="">
-                    </div>
-                    
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-6">
                         <label for="inputLastname" class="col-form-label-sm">DEFECT NAME:</label>
                         <select id="edefectname" type="text" class="form-control form-control-sm sel" name="defectname" placeholder="">
                             
@@ -575,6 +556,26 @@
 
                         </select>
                     </div>
+                    <!-- <div class="col-sm-6">
+                        <label for="inputLastname" class="col-form-label-sm">MOLD SHOT:</label>
+                        <input id="emoldshot" type="text" class="form-control form-control-sm" name="moldshot" placeholder="" readonly>
+                    </div>  -->                   
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputLastname" class="col-form-label-sm">DATE REQUIRED:</label>
+                        <input id="edaterequired" type="date" class="form-control form-control-sm" name="daterequired" placeholder="" value="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputFirstname" class="col-form-label-sm">TIME REQUIRED:</label>
+                        <input id="etimerequired" type="time" class="form-control form-control-sm" name="timerequired" placeholder="">
+                    </div>
+                    
+                </div>
+
+                <div class="form-group row">
+                    
                     <div class="col-sm-6">
                         <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
                         <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->

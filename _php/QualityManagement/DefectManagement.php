@@ -49,7 +49,8 @@
           <?php       
               include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
-              $sql = "SELECT * FROM qmd_defect_dl WHERE REJECTION_REMARKS = 'DEFECT'";
+              $sql="SELECT * FROM qmd_defect_dl LEFT JOIN qmd_lot_create ON qmd_defect_dl.LOT_NUMBER = qmd_lot_create.LOT_NUMBER
+                    WHERE REJECTION_REMARKS = 'DEFECT'";
               $result = $conn->query($sql);
               
               if ($result->num_rows > 0) 
@@ -77,28 +78,27 @@
                     echo "<td>" . $row['ITEM_CODE'] . "</td>";
                     echo "<td>" . $row['ITEM_NAME'] . "</td>";
                     echo "<td>" . $row['UPDATE_DATETIME'] . "</td>";
-                    
+                    echo "<td>" . $row['UPDATE_USER'] . "</td>";
                     echo "<td>" . $row['DEFECT_QTY'] . "</td>";
-                    echo "<td>" . $row['JUDGE_BY'] . "</td>";
-                    echo "<td>" . $row['REMARKS'] . "</td>";
+                    echo "<td>" . $row['DEFECT_NAME'] . "</td>";
                   }
                   echo "</tbody></table>";
               } 
               else {
                    echo "<table class='table table-hover table-bordered table-sm tbl2' id='CreatedLotTable'><thead>    
-                  <th>REJECTION TYPE</th>
-                  <th>LOT JUDGEMENT</th>
-                  <th>PROD DATE</th>
-                  <th>LOT NUMBER</th>
-                  <th>APPROVED QUANTITY</th>
-                  <th>LOT CREATOR</th>
-                  <th>ITEM CODE</th>
-                  <th>ITEM NAME</th>
-                  <th>JUDGE BY</th>
-                  <th>REMARKS</th>
-                  </thead>
+                  <th>JOB ORDER</th>
+                    <th>LOT NUMBER</th>
+                    <th>PROD DATE</th>
+                    <th>LOT CREATOR</th>
+                    <th>ITEM CODE</th>
+                    <th>ITEM NAME</th>
+                    <th>DATE JUDGE</th>
+                    <th>JUDGE BY</th>
+                    <th>DEFECT QTY</th>
+                    <th>DEFECT NAME</th>
+                    </thead>
                   <tbody>
-                    <td colspan='11' style='text-align:center'><h4>NO LOT TO BE RECOVERED</h4></td>
+                    <td colspan='11' style='text-align:center'><h4>NO DEFECT DETAILS</h4></td>
                     </tbody>
                   </table>";
                 }

@@ -45,10 +45,12 @@ $columns = array(
     array( 'db' => 'DEFECT_NAME', 'dt' => 12 ),
     /* array( 'db' => 'REPAIR_REMARKS', 'dt' => 13 ), */
     array( 'db' => 'USER_REQUEST', 'dt' => 13 ),
-    array( 'db' => 'USER_UPDATE', 'dt' => 14 ),
-    array( 'db' => 'UPDATE_DATETIME', 'dt' => 15 ),
+    array( 'db' => 'CHECKER', 'dt' => 14 ),
+    array( 'db' => 'CHECK_DATETIME', 'dt' => 15 ),
     array( 'db' => 'APPROVER', 'dt' => 16 ),
     array( 'db' => 'APPROVE_DATETIME', 'dt' => 17 ),
+    array( 'db' => 'USER_UPDATE', 'dt' => 14 ),
+    array( 'db' => 'UPDATE_DATETIME', 'dt' => 15 ),
 );
  
 // SQL server connection information
