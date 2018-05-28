@@ -31,7 +31,9 @@
     $itemName = $row['ITEM_NAME'];
     $prod_date = $row['PRINT_DATE'];
     $jobOrder = $row['JO_NUM'];
+
     $lotqty = $row['LOT_QTY'];
+
     if($lotqty==$defectQty){
         $rejectremarks = 'DEFECT';
     }
@@ -59,13 +61,13 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         UPDATE_USER
     )
 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
         $stmt1 = $conn->prepare($sql);
 
         $stmt1->bind_param(
 
-            'ssssssssiisss',
+            'ssssssssiisssss',
             $divCode,
             $jobOrder,
             $lotNumber,

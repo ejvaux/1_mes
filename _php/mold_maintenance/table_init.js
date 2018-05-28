@@ -285,13 +285,9 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
       $("#addmoldrepairA").modal('show');        
       
     }
-  };
-
-  
+  };  
 
       /* Display Table - END */
-
-
 
 /* --------------------------- user G ------------------------------------------- */
 
@@ -344,12 +340,8 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
             id: 'exportButton'
         },
          filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
-          ],
-        /* fixedHeader: {
-          header: true,
-          headerOffset: 122            
-          }, */
-          select: 'single',
+          ],        
+          select: false,
           "columnDefs": [
               {
                 "searchable": false,
@@ -621,9 +613,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
             $('.sel').select2({ width: '100%' });
             $('#chcklist').modal('show');
           }
-        });
-      
-        
+        });              
         
     } ); 
       /* ____________________________ FUNCTIONS _________________________ */
@@ -641,8 +631,7 @@ $.fn.dataTable.ext.buttons.add3 = {
       alistchange();
       getctrlnumber();    
     $("#addmoldrepair").modal('show');
-    /* alert('TEST');  */    
-    
+    /* alert('TEST');  */       
   }
 };   
 
@@ -917,8 +906,7 @@ function DisplayTbleH(Table_Name,Tablesp,tbltitle) {
                     'ajax': true
                 },
                 success: function(data1) {
-                  var val = JSON.parse(data1);
-                  
+                  var val = JSON.parse(data1);                  
 
                   $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
                   $("#emcl").val(val.MOLD_CODE);   

@@ -2,13 +2,15 @@
 <style>
 .tx{
   height:34px;
-  width:142.5%;
+  width:100%;
+  margin-left:10%;
   /* margin-top:5%; */
   /* padding-top:10px; */
 }
 .filterT{
-  height:34px;
-
+  margin-left:-10%;
+  height:100%;
+  width:100%;
 }
 .bt{
   width:75px;
@@ -27,9 +29,6 @@
     height: 60%; 
     width:  95%;
 }
-.fixTable{
-  width:50%;
-}
 .disableBtn{
 display:none;
 }
@@ -37,15 +36,12 @@ display:none;
 display:inline-block;
 }
 
-#ClearSearch{
-  margin-left:175%;
-}
 </style>
 
 <!-- <select name="value" id="filterText" onchange="filterText()" style="margin-left:15px;margin-top:8px"> -->
 
 <div class="container-fluid pt-1" style="margin-left:.3%">
-  <div class="row" style="margin-left:.1%">
+  <!-- <div class="row" style="margin-left:.1%">
     <div class="col-m-6">
       <table>
           <tr>
@@ -60,10 +56,42 @@ display:inline-block;
           </tr>
         </table>
       </div>
+    </div> -->
+
+
+  <div class="row">
+    <div class="col-3">
+      <div class="form-group">
+
+        <table style="width: 100%">
+          <tr>
+            <td><b>FILTER: &nbsp</b></td>
+            <td> 
+              <select name="value" class ="filterT form-control form-control-sm" id="filterText" onchange="filterJudgement()">
+                  <option value = "ALL">FILTER TABLE</option>
+                  <option value = "PENDING">PENDING</option>
+                  <option value = "APPROVED">APPROVED</option>
+                  <option value = "DISAPPROVED">DISAPPROVED</option>
+                </select></td>      
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="col-5">
+      <div class="form-group">
+
+        <table style="width: 100%">
+          <tr>
+            <td><b>SEARCH:</b></td>
+            <td><input type="text" onchange="searchLot()" class="tx py-1 form-control form-control-sm" id="searchText" placeholder="SEARCH ANYTHING HERE ..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING"></td>
+            <td><button type="button" class="btn btn-outline-secondary" id="ClearSearch" onclick="ClearSearchLot()" data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button></td>                                                                    
+          </tr>
+          </table>
+        </div>
+      </div>
     </div>
   
   <div class="row">
-   
     <div class="col-12">
       <table class="table table-striped">
           <?php       

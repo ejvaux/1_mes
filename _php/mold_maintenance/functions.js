@@ -328,33 +328,3 @@ function listchange(){
   });
 
   /* ____________________ INSERT ________________________ */
-
-
-  /* ____________________ DELETE ________________________ */
-
-
-  /* $('#mod').on('click','#editformsubmit', function (e) {           
-    alert('TEST');
-    alert(document.getElementById("MRI009").checked ? 'YES' : 'NO');
-    
-    $.ajax({
-      type: 'POST',
-      url: '/1_mes/_query/mold_repair/edit_mold_repair.php',
-      data: $('#editform').serialize(),
-      success: function (data) {    
-        if(data=="success"){
-          alert("Record Updated Successfully!");
-          $('#editform').trigger('reset');
-          $('#editmoldrepair').modal('hide');
-          checkuserauth();
-        }
-        else{
-          alert(data);          
-        }
-      }
-    }); 
-    
-  }); */
-
-
-  /* ____________________ DELETE ________________________ */

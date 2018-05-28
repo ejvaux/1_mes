@@ -18,7 +18,7 @@ function AddBtnClick(){
               if(bcode == ""){
                 swal(
                   'Input Barcode!',
-                  'Please insert danpla be allocated.',
+                  'Please insert danpla to be allocated.',
                   'warning'
                 )
                 return;
@@ -166,7 +166,7 @@ var lotGlobal;
 var lotlot;
 function generateLot(){
   var z = document.getElementById("LotCreationTable").rows.length;
-  if (z == 1) {
+  if (z == 2) {
     swal(
       'No items allocated.',
       'Please insert danpla to create lot.',
