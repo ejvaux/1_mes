@@ -579,20 +579,6 @@ $(document).on('click', '.reworkbtn', function () {
       confirmButtonText: 'REWORK'
     }).then((result) => {
       if (result.value) {
-        /* $.ajax({
-          url: "/1_mes/_php/QualityManagement/ApproveRework.php",
-          method: "POST",
-          data: {
-            'lot_number': lotNumber,
-            'ajax': true
-          },
-          success: function (data) {
-
-            loadDoc("LotRecovery");
-          }
-        }); */
-
-        var decision = 'PENDING-REWORK';
 
         $.ajax({
           url: "/1_mes/_php/QualityManagement/ApproveRework.php",
@@ -603,8 +589,7 @@ $(document).on('click', '.reworkbtn', function () {
             'ajax': true
           },
           success: function (data) {
-            filterText();
-            $('#modalID').trigger('reset');
+            loadDoc("LotRecovery");
           }
         });
 
@@ -658,7 +643,6 @@ $(document).on('click', '.scrapbtn', function () {
             'ajax': true
           },
           success: function (data) {
-            alert(data);
             loadDoc("LotRecovery");
           }
         });

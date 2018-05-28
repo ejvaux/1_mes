@@ -72,11 +72,12 @@ session_start();
                 );
         
             if ($stmt->execute() === TRUE) {
-            
+            echo "SUCCESS";
                 
             }
             else{
-                
+            
+            echo "Error updating record: " . $sql . "<br>" . $conn->error;    
             }
             $stmt->close();
             $conn->close();
