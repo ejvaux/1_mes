@@ -1010,7 +1010,7 @@
 
                             <div class="col-2">
                                     
-                                    <select class="form-control-sm" id="aMRI001" name="MRI001">
+                                    <select class="form-control-sm" id="aMRI001" name="MRI001" disabled>
                                         <option>G</option>
                                         <option>NG</option>
                                     </select>
@@ -1025,7 +1025,7 @@
 
                             <div class="col-2">
                                     
-                                    <select class="form-control-sm" id="aMRI005" name="MRI005">
+                                    <select class="form-control-sm" id="aMRI005" name="MRI005" disabled>
                                         <option>G</option>
                                         <option>NG</option>
                                     </select>
@@ -1044,7 +1044,7 @@
 
                             <div class="col-2">
                                     
-                                    <select class="form-control-sm" id="aMRI002" name="MRI002">
+                                    <select class="form-control-sm" id="aMRI002" name="MRI002" disabled>
                                         <option>G</option>
                                         <option>NG</option>
                                     </select>
@@ -1058,7 +1058,7 @@
 
                             <div class="col-2">
 
-                                <select class="form-control-sm" id="aMRI006" name="MRI006">
+                                <select class="form-control-sm" id="aMRI006" name="MRI006" disabled>
                                     <option>G</option>
                                     <option>NG</option>
                                 </select>
@@ -1077,7 +1077,7 @@
 
                             <div class="col-2">
                                     
-                                    <select class="form-control-sm" id="aMRI003" name="MRI003">
+                                    <select class="form-control-sm" id="aMRI003" name="MRI003" disabled>
                                         <option>G</option>
                                         <option>NG</option>
                                     </select>
@@ -1092,7 +1092,7 @@
 
                             <div class="col-2">
 
-                                <select class="form-control-sm" id="aMRI007" name="MRI007">
+                                <select class="form-control-sm" id="aMRI007" name="MRI007" disabled>
                                     <option>G</option>
                                     <option>NG</option>
                                 </select>
@@ -1111,7 +1111,7 @@
 
                             <div class="col-2">
                                     
-                                    <select class="form-control-sm" id="aMRI004" name="MRI004">
+                                    <select class="form-control-sm" id="aMRI004" name="MRI004" disabled>
                                         <option>G</option>
                                         <option>NG</option>
                                     </select>
@@ -1126,7 +1126,7 @@
 
                             <div class="col-2">
 
-                                <select class="form-control-sm" id="aMRI008" name="MRI008">
+                                <select class="form-control-sm" id="aMRI008" name="MRI008" disabled>
                                     <option>G</option>
                                     <option>NG</option>
                                 </select>
@@ -1151,31 +1151,31 @@
 
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI009" id="aMRI009">EXECUTE EJECTOR PIN OF THE LOWER SIDE CLEANING
+                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI009" id="aMRI009" disabled>EXECUTE EJECTOR PIN OF THE LOWER SIDE CLEANING
                         </label>
                     </div>
 
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI010" id="aMRI010">EXECUTE MAIN CORE OF THE UPPER SIDE CLEANING
+                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI010" id="aMRI010" disabled>EXECUTE MAIN CORE OF THE UPPER SIDE CLEANING
                         </label>
                     </div>
 
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI011" id="aMRI011">EXECUTE MAIN CORE OF THE LOWER SIDE CLEANING 
+                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI011" id="aMRI011" disabled>EXECUTE MAIN CORE OF THE LOWER SIDE CLEANING 
                         </label>
                     </div>
 
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI012" id="aMRI012">INSPECT MOVING CORE'S WEAR AND EXECUTE REPAIRING/CLEANING/APPLYING GREASE
+                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI012" id="aMRI012" disabled>INSPECT MOVING CORE'S WEAR AND EXECUTE REPAIRING/CLEANING/APPLYING GREASE
                         </label>
                     </div>
 
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI013" id="aMRI013">EXECUTE GATE PIN OF HOT SYSTEM CLEANING AFTER DISASSEMBLE PERFECTLY
+                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI013" id="aMRI013" disabled>EXECUTE GATE PIN OF HOT SYSTEM CLEANING AFTER DISASSEMBLE PERFECTLY
                         </label>
                     </div>
                 </div> 
@@ -1191,43 +1191,43 @@
 
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI014" id="aMRI014">CHECK MOVING PARTS. HAVE GREASE & SHOULD BE STUCK UP FREE
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI014" id="aMRI014" disabled>CHECK MOVING PARTS. HAVE GREASE & SHOULD BE STUCK UP FREE
                             </label>
                         </div>
 
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI015" id="aMRI015">CHECK TEXTURED SURFACE. SHOULD HAVE NO RUST & SCRATCHES
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI015" id="aMRI015" disabled>CHECK TEXTURED SURFACE. SHOULD HAVE NO RUST & SCRATCHES
                             </label>
                         </div>
 
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI016" id="aMRI016">CHECK COOLING LINE. SHOULD HAVE NO WATER LEAKAGE. AFTER TESTING, DRAIN ALL WATERS INSIDE THE COOLING LINES 
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI016" id="aMRI016" disabled>CHECK COOLING LINE. SHOULD HAVE NO WATER LEAKAGE. AFTER TESTING, DRAIN ALL WATERS INSIDE THE COOLING LINES 
                             </label>
                         </div>
 
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI017" id="aMRI017">CHECK MAIN CORE AND CAVITY. SHOULD HAVE NO RUST & DAMAGE PARTS
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI017" id="aMRI017" disabled>CHECK MAIN CORE AND CAVITY. SHOULD HAVE NO RUST & DAMAGE PARTS
                             </label>
                         </div>
 
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI018" id="aMRI018">CHECK GUIDE POST & BUSHING. SHOULD HAVE GREASE & FREE FROM DAMAGE
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI018" id="aMRI018" disabled>CHECK GUIDE POST & BUSHING. SHOULD HAVE GREASE & FREE FROM DAMAGE
                             </label>
                         </div>
 
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI019" id="aMRI019">CHECK GATE PINS AND HOT SYSTEM. SHOULD BE BE FREE FROM DAMAGE & MATERIAL RESIN RESIDUE
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI019" id="aMRI019" disabled>CHECK GATE PINS AND HOT SYSTEM. SHOULD BE BE FREE FROM DAMAGE & MATERIAL RESIN RESIDUE
                             </label>
                         </div>
 
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI020" id="aMRI020">CHECK MOPP TO PREVENT OPENING OF THE MOLD. MAKE SURE TO LOCK AFTER M/T 
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI020" id="aMRI020" disabled>CHECK MOPP TO PREVENT OPENING OF THE MOLD. MAKE SURE TO LOCK AFTER M/T 
                             </label>
                         </div>
 
@@ -1246,7 +1246,7 @@
                         <div class="row">
 
                             <label for="comment" class="form-label-sm">Action Taken:</label>                           
-                            <textarea class="form-control" rows="5" name="actiontaken" id="aactiontaken"></textarea>
+                            <textarea class="form-control" rows="5" name="actiontaken" id="aactiontaken" readonly></textarea>
                             
                         </div><!-- row -->                        
                     

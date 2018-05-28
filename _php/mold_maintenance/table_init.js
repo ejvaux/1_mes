@@ -183,7 +183,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
                       url:'/1_mes/_query/mold_repair/delete_mold_repair.php',
                       data:
                       {
-                          'id': data[2],
+                          'id': data[3],
                           'ajax': true
                       },
                       success: function(data) {

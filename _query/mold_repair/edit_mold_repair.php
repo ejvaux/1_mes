@@ -24,6 +24,8 @@
     $defectname = $_POST['defectname'];
     /* $repairremarks = $_POST['repairremarks']; */
     $moldstatus = $_POST['moldstatus'];
+    $userupdate = $_SESSION['text'];
+    $updatedatetime = date('Y-m-d H:i:s');
   
     $sql = "UPDATE mmc_mold_repair SET
         
@@ -36,7 +38,10 @@
         DATE_REQUIRED = '$daterequired',
         TIME_REQUIRED = '$timerequired',
         DEFECT_NAME = '$defectname',
-        MOLD_STATUS = '$moldstatus'
+        MOLD_STATUS = '$moldstatus',
+        USER_UPDATE = '$userupdate',
+        UPDATE_DATETIME = '$updatedatetime'
+        
     WHERE MOLD_REPAIR_CONTROL_NO = $repaircontrol";
 
     /* $sql = "UPDATE MyGuests SET lastname='Doe' WHERE id='$repaircontrol'"; */  

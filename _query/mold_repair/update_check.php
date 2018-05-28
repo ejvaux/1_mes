@@ -32,7 +32,7 @@
     if(isset($_POST['MRI019'])){$MRI019 = 'YES'; }else{$MRI019 = 'NO';};
     if(isset($_POST['MRI020'])){$MRI020 = 'YES'; }else{$MRI020 = 'NO';};
    
-    $userupdate = $_SESSION['text'];
+    $checker = $_SESSION['text'];
     $actiontaken = $_POST['actiontaken'];
     $date = date('Y-m-d H:i:s');
     $repaircontrol = $_POST['repaircontrol'];
@@ -41,8 +41,8 @@
     $sql = "UPDATE mmc_mold_repair SET
         
         MOLD_STATUS = '$moldstatus',
-        USER_UPDATE = '$userupdate',
-        UPDATE_DATETIME = '$date',
+        CHECKER = '$checker',
+        CHECK_DATETIME = '$date',
         ACTION_TAKEN = '$actiontaken',
         MRI001 = '$MRI001',
         MRI002 = '$MRI002',

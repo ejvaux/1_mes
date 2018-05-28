@@ -49,8 +49,8 @@ $columns = array(
     array( 'db' => 'CHECK_DATETIME', 'dt' => 15 ),
     array( 'db' => 'APPROVER', 'dt' => 16 ),
     array( 'db' => 'APPROVE_DATETIME', 'dt' => 17 ),
-    array( 'db' => 'USER_UPDATE', 'dt' => 14 ),
-    array( 'db' => 'UPDATE_DATETIME', 'dt' => 15 ),
+    array( 'db' => 'USER_UPDATE', 'dt' => 18 ),
+    array( 'db' => 'UPDATE_DATETIME', 'dt' => 19 ),
 );
  
 // SQL server connection information

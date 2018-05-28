@@ -585,7 +585,6 @@ $(document).on('click', '.reworkbtn', function () {
           method: "POST",
           data: {
             'lot_number': lotNumber,
-            'decision': decision,
             'ajax': true
           },
           success: function (data) {
@@ -711,8 +710,6 @@ $(document).on('click', '#ConfirmDefect', function () {
       )
     } 
 
-
-
     else if (result.dismiss === swal.DismissReason.cancel) {
 
       var decision = 'DISAPPROVE';
@@ -759,6 +756,7 @@ function InsertReject(defect, lotNum, rmks) {
         'ajax': true
       },
     success: function (data) {
+      alert(data);
     }
   });
 }

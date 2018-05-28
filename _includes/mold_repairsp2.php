@@ -46,8 +46,8 @@ $columns = array(
     array( 'db' => 'DEFECT_NAME', 'dt' => 14 ),
     /* array( 'db' => 'REPAIR_REMARKS', 'dt' => 16 ), */
     array( 'db' => 'USER_REQUEST', 'dt' => 15 ),
-    array( 'db' => 'USER_UPDATE', 'dt' => 16 ),
-    array( 'db' => 'UPDATE_DATETIME', 'dt' => 17 ),
+    array( 'db' => 'CHECKER', 'dt' => 16 ),
+    array( 'db' => 'CHECK_DATETIME', 'dt' => 17 ),
     array( 'db' => 'APPROVER', 'dt' => 18 ),   
     /* array( 'db' => 'ACTION_TAKEN', 'dt' => 20 ), */
     array( 'db' => 'APPROVE_DATETIME', 'dt' => 19 )
