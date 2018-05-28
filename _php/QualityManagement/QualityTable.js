@@ -281,7 +281,6 @@ $(document).on('click', '.lotApprove', function () {
           'decision': "APPROVE"
         },
         success: function (data) {
-          /* alert(data); */
           filterText();
         }
       });
@@ -756,7 +755,7 @@ function InsertReject(defect, lotNum, rmks) {
         'ajax': true
       },
     success: function (data) {
-      alert(data);
+
     }
   });
 }

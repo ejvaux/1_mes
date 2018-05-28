@@ -54,7 +54,9 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         LOT_QTY,
         REJECTION_REMARKS,
         INSERT_DATETIME,
-        INSERT_USER
+        INSERT_USER,
+        UPDATE_DATETIME,
+        UPDATE_USER
     )
 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -75,6 +77,8 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             $defectQty,
             $lotqty,
             $rejectremarks,
+            $insertDate,
+            $insertUser,
             $insertDate,
             $insertUser
             );

@@ -501,7 +501,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                 render: function ( data, type, row ) {
 
                   if ( data[3] == 'FINISHED' ) {
-                    return "<span style='color:blue'; font-weight: bold;>- DONE -</span>";                    
+                    return "<span style='color:blue'; font-weight: bold;>-</span>";                    
                   }
                   else {
                     return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div>";
@@ -539,7 +539,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                     }
                   }
                   else{
-                    return "<span style='color:blue'; font-weight: bold;>No Date</span>";
+                    return "<span style='color:blue'; font-weight: bold;>-</span>";
                   }                                   
                 },              
                 "targets": 2,
@@ -716,7 +716,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                     return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Approve</span></button></div>";
                   }
                   else {
-                   return "<div class='text-center'><button class='btn btn-secondary py-0 px-1 m-0' disabled><span style='font-size:.8em; text-decoration: line-through;'>Approve</span></button></div>";
+                   return "<span style='color:blue'; font-weight: bold;>-</span>";
                   }
                                                     
                 },              
@@ -751,7 +751,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                     }
                   }
                   else{
-                    return "<span style='color:blue'; font-weight: bold;>No Date</span>";
+                    return "<span style='color:blue'; font-weight: bold;>-</span>";
                   }                                   
                 },              
                 "targets": 2,
