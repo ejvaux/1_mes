@@ -14,7 +14,7 @@ session_start();
     
 //select
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-        $sql = "SELECT qmd_lot_create.LOT_NUMBER, qmd_lot_rework.REWORK_ID, qmd_lot_create.LOT_QTY, qmd_lot_create.DEFECT_QTY,qmd_lot_create.remarks
+        $sql = "SELECT qmd_lot_create.LOT_NUMBER, qmd_lot_rework.REWORK_ID, qmd_lot_create.LOT_QTY, qmd_lot_create.DEFECT_QTY,qmd_lot_create.REMARKS
                 FROM qmd_lot_create LEFT JOIN qmd_lot_rework ON qmd_lot_rework.LOT_NUMBER = qmd_lot_create.LOT_NUMBER
                 WHERE qmd_lot_create.LOT_NUMBER = '$lot' 
                 ORDER BY qmd_lot_rework.REWORK_ID DESC LIMIT 1"; 
@@ -24,7 +24,7 @@ session_start();
         $lotqty = $row['LOT_QTY'];
         $defqty = $row['DEFECT_QTY'];
         $reworkID = $row['REWORK_ID'];
-        
+        $remarks = $row['REMARKS'];
         if ($reworkID > 0){
             $reworkID = $row['REWORK_ID'] + 1;
         }
@@ -88,7 +88,6 @@ session_start();
 
         $user = $_SESSION['text'];
         $lot = $_POST['lot_number'];
-        $remarks = "";
         $sql = "UPDATE qmd_lot_create SET LOT_JUDGEMENT = 'PENDING' WHERE LOT_NUMBER = '$lot'";
         if($conn->query($sql) === TRUE) {
             echo "LOT RECOVERED!";

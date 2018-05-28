@@ -564,25 +564,6 @@ for (var ctr = 1; ctr < rowCount; ctr++){
       }
     }
   } */
-var decision = 'PENDING-REWORK';
-
-$.ajax({
-  url: "/1_mes/_php/QualityManagement/UpdateLotJudgement.php",
-  method: "POST",
-  data: {
-    'lot_number': lotNumber,
-    'defect_qty': Quantity_Defect,
-    'remarks': remarks,
-    'decision': decision,
-    'ajax': true
-  },
-  success: function (data) {
-    insertRework(lotNumber, Quantity_Defect, remarks);
-    filterText();
-    $('#modalID').trigger('reset');
-  }
-});
-
 
 $(document).on('click', '.reworkbtn', function () {
     //$('#dataModal').modal();
@@ -630,20 +611,6 @@ $(document).on('click', '.reworkbtn', function () {
         swal(
           'REWORK!',
           'Your file has been recorded as rework.',
-          'success'
-        )
-
-
-
-
-
-
-        
-
-
-        swal(
-          'Lot Approved!',
-          'Your item has been approved!',
           'success'
         )
       }
