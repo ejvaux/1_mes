@@ -3,7 +3,7 @@
 .tx{
   height:34px;
   width:100%;
-  margin-left:10%;
+  margin-left:-10%;
   /* margin-top:5%; */
   /* padding-top:10px; */
 }
@@ -29,11 +29,12 @@
     height: 60%; 
     width:  95%;
 }
-.disableBtn{
-display:none;
+.searchBtn{
+margin-left:-25%;
 }
-.enableBtn{
-display:inline-block;
+.ctrl{
+  margin-top:.7%;
+  margin-bottom:-1%
 }
 
 </style>
@@ -60,7 +61,7 @@ display:inline-block;
 
 
   <div class="row">
-    <div class="col-3">
+    <div class="col-3 ctrl">
       <div class="form-group">
 
         <table style="width: 100%">
@@ -77,18 +78,17 @@ display:inline-block;
           </table>
         </div>
       </div>
-      <div class="col-5">
-      <div class="form-group">
-
-        <table style="width: 100%">
-          <tr>
-            <td><b>SEARCH:</b></td>
-            <td><input type="text" onchange="searchLot()" class="tx py-1 form-control form-control-sm" id="searchText" placeholder="SEARCH ANYTHING HERE ..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING"></td>
-            <td><button type="button" class="btn btn-outline-secondary" id="ClearSearch" onclick="ClearSearchLot()" data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button></td>                                                                    
-          </tr>
-          </table>
+      <div class="col-5 ctrl">
+        <div class="form-group">
+          <table style="width: 100%">
+            <tr>
+              <td><b>SEARCH:</b></td>
+              <td><input type="text" onchange="searchLot()" class="tx py-1 form-control form-control-sm" id="searchText" placeholder="SEARCH ANYTHING HERE ..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING"></td>
+              <td><button type="button" class="searchBtn btn btn-outline-secondary" id="ClearSearch" onclick="ClearSearchLot()" data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button></td>                                                                    
+            </tr>
+            </table>
+          </div>
         </div>
-      </div>
     </div>
   
   <div class="row">
@@ -211,7 +211,7 @@ display:inline-block;
                     <th>REMARKS</th>
                     </thead>
                     <tbody>
-                      <td colspan='11' style='text-align:center'><h4>LOT DETAILS</h4></td>
+                      <td colspan='11' style='text-align:center'><h4>NO LOT DETAIL AVAILABLE</h4></td>
                       </tbody>
                     </table>";
                   }

@@ -39,9 +39,30 @@
 .fixTable{
   width:1000px;
 }
+.ctrl{
+  margin-top:.7%;
+  margin-bottom:-1%
+}
+.searchBtn{
+margin-left:-90%;
+}
 </style>
 
 <div class="container-fluid pt-1" style="margin-left:.3%">
+  <div class="row">
+        <div class="col-4 ctrl">
+            <div class="form-group">
+            <table style="width: 100%">
+                <tr>
+                    <td><b>SEARCH:</b></td>
+                    <td><input type="text" class="tx py-1 form-control form-control-sm" placeholder="SEARCH ANYTHING HERE ..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING"></td>
+                    <td><button type="button" class="searchBtn btn btn-outline-secondary" id="ClearSearch" data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button></td>                                                                    
+                    </tr>
+                </table>
+                </div>
+            </div>
+        </div>
+
   <div class="row" >
     <div class="col-12">
       <table class="table table-striped">
