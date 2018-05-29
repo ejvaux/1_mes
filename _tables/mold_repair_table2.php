@@ -23,6 +23,8 @@
         <th>CHECK DATETIME</th>
         <th>APPROVER</th>         
         <th>APPROVE DATETIME</th>
+        <th>USER UPDATE</th>  
+        <th>UPDATE DATETIME</th>
 </thead>
     
 </table>

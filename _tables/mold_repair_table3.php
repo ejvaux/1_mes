@@ -1,6 +1,7 @@
 
 <table class='table table-hover table-bordered table-sm nowrap' id='Dtable' style="width:100%">
 <thead>
+        <th>CHECKLIST</th>
         <th>NO</th>
         <th>TIME LAPSED</th>
         <th>STATUS</th>
@@ -22,6 +23,8 @@
         <th>CHECK DATETIME</th>
         <th>APPROVER</th>                
         <th>APPROVE DATETIME</th>
+        <th>USER UPDATE</th>  
+        <th>UPDATE DATETIME</th>
 </thead>
     
 </table>

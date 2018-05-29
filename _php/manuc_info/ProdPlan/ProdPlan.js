@@ -252,7 +252,9 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
 
      else if(SectionGroup=="shipment_management")
      {
-      
+        var ShipStat = document.getElementById("StatusSort");
+        var selectedOption = ShipStat.options[ShipStat.selectedIndex].value;
+ 
       $.ajax({
             method:'POST',
             url:'/1_mes/_php/manuc_info/ProdPlan/DataShipmentList.php',
@@ -261,11 +263,12 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 'sortfrom': strfromobj,
                 'sortto': strtoobj,
                 'search': searchobj,
+                'ShipStat': selectedOption,
                 'ajax':true
             },
             success: function(data) 
             {
-             initTbl("ShipmentList");
+             initTbl2("ShipmentList");
                 var val = JSON.parse(data);
                /* alert(val); */
                $("#example-table").tabulator("setData",val);
@@ -426,6 +429,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
    }
    else if(TabName=="ShipmentList")
    {
+
     var screenheight=Number(screen.height-350);
     $("#example-table").tabulator({
         height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
@@ -453,8 +457,45 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     },
     tooltipsHeader:true,
     columns:[
+        { title:"MARK ITEM AS ",align:"center", align:"center",
+         formatter:function(cell, formatterParams){ //plain text value
         
-        {title:"NO", field:"NO", width:60,frozen:true,align:"center"},
+            var shipStat = cell.getRow().getData().SHIPMENT_STATUS;
+            if(shipStat=="WAITING FOR SHIPMENT")
+            {
+                return '<div class="btn btn-success btn-sm"><i class="fas fa-check-circle"></i> MARK AS SHIPPED</div>';
+            }
+            else if(shipStat=="SHIPPED")
+            {
+                return '<button type="button" class="btn btn-success btn-sm" disabled><i class="fas fa-check-circle"></i> ALREADY SHIPPED</button>';
+
+            }
+            else
+            {
+                return '<button type="button" class="btn btn-success btn-sm" disabled ><strike><i class="fas fa-check-circle"></i> MARK AS SHIPPED</strike></button>';
+            }
+
+
+        },
+          cellClick:function(e, cell){
+             var shipStat = cell.getRow().getData().SHIPMENT_STATUS;
+             if(shipStat=="WAITING FOR SHIPMENT")
+             {
+                alert("Printing row data for: " + cell.getRow().getData().NO);
+             }
+             else if(shipStat=="SHIPPED")
+             {
+                alert("This data is already shipped.");
+             }
+             else
+             {
+                alert("Data cant be marked as shipped due to its lot judgement(LOT JUDGEMENT: " + shipStat+")");
+             }
+       
+            }
+        },
+ 
+        {title:"NO", field:"NO", width:60,align:"center"},
         {title:"LOT CREATE DATE", field:"LOT CREATE DATE"},
         {title:"PACKING NUMBER", field:"PACKING NUMBER"},
         {title:"LOT NUMBER", field:"LOT NUMBER"},
@@ -463,7 +504,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         {title:"ITEM NAME", field:"ITEM NAME"},
         {title:"MACHINE CODE", field:"MACHINE CODE"},
         {title:"LOT JUDGEMENT", field:"LOT JUDGEMENT"},
-        {title:"SHIPMENT STATUS", field:"SHIPMENT STATUS",formatter:function(cell, formatterParams){
+        {title:"SHIPMENT STATUS", field:"SHIPMENT_STATUS",formatter:function(cell, formatterParams){
             //cell - the cell component
             //formatterParams - parameters set for the column
             var datacell = cell.getValue();

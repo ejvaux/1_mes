@@ -19,7 +19,7 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             
                         include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
                         $sql1 ="UPDATE qmd_defect_dl SET DEF_QUANTITY = $lotqty, UPDATE_USER = '$user', UPDATE_DATETIME = '$scrapDate', REJECTION_REMARKS = 'DEFECT'
-                                    WHERE LOT_NUMBER = '$lot'";
+                                WHERE LOT_NUMBER = '$lot'";
                         if($conn->query($sql1) === TRUE) {    
                             echo "SUCCESS";
                             }
@@ -32,7 +32,7 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
 
 
 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-
+        $scrapDate = Date('Y-m-d H:i:s');
         $sql2 = "UPDATE qmd_lot_create SET DEFECT_QTY = $lotqty, JUDGE_BY = '$user', JUDGEMENT_DATE='$scrapDate' WHERE LOT_NUMBER = '$lot'";
         if($conn->query($sql2) === TRUE) {
             echo "SUCCESS";

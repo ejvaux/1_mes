@@ -41,7 +41,7 @@
               <li><a class="nav-link tbl" id='tb2' href="#" onclick="loadDoc('LotJudgement')">Lot Judgement</a></li>
               <li><a class="nav-link tbl" id='tb3' href="#" onclick="loadDoc('LotRecovery')">Lot Reject Recovery</a></li>
               <li><a class="nav-link tbl" id='tb4' href="#" onclick="loadDoc('DefectManagement')">Defect Management</a></li>
-              <li><a class="nav-link tbl" id='tb5' href="#" onclick="">Initial Sample List</a></li>
+              <li><a class="nav-link tbl" id='tb5' href="#" onclick="notWorking()">Initial Sample List</a></li>
               <!-- <li><a class="nav-link" href="#" onclick="">Tab 5</a></li>
               <li><a class="nav-link" href="#" onclick="">Tab 6</a></li>
               <li><a class="nav-link" href="#" onclick="">Tab 7</a></li>

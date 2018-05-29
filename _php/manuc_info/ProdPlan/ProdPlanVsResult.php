@@ -256,7 +256,7 @@ $(document).on('change','#ICode', function() {
 
    <div id="table_display" style="width: 100%;">
         <script>       
-          loadtbl2("ProdPlanVsResultINJ","INJ","PlanWithResult");
+          loadtbl2('ProdPlanVsResultINJ','INJ','PlanWithResult');
         </script>
   </div>
 

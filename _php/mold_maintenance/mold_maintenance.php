@@ -35,18 +35,7 @@
           listchange();
           
         });   */                         
-      });
-      
-      /* var timer;
-
-      $(document).ajaxStart(function () {
-          timer = setTimeout(function() { $body.addClass("loading"); }, 500);
-
-      }).ajaxStop(function () {
-          clearTimeout(timer);
-          $body.removeClass("loading");
-      }) */
-       
+      });        
     
     </script>              
     
@@ -71,8 +60,8 @@
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1" id="tb">           
               
-              <li><a id="tb1" class="nav-link tbl active" href="#" onclick="loadmodal('moldrepairmodal');">Mold  Repair</a></li>
-              <li><a id="tb2" class="nav-link tbl" href="#" onclick="DisplayTbleH('mold_history_table','mold_historysp','Mold History')">Mold  History</a></li>
+              <li><a id="tb1" class="nav-link tbl active" href="#" onclick="">Mold  Repair</a></li>
+              <li><a id="tb2" class="nav-link tbl" href="#" onclick="">Mold  History</a></li>
             </ul>
 
             <!-- ICONS ON LEFT -->
@@ -142,7 +131,11 @@
            
         $('#tb1').click(function(){
           checkuserauth();
-        });            
+        });
+        
+        $('#tb2').click(function(){
+          checkuserauthH();
+        });
                 
     </script>
     <script src="/1_mes/_php/mold_maintenance/functions.js"></script>

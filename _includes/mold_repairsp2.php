@@ -50,7 +50,9 @@ $columns = array(
     array( 'db' => 'CHECK_DATETIME', 'dt' => 17 ),
     array( 'db' => 'APPROVER', 'dt' => 18 ),   
     /* array( 'db' => 'ACTION_TAKEN', 'dt' => 20 ), */
-    array( 'db' => 'APPROVE_DATETIME', 'dt' => 19 )
+    array( 'db' => 'APPROVE_DATETIME', 'dt' => 19 ),
+    array( 'db' => 'USER_UPDATE', 'dt' => 20 ),
+    array( 'db' => 'UPDATE_DATETIME', 'dt' => 21 ),
 );
  
 // SQL server connection information

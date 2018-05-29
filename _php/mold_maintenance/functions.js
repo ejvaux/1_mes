@@ -37,26 +37,32 @@ function listchange(){
       // find the selected option
       var selectedOption = ddl.options[ddl.selectedIndex].text;
       /* alert(selectedOption); */
-      $.ajax({
-      type:'POST',
-      data:{
-        'mc': selectedOption
-      },
-      url:'/1_mes/_query/mold_repair/moldcode_ddl.php',
-      success:function(data){
-          var val = JSON.parse(data);                   
-          /* var x = val.ITEM_NAME;
-          var y = val.TOOL_NUMBER;
-          alert(x+" ==== "+y); */
-          /* document.getElementById("#tnum").value(y); */
-          $("#toolnumber").attr("value",val.TOOL_NUMBER);
-          $("#itemname").attr("value",val.ITEM_NAME);
-          $("#itemcode").attr("value",val.ITEM_CODE);
-          $("#customername").attr("value",val.CUSTOMER_NAME);
-          
-      } 
 
-      }); 
+      if(selectedOption !== null){
+        alert('TEST LIST');
+        $.ajax({
+          type:'POST',
+          data:{
+            'mc': selectedOption
+          },
+          url:'/1_mes/_query/mold_repair/moldcode_ddl.php',
+          success:function(data){
+              var val = JSON.parse(data);                   
+              /* var x = val.ITEM_NAME;
+              var y = val.TOOL_NUMBER;
+              alert(x+" ==== "+y); */
+              /* document.getElementById("#tnum").value(y); */
+              $("#toolnumber").attr("value",val.TOOL_NUMBER);
+              $("#itemname").attr("value",val.ITEM_NAME);
+              $("#itemcode").attr("value",val.ITEM_CODE);
+              $("#customername").attr("value",val.CUSTOMER_NAME);
+              
+          } 
+    
+          });
+
+      }
+       
   }/* lischange */
 
   function elistchange(){
@@ -93,18 +99,32 @@ function listchange(){
       url:'/1_mes/_query/mold_repair/getcontrolnumber.php',
       success:function(data){
         
-        /* alert(data); */
+        alert(data);
         var val = JSON.parse(data);
-        /* var numbering = parseInt(val.NO) + 1; */
-        /* alert('Next number is '+numbering+'. Yehey!'); */
-        var newnum = parseInt(val.MOLD_REPAIR_CONTROL_NO) + 1;
         function pad (str, max) {
           str = str.toString();
           return str.length < max ? pad("0" + str, max) : str;
         }
-        /* $("#num").attr("value",numbering); */
-        $("#pmcontrol").attr("value",pad(newnum,5));
-        $("#apmcontrol").attr("value",pad(newnum,5));
+       
+        
+        if(val.MOLD_REPAIR_CONTROL_NO){    
+          alert('TEST');      
+          
+          /* var numbering = parseInt(val.NO) + 1; */
+          /* alert('Next number is '+numbering+'. Yehey!'); */
+          var newnum = parseInt(val.MOLD_REPAIR_CONTROL_NO) + 1;
+          /* function pad (str, max) {
+            str = str.toString();
+            return str.length < max ? pad("0" + str, max) : str;
+          } */
+          /* $("#num").attr("value",numbering); */
+          $("#pmcontrol").attr("value",pad(newnum,5));
+          $("#apmcontrol").attr("value",pad(newnum,5));
+        }
+        else{
+          $("#pmcontrol").attr("value",pad(1,5));
+          $("#apmcontrol").attr("value",pad(1,5));
+        }        
       } 
 
       });
@@ -328,3 +348,30 @@ function listchange(){
   });
 
   /* ____________________ INSERT ________________________ */
+
+
+
+/* ________________ Defect name checkbox ____________________ */
+
+function checkFluency()
+{
+  var checkbox = document.getElementById('others');
+  if (checkbox.checked == true)
+  {
+    alert("test True");
+    document.getElementById("dn").disabled = true;
+    document.getElementById("dno").disabled = false;
+    /* $('sel #dn').hide();
+    $('#dn').parent().hide();
+      $('#dno').show(); */
+  }
+  else{
+    alert("test False");
+    document.getElementById("dn").disabled = false;
+    document.getElementById("dno").disabled = true;
+    /* $('#dn').parent().show();
+      $('#dno').hide(); */
+  }
+}
+
+/* ________________ Defect name checkbox ____________________ */

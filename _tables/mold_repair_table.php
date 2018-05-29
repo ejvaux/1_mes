@@ -1,7 +1,9 @@
 
 <table class='table table-hover table-bordered table-sm nowrap' id='Dtable' style="width:100%">
 <thead>  
-        <th>NO</th>         
+        <th>CHECKLIST</th>
+        <th>NO</th>
+        <th>TIME LAPSED</th>         
         <th>STATUS</th> 
         <th>REQUEST DATE</th>
         <th>CONTROL NO</th>

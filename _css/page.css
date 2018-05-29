@@ -102,7 +102,7 @@ td.ongoing{
 
 td.finished{
 	font-weight: bold;
-	color: green  ;
+	color: blue  ;
 }
 
 #Dtable_filter .form-control-sm{

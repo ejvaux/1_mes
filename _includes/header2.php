@@ -8,7 +8,7 @@
 <script type="text/javascript" src="/1_mes/node_modules/xlsx-org/dist/xlsx.full.min.js"></script>
 <script type="text/javascript" src="/1_mes/node_modules/jspdf/dist/jspdf.min.js"></script>
 <script type="text/javascript" src="/1_mes/node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
-<script src="/1_mes/_php/ShipmentManagement/Shipment_JS.js"></script>
+<!--<script src="/1_mes/_php/ShipmentManagement/Shipment_JS.js"></script>-->
 <script src="/1_mes/_php/manuc_info/ProdPlan/ProdPlan.js"></script>
 <script type="text/javascript" src="/1_mes/node_modules/canvasjs/canvasjs.min.js"></script>
 

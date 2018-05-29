@@ -24,7 +24,18 @@ function checkuserauth(){
 /* _______________ Table Init ______________ */
 
 
+/* ____________ Table Init H ________________ */
 
+function checkuserauthH(){
+  if(val=="A"){
+    DisplayTbleHA('mold_history_table','mold_historysp','Mold History');
+  }
+  
+  else{
+    DisplayTbleH('mold_history_table','mold_historysp','Mold History');
+  }
+}              
+/* _______________ Table Init H ______________ */
 
 /* Display Table USER A*/
         
@@ -82,7 +93,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
                   url:'/1_mes/_query/mold_repair/getrow.php',
                   data:
                   {
-                      'id': data[3],
+                      'id': data[5],
                       'ajax': true
                   },
                   success: function(data1) {
@@ -183,7 +194,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
                       url:'/1_mes/_query/mold_repair/delete_mold_repair.php',
                       data:
                       {
-                          'id': data[3],
+                          'id': data[5],
                           'ajax': true
                       },
                       success: function(data) {
@@ -230,17 +241,77 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
                 "searchable": false,
                 "orderable": false,
                 "targets": 0
-            } ],
-            "order": [[ 2, 'desc' ],[ 3, 'desc' ]],
+            },
+            {
+              "data": null,
+              render: function ( data, type, row ) {                
+                  return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";                                                                
+              },              
+              "targets": 0,
+            },
+            {
+              "data": null,
+              render: function ( data, type, row ) {
+
+                if(row[2]!=null){
+                  var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
+                    var seconds = parseInt(second,10)/1000;
+                    var ts = seconds;
+                    var days = Math.floor(seconds / (3600*24));
+                    seconds  -= days*3600*24;
+                    var hrs   = Math.floor(seconds / 3600);
+                    seconds  -= hrs*3600;
+                    var mnts = Math.floor(seconds / 60);
+                    seconds  -= mnts*60;
+                    var time = days+" day, "+hrs+" hr, "+mnts+" min, "+seconds+" sec";
+                    
+                    if(row[3]!='FINISHED'){
+
+                      if(ts<=172800){
+                        return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else if(ts<=345600 && ts>172800){
+                        return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else if(ts<=518400 && ts>345600){
+                        return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else{
+                        return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
+                      }
+                    }
+                    else{
+                      var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
+                      /* return Date.parse(new Date(row[19])); */                      
+                      var at = parseInt(a,10)/1000;
+                      var tdays = Math.floor(at / (3600*24));
+                      at  -= tdays*3600*24;
+                      var thrs   = Math.floor(at / 3600);
+                      at  -= thrs*3600;
+                      var tmnts = Math.floor(at / 60);
+                      at  -= tmnts*60;
+                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min, "+at+" sec";
+                      return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
+                    }
+                }
+                else{
+                  return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
+                }                                   
+              },              
+              "targets": 2,
+            },
+           ],
+            
+            "order": [[ 5, 'desc' ],[ 6, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              if ( data[1] == 'PENDING' ) {
-                $('td', row).eq(1).addClass('pending');
+              if ( data[3] == 'PENDING' ) {
+                $('td', row).eq(3).addClass('pending');
               }
-              else if(data[1] == 'ON-GOING'){
-                $('td', row).eq(1).addClass('ongoing');
+              else if(data[3] == 'ON-GOING'){
+                $('td', row).eq(3).addClass('ongoing');
               }
-              else if(data[1] == 'FINISHED'){
-                $('td', row).eq(1).addClass('finished');
+              else if(data[3] == 'FINISHED'){
+                $('td', row).eq(3).addClass('finished');
               }
              /*  $('td', row).eq(3).addClass('finished'); */
             },
@@ -255,16 +326,66 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
         /* ____________________ FUNCTIONS ___________________ */
 
         tble.on( 'order.dt search.dt', function () {
-            tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                 cell.innerHTML = i+1;
             } );
         } ).draw();
 
-        /* $('#Dtable tbody').on( 'click', 'button', function () {
-            var data = tble.row( $(this).parents('tr') ).data();            
-            $('#chcklist').modal('show');
-            
-        } ); */
+        $('#Dtable tbody').on( 'click', 'button', function () {
+          var data = tble.row( $(this).parents('tr') ).data();
+          /* var tt =JSON.stringify(data); */
+          /* alert(data[5]); */
+          /* document.getElementById("chkrepaircontrol").value = data[5]; */
+  
+          $.ajax(
+            {
+            method:'post',
+            url:'/1_mes/_query/mold_repair/getrow.php',
+            data:
+            {
+                'id': data[5],
+                'ajax': true
+            },
+            success: function(data1) {
+              var val = JSON.parse(data1);
+              /* alert(data1);
+              alert(val.MOLD_REPAIR_CONTROL_NO); */
+              /* alert("||"+val.MACHINE_CODE+"||");
+              alert("||"+data[3]+"||"); */
+             /* alert(val.MOLD_REPAIR_CONTROL_NO); */
+              $("#chkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
+  
+              $("#MRI001").val(val.MRI001);
+              $("#MRI002").val(val.MRI002); 
+              $("#MRI003").val(val.MRI003); 
+              $("#MRI004").val(val.MRI004); 
+              $("#MRI005").val(val.MRI005); 
+              $("#MRI006").val(val.MRI006); 
+              $("#MRI007").val(val.MRI007); 
+              $("#MRI008").val(val.MRI008);
+              
+              if(val.MRI009=='YES'){document.getElementById("MRI009").checked = true; };
+              if(val.MRI010=='YES'){document.getElementById("MRI010").checked = true; };
+              if(val.MRI011=='YES'){document.getElementById("MRI011").checked = true; };
+              if(val.MRI012=='YES'){document.getElementById("MRI012").checked = true; };
+              if(val.MRI013=='YES'){document.getElementById("MRI013").checked = true; };
+  
+              if(val.MRI014=='YES'){document.getElementById("MRI014").checked = true; };
+              if(val.MRI015=='YES'){document.getElementById("MRI015").checked = true; };
+              if(val.MRI016=='YES'){document.getElementById("MRI016").checked = true; };
+              if(val.MRI017=='YES'){document.getElementById("MRI017").checked = true; };
+              if(val.MRI018=='YES'){document.getElementById("MRI018").checked = true; };
+              if(val.MRI019=='YES'){document.getElementById("MRI019").checked = true; };
+              if(val.MRI020=='YES'){document.getElementById("MRI020").checked = true; };
+             
+              $("#actiontaken").val(val.ACTION_TAKEN);
+  
+              $('.sel').select2({ width: '100%' });
+              $('#chcklist').modal('show');
+            }
+          });              
+          
+      } );
         /* ____________________________ FUNCTIONS _________________________ */
       }
       
@@ -346,14 +467,21 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
               {
                 "searchable": false,
                 "orderable": false,
-                "targets": 0
+                "targets": 1
+              },
+              {
+                "data": null,
+                render: function ( data, type, row ) {                
+                    return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";                                                                
+                },              
+                "targets": 0,
               },            
               {
                 "data": null,
                 render: function ( data, type, row ) {
 
-                  if(row[1]!=null){
-                    var second = Date.parse(new Date()) - Date.parse(new Date(row[1]));
+                  if(row[2]!=null){
+                    var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
                     var seconds = parseInt(second,10)/1000;
                     var ts = seconds;
                     var days = Math.floor(seconds / (3600*24));
@@ -364,37 +492,53 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
                     seconds  -= mnts*60;
                     var time = days+" day, "+hrs+" hr, "+mnts+" min, "+seconds+" sec";
                     
-                    if(ts<=172800){
-                      return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
-                    }
-                    else if(ts<=345600 && ts>172800){
-                      return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
-                    }
-                    else if(ts<=518400 && ts>345600){
-                      return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
+                    if(row[3]!='FINISHED'){
+
+                      if(ts<=172800){
+                        return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else if(ts<=345600 && ts>172800){
+                        return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else if(ts<=518400 && ts>345600){
+                        return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else{
+                        return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
+                      }
                     }
                     else{
-                      return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
-                    }
+                      var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
+                      /* return Date.parse(new Date(row[19])); */
+                      var at = parseInt(a,10)/1000;
+                      var tdays = Math.floor(at / (3600*24));
+                      at  -= tdays*3600*24;
+                      var thrs   = Math.floor(at / 3600);
+                      at  -= thrs*3600;
+                      var tmnts = Math.floor(at / 60);
+                      at  -= tmnts*60;
+                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min, "+at+" sec";
+                      return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
+                    }                    
                   }
                   else{
-                    return "<span style='color:blue; font-weight: bold;'>- DONE -</span>";
+                    return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
                   }                                   
                 },              
-                "targets": 1,
+                "targets": 2,
               },
               
             ],
-            "order": [[ 3, 'desc' ],[ 4, 'desc' ]],
+            "order": [[ 4, 'desc' ],[ 5, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              if ( data[2] == 'PENDING' ) {
-                $('td', row).eq(2).addClass('pending');
+              if ( data[3] == 'PENDING' ) {
+                $('td', row).eq(3).addClass('pending');
               }
-              else if(data[2] == 'ON-GOING'){
-                $('td', row).eq(2).addClass('ongoing');
+              else if(data[3] == 'ON-GOING'){
+                $('td', row).eq(3).addClass('ongoing');
               }
-              else if(data[2] == 'FINISHED'){
-                $('td', row).eq(2).addClass('finished');
+              else if(data[3] == 'FINISHED'){
+                $('td', row).eq(3).addClass('finished');
               }
              /*  $('td', row).eq(3).addClass('finished'); */
           }
@@ -404,10 +548,66 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
       
       /* ____________________ FUNCTIONS ___________________ */
       tble.on( 'order.dt search.dt', function () {
-          tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+          tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
               cell.innerHTML = i+1;
           } );
-      } ).draw();               
+      } ).draw();
+      
+      $('#Dtable tbody').on( 'click', 'button', function () {
+        var data = tble.row( $(this).parents('tr') ).data();
+        /* alert(data[5]); */
+
+        $.ajax(
+          {
+          method:'post',
+          url:'/1_mes/_query/mold_repair/getrow.php',
+          data:
+          {
+              'id': data[5],
+              'ajax': true
+          },
+          success: function(data1) {
+            var val = JSON.parse(data1);
+            /* alert(data1);
+            alert(val.MOLD_REPAIR_CONTROL_NO); */
+            /* alert("||"+val.MACHINE_CODE+"||");
+            alert("||"+data[3]+"||"); */
+           /* alert(val.MOLD_REPAIR_CONTROL_NO); */
+            $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
+
+            $("#aMRI001").val(val.MRI001);
+            $("#aMRI002").val(val.MRI002); 
+            $("#aMRI003").val(val.MRI003); 
+            $("#aMRI004").val(val.MRI004); 
+            $("#aMRI005").val(val.MRI005); 
+            $("#aMRI006").val(val.MRI006); 
+            $("#aMRI007").val(val.MRI007); 
+            $("#aMRI008").val(val.MRI008);
+            
+            if(val.MRI009=='YES'){document.getElementById("aMRI009").checked = true; };
+            if(val.MRI010=='YES'){document.getElementById("aMRI010").checked = true; };
+            if(val.MRI011=='YES'){document.getElementById("aMRI011").checked = true; };
+            if(val.MRI012=='YES'){document.getElementById("aMRI012").checked = true; };
+            if(val.MRI013=='YES'){document.getElementById("aMRI013").checked = true; };
+
+            if(val.MRI014=='YES'){document.getElementById("aMRI014").checked = true; };
+            if(val.MRI015=='YES'){document.getElementById("aMRI015").checked = true; };
+            if(val.MRI016=='YES'){document.getElementById("aMRI016").checked = true; };
+            if(val.MRI017=='YES'){document.getElementById("aMRI017").checked = true; };
+            if(val.MRI018=='YES'){document.getElementById("aMRI018").checked = true; };
+            if(val.MRI019=='YES'){document.getElementById("aMRI019").checked = true; };
+            if(val.MRI020=='YES'){document.getElementById("aMRI020").checked = true; };
+
+            $("#aactiontaken").val(val.ACTION_TAKEN);
+
+            $("#achecklistsubmit").hide();
+
+            $('.sel').select2({ width: '100%' });
+            $('#achcklist').modal('show');
+          }
+        });
+        
+      } );
 
       /* ____________________________ FUNCTIONS _________________________ */
     }
@@ -463,7 +663,16 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
           type: 'POST'
         },            
         "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
-        'buttons': [                                
+        'buttons': [
+          { text: '<i class="fas fa-plus"></i>',
+          attr:  {
+              title: 'Add Request',
+              id: 'addButton'
+          },
+            name: 'add', // do not change name 
+            className: 'btn btn-export6 btn-xs py-1 addbt',
+            extend: 'add2'               
+          },                                
           { extend: 'copy', text: '<i class="far fa-copy"></i>',
           attr:  {
               title: 'Copy to Clipboard',
@@ -490,15 +699,15 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
               },
               {
                 "data": null,
-                render: function ( data, type, row ) {
+                render: function ( data, type, row ) {  
+                  
+                  if(row[3]=='FINISHED'){
+                    return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
+                  }
+                  else{
 
-                  if ( data[3] == 'FINISHED' ) {
-                    return "<span style='color:blue'; font-weight: bold;>-</span>";                    
                   }
-                  else {
-                    return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div>";
-                  }
-                                                    
+                    return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div>";                                                           
                 },              
                 "targets": 0,
               },
@@ -508,7 +717,8 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
 
                   if(row[2]!=null){
                     var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
-                    seconds = parseInt(second,10)/1000;
+                    var seconds = parseInt(second,10)/1000;
+                    var ts = seconds;
                     var days = Math.floor(seconds / (3600*24));
                     seconds  -= days*3600*24;
                     var hrs   = Math.floor(seconds / 3600);
@@ -517,21 +727,37 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                     seconds  -= mnts*60;
                     var time = days+" day, "+hrs+" hr, "+mnts+" min, "+seconds+" sec";
                     
-                    if(days<=2){
-                      return "<span style='color: green; font-weight: bold;'>"+time+"</span>";
-                    }
-                    else if(days<=4 && days>2){
-                      return "<span style='color: yellow'; font-weight: bold;>"+time+"</span>";
-                    }
-                    else if(days<=6 && days>4){
-                      return "<span style='color: orange'; font-weight: bold;>"+time+"</span>";
+                    if(row[3]!='FINISHED'){
+
+                      if(ts<=172800){
+                        return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else if(ts<=345600 && ts>172800){
+                        return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else if(ts<=518400 && ts>345600){
+                        return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else{
+                        return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
+                      }
                     }
                     else{
-                      return "<span style='color: red'; font-weight: bold;>"+time+"</span>";
+                      var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
+                      /* return Date.parse(new Date(row[19])); */                      
+                      var at = parseInt(a,10)/1000;
+                      var tdays = Math.floor(at / (3600*24));
+                      at  -= tdays*3600*24;
+                      var thrs   = Math.floor(at / 3600);
+                      at  -= thrs*3600;
+                      var tmnts = Math.floor(at / 60);
+                      at  -= tmnts*60;
+                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min, "+at+" sec";
+                      return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
                     }
                   }
                   else{
-                    return "<span style='color:blue'; font-weight: bold;>-</span>";
+                    return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
                   }                                   
                 },              
                 "targets": 2,
@@ -566,6 +792,62 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
         /* var tt =JSON.stringify(data); */
         /* alert(data[5]); */
         /* document.getElementById("chkrepaircontrol").value = data[5]; */
+
+        if(data[3]=='FINISHED'){
+
+          $.ajax(
+            {
+            method:'post',
+            url:'/1_mes/_query/mold_repair/getrow.php',
+            data:
+            {
+                'id': data[5],
+                'ajax': true
+            },
+            success: function(data1) {
+              var val = JSON.parse(data1);
+              /* alert(data1);
+              alert(val.MOLD_REPAIR_CONTROL_NO); */
+              /* alert("||"+val.MACHINE_CODE+"||");
+              alert("||"+data[3]+"||"); */
+             /* alert(val.MOLD_REPAIR_CONTROL_NO); */
+              $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
+  
+              $("#aMRI001").val(val.MRI001);
+              $("#aMRI002").val(val.MRI002); 
+              $("#aMRI003").val(val.MRI003); 
+              $("#aMRI004").val(val.MRI004); 
+              $("#aMRI005").val(val.MRI005); 
+              $("#aMRI006").val(val.MRI006); 
+              $("#aMRI007").val(val.MRI007); 
+              $("#aMRI008").val(val.MRI008);
+              
+              if(val.MRI009=='YES'){document.getElementById("aMRI009").checked = true; };
+              if(val.MRI010=='YES'){document.getElementById("aMRI010").checked = true; };
+              if(val.MRI011=='YES'){document.getElementById("aMRI011").checked = true; };
+              if(val.MRI012=='YES'){document.getElementById("aMRI012").checked = true; };
+              if(val.MRI013=='YES'){document.getElementById("aMRI013").checked = true; };
+  
+              if(val.MRI014=='YES'){document.getElementById("aMRI014").checked = true; };
+              if(val.MRI015=='YES'){document.getElementById("aMRI015").checked = true; };
+              if(val.MRI016=='YES'){document.getElementById("aMRI016").checked = true; };
+              if(val.MRI017=='YES'){document.getElementById("aMRI017").checked = true; };
+              if(val.MRI018=='YES'){document.getElementById("aMRI018").checked = true; };
+              if(val.MRI019=='YES'){document.getElementById("aMRI019").checked = true; };
+              if(val.MRI020=='YES'){document.getElementById("aMRI020").checked = true; };
+             
+              $("#aactiontaken").val(val.ACTION_TAKEN);
+
+              $("#achecklistsubmit").hide();
+  
+              $('.sel').select2({ width: '100%' });
+              $('#achcklist').modal('show');
+            }
+          });
+
+        }
+
+        else{
 
         $.ajax(
           {
@@ -614,7 +896,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
             $('#chcklist').modal('show');
           }
         });              
-        
+      }
     } ); 
       /* ____________________________ FUNCTIONS _________________________ */
     }
@@ -667,7 +949,16 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
           type: 'POST'
         },            
         "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
-        'buttons': [                             
+        'buttons': [ 
+          { text: '<i class="fas fa-plus"></i>',
+          attr:  {
+              title: 'Add Request',
+              id: 'addButton'
+          },
+            name: 'add', // do not change name 
+            className: 'btn btn-export6 btn-xs py-1 addbt',
+            extend: 'add2'               
+          },                            
           { extend: 'copy', text: '<i class="far fa-copy"></i>',
           attr:  {
               title: 'Copy to Clipboard',
@@ -692,20 +983,23 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                 "orderable": false,
                 "targets": 1
               },
-              {
+              /* {
                 "data": null,
                 "defaultContent": "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:smaller;'>Approve</span></button></div>",
                 "targets": 0
-              },
+              }, */
               {
                 "data": null,
                 render: function ( data, type, row ) {
 
-                  if ( data[3] == 'ON-GOING' ) {
+                  if ( data[3] == 'PENDING' ) {
+                    return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div>";
+                  }
+                  else if(data[3] == 'ON-GOING'){
                     return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Approve</span></button></div>";
                   }
                   else {
-                   return "<span style='color:blue'; font-weight: bold;>-</span>";
+                    return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
                   }
                                                     
                 },              
@@ -717,7 +1011,8 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
 
                   if(row[2]!=null){
                     var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
-                    seconds = parseInt(second,10)/1000;
+                    var seconds = parseInt(second,10)/1000;
+                    var ts = seconds;
                     var days = Math.floor(seconds / (3600*24));
                     seconds  -= days*3600*24;
                     var hrs   = Math.floor(seconds / 3600);
@@ -726,21 +1021,37 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                     seconds  -= mnts*60;
                     var time = days+" day, "+hrs+" hr, "+mnts+" min, "+seconds+" sec";
                     
-                    if(days<=2){
-                      return "<span style='color: green; font-weight: bold;'>"+time+"</span>";
-                    }
-                    else if(days<=4 && days>2){
-                      return "<span style='color: yellow'; font-weight: bold;>"+time+"</span>";
-                    }
-                    else if(days<=6 && days>4){
-                      return "<span style='color: orange'; font-weight: bold;>"+time+"</span>";
+                    if(row[3]!='FINISHED'){
+
+                      if(ts<=172800){
+                        return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else if(ts<=345600 && ts>172800){
+                        return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else if(ts<=518400 && ts>345600){
+                        return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else{
+                        return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
+                      }
                     }
                     else{
-                      return "<span style='color: red'; font-weight: bold;>"+time+"</span>";
-                    }
+                      var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
+                      /* return Date.parse(new Date(row[19])); */
+                      var at = parseInt(a,10)/1000;
+                      var tdays = Math.floor(at / (3600*24));
+                      at  -= tdays*3600*24;
+                      var thrs   = Math.floor(at / 3600);
+                      at  -= thrs*3600;
+                      var tmnts = Math.floor(at / 60);
+                      at  -= tmnts*60;
+                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min, "+at+" sec";
+                      return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
+                    } 
                   }
                   else{
-                    return "<span style='color:blue'; font-weight: bold;>-</span>";
+                    return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
                   }                                   
                 },              
                 "targets": 2,
@@ -774,6 +1085,62 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
           var data = tble.row( $(this).parents('tr') ).data();
           /* alert(data[5]); */
 
+          if(data[3]=='FINISHED'){
+
+            $.ajax(
+              {
+              method:'post',
+              url:'/1_mes/_query/mold_repair/getrow.php',
+              data:
+              {
+                  'id': data[5],
+                  'ajax': true
+              },
+              success: function(data1) {
+                var val = JSON.parse(data1);
+                /* alert(data1);
+                alert(val.MOLD_REPAIR_CONTROL_NO); */
+                /* alert("||"+val.MACHINE_CODE+"||");
+                alert("||"+data[3]+"||"); */
+               /* alert(val.MOLD_REPAIR_CONTROL_NO); */
+                $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
+    
+                $("#aMRI001").val(val.MRI001);
+                $("#aMRI002").val(val.MRI002); 
+                $("#aMRI003").val(val.MRI003); 
+                $("#aMRI004").val(val.MRI004); 
+                $("#aMRI005").val(val.MRI005); 
+                $("#aMRI006").val(val.MRI006); 
+                $("#aMRI007").val(val.MRI007); 
+                $("#aMRI008").val(val.MRI008);
+                
+                if(val.MRI009=='YES'){document.getElementById("aMRI009").checked = true; };
+                if(val.MRI010=='YES'){document.getElementById("aMRI010").checked = true; };
+                if(val.MRI011=='YES'){document.getElementById("aMRI011").checked = true; };
+                if(val.MRI012=='YES'){document.getElementById("aMRI012").checked = true; };
+                if(val.MRI013=='YES'){document.getElementById("aMRI013").checked = true; };
+    
+                if(val.MRI014=='YES'){document.getElementById("aMRI014").checked = true; };
+                if(val.MRI015=='YES'){document.getElementById("aMRI015").checked = true; };
+                if(val.MRI016=='YES'){document.getElementById("aMRI016").checked = true; };
+                if(val.MRI017=='YES'){document.getElementById("aMRI017").checked = true; };
+                if(val.MRI018=='YES'){document.getElementById("aMRI018").checked = true; };
+                if(val.MRI019=='YES'){document.getElementById("aMRI019").checked = true; };
+                if(val.MRI020=='YES'){document.getElementById("aMRI020").checked = true; };
+               
+                $("#aactiontaken").val(val.ACTION_TAKEN);
+  
+                $("#achecklistsubmit").hide();
+    
+                $('.sel').select2({ width: '100%' });
+                $('#achcklist').modal('show');
+              }
+            });
+  
+          }
+  
+          else{
+  
           $.ajax(
             {
             method:'post',
@@ -790,37 +1157,38 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
               /* alert("||"+val.MACHINE_CODE+"||");
               alert("||"+data[3]+"||"); */
              /* alert(val.MOLD_REPAIR_CONTROL_NO); */
-              $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
+              $("#chkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
   
-              $("#aMRI001").val(val.MRI001);
-              $("#aMRI002").val(val.MRI002); 
-              $("#aMRI003").val(val.MRI003); 
-              $("#aMRI004").val(val.MRI004); 
-              $("#aMRI005").val(val.MRI005); 
-              $("#aMRI006").val(val.MRI006); 
-              $("#aMRI007").val(val.MRI007); 
-              $("#aMRI008").val(val.MRI008);
+              $("#MRI001").val(val.MRI001);
+              $("#MRI002").val(val.MRI002); 
+              $("#MRI003").val(val.MRI003); 
+              $("#MRI004").val(val.MRI004); 
+              $("#MRI005").val(val.MRI005); 
+              $("#MRI006").val(val.MRI006); 
+              $("#MRI007").val(val.MRI007); 
+              $("#MRI008").val(val.MRI008);
               
-              if(val.MRI009=='YES'){document.getElementById("aMRI009").checked = true; };
-              if(val.MRI010=='YES'){document.getElementById("aMRI010").checked = true; };
-              if(val.MRI011=='YES'){document.getElementById("aMRI011").checked = true; };
-              if(val.MRI012=='YES'){document.getElementById("aMRI012").checked = true; };
-              if(val.MRI013=='YES'){document.getElementById("aMRI013").checked = true; };
+              if(val.MRI009=='YES'){document.getElementById("MRI009").checked = true; };
+              if(val.MRI010=='YES'){document.getElementById("MRI010").checked = true; };
+              if(val.MRI011=='YES'){document.getElementById("MRI011").checked = true; };
+              if(val.MRI012=='YES'){document.getElementById("MRI012").checked = true; };
+              if(val.MRI013=='YES'){document.getElementById("MRI013").checked = true; };
   
-              if(val.MRI014=='YES'){document.getElementById("aMRI014").checked = true; };
-              if(val.MRI015=='YES'){document.getElementById("aMRI015").checked = true; };
-              if(val.MRI016=='YES'){document.getElementById("aMRI016").checked = true; };
-              if(val.MRI017=='YES'){document.getElementById("aMRI017").checked = true; };
-              if(val.MRI018=='YES'){document.getElementById("aMRI018").checked = true; };
-              if(val.MRI019=='YES'){document.getElementById("aMRI019").checked = true; };
-              if(val.MRI020=='YES'){document.getElementById("aMRI020").checked = true; };
+              if(val.MRI014=='YES'){document.getElementById("MRI014").checked = true; };
+              if(val.MRI015=='YES'){document.getElementById("MRI015").checked = true; };
+              if(val.MRI016=='YES'){document.getElementById("MRI016").checked = true; };
+              if(val.MRI017=='YES'){document.getElementById("MRI017").checked = true; };
+              if(val.MRI018=='YES'){document.getElementById("MRI018").checked = true; };
+              if(val.MRI019=='YES'){document.getElementById("MRI019").checked = true; };
+              if(val.MRI020=='YES'){document.getElementById("MRI020").checked = true; };
              
-              $("#aactiontaken").val(val.ACTION_TAKEN);
+              $("#actiontaken").val(val.ACTION_TAKEN);
   
               $('.sel').select2({ width: '100%' });
-              $('#achcklist').modal('show');
+              $('#chcklist').modal('show');
             }
-          });
+          });              
+        }
           
       } );
       /* ____________________________ FUNCTIONS _________________________ */
@@ -846,9 +1214,9 @@ $.fn.dataTable.ext.buttons.add3 = {
 /* -------------------------------------- User Approver -------------------------------------------- */
 
 
-/*  -------------------------------- TH -----------------------------------------------  */
+/*  -------------------------------- TH - A -----------------------------------------------  */
         
-function DisplayTbleH(Table_Name,Tablesp,tbltitle) {
+function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
   var xhttp;
   if (Table_Name.length == 0) { 
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -997,7 +1365,7 @@ function DisplayTbleH(Table_Name,Tablesp,tbltitle) {
       },
        filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
           ],        
-          select: 'single',
+          /* select: 'single', */
             "columnDefs": [ {
               "searchable": false,
               "orderable": false,
@@ -1052,4 +1420,86 @@ $.fn.dataTable.ext.buttons.add1 = {
 
 
 
-    /* ------------------------------- TH ------------------------------------------------  */
+    /* ------------------------------- TH - A ------------------------------------------------  */
+
+
+
+/* ---------------------------- TH ------------------------------ */
+
+function DisplayTbleH(Table_Name,Tablesp,tbltitle) {
+  var xhttp;
+  if (Table_Name.length == 0) { 
+    document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("table_display").innerHTML = this.responseText;
+      var tble = $('#Dtable').DataTable( {
+        deferRender:    true,
+      scrollY:        '61vh',
+      "sScrollX": "100%",
+      /* scrollerX:      true, */
+        "processing": true,
+        "serverSide": true,
+        "iDisplayLength": 100,          
+        "ajax": {
+          url: "/1_mes/_includes/"+Tablesp+".php",
+          type: 'POST'
+        },            
+        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        'buttons': [             
+          { extend: 'copy', text: '<i class="far fa-copy"></i>', 
+          attr:  {
+            title: 'Copy to Clipboard',
+            id: 'copyButton'
+        },
+         className: 'btn btn-export6 btn-xs py-1'},
+          { extend: 'excel', text: '<i class="fas fa-table"></i>',
+          attr:  {
+          title: 'Export to Excel',
+          id: 'exportButton'
+      },
+       filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
+          ],        
+          /* select: 'single', */
+            "columnDefs": [ {
+              "searchable": false,
+              "orderable": false,
+              "targets": 0
+          } ],
+          "order": [[ 2, 'desc' ],[ 3, 'desc' ]],                                  
+      } );
+            
+      
+      /* ____________________ FUNCTIONS ___________________ */
+
+      tble.on( 'order.dt search.dt', function () {
+          tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+              cell.innerHTML = i+1;
+          } );
+      } ).draw();
+
+      /* ____________________________ FUNCTIONS _________________________ */
+    }
+    
+  };
+  xhttp.open("POST", "/1_mes/_tables/"+Table_Name+".php", true);
+  xhttp.send();   
+  
+} 
+
+$.fn.dataTable.ext.buttons.add1 = {
+  action: 
+  function () {
+
+    listchange();
+    getctrlnumber();    
+    $("#addmoldrepairA").modal('show');        
+    
+  }
+};
+
+/* ---------------------------- TH ------------------------------ */

@@ -15,13 +15,11 @@
     $approver = $_SESSION['text'];
     $moldstatus = "FINISHED";
     $repaircontrol = $_POST['repaircontrol'];
-    /* $insertdatetime = NULL; */
   
     $sql = "UPDATE mmc_mold_repair SET        
         
         MOLD_STATUS = '$moldstatus',
         APPROVER = '$approver',
-        INSERT_DATETIME = null,
         APPROVE_DATETIME = '$approvedatetime'
         
 

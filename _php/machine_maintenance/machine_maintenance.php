@@ -4,11 +4,16 @@
     <!-- Required meta tags -->
     <!-- Header start -->
     <?php
-            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php";            
+      include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php";
+      $auth = $_SESSION['auth'];
+      $auth = stripslashes($auth);             
     ?>
+
+    <script src="/1_mes/_includes/displaymodal.js"></script>
+    <script src="/1_mes/_php/machine_maintenance/table_init_mm.js"></script>
     <!-- Header end -->
     
-    <!-- Change Title --> <title>Template</title>
+    <!-- Change Title --> <title>Machine Maintenance</title>
 
     <!-- Custom CSS - START -->
     <style>
@@ -34,15 +39,9 @@
             <!-- <span class="navbar-toggler-icon"></span> -->MENU
           </button>
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav nav-tabs mr-auto mt-1">           
-              <li><a class="nav-link active tbl" href="#" onclick="">Tab 1</a></li>
-              <li><a class="nav-link tbl" href="#" onclick="">Tab 2</a></li>
-              <li><a class="nav-link tbl" href="#" onclick="">Tab 3</a></li>
-              <li><a class="nav-link tbl" href="#" onclick="">Tab 4</a></li>
-              <li><a class="nav-link tbl" href="#" onclick="">Tab 5</a></li>
-              <li><a class="nav-link tbl" href="#" onclick="">Tab 6</a></li>
-              <li><a class="nav-link tbl" href="#" onclick="">Tab 7</a></li>
-              <li><a class="nav-link tbl" href="#" onclick="">Tab 8</a></li>
+            <ul class="navbar-nav nav-tabs mr-auto mt-1" id="tb">           
+              <li><a id="tb1" class="nav-link active tbl" href="#" onclick="">Machine PM</a></li>
+              <li><a id="tb2" class="nav-link tbl" href="#" onclick="DisplayTableHA('machine_history_table','machine_historysp','Machine History')">Machine History</a></li>              
             </ul>
 
             <!-- ICONS ON LEFT -->
@@ -62,8 +61,7 @@
     <div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;">
       <div class="row text-left">
         <div class="col-11" >
-          <img src="/1_MES/_images/under_construction.jpg"></img>
-          <h5>Page Template by Edmund Orario Mati Jr</h5>
+          
         </div>
       </div>
     </div>
@@ -79,23 +77,20 @@
       
       $('.navbar-nav>li>a').on('click', function(){
           $('.navbar-collapse').collapse('hide');
-      });
+      });     
       
-      var timer;
-
-      $(document).ajaxStart(function () {
-          timer = setTimeout(function() { $body.addClass("loading"); }, 500);
-
-      }).ajaxStop(function () {
-          clearTimeout(timer);
-          $body.removeClass("loading");
-      })    
+      $(document).on({
+          ajaxStart: function() { $body.addClass("loading");   },   
+          ajaxStop: function() { $body.removeClass("loading"); }    
+      }); 
     
       $(document).ready(function(){
-         /* Add JS functions below */
+        /* Add JS functions below */
 
-         $('[data-toggle="tooltip"]').tooltip();
-         $body.removeClass("loading");                        
+        checkuserauth();
+
+        $('[data-toggle="tooltip"]').tooltip();
+        $body.removeClass("loading");                        
       });
 
       var header = document.getElementById("tb");

@@ -24,7 +24,7 @@
 
                                     
 
-                                          <input type='text' id='search' onchange='showTable("PrintStatus","","print_status")' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
+                                          <input type='text' id='search' onkeypress='showTable("PrintStatus","","print_status")' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
 
                                     
 
@@ -32,7 +32,7 @@
 
                                   </td>
                                   <td>&nbsp
-                                  <button type="button" onclick='showTable("PrintStatus","","print_status")' class="btn btn-outline-secondary p-0 my-2 my-sm-0">&nbsp<i class="fa fa-search"></i>&nbsp</button>
+                                  <button type="button" onclick='showTable("PrintStatus","","print_status")' class="btn btn-outline-secondary btn-export6 p-0 my-2 my-sm-0">&nbsp<i class="fa fa-search"></i>&nbsp</button>
                                 </td>
 
 
@@ -121,9 +121,9 @@
                         </table> -->
 
                             <div class="btn-group btn-group-sm">                                 
-                                <button type="button" onclick="cancelfilter('PrintStatus','','print_status')" class="btn btn-outline-secondary"><i class="fas fa-ban"></i>&nbspCANCEL FILTER&nbsp&nbsp</button>  
-                                <button type="button" class="btn btn-outline-secondary" onclick="SyncToProdOutputSystem();cancelfilter('PrintStatus','','print_status')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
-                                <button type="button" class="btn btn-outline-secondary" onclick="exportxlsx('PrintStatus','','print_status')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
+                                <button type="button" onclick="cancelfilter('PrintStatus','','print_status')" class="btn btn-outline-secondary btn-export6"><i class="fas fa-ban"></i>&nbspCANCEL FILTER&nbsp&nbsp</button>  
+                                <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();cancelfilter('PrintStatus','','print_status')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
+                                <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('PrintStatus','','print_status')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
                                                             
                             </div>
 

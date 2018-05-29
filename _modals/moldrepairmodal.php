@@ -74,13 +74,26 @@
                 </div>
 
                 <div class="form-group row">
-                <div class="col-sm-6">                        
+                    <div class="col-sm-6">
+                        <label for="inputLastname" class="col-form-label-sm">DATE REQUIRED:</label>
+                        <input id="daterequired" type="date" class="form-control form-control-sm" name="daterequired" placeholder="" value="">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputFirstname" class="col-form-label-sm">TIME REQUIRED:</label>
+                        <input id="timerequired" type="time" class="form-control form-control-sm" name="timerequired" placeholder="" value="">
+                    </div><?php /* echo date("H:i", time());  */?>
+                    
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">                        
                         <label for="inputFirstname" class="col-form-label-sm">MACHINE CODE:</label>
-                        <select type="text" class="form-control form-control-sm sel" name="machinecode" placeholder="">
+                        <input type="text" class="form-control form-control-sm" name="machinecode" placeholder="">
+                        <!-- <select type="text" class="form-control form-control-sm sel" name="machinecode" placeholder=""> -->
 
                             <?php
 
-                                include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                                /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT DISTINCT MACHINE_CODE FROM dmc_item_mold_matching WHERE MACHINE_CODE IS NOT NULL ORDER BY MACHINE_CODE ASC";
                                 $result = $conn->query($sql);
@@ -94,19 +107,25 @@
                                         echo "</option>";
                                     }
 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
 
-                        </select>
+                        <!-- </select> -->
                     </div>
                     <!-- <div class="col-sm-6">
                         <label for="inputLastname" class="col-form-label-sm">MOLD SHOT:</label>
                         <input type="text" class="form-control form-control-sm" name="moldshot" placeholder="" readonly>
                     </div>  -->
                     <div class="col-sm-6">
-                        <label for="inputLastname" class="col-form-label-sm">DEFECT NAME:</label>
-                        <select type="text" class="form-control form-control-sm sel" name="defectname" placeholder="">
+                        <label for="others" class="col-form-label-sm">DEFECT NAME:</label>
+                        <!-- <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI012" id="others" onchange="checkFluency()">Others
+                            </label>
+                        </div>
+                        <input type="text" class="form-control form-control-sm" name="defectname" placeholder="" id="dno" value=""> -->
+                        <select type="text" class="form-control form-control-sm sel" id="dn" name="defectname" placeholder="">
                             
                         <?php
 
@@ -131,19 +150,7 @@
 
                         </select>
                     </div>                   
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <label for="inputLastname" class="col-form-label-sm">DATE REQUIRED:</label>
-                        <input id="daterequired" type="date" class="form-control form-control-sm" name="daterequired" placeholder="" value="">
-                    </div>
-                    <div class="col-sm-6">
-                        <label for="inputFirstname" class="col-form-label-sm">TIME REQUIRED:</label>
-                        <input id="timerequired" type="time" class="form-control form-control-sm" name="timerequired" placeholder="" value="">
-                    </div><?php /* echo date("H:i", time());  */?>
-                    
-                </div>
+                </div>                
 
                 <div class="form-group row">                    
                     <div class="col-sm-6">
@@ -152,15 +159,23 @@
                         <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
                         <select type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
                                 
-                            <option value="PENDING">PENDING</option>
+                            <option value="PENDING">WAITING</option>
                             <option value="ON-GOING">ON-GOING</option>
-                            <option value="FINISHED">FINISHED</option>
+                            <option value="FINISHED">DONE</option>
 
                         </select>
-                    </div>                   
+                    </div>
+                    <div class="col-sm-6">                        
+                        <div class="form-check">
+                            <label class="form-check-label-sm">
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI012" id="others" onchange="checkFluency()">OTHERS: DEFECT NAME
+                            </label>
+                        </div>
+                        <input type="text" class="form-control form-control-sm" name="defectname" placeholder="" id="dno" value="" disabled>
+                    </div>                  
                 </div>
                 
-                <div class="form-group row">
+                <!-- <div class="form-group row"> -->
 
                     <!-- <div class="col-sm-6">
                         <label for="inputFirstname" class="col-form-label-sm">REPAIR REMARKS:</label>
@@ -174,7 +189,7 @@
                         <label for="inputLastname" class="col-form-label-sm">ACTION TAKEN:</label>
                         <input type="text" class="form-control form-control-sm" name="actiontaken" placeholder="">
                     </div> -->
-                </div>
+                <!-- </div> -->
 
                 <!-- <div class="form-group row">
                     <div class="col-sm-6">
@@ -285,6 +300,23 @@
                 </div>
 
                 <div class="form-group row">
+
+                    <div class="col-sm-6">
+                        <label for="inputLastname" class="col-form-label-sm">DATE REQUIRED:</label>
+                        <input id="daterequired" type="date" class="form-control form-control-sm" name="daterequired" placeholder="" value="">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputFirstname" class="col-form-label-sm">TIME REQUIRED:</label>
+                        <input id="timerequired" type="time" class="form-control form-control-sm" name="timerequired" placeholder="" value="">
+                    </div>
+                    
+                    <!-- <div class="col-sm-6">
+                        <label for="inputLastname" class="col-form-label-sm">MOLD SHOT:</label>
+                        <input type="text" class="form-control form-control-sm" name="moldshot" placeholder="" readonly>
+                    </div>  -->                   
+                </div>
+
+                <div class="form-group row">
                 <div class="col-sm-6">                        
                         <label for="inputFirstname" class="col-form-label-sm">MACHINE CODE:</label>
                         <select type="text" class="form-control form-control-sm sel" name="machinecode" placeholder="">
@@ -337,22 +369,7 @@
 
 
                         </select>
-                    </div>
-                    <!-- <div class="col-sm-6">
-                        <label for="inputLastname" class="col-form-label-sm">MOLD SHOT:</label>
-                        <input type="text" class="form-control form-control-sm" name="moldshot" placeholder="" readonly>
-                    </div>  -->                   
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <label for="inputLastname" class="col-form-label-sm">DATE REQUIRED:</label>
-                        <input id="daterequired" type="date" class="form-control form-control-sm" name="daterequired" placeholder="" value="">
-                    </div>
-                    <div class="col-sm-6">
-                        <label for="inputFirstname" class="col-form-label-sm">TIME REQUIRED:</label>
-                        <input id="timerequired" type="time" class="form-control form-control-sm" name="timerequired" placeholder="" value="">
-                    </div><?php /* echo date("H:i", time());  */?>
+                    </div>                    
                     
                 </div>
 
@@ -380,29 +397,29 @@
                     </div>  -->                   
                 </div>
                 
-                <div class="form-group row">
+                <!-- <div class="form-group row">
 
                     <div class="col-sm-6">
-                        <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
-                        <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
-                        <!-- <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
-                        <input type="text" class="form-control form-control-sm" name="moldstatus" placeholder="" value="PENDING" readonly> -->
+                        <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
+                        <input type="text" class="form-control form-control-sm" name="approver" placeholder="">
+                        <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
+                        <input type="text" class="form-control form-control-sm" name="moldstatus" placeholder="" value="PENDING" readonly>
                                 
-                            <!-- <option value="PENDING">PENDING</option>
+                            <option value="PENDING">PENDING</option>
                             <option value="ON-GOING">ON-GOING</option>
                             <option value="FINISHED">FINISHED</option>
 
-                        </input> -->
+                        </input>
                     </div>
                 
-                    <!-- <div class="col-sm-6">
+                    <div class="col-sm-6">
                         
                     </div>
                     <div class="col-sm-6">
                         <label for="inputLastname" class="col-form-label-sm">ACTION TAKEN:</label>
                         <input type="text" class="form-control form-control-sm" name="actiontaken" placeholder="">
-                    </div> -->
-                </div>
+                    </div>
+                </div> -->
 
                 <!-- <div class="form-group row">
                     <div class="col-sm-6">

@@ -29,28 +29,30 @@ $primaryKey = 'MOLD_REPAIR_CONTROL_NO';
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array( 
-    array( 'db' => 'MOLD_REPAIR_ID', 'dt' => 0 ),
-    array( 'db' => 'INSERT_DATETIME', 'dt' => 1 ),
-    array( 'db' => 'MOLD_STATUS', 'dt' => 2 ), 
-    array( 'db' => 'REQUEST_DATE', 'dt' => 3 ),
-    array( 'db' => 'MOLD_REPAIR_CONTROL_NO', 'dt' => 4 ),
-    array( 'db' => 'MOLD_CODE', 'dt' => 5 ),
-    array( 'db' => 'TOOL_NUMBER', 'dt' => 6 ),
-    array( 'db' => 'ITEM_NAME', 'dt' => 7 ),
-    array( 'db' => 'ITEM_CODE', 'dt' => 8 ),
-    array( 'db' => 'CUSTOMER_NAME', 'dt' => 9 ), 
+    array( 'db' => 'MOLD_REPAIR_ID', 'dt' => 1 ),
+    array( 'db' => 'INSERT_DATETIME', 'dt' => 2 ),
+    array( 'db' => 'MOLD_STATUS', 'dt' => 3 ), 
+    array( 'db' => 'REQUEST_DATE', 'dt' => 4 ),
+    array( 'db' => 'MOLD_REPAIR_CONTROL_NO', 'dt' => 5 ),
+    array( 'db' => 'MOLD_CODE', 'dt' => 6 ),
+    array( 'db' => 'TOOL_NUMBER', 'dt' => 7 ),
+    array( 'db' => 'ITEM_NAME', 'dt' => 8 ),
+    array( 'db' => 'ITEM_CODE', 'dt' => 9 ),
+    array( 'db' => 'CUSTOMER_NAME', 'dt' => 10 ), 
     /* array( 'db' => 'MOLD_SHOT', 'dt' => 10 ), */
-    array( 'db' => 'MACHINE_CODE', 'dt' => 10 ),
-    array( 'db' => 'DATE_REQUIRED', 'dt' => 11 ),
-    array( 'db' => 'TIME_REQUIRED', 'dt' => 12 ),
-    array( 'db' => 'DEFECT_NAME', 'dt' => 13 ),
+    array( 'db' => 'MACHINE_CODE', 'dt' => 11 ),
+    array( 'db' => 'DATE_REQUIRED', 'dt' => 12 ),
+    array( 'db' => 'TIME_REQUIRED', 'dt' => 13 ),
+    array( 'db' => 'DEFECT_NAME', 'dt' => 14 ),
     /* array( 'db' => 'REPAIR_REMARKS', 'dt' => 15 ), */
-    array( 'db' => 'USER_REQUEST', 'dt' => 14 ),
-    array( 'db' => 'CHECKER', 'dt' => 15 ),
-    array( 'db' => 'CHECK_DATETIME', 'dt' => 16 ),
-    array( 'db' => 'APPROVER', 'dt' => 17 ),   
+    array( 'db' => 'USER_REQUEST', 'dt' => 15 ),
+    array( 'db' => 'CHECKER', 'dt' => 16 ),
+    array( 'db' => 'CHECK_DATETIME', 'dt' => 17 ),
+    array( 'db' => 'APPROVER', 'dt' => 18 ),   
     /* array( 'db' => 'ACTION_TAKEN', 'dt' => 19 ), */
-    array( 'db' => 'APPROVE_DATETIME', 'dt' => 18 )
+    array( 'db' => 'APPROVE_DATETIME', 'dt' => 19 ),
+    array( 'db' => 'USER_UPDATE', 'dt' => 20 ),
+    array( 'db' => 'UPDATE_DATETIME', 'dt' => 21 ),
 );
  
 // SQL server connection information

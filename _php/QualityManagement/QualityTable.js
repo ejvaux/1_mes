@@ -363,7 +363,7 @@ function filterJudgement(){
 
 function filterText() {
   var y = document.getElementById("CreatedLotTable").rows.length;
-  var x = document.getElementById("CreatedLotTable").rows[y-1].cells[1].innerHTML;
+  var x = document.getElementById("CreatedLotTable").rows[1].cells[1].innerHTML;
   
   if(x!="PENDING" && x!="APPROVED" && x!="DISAPPROVED"){
       x = "PENDING"
@@ -415,11 +415,6 @@ function ClearSearchLot() {
     }
   });
 }
-
-$(document).on('click', '.lotDisapprove', function (){
-
-
-});
 
 
 $(document).on('click', '.lotDisapprove', function () {
@@ -807,11 +802,74 @@ function a(){
   });
 }
 
-$("#myModal").on('hide.bs.modal', function () {
-  /* $('#modalID').trigger('reset'); */
-  document.getElementById('defect_QTY').value = "";
-});
+function RecoverySearchLot() {
+  var search = RecoverySearch.value;
+  /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
+  var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) ORDER BY LOT_JUDGEMENT DESC;";
+  $.ajax({
+    method: 'post',
+    url: '/1_mes/_php/QualityManagement/LotRecovery.php',
+    data: {
+      'sql': z,
+      'ajax': true
+    },
+    success: function (data) {
+      document.getElementById("table_display").innerHTML = data;
+    }
+  });
+}
+function RecoveryClearSearchLot() {
+  var z = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY ORDER BY LOT_JUDGEMENT DESC;";
+  /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
+  $.ajax({
+    method: 'post',
+    url: '/1_mes/_php/QualityManagement/LotRecovery.php',
+    data: {
+      'sql': z,
+      'ajax': true
+    },
+    success: function (data) {
+      document.getElementById("table_display").innerHTML = data;
+    }
+  });
+}
 
-/* $("#myModal").on("hidden.bs.modal", function (e) {
-  $(this).removeData();
-}); */
+function notWorking(){
+  swal(
+    'Stop!',
+    'Under construction.',
+    'error'
+  );
+}
+
+function defectSearch(){
+  var search = defectSearchId.value;
+  /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
+  var z = "SELECT * FROM qmd_defect_dl LEFT JOIN qmd_lot_create ON qmd_defect_dl.LOT_NUMBER = qmd_lot_create.LOT_NUMBER WHERE (qmd_defect_dl.UPDATE_USER LIKE '%" + search + "%' OR qmd_defect_dl.DEFECT_NAME LIKE '%" + search + "%' OR qmd_defect_dl.PROD_DATE LIKE '%" + search + "%' OR qmd_defect_dl.JOB_ORDER_NO LIKE '%" + search + "%' OR qmd_lot_create.LOT_CREATOR LIKE '%" + search + "%' OR qmd_defect_dl.ITEM_CODE LIKE '%" + search + "%' OR qmd_defect_dl.ITEM_NAME LIKE '%" + search + "%') AND qmd_defect_dl.REJECTION_REMARKS = 'DEFECT'";
+  $.ajax({
+    method: 'post',
+    url: '/1_mes/_php/QualityManagement/DefectManagement.php',
+    data: {
+      'sql': z,
+      'ajax': true
+    },
+    success: function (data) {
+      document.getElementById("table_display").innerHTML = data;
+    }
+  });
+}
+
+function ClearDefectSearch(){
+  var z = "SELECT * FROM qmd_defect_dl LEFT JOIN qmd_lot_create ON qmd_defect_dl.LOT_NUMBER = qmd_lot_create.LOT_NUMBER WHERE REJECTION_REMARKS = 'DEFECT'";
+  $.ajax({
+    method: 'post',
+    url: '/1_mes/_php/QualityManagement/DefectManagement.php',
+    data: {
+      'sql': z,
+      'ajax': true
+    },
+    success: function (data) {
+      document.getElementById("table_display").innerHTML = data;
+    }
+  });
+}

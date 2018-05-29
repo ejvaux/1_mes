@@ -2,16 +2,16 @@
 <style>
 .tx{
   height:34px;
-  width:100%;
-  margin-left:-10%;
+  width:380px;
+  /* margin-left:-1%; */
   /* margin-top:5%; */
   /* padding-top:10px; */
 }
-.filterT{
-  margin-left:-10%;
-  height:100%;
-  width:100%;
-}
+/* .filterT{
+  margin-left:-5%;
+  height:34px;
+  width:200px;
+} */
 .bt{
   width:75px;
   font-size: 12px;
@@ -30,7 +30,7 @@
     width:  95%;
 }
 .searchBtn{
-margin-left:-25%;
+margin-left:-70%;
 }
 .ctrl{
   margin-top:.7%;
@@ -61,34 +61,33 @@ margin-left:-25%;
 
 
   <div class="row">
-    <div class="col-3 ctrl">
-      <div class="form-group">
+            <div class="col-12">
+              <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    <div class="input-group-text" id="btnGroupAddon2">Filter</div>
+                    </div>
+                      <select name="value" class ="filterT form-control" id="filterText" onchange="filterJudgement()">
+                          <option value = "ALL">FILTER TABLE</option>
+                          <option value = "PENDING">PENDING</option>
+                          <option value = "APPROVED">APPROVED</option>
+                          <option value = "DISAPPROVED">DISAPPROVED</option>
+                        </select>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    <div class="input-group-text" id="btnGroupAddon2">Search</div>
+                    </div>
+                    <input type="text" id="searchText" onchange="searchLot()" class="py-1 form-control" placeholder="Type anything here..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING">
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-outline-secondary" id="ClearSearch" onclick="ClearSearchLot()  " data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-        <table style="width: 100%">
-          <tr>
-            <td><b>FILTER: &nbsp</b></td>
-            <td> 
-              <select name="value" class ="filterT form-control form-control-sm" id="filterText" onchange="filterJudgement()">
-                  <option value = "ALL">FILTER TABLE</option>
-                  <option value = "PENDING">PENDING</option>
-                  <option value = "APPROVED">APPROVED</option>
-                  <option value = "DISAPPROVED">DISAPPROVED</option>
-                </select></td>      
-            </tr>
-          </table>
-        </div>
-      </div>
-      <div class="col-5 ctrl">
-        <div class="form-group">
-          <table style="width: 100%">
-            <tr>
-              <td><b>SEARCH:</b></td>
-              <td><input type="text" onchange="searchLot()" class="tx py-1 form-control form-control-sm" id="searchText" placeholder="SEARCH ANYTHING HERE ..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING"></td>
-              <td><button type="button" class="searchBtn btn btn-outline-secondary" id="ClearSearch" onclick="ClearSearchLot()" data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button></td>                                                                    
-            </tr>
-            </table>
-          </div>
-        </div>
+
+
     </div>
   
   <div class="row">

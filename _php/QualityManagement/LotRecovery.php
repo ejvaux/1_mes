@@ -1,65 +1,66 @@
 <style>
-
-.tx{
-  height:34px;
-  width:250px;
-  /* margin-left:-90px; */
-  padding-top:10px;
-}
-.bt{
-  width:75px;
-  font-size: 12px;
-  padding: 0px;
-}
-.reworkbtn{
-  width:50%;
-  font-size: 12px;
-  padding: 0px;
-}
-.scrapbtn{
-  width:50%;
-  font-size: 12px;
-  padding: 0px;
-}
-.lblqty{
-  /* margin-left:-90px; */
-  margin-top:8px;
-  padding-top:8px;
-  padding-bottom:8px;
-  padding-left:10px;
-  padding-right:10px;
-}
-.txtqty{
-  width:90px;
-}
-.element{
-    height: 70vh; 
-    width:  95vw;
-}
-.fixTable{
+    .tx{
+    height:34px;
+    width:250px;
+    /* margin-left:-90px; */
+    padding-top:10px;
+    }
+    .bt{
+    width:75px;
+    font-size: 12px;
+    padding: 0px;
+    }
+    .reworkbtn{
+    width:50%;
+    font-size: 12px;
+    padding: 0px;
+    }
+    .scrapbtn{
+    width:50%;
+    font-size: 12px;
+    padding: 0px;
+    }
+    .lblqty{
+    /* margin-left:-90px; */
+    margin-top:8px;
+    padding-top:8px;
+    padding-bottom:8px;
+    padding-left:10px;
+    padding-right:10px;
+    }
+    .txtqty{
+    width:90px;
+    }
+    .element{
+        height: 70vh; 
+        width:  95vw;
+    }
+    .fixTable{
   width:1000px;
-}
-.ctrl{
+    }
+    .ctrl{
   margin-top:.7%;
   margin-bottom:-1%
-}
-.searchBtn{
-margin-left:-90%;
-}
-</style>
+    }
+  </style>
 
 <div class="container-fluid pt-1" style="margin-left:.3%">
   <div class="row">
-        <div class="col-4 ctrl">
-            <div class="form-group">
-            <table style="width: 100%">
-                <tr>
-                    <td><b>SEARCH:</b></td>
-                    <td><input type="text" class="tx py-1 form-control form-control-sm" placeholder="SEARCH ANYTHING HERE ..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING"></td>
-                    <td><button type="button" class="searchBtn btn btn-outline-secondary" id="ClearSearch" data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button></td>                                                                    
-                    </tr>
-                </table>
+        <div class="col"></div>
+        <div class="col-3">
+            <div class="input-group mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    <div class="input-group-text" id="btnGroupAddon2">Search</div>
+                    </div>
+                    <input type="text" id="RecoverySearch" onchange="RecoverySearchLot()" class="form-control" placeholder="Type anything here..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING">
+                    <div class="input-group-append">
+                      <button type="button" class=" btn btn-outline-secondary" id="RecoveryClearSearch" onclick="RecoveryClearSearchLot()" data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button>
+                    </div>
                 </div>
+                </div>
+
+
             </div>
         </div>
 
@@ -70,7 +71,15 @@ margin-left:-90%;
           <?php       
               include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
-              $sql = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY";
+              if(!isset($_POST['sql'])){
+                  
+                $sql = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY";
+                
+                }
+                else{
+                    $sql = $_POST['sql'];
+                }
+
               $result = $conn->query($sql);
               
               if ($result->num_rows > 0) 
@@ -124,6 +133,7 @@ margin-left:-90%;
                     <td colspan='11' style='text-align:center'><h4>NO LOT TO BE RECOVERED</h4></td>
                     </tbody>
                   </table>";
+                    
                 }
               $conn->close();
         ?>

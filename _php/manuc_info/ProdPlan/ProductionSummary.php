@@ -92,7 +92,7 @@
                                                                           <tr>
                                                                         
                                                                         <td style="width: 50%;">
-                                                                        <button type="button" style=" height:35px;" onclick="cancelfilter('ProductionSummary','','production_summary')" class="btn btn-outline-secondary"><i class="fas fa-ban"></i>&nbspCANCEL FILTER</button>  
+                                                                        <button type="button" style=" height:35px;" onclick="cancelfilter('ProductionSummary','','production_summary')" class="btn btn-outline-secondary btn-export6"><i class="fas fa-ban"></i>&nbspCANCEL FILTER</button>  
                                                                        </td>
                                                                           </tr>
                                                                         </table>

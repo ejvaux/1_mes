@@ -226,11 +226,11 @@
         
         </div>
         
-        <div class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="100" data-image-src='http://primatechcorporation.com/wp-content/uploads/2015/02/home_parallax1.jpg' data-natural-width="1400" data-natural-height="900"></div>
+        <!-- <div class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="100" data-image-src='http://primatechcorporation.com/wp-content/uploads/2015/02/home_parallax1.jpg' data-natural-width="1400" data-natural-height="900"></div>
 
         <div class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="100" data-image-src='http://primatechcorporation.com/wp-content/uploads/2016/08/home_parallax2.jpg' data-natural-width="1400" data-natural-height="900"></div>
 
-        <div class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="100" data-image-src='http://primatechcorporation.com/wp-content/uploads/2015/02/home_parallax5-1024x594.jpg' data-natural-width="1400" data-natural-height="900"></div>
+        <div class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="100" data-image-src='http://primatechcorporation.com/wp-content/uploads/2015/02/home_parallax5-1024x594.jpg' data-natural-width="1400" data-natural-height="900"></div> -->
 
         
           <!-- Navbar -->
@@ -432,7 +432,7 @@
           
         </form>
     </div>
-    <div class="mdl"><!-- Place at bottom of page --></div>
+    <div class="mdl" style=" z-index: 5000"><!-- Place at bottom of page --></div>
     <!-- Optional JavaScript -->
     <script type="text/javascript">
       $body = $("body");
