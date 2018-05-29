@@ -263,9 +263,9 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
                     seconds  -= hrs*3600;
                     var mnts = Math.floor(seconds / 60);
                     seconds  -= mnts*60;
-                    var time = days+" day, "+hrs+" hr, "+mnts+" min, "+seconds+" sec";
+                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
                     
-                    if(row[3]!='FINISHED'){
+                    if(row[3]!='DONE'){
 
                       if(ts<=172800){
                         return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
@@ -290,7 +290,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
                       at  -= thrs*3600;
                       var tmnts = Math.floor(at / 60);
                       at  -= tmnts*60;
-                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min, "+at+" sec";
+                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
                       return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
                     }
                 }
@@ -304,13 +304,13 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
             
             "order": [[ 5, 'desc' ],[ 6, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              if ( data[3] == 'PENDING' ) {
+              if ( data[3] == 'WAITING' ) {
                 $('td', row).eq(3).addClass('pending');
               }
               else if(data[3] == 'ON-GOING'){
                 $('td', row).eq(3).addClass('ongoing');
               }
-              else if(data[3] == 'FINISHED'){
+              else if(data[3] == 'DONE'){
                 $('td', row).eq(3).addClass('finished');
               }
              /*  $('td', row).eq(3).addClass('finished'); */
@@ -430,7 +430,6 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
         "processing": true,
         "serverSide": true,
         iDisplayLength: 100,
-        scrollCollapse: true,
         fixedColumns: {
             heightMatch: 'semiauto'
         },
@@ -490,9 +489,9 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
                     seconds  -= hrs*3600;
                     var mnts = Math.floor(seconds / 60);
                     seconds  -= mnts*60;
-                    var time = days+" day, "+hrs+" hr, "+mnts+" min, "+seconds+" sec";
+                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
                     
-                    if(row[3]!='FINISHED'){
+                    if(row[3]!='DONE'){
 
                       if(ts<=172800){
                         return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
@@ -517,7 +516,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
                       at  -= thrs*3600;
                       var tmnts = Math.floor(at / 60);
                       at  -= tmnts*60;
-                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min, "+at+" sec";
+                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
                       return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
                     }                    
                   }
@@ -531,13 +530,13 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
             ],
             "order": [[ 4, 'desc' ],[ 5, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              if ( data[3] == 'PENDING' ) {
+              if ( data[3] == 'WAITING' ) {
                 $('td', row).eq(3).addClass('pending');
               }
               else if(data[3] == 'ON-GOING'){
                 $('td', row).eq(3).addClass('ongoing');
               }
-              else if(data[3] == 'FINISHED'){
+              else if(data[3] == 'DONE'){
                 $('td', row).eq(3).addClass('finished');
               }
              /*  $('td', row).eq(3).addClass('finished'); */
@@ -653,7 +652,6 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
         "processing": true,
         "serverSide": true,
         "iDisplayLength": 100,
-        scrollCollapse: true,
         fixedColumns: {
             heightMatch: 'semiauto'
         },
@@ -725,7 +723,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                     seconds  -= hrs*3600;
                     var mnts = Math.floor(seconds / 60);
                     seconds  -= mnts*60;
-                    var time = days+" day, "+hrs+" hr, "+mnts+" min, "+seconds+" sec";
+                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
                     
                     if(row[3]!='FINISHED'){
 
@@ -752,7 +750,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                       at  -= thrs*3600;
                       var tmnts = Math.floor(at / 60);
                       at  -= tmnts*60;
-                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min, "+at+" sec";
+                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
                       return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
                     }
                   }
@@ -932,14 +930,13 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
     
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("table_display").innerHTML = this.responseText;
-      var tble = $('#Dtable').DataTable( {
+      var tble = $('#Dtable').DataTable( {      
         deferRender:    true,
-        scrollY:        '61vh',
+        scrollY:  '61vh',
         "sScrollX": "100%",
         "processing": true,
         "serverSide": true,
         "iDisplayLength": 100,
-        scrollCollapse: true,
         fixedColumns: {
             heightMatch: 'semiauto'
         },
@@ -992,14 +989,14 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                 "data": null,
                 render: function ( data, type, row ) {
 
-                  if ( data[3] == 'PENDING' ) {
-                    return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div>";
+                  if ( data[3] == 'WAITING' ) {
+                    return "<div class='text-center'><button id='inspect' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div>";
                   }
                   else if(data[3] == 'ON-GOING'){
-                    return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Approve</span></button></div>";
+                    return "<div class='text-center'><button id='inspect' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div><div class='text-center'><button id='approve' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Approve</span></button></div>";
                   }
                   else {
-                    return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
+                    return "<div class='text-center'><button id='check' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
                   }
                                                     
                 },              
@@ -1019,9 +1016,9 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                     seconds  -= hrs*3600;
                     var mnts = Math.floor(seconds / 60);
                     seconds  -= mnts*60;
-                    var time = days+" day, "+hrs+" hr, "+mnts+" min, "+seconds+" sec";
+                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
                     
-                    if(row[3]!='FINISHED'){
+                    if(row[3]!='DONE'){
 
                       if(ts<=172800){
                         return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
@@ -1046,7 +1043,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                       at  -= thrs*3600;
                       var tmnts = Math.floor(at / 60);
                       at  -= tmnts*60;
-                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min, "+at+" sec";
+                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
                       return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
                     } 
                   }
@@ -1059,13 +1056,13 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
             ],
             "order": [[ 4, 'desc' ],[ 5, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              if ( data[3] == 'PENDING' ) {
+              if ( data[3] == 'WAITING' ) {
                 $('td', row).eq(3).addClass('pending');
               }
               else if(data[3] == 'ON-GOING'){
                 $('td', row).eq(3).addClass('ongoing');
               }
-              else if(data[3] == 'FINISHED'){
+              else if(data[3] == 'DONE'){
                 $('td', row).eq(3).addClass('finished');
               }
              /*  $('td', row).eq(3).addClass('finished'); */
@@ -1081,66 +1078,9 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
           } );
       } ).draw();
 
-      $('#Dtable tbody').on( 'click', 'button', function () {
+      $('#Dtable tbody').on( 'click', '#check', function () {
           var data = tble.row( $(this).parents('tr') ).data();
-          /* alert(data[5]); */
-
-          if(data[3]=='FINISHED'){
-
-            $.ajax(
-              {
-              method:'post',
-              url:'/1_mes/_query/mold_repair/getrow.php',
-              data:
-              {
-                  'id': data[5],
-                  'ajax': true
-              },
-              success: function(data1) {
-                var val = JSON.parse(data1);
-                /* alert(data1);
-                alert(val.MOLD_REPAIR_CONTROL_NO); */
-                /* alert("||"+val.MACHINE_CODE+"||");
-                alert("||"+data[3]+"||"); */
-               /* alert(val.MOLD_REPAIR_CONTROL_NO); */
-                $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
-    
-                $("#aMRI001").val(val.MRI001);
-                $("#aMRI002").val(val.MRI002); 
-                $("#aMRI003").val(val.MRI003); 
-                $("#aMRI004").val(val.MRI004); 
-                $("#aMRI005").val(val.MRI005); 
-                $("#aMRI006").val(val.MRI006); 
-                $("#aMRI007").val(val.MRI007); 
-                $("#aMRI008").val(val.MRI008);
-                
-                if(val.MRI009=='YES'){document.getElementById("aMRI009").checked = true; };
-                if(val.MRI010=='YES'){document.getElementById("aMRI010").checked = true; };
-                if(val.MRI011=='YES'){document.getElementById("aMRI011").checked = true; };
-                if(val.MRI012=='YES'){document.getElementById("aMRI012").checked = true; };
-                if(val.MRI013=='YES'){document.getElementById("aMRI013").checked = true; };
-    
-                if(val.MRI014=='YES'){document.getElementById("aMRI014").checked = true; };
-                if(val.MRI015=='YES'){document.getElementById("aMRI015").checked = true; };
-                if(val.MRI016=='YES'){document.getElementById("aMRI016").checked = true; };
-                if(val.MRI017=='YES'){document.getElementById("aMRI017").checked = true; };
-                if(val.MRI018=='YES'){document.getElementById("aMRI018").checked = true; };
-                if(val.MRI019=='YES'){document.getElementById("aMRI019").checked = true; };
-                if(val.MRI020=='YES'){document.getElementById("aMRI020").checked = true; };
-               
-                $("#aactiontaken").val(val.ACTION_TAKEN);
-  
-                $("#achecklistsubmit").hide();
-    
-                $('.sel').select2({ width: '100%' });
-                $('#achcklist').modal('show');
-              }
-            });
-  
-          }
-  
-          else{
-  
+          
           $.ajax(
             {
             method:'post',
@@ -1152,45 +1092,141 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
             },
             success: function(data1) {
               var val = JSON.parse(data1);
-              /* alert(data1);
-              alert(val.MOLD_REPAIR_CONTROL_NO); */
-              /* alert("||"+val.MACHINE_CODE+"||");
-              alert("||"+data[3]+"||"); */
-             /* alert(val.MOLD_REPAIR_CONTROL_NO); */
-              $("#chkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
-  
-              $("#MRI001").val(val.MRI001);
-              $("#MRI002").val(val.MRI002); 
-              $("#MRI003").val(val.MRI003); 
-              $("#MRI004").val(val.MRI004); 
-              $("#MRI005").val(val.MRI005); 
-              $("#MRI006").val(val.MRI006); 
-              $("#MRI007").val(val.MRI007); 
-              $("#MRI008").val(val.MRI008);
               
-              if(val.MRI009=='YES'){document.getElementById("MRI009").checked = true; };
-              if(val.MRI010=='YES'){document.getElementById("MRI010").checked = true; };
-              if(val.MRI011=='YES'){document.getElementById("MRI011").checked = true; };
-              if(val.MRI012=='YES'){document.getElementById("MRI012").checked = true; };
-              if(val.MRI013=='YES'){document.getElementById("MRI013").checked = true; };
+              $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
   
-              if(val.MRI014=='YES'){document.getElementById("MRI014").checked = true; };
-              if(val.MRI015=='YES'){document.getElementById("MRI015").checked = true; };
-              if(val.MRI016=='YES'){document.getElementById("MRI016").checked = true; };
-              if(val.MRI017=='YES'){document.getElementById("MRI017").checked = true; };
-              if(val.MRI018=='YES'){document.getElementById("MRI018").checked = true; };
-              if(val.MRI019=='YES'){document.getElementById("MRI019").checked = true; };
-              if(val.MRI020=='YES'){document.getElementById("MRI020").checked = true; };
+              $("#aMRI001").val(val.MRI001);
+              $("#aMRI002").val(val.MRI002); 
+              $("#aMRI003").val(val.MRI003); 
+              $("#aMRI004").val(val.MRI004); 
+              $("#aMRI005").val(val.MRI005); 
+              $("#aMRI006").val(val.MRI006); 
+              $("#aMRI007").val(val.MRI007); 
+              $("#aMRI008").val(val.MRI008);
+              
+              if(val.MRI009=='YES'){document.getElementById("aMRI009").checked = true; };
+              if(val.MRI010=='YES'){document.getElementById("aMRI010").checked = true; };
+              if(val.MRI011=='YES'){document.getElementById("aMRI011").checked = true; };
+              if(val.MRI012=='YES'){document.getElementById("aMRI012").checked = true; };
+              if(val.MRI013=='YES'){document.getElementById("aMRI013").checked = true; };
+  
+              if(val.MRI014=='YES'){document.getElementById("aMRI014").checked = true; };
+              if(val.MRI015=='YES'){document.getElementById("aMRI015").checked = true; };
+              if(val.MRI016=='YES'){document.getElementById("aMRI016").checked = true; };
+              if(val.MRI017=='YES'){document.getElementById("aMRI017").checked = true; };
+              if(val.MRI018=='YES'){document.getElementById("aMRI018").checked = true; };
+              if(val.MRI019=='YES'){document.getElementById("aMRI019").checked = true; };
+              if(val.MRI020=='YES'){document.getElementById("aMRI020").checked = true; };
              
-              $("#actiontaken").val(val.ACTION_TAKEN);
+              $("#aactiontaken").val(val.ACTION_TAKEN);
+
+              $("#achecklistsubmit").hide();
   
               $('.sel').select2({ width: '100%' });
-              $('#chcklist').modal('show');
+              $('#achcklist').modal('show');
             }
-          });              
-        }
-          
+          });                   
       } );
+
+      $('#Dtable tbody').on( 'click', '#inspect', function () {
+        var data = tble.row( $(this).parents('tr') ).data();
+                
+        $.ajax(
+          {
+          method:'post',
+          url:'/1_mes/_query/mold_repair/getrow.php',
+          data:
+          {
+              'id': data[5],
+              'ajax': true
+          },
+          success: function(data1) {
+            var val = JSON.parse(data1);
+            
+            $("#chkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
+
+            $("#MRI001").val(val.MRI001);
+            $("#MRI002").val(val.MRI002); 
+            $("#MRI003").val(val.MRI003); 
+            $("#MRI004").val(val.MRI004); 
+            $("#MRI005").val(val.MRI005); 
+            $("#MRI006").val(val.MRI006); 
+            $("#MRI007").val(val.MRI007); 
+            $("#MRI008").val(val.MRI008);
+            
+            if(val.MRI009=='YES'){document.getElementById("MRI009").checked = true; };
+            if(val.MRI010=='YES'){document.getElementById("MRI010").checked = true; };
+            if(val.MRI011=='YES'){document.getElementById("MRI011").checked = true; };
+            if(val.MRI012=='YES'){document.getElementById("MRI012").checked = true; };
+            if(val.MRI013=='YES'){document.getElementById("MRI013").checked = true; };
+
+            if(val.MRI014=='YES'){document.getElementById("MRI014").checked = true; };
+            if(val.MRI015=='YES'){document.getElementById("MRI015").checked = true; };
+            if(val.MRI016=='YES'){document.getElementById("MRI016").checked = true; };
+            if(val.MRI017=='YES'){document.getElementById("MRI017").checked = true; };
+            if(val.MRI018=='YES'){document.getElementById("MRI018").checked = true; };
+            if(val.MRI019=='YES'){document.getElementById("MRI019").checked = true; };
+            if(val.MRI020=='YES'){document.getElementById("MRI020").checked = true; };
+           
+            $("#actiontaken").val(val.ACTION_TAKEN);
+
+            $('.sel').select2({ width: '100%' });
+            $('#chcklist').modal('show');
+          }
+        });
+        
+    } );
+
+
+    $('#Dtable tbody').on( 'click', '#approve', function () {
+        var data = tble.row( $(this).parents('tr') ).data();
+                
+        $.ajax(
+          {
+          method:'post',
+          url:'/1_mes/_query/mold_repair/getrow.php',
+          data:
+          {
+              'id': data[5],
+              'ajax': true
+          },
+          success: function(data1) {
+            var val = JSON.parse(data1);
+            
+            $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
+
+            $("#aMRI001").val(val.MRI001);
+            $("#aMRI002").val(val.MRI002); 
+            $("#aMRI003").val(val.MRI003); 
+            $("#aMRI004").val(val.MRI004); 
+            $("#aMRI005").val(val.MRI005); 
+            $("#aMRI006").val(val.MRI006); 
+            $("#aMRI007").val(val.MRI007); 
+            $("#aMRI008").val(val.MRI008);
+            
+            if(val.MRI009=='YES'){document.getElementById("aMRI009").checked = true; };
+            if(val.MRI010=='YES'){document.getElementById("aMRI010").checked = true; };
+            if(val.MRI011=='YES'){document.getElementById("aMRI011").checked = true; };
+            if(val.MRI012=='YES'){document.getElementById("aMRI012").checked = true; };
+            if(val.MRI013=='YES'){document.getElementById("aMRI013").checked = true; };
+
+            if(val.MRI014=='YES'){document.getElementById("aMRI014").checked = true; };
+            if(val.MRI015=='YES'){document.getElementById("aMRI015").checked = true; };
+            if(val.MRI016=='YES'){document.getElementById("aMRI016").checked = true; };
+            if(val.MRI017=='YES'){document.getElementById("aMRI017").checked = true; };
+            if(val.MRI018=='YES'){document.getElementById("aMRI018").checked = true; };
+            if(val.MRI019=='YES'){document.getElementById("aMRI019").checked = true; };
+            if(val.MRI020=='YES'){document.getElementById("aMRI020").checked = true; };
+           
+            $("#aactiontaken").val(val.ACTION_TAKEN);
+
+            $('.sel').select2({ width: '100%' });
+            $('#achcklist').modal('show');
+          }
+        });
+        
+    } );
+
       /* ____________________________ FUNCTIONS _________________________ */
     }
     

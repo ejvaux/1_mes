@@ -24,8 +24,8 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
           $customername=$row['CUSTOMER_NAME'];
           $itemcode=$row['ITEM_CODE'];
           $itemname=$row['ITEM_NAME'];
-          $model=$row['mod1'];
           $planqty=$row['PLAN_QTY'];
+          $model=$row['mod1'];
           $prodqty=0;
           $remqty=0;
           $machinecode=$row['MACHINE_CODE'];
@@ -55,13 +55,38 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
           else
           {
 
-       
+            $idd=$rowcheck['Id'];
 
-            $sqlms="UPDATE jo_table set CUSTOMER_CODE=?,CUSTOMER_NAME=?,ItemCode=?,ItemDescription=?,Model=?,PlanQty=?,ProductionQty=?,RemainQty=?,MachineNo=?,MoldNo=?) WHERE Id = ?";
-            $params = array($customercode,$customername,$itemcode,$itemname,$model,$planqty,$prodqty,$remqty,$machinecode,$toolnumber,$rowcheck['Id']);
-            $stmt = sqlsrv_query($conn, $sqlms, $params);
-            #echo "UPDATED SUCCESS <br>";
+            $sqlms="UPDATE jo_table SET CUSTOMER_CODE='$customercode',CUSTOMER_NAME='$customername',
+            ItemCode='$itemcode',ItemDescription='$itemname',Model='$model',PlanQty=$planqty,ProductionQty=$prodqty,
+            RemainQty='$remqty',MachineNo='$machinecode',MoldNo='$toolnumber' WHERE Id = $idd";
+/*             $params = array($customercode,$customername,$itemcode,$itemname,$model,$planqty,$prodqty,$remqty,$machinecode,$toolnumber,$idd);
+ */
+
+ 
+            /*   echo "UPDATED SUCCESS <br>";
+            echo $rowcheck['Id'];
+           */
           
+
+                          /* 
+                          $tsql = "UPDATE jo_table   
+                          SET PlanQty = '$planqty'   
+                          WHERE Id =  $idd";   */
+                
+                
+                /* Execute the query. */  
+                if (sqlsrv_query($conn, $sqlms)) {  
+                    echo "Statement executed.\n";  
+                } else {  
+                    echo "Error in statement execution.\n";  
+                    die(print_r(sqlsrv_errors(), true));  
+                }  
+                
+ 
+
+
+            
           }
 
 

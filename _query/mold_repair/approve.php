@@ -13,7 +13,7 @@
 
     $approvedatetime = date('Y-m-d H:i:s');
     $approver = $_SESSION['text'];
-    $moldstatus = "FINISHED";
+    $moldstatus = "DONE";
     $repaircontrol = $_POST['repaircontrol'];
   
     $sql = "UPDATE mmc_mold_repair SET        

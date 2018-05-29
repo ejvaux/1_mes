@@ -159,9 +159,9 @@
                         <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
                         <select type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
                                 
-                            <option value="PENDING">WAITING</option>
+                            <option value="WAITING">WAITING</option>
                             <option value="ON-GOING">ON-GOING</option>
-                            <option value="FINISHED">DONE</option>
+                            <option value="DONE">DONE</option>
 
                         </select>
                     </div>
@@ -378,7 +378,7 @@
                         <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
                         <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
                         <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
-                        <input type="text" class="form-control form-control-sm" name="moldstatus" placeholder="" value="PENDING" readonly>
+                        <input type="text" class="form-control form-control-sm" name="moldstatus" placeholder="" value="WAITING" readonly>
                                 
                             <!-- <option value="PENDING">PENDING</option>
                             <option value="ON-GOING">ON-GOING</option>
@@ -599,9 +599,9 @@
                         <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
                         <select id="emoldstatus" type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
                                 
-                            <option value="PENDING">PENDING</option>
+                            <option value="WAITING">WAITING</option>
                             <option value="ON-GOING">ON-GOING</option>
-                            <option value="FINISHED">FINISHED</option>
+                            <option value="DONE">DONE</option>
 
                         </select>
                     </div> 

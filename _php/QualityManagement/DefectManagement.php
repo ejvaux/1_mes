@@ -50,11 +50,11 @@
 
             <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-export6" onclick="notWorking()"><i class="fas fa-plus"></i></button>
-                    <button type="button" class="btn btn-export6" onclick="notWorking()"><i class="fas fa-edit"></i></button>
-                    <button type="button" class="btn btn-export6" onclick="notWorking()"><i class="fas fa-trash"></i></button>
-                    <button type="button" class="btn btn-export6" onclick="notWorking()"><i class="fas fa-copy"></i></button>
-                    <button type="button" class="btn btn-export6" onclick="notWorking()"><i class="fas fa-table"></i></button>
+                    <button type="button" class="btn btn-export6" data-toggle='modal' data-target='#insertDefect'><i class="fas fa-plus"></i></button>
+                    <button type="button" class="btn btn-export6" onclick="notWorking()" data-toggle="tooltip" title="EDIT"><i class="fas fa-edit"></i></button>
+                    <button type="button" class="btn btn-export6" onclick="notWorking()" data-toggle="tooltip" title="DELETE"><i class="fas fa-trash"></i></button>
+                    <button type="button" class="btn btn-export6" onclick="notWorking()" data-toggle="tooltip" title="COPY TO CLIPBOARD"><i class="fas fa-copy"></i></button>
+                    <button type="button" class="btn btn-export6" onclick="notWorking()" data-toggle="tooltip" title="EXPORT TO EXCEL"><i class="fas fa-table"></i></button>
                 </div>
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -157,3 +157,4 @@
                 </tr>
                 </table>
             </div> -->
+<?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/InsertDefectModal.php"; ?>

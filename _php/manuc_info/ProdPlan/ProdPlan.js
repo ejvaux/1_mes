@@ -457,6 +457,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     },
     tooltipsHeader:true,
     columns:[
+        
+        {title:"NO", field:"NO", width:60,align:"center"},
         { title:"MARK ITEM AS ",align:"center", align:"center",
          formatter:function(cell, formatterParams){ //plain text value
         
@@ -495,20 +497,11 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             }
         },
  
-        {title:"NO", field:"NO", width:60,align:"center"},
-        {title:"LOT CREATE DATE", field:"LOT CREATE DATE"},
-        {title:"PACKING NUMBER", field:"PACKING NUMBER"},
-        {title:"LOT NUMBER", field:"LOT NUMBER"},
-        {title:"JO NO", field:"JO NO"},
-        {title:"ITEM CODE", field:"ITEM CODE"},
-        {title:"ITEM NAME", field:"ITEM NAME"},
-        {title:"MACHINE CODE", field:"MACHINE CODE"},
-        {title:"LOT JUDGEMENT", field:"LOT JUDGEMENT"},
         {title:"SHIPMENT STATUS", field:"SHIPMENT_STATUS",formatter:function(cell, formatterParams){
             //cell - the cell component
             //formatterParams - parameters set for the column
             var datacell = cell.getValue();
-            if(datacell=="WAITING FOR REWORKS")
+            if(datacell=="REJECT/WAITING FOR REWORKS")
             {
                 return "<span style='color:red; font-weight:bold;'>" + datacell + "</span>";
             }
@@ -521,7 +514,16 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 return "<span style='color:orange; font-weight:bold;'>" + datacell + "</span>";
             }
     
-        }}
+        }},
+        
+        {title:"LOT CREATE DATE", field:"LOT CREATE DATE"},
+        {title:"PACKING NUMBER", field:"PACKING NUMBER"},
+        {title:"LOT NUMBER", field:"LOT NUMBER"},
+        {title:"JO NO", field:"JO NO"},
+        {title:"ITEM CODE", field:"ITEM CODE"},
+        {title:"ITEM NAME", field:"ITEM NAME"},
+        {title:"MACHINE CODE", field:"MACHINE CODE"},
+        {title:"LOT JUDGEMENT", field:"LOT JUDGEMENT"}
             ],
     });
    }

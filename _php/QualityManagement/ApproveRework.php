@@ -93,11 +93,11 @@ session_start();
         if($conn->query($sql) === TRUE) {
             echo "LOT RECOVERED!";
 
-            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
+/*             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
                         $sql = "DELETE FROM qmd_defect_dl WHERE LOT_NUMBER = '$lot'";
                         $conn->query($sql);
                 $conn->close();
-                exit;
+                exit; */
             } 
         else{
             

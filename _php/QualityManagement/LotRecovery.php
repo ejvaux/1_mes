@@ -43,24 +43,25 @@
   margin-bottom:-1%
     }
   </style>
-
 <div class="container-fluid pt-1" style="margin-left:.3%">
   <div class="row">
-        <div class="col"></div>
-        <div class="col-3">
-            <div class="input-group mb-3">
+        <!-- <div class="col"></div> -->
+        <div class="col-12">
+        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group" role="group" aria-label="First group">
+                    
+                </div>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                    <div class="input-group-text" id="btnGroupAddon2">Search</div>
-                    </div>
-                    <input type="text" id="RecoverySearch" onchange="RecoverySearchLot()" class="form-control" placeholder="Type anything here..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING">
-                    <div class="input-group-append">
-                      <button type="button" class=" btn btn-outline-secondary" id="RecoveryClearSearch" onclick="RecoveryClearSearchLot()" data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button>
+                            <div class="input-group-text" id="btnGroupAddon2">Search</div>
+                        </div>
+                            <input type="text" id="RecoverySearch" onchange="RecoverySearchLot()" class="form-control" placeholder="Type anything here..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING">
+                            <div class="input-group-append">
+                                <button type="button" class=" btn btn-outline-secondary" id="RecoveryClearSearch" onclick="RecoveryClearSearchLot()" data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button>
+                            </div>
+                            
                     </div>
                 </div>
-                </div>
-
-
             </div>
         </div>
 

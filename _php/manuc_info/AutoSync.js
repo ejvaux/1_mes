@@ -20,7 +20,6 @@ function SyncToProdOutputSystem()
 
 
 
-
 var int=setInterval(JOSyncToProdOutputSystem, 5000);
 function JOSyncToProdOutputSystem()
 {
@@ -31,6 +30,7 @@ function JOSyncToProdOutputSystem()
           global:false,
           success: function(data) 
           {
+
             
           }
           

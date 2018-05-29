@@ -724,10 +724,6 @@ $(document).on('click', '#ConfirmDefect', function () {
           $('#modalID').trigger('reset');
         }
       });
-
-
-
-
       swal(
         'REJECT',
         'Your imaginary file is safe :)',

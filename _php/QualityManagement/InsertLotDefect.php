@@ -8,7 +8,7 @@
         header('Location: /1_mes/');
         exit();
     }
-    $rejectremarks = 'PENDING';
+    /* $rejectremarks = 'PENDING'; */
     $defectQty = $_POST['defectQty'];
     $lotNumber = $_POST['lotNumber'];
     $defectName = $_POST['remarks'];
@@ -34,9 +34,9 @@
 
     $lotqty = $row['LOT_QTY'];
 
-    if($lotqty==$defectQty){
-        $rejectremarks = 'DEFECT';
-    }
+    /* if($lotqty==$defectQty){ */
+    $rejectremarks = 'DEFECT';
+    /* } */
     $conn->close();
 
 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
