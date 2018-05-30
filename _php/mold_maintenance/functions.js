@@ -176,15 +176,57 @@ function listchange(){
    $('#mod').on('click','#achecklistsubmit', function (e) {           
     /* alert('TEST');
     alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
+
+    swal({
+      title: 'Are you sure you want to approve?',
+      text: "You won't be able to revert this!",
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, approve it!'
+    }).then((result) => {
+      if (result.value) {
+
+        $.ajax({
+          type: 'POST',
+          url: '/1_mes/_query/mold_repair/approve.php',
+          data: $('#checklistform').serialize(),
+          success: function (data) {    
+            if(data=="success"){
+              
+              $('#chcklist').modal('hide');
+              checkuserauth();
+              loadmodal('moldrepairmodal');
     
-    $.ajax({
+              $.notify({
+                icon: 'fas fa-info-circle',
+                title: 'System Notification: ',
+                message: "Repair Approved!",
+              },{
+                type:'success',
+                placement:{
+                  align: 'center'
+                },           
+                delay: 3000,                        
+              });
+            }
+            else{
+              alert(data);          
+            }
+          }
+        });
+        
+      }
+    })
+    
+    /* $.ajax({
       type: 'POST',
       url: '/1_mes/_query/mold_repair/approve.php',
       data: $('#checklistform').serialize(),
       success: function (data) {    
         if(data=="success"){
-          /* alert("Checklist Saved Successfully!"); */
-          /* $('#checklistform').trigger('reset'); */
+          
           $('#chcklist').modal('hide');
           checkuserauth();
           loadmodal('moldrepairmodal');
@@ -205,7 +247,7 @@ function listchange(){
           alert(data);          
         }
       }
-    }); 
+    }); */ 
     
   });
 

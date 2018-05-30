@@ -875,18 +875,19 @@ function ClearDefectSearch(){
 }
 
 function selectedJO(){
-  var x = document.getElementById("JobOrderNo");
-  var y = x.options[x.selectedIndex].value;
-  alert(y + " " + x);
+  var x = JobOrderNo.value;
+  var y = 'SELECT LOT_NUMBER FROM qmd_lot_create WHERE JO_NUM ="' + x +'";';
+  alert(x);
+  alert(y);
   $.ajax({
     method: 'post',
     url: '/1_mes/_php/QualityManagement/InsertDefectModal.php',
     data: {
-      'jo_Number': y,
+      'sql': y,
       'ajax': true
     },
     success: function (data) {
-      alert(z);
+      document.getElementById("datalistLotNumber").innerHTML = data;
     }
   });
 }

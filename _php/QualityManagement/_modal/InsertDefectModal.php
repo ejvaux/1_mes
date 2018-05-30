@@ -37,11 +37,20 @@
 
 <!-- lotNumDataListQuery -->
   <datalist style="width:50px" id="datalistLotNumber">
-    
-    <?php               
+                        
+    <?php            
+                    
+
+ 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
-                        $sql = "SELECT LOT_NUMBER FROM qmd_lot_create";
-                        $result = $conn->query($sql);
+                        if(!isset($_POST['sql'])){
+                          $sql1 = "SELECT LOT_NUMBER FROM qmd_lot_create WHERE JO_NUM = ''";
+                        }
+                        else{
+                          $sql1 = $_POST['sql'];
+                        }
+                        /* $sql = "SELECT LOT_NUMBER FROM qmd_lot_create WHERE JO_NUM = '$joNumber'"; */
+                        $result = $conn->query($sql1);
                         while($row = $result->fetch_assoc()) {
                           if(!isset($row)){
                             echo "option value=''></option>";
@@ -80,13 +89,14 @@
                   <div class="col-2">
                         <label class="col-form-label-sm">Job Order Number:</label></div>
                   <div class="col-4">
-                        <input onkeypress="selectedJO()" list="jobOrder" class="form-control text-center" id="JobOrderNo" placeholder="Job Order Number"/>         
+                        <input onchange="selectedJO()" list="jobOrder" class="form-control text-center" id="JobOrderNo" placeholder="Job Order Number"/>         
                     </div>
                   <div class="col-2">
                         <label class="col-form-label-sm">Lot Number:</label></div>
                   <div class="col-4">
-                        <input list="datalistLotNumber" class="form-control text-center" id="LotNo" placeholder="Lot Number"/>    
-                        
+                        <select class="form-control text-center" id="datalistLotNumber" placeholder="Lot Number"/>    
+                          <option value="0">- Select -</option>
+                        </select>
                     </div>    
                   </div>
                 
