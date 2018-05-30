@@ -869,3 +869,37 @@ function ClearDefectSearch(){
     }
   });
 }
+
+function selectedJO(){
+  var x = document.getElementById("jobOrder");
+  var y = x.options[x.selectedIndex].value;
+  $.ajax({
+    method: 'post',
+    url: '/1_mes/_php/QualityManagement/InsertDefectModal.php',
+    data: {
+      'sql': z,
+      'ajax': true
+    },
+    success: function (data) {
+      alert(z);
+    }
+  });
+}
+
+function filterJudgement() {
+  var x = document.getElementById("filterText");
+  var y = x.options[x.selectedIndex].value;
+  var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '";';
+  /* var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + ' AND DATE(NOW()) = DATE(PROD_DATE)";'; */
+  $.ajax({
+    method: 'post',
+    url: '/1_mes/_php/QualityManagement/LotJudgement.php',
+    data: {
+      'sql': z,
+      'ajax': true
+    },
+    success: function (data) {
+      document.getElementById("table_display").innerHTML = data;
+    }
+  });
+}

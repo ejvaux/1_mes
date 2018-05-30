@@ -180,12 +180,12 @@ function listchange(){
     $.ajax({
       type: 'POST',
       url: '/1_mes/_query/mold_repair/approve.php',
-      data: $('#achecklistform').serialize(),
+      data: $('#checklistform').serialize(),
       success: function (data) {    
         if(data=="success"){
           /* alert("Checklist Saved Successfully!"); */
           /* $('#checklistform').trigger('reset'); */
-          $('#achcklist').modal('hide');
+          $('#chcklist').modal('hide');
           checkuserauth();
           loadmodal('moldrepairmodal');
 
@@ -369,48 +369,3 @@ function checkFluency()
 
 /* ________________ Defect name checkbox ____________________ */
 
-function inspect(){
-  $.ajax(
-    {
-    method:'post',
-    url:'/1_mes/_query/mold_repair/getrow.php',
-    data:
-    {
-        'id': data[5],
-        'ajax': true
-    },
-    success: function(data1) {
-      var val = JSON.parse(data1);
-      
-      $("#chkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
-
-      $("#MRI001").val(val.MRI001);
-      $("#MRI002").val(val.MRI002); 
-      $("#MRI003").val(val.MRI003); 
-      $("#MRI004").val(val.MRI004); 
-      $("#MRI005").val(val.MRI005); 
-      $("#MRI006").val(val.MRI006); 
-      $("#MRI007").val(val.MRI007); 
-      $("#MRI008").val(val.MRI008);
-      
-      if(val.MRI009=='YES'){document.getElementById("MRI009").checked = true; };
-      if(val.MRI010=='YES'){document.getElementById("MRI010").checked = true; };
-      if(val.MRI011=='YES'){document.getElementById("MRI011").checked = true; };
-      if(val.MRI012=='YES'){document.getElementById("MRI012").checked = true; };
-      if(val.MRI013=='YES'){document.getElementById("MRI013").checked = true; };
-
-      if(val.MRI014=='YES'){document.getElementById("MRI014").checked = true; };
-      if(val.MRI015=='YES'){document.getElementById("MRI015").checked = true; };
-      if(val.MRI016=='YES'){document.getElementById("MRI016").checked = true; };
-      if(val.MRI017=='YES'){document.getElementById("MRI017").checked = true; };
-      if(val.MRI018=='YES'){document.getElementById("MRI018").checked = true; };
-      if(val.MRI019=='YES'){document.getElementById("MRI019").checked = true; };
-      if(val.MRI020=='YES'){document.getElementById("MRI020").checked = true; };
-     
-      $("#actiontaken").val(val.ACTION_TAKEN);
-
-      $('.sel').select2({ width: '100%' });
-      $('#chcklist').modal('show');
-    }
-  });
-}

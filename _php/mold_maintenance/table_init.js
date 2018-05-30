@@ -57,7 +57,10 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
         /* scrollerX:      true, */
           "processing": true,
           "serverSide": true,
-          "iDisplayLength": 100,          
+          "iDisplayLength": 100,
+          fixedColumns: {
+              heightMatch: 'semiauto'
+          },         
           "ajax": {
             url: "/1_mes/_includes/"+Tablesp+".php",
             type: 'POST'
@@ -240,12 +243,14 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
               "columnDefs": [ {
                 "searchable": false,
                 "orderable": false,
-                "targets": 0
+                "targets": 1
             },
             {
               "data": null,
+              "searchable": false,
+              "orderable": false,
               render: function ( data, type, row ) {                
-                  return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";                                                                
+                  return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";                                                                
               },              
               "targets": 0,
             },
@@ -379,6 +384,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
               if(val.MRI020=='YES'){document.getElementById("MRI020").checked = true; };
              
               $("#actiontaken").val(val.ACTION_TAKEN);
+              $("#achecklistsubmit").hide();
   
               $('.sel').select2({ width: '100%' });
               $('#chcklist').modal('show');
@@ -470,8 +476,10 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
               },
               {
                 "data": null,
+                "searchable": false,
+                "orderable": false,
                 render: function ( data, type, row ) {                
-                    return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";                                                                
+                    return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";                                                                
                 },              
                 "targets": 0,
               },            
@@ -697,9 +705,11 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
               },
               {
                 "data": null,
+                "searchable": false,
+                "orderable": false,
                 render: function ( data, type, row ) {  
                   
-                  if(row[3]=='FINISHED'){
+                  if(row[3]=='DONE'){
                     return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
                   }
                   else{
@@ -725,7 +735,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                     seconds  -= mnts*60;
                     var time = days+" day, "+hrs+" hr, "+mnts+" min";
                     
-                    if(row[3]!='FINISHED'){
+                    if(row[3]!='DONE'){
 
                       if(ts<=172800){
                         return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
@@ -763,13 +773,13 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
             ],
             "order": [[ 4, 'desc' ],[ 5, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              if ( data[3] == 'PENDING' ) {
+              if ( data[3] == 'WAITING' ) {
                 $('td', row).eq(3).addClass('pending');
               }
               else if(data[3] == 'ON-GOING'){
                 $('td', row).eq(3).addClass('ongoing');
               }
-              else if(data[3] == 'FINISHED'){
+              else if(data[3] == 'DONE'){
                 $('td', row).eq(3).addClass('finished');
               }
              /*  $('td', row).eq(3).addClass('finished'); */
@@ -791,7 +801,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
         /* alert(data[5]); */
         /* document.getElementById("chkrepaircontrol").value = data[5]; */
 
-        if(data[3]=='FINISHED'){
+        if(data[3]=='DONE'){
 
           $.ajax(
             {
@@ -889,6 +899,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
             if(val.MRI020=='YES'){document.getElementById("MRI020").checked = true; };
            
             $("#actiontaken").val(val.ACTION_TAKEN);
+            $("#achecklistsubmit").hide();
 
             $('.sel').select2({ width: '100%' });
             $('#chcklist').modal('show');
@@ -980,21 +991,18 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                 "orderable": false,
                 "targets": 1
               },
-              /* {
-                "data": null,
-                "defaultContent": "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:smaller;'>Approve</span></button></div>",
-                "targets": 0
-              }, */
               {
                 "data": null,
+                "searchable": false,
+                "orderable": false,
                 render: function ( data, type, row ) {
 
-                  if ( data[3] == 'WAITING' ) {
+                  if ( data[3] == 'WAITING' || data[3] == 'ON-GOING') {
                     return "<div class='text-center'><button id='inspect' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div>";
                   }
-                  else if(data[3] == 'ON-GOING'){
+                  /* else if(data[3] == 'ON-GOING'){
                     return "<div class='text-center'><button id='inspect' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div><div class='text-center'><button id='approve' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Approve</span></button></div>";
-                  }
+                  } */
                   else {
                     return "<div class='text-center'><button id='check' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
                   }
@@ -1169,6 +1177,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
             if(val.MRI020=='YES'){document.getElementById("MRI020").checked = true; };
            
             $("#actiontaken").val(val.ACTION_TAKEN);
+            $("#achecklistsubmit").show();
 
             $('.sel').select2({ width: '100%' });
             $('#chcklist').modal('show');

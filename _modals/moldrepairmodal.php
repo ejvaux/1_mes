@@ -118,13 +118,25 @@
                         <input type="text" class="form-control form-control-sm" name="moldshot" placeholder="" readonly>
                     </div>  -->
                     <div class="col-sm-6">
-                        <label for="others" class="col-form-label-sm">DEFECT NAME:</label>
-                        <!-- <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI012" id="others" onchange="checkFluency()">Others
-                            </label>
-                        </div>
-                        <input type="text" class="form-control form-control-sm" name="defectname" placeholder="" id="dno" value=""> -->
+                        <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
+                        <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
+                        <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
+                        <select type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
+                                
+                            <option value="WAITING">WAITING</option>
+                            <option value="ON-GOING">ON-GOING</option>
+                            <option value="DONE">DONE</option>
+
+                        </select>
+                    </div>
+                                       
+                </div>                
+
+                <div class="form-group row">                    
+                    <div class="col-sm-6">
+                        
+                        <label for="defectname" class="checkbox col-form-label-sm">DEFECT NAME:<input type="checkbox" class="ml-2" id="others" onchange="checkFluency()"> OTHERS</label>
+                                                
                         <select type="text" class="form-control form-control-sm sel" id="dn" name="defectname" placeholder="">
                             
                         <?php
@@ -149,28 +161,13 @@
 
 
                         </select>
-                    </div>                   
-                </div>                
-
-                <div class="form-group row">                    
-                    <div class="col-sm-6">
-                        <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
-                        <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
-                        <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
-                        <select type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
-                                
-                            <option value="WAITING">WAITING</option>
-                            <option value="ON-GOING">ON-GOING</option>
-                            <option value="DONE">DONE</option>
-
-                        </select>
                     </div>
                     <div class="col-sm-6">                        
-                        <div class="form-check">
-                            <label class="form-check-label-sm">
-                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI012" id="others" onchange="checkFluency()">OTHERS: DEFECT NAME
-                            </label>
-                        </div>
+                        
+                        <label for="others" class="col-form-label-sm">SPECIFY DEFECT NAME</label>
+                                
+                          
+                        
                         <input type="text" class="form-control form-control-sm" name="defectname" placeholder="" id="dno" value="" disabled>
                     </div>                  
                 </div>
@@ -958,6 +955,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" name="submit" id="checklistsubmit"><i class="far fa-save"></i> Save</button>
+        <button type="button" class="btn btn-success" name="submit" id="achecklistsubmit"><i class="far fa-save"></i> Approve</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -966,7 +964,7 @@
 </div>
 
 
-                                        <!-- Approver --> 
+                                        <!-- Checklist --> 
 
 
 <div class="modal hide fade in" role="dialog" id="achcklist" data-keyboard="false" data-backdrop="static" >
@@ -1279,10 +1277,19 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="achecklistsubmit"><i class="far fa-save"></i> Approve</button>
+        <!-- <button type="button" class="btn btn-primary" name="submit" id="achecklistsubmit"><i class="far fa-save"></i> Approve</button> -->
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
     </div>
   </div>
 </div>
+
+
+                                        <!-- Checklist --> 
+
+
+                                        <!-- INSPECT/APPROVE -->       
+
+
+                                        <!-- INSPECT/APPROVE -->                                    

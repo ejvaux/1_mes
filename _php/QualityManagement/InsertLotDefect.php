@@ -57,17 +57,15 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         REJECTION_REMARKS,
         INSERT_DATETIME,
         INSERT_USER,
-        UPDATE_DATETIME,
-        UPDATE_USER
     )
 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
         $stmt1 = $conn->prepare($sql);
 
         $stmt1->bind_param(
 
-            'ssssssssiisssss',
+            'ssssssssiisss',
             $divCode,
             $jobOrder,
             $lotNumber,
@@ -81,8 +79,6 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             $rejectremarks,
             $insertDate,
             $insertUser,
-            $insertDate,
-            $insertUser
             );
         $stmt1->execute();
         $conn->close();

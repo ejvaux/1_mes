@@ -108,7 +108,7 @@
                             echo "<td>" . $row['LOT_CREATOR'] . "</td>";
                             echo "<td>" . $row['ITEM_CODE'] . "</td>";
                             echo "<td>" . $row['ITEM_NAME'] . "</td>";
-                            echo "<td>" . $row['UPDATE_USER'] . "</td>";
+                            echo "<td>" . $row['INSERT_USER'] . "</td>";
                             echo "<td class='text-danger'>" . $row['DEFECT_QTY'] . "</td>";
                             echo "<td>" . $row['DEFECT_NAME'] . "</td>";
                         }
@@ -129,7 +129,7 @@
                             <td colspan='11' style='text-align:center'><h4>NO DEFECT DETAILS</h4></td>
                             </tbody>
                         </table>";
-                        echo "Error: " . $sql . "<br>" . $conn->error;
+                        
                         }
                     $conn->close();
                 ?>

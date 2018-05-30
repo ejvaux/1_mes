@@ -72,7 +72,7 @@
         /* echo "<script> alert('Record updated successfully'); window.location.href = '/1_mes/_php/mold_maintenance/mold_maintenance.php'</script>"; */
         echo "success";
     } else {
-        echo "Error saving checklist: <br>" . $conn->error;        
+        echo "Error saving checklist: " . $conn->error;        
     }
 
     $conn->close();
