@@ -346,22 +346,27 @@ function listchange(){
 
 /* ________________ Defect name checkbox ____________________ */
 
-function checkFluency()
+function checkFluency(chckbox,sel,text)
 {
-  var checkbox = document.getElementById('others');
-  if (checkbox.checked == true)
+  /* alert(chckbox);
+  var checkbox = document.getElementById(chckbox); */
+  if (chckbox.checked == true)
   {
     /* alert("test True"); */
-    document.getElementById("dn").disabled = true;
-    document.getElementById("dno").disabled = false;
+    sel.disabled = true;
+    text.disabled = false;
+    /* document.getElementById("dn").disabled = true;
+    document.getElementById("dno").disabled = false; */
     /* $('sel #dn').hide();
     $('#dn').parent().hide();
       $('#dno').show(); */
   }
   else{
     /* alert("test False"); */
-    document.getElementById("dn").disabled = false;
-    document.getElementById("dno").disabled = true;
+    sel.disabled = false;
+    text.disabled = true;
+    /* document.getElementById("dn").disabled = false;
+    document.getElementById("dno").disabled = true; */
     /* $('#dn').parent().show();
       $('#dno').hide(); */
   }
@@ -369,3 +374,10 @@ function checkFluency()
 
 /* ________________ Defect name checkbox ____________________ */
 
+  $('#mod').on('hide.bs.modal','.modal', function (e) {           
+    /* alert('TEST');  */  
+    $(this).find('form')[0].reset();
+    $("[type='checkbox']").trigger("change");
+  });
+
+  

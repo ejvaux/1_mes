@@ -166,7 +166,7 @@ var lotGlobal;
 var lotlot;
 function generateLot(){
   var z = document.getElementById("LotCreationTable").rows.length;
-  if (z == 2) {
+  if (z <= 1) {
     swal(
       'No items allocated.',
       'Please insert danpla to create lot.',
@@ -210,7 +210,10 @@ function generateLot(){
 function AddLotBtnClick(lotGlobal){
   
   var x = document.getElementById("LotCreationTable").rows.length;
-
+  if(lotGlobal==undefined){
+    alert("No Lot Number Try Again");
+    return;
+  }
   swal({
     title: 'Lot Confirmation',
     text: "You won't be able to revert this anymore!",
@@ -234,6 +237,7 @@ function AddLotBtnClick(lotGlobal){
             'ajax': true
           },
         success: function (data) {
+          alert(data);
           loadDoc("LotCreate");
           return;
 
@@ -871,35 +875,18 @@ function ClearDefectSearch(){
 }
 
 function selectedJO(){
-  var x = document.getElementById("jobOrder");
+  var x = document.getElementById("JobOrderNo");
   var y = x.options[x.selectedIndex].value;
+  alert(y + " " + x);
   $.ajax({
     method: 'post',
     url: '/1_mes/_php/QualityManagement/InsertDefectModal.php',
     data: {
-      'jo_Number': z,
+      'jo_Number': y,
       'ajax': true
     },
     success: function (data) {
       alert(z);
-    }
-  });
-}
-
-function filterJudgement() {
-  var x = document.getElementById("filterText");
-  var y = x.options[x.selectedIndex].value;
-  var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '";';
-  /* var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + ' AND DATE(NOW()) = DATE(PROD_DATE)";'; */
-  $.ajax({
-    method: 'post',
-    url: '/1_mes/_php/QualityManagement/LotJudgement.php',
-    data: {
-      'sql': z,
-      'ajax': true
-    },
-    success: function (data) {
-      document.getElementById("table_display").innerHTML = data;
     }
   });
 }

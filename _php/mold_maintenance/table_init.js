@@ -116,6 +116,13 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
                     $("#edefectname").val(val.DEFECT_NAME);
                     $("#erepairremarks").val(val.REPAIR_REMARKS);
                     $("#emoldstatus").val(val.MOLD_STATUS);
+                    /* alert($("#edefectname").val()); */
+                    if($("#edefectname").val()==null){
+                      /* alert('test'); */
+                      $("#eothers").prop('checked', true);
+                      $("#eothers").trigger("change");
+                      $("#edno").val(val.DEFECT_NAME);
+                    }
                     
                     $('.sel').select2({ width: '100%' });
                     $('#editmoldrepair').modal('show');
@@ -234,11 +241,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
             id: 'exportButton'
         },
          filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
-            ],
-          /* fixedHeader: {
-            header: true,
-            headerOffset: 122            
-            }, */
+            ],          
             select: 'single',
               "columnDefs": [ {
                 "searchable": false,
@@ -408,7 +411,10 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
       /* alert(t.getHours()+":"+t.getMinutes()); */ 
       /* $("#timerequired").attr("value",t.getHours()+":"+t.getMinutes()); */
       listchange();
-      getctrlnumber();    
+      getctrlnumber();
+      /* document.getElementById("addformA").reset(); */
+      /* $('#addformA').trigger('reset'); */
+      $("#addmoldrepairA").find('form')[0].reset();
       $("#addmoldrepairA").modal('show');        
       
     }

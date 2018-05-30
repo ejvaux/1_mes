@@ -28,7 +28,7 @@
             $lot_num = $_POST['lot_number'];
             $lot_quantity = $row['SUMQ'];
             $lot_creator = $_SESSION['text'];
-            
+            $lot_num = $_POST['lot_number'];
     
     $conn->close();
 
@@ -40,7 +40,10 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
     $conn->close();
     
 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-    
+    echo "$prod_date, $lot_num, $jo_num,
+            $lot_quantity, $lot_creator,
+            $item_code, $item_name,
+            $machine_code";
 
     $sql = "INSERT INTO qmd_lot_create
     (   
@@ -51,16 +54,11 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         LOT_CREATOR,
         ITEM_CODE,
         ITEM_NAME,
-        MACHINE_CODE,
-        
+        MACHINE_CODE
     )
-
-        VALUES (?,?,?,?,?,?,?,?)";
-            
+        VALUES (?,?,?,?,?,?,?,?)";    
         $stmt = $conn->prepare($sql);
-
         $stmt->bind_param(
-
             'sssissss',
             $prod_date,
             $lot_num,
@@ -71,19 +69,21 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             $item_name,
             $machine_code
             );
-      
         if ($stmt->execute() === TRUE) {
             echo "Record saved successfully"; 
-
-include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-            $sql = "DELETE FROM qmd_danpla_tempstore";
-            $conn->query($sql);
+                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";   
+                    $sql = "DELETE FROM qmd_danpla_tempstore";
+                    $conn->query($sql);
+                    $stmt->close();
+                    $conn->close();
+                    exit;
+            } 
+        else {
+            echo "Error: " . $stmt . "<br>" . $conn->error; 
             $stmt->close();
             $conn->close();
-            exit;
-            } 
-        $stmt->close();
-        $conn->close();
+        }
+        
         /* else {
              echo "Error: " . $sql . "<br>" . $conn->error; 
         } */

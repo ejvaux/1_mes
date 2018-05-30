@@ -38,19 +38,21 @@
 <!-- lotNumDataListQuery -->
   <datalist style="width:50px" id="datalistLotNumber">
     
-    <?php
-                    $joNumber = $_POST['jo_Number'];
+    <?php               
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
-
-                        $sql = "SELECT LOT_NUMBER FROM qmd_lot_create WHERE JO_NUM = '$joNumber'";
+                        $sql = "SELECT LOT_NUMBER FROM qmd_lot_create";
                         $result = $conn->query($sql);
                         while($row = $result->fetch_assoc()) {
-
+                          if(!isset($row)){
+                            echo "option value=''></option>";
+                          }
+                          else{
                                 echo "<option value='";
                                 echo $row['LOT_NUMBER'];
                                 echo "'>";
                                 echo $row['LOT_NUMBER'];
                                 echo "</option>";
+                              }
                         }
                         
                         $conn->close();
@@ -78,12 +80,12 @@
                   <div class="col-2">
                         <label class="col-form-label-sm">Job Order Number:</label></div>
                   <div class="col-4">
-                        <input onchange="selectedJO()" list="jobOrder" class="form-control text-center" id="JobOrderNo" placeholder="Job Order Number"/>         
+                        <input onkeypress="selectedJO()" list="jobOrder" class="form-control text-center" id="JobOrderNo" placeholder="Job Order Number"/>         
                     </div>
                   <div class="col-2">
                         <label class="col-form-label-sm">Lot Number:</label></div>
                   <div class="col-4">
-                        <input list="datalistLotNumber" class="form-control text-center" id="JobOrderNo" placeholder="Lot Number"/>    
+                        <input list="datalistLotNumber" class="form-control text-center" id="LotNo" placeholder="Lot Number"/>    
                         
                     </div>    
                   </div>

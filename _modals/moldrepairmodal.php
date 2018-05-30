@@ -135,7 +135,7 @@
                 <div class="form-group row">                    
                     <div class="col-sm-6">
                         
-                        <label for="defectname" class="checkbox col-form-label-sm">DEFECT NAME:<input type="checkbox" class="ml-2" id="others" onchange="checkFluency()"> OTHERS</label>
+                        <label for="defectname" class="checkbox col-form-label-sm">DEFECT NAME:<input type="checkbox" class="ml-2" id="others" onchange="checkFluency(this,dn,dno)"> OTHERS</label>
                                                 
                         <select type="text" class="form-control form-control-sm sel" id="dn" name="defectname" placeholder="">
                             
@@ -162,12 +162,8 @@
 
                         </select>
                     </div>
-                    <div class="col-sm-6">                        
-                        
-                        <label for="others" class="col-form-label-sm">SPECIFY DEFECT NAME</label>
-                                
-                          
-                        
+                    <div class="col-sm-6">                                               
+                        <label for="others" class="col-form-label-sm">SPECIFY DEFECT NAME</label>                                                      
                         <input type="text" class="form-control form-control-sm" name="defectname" placeholder="" id="dno" value="" disabled>
                     </div>                  
                 </div>
@@ -316,11 +312,12 @@
                 <div class="form-group row">
                 <div class="col-sm-6">                        
                         <label for="inputFirstname" class="col-form-label-sm">MACHINE CODE:</label>
-                        <select type="text" class="form-control form-control-sm sel" name="machinecode" placeholder="">
+                        <input type="text" class="form-control form-control-sm" name="machinecode" placeholder="">
+                        <!-- <select type="text" class="form-control form-control-sm sel" name="machinecode" placeholder=""> -->
 
                             <?php
 
-                                include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                                /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT DISTINCT MACHINE_CODE FROM dmc_item_mold_matching WHERE MACHINE_CODE IS NOT NULL ORDER BY MACHINE_CODE ASC";
                                 $result = $conn->query($sql);
@@ -334,15 +331,33 @@
                                         echo "</option>";
                                     }
 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
 
-                        </select>
+                        <!--  --></select>
                     </div>
                     <div class="col-sm-6">
-                        <label for="inputLastname" class="col-form-label-sm">DEFECT NAME:</label>
-                        <select type="text" class="form-control form-control-sm sel" name="defectname" placeholder="">
+                        <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
+                        <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
+                        <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
+                        <input type="text" class="form-control form-control-sm" name="moldstatus" placeholder="" value="WAITING" readonly>
+                                
+                            <!-- <option value="PENDING">PENDING</option>
+                            <option value="ON-GOING">ON-GOING</option>
+                            <option value="FINISHED">FINISHED</option>
+
+                        </input> -->
+                    </div>                  
+                    
+                </div>
+
+                <div class="form-group row">
+                    
+
+                    <div class="col-sm-6">
+                        <label for="inputLastname" class="col-form-label-sm">DEFECT NAME:<input type="checkbox" class="ml-2" id="arothers" onchange="checkFluency(this,ardn,ardno)"> OTHERS</label>
+                        <select id="ardn" type="text" class="form-control form-control-sm sel" name="defectname" placeholder="">
                             
                         <?php
 
@@ -366,23 +381,11 @@
 
 
                         </select>
-                    </div>                    
-                    
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
-                        <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
-                        <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
-                        <input type="text" class="form-control form-control-sm" name="moldstatus" placeholder="" value="WAITING" readonly>
-                                
-                            <!-- <option value="PENDING">PENDING</option>
-                            <option value="ON-GOING">ON-GOING</option>
-                            <option value="FINISHED">FINISHED</option>
-
-                        </input> -->
                     </div>
+                    <div class="col-sm-6">                                               
+                        <label for="others" class="col-form-label-sm">SPECIFY DEFECT NAME</label>                                                      
+                        <input type="text" class="form-control form-control-sm" name="defectname" placeholder="" id="ardno" value="" disabled>
+                    </div>   
                     <!-- <div class="col-sm-6">
                         <label for="inputFirstname" class="col-form-label-sm">REPAIR REMARKS:</label>
                         <select type="text" class="form-control form-control-sm" name="repairremarks" placeholder="">
@@ -517,13 +520,25 @@
                 </div>
 
                 <div class="form-group row">
+                    <div class="col-sm-6">
+                        <label for="inputLastname" class="col-form-label-sm">DATE REQUIRED:</label>
+                        <input id="edaterequired" type="date" class="form-control form-control-sm" name="daterequired" placeholder="" value="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="inputFirstname" class="col-form-label-sm">TIME REQUIRED:</label>
+                        <input id="etimerequired" type="time" class="form-control form-control-sm" name="timerequired" placeholder="">
+                    </div>
+                    
+                </div>
+
+                <div class="form-group row">
                 <div class="col-sm-6">                        
                         <label for="inputFirstname" class="col-form-label-sm">MACHINE CODE:</label>
-                        <select id="emachinecode" type="text" class="form-control form-control-sm sel" name="machinecode" placeholder="">
+                        <input id="emachinecode" type="text" class="form-control form-control-sm" name="machinecode" placeholder="">
 
                             <?php
 
-                                include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                                /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT DISTINCT MACHINE_CODE FROM dmc_item_mold_matching WHERE MACHINE_CODE IS NOT NULL ORDER BY MACHINE_CODE ASC";
                                 $result = $conn->query($sql);
@@ -537,14 +552,35 @@
                                         echo "</option>";
                                     }
 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
 
-                        </select>
+                        <!-- </input> -->
                     </div>
                     <div class="col-sm-6">
-                        <label for="inputLastname" class="col-form-label-sm">DEFECT NAME:</label>
+                        <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
+                        <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
+                        <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
+                        <select id="emoldstatus" type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
+                                
+                            <option value="WAITING">WAITING</option>
+                            <option value="ON-GOING">ON-GOING</option>
+                            <option value="DONE">DONE</option>
+
+                        </select>
+                    </div>
+                    
+                    <!-- <div class="col-sm-6">
+                        <label for="inputLastname" class="col-form-label-sm">MOLD SHOT:</label>
+                        <input id="emoldshot" type="text" class="form-control form-control-sm" name="moldshot" placeholder="" readonly>
+                    </div>  -->                   
+                </div>                
+
+                <div class="form-group row">
+                    
+                    <div class="col-sm-6">
+                        <label for="inputLastname" class="col-form-label-sm">DEFECT NAME:<input type="checkbox" class="ml-2" id="eothers" onchange="checkFluency(this,edefectname,edno)"> OTHERS</label>
                         <select id="edefectname" type="text" class="form-control form-control-sm sel" name="defectname" placeholder="">
                             
                         <?php
@@ -570,38 +606,12 @@
 
                         </select>
                     </div>
-                    <!-- <div class="col-sm-6">
-                        <label for="inputLastname" class="col-form-label-sm">MOLD SHOT:</label>
-                        <input id="emoldshot" type="text" class="form-control form-control-sm" name="moldshot" placeholder="" readonly>
-                    </div>  -->                   
-                </div>
 
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <label for="inputLastname" class="col-form-label-sm">DATE REQUIRED:</label>
-                        <input id="edaterequired" type="date" class="form-control form-control-sm" name="daterequired" placeholder="" value="<?php echo date('Y-m-d'); ?>">
+                    <div class="col-sm-6">                                               
+                        <label for="others" class="col-form-label-sm">SPECIFY DEFECT NAME</label>                                                      
+                        <input type="text" class="form-control form-control-sm" name="defectname" placeholder="" id="edno" value="" disabled>
                     </div>
-                    <div class="col-sm-6">
-                        <label for="inputFirstname" class="col-form-label-sm">TIME REQUIRED:</label>
-                        <input id="etimerequired" type="time" class="form-control form-control-sm" name="timerequired" placeholder="">
-                    </div>
-                    
-                </div>
-
-                <div class="form-group row">
-                    
-                    <div class="col-sm-6">
-                        <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
-                        <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
-                        <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
-                        <select id="emoldstatus" type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
-                                
-                            <option value="WAITING">WAITING</option>
-                            <option value="ON-GOING">ON-GOING</option>
-                            <option value="DONE">DONE</option>
-
-                        </select>
-                    </div> 
+                     
                     <!-- <div class="col-sm-6">
                         <label for="inputFirstname" class="col-form-label-sm">REPAIR REMARKS:</label>
                         <select id="erepairremarks" type="text" class="form-control form-control-sm" name="repairremarks" placeholder="">

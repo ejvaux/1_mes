@@ -8,8 +8,6 @@
 
     <!-- Custom JS -->
     <script src="/1_mes/_php/QualityManagement/QualityTable.js"></script>   
-    <script src="/1_mes/_php/QualityManagement/_modal/autocomplete.js"></script>
-    <script>autocomplete(document.getElementById("myInput"), countries)</script>
     <!-- Change Title --> <title>Quality Management</title>
 
     <!-- Custom CSS - START -->
