@@ -877,7 +877,7 @@ function selectedJO(){
     method: 'post',
     url: '/1_mes/_php/QualityManagement/InsertDefectModal.php',
     data: {
-      'sql': z,
+      'jo_Number': z,
       'ajax': true
     },
     success: function (data) {

@@ -39,10 +39,10 @@
   <datalist style="width:50px" id="datalistLotNumber">
     
     <?php
-
+                    $joNumber = $_POST['jo_Number'];
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
-                        $sql = "SELECT LOT_NUMBER FROM qmd_lot_create";
+                        $sql = "SELECT LOT_NUMBER FROM qmd_lot_create WHERE JO_NUM = '$joNumber'";
                         $result = $conn->query($sql);
                         while($row = $result->fetch_assoc()) {
 
