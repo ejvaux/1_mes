@@ -471,7 +471,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
         },            
-        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [            
           { text: '<i class="fas fa-plus"></i>',
           attr:  {
@@ -644,6 +644,48 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
         
       } );
 
+      $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>DONE</option></select></div>');
+
+      $('#sortstatus').on('change',function(){
+        /* alert('test'); */
+        var selectedValue = $(this).val();
+        /* alert(selectedValue); */
+        if(selectedValue!="ALL"){
+          tble
+          .columns( 3 )
+          .search( selectedValue)
+          .draw();
+        }
+        else{
+          tble
+          .columns( 3 )
+          .search( '')
+          .draw();
+        }
+        
+      });
+
+      $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>DONE</option></select></div>');
+
+      $('#sortstatus').on('change',function(){
+        /* alert('test'); */
+        var selectedValue = $(this).val();
+        /* alert(selectedValue); */
+        if(selectedValue!="ALL"){
+          tble
+          .columns( 3 )
+          .search( selectedValue)
+          .draw();
+        }
+        else{
+          tble
+          .columns( 3 )
+          .search( '')
+          .draw();
+        }
+        
+      });
+
       /* ____________________________ FUNCTIONS _________________________ */
     }
     
@@ -696,7 +738,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
         },            
-        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [
           { text: '<i class="fas fa-plus"></i>',
           attr:  {
@@ -934,7 +976,29 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
           }
         });              
       }
-    } ); 
+    } );
+
+    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>DONE</option></select></div>');
+
+      $('#sortstatus').on('change',function(){
+        /* alert('test'); */
+        var selectedValue = $(this).val();
+        /* alert(selectedValue); */
+        if(selectedValue!="ALL"){
+          tble
+          .columns( 3 )
+          .search( selectedValue)
+          .draw();
+        }
+        else{
+          tble
+          .columns( 3 )
+          .search( '')
+          .draw();
+        }
+        
+      });
+
       /* ____________________________ FUNCTIONS _________________________ */
     }
     
@@ -984,7 +1048,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
         },            
-        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [ 
           { text: '<i class="fas fa-plus"></i>',
           attr:  {
@@ -1264,6 +1328,27 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
         
     } );
 
+    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>DONE</option></select></div>');
+
+      $('#sortstatus').on('change',function(){
+        /* alert('test'); */
+        var selectedValue = $(this).val();
+        /* alert(selectedValue); */
+        if(selectedValue!="ALL"){
+          tble
+          .columns( 3 )
+          .search( selectedValue)
+          .draw();
+        }
+        else{
+          tble
+          .columns( 3 )
+          .search( '')
+          .draw();
+        }
+        
+      });
+
       /* ____________________________ FUNCTIONS _________________________ */
     }
     
@@ -1312,7 +1397,7 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
         },            
-        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [            
           { text: '<i class="fas fa-plus"></i>',
             attr:  {

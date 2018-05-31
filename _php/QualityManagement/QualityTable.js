@@ -350,39 +350,51 @@ $(document).on('click', '.lotPending', function () {
 function filterJudgement(){
   var x = document.getElementById("filterText");
   var y = x.options[x.selectedIndex].value;
-  var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '";' ;
+  if(y == "ALL"){
+    var z = 'SELECT * FROM qmd_lot_create';
+  }
+  else{
+    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '";' ;
+  }
+  
+  
   /* var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + ' AND DATE(NOW()) = DATE(PROD_DATE)";'; */
   $.ajax({
     method: 'post',
-    url: '/1_mes/_php/QualityManagement/LotJudgement.php',
+    url: '/1_mes/_php/QualityManagement/table/judgement_table.php',
     data: {
       'sql': z,
       'ajax': true
     },
     success: function (data) {
-      document.getElementById("table_display").innerHTML = data;
+      
+      document.getElementById("table_judgement").innerHTML = data;
     }
   });
 }
 
 function filterText() {
-  var y = document.getElementById("CreatedLotTable").rows.length;
-  var x = document.getElementById("CreatedLotTable").rows[1].cells[1].innerHTML;
+  var x = document.getElementById("filterText");
+  var y = x.options[x.selectedIndex].value;
   
-  if(x!="PENDING" && x!="APPROVED" && x!="DISAPPROVED"){
-      x = "PENDING"
+  if(y == "ALL"){
+    var z = 'SELECT * FROM qmd_lot_create';
   }
-  var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT LIKE "%' + x + '%" ORDER BY LOT_JUDGEMENT DESC;';
+  else{
+    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '";' ;
+  }
+
+  
   /* var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + x + ' AND DATE(NOW()) = DATE(PROD_DATE)";'; */
   $.ajax({
     method: 'post',
-    url: '/1_mes/_php/QualityManagement/LotJudgement.php',
+    url: '/1_mes/_php/QualityManagement/table/judgement_table.php',
     data: {
       'sql': z,
       'ajax': true
     },
     success: function (data) {
-      document.getElementById("table_display").innerHTML = data;
+      document.getElementById("table_judgement").innerHTML = data;
     }
   });
 }
@@ -394,13 +406,13 @@ function searchLot(){
   
   $.ajax({
     method: 'post',
-    url: '/1_mes/_php/QualityManagement/LotJudgement.php',
+    url: '/1_mes/_php/QualityManagement/table/judgement_table.php',
     data: {
       'sql': z,
       'ajax': true
     },
     success: function (data) {
-      document.getElementById("table_display").innerHTML = data;
+      document.getElementById("table_judgement").innerHTML = data;
     }
   });
 }
@@ -409,13 +421,13 @@ function ClearSearchLot() {
   /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
   $.ajax({
     method: 'post',
-    url: '/1_mes/_php/QualityManagement/LotJudgement.php',
+    url: '/1_mes/_php/QualityManagement/table/judgement_table.php',
     data: {
       'sql': z,
       'ajax': true
     },
     success: function (data) {
-      document.getElementById("table_display").innerHTML = data;
+      document.getElementById("table_judgement").innerHTML = data;
     }
   });
 }

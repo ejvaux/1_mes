@@ -36,7 +36,7 @@
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1" id="tb">           
               <li><a class="nav-link tbl active" id='tb1' href="#" onclick="loadDoc('LotCreate')">Lot Create</a></li>
-              <li><a class="nav-link tbl" id='tb2' href="#" onclick="loadDoc('LotJudgement')">Lot Judgement</a></li>
+              <li><a class="nav-link tbl" id='tb2' href="#" onclick="loadDoc('LotJudgement');">Lot Judgement</a></li>
               <li><a class="nav-link tbl" id='tb3' href="#" onclick="loadDoc('LotRecovery')">Lot Reject Recovery</a></li>
               <li><a class="nav-link tbl" id='tb4' href="#" onclick="loadDoc('DefectManagement')">Defect Management</a></li>
               <li><a class="nav-link tbl" id='tb5' href="#" onclick="notWorking()">Initial Sample List</a></li>

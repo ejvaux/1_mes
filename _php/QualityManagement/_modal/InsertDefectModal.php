@@ -89,12 +89,12 @@
                   <div class="col-2">
                         <label class="col-form-label-sm">Job Order Number:</label></div>
                   <div class="col-4">
-                        <input onchange="selectedJO()" list="jobOrder" class="form-control text-center" id="JobOrderNo" placeholder="Job Order Number"/>         
+                        <input id="JobOrderNo" onchange="selectedJO()" list="jobOrder" class="form-control text-center" placeholder="Job Order Number"/>         
                     </div>
                   <div class="col-2">
                         <label class="col-form-label-sm">Lot Number:</label></div>
                   <div class="col-4">
-                        <select class="form-control text-center" id="datalistLotNumber" placeholder="Lot Number"/>    
+                        <select id="datalistLotNumber" class="form-control text-center"  placeholder="Lot Number"/>    
                           <option value="0">- Select -</option>
                         </select>
                     </div>    
