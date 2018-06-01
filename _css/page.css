@@ -137,6 +137,10 @@ td.finished{
   transition: 0.5s;
 }
 
+.tnv{
+	display: inline-block;
+}
+
 .btn-outline-secondary{
   transition: 0.5s;
 }

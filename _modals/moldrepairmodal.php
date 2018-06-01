@@ -8,7 +8,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="addformA">
+      <form id="addformA" method="post">
       <div class="modal-body">
         <!-- <p>Modal body text goes here.</p> -->
         <!-- method="post" action="/1_mes/_query/insert_mold_repair.php" -->
@@ -196,7 +196,7 @@
                 </div>  -->             
 
                 <div class="modal-footer">
-                    <button type="button" name='submit' class="btn btn-primary" id="Ainsertsubmit"><i class="far fa-save"></i> Save</button>
+                    <button type="submit" name='submit' class="btn btn-primary" id="Ainsertsubmit"><i class="far fa-save"></i> Save</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn"><i class="fas fa-times"></i> Close</button>
                 </div>
 
@@ -231,7 +231,7 @@
       <div class="modal-body">
         <!-- <p>Modal body text goes here.</p> -->
         <!-- method="post" action="/1_mes/_query/insert_mold_repair.php" -->
-        <form name="myForm" id="addform">
+        <form name="myForm" id="addform"  method="post">
                                                
                 <div class="form-group row">
 
@@ -433,7 +433,7 @@
                 </div>  -->             
 
                 <div class="modal-footer">
-                    <button type="button" name='submit' class="btn btn-primary" id="insertsubmit"><i class="far fa-save"></i> Save</button>
+                    <button type="submit" name='submit' class="btn btn-primary" id="insertsubmit"><i class="far fa-save"></i> Save</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn"><i class="fas fa-times"></i> Close</button>
                 </div>
 
@@ -459,7 +459,7 @@
       <div class="modal-body">
         <!-- <p>Modal body text goes here.</p> -->
         <!-- method="post" action="/1_mes/_query/insert_mold_repair.php" -->
-        <form name="myForm" id="editform">
+        <form name="myForm" id="editform"  method="post">
                                                
                 <div class="form-group row">
 
@@ -638,7 +638,7 @@
                 </div>   -->                         
 
                 <div class="modal-footer">
-                    <button type="button" name='submit' class="btn btn-primary" id="editformsubmit"><i class="far fa-save"></i> Save</button>
+                    <button type="submit" name='submit' class="btn btn-primary" id="editformsubmit"><i class="far fa-save"></i> Save</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn"><i class="fas fa-times"></i> Close</button>
                 </div>
 
@@ -663,7 +663,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="checklistform">
+      <form id="checklistform"  method="post">
       <input type="hidden" id="chkrepaircontrol" name="repaircontrol">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
@@ -986,7 +986,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="achecklistform">
+      <form id="achecklistform"  method="post">
       <input type="hidden" id="achkrepaircontrol" name="repaircontrol">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->

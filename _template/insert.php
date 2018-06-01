@@ -232,56 +232,32 @@
               <ul class="navbar-nav mr-auto">
                 
               <li class="nav-item">
-                <a id="hme" class="nav-link bar hvr-underline-from-center" href="/1_mes/" style="display: none">Home</a>
+                <a id="hme" class="nav-link bar hvr-underline-from-center" href="/1_mes/" style='display: <?php if($log=="true"){echo "block";}else{echo "none";} ?>'>Home</a>
               </li>
               
               <li class="nav-item">
-                <a id="prtl" class="nav-link bar hvr-underline-from-center" href="/1_MES/_php/portal.php" style="display: none">Portal</a>
+                <a id="prtl" class="nav-link bar hvr-underline-from-center" href="/1_MES/_php/portal.php" style='display: <?php if($log=="true"){echo "block";}else{echo "none";} ?>'>Portal</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link bar hvr-underline-from-center" id="acct_btn" href="#" style="display: none">
+                <a class="nav-link bar hvr-underline-from-center" id="acct_btn" href="#" style='display: <?php if($log=="true"){echo "block";}else{echo "none";} ?>'>
                   Account
                 </a>
               </li>              
                 
             </ul>        
                      
-            <span class='navbar-text mr-2' id='usr' style="display: none">Hi! <b><?php 
-            
-            if(isset($_SESSION['text'])){
-              echo $_SESSION['text'];
-            }
-               ?></b>.</span>
+            <span class='navbar-text mr-2' id='usr' style='display: <?php if($log=="true"){echo "block";}else{echo "none";} ?>'>Hi! <b><?php echo $_SESSION['text']; ?></b>.</span>
             <!-- Clock -->            
             <span class="navbar-text mr-2" id="clockdate" style="display:block"></span>            
             <span class="navbar-text mr-2" id="clocktime" style="display:block"></span>   
              
-            <button data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item btn btn-outline-secondary p-1 my-2 my-sm-0 hvr-icon-wobble-horizontal" onclick="document.getElementById('id01').style.display='block'" id="lgin" style="display:block;">Login <i class="fas fa-sign-in-alt hvr-icon"></i></button>
+            <button data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item btn btn-outline-secondary p-1 my-2 my-sm-0 hvr-icon-wobble-horizontal" onclick="document.getElementById('id01').style.display='block'" id="lgin" style="display: <?php if($log=="true"){echo "none";}else{echo "block";} ?>" >Login <i class="fas fa-sign-in-alt hvr-icon"></i></button>
 
-            <button class="nav-item btn btn-outline-secondary p-1 my-2 my-0 hvr-icon-wobble-horizontal" onclick="" id="lgout" style="display: none">Logout <i class="fas fa-sign-out-alt hvr-icon"></i></button> <!-- href='/1_mes/_php/logout.php' -->
+            <button class="nav-item btn btn-outline-secondary p-1 my-2 my-0 hvr-icon-wobble-horizontal" onclick="" id="lgout" style="display: <?php if($log=="true"){echo "block";}else{echo "none";} ?>"  >Logout <i class="fas fa-sign-out-alt hvr-icon"></i></button> <!-- href='/1_mes/_php/logout.php' -->
             
             </div> 
-          </nav>
-
-          <script>
-            if(<?php echo $log;?>){
-              $('#hme').show();
-              $('#prtl').show();
-              $('#acct_btn').show();
-              $('#usr').show();
-              $('#lgout').show();
-              $('#lgin').hide();
-            }
-            else{
-              $('#hme').hide();
-              $('#prtl').hide();
-              $('#acct_btn').hide();
-              $('#usr').hide();
-              $('#lgout').hide();
-              $('#lgin').show();
-            }
-          </script>
+          </nav>               
           
           <!-- End of Navbar -->
 
@@ -421,8 +397,7 @@
         $('#bttn').on('click', function(){
             $('.navbar-collapse').collapse('hide');              
         });
-        $('[data-toggle="tooltip"]').tooltip();
-        
+        $('[data-toggle="tooltip"]').tooltip(); 
       });
 
       $(function() {

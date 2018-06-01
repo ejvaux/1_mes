@@ -51,7 +51,7 @@
     <div style="position: absolute;margin-top: -14px;" id="innernavbar">
       <nav class="navbar navbar-brdr navbar-expand-xl navbar-light bg-light m-0 px-2 pb-1 pt-0" style="position:fixed;width: 100%; z-index:2; overflow:hidden;">
         <button class="navbar-toggler mt-1" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <!-- <span class="navbar-toggler-icon"></span> -->MENU
+          <!-- <span class="navbar-toggler-icon"></span> -->MENU <i class="fas fa-caret-down"></i>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
           <ul class="navbar-nav nav-tabs mr-auto mt-1" id="tb">           

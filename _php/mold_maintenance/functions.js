@@ -8,6 +8,8 @@ function alistchange(){
     // find the selected option
     var selectedOption = ddl.options[ddl.selectedIndex].text;
     /* alert(selectedOption); */
+
+  if(selectedOption !== null){
     $.ajax({
     type:'POST',
     data:{
@@ -28,6 +30,8 @@ function alistchange(){
     } 
 
     }); 
+  }
+
 }/* lischange */
 
 function listchange(){
@@ -258,9 +262,11 @@ function listchange(){
 
   /* ____________________ EDIT ________________________ */
 
-  $('#mod').on('click','#editformsubmit', function (e) {           
+  $('#mod').on('submit','#editform', function (e) {           
     /* alert('TEST');
     alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
+    e.preventDefault();
+    e.stopImmediatePropagation();
     
     $.ajax({
       type: 'POST',
@@ -301,9 +307,11 @@ function listchange(){
 
   /* ____________________ INSERT A ________________________ */
 
-  $('#mod').on('click','#Ainsertsubmit', function (e) {           
+  $('#mod').on('submit','#addformA', function (e) {           
     /* alert('TEST'); */
     /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
+    e.preventDefault();
+    e.stopImmediatePropagation();
     
     $.ajax({
       type: 'POST',
@@ -345,9 +353,11 @@ function listchange(){
 
   /* ____________________ INSERT ________________________ */
 
-  $('#mod').on('click','#insertsubmit', function (e) {           
+  $('#mod').on('submit','#addform', function (e) {           
     /* alert('TEST'); */
     /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
+    e.preventDefault();
+    e.stopImmediatePropagation();
     
     $.ajax({
       type: 'POST',

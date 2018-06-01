@@ -1,33 +1,3 @@
-/* 
-var xmlHttp;
-function srvTime(){
-    try {
-        //FF, Opera, Safari, Chrome
-        xmlHttp = new XMLHttpRequest();
-    }
-    catch (err1) {
-        //IE
-        try {
-            xmlHttp = new ActiveXObject('Msxml2.XMLHTTP');
-        }
-        catch (err2) {
-            try {
-                xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
-            }
-            catch (eerr3) {
-                //AJAX not supported, use CPU time.
-                alert("AJAX not supported");
-            }
-        }
-    }
-    xmlHttp.open('HEAD',window.location.href.toString(),false);
-    xmlHttp.setRequestHeader("Content-Type", "text/html");
-    xmlHttp.send('');
-    return xmlHttp.getResponseHeader("Date");
-} */
-
-
-
 function showclock(){
 
     var date = new Date();
@@ -67,10 +37,13 @@ function showclock(){
     var mer = h > 12 ? "PM" : "AM";     
 
     // Clock
-    var time = month + " " + ddate + ", " + yy + ". " + dy + " " + hour + ":" + min + ":" + sec + " " + mer;
+    var date = month + " " + ddate + ", " + yy + ". " + dy;
+    var time = hour + ":" + min + ":" + sec + " " + mer;
 
-    document.getElementById("clock").innerText = time;
-    document.getElementById("clock").textContent = time;
+    document.getElementById("clockdate").innerText = date;
+    document.getElementById("clockdate").textContent = date;
+    document.getElementById("clocktime").innerText = time;
+    document.getElementById("clocktime").textContent = time;
 
     setTimeout(showclock,1000);
 

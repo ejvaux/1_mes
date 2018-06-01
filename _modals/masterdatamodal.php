@@ -10,7 +10,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="moldlistform">
+      <form id="moldlistform" method="post">
       <input type="hidden" id="" name="">
       <div class="modal-body" style="">
 
@@ -23,7 +23,7 @@
                   <label for="moldcode" class="col-form-label-sm">MOLD CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="moldcode" type="text" class="form-control form-control-sm" name="moldcode" placeholder="">                  
+                  <input id="moldcode" type="text" class="form-control form-control-sm" name="moldcode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -226,7 +226,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="moldlistsubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="moldlistsubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -244,7 +244,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="customerform">
+      <form id="customerform" method="post">
       <input type="hidden" id="" name="">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
@@ -256,7 +256,7 @@
                   <label for="accustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="accustomercode" type="text" class="form-control form-control-sm" name="customercode" placeholder="">                  
+                  <input id="accustomercode" type="text" class="form-control form-control-sm" name="customercode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -334,7 +334,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="customersubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="customersubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -352,7 +352,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="itemform">
+      <form id="itemform" method="post">
       <input type="hidden" id="" name="">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
@@ -364,7 +364,7 @@
                   <label for="itemcode" class="col-form-label-sm">ITEM CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="itemcode" type="text" class="form-control form-control-sm" name="itemcode" placeholder="">                  
+                  <input id="itemcode" type="text" class="form-control form-control-sm" name="itemcode" placeholder="" required required>                  
                 </div>
               </div>
             </div>
@@ -521,7 +521,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="itemsubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="itemsubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -539,7 +539,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="machineform">
+      <form id="machineform"  method="post">
       <input type="hidden" id="" name="">
       <div class="modal-body" style="">
 
@@ -552,7 +552,7 @@
                   <label for="machinecode" class="col-form-label-sm">MACHINE CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="machinecode" type="text" class="form-control form-control-sm" name="machinecode" placeholder="">                  
+                  <input id="machinecode" type="text" class="form-control form-control-sm" name="machinecode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -609,7 +609,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="machinesubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="machinesubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -627,7 +627,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="defectform">
+      <form id="defectform"  method="post">
       <input type="hidden" id="" name="">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
@@ -639,7 +639,7 @@
                   <label for="defectcode" class="col-form-label-sm">DEFECT CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="defectcode" type="text" class="form-control form-control-sm" name="defectcode" placeholder="">                  
+                  <input id="defectcode" type="text" class="form-control form-control-sm" name="defectcode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -704,7 +704,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="defectsubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="defectsubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -722,7 +722,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="userinfoform">
+      <form id="userinfoform"  method="post">
       <input type="hidden" id="" name="">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
@@ -734,7 +734,7 @@
                   <label for="userid" class="col-form-label-sm">USER ID:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="userid" type="text" class="form-control form-control-sm" name="userid" placeholder="">                  
+                  <input id="userid" type="text" class="form-control form-control-sm" name="userid" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -744,7 +744,7 @@
                   <label for="username" class="col-form-label-sm">USER NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="username" type="text" class="form-control form-control-sm" name="username" placeholder="">                  
+                  <input id="username" type="text" class="form-control form-control-sm" name="username" placeholder="" required>                  
                 </div>
               </div>
             </div>                    
@@ -767,7 +767,7 @@
                   <label for="userauthority" class="col-form-label-sm">USER AUTHORITY:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="userauthority" type="text" class="form-control form-control-sm sel" name="userauthority" placeholder=""> 
+                  <select id="userauthority" type="text" class="form-control form-control-sm sel" name="userauthority" placeholder="" required> 
                     
                   <?php
 
@@ -805,7 +805,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="userinfosubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="userinfosubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -823,7 +823,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="userauthform">
+      <form id="userauthform"  method="post">
       <input type="hidden" id="" name="">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
@@ -835,7 +835,7 @@
                   <label for="authoritycode" class="col-form-label-sm">AUTHORITY CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="authoritycode" type="text" class="form-control form-control-sm" name="authoritycode" placeholder="">                  
+                  <input id="authoritycode" type="text" class="form-control form-control-sm" name="authoritycode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -845,7 +845,7 @@
                   <label for="userauthority" class="col-form-label-sm">USER AUTHORITY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="userauthority" type="text" class="form-control form-control-sm" name="userauthority" placeholder="">                  
+                  <input id="userauthority" type="text" class="form-control form-control-sm" name="userauthority" placeholder="" required>                  
                 </div>
               </div>
             </div>                    
@@ -855,7 +855,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="userauthsubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="userauthsubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -873,7 +873,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="divcodeform">
+      <form id="divcodeform"  method="post">
       <input type="hidden" id="" name="">
       <div class="modal-body" style="">
       
@@ -886,7 +886,7 @@
                   <label for="divisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="divisioncode" type="text" class="form-control form-control-sm" name="divisioncode" placeholder="">
+                  <input id="divisioncode" type="text" class="form-control form-control-sm" name="divisioncode" placeholder="" required>
                 </div>
               </div>
             </div>
@@ -896,7 +896,7 @@
                   <label for="divisionname" class="col-form-label-sm">DIVISION NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="divisionname" type="text" class="form-control form-control-sm" name="divisionname" placeholder="">                  
+                  <input id="divisionname" type="text" class="form-control form-control-sm" name="divisionname" placeholder="" required>                  
                 </div>
               </div>
             </div>                    
@@ -908,7 +908,7 @@
                   <label for="sapcode" class="col-form-label-sm">SAP DIV CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="sapcode" type="number" class="form-control form-control-sm" name="sapcode" placeholder="">
+                  <input id="sapcode" type="number" class="form-control form-control-sm" name="sapcode" placeholder="" required>
                 </div>
               </div>
             </div>                               
@@ -918,7 +918,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="divcodesubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="divcodesubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -944,7 +944,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="emoldlistform">
+      <form id="emoldlistform"  method="post">
       <input type="hidden" id="idmoldlist" name="idmoldlist">
       <div class="modal-body" style="">
 
@@ -957,7 +957,7 @@
                   <label for="emoldcode" class="col-form-label-sm">MOLD CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="emoldcode" type="text" class="form-control form-control-sm" name="emoldcode" placeholder="">                  
+                  <input id="emoldcode" type="text" class="form-control form-control-sm" name="emoldcode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1160,7 +1160,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="emoldlistsubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="emoldlistsubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -1179,7 +1179,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="ecustomerform">
+      <form id="ecustomerform"  method="post">
       <input type="hidden" id="idcustomer" name="idcustomer">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
@@ -1191,7 +1191,7 @@
                   <label for="eccustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eccustomercode" type="text" class="form-control form-control-sm" name="eccustomercode" placeholder="">                  
+                  <input id="eccustomercode" type="text" class="form-control form-control-sm" name="eccustomercode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1269,7 +1269,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="ecustomersubmit"> <i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="ecustomersubmit"> <i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -1289,7 +1289,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="eitemform">
+      <form id="eitemform"  method="post">
       <input type="hidden" id="iditem" name="iditem">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
@@ -1301,7 +1301,7 @@
                   <label for="eiitemcode" class="col-form-label-sm">ITEM CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eiitemcode" type="text" class="form-control form-control-sm" name="eiitemcode" placeholder="">                  
+                  <input id="eiitemcode" type="text" class="form-control form-control-sm" name="eiitemcode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1458,7 +1458,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="eitemsubmit"> <i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="eitemsubmit"> <i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -1477,7 +1477,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="emachineform">
+      <form id="emachineform"  method="post">
       <input type="hidden" id="idmachine" name="idmachine">
       <div class="modal-body" style="">
 
@@ -1490,7 +1490,7 @@
                   <label for="emmachinecode" class="col-form-label-sm">MACHINE CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="emmachinecode" type="text" class="form-control form-control-sm" name="emmachinecode" placeholder="">                  
+                  <input id="emmachinecode" type="text" class="form-control form-control-sm" name="emmachinecode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1547,7 +1547,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="emachinesubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="emachinesubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -1566,7 +1566,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="edefectform">
+      <form id="edefectform"  method="post">
       <input type="hidden" id="iddefect" name="iddefect">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
@@ -1578,7 +1578,7 @@
                   <label for="eddefectcode" class="col-form-label-sm">DEFECT CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eddefectcode" type="text" class="form-control form-control-sm" name="eddefectcode" placeholder="">                  
+                  <input id="eddefectcode" type="text" class="form-control form-control-sm" name="eddefectcode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1643,7 +1643,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="edefectsubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="edefectsubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -1662,7 +1662,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="euserinfoform">
+      <form id="euserinfoform"  method="post">
       <input type="hidden" id="iduserinfo" name="iduserinfo">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
@@ -1674,7 +1674,7 @@
                   <label for="euuserid" class="col-form-label-sm">USER ID:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="euuserid" type="text" class="form-control form-control-sm" name="euuserid" placeholder="">                  
+                  <input id="euuserid" type="text" class="form-control form-control-sm" name="euuserid" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1684,7 +1684,7 @@
                   <label for="euusername" class="col-form-label-sm">USER NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="euusername" type="text" class="form-control form-control-sm" name="euusername" placeholder="">                  
+                  <input id="euusername" type="text" class="form-control form-control-sm" name="euusername" placeholder="" required>                  
                 </div>
               </div>
             </div>                    
@@ -1707,7 +1707,7 @@
                   <label for="euuserauthority" class="col-form-label-sm">USER AUTHORITY:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="euuserauthority" type="text" class="form-control form-control-sm sel" name="euuserauthority" placeholder="">
+                  <select id="euuserauthority" type="text" class="form-control form-control-sm sel" name="euuserauthority" placeholder="" required>
 
                     <?php
 
@@ -1755,7 +1755,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="euserinfosubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="euserinfosubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -1773,7 +1773,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="euserauthform">
+      <form id="euserauthform"  method="post">
       <input type="hidden" id="iduserauth" name="iduserauth">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
@@ -1785,7 +1785,7 @@
                   <label for="eaauthoritycode" class="col-form-label-sm">AUTHORITY CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eaauthoritycode" type="text" class="form-control form-control-sm" name="eaauthoritycode" placeholder="">                  
+                  <input id="eaauthoritycode" type="text" class="form-control form-control-sm" name="eaauthoritycode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1795,7 +1795,7 @@
                   <label for="eauserauthority" class="col-form-label-sm">USER AUTHORITY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eauserauthority" type="text" class="form-control form-control-sm" name="eauserauthority" placeholder="">                  
+                  <input id="eauserauthority" type="text" class="form-control form-control-sm" name="eauserauthority" placeholder="" required>                  
                 </div>
               </div>
             </div>                    
@@ -1805,7 +1805,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="euserauthsubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="euserauthsubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -1823,7 +1823,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="edivcodeform">
+      <form id="edivcodeform"  method="post">
       <input type="hidden" id="iddivcode" name="iddivcode">
       <div class="modal-body" style="">
       
@@ -1836,7 +1836,7 @@
                   <label for="eddivisioncode1" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eddivisioncode1" type="text" class="form-control form-control-sm" name="eddivisioncode1" placeholder="">                  
+                  <input id="eddivisioncode1" type="text" class="form-control form-control-sm" name="eddivisioncode1" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1858,7 +1858,7 @@
                   <label for="edsapcode" class="col-form-label-sm">SAP DIV CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="edsapcode" type="number" class="form-control form-control-sm" name="edsapcode" placeholder="">
+                  <input id="edsapcode" type="number" class="form-control form-control-sm" name="edsapcode" placeholder="" required>
                 </div>
               </div>
             </div>                               
@@ -1868,7 +1868,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" name="submit" id="edivcodesubmit"><i class="far fa-save"></i> Save</button>
+        <button type="submit" class="btn btn-primary" name="submit" id="edivcodesubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>

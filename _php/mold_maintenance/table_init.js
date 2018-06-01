@@ -436,7 +436,6 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
       getctrlnumber();
       /* document.getElementById("addformA").reset(); */
       /* $('#addformA').trigger('reset'); */
-      $("#addmoldrepairA").find('form')[0].reset();
       $("#addmoldrepairA").modal('show');        
       
     }

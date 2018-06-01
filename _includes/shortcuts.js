@@ -7,9 +7,11 @@ $(document).bind('keyup', 'alt+ctrl+l', function(){
     /* alert('weeeeeeeeee'); */
     if($('#lgin').length){
         if(document.getElementById('lgin').style.display=='block'){
+            /* alert('1'); */
             document.getElementById('id01').style.display='block';
           }
         else{
+            /* alert('2'); */
         $('#lgout').click();
         }
     }
@@ -36,6 +38,15 @@ $(document).bind('keyup', 'alt+ctrl+h', function(){
     /* alert('weeeeeeeeee'); */
     if ( document.getElementById('hme').style.display == 'block' || document.getElementById('hme').style.display == '' ){
         document.getElementById('hme').click();
+        /* alert('eiwwwwwwww'); */
+    }
+
+});
+
+$(document).bind('keyup', 'alt+ctrl+a', function(){
+    /* alert('weeeeeeeeee'); */
+    if ( document.getElementById('acct_btn').style.display == 'block' || document.getElementById('acct_btn').style.display == '' ){
+        document.getElementById('acct_btn').click();
         /* alert('eiwwwwwwww'); */
     }
 

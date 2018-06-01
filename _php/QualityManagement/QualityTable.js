@@ -166,7 +166,7 @@ var lotGlobal;
 var lotlot;
 function generateLot(){
   var z = document.getElementById("LotCreationTable").rows.length;
-  if (z <= 1) {
+  if (z <= 2) {
     swal(
       'No items allocated.',
       'Please insert danpla to create lot.',
@@ -237,7 +237,6 @@ function AddLotBtnClick(lotGlobal){
             'ajax': true
           },
         success: function (data) {
-          alert(data);
           loadDoc("LotCreate");
           return;
 
@@ -351,10 +350,10 @@ function filterJudgement(){
   var x = document.getElementById("filterText");
   var y = x.options[x.selectedIndex].value;
   if(y == "ALL"){
-    var z = 'SELECT * FROM qmd_lot_create';
+    var z = 'SELECT * FROM qmd_lot_create ORDER BY LOT_JUDGEMENT DESC;';
   }
   else{
-    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '";' ;
+    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC;' ;
   }
   
   
@@ -378,10 +377,10 @@ function filterText() {
   var y = x.options[x.selectedIndex].value;
   
   if(y == "ALL"){
-    var z = 'SELECT * FROM qmd_lot_create';
+    var z = 'SELECT * FROM qmd_lot_create ORDER BY LOT_JUDGEMENT DESC;';
   }
   else{
-    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '";' ;
+    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC;' ;
   }
 
   
@@ -402,7 +401,7 @@ function filterText() {
 function searchLot(){
   var search = searchText.value;
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
-  var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' ORDER BY LOT_JUDGEMENT DESC;";
+  var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' ORDER BY PROD_DATE DESC;";
   
   $.ajax({
     method: 'post',
@@ -417,7 +416,15 @@ function searchLot(){
   });
 }
 function ClearSearchLot() {
-  var z = "SELECT * FROM qmd_lot_create ORDER BY LOT_JUDGEMENT DESC;";
+  var x = document.getElementById("filterText");
+  var y = x.options[x.selectedIndex].value;
+
+  if (y == "ALL") {
+    var z = 'SELECT * FROM qmd_lot_create ORDER BY LOT_JUDGEMENT DESC;';
+  }
+  else {
+    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC;';
+  }
   /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
   $.ajax({
     method: 'post',
@@ -428,6 +435,7 @@ function ClearSearchLot() {
     },
     success: function (data) {
       document.getElementById("table_judgement").innerHTML = data;
+      searchText.value = " ";
     }
   });
 }
@@ -437,7 +445,7 @@ $(document).on('click', '.lotDisapprove', function () {
   //$('#dataModal').modal();
   var lotNumber = $(this).attr("id");
  /*  DisplayLotDetails(lotNumber); */
-  document.getElementById('lot_num').value = lotNumber;
+  document.getElementById('lot_num').value = lotNumber; 
   
 });
 
@@ -750,7 +758,6 @@ $(document).on('click', '#ConfirmDefect', function () {
 });
 
 function InsertReject(defect, lotNum, rmks) {
-
   $.ajax({
     method: 'post',
     url: '/1_mes/_php/QualityManagement/InsertLotDefect.php',
@@ -762,7 +769,6 @@ function InsertReject(defect, lotNum, rmks) {
         'ajax': true
       },
     success: function (data) {
-
     }
   });
 }
@@ -817,31 +823,32 @@ function a(){
 function RecoverySearchLot() {
   var search = RecoverySearch.value;
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
-  var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) ORDER BY LOT_JUDGEMENT DESC;";
+  var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) ORDER BY PROD_DATE DESC;";
   $.ajax({
     method: 'post',
-    url: '/1_mes/_php/QualityManagement/LotRecovery.php',
+    url: "/1_mes/_php/QualityManagement/table/recovery_table.php",
     data: {
       'sql': z,
       'ajax': true
     },
     success: function (data) {
-      document.getElementById("table_display").innerHTML = data;
+      document.getElementById("table_recovery").innerHTML = data;
     }
   });
 }
 function RecoveryClearSearchLot() {
-  var z = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY ORDER BY LOT_JUDGEMENT DESC;";
+  var z = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY ORDER BY PROD_DATE DESC;";
   /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
   $.ajax({
     method: 'post',
-    url: '/1_mes/_php/QualityManagement/LotRecovery.php',
+    url: "/1_mes/_php/QualityManagement/table/recovery_table.php",
     data: {
       'sql': z,
       'ajax': true
     },
     success: function (data) {
-      document.getElementById("table_display").innerHTML = data;
+      document.getElementById("table_recovery").innerHTML = data;
+      RecoverySearch.value = " ";
     }
   });
 }
@@ -857,49 +864,106 @@ function notWorking(){
 function defectSearch(){
   var search = defectSearchId.value;
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
-  var z = "SELECT * FROM qmd_defect_dl LEFT JOIN qmd_lot_create ON qmd_defect_dl.LOT_NUMBER = qmd_lot_create.LOT_NUMBER WHERE (qmd_defect_dl.UPDATE_USER LIKE '%" + search + "%' OR qmd_defect_dl.DEFECT_NAME LIKE '%" + search + "%' OR qmd_defect_dl.PROD_DATE LIKE '%" + search + "%' OR qmd_defect_dl.JOB_ORDER_NO LIKE '%" + search + "%' OR qmd_lot_create.LOT_CREATOR LIKE '%" + search + "%' OR qmd_defect_dl.ITEM_CODE LIKE '%" + search + "%' OR qmd_defect_dl.ITEM_NAME LIKE '%" + search + "%') AND qmd_defect_dl.REJECTION_REMARKS = 'DEFECT'";
+  var z = "SELECT * FROM qmd_defect_dl LEFT JOIN qmd_lot_create ON qmd_defect_dl.LOT_NUMBER = qmd_lot_create.LOT_NUMBER WHERE (qmd_defect_dl.UPDATE_USER LIKE '%" + search + "%' OR qmd_defect_dl.DEFECT_NAME LIKE '%" + search + "%' OR qmd_defect_dl.PROD_DATE LIKE '%" + search + "%' OR qmd_defect_dl.JOB_ORDER_NO LIKE '%" + search + "%' OR qmd_lot_create.LOT_CREATOR LIKE '%" + search + "%' OR qmd_defect_dl.ITEM_CODE LIKE '%" + search + "%' OR qmd_defect_dl.ITEM_NAME LIKE '%" + search + "%') AND qmd_defect_dl.REJECTION_REMARKS = 'DEFECT' ORDER BY qmd_lot_create.PROD_DATE DESC;";
   $.ajax({
     method: 'post',
-    url: '/1_mes/_php/QualityManagement/DefectManagement.php',
+    url: "/1_mes/_php/QualityManagement/table/defect_table.php",
     data: {
       'sql': z,
       'ajax': true
     },
     success: function (data) {
-      document.getElementById("table_display").innerHTML = data;
+      document.getElementById("table_defect").innerHTML = data;
     }
   });
 }
 
 function ClearDefectSearch(){
-  var z = "SELECT * FROM qmd_defect_dl LEFT JOIN qmd_lot_create ON qmd_defect_dl.LOT_NUMBER = qmd_lot_create.LOT_NUMBER WHERE REJECTION_REMARKS = 'DEFECT'";
+  var z = "SELECT * FROM qmd_defect_dl LEFT JOIN qmd_lot_create ON qmd_defect_dl.LOT_NUMBER = qmd_lot_create.LOT_NUMBER WHERE REJECTION_REMARKS = 'DEFECT' ORDER BY qmd_lot_create.PROD_DATE DESC;";
   $.ajax({
     method: 'post',
-    url: '/1_mes/_php/QualityManagement/DefectManagement.php',
+    url: "/1_mes/_php/QualityManagement/table/defect_table.php",
     data: {
       'sql': z,
       'ajax': true
     },
     success: function (data) {
-      document.getElementById("table_display").innerHTML = data;
+      document.getElementById("table_defect").innerHTML = data;
+      defectSearchId.value = " ";
     }
   });
 }
 
-function selectedJO(){
-  var x = JobOrderNo.value;
-  var y = 'SELECT LOT_NUMBER FROM qmd_lot_create WHERE JO_NUM ="' + x +'";';
-  alert(x);
-  alert(y);
+$(document).on('change', '#JobOrderNo', function () {
+    var jobOrderNumber = $(this).val();
+  if (jobOrderNumber == " " || jobOrderNumber == null || jobOrderNumber == undefined){
+    document.getElementById("JobOrderNo").value = "";
+    return; 
+    }
+
+    $.ajax({
+      url: "/1_mes/_php/QualityManagement/list/getLotNumbers.php",
+      type: 'post',
+      data: { 
+        'jobOrder': jobOrderNumber,
+        'ajax': true
+      },
+
+      success: function (data) {
+        document.getElementById("datalistLotNumber").innerHTML = data;
+      }
+    }),
+
   $.ajax({
     method: 'post',
-    url: '/1_mes/_php/QualityManagement/InsertDefectModal.php',
+    url: '/1_mes/_php/QualityManagement/_modal/DefectDetails.php',
+    data:
+      {
+        'jobOrder': jobOrderNumber,
+        'ajax': true
+      },
+    success: function (data) {
+          var val = JSON.parse(data);
+      if (val == '' || val == null || val == undefined) {
+        itemCodeID.value = "";
+        itemNameID.value = "";
+        DivCodeID.value = "";
+        DivNameID.value = "";
+        document.getElementById("JobOrderNo").value = "";
+        swal(
+          'Job Order does not exist!',
+          'Please search existing Job Order',
+          'error'
+        );
+        return;
+      }
+      else {
+          itemCodeID.value = val.ITEMCODE;
+          itemNameID.value = val.ITEMNAME;
+          DivCodeID.value = val.DIVI_CODE;
+          DivNameID.value = val.DIVI_NAME;
+        }
+      }
+    });
+
+  });
+
+$(document).on('change', '#defectInputID', function () {
+  var defectName = $(this).val();
+  $.ajax({
+    url: "/1_mes/_php/QualityManagement/list/getDefectCode.php",
+    type: 'post',
     data: {
-      'sql': y,
+      'defectName': defectName,
       'ajax': true
     },
+
     success: function (data) {
-      document.getElementById("datalistLotNumber").innerHTML = data;
+      var val = JSON.parse(data);
+      document.getElementById("DefectCodeID").value = val.DEFECT_CODE;
     }
   });
-}
+
+
+
+});

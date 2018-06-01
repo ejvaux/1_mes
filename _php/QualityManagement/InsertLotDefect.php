@@ -31,11 +31,11 @@
     $itemName = $row['ITEM_NAME'];
     $prod_date = $row['PRINT_DATE'];
     $jobOrder = $row['JO_NUM'];
-
+    $rejectremarks = 'DEFECT';
     $lotqty = $row['LOT_QTY'];
 
     /* if($lotqty==$defectQty){ */
-    $rejectremarks = 'DEFECT';
+    
     /* } */
     $conn->close();
 
@@ -56,7 +56,7 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         LOT_QTY,
         REJECTION_REMARKS,
         INSERT_DATETIME,
-        INSERT_USER,
+        INSERT_USER
     )
 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -78,8 +78,14 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             $lotqty,
             $rejectremarks,
             $insertDate,
-            $insertUser,
+            $insertUser
             );
-        $stmt1->execute();
+        if ($stmt1->execute() === TRUE) {
+            echo "Record saved successfully";
+        }
+        else{
+            echo "Error: " . $stmt . "<br>" . $conn->error; 
+        }
+        $stmt1->close();
         $conn->close();
 ?>

@@ -2,9 +2,11 @@
 
 /* Insert */
 
-$('#mod').on('click','#moldlistsubmit', function (e) {           
+$('#mod').on('submit','#moldlistform', function (e) {           
     /* alert('TEST'); */
-    
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
     $.ajax({
       type: 'POST',
       url: '/1_mes/_query/master_database/mold/insert.php',
@@ -42,8 +44,10 @@ $('#mod').on('click','#moldlistsubmit', function (e) {
 
 /* Update */
 
-$('#mod').on('click','#emoldlistsubmit', function (e) {           
+$('#mod').on('submit','#emoldlistform', function (e) {           
   /* alert('TEST'); */
+  e.preventDefault();
+  e.stopImmediatePropagation();
   
   $.ajax({
     type: 'POST',
@@ -86,8 +90,10 @@ $('#mod').on('click','#emoldlistsubmit', function (e) {
 
 /* Insert */
 
-$('#mod').on('click','#customersubmit', function (e) {           
+$('#mod').on('submit','#customerform', function (e) {           
     /* alert('TEST'); */
+    e.preventDefault();
+    e.stopImmediatePropagation();
     
     $.ajax({
       type: 'POST',
@@ -126,8 +132,10 @@ $('#mod').on('click','#customersubmit', function (e) {
 
 /* Update */
 
-$('#mod').on('click','#ecustomersubmit', function (e) {           
+$('#mod').on('submit','#ecustomerform', function (e) {           
   /* alert('TEST'); */
+  e.preventDefault();
+    e.stopImmediatePropagation();
   
   $.ajax({
     type: 'POST',
@@ -170,8 +178,10 @@ $('#mod').on('click','#ecustomersubmit', function (e) {
 
 /* Insert */
 
-$('#mod').on('click','#itemsubmit', function (e) {           
+$('#mod').on('submit','#itemform', function (e) {           
   /* alert('TEST'); */
+  e.preventDefault();
+    e.stopImmediatePropagation();
   
   $.ajax({
     type: 'POST',
@@ -211,8 +221,10 @@ $('#mod').on('click','#itemsubmit', function (e) {
 
 /* Update */
 
-$('#mod').on('click','#eitemsubmit', function (e) {           
-  /* alert('TEST');  */ 
+$('#mod').on('submit','#eitemform', function (e) {           
+  /* alert('TEST');  */
+  e.preventDefault();
+    e.stopImmediatePropagation();
   
   $.ajax({
     type: 'POST',
@@ -255,8 +267,10 @@ $('#mod').on('click','#eitemsubmit', function (e) {
 
 /* Insert */
 
-$('#mod').on('click','#machinesubmit', function (e) {           
+$('#mod').on('submit','#machineform', function (e) {           
   /* alert('TEST'); */
+  e.preventDefault();
+    e.stopImmediatePropagation();
   
   $.ajax({
     type: 'POST',
@@ -294,8 +308,10 @@ $('#mod').on('click','#machinesubmit', function (e) {
 
 /* Update */
 
-$('#mod').on('click','#emachinesubmit', function (e) {           
-  /* alert('TEST');  */ 
+$('#mod').on('submit','#emachineform', function (e) {           
+  /* alert('TEST');  */
+  e.preventDefault();
+    e.stopImmediatePropagation(); 
   
   $.ajax({
     type: 'POST',
@@ -338,8 +354,10 @@ $('#mod').on('click','#emachinesubmit', function (e) {
 
 /* Insert */
 
-$('#mod').on('click','#defectsubmit', function (e) {           
+$('#mod').on('submit','#defectform', function (e) {           
   /* alert('TEST'); */
+  e.preventDefault();
+    e.stopImmediatePropagation();
   
   $.ajax({
     type: 'POST',
@@ -377,8 +395,10 @@ $('#mod').on('click','#defectsubmit', function (e) {
 
 /* Update */
 
-$('#mod').on('click','#edefectsubmit', function (e) {           
-  /* alert('TEST');  */ 
+$('#mod').on('submit','#edefectform', function (e) {           
+  /* alert('TEST');  */
+  e.preventDefault();
+    e.stopImmediatePropagation(); 
   
   $.ajax({
     type: 'POST',
@@ -422,8 +442,10 @@ $('#mod').on('click','#edefectsubmit', function (e) {
 
 /* Insert */
 
-$('#mod').on('click','#userinfosubmit', function (e) {           
+$('#mod').on('submit','#userinfoform', function (e) {           
   /* alert('TEST'); */
+  e.preventDefault();
+    e.stopImmediatePropagation();
   
   $.ajax({
     type: 'POST',
@@ -461,8 +483,10 @@ $('#mod').on('click','#userinfosubmit', function (e) {
 
 /* Update */
 
-$('#mod').on('click','#euserinfosubmit', function (e) {           
-  /* alert('TEST'); */  
+$('#mod').on('submit','#euserinfoform', function (e) {           
+  /* alert('TEST'); */
+  e.preventDefault();
+    e.stopImmediatePropagation();  
   
   $.ajax({
     type: 'POST',
@@ -505,8 +529,10 @@ $('#mod').on('click','#euserinfosubmit', function (e) {
 
 /* Insert */
 
-$('#mod').on('click','#userauthsubmit', function (e) {           
+$('#mod').on('submit','#userauthform', function (e) {           
   /* alert('TEST'); */
+  e.preventDefault();
+    e.stopImmediatePropagation();
   
   $.ajax({
     type: 'POST',
@@ -544,8 +570,10 @@ $('#mod').on('click','#userauthsubmit', function (e) {
 
 /* Update */
 
-$('#mod').on('click','#euserauthsubmit', function (e) {           
-  /* alert('TEST'); */  
+$('#mod').on('submit','#euserauthform', function (e) {           
+  /* alert('TEST'); */
+  e.preventDefault();
+    e.stopImmediatePropagation(); 
   
   $.ajax({
     type: 'POST',
@@ -588,8 +616,10 @@ $('#mod').on('click','#euserauthsubmit', function (e) {
 
 /* Insert */
 
-$('#mod').on('click','#divcodesubmit', function (e) {           
+$('#mod').on('submit','#divcodeform', function (e) {           
   /* alert('TEST'); */
+  e.preventDefault();
+    e.stopImmediatePropagation();
   
   $.ajax({
     type: 'POST',
@@ -627,8 +657,10 @@ $('#mod').on('click','#divcodesubmit', function (e) {
 
 /* Update */
 
-$('#mod').on('click','#edivcodesubmit', function (e) {           
-  /* alert('TEST');  */ 
+$('#mod').on('submit','#edivcodeform', function (e) {           
+  /* alert('TEST');  */
+  e.preventDefault();
+    e.stopImmediatePropagation();
   
   $.ajax({
     type: 'POST',
@@ -762,5 +794,11 @@ $('#mod').on('click','#edivcodesubmit', function (e) {
     }
 
   } /* getitemname */
+
+  $('#mod').on('hide.bs.modal','.modal', function (e) {           
+    /* alert('TEST');  */  
+    $(this).find('form')[0].reset();
+    $("[type='checkbox']").trigger("change");
+  });
 
 /* Display Data */

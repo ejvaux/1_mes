@@ -36,38 +36,9 @@
       </datalist>
 
 <!-- lotNumDataListQuery -->
-  <datalist style="width:50px" id="datalistLotNumber">
-                        
-    <?php            
-                    
-
- 
-                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
-                        if(!isset($_POST['sql'])){
-                          $sql1 = "SELECT LOT_NUMBER FROM qmd_lot_create WHERE JO_NUM = ''";
-                        }
-                        else{
-                          $sql1 = $_POST['sql'];
-                        }
-                        /* $sql = "SELECT LOT_NUMBER FROM qmd_lot_create WHERE JO_NUM = '$joNumber'"; */
-                        $result = $conn->query($sql1);
-                        while($row = $result->fetch_assoc()) {
-                          if(!isset($row)){
-                            echo "option value=''></option>";
-                          }
-                          else{
-                                echo "<option value='";
-                                echo $row['LOT_NUMBER'];
-                                echo "'>";
-                                echo $row['LOT_NUMBER'];
-                                echo "</option>";
-                              }
-                        }
-                        
-                        $conn->close();
-
-                    ?>
-    </datalist>
+<!--   <datalist style="width:50px" id="datalistLotNumber">
+  
+  </datalist> -->
 <!-- InsertDefectModalDetails -->
   <div class="modal fade" id="insertDefect">
     <div class="modal-dialog modal-lg modal-dialog-center">
@@ -84,76 +55,77 @@
         <form id="modalID">
           <div class="form-group row">
             <div class="col-12">
-                
-                <div class="row">
+
+                <div class="form-group row">
                   <div class="col-2">
                         <label class="col-form-label-sm">Job Order Number:</label></div>
                   <div class="col-4">
-                        <input id="JobOrderNo" onchange="selectedJO()" list="jobOrder" class="form-control text-center" placeholder="Job Order Number"/>         
+                        <input id="JobOrderNo"  list="jobOrder" class="form-control text-center" placeholder="Job Order Number"/>         
                     </div>
                   <div class="col-2">
                         <label class="col-form-label-sm">Lot Number:</label></div>
                   <div class="col-4">
                         <select id="datalistLotNumber" class="form-control text-center"  placeholder="Lot Number"/>    
-                          <option value="0">- Select -</option>
+                          <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/list/getLotNumbers.php"; ?>
                         </select>
                     </div>    
                   </div>
-                
-              <div class="row">
-                  <div class="col-5">
-                        <label class="col-form-label-sm">DEFECT QUANTITY:</label>                  
+                  
+                <div class="form-group row">
+                  <div class="col-2">
+                        <label class="col-form-label-sm">Division Code:</label></div>
+                  <div class="col-4">
+                        <input id="DivCodeID" class="form-control text-center" placeholder="Division Code" readonly/>          
                     </div>
-                  <div class="col-7">
-                        <input id="defect_QTY" type="number" class="form-control form-control-sm" onkeyup='a()' onfocusout='a()' placeholder="INPUT DEFECT QTY"></input>              
-                    </div>
+                  <div class="col-2">
+                        <label class="col-form-label-sm">Division Name:</label></div>
+                  <div class="col-4">
+                        <input id="DivNameID" class="form-control text-center" placeholder="Division Name" readonly/>    
+                    </div>    
                   </div>
 
-
-                <!-- <div class="row">
-                  <div class="col-3">
-                    <label class="col-form-label-sm">ITEM SERIAL LIST:</label>                  
-                    </div>
                 
-                  <div class="col-7" id="tblModal">
-                    
-                    <?php /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/TableDefectModal.php"; */ ?>
-
+                <div class="form-group row">
+                        <div class="col-2">
+                              <label class="col-form-label-sm">Item Code:</label>
+                          </div>
+                        <div class="col-4">
+                              <input id="itemCodeID" class="form-control text-center" placeholder="Item Code" readonly/>         
+                          </div>
+                        <div class="col-2">
+                              <label class="col-form-label-sm">Item Name:</label>
+                          </div>
+                        <div class="col-4">
+                            <input id="itemNameID" class="form-control text-center" placeholder="Item Name" readonly/>    
+                          </div>    
+                  </div>
+                <div class ="form-group row">
+                  <div class="col-2">
+                        <label class="col-form-label-sm">Defect Code:</label>
                     </div>
-                  </div> -->
-
-                <div class ="row">
-                  <div class="col-5">
+                  <div class="col-4">
+                        <input id="DefectCodeID" class="form-control text-center" placeholder="Item Code" readonly/>         
+                    </div>
+                  <div class="col-2">
                       <label class="col-form-label-sm">DEFECT NAME:</label>   
                     </div>
-                  <div class="col-7">
+                  <div class="col-4">
                         <select id="defectInputID" type="text" class="form-control form-control-sm " name="defectInput" placeholder="">
-                    
-                    <?php
-
-                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
-
-                        $sql = "SELECT DEFECT_NAME FROM dmc_defect_code ORDER BY DEFECT_CODE ASC";
-                        $result = $conn->query($sql);
-                        
-                            while($row = $result->fetch_assoc()) {
-
-                                echo "<option value='";
-                                echo $row['DEFECT_NAME'];
-                                echo "'>";
-                                echo $row['DEFECT_NAME'];
-                                echo "</option>";
-                            }
-                        
-                        $conn->close();
-
-                    ?>
-
+                          <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/list/getDefectNames.php"; ?>
                     </select>      
                     </div>
                   </div>
 
-                <div class="row">
+                <div class="form-group row">
+                  <div class="col-5">
+                        <label class="col-form-label-sm">DEFECT QUANTITY:</label>                  
+                    </div>
+                  <div class="col-7">
+                        <input id="" type="number" class="form-control form-control-sm" placeholder="INPUT DEFECT QTY"></input>              
+                    </div>
+                  </div>
+
+                <div class="form-group row">
                   <div class="col-5">
                         <label class="col-form-label-sm">REMARKS:</label>                  
                     </div>
@@ -162,7 +134,7 @@
                     </div>
                   </div>
 
-                <div class="row">
+                <div class="form-group row">
                   <div class="col-7">
                                   
                     </div>
