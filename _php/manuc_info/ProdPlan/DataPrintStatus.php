@@ -19,9 +19,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                   $sql="SELECT mis_product.*, dmc_item_list.MODEL 
                   FROM `mis_product`
                   LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE 
-                  LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-                  LEFT JOIN dmc_customer ON mis_product.CUST_CODE = dmc_customer.CUSTOMER_CODE
-                  WHERE (mis_prod_plan_dl.MACHINE_CODE LIKE '%$search%' or mis_product.PRINT_DATE LIKE '%$search%' 
+                  WHERE (mis_product.MACHINE_CODE LIKE '%$search%' or mis_product.PRINT_DATE LIKE '%$search%' 
                   or mis_product.ITEM_CODE LIKE '%$search%' or mis_product.ITEM_NAME LIKE '%$search%' or mis_product.JO_NUM LIKE '%$search%'
                    or mis_product.TOOL_NUM LIKE '%$search%' or dmc_item_list.MODEL LIKE '%$search%') 
                    AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') 
@@ -38,9 +36,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                            $sql="SELECT mis_product.*, dmc_item_list.MODEL 
                            FROM `mis_product`
                           LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE 
-                          LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-                          LEFT JOIN dmc_customer ON mis_product.CUST_CODE = dmc_customer.CUSTOMER_CODE
-                          WHERE (mis_prod_plan_dl.MACHINE_CODE LIKE '%$search%' or mis_product.PRINT_DATE LIKE '%$search%' 
+                          
+                          WHERE (mis_product.MACHINE_CODE LIKE '%$search%' or mis_product.PRINT_DATE LIKE '%$search%' 
                           or mis_product.ITEM_CODE LIKE '%$search%' or mis_product.JO_NUM LIKE '%$search%' 
                           or mis_product.ITEM_NAME LIKE '%$search%' or mis_product.TOOL_NUM LIKE '%$search%' 
                           or dmc_item_list.MODEL LIKE '%$search%') 
@@ -55,9 +52,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                              $sql="SELECT mis_product.*, dmc_item_list.MODEL
                              FROM `mis_product`
                              LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE
-                             LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-                             LEFT JOIN dmc_customer ON mis_product.CUST_CODE = dmc_customer.CUSTOMER_CODE
-                             WHERE mis_product.DATE_ = '$strfrom' AND SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType'
+                             
+                             WHERE (mis_product.DATE_ = '$strfrom') AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')
                              ORDER BY mis_product.PRINT_DATE DESC";
                    
                         }
@@ -73,9 +69,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                          $sql="SELECT mis_product.*, dmc_item_list.MODEL
                                          FROM `mis_product`
                                          LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE
-                                         LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-                                         LEFT JOIN dmc_customer ON mis_product.CUST_CODE = dmc_customer.CUSTOMER_CODE                                 
-                                         WHERE ( mis_prod_plan_dl.MACHINE_CODE LIKE '%$search%' or 
+                                                                       
+                                         WHERE ( mis_product.MACHINE_CODE LIKE '%$search%' or 
                                          mis_product.PRINT_DATE LIKE '%$search%' or mis_product.ITEM_CODE LIKE '%$search%' 
                                          or mis_product.ITEM_NAME LIKE '%$search%' or mis_product.JO_NUM LIKE '%$search%' 
                                          or mis_product.TOOL_NUM LIKE '%$search%' or dmc_item_list.MODEL LIKE '%$search%') 
@@ -92,8 +87,6 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                          $sql="SELECT mis_product.*, dmc_item_list.MODEL
                                          FROM `mis_product`
                                          LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE
-                                         LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-                                         LEFT JOIN dmc_customer ON mis_product.CUST_CODE = dmc_customer.CUSTOMER_CODE
                                         WHERE (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') 
                                         AND (mis_product.DATE_ BETWEEN '$strfrom' AND '$strto') 
                                         ORDER BY mis_product.PRINT_DATE DESC";

@@ -12,7 +12,9 @@ die("Connection failed: ".mysqli_connect_error());
 }
 
 
-$data = file_get_contents('http://172.16.1.13:8000/1_mes/_php/manuc_info/data.csv');
+/* $data = file_get_contents('http://172.16.1.13:8000/1_mes/_php/manuc_info/data.csv'); */
+$data = file_get_contents('\\\\reggie-pc\xampp\SHARE\PTPI_ProductionOrder20180601.csv');
+#C:\Users\jeff\Desktop\SAP FOLDER C:\Users\jeff\Documents\DEBUG-INV
 $obj = json_decode($data);
 
 
@@ -27,7 +29,7 @@ $obj = json_decode($data);
 
   $row = 1;
   $header = true;
-  if (($handle = fopen("data.csv", "r")) !== FALSE) {
+  if (($handle = fopen("PTPI_ProductionOrder20180601.csv", "r")) !== FALSE) {
       while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 
 /*         FOR REMOVING HEADER */

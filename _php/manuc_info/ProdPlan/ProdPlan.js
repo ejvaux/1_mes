@@ -370,7 +370,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        paginationSize:100,
        placeholder:"No Data to Display",
        movableColumns:true,
-       groupBy:"JO NO",
+       //groupBy:"JO NO",
       // responsiveLayout:"collapse",
        columns:[ //Define Table Columns
         //{formatter:"responsiveCollapse", width:30, minWidth:30, align:"center", resizable:false, headerSort:false},
