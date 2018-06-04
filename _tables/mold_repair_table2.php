@@ -21,8 +21,10 @@
         <th>USER REQUEST</th>
         <th>CHECKER</th> 
         <th>CHECK DATETIME</th>
-        <th>APPROVER</th>         
-        <th>APPROVE DATETIME</th>
+        <th>MOLD APPROVER</th>         
+        <th>MOLD APPROVE DATETIME</th>
+        <th>QC APPROVER</th>         
+        <th>QC APPROVE DATETIME</th>
         <th>USER UPDATE</th>  
         <th>UPDATE DATETIME</th>
 </thead>

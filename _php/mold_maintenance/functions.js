@@ -260,6 +260,63 @@ function listchange(){
 
 
 
+  /* ____________________ QC Approve ________________________ */
+
+
+  $('#mod').on('click','#qcchecklistsubmit', function (e) {           
+    /* alert('TEST');
+    alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
+
+    swal({
+      title: 'Are you sure you want to approve?',
+      text: "You won't be able to revert this!",
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, approve it!'
+    }).then((result) => {
+      if (result.value) {
+
+        $.ajax({
+          type: 'POST',
+          url: '/1_mes/_query/mold_repair/qc_approve.php',
+          data: $('#qcchecklistform').serialize(),
+          success: function (data) {    
+            if(data=="success"){
+              
+              $('#qcchcklist').modal('hide');
+              checkuserauth();
+              loadmodal('moldrepairmodal');
+    
+              $.notify({
+                icon: 'fas fa-info-circle',
+                title: 'System Notification: ',
+                message: "Repair Approved!",
+              },{
+                type:'success',
+                placement:{
+                  align: 'center'
+                },           
+                delay: 3000,                        
+              });
+            }
+            else{
+              alert(data);          
+            }
+          }
+        });
+        
+      }
+    })  
+        
+  });
+
+
+  /* ____________________ QC Approve ________________________ */
+
+
+
   /* ____________________ EDIT ________________________ */
 
   $('#mod').on('submit','#editform', function (e) {           
@@ -432,4 +489,84 @@ function checkFluency(chckbox,sel,text)
     $("[type='checkbox']").trigger("change");
   });
 
+
+/* __________________ LEAD TIME _______________________________ */
+
+function ltime(lead,status,approve){
+  if(lead!=null){
+    var second = Date.parse(new Date()) - Date.parse(new Date(lead));
+      var seconds = parseInt(second,10)/1000;
+      var ts = seconds;
+      var days = Math.floor(seconds / (3600*24));
+      seconds  -= days*3600*24;
+      var hrs   = Math.floor(seconds / 3600);
+      seconds  -= hrs*3600;
+      var mnts = Math.floor(seconds / 60);
+      seconds  -= mnts*60;
+      var time = days+" day, "+hrs+" hr, "+mnts+" min";
+      
+      if(status == 'WAITING' ||  status == 'ON-GOING'){
+
+        if(ts<=172800){
+          return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
+        }
+        else if(ts<=345600 && ts>172800){
+          return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
+        }
+        else if(ts<=518400 && ts>345600){
+          return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
+        }
+        else{
+          return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
+        }
+      }
+      else{
+        var a = Date.parse(new Date(approve)) - Date.parse(new Date(lead));
+                          
+        var at = parseInt(a,10)/1000;
+        var tdays = Math.floor(at / (3600*24));
+        at  -= tdays*3600*24;
+        var thrs   = Math.floor(at / 3600);
+        at  -= thrs*3600;
+        var tmnts = Math.floor(at / 60);
+        at  -= tmnts*60;
+        var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
+        
+        if(status == 'FOR MOLD TRIAL'){
+          return "<span style='color: green; font-weight: bold;'>( "+time+" )</span>";
+        }
+        else if(status == 'QC APPROVED'){
+          return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
+        }
+        /* return a; */
+        
+      }
+  }
+  else{
+    return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
+  }
+}
+
+/* __________________ LEAD TIME _______________________________ */
+
+
+/* __________________ STATUS DISPLAY _______________________________ */
+
+function statdisplay(stat){
+
+  if ( stat == 'WAITING' ) {
+    return 'pending';
+  }
+  else if(stat == 'ON-GOING'){
+    return 'ongoing';
+  }
+  else if(stat == 'FOR MOLD TRIAL'){
+    return 'finished';
+  }
+  else if(stat == 'QC APPROVED'){
+    return 'approved';
+  }  
+}
+
+/* __________________ STATUS DISPLAY _______________________________ */
   

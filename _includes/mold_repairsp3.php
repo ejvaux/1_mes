@@ -48,11 +48,13 @@ $columns = array(
     array( 'db' => 'USER_REQUEST', 'dt' => 15 ),
     array( 'db' => 'CHECKER', 'dt' => 16 ),
     array( 'db' => 'CHECK_DATETIME', 'dt' => 17 ),
-    array( 'db' => 'APPROVER', 'dt' => 18 ),   
     /* array( 'db' => 'ACTION_TAKEN', 'dt' => 19 ), */
+    array( 'db' => 'APPROVER', 'dt' => 18 ),       
     array( 'db' => 'APPROVE_DATETIME', 'dt' => 19 ),
-    array( 'db' => 'USER_UPDATE', 'dt' => 20 ),
-    array( 'db' => 'UPDATE_DATETIME', 'dt' => 21 ),
+    array( 'db' => 'QC_APPROVER', 'dt' => 20 ),      
+    array( 'db' => 'QC_APPROVE_DATETIME', 'dt' => 21 ),
+    array( 'db' => 'USER_UPDATE', 'dt' => 22 ),
+    array( 'db' => 'UPDATE_DATETIME', 'dt' => 23 ),
 );
  
 // SQL server connection information

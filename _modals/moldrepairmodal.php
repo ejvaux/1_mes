@@ -113,10 +113,10 @@
 
                         <!-- </select> -->
                     </div>
-                    <!-- <div class="col-sm-6">
-                        <label for="inputLastname" class="col-form-label-sm">MOLD SHOT:</label>
-                        <input type="text" class="form-control form-control-sm" name="moldshot" placeholder="" readonly>
-                    </div>  -->
+                    <div class="col-sm-6">
+                        <!-- <label for="inputLastname" class="col-form-label-sm">MOLD SHOT:</label> -->
+                        <!-- <input type="hidden" class="form-control form-control-sm" name="moldshot" placeholder="" readonly> -->
+                    </div> 
                     <div class="col-sm-6">
                         <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
                         <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
@@ -965,7 +965,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" name="submit" id="checklistsubmit"><i class="far fa-save"></i> Save</button>
-        <button type="button" class="btn btn-success" name="submit" id="achecklistsubmit"><i class="far fa-save"></i> Approve</button>
+        <button type="button" class="btn btn-success" name="submit" id="achecklistsubmit"><i class="fas fa-check"></i> Approve</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>
@@ -1297,6 +1297,331 @@
 
 
                                         <!-- Checklist --> 
+
+
+                                        <!-- QC Checklist --> 
+
+
+<div class="modal hide fade in" role="dialog" id="qcchcklist" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Inspection Checklist</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="qcchecklistform"  method="post">
+      <input type="hidden" id="qcchkrepaircontrol" name="repaircontrol">
+      <div class="modal-body" style="">
+          <!-- ____________ FORM __________________ -->
+
+            <!-- CARD 3 start -->
+            <div class="form-group">
+                
+                <div class="card bg-light p-3"> 
+                    <div class="container">
+
+                        <div class="row">                           
+
+                            <div class="col-4">                          
+                                
+                                <label for="sel1" class="form-label-sm"><b>Checklist type</b></label>                                                                   
+
+                            </div>
+
+                            <div class="col-2">
+                                    
+                                <label for="sel1" class="form-label-sm"><b>Status</b></label> 
+
+                            </div>
+                            
+                            <div class="col-4">                          
+
+                                <label for="sel1" class="form-label-sm"><b>Checklist type</b></label>                                                                   
+
+                            </div>
+
+                            <div class="col-2">
+                                
+                                <label for="sel1" class="form-label-sm"><b>Status</b></label> 
+
+                            </div>                            
+
+                        </div><!-- row -->
+                        
+                        <div class="row">     
+
+                            <div class="col-4">                          
+
+                                    <label for="MRI001" class="form-label-sm">INSPECT PRODUCT</label>                                                                   
+
+                            </div>
+
+                            <div class="col-2">
+                                    
+                                    <select class="form-control-sm" id="qcMRI001" name="MRI001" disabled>
+                                        <option>G</option>
+                                        <option>NG</option>
+                                    </select>
+
+                            </div>
+                            
+                            <div class="col-4">                          
+
+                                    <label for="MRI005" class="form-label-sm">INSPECT EJECTOR PIN</label>                                                                   
+
+                            </div>
+
+                            <div class="col-2">
+                                    
+                                    <select class="form-control-sm" id="qcMRI005" name="MRI005" disabled>
+                                        <option>G</option>
+                                        <option>NG</option>
+                                    </select>
+
+                            </div>
+
+                        </div><!-- row -->
+
+                        <div class="row">
+
+                            <div class="col-4">                          
+
+                                    <label for="MRI002" class="form-label-sm">INSPECT CAVITY</label>                                                                   
+
+                            </div>
+
+                            <div class="col-2">
+                                    
+                                    <select class="form-control-sm" id="qcMRI002" name="MRI002" disabled>
+                                        <option>G</option>
+                                        <option>NG</option>
+                                    </select>
+
+                            </div>
+                            <div class="col-4">                          
+
+                                <label for="MRI006" class="form-label-sm">INSPECT SLIDE CORE</label>                                                                   
+
+                            </div>
+
+                            <div class="col-2">
+
+                                <select class="form-control-sm" id="qcMRI006" name="MRI006" disabled>
+                                    <option>G</option>
+                                    <option>NG</option>
+                                </select>
+
+                            </div>
+
+                        </div><!-- row -->
+
+                        <div class="row">
+
+                            <div class="col-4">                          
+
+                                    <label for="MRI003" class="form-label-sm">INSPECT CORE</label>                                                                   
+
+                            </div>
+
+                            <div class="col-2">
+                                    
+                                    <select class="form-control-sm" id="qcMRI003" name="MRI003" disabled>
+                                        <option>G</option>
+                                        <option>NG</option>
+                                    </select>
+
+                            </div>
+
+                            <div class="col-4">                          
+
+                                <label for="MRI007" class="form-label-sm">INSPECT HOT SYSTEM</label>                                                                   
+
+                            </div>
+
+                            <div class="col-2">
+
+                                <select class="form-control-sm" id="qcMRI007" name="MRI007" disabled>
+                                    <option>G</option>
+                                    <option>NG</option>
+                                </select>
+
+                            </div>
+
+                        </div><!-- row -->
+
+                        <div class="row">
+
+                            <div class="col-4">                          
+
+                                    <label for="MRI004" class="form-label-sm">INSPECT CORE INSERT</label>                                                                   
+
+                            </div>
+
+                            <div class="col-2">
+                                    
+                                    <select class="form-control-sm" id="qcMRI004" name="MRI004" disabled>
+                                        <option>G</option>
+                                        <option>NG</option>
+                                    </select>
+
+                            </div>
+
+                            <div class="col-4">                          
+
+                                <label for="MRI008" class="form-label-sm">INSPECT COOLING LINE</label>                                                                   
+
+                            </div>
+
+                            <div class="col-2">
+
+                                <select class="form-control-sm" id="qcMRI008" name="MRI008" disabled>
+                                    <option>G</option>
+                                    <option>NG</option>
+                                </select>
+
+                            </div>
+
+                        </div><!-- row -->                        
+                    
+                    </div>
+
+                </div>   
+                
+            </div>
+            <!-- CARD 3 end -->
+
+
+            <!-- CARD 1 -->
+            <div class="form-group">
+            <div class="card bg-light">                
+                <div class="card-header"><b>Standard PM Procedure</b></div>
+                <div class="card-body">
+
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI009" id="qcMRI009" disabled>EXECUTE EJECTOR PIN OF THE LOWER SIDE CLEANING
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI010" id="qcMRI010" disabled>EXECUTE MAIN CORE OF THE UPPER SIDE CLEANING
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI011" id="qcMRI011" disabled>EXECUTE MAIN CORE OF THE LOWER SIDE CLEANING 
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI012" id="qcMRI012" disabled>INSPECT MOVING CORE'S WEAR AND EXECUTE REPAIRING/CLEANING/APPLYING GREASE
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input form-control-sm" name="MRI013" id="qcMRI013" disabled>EXECUTE GATE PIN OF HOT SYSTEM CLEANING AFTER DISASSEMBLE PERFECTLY
+                        </label>
+                    </div>
+                </div> 
+            </div>
+            </div>
+            <!-- CARD 1 end -->
+            
+            <!-- CARD 2 Start -->
+            <div class="form-group">
+                <div class="card bg-light">                
+                <div class="card-header"><b>Counter Checking after M/T</b></div>
+                    <div class="card-body">
+
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI014" id="qcMRI014" disabled>CHECK MOVING PARTS. HAVE GREASE & SHOULD BE STUCK UP FREE
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI015" id="qcMRI015" disabled>CHECK TEXTURED SURFACE. SHOULD HAVE NO RUST & SCRATCHES
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI016" id="qcMRI016" disabled>CHECK COOLING LINE. SHOULD HAVE NO WATER LEAKAGE. AFTER TESTING, DRAIN ALL WATERS INSIDE THE COOLING LINES 
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI017" id="qcMRI017" disabled>CHECK MAIN CORE AND CAVITY. SHOULD HAVE NO RUST & DAMAGE PARTS
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI018" id="qcMRI018" disabled>CHECK GUIDE POST & BUSHING. SHOULD HAVE GREASE & FREE FROM DAMAGE
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI019" id="qcMRI019" disabled>CHECK GATE PINS AND HOT SYSTEM. SHOULD BE BE FREE FROM DAMAGE & MATERIAL RESIN RESIDUE
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input form-control-sm" name="MRI020" id="qcMRI020" disabled>CHECK MOPP TO PREVENT OPENING OF THE MOLD. MAKE SURE TO LOCK AFTER M/T 
+                            </label>
+                        </div>
+
+                    </div> 
+                </div>
+            </div>
+            <!-- CARD 2 end -->            
+
+            <!-- CARD 4 Start -->
+            <div class="form-group">
+                
+                <div class="card bg-light p-3"> 
+                
+                    <div class="container">
+
+                        <div class="row">
+
+                            <label for="comment" class="form-label-sm">Action Taken:</label>                           
+                            <textarea class="form-control" rows="5" name="actiontaken" id="qcactiontaken" readonly></textarea>
+                            
+                        </div><!-- row -->                        
+                    
+                    </div>
+
+                </div>   
+                
+            </div>
+
+            <!-- CARD 4 end -->    
+
+          <!-- ____________ FORM END __________________ -->
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" name="submit" id="qcchecklistsubmit"><i class="fas fa-check"></i> QC Approve</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+                                        <!-- QC Checklist --> 
 
 
                                         <!-- INSPECT/APPROVE -->       
