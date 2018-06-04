@@ -20,6 +20,15 @@ function checkuserauth(){
   else if(val=="DA"){
     DisplayTbleA('mold_repair_table2','mold_repairsp2','Mold Repair');
   }
+
+  else if(val=="C"){
+    DisplayTbleQC('mold_repair_table2','mold_repairsp2','Mold Repair');
+  }
+
+  else{
+    alert('Not Authorized');
+    window.location.href='/1_MES/_php/portal.php';
+  }
 }              
 /* _______________ Table Init ______________ */
 
@@ -261,7 +270,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
               "data": null,
               render: function ( data, type, row ) {
 
-                if(row[2]!=null){
+                /* if(row[2]!=null){
                   var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
                     var seconds = parseInt(second,10)/1000;
                     var ts = seconds;
@@ -273,7 +282,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
                     seconds  -= mnts*60;
                     var time = days+" day, "+hrs+" hr, "+mnts+" min";
                     
-                    if(row[3]!='DONE'){
+                    if(row[3] == 'WAITING' ||  row[3] == 'ON-GOING'){
 
                       if(ts<=172800){
                         return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
@@ -290,7 +299,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
                     }
                     else{
                       var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
-                      /* return Date.parse(new Date(row[19])); */                      
+                                           
                       var at = parseInt(a,10)/1000;
                       var tdays = Math.floor(at / (3600*24));
                       at  -= tdays*3600*24;
@@ -299,12 +308,20 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
                       var tmnts = Math.floor(at / 60);
                       at  -= tmnts*60;
                       var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
-                      return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
+                      
+                      if(row[3] == 'FOR MOLD TRIAL'){
+                        return "<span style='color: green; font-weight: bold;'>( "+time+" )</span>";
+                      }
+                      else if(row[3] == 'QC APPROVED'){
+                        return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
+                      }
+                      
                     }
                 }
                 else{
                   return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
-                }                                   
+                }  */
+                return ltime(row[2],row[3],row[19]);                                 
               },              
               "targets": 2,
             },
@@ -312,16 +329,19 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
             
             "order": [[ 5, 'desc' ],[ 6, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              if ( data[3] == 'WAITING' ) {
+              /* if ( data[3] == 'WAITING' ) {
                 $('td', row).eq(3).addClass('pending');
               }
               else if(data[3] == 'ON-GOING'){
                 $('td', row).eq(3).addClass('ongoing');
               }
-              else if(data[3] == 'DONE'){
+              else if(data[3] == 'FOR MOLD TRIAL'){
                 $('td', row).eq(3).addClass('finished');
               }
-             /*  $('td', row).eq(3).addClass('finished'); */
+              else if(data[3] == 'QC APPROVED'){
+                $('td', row).eq(3).addClass('approved');
+              } */
+              $('td', row).eq(3).addClass(statdisplay(data[3]));
             },
             /* responsive: true */
                                  
@@ -396,7 +416,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
           
       } );
 
-      $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>DONE</option></select></div>');
+      $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -514,7 +534,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
                 "data": null,
                 render: function ( data, type, row ) {
 
-                  if(row[2]!=null){
+                  /* if(row[2]!=null){
                     var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
                     var seconds = parseInt(second,10)/1000;
                     var ts = seconds;
@@ -526,7 +546,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
                     seconds  -= mnts*60;
                     var time = days+" day, "+hrs+" hr, "+mnts+" min";
                     
-                    if(row[3]!='DONE'){
+                    if(row[3] == 'WAITING' ||  row[3] == 'ON-GOING'){
 
                       if(ts<=172800){
                         return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
@@ -543,7 +563,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
                     }
                     else{
                       var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
-                      /* return Date.parse(new Date(row[19])); */
+                      
                       var at = parseInt(a,10)/1000;
                       var tdays = Math.floor(at / (3600*24));
                       at  -= tdays*3600*24;
@@ -557,7 +577,8 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
                   }
                   else{
                     return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
-                  }                                   
+                  } */
+                  return ltime(row[2],row[3],row[19]);                                   
                 },              
                 "targets": 2,
               },
@@ -565,16 +586,19 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
             ],
             "order": [[ 4, 'desc' ],[ 5, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              if ( data[3] == 'WAITING' ) {
+              /* if ( data[3] == 'WAITING' ) {
                 $('td', row).eq(3).addClass('pending');
               }
               else if(data[3] == 'ON-GOING'){
                 $('td', row).eq(3).addClass('ongoing');
               }
-              else if(data[3] == 'DONE'){
+              else if(data[3] == 'FOR MOLD TRIAL'){
                 $('td', row).eq(3).addClass('finished');
               }
-             /*  $('td', row).eq(3).addClass('finished'); */
+              else if(data[3] == 'QC APPROVED'){
+                $('td', row).eq(3).addClass('approved');
+              } */
+              $('td', row).eq(3).addClass(statdisplay(data[3]));
           }
           /* responsive: true */
                                
@@ -643,7 +667,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
         
       } );
 
-      $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>DONE</option></select></div>');
+      $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -662,28 +686,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
           .draw();
         }
         
-      });
-
-      $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>DONE</option></select></div>');
-
-      $('#sortstatus').on('change',function(){
-        /* alert('test'); */
-        var selectedValue = $(this).val();
-        /* alert(selectedValue); */
-        if(selectedValue!="ALL"){
-          tble
-          .columns( 3 )
-          .search( selectedValue)
-          .draw();
-        }
-        else{
-          tble
-          .columns( 3 )
-          .search( '')
-          .draw();
-        }
-        
-      });
+      });      
 
       /* ____________________________ FUNCTIONS _________________________ */
     }
@@ -778,7 +781,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                 "orderable": false,
                 render: function ( data, type, row ) {  
                   
-                  if(row[3]=='DONE'){
+                  if(row[3]=='FOR MOLD TRIAL'){
                     return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
                   }
                   else{
@@ -792,7 +795,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                 "data": null,
                 render: function ( data, type, row ) {
 
-                  if(row[2]!=null){
+                  /* if(row[2]!=null){
                     var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
                     var seconds = parseInt(second,10)/1000;
                     var ts = seconds;
@@ -804,7 +807,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                     seconds  -= mnts*60;
                     var time = days+" day, "+hrs+" hr, "+mnts+" min";
                     
-                    if(row[3]!='DONE'){
+                    if(row[3] == 'WAITING' ||  row[3] == 'ON-GOING'){
 
                       if(ts<=172800){
                         return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
@@ -821,7 +824,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                     }
                     else{
                       var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
-                      /* return Date.parse(new Date(row[19])); */                      
+                                            
                       var at = parseInt(a,10)/1000;
                       var tdays = Math.floor(at / (3600*24));
                       at  -= tdays*3600*24;
@@ -835,23 +838,27 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                   }
                   else{
                     return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
-                  }                                   
+                  } */
+                  return ltime(row[2],row[3],row[19]);                                   
                 },              
                 "targets": 2,
               },
             ],
             "order": [[ 4, 'desc' ],[ 5, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              if ( data[3] == 'WAITING' ) {
+             /*  if ( data[3] == 'WAITING' ) {
                 $('td', row).eq(3).addClass('pending');
               }
               else if(data[3] == 'ON-GOING'){
                 $('td', row).eq(3).addClass('ongoing');
               }
-              else if(data[3] == 'DONE'){
+              else if(data[3] == 'FOR MOLD TRIAL'){
                 $('td', row).eq(3).addClass('finished');
               }
-             /*  $('td', row).eq(3).addClass('finished'); */
+              else if(data[3] == 'QC APPROVED'){
+                $('td', row).eq(3).addClass('approved');
+              } */
+              $('td', row).eq(3).addClass(statdisplay(data[3]));
             },           
           /* fixedColumns:   true */
                                
@@ -870,7 +877,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
         /* alert(data[5]); */
         /* document.getElementById("chkrepaircontrol").value = data[5]; */
 
-        if(data[3]=='DONE'){
+        if(data[3]=='FOR MOLD TRIAL'){
 
           $.ajax(
             {
@@ -977,7 +984,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
       }
     } );
 
-    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>DONE</option></select></div>');
+    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -1105,7 +1112,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                 "data": null,
                 render: function ( data, type, row ) {
 
-                  if(row[2]!=null){
+                  /* if(row[2]!=null){
                     var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
                     var seconds = parseInt(second,10)/1000;
                     var ts = seconds;
@@ -1117,7 +1124,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                     seconds  -= mnts*60;
                     var time = days+" day, "+hrs+" hr, "+mnts+" min";
                     
-                    if(row[3]!='DONE'){
+                    if(row[3] == 'WAITING' ||  row[3] == 'ON-GOING'){
 
                       if(ts<=172800){
                         return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
@@ -1134,7 +1141,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                     }
                     else{
                       var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
-                      /* return Date.parse(new Date(row[19])); */
+                     
                       var at = parseInt(a,10)/1000;
                       var tdays = Math.floor(at / (3600*24));
                       at  -= tdays*3600*24;
@@ -1148,23 +1155,27 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                   }
                   else{
                     return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
-                  }                                   
+                  } */
+                  return ltime(row[2],row[3],row[19]);                                   
                 },              
                 "targets": 2,
               },
             ],
             "order": [[ 4, 'desc' ],[ 5, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              if ( data[3] == 'WAITING' ) {
+              /* if ( data[3] == 'WAITING' ) {
                 $('td', row).eq(3).addClass('pending');
               }
               else if(data[3] == 'ON-GOING'){
                 $('td', row).eq(3).addClass('ongoing');
               }
-              else if(data[3] == 'DONE'){
+              else if(data[3] == 'FOR MOLD TRIAL'){
                 $('td', row).eq(3).addClass('finished');
               }
-             /*  $('td', row).eq(3).addClass('finished'); */
+              else if(data[3] == 'QC APPROVED'){
+                $('td', row).eq(3).addClass('approved');
+              } */
+              $('td', row).eq(3).addClass(statdisplay(data[3]));
             },           
           /* fixedColumns:   true */
                                
@@ -1177,7 +1188,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
           } );
       } ).draw();
 
-      $('#Dtable tbody').on( 'click', '#check', function () {
+      /* $('#Dtable tbody').on( 'click', '#check', function () {
           var data = tble.row( $(this).parents('tr') ).data();
           
           $.ajax(
@@ -1225,7 +1236,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
               $('#achcklist').modal('show');
             }
           });                   
-      } );
+      } ); */
 
       $('#Dtable tbody').on( 'click', '#inspect', function () {
         var data = tble.row( $(this).parents('tr') ).data();
@@ -1327,7 +1338,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
         
     } );
 
-    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>DONE</option></select></div>');
+    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -1369,6 +1380,303 @@ $.fn.dataTable.ext.buttons.add3 = {
 };   
 
 /* -------------------------------------- User Approver -------------------------------------------- */
+
+
+/* -------------------------------------- QC -------------------------------------------- */
+
+function DisplayTbleQC(Table_Name,Tablesp,tbltitle) {
+  var xhttp;
+  if (Table_Name.length == 0) { 
+    document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("table_display").innerHTML = this.responseText;
+      var tble = $('#Dtable').DataTable( {      
+        deferRender:    true,
+        scrollY:  '61vh',
+        "sScrollX": "100%",
+        "processing": true,
+        "serverSide": true,
+        "iDisplayLength": 100,        
+        fixedColumns: {
+            heightMatch: 'semiauto'
+        },
+        /* "ajax": "/1_mes/_includes/"+Tablesp+".php", */
+        "ajax": {
+          url: "/1_mes/_includes/"+Tablesp+".php",
+          type: 'POST'
+        },            
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        'buttons': [                                       
+          { extend: 'copy', text: '<i class="far fa-copy"></i>',
+          attr:  {
+              title: 'Copy to Clipboard',
+              id: 'copyButton'
+          },
+           className: 'btn btn-export6 btn-xs py-1'},
+          { extend: 'excel', text: '<i class="fas fa-table"></i>',
+          attr:  {
+            title: 'Export to Excel',
+            id: 'exportButton'
+        },
+         filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
+          ],
+        /* fixedHeader: {
+          header: true,
+          headerOffset: 122            
+          }, */
+          select: 'single',
+          "columnDefs": [
+              {
+                "searchable": false,
+                "orderable": false,
+                "targets": 1
+              },
+              {
+                "data": null,
+                "searchable": false,
+                "orderable": false,
+                render: function ( data, type, row ) {
+
+                  if ( data[3] == 'WAITING' || data[3] == 'ON-GOING') {
+                    return "<div class='text-center'><button id='check' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
+                  }
+                  /* else if(data[3] == 'ON-GOING'){
+                    return "<div class='text-center'><button id='inspect' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div><div class='text-center'><button id='approve' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Approve</span></button></div>";
+                  } */
+                  else {
+                    return "<div class='text-center'><button id='approve' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Approve</span></button></div>";
+                  }
+                                                    
+                },              
+                "targets": 0,
+              },
+              {
+                "data": null,
+                render: function ( data, type, row ) {
+
+                  /* if(row[2]!=null){
+                    var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
+                    var seconds = parseInt(second,10)/1000;
+                    var ts = seconds;
+                    var days = Math.floor(seconds / (3600*24));
+                    seconds  -= days*3600*24;
+                    var hrs   = Math.floor(seconds / 3600);
+                    seconds  -= hrs*3600;
+                    var mnts = Math.floor(seconds / 60);
+                    seconds  -= mnts*60;
+                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
+                    
+                    if(row[3] == 'WAITING' ||  row[3] == 'ON-GOING'){
+
+                      if(ts<=172800){
+                        return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else if(ts<=345600 && ts>172800){
+                        return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else if(ts<=518400 && ts>345600){
+                        return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else{
+                        return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
+                      }
+                    }
+                    else{
+                      var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
+                      
+                      var at = parseInt(a,10)/1000;
+                      var tdays = Math.floor(at / (3600*24));
+                      at  -= tdays*3600*24;
+                      var thrs   = Math.floor(at / 3600);
+                      at  -= thrs*3600;
+                      var tmnts = Math.floor(at / 60);
+                      at  -= tmnts*60;
+                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
+                      return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
+                    } 
+                  }
+                  else{
+                    return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
+                  } */
+                  return ltime(row[2],row[3],row[19]);                                 
+                },              
+                "targets": 2,
+              },
+            ],
+            "order": [[ 4, 'desc' ],[ 5, 'desc' ]],
+            "createdRow": function ( row, data, index ) {
+              /* if ( data[3] == 'WAITING' ) {
+                $('td', row).eq(3).addClass('pending');
+              }
+              else if(data[3] == 'ON-GOING'){
+                $('td', row).eq(3).addClass('ongoing');
+              }
+              else if(data[3] == 'FOR MOLD TRIAL'){
+                $('td', row).eq(3).addClass('finished');
+              }
+              else if(data[3] == 'QC APPROVED'){
+                $('td', row).eq(3).addClass('approved');
+              } */
+              $('td', row).eq(3).addClass(statdisplay(data[3]));
+            },           
+          /* fixedColumns:   true */
+                               
+      } );
+      
+      /* ____________________ FUNCTIONS ___________________ */
+      tble.on( 'order.dt search.dt', function () {
+          tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+              cell.innerHTML = i+1;
+          } );
+      } ).draw();
+
+      $('#Dtable tbody').on( 'click', '#check', function () {
+          var data = tble.row( $(this).parents('tr') ).data();
+          
+          $.ajax(
+            {
+            method:'post',
+            url:'/1_mes/_query/mold_repair/getrow.php',
+            data:
+            {
+                'id': data[5],
+                'ajax': true
+            },
+            success: function(data1) {
+              var val = JSON.parse(data1);
+              
+              $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
+  
+              $("#aMRI001").val(val.MRI001);
+              $("#aMRI002").val(val.MRI002); 
+              $("#aMRI003").val(val.MRI003); 
+              $("#aMRI004").val(val.MRI004); 
+              $("#aMRI005").val(val.MRI005); 
+              $("#aMRI006").val(val.MRI006); 
+              $("#aMRI007").val(val.MRI007); 
+              $("#aMRI008").val(val.MRI008);
+              
+              if(val.MRI009=='YES'){document.getElementById("aMRI009").checked = true; };
+              if(val.MRI010=='YES'){document.getElementById("aMRI010").checked = true; };
+              if(val.MRI011=='YES'){document.getElementById("aMRI011").checked = true; };
+              if(val.MRI012=='YES'){document.getElementById("aMRI012").checked = true; };
+              if(val.MRI013=='YES'){document.getElementById("aMRI013").checked = true; };
+  
+              if(val.MRI014=='YES'){document.getElementById("aMRI014").checked = true; };
+              if(val.MRI015=='YES'){document.getElementById("aMRI015").checked = true; };
+              if(val.MRI016=='YES'){document.getElementById("aMRI016").checked = true; };
+              if(val.MRI017=='YES'){document.getElementById("aMRI017").checked = true; };
+              if(val.MRI018=='YES'){document.getElementById("aMRI018").checked = true; };
+              if(val.MRI019=='YES'){document.getElementById("aMRI019").checked = true; };
+              if(val.MRI020=='YES'){document.getElementById("aMRI020").checked = true; };
+             
+              $("#aactiontaken").val(val.ACTION_TAKEN);
+
+              $("#achecklistsubmit").hide();
+  
+              $('.sel').select2({ width: '100%' });
+              $('#achcklist').modal('show');
+            }
+          });                   
+      } );     
+
+
+    $('#Dtable tbody').on( 'click', '#approve', function () {
+        var data = tble.row( $(this).parents('tr') ).data();
+                
+        $.ajax(
+          {
+          method:'post',
+          url:'/1_mes/_query/mold_repair/getrow.php',
+          data:
+          {
+              'id': data[5],
+              'ajax': true
+          },
+          success: function(data1) {
+            var val = JSON.parse(data1);
+            
+            $("#qcchkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
+
+            $("#qcMRI001").val(val.MRI001);
+            $("#qcMRI002").val(val.MRI002); 
+            $("#qcMRI003").val(val.MRI003); 
+            $("#qcMRI004").val(val.MRI004); 
+            $("#qcMRI005").val(val.MRI005); 
+            $("#qcMRI006").val(val.MRI006); 
+            $("#qcMRI007").val(val.MRI007); 
+            $("#qcMRI008").val(val.MRI008);
+            
+            if(val.MRI009=='YES'){document.getElementById("qcMRI009").checked = true; };
+            if(val.MRI010=='YES'){document.getElementById("qcMRI010").checked = true; };
+            if(val.MRI011=='YES'){document.getElementById("qcMRI011").checked = true; };
+            if(val.MRI012=='YES'){document.getElementById("qcMRI012").checked = true; };
+            if(val.MRI013=='YES'){document.getElementById("qcMRI013").checked = true; };
+
+            if(val.MRI014=='YES'){document.getElementById("qcMRI014").checked = true; };
+            if(val.MRI015=='YES'){document.getElementById("qcMRI015").checked = true; };
+            if(val.MRI016=='YES'){document.getElementById("qcMRI016").checked = true; };
+            if(val.MRI017=='YES'){document.getElementById("qcMRI017").checked = true; };
+            if(val.MRI018=='YES'){document.getElementById("qcMRI018").checked = true; };
+            if(val.MRI019=='YES'){document.getElementById("qcMRI019").checked = true; };
+            if(val.MRI020=='YES'){document.getElementById("qcMRI020").checked = true; };
+           
+            $("#qcactiontaken").val(val.ACTION_TAKEN);
+
+            $('.sel').select2({ width: '100%' });
+            $('#qcchcklist').modal('show');
+          }
+        });
+        
+    } );
+
+    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
+
+      $('#sortstatus').on('change',function(){
+        /* alert('test'); */
+        var selectedValue = $(this).val();
+        /* alert(selectedValue); */
+        if(selectedValue!="ALL"){
+          tble
+          .columns( 3 )
+          .search( selectedValue)
+          .draw();
+        }
+        else{
+          tble
+          .columns( 3 )
+          .search( '')
+          .draw();
+        }
+        
+      });
+
+      /* ____________________________ FUNCTIONS _________________________ */
+    }
+    
+  };
+  xhttp.open("POST", "/1_mes/_tables/"+Table_Name+".php", true);
+  xhttp.send();   
+  
+} 
+
+$.fn.dataTable.ext.buttons.add3 = {
+  action: 
+  function () {
+      alistchange();
+      getctrlnumber();    
+    $("#addmoldrepair").modal('show');
+    /* alert('TEST');  */    
+    
+  }
+};   
+
+/* -------------------------------------- QC -------------------------------------------- */
 
 
 /*  -------------------------------- TH - A -----------------------------------------------  */
@@ -1447,9 +1755,7 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
                   $('.sel').select2({ width: '100%' });
                   $('#editmoldrepair').modal('show');
                 }
-              }); 
-              
-                            
+              });                                      
               
             }
           },
