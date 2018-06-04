@@ -879,7 +879,7 @@ function defectSearch(){
 }
 
 function ClearDefectSearch(){
-  var z = "SELECT * FROM qmd_defect_dl LEFT JOIN qmd_lot_create ON qmd_defect_dl.LOT_NUMBER = qmd_lot_create.LOT_NUMBER WHERE REJECTION_REMARKS = 'DEFECT' ORDER BY qmd_lot_create.PROD_DATE DESC;";
+  var z = "SELECT * FROM qmd_defect_dl WHERE REJECTION_REMARKS = 'DEFECT'";
   $.ajax({
     method: 'post',
     url: "/1_mes/_php/QualityManagement/table/defect_table.php",
@@ -910,8 +910,8 @@ $(document).on('change', '#JobOrderNo', function () {
       },
 
       success: function (data) {
-        document.getElementById("datalistLotNumber").innerHTML = data;
-      }
+          document.getElementById("datalistLotNumber").innerHTML = data;
+    }
     }),
 
   $.ajax({
@@ -924,6 +924,7 @@ $(document).on('change', '#JobOrderNo', function () {
       },
     success: function (data) {
           var val = JSON.parse(data);
+      document.getElementById("LotQuantityID").value = "";  
       if (val == '' || val == null || val == undefined) {
         itemCodeID.value = "";
         itemNameID.value = "";
@@ -950,6 +951,10 @@ $(document).on('change', '#JobOrderNo', function () {
 
 $(document).on('change', '#defectInputID', function () {
   var defectName = $(this).val();
+  if (defectName == " ") {
+    document.getElementById("DefectCodeID").value = "";
+    return;
+  }
   $.ajax({
     url: "/1_mes/_php/QualityManagement/list/getDefectCode.php",
     type: 'post',
@@ -963,7 +968,190 @@ $(document).on('change', '#defectInputID', function () {
       document.getElementById("DefectCodeID").value = val.DEFECT_CODE;
     }
   });
-
-
-
 });
+
+$(document).on('change', '#datalistLotNumber', function () {
+  var defectMgmt_LotNum = $(this).val();
+  if (defectMgmt_LotNum == " "){
+    document.getElementById("LotQuantityID").value = "";
+    document.getElementById("prodDateID").value = "";
+    document.getElementById("prodTimeID").value = "";
+    return;
+  }
+  $.ajax({
+    url: "/1_mes/_php/QualityManagement/list/getLotQuantity.php",
+    type: 'post',
+    data: {
+      'lotNumber': defectMgmt_LotNum,
+      'ajax': true
+    },
+
+    success: function (data) {
+      
+      var val = JSON.parse(data);
+      prodDate = val.PROD_DATE.slice(0,10);
+      prodTime = val.PROD_DATE.slice(11,19);
+      document.getElementById("prodDateID").value = prodDate;
+      document.getElementById("prodTimeID").value = prodTime;
+      document.getElementById("LotQuantityID").value = val.LOT_QTY;
+    }
+  });
+});
+
+$(document).on('click', '#defectConfirm', function () {
+  var DefectInputID = document.getElementById("defectInputID").value;
+  alert(DefectInputID);
+  var date = document.getElementById("prodDateID").value;
+  var time = document.getElementById("prodTimeID").value;
+  var JobOrderNo = document.getElementById("JobOrderNo").value;
+  var datalistLotNumber = document.getElementById("datalistLotNumber").value;
+  var DivCodeID = document.getElementById("DivCodeID").value;
+  var DivNameID = document.getElementById("DivNameID").value;
+  var itemCodeID = document.getElementById("itemCodeID").value;
+  var itemNameID = document.getElementById("itemNameID").value;
+  var LotQuantityID = document.getElementById("LotQuantityID").value;
+  var DefectCodeID = document.getElementById("DefectCodeID").value;
+  
+  var dateTimeDefect = date + " " + time;
+  var DefQty = document.getElementById("DefQty").value;
+
+  $.ajax({
+    url: "/1_mes/_php/QualityManagement/_modal/AddDefect.php",
+    type: 'post',
+    data: {
+      'JobOrderNo': JobOrderNo,
+      'datalistLotNumber': datalistLotNumber,
+      'DivCodeID': DivCodeID,
+      'DivNameID': DivNameID,
+      'itemCodeID': itemCodeID,
+      'itemNameID': itemNameID,
+      'LotQuantityID': LotQuantityID,
+      'DefectCodeID': DefectCodeID,
+      'DefectInputID': DefectInputID,
+      'dateTimeDefect': dateTimeDefect,
+      'DefQty': DefQty,
+      'ajax': true
+    },
+    success: function (data) {
+      swal(
+        data,
+        'Job Order Number ' + JobOrderNo + ' defect quantity already saved!',
+        'success'
+      );
+      loadDoc("DefectManagement");
+    }
+  });
+});
+
+$(document).ready(function () {
+  $('#example').DataTable();
+});
+
+
+function DisplayTable(Table_Name, Tablesp, tbltitle) {
+  aler("wew");
+  var xhttp;
+  if (Table_Name.length == 0) {
+    document.getElementById("table_defect").innerHTML = "<h1>No table to display.</h1>";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    
+    if (this.readyState == 4 && this.status == 200) {
+      
+      document.getElementById("table_defect").innerHTML = this.responseText;
+      var tble = $('#Dtable').DataTable({
+        deferRender: true,
+        scrollY: '61vh',
+        "sScrollX": "100%",
+        "processing": true,
+        "serverSide": true,
+        "iDisplayLength": 100,
+        "ajax": {
+          url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
+          type: 'POST'
+        },
+        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        'buttons': [
+          {
+            text: 'Add',
+            name: 'add', // do not change name 
+            className: 'btn btn-outline-secondary btn-xs py-1',
+            extend: 'add0'
+          },
+          {
+            extend: 'selected', // Bind to Selected row
+            text: '<i class="fas fa-edit"></i>',
+            attr: {
+              title: 'Edit Data',
+              id: 'editButton'
+            },
+            name: 'edit',        // do not change name
+            className: 'btn btn-outline-secondary btn-xs py-1',
+            action: function (e, dt, node, config) {
+              alert('test Edit button');
+              var data = dt.row('.selected').data();
+              alert(data[0] + " is the ID. ");
+              $('#editmodal').modal('show');
+              $('#editmodal').focus();
+            }
+          },
+          {
+
+            name: 'delete',      // do not change name
+            className: 'btn btn-outline-secondary btn-xs py-1',
+            extend: 'selected', // Bind to Selected row
+            action: function (e, dt, node, config) {
+              if (confirm('Are you sure you want to delete this?')) {
+                /* alert('test Delete button'); */
+                var data = dt.row('.selected').data();
+                alert(data[0]);
+              }
+            }
+          },
+          {
+            extend: 'copy', text: '<i class="far fa-copy"></i>',
+            attr: {
+              title: 'Copy to Clipboard',
+              id: 'copyButton'
+            },
+            className: 'btn btn-outline-secondary btn-xs py-1'
+          },
+          {
+            extend: 'excel', text: '<i class="fas fa-table"></i>',
+            attr: {
+              title: 'Export to Excel',
+              id: 'exportButton'
+            },
+            filename: tbltitle, className: 'btn btn-outline-secondary btn-xs py-1'
+          }
+        ],
+        select: 'single',
+        "columnDefs": [{
+          /* sortable: false,
+          "class": "index",
+          "searchable": false,
+          "orderable": false, */
+          "targets": 0
+        }],
+        "order": [[0, 'desc']]
+
+      });
+
+      tble.on('order.dt search.dt processing.dt page.dt', function () {
+        tble.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+          cell.innerHTML = i + 1;
+        });
+      }).draw();
+
+    }
+  };
+  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
+  xhttp.send();
+}
+$.fn.dataTable.ext.buttons.add0 = {
+  action: function () {
+    $("#moldlistmod").modal('show');
+  }
+};

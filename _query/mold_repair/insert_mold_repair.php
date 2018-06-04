@@ -77,20 +77,11 @@
             $insertdatetime
         );
 
-        if ($stmt->execute() === TRUE) {
-            /* echo "<script> alert('Record saved successfully'); window.location.href = '/1_mes/_php/mold_maintenance/mold_maintenance.php'</script>"; */
-            /* echo "Record saved successfully"; */
+        if ($stmt->execute() === TRUE) {            
             echo "success";
-        } else {
-            /* echo "<script> alert('Error: " . $sql . "<br>" . $conn->error ."'); window.location.href = '/1_mes/_php/mold_maintenance/mold_maintenance.php'</script>"; */
-            echo "Error: " . $sql . "<br>" . $conn->error;
+        } else {            
+            echo "Error: " . $conn->error;
         }
-
-        /* if ($conn->query($sql) === TRUE) {
-            echo "<script> alert('Record updated successfully'); window.location.href = '/1_mes/_php/mold_maintenance.php'</script>";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        } */
 
                 
         $stmt->close();

@@ -19,25 +19,43 @@
  */
  
 // DB table to use
-$table = 'mmc_mold_history';
+$table = 'mmc_mold_fabrication';
  
 // Table's primary key
-$primaryKey = 'MOLD_HISTORY_ID';
+$primaryKey = 'MOLD_FABRICATION_ID';
  
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'MOLD_HISTORY_ID', 'dt' => 0 ),
-    array( 'db' => 'MOLD_CODE', 'dt' => 1 ),
-    array( 'db' => 'REQUEST_DATE', 'dt' => 2 ),
-    array( 'db' => 'REPAIR_DATE', 'dt' => 3 ),
-    /* array( 'db' => 'MOLD_SHOT', 'dt' => 4 ), */
-    array( 'db' => 'INSERT_USER', 'dt' => 4 ),
-    array( 'db' => 'INSERT_DATETIME', 'dt' => 5 ),
-    array( 'db' => 'UPDATE_USER', 'dt' => 6 ),
-    array( 'db' => 'UPDATE_DATETIME', 'dt' => 7 )    
+    array( 'db' => 'MOLD_FABRICATION_ID', 'dt' => 0 ),
+    array( 'db' => 'ORDER_NO', 'dt' => 1 ),
+    array( 'db' => 'MANUFACTURE_DATE', 'dt' => 2 ),
+    array( 'db' => 'MOLD_CODE', 'dt' => 3 ),
+    array( 'db' => 'CUSTOMER_CODE', 'dt' => 4 ),
+    array( 'db' => 'CURRENT_PROCESS', 'dt' => 5 ),
+    array( 'db' => 'DESIGN-1', 'dt' => 6 ),
+    array( 'db' => 'DESIGN-2', 'dt' => 7 ),
+    array( 'db' => 'DESIGN-3', 'dt' => 8 ),
+    array( 'db' => 'RADIAL-1', 'dt' => 9 ),
+    array( 'db' => 'LATHER-1', 'dt' => 10 ),
+    array( 'db' => 'BANDSAW', 'dt' => 11 ),
+    array( 'db' => 'ML', 'dt' => 12 ),
+    array( 'db' => 'GS-1', 'dt' => 13 ),
+    array( 'db' => 'GS-2', 'dt' => 14 ),
+    array( 'db' => 'HSM', 'dt' => 15 ),
+    array( 'db' => 'HSM-1', 'dt' => 16 ),
+    array( 'db' => 'HSM-2', 'dt' => 17 ),
+    array( 'db' => 'WEDM', 'dt' => 18 ),
+    array( 'db' => 'M-EDM', 'dt' => 19 ),
+    array( 'db' => 'EDM', 'dt' => 20 ),
+    array( 'db' => 'ASSEMBLE-1', 'dt' => 21 ),
+    array( 'db' => 'POLISHING-1', 'dt' => 22 ),
+    array( 'db' => 'DELIVERY_PLAN', 'dt' => 23 ),
+    array( 'db' => 'FINISHED_DATE', 'dt' => 24 ),
+    array( 'db' => 'OPERATOR', 'dt' => 25 ),
+    
 );
  
 // SQL server connection information

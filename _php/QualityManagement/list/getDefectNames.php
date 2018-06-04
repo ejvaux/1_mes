@@ -4,9 +4,9 @@
 
                         $sql = "SELECT DEFECT_NAME FROM dmc_defect_code ORDER BY DEFECT_CODE ASC";
                         $result = $conn->query($sql);
-                        
+                                echo "<option value=' '>--SELECT HERE--</option>";
                             while($row = $result->fetch_assoc()) {
-
+                                
                                 echo "<option value='";
                                 echo $row['DEFECT_NAME'];
                                 echo "'>";

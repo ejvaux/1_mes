@@ -62,6 +62,7 @@
               
               <li><a id="tb1" class="nav-link tbl active" href="#" onclick="">Mold  Repair</a></li>
               <li><a id="tb2" class="nav-link tbl" href="#" onclick="">Mold  History</a></li>
+              <li><a id="tb3" class="nav-link tbl" href="#" onclick="">Mold  Fabrication</a></li>
             </ul>
 
             <!-- ICONS ON LEFT -->
@@ -105,7 +106,14 @@
           ajaxStop: function() { $body.removeClass("loading"); }    
       });      
 
-      $(document).ready(function(){      
+      $(document).ready(function(){
+        
+        if(val=="DC" || val=="A"){
+          $('#tb3').show();
+        }
+        else{
+          $('#tb3').hide();
+        }
         
         checkuserauth(); 
 
@@ -135,6 +143,10 @@
         
         $('#tb2').click(function(){
           checkuserauthH();
+        });
+
+        $('#tb3').click(function(){
+          checkuserauthF();
         });
                 
     </script>

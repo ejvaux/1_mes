@@ -102,6 +102,11 @@ td.ongoing{
 
 td.finished{
 	font-weight: bold;
+	color: green  ;
+}
+
+td.approved{
+	font-weight: bold;
 	color: blue  ;
 }
 

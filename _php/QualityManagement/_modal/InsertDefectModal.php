@@ -65,7 +65,7 @@
                   <div class="col-2">
                         <label class="col-form-label-sm">Lot Number:</label></div>
                   <div class="col-4">
-                        <select id="datalistLotNumber" class="form-control text-center"  placeholder="Lot Number"/>    
+                        <select id="datalistLotNumber" class="form-control text-center"  placeholder="Lot Number"/>
                           <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/list/getLotNumbers.php"; ?>
                         </select>
                     </div>    
@@ -101,35 +101,60 @@
                   </div>
                 <div class ="form-group row">
                   <div class="col-2">
+                      <label class="col-form-label-sm">Lot Quantity:</label>   
+                    </div>
+                  <div class="col-4">
+                        <input id="LotQuantityID" class="form-control text-center" placeholder="Lot Quantity" readonly/>         
+                    </div>
+                  </div>
+
+                <div class="form-group row">
+                  <div class="col-2">
                         <label class="col-form-label-sm">Defect Code:</label>
                     </div>
                   <div class="col-4">
-                        <input id="DefectCodeID" class="form-control text-center" placeholder="Item Code" readonly/>         
+                        <input id="DefectCodeID" class="form-control text-center" placeholder="Defect Code" readonly/>         
                     </div>
+
                   <div class="col-2">
                       <label class="col-form-label-sm">DEFECT NAME:</label>   
                     </div>
-                  <div class="col-4">
-                        <select id="defectInputID" type="text" class="form-control form-control-sm " name="defectInput" placeholder="">
+                  <div class="col-4"> 
+                      <select id="defectInputID" class="form-control text-center"  placeholder=""/>
                           <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/list/getDefectNames.php"; ?>
-                    </select>      
+                        </select>
                     </div>
                   </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                          <label class="col-form-label-sm">Prod Date:</label>  
+                      </div>
+                      <div class="col-4">
+                            <input id="prodDateID" type="date" class="form-control text-center" placeholder=""/>    
+                        </div>
+                        <div class="col-2">
+                            <label class="col-form-label-sm">Prod Time:</label>  
+                        </div>
+                        <div class="col-4">
+                            <input id="prodTimeID" type="time" class="form-control text-center" placeholder=""/>    
+                        </div>
+                    </div>
+
 
                 <div class="form-group row">
-                  <div class="col-5">
+                  <div class="col-3">
                         <label class="col-form-label-sm">DEFECT QUANTITY:</label>                  
                     </div>
-                  <div class="col-7">
-                        <input id="" type="number" class="form-control form-control-sm" placeholder="INPUT DEFECT QTY"></input>              
+                  <div class="col-9">
+                        <input id="DefQty" type="number" class="form-control form-control-sm" placeholder="INPUT DEFECT QTY"></input>              
                     </div>
                   </div>
 
                 <div class="form-group row">
-                  <div class="col-5">
+                  <div class="col-3">
                         <label class="col-form-label-sm">REMARKS:</label>                  
                     </div>
-                  <div class="col-7">
+                  <div class="col-9">
                         <textarea id="remarks" type="textarea" class="form-control form-control-sm" name="remarks" placeholder="INPUT REMARKS"></textarea>              
                     </div>
                   </div>
@@ -139,7 +164,7 @@
                                   
                     </div>
                   <div class="col-5" style="text-align:right; padding-top:7px">
-                      <button type='button' class='btn btn-danger close' data-dismiss="modal" id='ConfirmDefect'>CONFIRM DEFECT</button></div>
+                      <button type='button' class='btn btn-danger close' data-dismiss="modal" id='defectConfirm'>CONFIRM DEFECT</button></div>
                     </div>
                   </div>
 

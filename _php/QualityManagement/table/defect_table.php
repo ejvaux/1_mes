@@ -4,8 +4,7 @@
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                     if(!isset($_POST['sql'])){
-                        $sql="SELECT * FROM qmd_defect_dl LEFT JOIN qmd_lot_create ON qmd_defect_dl.LOT_NUMBER = qmd_lot_create.LOT_NUMBER
-                            WHERE REJECTION_REMARKS = 'DEFECT'";
+                        $sql="SELECT * FROM qmd_defect_dl WHERE REJECTION_REMARKS = 'DEFECT'";
                         }
                         else{
                             $sql = $_POST['sql'];
@@ -15,10 +14,9 @@
                     
                     if ($result->num_rows > 0) 
                     {
-                            echo "<table class='table table-hover table-bordered table-sm tbl2 nowrap text-center' id='CreatedLotTable'><thead>    
+                            echo "<table class='table table-hover table-bordered table-sm tbl2 nowrap text-center' id='defectTable'><thead>    
                             <th>JOB ORDER</th>
                             <th>PROD DATE</th>
-                            <th>LOT CREATOR</th>
                             <th>ITEM CODE</th>
                             <th>ITEM NAME</th>
                             <th>JUDGE BY</th>
@@ -31,7 +29,6 @@
                             echo " <tbody class='content'>";
                             echo "<td>" . $row['JOB_ORDER_NO'] . "</td>";
                             echo "<td>" . $row['PROD_DATE'] . "</td>";
-                            echo "<td>" . $row['LOT_CREATOR'] . "</td>";
                             echo "<td>" . $row['ITEM_CODE'] . "</td>";
                             echo "<td>" . $row['ITEM_NAME'] . "</td>";
                             echo "<td>" . $row['INSERT_USER'] . "</td>";
@@ -41,10 +38,9 @@
                         echo "</tbody></table>";
                     } 
                     else {
-                        echo "<table class='table table-hover table-bordered table-sm tbl2' id='CreatedLotTable'><thead>    
+                        echo "<table class='table table-hover table-bordered table-sm tbl2' id='defectTable'><thead>    
                         <th>JOB ORDER</th>
                             <th>PROD DATE</th>
-                            <th>LOT CREATOR</th>
                             <th>ITEM CODE</th>
                             <th>ITEM NAME</th>
                             <th>JUDGE BY</th>

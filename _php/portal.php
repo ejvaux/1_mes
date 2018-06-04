@@ -277,7 +277,7 @@
                     
                     <!-- Management Indices -->
                     
-                    <a href='/1_MES/_php/machine_maintenance.php' class="btn" id="6" >
+                    <a href='/1_MES/_template/pagetemplate.php' class="btn" id="6" >
                                       
                     <div class="faa-bounce animated-hover faa-slow">
                         

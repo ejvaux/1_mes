@@ -82,7 +82,7 @@ function DisplayTable(Table_Name,Tablesp,tbltitle) {
                                        
       } );         
            
-      tble.on( 'order.dt search.dt', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
         tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );
@@ -278,7 +278,7 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
           } ],
                                            
         } );           
-        tble.on( 'order.dt search.dt', function () {
+        tble.on( 'order.dt search.dt processing.dt page.dt', function () {
           tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
               cell.innerHTML = i+1;
           } );
@@ -463,7 +463,7 @@ function DisplayTable2(Table_Name,Tablesp,tbltitle) {
         } ],
                                      
       } );         
-      tble.on( 'order.dt search.dt', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
         tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );
@@ -653,7 +653,7 @@ function DisplayTable3(Table_Name,Tablesp,tbltitle) {
         } ],
                                         
       } );           
-      tble.on( 'order.dt search.dt ', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
         tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );
@@ -842,7 +842,7 @@ function DisplayTable4(Table_Name,Tablesp,tbltitle) {
         } ],
                                         
       } );           
-      tble.on( 'order.dt search.dt ', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
         tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );
@@ -1028,7 +1028,7 @@ function DisplayTable5(Table_Name,Tablesp,tbltitle) {
         } ],
                                         
       } );           
-      tble.on( 'order.dt search.dt ', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
         tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );
@@ -1213,7 +1213,7 @@ function DisplayTable6(Table_Name,Tablesp,tbltitle) {
         } ],
                                         
       } );           
-      tble.on( 'order.dt search.dt ', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
         tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );
@@ -1395,7 +1395,7 @@ function DisplayTable7(Table_Name,Tablesp,tbltitle) {
         "order": [[ 1, 'asc' ]],
                                         
       } );           
-      tble.on( 'order.dt search.dt ', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
         tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );
@@ -1577,7 +1577,7 @@ function DisplayTable8(Table_Name,Tablesp,tbltitle) {
         } ],
                                         
       } );           
-      tble.on( 'order.dt search.dt ', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
         tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
             cell.innerHTML = i+1;
         } );

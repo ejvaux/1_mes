@@ -113,10 +113,10 @@
 
                         <!-- </select> -->
                     </div>
-                    <div class="col-sm-6">
+                    <!-- <div class="col-sm-6"> -->
                         <!-- <label for="inputLastname" class="col-form-label-sm">MOLD SHOT:</label> -->
                         <!-- <input type="hidden" class="form-control form-control-sm" name="moldshot" placeholder="" readonly> -->
-                    </div> 
+                    <!-- </div>  -->
                     <div class="col-sm-6">
                         <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
                         <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
@@ -207,16 +207,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
 
 
 <div class="modal hide fade in" role="dialog" id="addmoldrepair" data-keyboard="false" data-backdrop="static" >
@@ -665,6 +655,9 @@
       </div>
       <form id="checklistform"  method="post">
       <input type="hidden" id="chkrepaircontrol" name="repaircontrol">
+      <input type="hidden" id="chkmoldstatus" name="moldstatus">
+      <input type="hidden" id="chkrequestdate" name="requestdate">
+      <input type="hidden" id="chkmoldcode" name="moldcode">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
 
@@ -1624,7 +1617,154 @@
                                         <!-- QC Checklist --> 
 
 
-                                        <!-- INSPECT/APPROVE -->       
+<!--_________________________________ Insert History ________________________________________-->
 
 
-                                        <!-- INSPECT/APPROVE -->                                    
+<div class="modal hide fade in" role="dialog" id="addmoldhistory" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Mold History.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="addmoldhistoryform" method="post">
+      <input type="hidden" id="moldhistoryid" name="moldhistoryid">
+      <div class="modal-body">      
+                                                       
+                <div class="form-group row">                   
+
+                    <div class="col-sm-6">
+                        <label for="historymoldcode" class="col-form-label-sm">MOLD CODE:</label>
+                        <select id="historymoldcode" class="form-control form-control-sm sel" name="moldcode" placeholder="">
+
+                            <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+
+                                        echo "<option value='";
+                                        echo $row['MOLD_CODE'];
+                                        echo "'>";
+                                        echo $row['MOLD_CODE'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                            ?>
+                            
+                        </select>
+                    </div>
+                    <div class="col-sm-6">                        
+                        <label for="historyrequestdate" class="col-form-label-sm">REQUEST DATE:</label>
+                        <input id="historyrequestdate" type="date" class="form-control form-control-sm" name="requestdate">
+                    </div>
+                    
+                </div>
+                
+                <div class="form-group row">                   
+
+                    <div class="col-sm-6">
+                        <label for="historyrepairdate" class="col-form-label-sm">REPAIR DATE:</label>
+                        <input id="historyrepairdate" type="date" class="form-control form-control-sm" name="repairdate" placeholder="">                        
+                    </div>                    
+                    
+                </div> 
+
+                <div class="modal-footer">
+                    <button type="submit" name='submit' class="btn btn-primary" id="addmoldhistorysubmit"><i class="far fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn"><i class="fas fa-times"></i> Close</button>
+                </div>
+
+            </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!--_________________________________ Insert History ________________________________________-->
+
+
+
+<!--_________________________________ Edit History ________________________________________-->
+
+
+<div class="modal hide fade in" role="dialog" id="editmoldhistory" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Mold History.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="editmoldhistoryform" method="post">
+      <input type="hidden" id="emoldhistoryid" name="moldhistoryid">
+      <div class="modal-body">      
+                                                       
+                <div class="form-group row">                   
+
+                    <div class="col-sm-6">
+                        <label for="ehistorymoldcode" class="col-form-label-sm">MOLD CODE:</label>
+                        <select id="ehistorymoldcode" class="form-control form-control-sm sel" name="moldcode" placeholder="">
+
+                            <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+
+                                        echo "<option value='";
+                                        echo $row['MOLD_CODE'];
+                                        echo "'>";
+                                        echo $row['MOLD_CODE'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                            ?>
+                            
+                        </select>
+                    </div>
+                    <div class="col-sm-6">                        
+                        <label for="ehistoryrequestdate" class="col-form-label-sm">REQUEST DATE:</label>
+                        <input id="ehistoryrequestdate" type="date" class="form-control form-control-sm" name="requestdate">
+                    </div>
+                    
+                </div>
+                
+                <div class="form-group row">                   
+
+                    <div class="col-sm-6">
+                        <label for="ehistoryrepairdate" class="col-form-label-sm">REPAIR DATE:</label>
+                        <input id="ehistoryrepairdate" type="date" class="form-control form-control-sm" name="repairdate" placeholder="">                        
+                    </div>                    
+                    
+                </div> 
+
+                <div class="modal-footer">
+                    <button type="submit" name='submit' class="btn btn-primary" id="editmoldhistorysubmit"><i class="far fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn"><i class="fas fa-times"></i> Close</button>
+                </div>
+
+            </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!--_________________________________ Edit History ________________________________________-->

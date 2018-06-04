@@ -5,7 +5,7 @@
 /* ____________ Table Init ________________ */
 
 function checkuserauth(){
-  if(val=="A"){
+  if(val=="A" || val=="G"){
     DisplayTble('mold_repair_table','mold_repairsp','Mold Repair');
   }
   
@@ -42,6 +42,19 @@ function checkuserauthH(){
   
   else{
     DisplayTbleH('mold_history_table','mold_historysp','Mold History');
+  }
+}              
+/* _______________ Table Init H ______________ */
+
+/* ____________ Table Init H ________________ */
+
+function checkuserauthF(){
+  if(val=="A"){
+    DisplayTbleFA('mold_fabrication_table','mold_fabricationsp','Mold Fabrication');
+  }
+  
+  else{
+    DisplayTbleF('mold_fabrication_table','mold_fabricationsp','Mold Fabrication');
   }
 }              
 /* _______________ Table Init H ______________ */
@@ -353,7 +366,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
         
         /* ____________________ FUNCTIONS ___________________ */
 
-        tble.on( 'order.dt search.dt', function () {
+        tble.on( 'order.dt search.dt processing.dt page.dt processing.dt page.dt', function () {
             tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                 cell.innerHTML = i+1;
             } );
@@ -605,7 +618,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
       } );                
       
       /* ____________________ FUNCTIONS ___________________ */
-      tble.on( 'order.dt search.dt', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
           tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
               cell.innerHTML = i+1;
           } );
@@ -768,7 +781,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
           header: true,
           headerOffset: 122            
           }, */
-          select: 'single',
+          /* select: 'single', */
           "columnDefs": [
               {
                 "searchable": false,
@@ -781,7 +794,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                 "orderable": false,
                 render: function ( data, type, row ) {  
                   
-                  if(row[3]=='FOR MOLD TRIAL'){
+                  if(row[3]=='FOR MOLD TRIAL' || row[3]=='QC APPROVED'){
                     return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
                   }
                   else{
@@ -865,7 +878,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
       } );
       
       /* ____________________ FUNCTIONS ___________________ */
-      tble.on( 'order.dt search.dt', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
           tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
               cell.innerHTML = i+1;
           } );
@@ -1082,7 +1095,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
           header: true,
           headerOffset: 122            
           }, */
-          select: 'single',
+          /* select: 'single', */
           "columnDefs": [
               {
                 "searchable": false,
@@ -1182,7 +1195,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
       } );
       
       /* ____________________ FUNCTIONS ___________________ */
-      tble.on( 'order.dt search.dt', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
           tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
               cell.innerHTML = i+1;
           } );
@@ -1254,6 +1267,9 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
             var val = JSON.parse(data1);
             
             $("#chkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
+            $("#chkrequestdate").val(val.REQUEST_DATE);
+            $("#chkmoldcode").val(val.MOLD_CODE);
+
 
             $("#MRI001").val(val.MRI001);
             $("#MRI002").val(val.MRI002); 
@@ -1429,7 +1445,7 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle) {
           header: true,
           headerOffset: 122            
           }, */
-          select: 'single',
+          /* select: 'single', */
           "columnDefs": [
               {
                 "searchable": false,
@@ -1442,7 +1458,7 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle) {
                 "orderable": false,
                 render: function ( data, type, row ) {
 
-                  if ( data[3] == 'WAITING' || data[3] == 'ON-GOING') {
+                  if ( data[3] != 'FOR MOLD TRIAL') {
                     return "<div class='text-center'><button id='check' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
                   }
                   /* else if(data[3] == 'ON-GOING'){
@@ -1529,7 +1545,7 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle) {
       } );
       
       /* ____________________ FUNCTIONS ___________________ */
-      tble.on( 'order.dt search.dt', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
           tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
               cell.innerHTML = i+1;
           } );
@@ -1713,6 +1729,448 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
             },  
             name: 'add',
             className: 'btn btn-export6 btn-xs py-1 addbt',
+            extend: 'addh'               
+          },
+          { extend: 'selected', // Bind to Selected row
+            text: '<i class="fas fa-edit"></i>',
+            attr:  {
+                title: 'Edit Request',
+                id: 'editButton'
+            },
+            name: 'edit',        // do not change name
+            className: 'btn btn-export6 btn-xs py-1 editbt',
+            action: function ( e, dt, node, config ) {
+              /* alert('test Edit button'); */
+              var data = dt.row( '.selected' ).data();
+
+              $('#emoldhistoryid').val(data[0]);
+              $('#ehistorymoldcode').val(data[1]);
+              $('#ehistoryrequestdate').val(data[2]);
+              $('#ehistoryrepairdate').val(data[3]);
+              
+              $('.sel').select2({ width: '100%' });
+              $('#editmoldhistory').modal('show');              
+                                                                                
+            }
+          },
+          {
+            extend: 'selected', // Bind to Selected row
+            text: '<i class="fas fa-trash"></i>',
+            attr:  {
+                title: 'Delete Request',
+                id: 'deleteButton'
+            },
+            name: 'delete',      // do not change name
+            className: 'btn btn-export6 btn-xs py-1 delbt',
+            
+            action: function ( e, dt, node, config ) {               
+              
+
+              swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.value) {
+                  
+                  var data = dt.row( '.selected' ).data();
+                  $.ajax(
+                    {
+                    method:'post',
+                    url:'/1_mes/_query/mold_repair/delete_history.php',
+                    data:
+                    {
+                        'id': data[0],
+                        'ajax': true
+                    },
+                    success: function(data) {
+                      checkuserauthH();
+
+                      $.notify({
+                        icon: 'fas fa-info-circle',
+                        title: 'System Notification: ',
+                        message: data,
+                      },{
+                        type:'success',
+                        placement:{
+                          align: 'center'
+                        },           
+                        delay: 3000,                        
+                      });
+                    }
+                    });
+
+                }
+              })
+
+            }                
+          },
+          { extend: 'copy', text: '<i class="far fa-copy"></i>', 
+          attr:  {
+            title: 'Copy to Clipboard',
+            id: 'copyButton'
+        },
+         className: 'btn btn-export6 btn-xs py-1'},
+          { extend: 'excel', text: '<i class="fas fa-table"></i>',
+          attr:  {
+          title: 'Export to Excel',
+          id: 'exportButton'
+      },
+       filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
+          ],        
+          select: 'single',
+            "columnDefs": [ {
+              "searchable": false,
+              "targets": 0
+          } ],
+          "order": [[ 0, 'desc' ]],        
+                               
+      } );
+      
+      
+      
+      /* ____________________ FUNCTIONS ___________________ */
+
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
+          tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+              cell.innerHTML = i+1;
+          } );
+      } ).draw();
+
+      /* ____________________________ FUNCTIONS _________________________ */
+    }
+    
+  };
+  xhttp.open("POST", "/1_mes/_tables/"+Table_Name+".php", true);
+  xhttp.send();   
+  
+} 
+
+$.fn.dataTable.ext.buttons.addh = {
+  action: 
+  function () {
+  
+    $("#addmoldhistory").modal('show');        
+    
+  }
+};
+
+
+
+    /* ------------------------------- TH - A ------------------------------------------------  */
+
+
+
+/* ---------------------------- TH ------------------------------ */
+
+function DisplayTbleH(Table_Name,Tablesp,tbltitle) {
+  var xhttp;
+  if (Table_Name.length == 0) { 
+    document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("table_display").innerHTML = this.responseText;
+      var tble = $('#Dtable').DataTable( {
+        deferRender:    true,
+      scrollY:        '61vh',
+      "sScrollX": "100%",
+      /* scrollerX:      true, */
+        "processing": true,
+        "serverSide": true,
+        "iDisplayLength": 100,          
+        "ajax": {
+          url: "/1_mes/_includes/"+Tablesp+".php",
+          type: 'POST'
+        },            
+        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        'buttons': [             
+          { extend: 'copy', text: '<i class="far fa-copy"></i>', 
+          attr:  {
+            title: 'Copy to Clipboard',
+            id: 'copyButton'
+        },
+         className: 'btn btn-export6 btn-xs py-1'},
+          { extend: 'excel', text: '<i class="fas fa-table"></i>',
+          attr:  {
+          title: 'Export to Excel',
+          id: 'exportButton'
+      },
+       filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
+          ],        
+          /* select: 'single', */
+            "columnDefs": [ {
+              "searchable": false,
+              "targets": 0
+          } ],
+          "order": [[ 0, 'desc' ]],                                  
+      } );
+            
+      
+      /* ____________________ FUNCTIONS ___________________ */
+
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
+          tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+              cell.innerHTML = i+1;
+          } );
+      } ).draw();
+
+      /* ____________________________ FUNCTIONS _________________________ */
+    }
+    
+  };
+  xhttp.open("POST", "/1_mes/_tables/"+Table_Name+".php", true);
+  xhttp.send();   
+  
+} 
+
+$.fn.dataTable.ext.buttons.add1 = {
+  action: 
+  function () {
+
+    listchange();
+    getctrlnumber();    
+    $("#addmoldrepairA").modal('show');        
+    
+  }
+};
+
+/* ---------------------------- TH ------------------------------ */
+
+
+/*  -------------------------------- FABRICATION - A -----------------------------------------------  */
+        
+function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
+  var xhttp;
+  if (Table_Name.length == 0) { 
+    document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("table_display").innerHTML = this.responseText;
+      var tble = $('#Dtable').DataTable( {
+        deferRender:    true,
+      scrollY:        '61vh',
+      "sScrollX": "100%",
+      /* scrollerX:      true, */
+        "processing": true,
+        "serverSide": true,
+        "iDisplayLength": 100,                  
+        "ajax": {
+          url: "/1_mes/_includes/"+Tablesp+".php",
+          type: 'POST'
+        },            
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        'buttons': [            
+          { text: '<i class="fas fa-plus"></i>',
+            attr:  {
+                title: 'Add Request',
+                id: 'addButton'
+            },  
+            name: 'add',
+            className: 'btn btn-export6 btn-xs py-1 addbt',
+            extend: 'addfab1'               
+          },
+          { extend: 'selected', // Bind to Selected row
+            text: '<i class="fas fa-edit"></i>',
+            attr:  {
+                title: 'Edit Request',
+                id: 'editButton'
+            },
+            name: 'edit',        // do not change name
+            className: 'btn btn-export6 btn-xs py-1 editbt',
+            action: function ( e, dt, node, config ) {
+              alert('UNAVAILABLE');
+              var data = dt.row( '.selected' ).data();                                    
+              /* alert( data[0] +" is the ID. " ); */
+              /* alert("||"+data[3]+"||"); */
+              /* document.getElementById("emcl").value = data[3]; */
+              /* $.ajax(
+                {
+                method:'post',
+                url:'/1_mes/_query/mold_repair/getrow.php',
+                data:
+                {
+                    'id': data[3],
+                    'ajax': true
+                },
+                success: function(data1) {
+                  var val = JSON.parse(data1);                  
+
+                  $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
+                  $("#emcl").val(val.MOLD_CODE);   
+                  elistchange();
+                  $("#emoldshot").val(val.MOLD_SHOT);
+                  $("#emachinecode").val(val.MACHINE_CODE);
+                  $("#edaterequired").val(val.DATE_REQUIRED);
+                  $("#etimerequired").val(val.TIME_REQUIRED);
+                  $("#edefectname").val(val.DEFECT_NAME);
+                  $("#erepairremarks").val(val.REPAIR_REMARKS);
+                  $("#emoldstatus").val(val.MOLD_STATUS);
+                  
+                  $('.sel').select2({ width: '100%' });
+                  $('#editmoldrepair').modal('show');
+                }
+              });  */                                     
+              
+            }
+          },
+          {
+            extend: 'selected', // Bind to Selected row
+            text: '<i class="fas fa-trash"></i>',
+            attr:  {
+                title: 'Delete Request',
+                id: 'deleteButton'
+            },
+            name: 'delete',      // do not change name
+            className: 'btn btn-export6 btn-xs py-1 delbt',
+            
+            action: function ( e, dt, node, config ) {               
+              
+              alert('UNAVAILABLE');
+             /*  swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.value) {
+                  
+                  var data = dt.row( '.selected' ).data();
+                  $.ajax(
+                    {
+                    method:'post',
+                    url:'/1_mes/_query/mold_repair/delete_mold_repair.php',
+                    data:
+                    {
+                        'id': data[2],
+                        'ajax': true
+                    },
+                    success: function(data) {
+                      checkuserauth();
+
+                      $.notify({
+                        icon: 'fas fa-info-circle',
+                        title: 'System Notification: ',
+                        message: data,
+                      },{
+                        type:'success',
+                        placement:{
+                          align: 'center'
+                        },           
+                        delay: 3000,                        
+                      });
+                    }
+                    });
+
+                }
+              }) */
+
+            }                
+          },
+          { extend: 'copy', text: '<i class="far fa-copy"></i>', 
+          attr:  {
+            title: 'Copy to Clipboard',
+            id: 'copyButton'
+        },
+         className: 'btn btn-export6 btn-xs py-1'},
+          { extend: 'excel', text: '<i class="fas fa-table"></i>',
+          attr:  {
+          title: 'Export to Excel',
+          id: 'exportButton'
+      },
+       filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
+          ],        
+          select: 'single',
+            "columnDefs": [ {
+              "searchable": false,
+              "orderable": false,
+              "targets": 0
+          } ],
+          "order": [[ 1, 'desc' ]],         
+                               
+      } );
+      
+      
+      
+      /* ____________________ FUNCTIONS ___________________ */
+
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
+          tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+              cell.innerHTML = i+1;
+          } );
+      } ).draw();
+
+      /* ____________________________ FUNCTIONS _________________________ */
+    }
+    
+  };
+  xhttp.open("POST", "/1_mes/_tables/"+Table_Name+".php", true);
+  xhttp.send();   
+  
+} 
+
+$.fn.dataTable.ext.buttons.addfab1 = {
+  action: 
+  function () {
+    alert('UNAVAILABLE');
+    /* $("#addmoldrepairA").modal('show'); */        
+    
+  }
+};
+
+
+
+    /* ------------------------------- FABRICATION - A ------------------------------------------------  */
+
+
+    /*  -------------------------------- FABRICATION -----------------------------------------------  */
+        
+function DisplayTbleF(Table_Name,Tablesp,tbltitle) {
+  var xhttp;
+  if (Table_Name.length == 0) { 
+    document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("table_display").innerHTML = this.responseText;
+      var tble = $('#Dtable').DataTable( {
+        deferRender:    true,
+      scrollY:        '61vh',
+      "sScrollX": "100%",
+      /* scrollerX:      true, */
+        "processing": true,
+        "serverSide": true,
+        "iDisplayLength": 100,                  
+        "ajax": {
+          url: "/1_mes/_includes/"+Tablesp+".php",
+          type: 'POST'
+        },            
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        'buttons': [            
+          { text: '<i class="fas fa-plus"></i>',
+            attr:  {
+                title: 'Add Request',
+                id: 'addButton'
+            },  
+            name: 'add',
+            className: 'btn btn-export6 btn-xs py-1 addbt',
             extend: 'add1'               
           },
           { extend: 'selected', // Bind to Selected row
@@ -1855,7 +2313,7 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
       
       /* ____________________ FUNCTIONS ___________________ */
 
-      tble.on( 'order.dt search.dt', function () {
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
           tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
               cell.innerHTML = i+1;
           } );
@@ -1883,86 +2341,4 @@ $.fn.dataTable.ext.buttons.add1 = {
 
 
 
-    /* ------------------------------- TH - A ------------------------------------------------  */
-
-
-
-/* ---------------------------- TH ------------------------------ */
-
-function DisplayTbleH(Table_Name,Tablesp,tbltitle) {
-  var xhttp;
-  if (Table_Name.length == 0) { 
-    document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
-    return;
-  }
-  xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("table_display").innerHTML = this.responseText;
-      var tble = $('#Dtable').DataTable( {
-        deferRender:    true,
-      scrollY:        '61vh',
-      "sScrollX": "100%",
-      /* scrollerX:      true, */
-        "processing": true,
-        "serverSide": true,
-        "iDisplayLength": 100,          
-        "ajax": {
-          url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST'
-        },            
-        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
-        'buttons': [             
-          { extend: 'copy', text: '<i class="far fa-copy"></i>', 
-          attr:  {
-            title: 'Copy to Clipboard',
-            id: 'copyButton'
-        },
-         className: 'btn btn-export6 btn-xs py-1'},
-          { extend: 'excel', text: '<i class="fas fa-table"></i>',
-          attr:  {
-          title: 'Export to Excel',
-          id: 'exportButton'
-      },
-       filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
-          ],        
-          /* select: 'single', */
-            "columnDefs": [ {
-              "searchable": false,
-              "orderable": false,
-              "targets": 0
-          } ],
-          "order": [[ 2, 'desc' ],[ 3, 'desc' ]],                                  
-      } );
-            
-      
-      /* ____________________ FUNCTIONS ___________________ */
-
-      tble.on( 'order.dt search.dt', function () {
-          tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-              cell.innerHTML = i+1;
-          } );
-      } ).draw();
-
-      /* ____________________________ FUNCTIONS _________________________ */
-    }
-    
-  };
-  xhttp.open("POST", "/1_mes/_tables/"+Table_Name+".php", true);
-  xhttp.send();   
-  
-} 
-
-$.fn.dataTable.ext.buttons.add1 = {
-  action: 
-  function () {
-
-    listchange();
-    getctrlnumber();    
-    $("#addmoldrepairA").modal('show');        
-    
-  }
-};
-
-/* ---------------------------- TH ------------------------------ */
+    /* ------------------------------- FABRICATION ------------------------------------------------  */

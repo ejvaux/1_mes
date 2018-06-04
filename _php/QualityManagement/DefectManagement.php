@@ -72,7 +72,9 @@
 
     <div class="row" >
         <div class="col-12" ID="table_defect">
-            <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/defect_table.php"; ?>
+        
+            <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/sample.php"; ?>
+            <script>DisplayTable('sample','try','DefectList');</script>
         </div>
     </div>
     </div>

@@ -19,25 +19,23 @@
  */
  
 // DB table to use
-$table = 'mmc_mold_history';
+$table = 'qmd_defect_dl';
  
 // Table's primary key
-$primaryKey = 'MOLD_HISTORY_ID';
+$primaryKey = 'JOB_ORDER_NO';
  
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'MOLD_HISTORY_ID', 'dt' => 0 ),
-    array( 'db' => 'MOLD_CODE', 'dt' => 1 ),
-    array( 'db' => 'REQUEST_DATE', 'dt' => 2 ),
-    array( 'db' => 'REPAIR_DATE', 'dt' => 3 ),
-    /* array( 'db' => 'MOLD_SHOT', 'dt' => 4 ), */
-    array( 'db' => 'INSERT_USER', 'dt' => 4 ),
-    array( 'db' => 'INSERT_DATETIME', 'dt' => 5 ),
-    array( 'db' => 'UPDATE_USER', 'dt' => 6 ),
-    array( 'db' => 'UPDATE_DATETIME', 'dt' => 7 )    
+    array( 'db' => 'PROD_DATE', 'dt' => 0 ),
+    array( 'db' => 'ITEM_CODE', 'dt' => 1 ),
+    array( 'db' => 'ITEM_NAME', 'dt' => 2 ),
+    array( 'db' => 'INSERT_USER', 'dt' => 3 ),
+    array( 'db' => 'DEF_QUANTITY', 'dt' => 4 ),
+    array( 'db' => 'DEFECT_NAME', 'dt' => 5 ),
+         
 );
  
 // SQL server connection information

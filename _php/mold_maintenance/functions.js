@@ -198,8 +198,38 @@ function listchange(){
           data: $('#checklistform').serialize(),
           success: function (data) {    
             if(data=="success"){
+
+              $.ajax({
+                type: 'POST',
+                url: '/1_mes/_query/mold_repair/insert_history.php',
+                data: $('#checklistform').serialize(),
+                success: function (data) {    
+                  if(data=="success"){
+
+                    $('#chcklist').modal('hide');
+                    checkuserauth();
+                    loadmodal('moldrepairmodal');
+          
+                    $.notify({
+                      icon: 'fas fa-info-circle',
+                      title: 'System Notification: ',
+                      message: "Repair Approved!",
+                    },{
+                      type:'success',
+                      placement:{
+                        align: 'center'
+                      },           
+                      delay: 3000,                        
+                    });
+                    
+                  }
+                  else{
+                    alert(data);          
+                  }
+                }
+              });
               
-              $('#chcklist').modal('hide');
+              /* $('#chcklist').modal('hide');
               checkuserauth();
               loadmodal('moldrepairmodal');
     
@@ -213,7 +243,7 @@ function listchange(){
                   align: 'center'
                 },           
                 delay: 3000,                        
-              });
+              }); */
             }
             else{
               alert(data);          
@@ -569,4 +599,94 @@ function statdisplay(stat){
 }
 
 /* __________________ STATUS DISPLAY _______________________________ */
+
+
+/* ____________________ INSERT HISTORY A ________________________ */
+
+$('#mod').on('submit','#addmoldhistoryform', function (e) {           
+  /* alert('TEST'); */
+  /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  
+  $.ajax({
+    type: 'POST',
+    url: '/1_mes/_query/mold_repair/insert_history.php',
+    data: $('#addmoldhistoryform').serialize(),
+    success: function (data) {
+      /* alert(data);  */  
+      if(data=="success"){
+        /* alert("Record saved successfully!"); */
+        $('#addmoldhistoryform').trigger('reset');
+        $('#addmoldhistory').modal('hide');          
+        checkuserauthH();
+        loadmodal('moldrepairmodal');
+
+        $.notify({
+          icon: 'fas fa-info-circle',
+          title: 'System Notification: ',
+          message: "Record saved successfully!",
+        },{
+          type:'success',
+          placement:{
+            align: 'center'
+          },           
+          delay: 3000,                        
+        });
+      }
+      else{
+        alert(data);          
+      }
+    }
+  }); 
+  
+});
+
+
+/* ____________________ INSERT HISTORY A ________________________ */
+
+
+/* ____________________ EDIT HISTORY A ________________________ */
+
+$('#mod').on('submit','#editmoldhistoryform', function (e) {           
+  /* alert('TEST'); */
+  /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  
+  $.ajax({
+    type: 'POST',
+    url: '/1_mes/_query/mold_repair/edit_history.php',
+    data: $('#editmoldhistoryform').serialize(),
+    success: function (data) {
+      /* alert(data);  */  
+      if(data=="success"){
+        /* alert("Record saved successfully!"); */
+        $('#editmoldhistoryform').trigger('reset');
+        $('#editmoldhistory').modal('hide');          
+        checkuserauthH();
+        loadmodal('moldrepairmodal');
+
+        $.notify({
+          icon: 'fas fa-info-circle',
+          title: 'System Notification: ',
+          message: "Record updated successfully!",
+        },{
+          type:'success',
+          placement:{
+            align: 'center'
+          },           
+          delay: 3000,                        
+        });
+      }
+      else{
+        alert(data);          
+      }
+    }
+  }); 
+  
+});
+
+
+/* ____________________ EDIT HISTORY A ________________________ */
   
