@@ -1043,13 +1043,13 @@ $(document).on('click', '#defectConfirm', function () {
   });
 });
 
-$(document).ready(function () {
+/* $(document).ready(function () {
   $('#example').DataTable();
 });
-
+ */
 
 function DisplayTable(Table_Name, Tablesp, tbltitle) {
-  aler("wew");
+  
   var xhttp;
   if (Table_Name.length == 0) {
     document.getElementById("table_defect").innerHTML = "<h1>No table to display.</h1>";
@@ -1154,4 +1154,4 @@ $.fn.dataTable.ext.buttons.add0 = {
   action: function () {
     $("#moldlistmod").modal('show');
   }
-};
+ };
