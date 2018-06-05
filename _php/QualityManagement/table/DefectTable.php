@@ -2,11 +2,12 @@
 <thead> 
         <th>NO</th>
         <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/InsertDefectModal.php"; ?>
-        <th>JOBORDER</th>
+        <th>JOB ORDER</th>
         <th>PROD DATE</th>
         <th>ITEM CODE</th>
         <th>ITEM NAME</th>
         <th>JUDGE BY</th>
+        <th>JUDGE DATETIME</th>
         <th>DEFECT QTY</th>
         <th>DEFECT NAME</th>
 </thead>

@@ -817,13 +817,10 @@ function getcus_name(dd,input){
     /* ____________________ MOLD FABRICATION CHANGE PROCESS ________________________ */
 
 $('#mod').on('submit','#changeprocessform', function (e) {           
-  /* alert('TEST'); */
-  /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
+  
   e.preventDefault();
   e.stopImmediatePropagation();
- /*  alert('test'); */
-
-
+  
  swal({
   title: 'Are you sure?',
   text: "You won't be able to revert this!",
@@ -841,65 +838,51 @@ $('#mod').on('submit','#changeprocessform', function (e) {
       url: '/1_mes/_query/mold_repair/checkprocess.php',
       data: $('#changeprocessform').serialize(),
       success: function (data) {
-        /* var val = JSON.parse(data); */
-           alert(data);
-           /* alert(currentprocess);
-           alert(val[currentprocess]); */
-           
-        /* if(data=="success"){
-          $('#changeprocessform').trigger('reset');
-          $('#changeprocess').modal('hide');          
-          checkuserauthF();
-          loadmodal('moldrepairmodal');
-  
-          $.notify({
-            icon: 'fas fa-info-circle',
-            title: 'System Notification: ',
-            message: "Process changed successfully!",
-          },{
-            type:'success',
-            placement:{
-              align: 'center'
-            },           
-            delay: 3000,                        
-          });
-        }
-        else{
-          alert(data);          
-        } */
-      }
-    });
+        /* var val = JSON.parse(data); */           
+           if(data){
+            
+            swal({
+              type: 'error',
+              title: 'Oops...',
+              text: 'The entered process is either in-process or already done.',
+            })
 
-    
-    /* $.ajax({
-      type: 'POST',
-      url: '/1_mes/_query/mold_repair/changeprocess.php',
-      data: $('#changeprocessform').serialize(),
-      success: function (data) {
-           
-        if(data=="success"){
-          $('#changeprocessform').trigger('reset');
-          $('#changeprocess').modal('hide');          
-          checkuserauthF();
-          loadmodal('moldrepairmodal');
-  
-          $.notify({
-            icon: 'fas fa-info-circle',
-            title: 'System Notification: ',
-            message: "Process changed successfully!",
-          },{
-            type:'success',
-            placement:{
-              align: 'center'
-            },           
-            delay: 3000,                        
-          });
-        }
-        else{
-          alert(data);          
-        }
+           }
+           else{
+
+            $.ajax({
+              type: 'POST',
+              url: '/1_mes/_query/mold_repair/changeprocess.php',
+              data: $('#changeprocessform').serialize(),
+              success: function (data) {
+                   
+                if(data=="success"){
+                  $('#changeprocessform').trigger('reset');
+                  $('#changeprocess').modal('hide');          
+                  checkuserauthF();
+                  loadmodal('moldrepairmodal');
+          
+                  $.notify({
+                    icon: 'fas fa-info-circle',
+                    title: 'System Notification: ',
+                    message: "Process changed successfully!",
+                  },{
+                    type:'success',
+                    placement:{
+                      align: 'center'
+                    },           
+                    delay: 3000,                        
+                  });
+                }
+                else{
+                  alert(data);          
+                }
+              }
+            });
+
+           }         
       }
-    }); */ 
+    });       
 
   }
 })

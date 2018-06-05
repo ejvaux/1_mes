@@ -2116,6 +2116,58 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                 },              
                 "targets": 0,
               },
+              {
+                "data": null,
+                render: function ( data, type, row ) {
+
+                  /* if(row[2]!=null){
+                    var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
+                    var seconds = parseInt(second,10)/1000;
+                    var ts = seconds;
+                    var days = Math.floor(seconds / (3600*24));
+                    seconds  -= days*3600*24;
+                    var hrs   = Math.floor(seconds / 3600);
+                    seconds  -= hrs*3600;
+                    var mnts = Math.floor(seconds / 60);
+                    seconds  -= mnts*60;
+                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
+                    
+                    if(row[3] == 'WAITING' ||  row[3] == 'ON-GOING'){
+
+                      if(ts<=172800){
+                        return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else if(ts<=345600 && ts>172800){
+                        return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else if(ts<=518400 && ts>345600){
+                        return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
+                      }
+                      else{
+                        return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
+                      }
+                    }
+                    else{
+                      var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
+                     
+                      var at = parseInt(a,10)/1000;
+                      var tdays = Math.floor(at / (3600*24));
+                      at  -= tdays*3600*24;
+                      var thrs   = Math.floor(at / 3600);
+                      at  -= thrs*3600;
+                      var tmnts = Math.floor(at / 60);
+                      at  -= tmnts*60;
+                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
+                      return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
+                    } 
+                  }
+                  else{
+                    return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
+                  } */
+                  return ltime(row[2],row[3],row[19]);                                   
+                },              
+                /* "targets": 2, */
+              },
         ],
           "order": [[ 1, 'desc' ]],         
                                
@@ -2133,9 +2185,7 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
 
       $('#Dtable tbody').on( 'click', '#change', function () {
         var data = tble.row( $(this).parents('tr') ).data();
-                
-            alert(data[1]);
-            
+                        
             $('#cmoldfabricationid').val(data[1]);
             $('#ccurrentprocess').val(data[7]);
 

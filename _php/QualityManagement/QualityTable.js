@@ -1289,7 +1289,8 @@ $(document).on('change', '#eJobOrderNo', function () {
 
 $(document).on('change', '#edatalistLotNumber', function () {
   var defectMgmt_LotNum = $(this).val();
-  if (defectMgmt_LotNum == "" || defectMgmt_LotNum == null || defectMgmt_LotNum == undefined) {
+  if (defectMgmt_LotNum == "" || defectMgmt_LotNum == " " || defectMgmt_LotNum == null || defectMgmt_LotNum == undefined) {
+    document.getElementById("edatalistLotNumber").value = "";
     document.getElementById("eLotQuantityID").value = "";
     document.getElementById("eprodDateID").value = "";
     document.getElementById("eprodTimeID").value = "";

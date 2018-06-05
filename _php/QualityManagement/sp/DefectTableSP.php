@@ -36,8 +36,9 @@ $columns = array(
     array( 'db' => 'ITEM_CODE', 'dt' => 3 ),
     array( 'db' => 'ITEM_NAME', 'dt' => 4 ),
     array( 'db' => 'INSERT_USER', 'dt' => 5 ),
-    array( 'db' => 'DEF_QUANTITY', 'dt' => 6 ),
-    array( 'db' => 'DEFECT_NAME', 'dt' => 7 ),
+    array( 'db' => 'INSERT_DATETIME', 'dt' => 6 ),
+    array( 'db' => 'DEF_QUANTITY', 'dt' => 7 ),
+    array( 'db' => 'DEFECT_NAME', 'dt' => 8 ),
          
 );
  

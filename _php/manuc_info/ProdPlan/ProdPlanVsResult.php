@@ -105,13 +105,11 @@ $(document).on('change','#ICode', function() {
 <body style="margin-top: -24px; overflow: hidden">
 
 
-
-
    <?php
             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/navbar.php";            
         ?>
-   
-   <div class="mod_menu" style="position: absolute;padding-left: 15px;padding-top: 12px;">
+
+   <div class="mod_menu" style="position: absolute;padding-left: 15px;padding-top: 12px;" >
 
  
 <nav class="navbar navbar-brdr navbar-expand-xl navbar-light bg-light m-0 px-2 pb-1 pt-0" style="position:fixed;width: 100%; z-index:2; ">
@@ -260,7 +258,13 @@ $(document).on('change','#ICode', function() {
         </script>
   </div>
 
+
+
+    <!-- Contents - END ==============================================          -->
+
     <div class="mdl" style=" z-index: 5000"><!-- Place at bottom of page --></div>
+
+<!-- Optional JavaScript -->
 
 
 
