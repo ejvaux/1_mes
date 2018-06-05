@@ -1013,8 +1013,7 @@ $(document).on('click', '#defectConfirm', function () {
   
   var dateTimeDefect = date + " " + time;
   var DefQty = document.getElementById("DefQty").value;
-
-  if (DefectInputID == "" || date == "" || time == "" || JobOrderNo == "" || DefQty == ""){
+  if (DefectInputID == " " || date == "" || time == "" || JobOrderNo == "" || DefQty == ""){
     alert("Please leave no textbox empty.");
     DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
     return;
@@ -1102,7 +1101,6 @@ function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
             action: function (e, dt, node, config) {
               var data = dt.row('.selected').data();
               getDefectDtls(data[0]);
-
               $('#editDefect').modal('show');
               $('#editDefect').focus();
             }
@@ -1115,8 +1113,6 @@ function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
             extend: 'selected', // Bind to Selected row
             action: function (e, dt, node, config) {
             var data = dt.row('.selected').data();
-            alert(data[0]);
-
             swal({
               title: 'Are you sure?',
               text: "You won't be able to revert this!",
@@ -1238,7 +1234,7 @@ $.fn.dataTable.ext.buttons.add0 = {
 $(document).on('change', '#eJobOrderNo', function () {
   document.getElementById("edatalistLotNumber").value = "";
   var jobOrderNumber = $(this).val();
-  if (jobOrderNumber == " " || jobOrderNumber == null || jobOrderNumber == undefined) {
+  if (jobOrderNumber == "" || jobOrderNumber == " " || jobOrderNumber == null || jobOrderNumber == undefined) {
     document.getElementById("eJobOrderNo").value = "";
     return;
   }
@@ -1340,7 +1336,6 @@ $(document).on('change', '#edefectInputID', function () {
 });
 
 function deleteDefect(def_ID){
-  alert(def_ID);
   var x = def_ID;
   $.ajax({
     url: "/1_mes/_php/QualityManagement/deleteDefect.php",
@@ -1355,7 +1350,6 @@ function deleteDefect(def_ID){
     }
   });
 }
-updateDefect
 
 $(document).on('click', '#updateDefect', function () {
   var def_ID = document.getElementById("defectID").value;
@@ -1374,7 +1368,7 @@ $(document).on('click', '#updateDefect', function () {
   var dateTimeDefect = date + " " + time;
   var DefQty = document.getElementById("eDefQty").value;
 
-  if (DefectInputID == "" || date == "" || time == "" || JobOrderNo == "" || DefQty == "") {
+  if (DefectInputID == " " || date == "" || time == "" || JobOrderNo == "" || DefQty == "") {
     alert("Please leave no textbox empty.");
     DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
     return;
@@ -1401,7 +1395,7 @@ $(document).on('click', '#updateDefect', function () {
     success: function (data) {
       swal(
         data,
-        'Job Order Number ' + JobOrderNo + ' defect quantity already saved!',
+        'Job Order Number ' + JobOrderNo + ' defect quantity already edited!',
         'success'
       );
 

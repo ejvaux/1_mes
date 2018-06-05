@@ -48,8 +48,6 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             echo "Error updating record: " . $sql . "<br>" . $conn->error;        
             }
 
-        }
-
     $conn->close();
     
 ?>

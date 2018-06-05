@@ -834,15 +834,18 @@ $('#mod').on('submit','#changeprocessform', function (e) {
   confirmButtonText: 'Yes, change it!'
 }).then((result) => {
   if (result.value) {
-    $currentprocess = $_POST['currentprocess'];
+    var currentprocess = $('#ccurrentprocess').val();
 
     $.ajax({
       type: 'POST',
       url: '/1_mes/_query/mold_repair/checkprocess.php',
       data: $('#changeprocessform').serialize(),
       success: function (data) {
+        /* var val = JSON.parse(data); */
            alert(data);
-           alert($currentprocess);
+           /* alert(currentprocess);
+           alert(val[currentprocess]); */
+           
         /* if(data=="success"){
           $('#changeprocessform').trigger('reset');
           $('#changeprocess').modal('hide');          

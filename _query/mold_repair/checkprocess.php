@@ -9,7 +9,10 @@
     $sql = "SELECT * FROM mmc_mold_fabrication WHERE MOLD_FABRICATION_ID = $rowid ";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
-    echo json_encode($row,true);    
+    /* echo json_encode($row,true);  */
+    /* json_encode($row,true); */
+    
+    echo $row[$currentprocess];
     
     $conn->close();
 
