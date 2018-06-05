@@ -1,10 +1,13 @@
 <table class='table table-hover table-bordered table-sm nowrap' id='Dtable'>
-<thead>    
+<thead>   
+        
+        <th>PROCESS</th>
         <th>NO</th>
         <th>ORDER #</th>
         <th>MANUFACTURE DATE</th>
         <th>MOLD CODE</th>
         <th>CUSTOMER CODE</th>
+        <th>CUSTOMER NAME</th>
         <th>CURRENT PROCESS</th>
         <th>DESIGN-1 (min)</th>
         <th>DESIGN-2 (min)</th>

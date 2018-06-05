@@ -1724,7 +1724,7 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
         'buttons': [            
           { text: '<i class="fas fa-plus"></i>',
             attr:  {
-                title: 'Add Request',
+                title: 'Add history',
                 id: 'addButton'
             },  
             name: 'add',
@@ -1734,7 +1734,7 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
           { extend: 'selected', // Bind to Selected row
             text: '<i class="fas fa-edit"></i>',
             attr:  {
-                title: 'Edit Request',
+                title: 'Edit history',
                 id: 'editButton'
             },
             name: 'edit',        // do not change name
@@ -1757,7 +1757,7 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
             extend: 'selected', // Bind to Selected row
             text: '<i class="fas fa-trash"></i>',
             attr:  {
-                title: 'Delete Request',
+                title: 'Delete history',
                 id: 'deleteButton'
             },
             name: 'delete',      // do not change name
@@ -1974,7 +1974,7 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
         'buttons': [            
           { text: '<i class="fas fa-plus"></i>',
             attr:  {
-                title: 'Add Request',
+                title: 'Add fabrication',
                 id: 'addButton'
             },  
             name: 'add',
@@ -1984,44 +1984,43 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
           { extend: 'selected', // Bind to Selected row
             text: '<i class="fas fa-edit"></i>',
             attr:  {
-                title: 'Edit Request',
+                title: 'Edit fabrication',
                 id: 'editButton'
             },
             name: 'edit',        // do not change name
             className: 'btn btn-export6 btn-xs py-1 editbt',
             action: function ( e, dt, node, config ) {
-              alert('UNAVAILABLE');
+              /* alert('UNAVAILABLE'); */
               var data = dt.row( '.selected' ).data();                                    
-              /* alert( data[0] +" is the ID. " ); */
-              /* alert("||"+data[3]+"||"); */
-              /* document.getElementById("emcl").value = data[3]; */
-              /* $.ajax(
+              /* alert( data[1] +" is the ID. " ); */
+              /* alert("||"+data[3]+"||"); */              
+
+              $.ajax(
                 {
                 method:'post',
-                url:'/1_mes/_query/mold_repair/getrow.php',
+                url:'/1_mes/_query/mold_repair/getrowfab.php',
                 data:
                 {
-                    'id': data[3],
+                    'id': data[1],
                     'ajax': true
                 },
                 success: function(data1) {
-                  var val = JSON.parse(data1);                  
-
-                  $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
-                  $("#emcl").val(val.MOLD_CODE);   
-                  elistchange();
-                  $("#emoldshot").val(val.MOLD_SHOT);
-                  $("#emachinecode").val(val.MACHINE_CODE);
-                  $("#edaterequired").val(val.DATE_REQUIRED);
-                  $("#etimerequired").val(val.TIME_REQUIRED);
-                  $("#edefectname").val(val.DEFECT_NAME);
-                  $("#erepairremarks").val(val.REPAIR_REMARKS);
-                  $("#emoldstatus").val(val.MOLD_STATUS);
+                  var val = JSON.parse(data1);
+                  /* alert(val.MANUFACTURE_DATE); */
+                  $("#emoldfabricationid").val(val.MOLD_FABRICATION_ID);
+                  $("#eordernumber").val(val.ORDER_NO);
+                  $("#emanufacturedate").val(val.MANUFACTURE_DATE);
+                  $("#emoldfabricationmcode").val(val.MOLD_CODE);
+                  $("#ecustomercode").val(val.CUSTOMER_CODE);
+                  getcus_name(ecustomercode,ecustomername);
+                  $("#ecurrentprocess").val(val.CURRENT_PROCESS);
+                  $("#edeliveryplan").val(val.DELIVERY_PLAN);
+                  $("#eoperator").val(val.OPERATOR);                  
                   
                   $('.sel').select2({ width: '100%' });
-                  $('#editmoldrepair').modal('show');
+                  $('#emoldfabrication').modal('show');
                 }
-              });  */                                     
+              });                                      
               
             }
           },
@@ -2029,7 +2028,7 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
             extend: 'selected', // Bind to Selected row
             text: '<i class="fas fa-trash"></i>',
             attr:  {
-                title: 'Delete Request',
+                title: 'Delete fabrication',
                 id: 'deleteButton'
             },
             name: 'delete',      // do not change name
@@ -2037,8 +2036,8 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
             
             action: function ( e, dt, node, config ) {               
               
-              alert('UNAVAILABLE');
-             /*  swal({
+              /* alert('UNAVAILABLE'); */
+              swal({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
                 type: 'warning',
@@ -2053,14 +2052,14 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                   $.ajax(
                     {
                     method:'post',
-                    url:'/1_mes/_query/mold_repair/delete_mold_repair.php',
+                    url:'/1_mes/_query/mold_repair/delete_moldfab.php',
                     data:
                     {
-                        'id': data[2],
+                        'id': data[1],
                         'ajax': true
                     },
                     success: function(data) {
-                      checkuserauth();
+                      checkuserauthF();
 
                       $.notify({
                         icon: 'fas fa-info-circle',
@@ -2077,10 +2076,10 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                     });
 
                 }
-              }) */
+              })
 
             }                
-          },
+          },          
           { extend: 'copy', text: '<i class="far fa-copy"></i>', 
           attr:  {
             title: 'Copy to Clipboard',
@@ -2095,11 +2094,29 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
        filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
           ],        
           select: 'single',
-            "columnDefs": [ {
+            "columnDefs": [
+              /*  {
               "searchable": false,
               "orderable": false,
-              "targets": 0
-          } ],
+              "targets": 1
+              }, */
+              {
+                "data": null,
+                "searchable": false,
+                "orderable": false,
+                render: function ( data, type, row ) {
+
+                  if(row[7]!='FINISHED'){
+                    return "<div class='text-center'><button id='change' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>CHANGE</span></button></div>";
+                  }
+                  else{
+                    return "<div class='text-center'><button id='change' class='btn btn-secondary py-0 px-1 m-0' disabled><span style='font-size:.8em; text-decoration: line-through;'>CHANGE</span></button></div>";
+                  }               
+                                                                      
+                },              
+                "targets": 0,
+              },
+        ],
           "order": [[ 1, 'desc' ]],         
                                
       } );
@@ -2109,10 +2126,24 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
       /* ____________________ FUNCTIONS ___________________ */
 
       tble.on( 'order.dt search.dt processing.dt page.dt', function () {
-          tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+          tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
               cell.innerHTML = i+1;
           } );
       } ).draw();
+
+      $('#Dtable tbody').on( 'click', '#change', function () {
+        var data = tble.row( $(this).parents('tr') ).data();
+                
+            alert(data[1]);
+            
+            $('#cmoldfabricationid').val(data[1]);
+            $('#ccurrentprocess').val(data[7]);
+
+            $('.sel').select2({ width: '100%' });
+            $('#changeprocess').modal('show');
+       
+        
+    } );
 
       /* ____________________________ FUNCTIONS _________________________ */
     }
@@ -2126,8 +2157,9 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
 $.fn.dataTable.ext.buttons.addfab1 = {
   action: 
   function () {
-    alert('UNAVAILABLE');
-    /* $("#addmoldrepairA").modal('show'); */        
+    /* alert('UNAVAILABLE'); */
+    getcus_name(acustomercode,acustomername);
+    $("#addmoldfabrication").modal('show');        
     
   }
 };
@@ -2172,107 +2204,7 @@ function DisplayTbleF(Table_Name,Tablesp,tbltitle) {
             name: 'add',
             className: 'btn btn-export6 btn-xs py-1 addbt',
             extend: 'add1'               
-          },
-          { extend: 'selected', // Bind to Selected row
-            text: '<i class="fas fa-edit"></i>',
-            attr:  {
-                title: 'Edit Request',
-                id: 'editButton'
-            },
-            name: 'edit',        // do not change name
-            className: 'btn btn-export6 btn-xs py-1 editbt',
-            action: function ( e, dt, node, config ) {
-              /* alert('test Edit button'); */
-              var data = dt.row( '.selected' ).data();                                    
-              /* alert( data[0] +" is the ID. " ); */
-              /* alert("||"+data[3]+"||"); */
-              /* document.getElementById("emcl").value = data[3]; */
-              $.ajax(
-                {
-                method:'post',
-                url:'/1_mes/_query/mold_repair/getrow.php',
-                data:
-                {
-                    'id': data[3],
-                    'ajax': true
-                },
-                success: function(data1) {
-                  var val = JSON.parse(data1);                  
-
-                  $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
-                  $("#emcl").val(val.MOLD_CODE);   
-                  elistchange();
-                  $("#emoldshot").val(val.MOLD_SHOT);
-                  $("#emachinecode").val(val.MACHINE_CODE);
-                  $("#edaterequired").val(val.DATE_REQUIRED);
-                  $("#etimerequired").val(val.TIME_REQUIRED);
-                  $("#edefectname").val(val.DEFECT_NAME);
-                  $("#erepairremarks").val(val.REPAIR_REMARKS);
-                  $("#emoldstatus").val(val.MOLD_STATUS);
-                  
-                  $('.sel').select2({ width: '100%' });
-                  $('#editmoldrepair').modal('show');
-                }
-              });                                      
-              
-            }
-          },
-          {
-            extend: 'selected', // Bind to Selected row
-            text: '<i class="fas fa-trash"></i>',
-            attr:  {
-                title: 'Delete Request',
-                id: 'deleteButton'
-            },
-            name: 'delete',      // do not change name
-            className: 'btn btn-export6 btn-xs py-1 delbt',
-            
-            action: function ( e, dt, node, config ) {               
-              
-
-              swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-              }).then((result) => {
-                if (result.value) {
-                  
-                  var data = dt.row( '.selected' ).data();
-                  $.ajax(
-                    {
-                    method:'post',
-                    url:'/1_mes/_query/mold_repair/delete_mold_repair.php',
-                    data:
-                    {
-                        'id': data[2],
-                        'ajax': true
-                    },
-                    success: function(data) {
-                      checkuserauth();
-
-                      $.notify({
-                        icon: 'fas fa-info-circle',
-                        title: 'System Notification: ',
-                        message: data,
-                      },{
-                        type:'success',
-                        placement:{
-                          align: 'center'
-                        },           
-                        delay: 3000,                        
-                      });
-                    }
-                    });
-
-                }
-              })
-
-            }                
-          },
+          },                
           { extend: 'copy', text: '<i class="far fa-copy"></i>', 
           attr:  {
             title: 'Copy to Clipboard',

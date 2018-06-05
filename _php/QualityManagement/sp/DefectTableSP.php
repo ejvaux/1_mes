@@ -22,19 +22,22 @@
 $table = 'qmd_defect_dl';
  
 // Table's primary key
-$primaryKey = 'JOB_ORDER_NO';
+$primaryKey = 'LOT_DEFECT_ID';
  
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'PROD_DATE', 'dt' => 0 ),
-    array( 'db' => 'ITEM_CODE', 'dt' => 1 ),
-    array( 'db' => 'ITEM_NAME', 'dt' => 2 ),
-    array( 'db' => 'INSERT_USER', 'dt' => 3 ),
-    array( 'db' => 'DEF_QUANTITY', 'dt' => 4 ),
-    array( 'db' => 'DEFECT_NAME', 'dt' => 5 ),
+    array( 'db' => 'LOT_DEFECT_ID', 'dt' => 0 ),
+/*     array( 'db' => 'LOT_DEFECT_ID', 'dt' => 1 ), */
+    array( 'db' => 'JOB_ORDER_NO', 'dt' => 1 ),
+    array( 'db' => 'PROD_DATE', 'dt' => 2 ),
+    array( 'db' => 'ITEM_CODE', 'dt' => 3 ),
+    array( 'db' => 'ITEM_NAME', 'dt' => 4 ),
+    array( 'db' => 'INSERT_USER', 'dt' => 5 ),
+    array( 'db' => 'DEF_QUANTITY', 'dt' => 6 ),
+    array( 'db' => 'DEFECT_NAME', 'dt' => 7 ),
          
 );
  

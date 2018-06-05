@@ -66,7 +66,7 @@
                     <label class="col-form-label-sm">DEFECT NAME:</label>   
                   </div>
                 <div class="col-7">
-                      <select id="defectInputID" type="text" class="form-control form-control-sm " name="defectInput" placeholder="">
+                      <select id="defectInput" type="text" class="form-control form-control-sm " name="defectInput" placeholder="">
                   
                   <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/list/getDefectNames.php"; ?>
 

@@ -8,7 +8,6 @@
         header('Location: /1_mes/');
         exit();
     }
-    
     $jo = $_POST['JobOrderNo'];
     $lotNum = $_POST['datalistLotNumber'];
     $divCode = $_POST['DivCodeID'];

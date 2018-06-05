@@ -64,7 +64,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                 or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
                                 or mis_prod_plan_dl.MACHINE_CODE LIKE '%$search%' or dmc_machine_list.MACHINE_MAKER LIKE '%$search%' 
                                 or dmc_machine_list.TONNAGE LIKE '%$search%' or dmc_machine_list.MACHINE_GROUP LIKE '%$search%' 
-                                or mis_prod_plan_dl.PRIORITY LIKE '%$search%')";
+                                or mis_prod_plan_dl.PRIORITY LIKE '%$search%') ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
                        } 
 
@@ -98,7 +98,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                 or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
                                 or mis_prod_plan_dl.MACHINE_CODE LIKE '%$search%' or dmc_machine_list.MACHINE_MAKER LIKE '%$search%' 
                                 or dmc_machine_list.TONNAGE LIKE '%$search%' or dmc_machine_list.MACHINE_GROUP LIKE '%$search%' 
-                                or mis_prod_plan_dl.PRIORITY LIKE '%$search%')";
+                                or mis_prod_plan_dl.PRIORITY LIKE '%$search%')  ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
                                 
 
@@ -124,7 +124,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                 LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
 
 
-                                WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND (mis_prod_plan_dl.DATE_ ='$strfrom')";
+                                WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND (mis_prod_plan_dl.DATE_ ='$strfrom') 
+                                ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
                                 
                               }
@@ -162,7 +163,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                 or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
                                 or mis_prod_plan_dl.MACHINE_CODE LIKE '%$search%' or dmc_machine_list.MACHINE_MAKER LIKE '%$search%' 
                                 or dmc_machine_list.TONNAGE LIKE '%$search%' or dmc_machine_list.MACHINE_GROUP LIKE '%$search%' 
-                                or mis_prod_plan_dl.PRIORITY LIKE '%$search%')";
+                                or mis_prod_plan_dl.PRIORITY LIKE '%$search%')  ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
 
                                      
@@ -189,7 +190,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 
 
                                      WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND
-                                     (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto')";
+                                     (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto')  ORDER BY mis_prod_plan_dl.DATE_ DESC";
                           
                                   }
 
@@ -265,11 +266,36 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
          $gap.=$row['PLAN_QTY']-$row['PROD_RESULT'];
 
       }
-      
+$jonumber=$row['JOB_ORDER_NO'];
+$itemcode=$row['ITEM_CODE'];
+
+      $sqldef = "SELECT SUM(DEF_QUANTITY) as TOTAL_DEFECT FROM qmd_defect_dl
+       WHERE JOB_ORDER_NO='$jonumber' AND ITEM_CODE='$itemcode'";
+       $resultdef=$conn->query($sqldef);
+       
+       while($rowDef=$resultdef->fetch_assoc()){
+        $defectpercentage="0%";
+        if($rowDef['TOTAL_DEFECT']!=NULL)
+        {
+          $defectpercentage = (($rowDef['TOTAL_DEFECT']/$row['PLAN_QTY'])*100);
+          $defectpercentage=round($defectpercentage,2);
+          $defectpercentage=$defectpercentage."%";
+          #$defectpercentage="asd%"
+        }
+        else
+        {
+          $defectpercentage="0%";
+        }
+       }
+
+
+
+
+
      array_push($datavar,["NO"=> $ctr ,"DATE"=>$temp_date, "JO NO"=> $row['JOB_ORDER_NO'] ,
       "CUSTOMER CODE"=>$row['CUSTOMER_CODE'],"CUSTOMER NAME"=>$row['CUSTOMER_NAME'],"ITEM CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],
       "MACHINE CODE"=>$row['MACHINE_CODE'],"MACHINE MAKER"=>$row['MACHINE_MAKER'],"TONNAGE"=>$row['TONNAGE'],"MACHINE GROUP"=>$row['MACHINE_GROUP']
-      ,"TOOL NO"=>$row['TOOL_NUMBER'],"PRIORITY"=>"","CYCLE TIME"=>"","PLAN QTY"=>$row['PLAN_QTY'],"PROD RESULT"=>$row['PROD_RESULT'],"GAP"=>$gap,"ACHIEVE RATE"=>$achievepercent."% ","DEFECT RATE"=>""]);
+      ,"TOOL NO"=>$row['TOOL_NUMBER'],"PRIORITY"=>"","CYCLE TIME"=>"","PLAN QTY"=>$row['PLAN_QTY'],"PROD RESULT"=>$row['PROD_RESULT'],"GAP"=>$gap,"ACHIEVE RATE"=>$achievepercent."% ","DEFECT RATE"=>$defectpercentage]);
     
     
       

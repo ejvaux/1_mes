@@ -690,3 +690,218 @@ $('#mod').on('submit','#editmoldhistoryform', function (e) {
 
 /* ____________________ EDIT HISTORY A ________________________ */
   
+
+/* ____________________ ADD MOLD FABRICATION A ________________________ */
+
+$('#mod').on('submit','#addmoldfabricationform', function (e) {           
+  /* alert('TEST'); */
+  /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
+  e.preventDefault();
+  e.stopImmediatePropagation();
+ /*  alert('test'); */
+  $.ajax({
+    type: 'POST',
+    url: '/1_mes/_query/mold_repair/insert_mold_fabrication.php',
+    data: $('#addmoldfabricationform').serialize(),
+    success: function (data) {
+      /* alert(data); */   
+      
+      if(data=="success"){
+        /* alert("Record saved successfully!"); */
+        $('#addmoldfabricationform').trigger('reset');
+        $('#addmoldfabrication').modal('hide');          
+        checkuserauthF();
+        loadmodal('moldrepairmodal');
+
+        $.notify({
+          icon: 'fas fa-info-circle',
+          title: 'System Notification: ',
+          message: "Record saved successfully!",
+        },{
+          type:'success',
+          placement:{
+            align: 'center'
+          },           
+          delay: 3000,                        
+        });
+      }
+      else{
+        alert(data);          
+      }
+    }
+  }); 
+  
+});
+
+
+/* ____________________ ADD MOLD FABRICATION A ________________________ */
+
+
+/* ____________________ EDIT MOLD FABRICATION A ________________________ */
+
+$('#mod').on('submit','#emoldfabricationform', function (e) {           
+  /* alert('TEST'); */
+  /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
+  e.preventDefault();
+  e.stopImmediatePropagation();
+ /*  alert('test'); */
+  $.ajax({
+    type: 'POST',
+    url: '/1_mes/_query/mold_repair/edit_moldfab.php',
+    data: $('#emoldfabricationform').serialize(),
+    success: function (data) {
+      /* alert(data); */   
+      if(data=="success"){
+        /* alert("Record saved successfully!"); */
+        $('#emoldfabricationform').trigger('reset');
+        $('#emoldfabrication').modal('hide');          
+        checkuserauthF();
+        loadmodal('moldrepairmodal');
+
+        $.notify({
+          icon: 'fas fa-info-circle',
+          title: 'System Notification: ',
+          message: "Record updated successfully!",
+        },{
+          type:'success',
+          placement:{
+            align: 'center'
+          },           
+          delay: 3000,                        
+        });
+      }
+      else{
+        alert(data);          
+      }
+    }
+  }); 
+  
+});
+
+
+/* ____________________ EDIT MOLD FABRICATION A ________________________ */
+
+
+
+/* ____________________ MOLD FABRICATION GET CUSTOMER NAME ________________________ */
+
+function getcus_name(dd,input){
+  /* alert('test'); */
+    // find the dropdown
+    /* var ddl = document.getElementById(dd); */
+      // find the selected option
+      var selectedOption = dd.options[dd.selectedIndex].text;
+      /* alert(selectedOption); */
+
+      if(selectedOption !== null){
+        /* alert('TEST LIST'); */
+        $.ajax({
+          type:'POST',
+          data:{
+            'cc': selectedOption
+          },
+          url:'/1_mes/_query/mold_repair/getcustomername.php',
+          success:function(data){
+              var val = JSON.parse(data);              
+              $(input).val(val.CUSTOMER_NAME);                                   
+          } 
+    
+          });
+
+      }
+
+  }
+    /* ____________________ MOLD FABRICATION GET CUSTOMER NAME ________________________ */
+
+
+    /* ____________________ MOLD FABRICATION CHANGE PROCESS ________________________ */
+
+$('#mod').on('submit','#changeprocessform', function (e) {           
+  /* alert('TEST'); */
+  /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
+  e.preventDefault();
+  e.stopImmediatePropagation();
+ /*  alert('test'); */
+
+
+ swal({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, change it!'
+}).then((result) => {
+  if (result.value) {
+    $currentprocess = $_POST['currentprocess'];
+
+    $.ajax({
+      type: 'POST',
+      url: '/1_mes/_query/mold_repair/checkprocess.php',
+      data: $('#changeprocessform').serialize(),
+      success: function (data) {
+           alert(data);
+           alert($currentprocess);
+        /* if(data=="success"){
+          $('#changeprocessform').trigger('reset');
+          $('#changeprocess').modal('hide');          
+          checkuserauthF();
+          loadmodal('moldrepairmodal');
+  
+          $.notify({
+            icon: 'fas fa-info-circle',
+            title: 'System Notification: ',
+            message: "Process changed successfully!",
+          },{
+            type:'success',
+            placement:{
+              align: 'center'
+            },           
+            delay: 3000,                        
+          });
+        }
+        else{
+          alert(data);          
+        } */
+      }
+    });
+
+    
+    /* $.ajax({
+      type: 'POST',
+      url: '/1_mes/_query/mold_repair/changeprocess.php',
+      data: $('#changeprocessform').serialize(),
+      success: function (data) {
+           
+        if(data=="success"){
+          $('#changeprocessform').trigger('reset');
+          $('#changeprocess').modal('hide');          
+          checkuserauthF();
+          loadmodal('moldrepairmodal');
+  
+          $.notify({
+            icon: 'fas fa-info-circle',
+            title: 'System Notification: ',
+            message: "Process changed successfully!",
+          },{
+            type:'success',
+            placement:{
+              align: 'center'
+            },           
+            delay: 3000,                        
+          });
+        }
+        else{
+          alert(data);          
+        }
+      }
+    }); */ 
+
+  }
+})
+  
+});
+
+
+/* ____________________ MOLD FABRICATION CHANGE PROCESS ________________________ */

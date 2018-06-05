@@ -17,13 +17,13 @@
 
 
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-    $sql = "SELECT dmc_defect_code.DEFECT_CODE,dmc_defect_code.DIVISION_CODE,
+    $sql1 = "SELECT dmc_defect_code.DEFECT_CODE,dmc_defect_code.DIVISION_CODE,
             mis_product.ITEM_CODE, mis_product.ITEM_NAME, mis_product.PRINT_DATE, qmd_lot_create.JO_NUM, qmd_lot_create.LOT_QTY
             FROM mis_product LEFT JOIN dmc_customer ON mis_product.CUST_CODE = dmc_customer.CUSTOMER_CODE
             LEFT JOIN dmc_defect_code ON dmc_customer.DIVISION_CODE = dmc_defect_code.DIVISION_CODE
             LEFT JOIN qmd_lot_create ON qmd_lot_create.LOT_NUMBER = mis_product.LOT_NUM
             WHERE dmc_defect_code.DEFECT_NAME ='$defectName' AND mis_product.LOT_NUM = '$lotNumber'";
-    $result = $conn->query($sql);
+    $result = $conn->query($sql1);
     $row = $result->fetch_assoc();
     $defectCode = $row['DEFECT_CODE'];
     $divCode = $row['DIVISION_CODE'];
@@ -34,6 +34,20 @@
     $rejectremarks = 'DEFECT';
     $lotqty = $row['LOT_QTY'];
 
+    echo "$sql1";
+    echo"$divCode,
+            $jobOrder,
+            $lotNumber,
+            $itemCode,
+            $itemName,
+            $prod_date,
+            $defectCode,
+            $defectName,
+            $defectQty,
+            $lotqty,
+            $rejectremarks,
+            $insertDate,
+            $insertUser";
     /* if($lotqty==$defectQty){ */
     
     /* } */
@@ -61,9 +75,9 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
-        $stmt1 = $conn->prepare($sql);
+        $stmt = $conn->prepare($sql);
 
-        $stmt1->bind_param(
+        $stmt->bind_param(
 
             'ssssssssiisss',
             $divCode,
@@ -80,12 +94,12 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             $insertDate,
             $insertUser
             );
-        if ($stmt1->execute() === TRUE) {
+        if ($stmt->execute() === TRUE) {
             echo "Record saved successfully";
         }
         else{
             echo "Error: " . $stmt . "<br>" . $conn->error; 
         }
-        $stmt1->close();
+        $stmt->close();
         $conn->close();
 ?>

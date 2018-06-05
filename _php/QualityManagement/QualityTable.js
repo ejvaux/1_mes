@@ -264,7 +264,7 @@ function isNumberKey(evt) {
 $(document).on('click', '.lotApprove', function () {
   //$('#dataModal').modal();
   var lotNumber = $(this).attr("id");
-
+  
   swal({
     title: 'Are you sure you will approve lot ' + lotNumber + ' ?',
     text: "REVERT this in Lot Judgement > FILTER TABLE:APPROVED > Click:PENDING",
@@ -676,7 +676,7 @@ $(document).on('click', '#ConfirmDefect', function () {
   //$('#dataModal').modal();
   var lotNumber = document.getElementById("lot_num").value;
   var Quantity_Defect = document.getElementById('defect_QTY').value;
-  var remarks = document.getElementById('defectInputID').value;
+  var remarks = document.getElementById('defectInput').value;
   if (Quantity_Defect  == 0){
     swal(
       'No defect quantity.',
@@ -750,7 +750,7 @@ $(document).on('click', '#ConfirmDefect', function () {
       });
       swal(
         'REJECT',
-        'Your imaginary file is safe :)',
+        'You rejected lot number ' + lotNumber + ' !',
         'error'
       )
     }
@@ -939,10 +939,10 @@ $(document).on('change', '#JobOrderNo', function () {
         return;
       }
       else {
-          itemCodeID.value = val.ITEMCODE;
-          itemNameID.value = val.ITEMNAME;
-          DivCodeID.value = val.DIVI_CODE;
-          DivNameID.value = val.DIVI_NAME;
+        document.getElementById("itemCodeID").value = val.ITEMCODE;
+        document.getElementById("itemNameID").value = val.ITEMNAME;
+        document.getElementById("DivCodeID").value = val.DIVI_CODE;
+        document.getElementById("DivNameID").value = val.DIVI_NAME;
         }
       }
     });
@@ -1000,7 +1000,6 @@ $(document).on('change', '#datalistLotNumber', function () {
 
 $(document).on('click', '#defectConfirm', function () {
   var DefectInputID = document.getElementById("defectInputID").value;
-  alert(DefectInputID);
   var date = document.getElementById("prodDateID").value;
   var time = document.getElementById("prodTimeID").value;
   var JobOrderNo = document.getElementById("JobOrderNo").value;
@@ -1014,6 +1013,12 @@ $(document).on('click', '#defectConfirm', function () {
   
   var dateTimeDefect = date + " " + time;
   var DefQty = document.getElementById("DefQty").value;
+
+  if (DefectInputID == "" || date == "" || time == "" || JobOrderNo == "" || DefQty == ""){
+    alert("Please leave no textbox empty.");
+    DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
+    return;
+  }
 
   $.ajax({
     url: "/1_mes/_php/QualityManagement/_modal/AddDefect.php",
@@ -1038,7 +1043,8 @@ $(document).on('click', '#defectConfirm', function () {
         'Job Order Number ' + JobOrderNo + ' defect quantity already saved!',
         'success'
       );
-      loadDoc("DefectManagement");
+      
+      DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
     }
   });
 });
@@ -1048,11 +1054,11 @@ $(document).on('click', '#defectConfirm', function () {
 });
  */
 
-function DisplayTable(Table_Name, Tablesp, tbltitle) {
+function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
   
   var xhttp;
   if (Table_Name.length == 0) {
-    document.getElementById("table_defect").innerHTML = "<h1>No table to display.</h1>";
+    document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
     return;
   }
   xhttp = new XMLHttpRequest();
@@ -1060,10 +1066,10 @@ function DisplayTable(Table_Name, Tablesp, tbltitle) {
     
     if (this.readyState == 4 && this.status == 200) {
       
-      document.getElementById("table_defect").innerHTML = this.responseText;
+      document.getElementById("table_display").innerHTML = this.responseText;
       var tble = $('#Dtable').DataTable({
         deferRender: true,
-        scrollY: '61vh',
+        scrollY: '59vh',
         "sScrollX": "100%",
         "processing": true,
         "serverSide": true,
@@ -1075,10 +1081,14 @@ function DisplayTable(Table_Name, Tablesp, tbltitle) {
         "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [
           {
-            text: 'Add',
+            text: '<i class="fas fa-plus"></i>',
             name: 'add', // do not change name 
-            className: 'btn btn-outline-secondary btn-xs py-1',
-            extend: 'add0'
+            className: 'btn btn-export6 btn-xs py-1',
+            extend: 'add0',
+            action: function (e, dt, node, config) {
+              $('#insertDefect').modal('show');
+              $('#insertDefect').focus();
+            }
           },
           {
             extend: 'selected', // Bind to Selected row
@@ -1088,26 +1098,49 @@ function DisplayTable(Table_Name, Tablesp, tbltitle) {
               id: 'editButton'
             },
             name: 'edit',        // do not change name
-            className: 'btn btn-outline-secondary btn-xs py-1',
+            className: 'btn btn-export6 btn-xs py-1',
             action: function (e, dt, node, config) {
-              alert('test Edit button');
               var data = dt.row('.selected').data();
-              alert(data[0] + " is the ID. ");
-              $('#editmodal').modal('show');
-              $('#editmodal').focus();
+              getDefectDtls(data[0]);
+
+              $('#editDefect').modal('show');
+              $('#editDefect').focus();
             }
           },
           {
 
             name: 'delete',      // do not change name
-            className: 'btn btn-outline-secondary btn-xs py-1',
+            text: '<i class="fas fa-trash"></i>',
+            className: 'btn btn-export6 btn-xs py-1',
             extend: 'selected', // Bind to Selected row
             action: function (e, dt, node, config) {
-              if (confirm('Are you sure you want to delete this?')) {
-                /* alert('test Delete button'); */
-                var data = dt.row('.selected').data();
-                alert(data[0]);
+            var data = dt.row('.selected').data();
+            alert(data[0]);
+
+            swal({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+              if (result.value) {
+                /* delete function */
+                deleteDefect(data[0]);
+                 /* delete function */
+                swal(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                );
               }
+            });
+            
+            
+
+              
             }
           },
           {
@@ -1116,7 +1149,7 @@ function DisplayTable(Table_Name, Tablesp, tbltitle) {
               title: 'Copy to Clipboard',
               id: 'copyButton'
             },
-            className: 'btn btn-outline-secondary btn-xs py-1'
+            className: 'btn btn-export6 btn-xs py-1'
           },
           {
             extend: 'excel', text: '<i class="fas fa-table"></i>',
@@ -1124,7 +1157,7 @@ function DisplayTable(Table_Name, Tablesp, tbltitle) {
               title: 'Export to Excel',
               id: 'exportButton'
             },
-            filename: tbltitle, className: 'btn btn-outline-secondary btn-xs py-1'
+            filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'
           }
         ],
         select: 'single',
@@ -1147,7 +1180,7 @@ function DisplayTable(Table_Name, Tablesp, tbltitle) {
 
     }
   };
-  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
+  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name   + ".php", true);
   xhttp.send();
 }
 $.fn.dataTable.ext.buttons.add0 = {
@@ -1155,3 +1188,224 @@ $.fn.dataTable.ext.buttons.add0 = {
     $("#moldlistmod").modal('show');
   }
  };
+
+ function getDefectDtls(defect_id){
+
+  $.ajax({
+    url: "/1_mes/_php/QualityManagement/list/getDefectDetails.php",
+    type: 'post',
+    data: {
+      'def_ID': defect_id,
+      'ajax': true
+    },
+
+    success: function (data) {
+      var val = JSON.parse(data);
+      var prodDate = val.PROD_DATE.slice(0, 10);
+      var prodTime = val.PROD_DATE.slice(11, 19);
+
+      if(val.LOT_NUMBER == " "){
+        document.getElementById("edatalistLotNumber").value = "";
+        document.getElementById("eLotQuantityID").value = "";
+        document.getElementById("eprodDateID").value = "";
+        document.getElementById("eprodTimeID").value = "";
+      }
+      else{
+        document.getElementById("edatalistLotNumber").value = val.LOT_NUMBER;
+        document.getElementById("eLotQuantityID").value = val.LOT_QTY;
+        document.getElementById("eprodDateID").value = prodDate;
+        document.getElementById("eprodTimeID").value = prodTime;
+      }
+      
+      defectID
+      document.getElementById("defectID").value = val.LOT_DEFECT_ID;
+      document.getElementById("eJobOrderNo").value = val.JOB_ORDER_NO;
+      document.getElementById("eDivCodeID").value = val.DIVISION_CODE;
+      /* document.getElementById("DivNameID").value; */
+      document.getElementById("eitemCodeID").value = val.ITEM_CODE;
+      document.getElementById("eitemNameID").value = val.ITEM_NAME;
+      document.getElementById("eDefectCodeID").value = val.DEFECT_CODE;
+      document.getElementById("edefectInputID").value = val.DEFECT_NAME;
+      document.getElementById("eDefQty").value = val.DEF_QUANTITY;
+
+
+
+
+    }
+  });
+}
+
+$(document).on('change', '#eJobOrderNo', function () {
+  document.getElementById("edatalistLotNumber").value = "";
+  var jobOrderNumber = $(this).val();
+  if (jobOrderNumber == " " || jobOrderNumber == null || jobOrderNumber == undefined) {
+    document.getElementById("eJobOrderNo").value = "";
+    return;
+  }
+
+  $.ajax({
+    url: "/1_mes/_php/QualityManagement/list/getLotNumbers.php",
+    type: 'post',
+    data: {
+      'jobOrder': jobOrderNumber,
+      'ajax': true
+    },
+
+    success: function (data) {
+      document.getElementById("lotNumber").innerHTML = data;
+    }
+  }),
+
+  $.ajax({
+    method: 'post',
+    url: '/1_mes/_php/QualityManagement/_modal/DefectDetails.php',
+    data:
+      {
+        'jobOrder': jobOrderNumber,
+        'ajax': true
+      },
+    success: function (data) {
+      var val = JSON.parse(data);
+      document.getElementById("eLotQuantityID").value = "";
+      if (val == '' || val == null || val == undefined) {
+        itemCodeID.value = "";
+        itemNameID.value = "";
+        DivCodeID.value = "";
+        DivNameID.value = "";
+        document.getElementById("eJobOrderNo").value = "";
+        swal(
+          'Job Order does not exist!',
+          'Please search existing Job Order',
+          'error'
+        );
+        return;
+      }
+      else {
+        document.getElementById("eitemCodeID").value = val.ITEMCODE;
+        document.getElementById("eitemNameID").value = val.ITEMNAME;
+        document.getElementById("eDivCodeID").value = val.DIVI_CODE;
+        document.getElementById("eDivNameID").value = val.DIVI_NAME;
+      }
+    }
+  });
+
+});
+
+$(document).on('change', '#edatalistLotNumber', function () {
+  var defectMgmt_LotNum = $(this).val();
+  if (defectMgmt_LotNum == "" || defectMgmt_LotNum == null || defectMgmt_LotNum == undefined) {
+    document.getElementById("eLotQuantityID").value = "";
+    document.getElementById("eprodDateID").value = "";
+    document.getElementById("eprodTimeID").value = "";
+    return;
+  }
+  $.ajax({
+    url: "/1_mes/_php/QualityManagement/list/getLotQuantity.php",
+    type: 'post',
+    data: {
+      'lotNumber': defectMgmt_LotNum,
+      'ajax': true
+    },
+
+    success: function (data) {
+      var val = JSON.parse(data);
+      prodDate = val.PROD_DATE.slice(0, 10);
+      prodTime = val.PROD_DATE.slice(11, 19);
+      document.getElementById("eprodDateID").value = prodDate;
+      document.getElementById("eprodTimeID").value = prodTime;
+      document.getElementById("eLotQuantityID").value = val.LOT_QTY;
+    }
+  });
+});
+
+$(document).on('change', '#edefectInputID', function () {
+  var defectName = $(this).val();
+  if (defectName == " ") {
+    document.getElementById("eDefectCodeID").value = "";
+    return;
+  }
+  $.ajax({
+    url: "/1_mes/_php/QualityManagement/list/getDefectCode.php",
+    type: 'post',
+    data: {
+      'defectName': defectName,
+      'ajax': true
+    },
+
+    success: function (data) {
+      var val = JSON.parse(data);
+      document.getElementById("eDefectCodeID").value = val.DEFECT_CODE;
+    }
+  });
+});
+
+function deleteDefect(def_ID){
+  alert(def_ID);
+  var x = def_ID;
+  $.ajax({
+    url: "/1_mes/_php/QualityManagement/deleteDefect.php",
+    type: 'post',
+    data: {
+      'defect_ID': x,
+      'ajax': true
+    },
+
+    success: function (data) {
+      DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
+    }
+  });
+}
+updateDefect
+
+$(document).on('click', '#updateDefect', function () {
+  var def_ID = document.getElementById("defectID").value;
+  var DefectInputID = document.getElementById("edefectInputID").value;
+  var date = document.getElementById("eprodDateID").value;
+  var time = document.getElementById("eprodTimeID").value;
+  var JobOrderNo = document.getElementById("eJobOrderNo").value;
+  var datalistLotNumber = document.getElementById("edatalistLotNumber").value;
+  var DivCodeID = document.getElementById("eDivCodeID").value;
+  var DivNameID = document.getElementById("eDivNameID").value;
+  var itemCodeID = document.getElementById("eitemCodeID").value;
+  var itemNameID = document.getElementById("eitemNameID").value;
+  var LotQuantityID = document.getElementById("eLotQuantityID").value;
+  var DefectCodeID = document.getElementById("eDefectCodeID").value;
+
+  var dateTimeDefect = date + " " + time;
+  var DefQty = document.getElementById("eDefQty").value;
+
+  if (DefectInputID == "" || date == "" || time == "" || JobOrderNo == "" || DefQty == "") {
+    alert("Please leave no textbox empty.");
+    DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
+    return;
+  }
+
+  $.ajax({
+    url: "/1_mes/_php/QualityManagement/_modal/EditDefect.php",
+    type: 'post',
+    data: {
+      'defect_ID': def_ID,
+      'JobOrderNo': JobOrderNo,
+      'datalistLotNumber': datalistLotNumber,
+      'DivCodeID': DivCodeID,
+      'DivNameID': DivNameID,
+      'itemCodeID': itemCodeID,
+      'itemNameID': itemNameID,
+      'LotQuantityID': LotQuantityID,
+      'DefectCodeID': DefectCodeID,
+      'DefectInputID': DefectInputID,
+      'dateTimeDefect': dateTimeDefect,
+      'DefQty': DefQty,
+      'ajax': true
+    },
+    success: function (data) {
+      swal(
+        data,
+        'Job Order Number ' + JobOrderNo + ' defect quantity already saved!',
+        'success'
+      );
+
+      DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
+    }
+  });
+});

@@ -15,6 +15,7 @@
                     if ($result->num_rows > 0) 
                     {
                             echo "<table class='table table-hover table-bordered table-sm tbl2 nowrap text-center' id='defectTable'><thead>    
+                            <th>DEFECT ID</th>
                             <th>JOB ORDER</th>
                             <th>PROD DATE</th>
                             <th>ITEM CODE</th>
@@ -27,6 +28,7 @@
                             while($row = $result->fetch_assoc()) 
                             {
                             echo " <tbody class='content'>";
+                            echo "<td>" . $row['LOT_DEFECT_ID'] . "</td>";
                             echo "<td>" . $row['JOB_ORDER_NO'] . "</td>";
                             echo "<td>" . $row['PROD_DATE'] . "</td>";
                             echo "<td>" . $row['ITEM_CODE'] . "</td>";
@@ -39,7 +41,8 @@
                     } 
                     else {
                         echo "<table class='table table-hover table-bordered table-sm tbl2' id='defectTable'><thead>    
-                        <th>JOB ORDER</th>
+                            <th>DEFECT ID</th>
+                            <th>JOB ORDER</th>
                             <th>PROD DATE</th>
                             <th>ITEM CODE</th>
                             <th>ITEM NAME</th>

@@ -88,6 +88,7 @@
                       <div class="form-group">
                       <select id="StatusSort" class='form-control ' style="font-size: 10px; height: 30px" onchange='showTable("ShipmentList","","shipment_management")'>
                         <option value=''>ALL DATA</option>
+                        <option value='SHIPPED'>SHIPPED</option>
                         <option value='APPROVED'>APPROVED</option>
                         <option value='DISAPPROVED'>DISAPPROVED</option>
                         <option value='PENDING'>PENDING</option>

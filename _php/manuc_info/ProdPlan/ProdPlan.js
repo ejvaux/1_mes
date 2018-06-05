@@ -370,7 +370,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        paginationSize:100,
        placeholder:"No Data to Display",
        movableColumns:true,
-       //groupBy:"JO NO",
+       //groupBy:"PROD DATE",
       // responsiveLayout:"collapse",
        columns:[ //Define Table Columns
         //{formatter:"responsiveCollapse", width:30, minWidth:30, align:"center", resizable:false, headerSort:false},
@@ -438,7 +438,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     paginationSize:100,
     placeholder:"No Data to Display",
     movableColumns:true,
-    groupBy:"LOT NUMBER",
+    groupBy:"LOT_NUMBER",
     groupHeader:function(value, count, data, group){
         //value - the value all members of this group share
         //count - the number of rows in this group
@@ -467,14 +467,14 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             {
                 return '<div class="btn btn-success btn-sm"><i class="fas fa-check-circle"></i> MARK AS SHIPPED</div>';
             }
-            else if(shipStat=="SHIPPED")
+            else if(shipStat=="ALREADY SHIPPED")
             {
-                return '<button type="button" class="btn btn-success btn-sm" disabled><i class="fas fa-check-circle"></i> ALREADY SHIPPED</button>';
+                return '<button type="button" class="btn btn-primary btn-sm"><i class="fas fa-undo-alt"></i> UNDO SHIPMENT</button>';
 
             }
             else
             {
-                return '<button type="button" class="btn btn-success btn-sm" disabled ><strike><i class="fas fa-check-circle"></i> MARK AS SHIPPED</strike></button>';
+                return '<button type="button" class="btn btn-danger btn-sm" disabled ><strike><i class="fas fa-check-circle"></i> MARK AS SHIPPED</strike></button>';
             }
 
 
@@ -483,15 +483,104 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
              var shipStat = cell.getRow().getData().SHIPMENT_STATUS;
              if(shipStat=="WAITING FOR SHIPMENT")
              {
-                alert("Printing row data for: " + cell.getRow().getData().NO);
+                ///alert("Printing row data for: " + cell.getRow().getData().PACKING_NUMBER);
+                swal({
+                    title: 'Are you sure you want to mark '+ cell.getRow().getData().PACKING_NUMBER+" as shipped? ",
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Mark as shipped!'
+                  }).then((result) => {
+
+                    if (result.value) {
+
+                        $.ajax({
+                            method:'POST',
+                            url:'/1_mes/_php/manuc_info/Prodplan/MarkAsShipped.php',
+                            data:
+                            {
+                                'packingno': cell.getRow().getData().PACKING_NUMBER,
+                                'lotno':cell.getRow().getData().LOT_NUMBER,
+                                'ajax':true
+                  
+                            },
+                        
+                            
+                            success: function(data) 
+                            {
+                                showTable("ShipmentList","","shipment_management")
+                            swal(
+                                'SUCCESS!',
+                                cell.getRow().getData().PACKING_NUMBER+' is marked as shipped.',
+                                'success'
+                            )
+                             
+                            }
+                  
+                        });
+                
+
+
+                    }
+                 
+                })
+
              }
-             else if(shipStat=="SHIPPED")
+             else if(shipStat=="ALREADY SHIPPED")
              {
-                alert("This data is already shipped.");
+                //alert("This data is already shipped.");  
+                swal({
+                    title: 'Are you sure you want to undo this shipment?',
+                    text: "PACKING NUMBER: " +cell.getRow().getData().PACKING_NUMBER,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, undo this status!'
+                  }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            method:'POST',
+                            url:'/1_mes/_php/manuc_info/Prodplan/RevertMarkAsShipped.php',
+                            data:
+                            {
+                                'packingno': cell.getRow().getData().PACKING_NUMBER,
+                                'lotno':cell.getRow().getData().LOT_NUMBER,
+                                'ajax':true
+                  
+                            },
+                        
+                            
+                            success: function(data) 
+                            {
+                                showTable("ShipmentList","","shipment_management");
+                            swal(
+                                'SUCCESS!',
+                                cell.getRow().getData().PACKING_NUMBER+' Revert status from SHIPPED to APPROVED.',
+                                'success'
+                            )
+                             
+                            }
+                  
+                        });
+                
+                    }
+                  })
+                  
+              
              }
              else
              {
-                alert("Data cant be marked as shipped due to its lot judgement(LOT JUDGEMENT: " + shipStat+")");
+                //alert("Data cant be marked as shipped due to its lot judgement(LOT JUDGEMENT: " + shipStat+")");
+                swal({
+                    type: 'error',
+                    title: 'This data cant be marked as shipped due to its lot judgement.',
+                    text: 'LOT JUDGEMENT: ' + shipStat  
+               
+                })
+                  
              }
        
             }
@@ -509,6 +598,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             {
                 return "<span style='color:green; font-weight:bold;'>" + datacell + "</span>";
             }
+            else if(datacell=="ALREADY SHIPPED")
+            {
+                return "<span style='color:Blue; font-weight:bold;'>" + datacell + "</span>";
+            }
             else
             {
                 return "<span style='color:orange; font-weight:bold;'>" + datacell + "</span>";
@@ -517,8 +610,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         }},
         
         {title:"LOT CREATE DATE", field:"LOT CREATE DATE"},
-        {title:"PACKING NUMBER", field:"PACKING NUMBER"},
-        {title:"LOT NUMBER", field:"LOT NUMBER"},
+        {title:"PACKING NUMBER", field:"PACKING_NUMBER"},
+        {title:"LOT NUMBER", field:"LOT_NUMBER"},
         {title:"JO NO", field:"JO NO"},
         {title:"ITEM CODE", field:"ITEM CODE"},
         {title:"ITEM NAME", field:"ITEM NAME"},

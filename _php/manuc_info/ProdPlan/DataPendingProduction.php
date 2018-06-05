@@ -38,7 +38,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                         or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
                         or mis_prod_plan_dl.MACHINE_CODE LIKE '%$search%' or dmc_machine_list.MACHINE_MAKER LIKE '%$search%' 
                         or dmc_machine_list.TONNAGE LIKE '%$search%' or dmc_machine_list.MACHINE_GROUP LIKE '%$search%' 
-                        or mis_prod_plan_dl.PRIORITY LIKE '%$search%')";
+                        or mis_prod_plan_dl.PRIORITY LIKE '%$search%') ORDER BY mis_prod_plan_dl.DATE_ DESC";
                        } 
 
                       elseif ($strto=="" && $strfrom!="") 
@@ -71,7 +71,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
                             or mis_prod_plan_dl.MACHINE_CODE LIKE '%$search%' or dmc_machine_list.MACHINE_MAKER LIKE '%$search%' 
                             or dmc_machine_list.TONNAGE LIKE '%$search%' or dmc_machine_list.MACHINE_GROUP LIKE '%$search%' 
-                            or mis_prod_plan_dl.PRIORITY LIKE '%$search%')";
+                            or mis_prod_plan_dl.PRIORITY LIKE '%$search%') ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
                             
 
@@ -97,7 +97,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
 
 
-                            WHERE (dmc_customer.DIVISION_CODE = 'PTPI001') AND (mis_prod_plan_dl.DATE_ ='$strfrom')";
+                            WHERE (dmc_customer.DIVISION_CODE = 'PTPI001') AND (mis_prod_plan_dl.DATE_ ='$strfrom') ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
                             
                           }
@@ -132,7 +132,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
                             or mis_prod_plan_dl.MACHINE_CODE LIKE '%$search%' or dmc_machine_list.MACHINE_MAKER LIKE '%$search%' 
                             or dmc_machine_list.TONNAGE LIKE '%$search%' or dmc_machine_list.MACHINE_GROUP LIKE '%$search%' 
-                            or mis_prod_plan_dl.PRIORITY LIKE '%$search%')";
+                            or mis_prod_plan_dl.PRIORITY LIKE '%$search%') ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
 
 
@@ -159,7 +159,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
 
 
-                             WHERE (dmc_customer.DIVISION_CODE = 'PTPI001') AND (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto')";
+                             WHERE (dmc_customer.DIVISION_CODE = 'PTPI001') AND (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') ORDER BY mis_prod_plan_dl.DATE_ DESC";
                   
                           }
 

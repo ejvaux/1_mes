@@ -29,10 +29,17 @@ OR qmd_lot_create.LOT_JUDGEMENT LIKE '%$search%') ";
 
 if($shipstat!="ALL DATA")
 {
-    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+    if($shipstat == "PENDING")
+    {
+        $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+    }
+    else
+    {
+        $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+    }
 }
 
-$sql.=" ORDER BY qmd_lot_create.PROD_DATE DESC";
+$sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
 
 } elseif ($strto=="" && $strfrom!="") {
     # code... condition above is whenver
@@ -49,9 +56,16 @@ $sql.=" ORDER BY qmd_lot_create.PROD_DATE DESC";
             OR qmd_lot_create.LOT_JUDGEMENT LIKE '%$search%') AND (DATE(qmd_lot_create.PROD_DATE) = '$strfrom') ";
             if($shipstat!="ALL DATA")
             {
-                $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                if($shipstat == "PENDING")
+                {
+                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                }
+                else
+                {
+                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                }
             }
-            $sql.=" ORDER BY qmd_lot_create.PROD_DATE DESC";
+            $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
     } else {
         $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
             mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT, qmd_lot_create.PROD_DATE FROM mis_product
@@ -60,10 +74,16 @@ $sql.=" ORDER BY qmd_lot_create.PROD_DATE DESC";
             
             if($shipstat!="ALL DATA")
             {
-                $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
-            }
+                if($shipstat == "PENDING")
+                {
+                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                }
+                else
+                {
+                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                }            }
 
-            $sql.=" ORDER BY qmd_lot_create.PROD_DATE DESC";
+            $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
     }
 } elseif ($strfrom!="" && $strto!="") {
     if ($search!="") {
@@ -78,9 +98,16 @@ $sql.=" ORDER BY qmd_lot_create.PROD_DATE DESC";
 
             if($shipstat!="ALL DATA")
             {
-                $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                if($shipstat == "PENDING")
+                {
+                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                }
+                else
+                {
+                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                }
             }
-            $sql.=" ORDER BY qmd_lot_create.PROD_DATE DESC";
+            $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
     } else {
         $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
             mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT, qmd_lot_create.PROD_DATE FROM mis_product
@@ -88,9 +115,16 @@ $sql.=" ORDER BY qmd_lot_create.PROD_DATE DESC";
             WHERE (qmd_lot_create.PROD_DATE BETWEEN '$strfrom' AND '$strto') ";
                        if($shipstat!="ALL DATA")
                        {
-                           $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                        if($shipstat == "PENDING")
+                        {
+                            $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                        }
+                        else
+                        {
+                            $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                        }
                        }
-                       $sql.=" ORDER BY qmd_lot_create.PROD_DATE DESC";
+                       $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
     }
 }
 
@@ -116,14 +150,17 @@ while (($row = mysqli_fetch_array($result))) {
         } elseif ($lotjudge=="DISAPPROVED") {
             # code...
             $shipStat="REJECT/WAITING FOR REWORKS";
-        } else {
+        } else if($lotjudge=="SHIPPED"){
+            $shipStat="ALREADY SHIPPED";
+        }
+        else {
             $shipStat = "WAITING FOR INSPECTION";
         }
     }
 
 
 
-    array_push($datavar, ["NO"=> $ctr ,"LOT CREATE DATE"=>$temp_date,"PACKING NUMBER"=> $row['PACKING_NUMBER'], "LOT NUMBER"=> $row['LOT_NUM'],
+    array_push($datavar, ["NO"=> $ctr ,"LOT CREATE DATE"=>$temp_date,"PACKING_NUMBER"=> $row['PACKING_NUMBER'], "LOT_NUMBER"=> $row['LOT_NUM'],
             "JO NO"=> $row['JO_NUM'],"ITEM CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],
             "MACHINE CODE"=>$row['MACHINE_CODE'],"LOT JUDGEMENT"=> $lotjudge,"SHIPMENT_STATUS"=> $shipStat]);
 }

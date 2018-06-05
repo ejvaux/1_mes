@@ -24,7 +24,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                    or mis_product.TOOL_NUM LIKE '%$search%' or dmc_item_list.MODEL LIKE '%$search%') 
                    AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') 
                   ORDER BY mis_product.PRINT_DATE DESC";  
-
+ 
                        } 
 
                       elseif ($strto=="" && $strfrom!="") 

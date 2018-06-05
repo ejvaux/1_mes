@@ -19,7 +19,7 @@
                     
                     <th>INSPECT</th>
                     <th>JUDGEMENT</th>
-                    <th>JUDGE DATE</th>
+                    <th>LOT CREATED</th>
                     <th>LOT NUMBER</th>
                     <th>LOT QTY</th>
                     <th>LOT CREATOR</th>
@@ -56,22 +56,11 @@
                           
                         }
                     else if($decide == 'APPROVED' ){
-                          $sqlQuery = "SELECT DEF_QUANTITY FROM qmd_defect_dl WHERE LOT_NUMBER = '". $row['LOT_NUMBER'] ."'";
-                          $res12 = $conn->query($sqlQuery);
-                          $row1 = $res12->fetch_assoc();
-                          $ex = $row1['DEF_QUANTITY'];
-                          if($ex !=0){
-                          echo "<td class='text-success font-weight-bold text-center' colspan='2'>" . $row['LOT_JUDGEMENT'] . " AFTER SCRAPPING</td>";  
-                          /* <button type='button' class='btn btn-info bt lotPending' disabled id='". $row['LOT_NUMBER'] . "'>PENDING</button>
-                          <button type='button' class='btn btn-danger bt lotDisapprove' disabled id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>"; */
-                          }
-                          else{
-                            echo "<td class='text-center'>
+                          echo "<td class='text-center'>
                           <button type='button' class='btn btn-info bt lotPending' enabled='true' id='". $row['LOT_NUMBER'] . "'>PENDING</button>
                           <button type='button' class='btn btn-danger bt lotDisapprove' enabled='true' id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
                           echo "<td class='text-success font-weight-bold'>" . $row['LOT_JUDGEMENT'] . "</td>";  
-                        }
-                          
+                        
                         }
                     else if($decide == 'DISAPPROVED'){
                       $lotqty = $row['LOT_QTY'];

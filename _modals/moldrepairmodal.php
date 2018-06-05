@@ -463,7 +463,6 @@
                         <select class="form-control form-control-sm sel" name="moldcode" placeholder="" onchange="elistchange()" id="emcl">
                         
                         <?php
-
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
@@ -1768,3 +1767,354 @@
 </div>
 
 <!--_________________________________ Edit History ________________________________________-->
+
+
+<!--_________________________________ Insert Fabrication A ________________________________________-->
+
+
+<div class="modal hide fade in" role="dialog" id="addmoldfabrication" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add new fabrication.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="addmoldfabricationform" method="post">
+      <input type="hidden" id="addmoldfabricationid" name="moldfabricationid">
+      <div class="modal-body">      
+                                                       
+                <div class="form-group row">
+                
+                    <div class="col-sm-6">
+                        <label for="aordernumber" class="col-form-label-sm ">ORDER NUMBER:</label>
+                        <input id="aordernumber" type="text" class="form-control form-control-sm" name="ordernumber" placeholder="" readonly>                        
+                    </div> 
+
+                    <div class="col-sm-6">
+                        <label for="amanufacturedate" class="col-form-label-sm ">MANUFACTURE DATE:</label>
+                        <input id="amanufacturedate" type="date" class="form-control form-control-sm" name="manufacturedate" placeholder="">                        
+                    </div> 
+
+                    <div class="col-sm-6">
+                        <label for="addmoldfabricationmcode" class="col-form-label-sm mt-2">MOLD CODE:</label>
+                        <select id="addmoldfabricationmcode" class="form-control form-control-sm sel" name="moldcode" placeholder="">
+
+                            <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+
+                                        echo "<option value='";
+                                        echo $row['MOLD_CODE'];
+                                        echo "'>";
+                                        echo $row['MOLD_CODE'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                            ?>
+                            
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6">                        
+                        <label for="acustomercode" class="col-form-label-sm mt-2">CUSTOMER CODE:</label>
+                        <select id="acustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcus_name(acustomercode,acustomername)" placeholder="">
+                    
+                            <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT CUSTOMER_CODE FROM dmc_customer ORDER BY CUSTOMER_CODE ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+
+                                        echo "<option value='";
+                                        echo $row['CUSTOMER_CODE'];
+                                        echo "'>";
+                                        echo $row['CUSTOMER_CODE'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                            ?>
+
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="acustomername" class="col-form-label-sm mt-2">CUSTOMER NAME:</label>
+                        <input id="acustomername" type="text" class="form-control form-control-sm" name="customername" placeholder="" readonly>                        
+                    </div>  
+
+                    <div class="col-sm-6">                        
+                        <label for="acurrentprocess" class="col-form-label-sm mt-2">INITIAL PROCESS:</label>
+                        <select id="acurrentprocess" type="text" class="form-control form-control-sm sel" name="currentprocess" placeholder="">
+                    
+                            <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT PROCESS_NAME FROM mmc_mold_fabrication_process";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+
+                                        echo "<option value='";
+                                        echo $row['PROCESS_NAME'];
+                                        echo "'>";
+                                        echo $row['PROCESS_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                            ?>
+
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="adeliveryplan" class="col-form-label-sm mt-2">DELIVERY PLAN:</label>
+                        <input id="adeliveryplan" type="date" class="form-control form-control-sm" name="deliveryplan" placeholder="">                        
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="aoperator" class="col-form-label-sm mt-2">OPERATOR:</label>
+                        <input id="aoperator" type="text" class="form-control form-control-sm" name="operator" placeholder="">                        
+                    </div>                                           
+                    
+                </div> 
+
+                <div class="modal-footer">
+                    <button type="submit" name='submit' class="btn btn-primary" id="addmoldfabricationsubmit"><i class="far fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn"><i class="fas fa-times"></i> Close</button>
+                </div>
+
+            </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!--_________________________________ Insert Fabrication A ________________________________________-->
+
+
+<!--_________________________________ Update Fabrication A ________________________________________-->
+
+
+<div class="modal hide fade in" role="dialog" id="emoldfabrication" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update fabrication.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="emoldfabricationform" method="post">
+      <input type="hidden" id="emoldfabricationid" name="moldfabricationid">
+      <div class="modal-body">      
+                                                       
+                <div class="form-group row">
+                
+                    <div class="col-sm-6">
+                        <label for="eordernumber" class="col-form-label-sm ">ORDER NUMBER:</label>
+                        <input id="eordernumber" type="text" class="form-control form-control-sm" name="ordernumber" placeholder="" readonly>                        
+                    </div> 
+
+                    <div class="col-sm-6">
+                        <label for="emanufacturedate" class="col-form-label-sm ">MANUFACTURE DATE:</label>
+                        <input id="emanufacturedate" type="date" class="form-control form-control-sm" name="manufacturedate" placeholder="">                        
+                    </div> 
+
+                    <div class="col-sm-6">
+                        <label for="emoldfabricationmcode" class="col-form-label-sm mt-2">MOLD CODE:</label>
+                        <select id="emoldfabricationmcode" class="form-control form-control-sm sel" name="moldcode" placeholder="">
+
+                            <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+
+                                        echo "<option value='";
+                                        echo $row['MOLD_CODE'];
+                                        echo "'>";
+                                        echo $row['MOLD_CODE'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                            ?>
+                            
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6">                        
+                        <label for="ecustomercode" class="col-form-label-sm mt-2">CUSTOMER CODE:</label>
+                        <select id="ecustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcus_name(ecustomercode,ecustomername)" placeholder="">
+                    
+                            <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT CUSTOMER_CODE FROM dmc_customer ORDER BY CUSTOMER_CODE ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+
+                                        echo "<option value='";
+                                        echo $row['CUSTOMER_CODE'];
+                                        echo "'>";
+                                        echo $row['CUSTOMER_CODE'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                            ?>
+
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="ecustomername" class="col-form-label-sm mt-2">CUSTOMER NAME:</label>
+                        <input id="ecustomername" type="text" class="form-control form-control-sm" name="customername" placeholder="" readonly>                        
+                    </div>  
+
+                    <div class="col-sm-6">                        
+                        <label for="ecurrentprocess" class="col-form-label-sm mt-2">CURRENT PROCESS:</label>
+                        <select id="ecurrentprocess" type="text" class="form-control form-control-sm sel" name="currentprocess" placeholder="">
+                    
+                            <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT PROCESS_NAME FROM mmc_mold_fabrication_process";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+
+                                        echo "<option value='";
+                                        echo $row['PROCESS_NAME'];
+                                        echo "'>";
+                                        echo $row['PROCESS_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                            ?>
+
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="edeliveryplan" class="col-form-label-sm mt-2">DELIVERY PLAN:</label>
+                        <input id="edeliveryplan" type="date" class="form-control form-control-sm" name="deliveryplan" placeholder="">                        
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="eoperator" class="col-form-label-sm mt-2">OPERATOR:</label>
+                        <input id="eoperator" type="text" class="form-control form-control-sm" name="operator" placeholder="">                        
+                    </div>                                           
+                    
+                </div> 
+
+                <div class="modal-footer">
+                    <button type="submit" name='submit' class="btn btn-primary" id="emoldfabricationsubmit"><i class="far fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn"><i class="fas fa-times"></i> Close</button>
+                </div>
+
+            </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!--_________________________________ Update Fabrication A ________________________________________-->
+
+
+<!--_________________________________ Fabrication Change Process ________________________________________-->
+
+
+<div class="modal hide fade in" role="dialog" id="changeprocess" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Change Process.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="changeprocessform" method="post">
+      <input type="hidden" id="cmoldfabricationid" name="moldfabricationid">
+      <div class="modal-body">      
+                                                       
+                <div class="form-group row">
+                                  
+                    <div class="col-sm-6">
+                        <label class="col-form-label">CHANGE PROCESS TO:</label>
+                    </div>
+                    
+                    <div class="col-sm-6 pt-1">                        
+                        
+                        <select id="ccurrentprocess" type="text" class="form-control form-control sel" name="currentprocess" placeholder="">
+                    
+                            <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT PROCESS_NAME FROM mmc_mold_fabrication_process";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+
+                                        echo "<option value='";
+                                        echo $row['PROCESS_NAME'];
+                                        echo "'>";
+                                        echo $row['PROCESS_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                            ?>
+
+                        </select>
+                    </div>                                                              
+                    
+                </div> 
+
+                <div class="modal-footer">
+                    <button type="submit" name='submit' class="btn btn-primary" id=""><i class="fas fa-exchange-alt"></i> Change</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn"><i class="fas fa-times"></i> Close</button>
+                </div>
+
+            </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!--_________________________________ Fabrication Change Process ________________________________________-->
