@@ -14,19 +14,19 @@
 </style>
 
 
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog modal-lg modal-dialog-center">
+<div class="modal fade" id="myModalDanpla">
+  <div class="modal-dialog modal-md modal-dialog-center">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-          <h4 class="modal-title">LOT DISAPPROVAL DETAILS</h4>
+          <h4 class="modal-title">LOT DETAILS</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
       <!-- Modal body -->
       <div class="modal-body py-1" id='lotmodal'>
-      <form id="modalID">
+      <form id="DanplaModalID">
         <div class="form-group row">
           <div class="col-12">
               
@@ -34,24 +34,27 @@
                 <div class="col-3">
                       <label class="col-form-label-sm">LOT NUMBER:</label></div>
                 <div class="col-9">
-                   
-                      <input type="text" class="form-control form-control-sm text-center" id="lot_num" readonly />         
+                      <input type="text" class="form-control form-control-sm text-center" id="LOT_NUMBER" readonly />         
                   </div>
                 </div>
               
               <div class="row">
-                <div class="col-3">
+                <div class="col-12">
                   <label class="col-form-label-sm">ITEM SERIAL LIST:</label>                  
                   </div>
-                <!-- <div class="col-3"></div> -->
-                <div class="col-7" id="tblModal">
+                </div>
+                <div class="row">
+                <div class="col-4"></div>
+                <div class="col-6" id="tblModal">
+                
                   <!-- <button type='button' class='btn btn-outline-secondary lotView1' id='LotView'>VIEW LOT DETAILS</button> -->
                   <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/TableDefectModal.php"; ?>
 
                   </div>
+                <div class="col-1"></div>
                 </div>
 
-              <div class ="row">
+<!--               <div class ="row">
                 <div class="col-5">
                     <label class="col-form-label-sm">DEFECT:</label>   
                   </div>
@@ -60,7 +63,7 @@
                   
                   <?php
 
-                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                 /*  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                       $sql = "SELECT DEFECT_NAME FROM dmc_defect_code ORDER BY DEFECT_CODE ASC";
                       $result = $conn->query($sql);
@@ -74,7 +77,7 @@
                               echo "</option>";
                           }
                       
-                      $conn->close();
+                      $conn->close(); */
 
                   ?>
 
@@ -89,14 +92,14 @@
                 <div class="col-7">
                       <textarea id="remarks" type="textarea" class="form-control form-control-sm" name="remarks" placeholder="INPUT REMARKS"></textarea>              
                   </div>
-                </div>
+                </div> -->
 
               <div class="row">
                 <div class="col-7">
                                  
                   </div>
                 <div class="col-5" style="text-align:right; padding-top:7px">
-                    <button type='button' class='btn btn-danger close' data-dismiss="modal" id='ConfirmDefect'>CONFIRM DEFECT</button></div>
+                    <button type='button' class='btn btn-danger close' data-dismiss="modal">CLOSE</button></div>
                   </div>
                 </div>
 

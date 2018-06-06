@@ -80,7 +80,7 @@ margin-left:-70%;
                     </div>
                     <input type="text" id="searchText" onchange="searchLot()" class="py-1 form-control" placeholder="Type anything here..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING">
                     <div class="input-group-append">
-                      <button type="button" class="btn btn-outline-secondary" id="ClearSearch" onclick="ClearSearchLot()  " data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button>
+                      <button style="z-index:0" type="button" class="btn btn-outline-secondary" id="ClearSearch" onclick="ClearSearchLot()  " data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button>
                     </div>
                   </div>
                 </div>
@@ -99,3 +99,4 @@ margin-left:-70%;
     </div>
   </div>
 <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/DefectModal.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/DefectModal_old.php"; ?>

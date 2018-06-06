@@ -828,7 +828,7 @@ $('#mod').on('submit','#changeprocessform', function (e) {
   /* alert($('#prevprocessdatetime').val()); */
  swal({
   title: 'Are you sure?',
-  text: "Please check the next process again. You won't be able to revert this!",
+  text: "Please double check the process. You won't be able to revert this!",
   type: 'warning',
   showCancelButton: true,
   confirmButtonColor: '#3085d6',
@@ -845,11 +845,11 @@ $('#mod').on('submit','#changeprocessform', function (e) {
       success: function (data) {
                   
            if(data){
-            alert("||"+data+"||");
+            /* alert("||"+data+"||"); */
             swal({
               type: 'error',
               title: 'Oops...',
-              text: 'The new process is either in-process or already done.',
+              text: 'The process is either in-process or already done.',
             })
 
            }

@@ -32,11 +32,11 @@
            
     </ul>         
             
-  <span class='navbar-text mr-2' id='usr' >Hi! <b><?php echo $_SESSION['text']; ?></b>.</span>  
-  
-  <!-- Clock -->
-  <span class="navbar-text mr-2" id="clockdate" style="display:block"></span>            
-  <span class="navbar-text mr-2" id="clocktime" style="display:block"></span>         
+    <span class='navbar-text mr-2' id='usr' >Hi! <b><?php echo $_SESSION['text']; ?></b>.</span>  
+    
+    <!-- Clock -->
+    <span class="navbar-text mr-2" id="clockdate" style="display:block"></span>            
+    <span class="navbar-text mr-2" id="clocktime" style="display:block"></span>         
   
   <button type="button" class="nav-item btn btn-outline-secondary p-1 my-2 my-0 hvr-icon-wobble-horizontal" onclick="" id="lgout" >Logout <i class="fas fa-sign-out-alt hvr-icon"></i></a>
   </div>            
@@ -75,77 +75,76 @@
 </script>
 
 <div class="modal hide fade in" data-keyboard="false"  role="dialog" id="acct">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">USER INFO</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">                  
-                  <div class="container-fluid">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">USER INFO</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">                  
+        <div class="container-fluid">
 
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <label><b>Name</b>:</label>
-                      </div>
-                      <div class="col-sm-9">
-                        <span><?php echo $_SESSION['text']; ?></span>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <label><b>Email:</b></labe>
-                      </div>
-                      <div class="col-sm-9">
-                        <span>
-                        <?php
-                         if(isset($_SESSION['email'])) {
-                          echo $_SESSION['email'];
-                        }
-                        ?>
-                        </span>
-                      </div>                      
-                    </div>
-
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <label><b>Authority:</b></label>
-                      </div>
-                      <div class="col-sm-9">
-                      <span>
-                      <?php
-
-                        $auth = $_SESSION['auth'];
-                        include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
-
-                            $sql = "SELECT USER_AUTHORITY FROM dmc_user_authority WHERE AUTHORITY_CODE = '$auth'";
-                            $result = $conn->query($sql);
-                            
-                                while($row = $result->fetch_assoc()) {
-
-                                    echo $row['USER_AUTHORITY'];                           
-                                    
-                                }
-                            
-                            $conn->close();
-
-                      ?>
-                      </span>
-                      </div>
-                    </div>
-
-                  </div>     
-                </div>
-                <div class="modal-footer">
-                  <a class="btn btn-info" href="/1_MES/_php/change_pass.php">Change Password</a>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                  
-                </div>
-              </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <label><b>Name</b>:</label>
+            </div>
+            <div class="col-sm-9">
+              <span><?php echo $_SESSION['text']; ?></span>
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-sm-3">
+              <label><b>Email:</b></labe>
+            </div>
+            <div class="col-sm-9">
+              <span>
+              <?php
+                if(isset($_SESSION['email'])) {
+                echo $_SESSION['email'];
+              }
+              ?>
+              </span>
+            </div>                      
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3">
+              <label><b>Authority:</b></label>
+            </div>
+            <div class="col-sm-9">
+            <span>
+            <?php
+
+              $auth = $_SESSION['auth'];
+              include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                  $sql = "SELECT USER_AUTHORITY FROM dmc_user_authority WHERE AUTHORITY_CODE = '$auth'";
+                  $result = $conn->query($sql);
+                  
+                      while($row = $result->fetch_assoc()) {
+
+                          echo $row['USER_AUTHORITY'];                           
+                          
+                      }
+                  
+                  $conn->close();
+
+            ?>
+            </span>
+            </div>
+          </div>
+
+        </div>     
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-info" href="/1_MES/_php/change_pass.php">Change Password</a>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
 <script src="/1_mes/_includes/authentication.js"></script>

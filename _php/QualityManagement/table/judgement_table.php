@@ -78,7 +78,7 @@
                      /* echo "<td>" . $row['LOT_ID'] . "</td>";
                     echo "<td>" . $row['LOT_JUDGEMENT'] . "</td>"; */
                     echo "<td>" . $row['PROD_DATE'] . "</td>";
-                    echo "<td>" . $row['LOT_NUMBER'] . "</td>";
+                    echo "<td><button type='button' class='btn btn-outline-secondary bt lotDanpla' id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModalDanpla'>VIEW</button> " . $row['LOT_NUMBER'] . "</td>";
                     echo "<td>" . $row['LOT_QTY'] . "</td>";
                     echo "<td>" . $row['LOT_CREATOR'] . "</td>";
                     echo "<td>" . $row['ITEM_CODE'] . "</td>";

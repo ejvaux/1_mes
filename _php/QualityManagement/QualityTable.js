@@ -441,17 +441,17 @@ function ClearSearchLot() {
 }
 
 
-$(document).on('click', '.lotDisapprove', function () {
+$(document).on('click', '.lotDanpla', function () {
   //$('#dataModal').modal();
   var lotNumber = $(this).attr("id");
- /*  DisplayLotDetails(lotNumber); */
-  document.getElementById('lot_num').value = lotNumber; 
+  DisplayLotDetails(lotNumber);
+  document.getElementById('LOT_NUMBER').value = lotNumber; 
   
 });
 
-/* function DisplayLotDetails(lotNum){
+function DisplayLotDetails(lotNum){
   var x = lotNum;
-  var z = "SELECT JO_BARCODE, SUM(PRINT_QTY) as SUMQ FROM mis_product WHERE LOT_NUM ='" + x + "' GROUP BY PACKING_NUMBER";
+  var z = "SELECT PACKING_NUMBER, SUM(PRINT_QTY) as SUMQ FROM mis_product WHERE LOT_NUM ='" + x + "' GROUP BY PACKING_NUMBER";
   $.ajax({
     url: "/1_mes/_php/QualityManagement/_modal/TableDefectModal.php",
     method: "POST",
@@ -465,7 +465,7 @@ $(document).on('click', '.lotDisapprove', function () {
       document.getElementById("tblModal").innerHTML = data;
     }
   });
-} */
+}
 
 /* $(document).on('click', '.checkBoxDefect', function () {
   //$('#dataModal').modal();
@@ -1404,3 +1404,6 @@ $(document).on('click', '#updateDefect', function () {
     }
   });
 });
+
+
+lotDanpla

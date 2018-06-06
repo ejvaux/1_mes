@@ -2079,7 +2079,7 @@
                     
                     <div class="col-sm-6 pt-1">                        
                         
-                        <select id="ccurrentprocess" type="text" class="form-control form-control sel" name="nextprocess" placeholder="">
+                        <select id="ccurrentprocess" type="text" class="form-control form-control" name="nextprocess" placeholder="">
                     
                             <?php
 
