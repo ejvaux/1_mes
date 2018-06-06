@@ -29,29 +29,42 @@
             echo "<br>";
             echo $np = md5($nn);
             echo "<br>";
-            echo random_bytes(64);
+            /* echo random_bytes(64); */
+            echo "<br>";            
         ?>        
         </h1>
+        <?php
+            $date1 = strtotime(Date("2018-06-04 14:52:15"));
+            $date2 = strtotime(Date('Y-m-d H:i:s'));
 
-    <script>
+            $date3 = $date2 - $date1;
+            /* echo $date1->format('Y-m-d H:i:s') + "<br>"; */            
+            echo date('Y-m-d H:i:s',$date2) . "<br>";
+            echo date('Y-m-d H:i:s',$date3) . "<br>";
+            
+            function secondsToTime($seconds) {
+                $dtF = new \DateTime('@0');
+                $dtT = new \DateTime("@$seconds");
+                return $dtF->diff($dtT)->format('%a day, %h hr, %i min');
+            }
+
+            echo secondsToTime($date3);
+
+        ?>
+
+    <!-- <script>
 
         function checksession(){
     
-            alert('Boom!');
-            /* if(session==null){
-                alert('You are logged out. Please Login again.');
-                window.location.href = '/1_MES/';
-            }
-
-            else{
-                alert('Login');
-            } */
+            alert('Boom!');           
 
             setTimeout(checksession,10*1000);
 
         }   
         checksession();
-    </script>
+    </script> -->
+    
+    
     </body>
 
 </html>

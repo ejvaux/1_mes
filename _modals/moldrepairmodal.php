@@ -1794,7 +1794,7 @@
 
                     <div class="col-sm-6">
                         <label for="amanufacturedate" class="col-form-label-sm ">MANUFACTURE DATE:</label>
-                        <input id="amanufacturedate" type="date" class="form-control form-control-sm" name="manufacturedate" placeholder="">                        
+                        <input id="amanufacturedate" type="date" class="form-control form-control-sm" name="manufacturedate" placeholder="" required>                        
                     </div> 
 
                     <div class="col-sm-6">
@@ -1885,12 +1885,12 @@
 
                     <div class="col-sm-6">
                         <label for="adeliveryplan" class="col-form-label-sm mt-2">DELIVERY PLAN:</label>
-                        <input id="adeliveryplan" type="date" class="form-control form-control-sm" name="deliveryplan" placeholder="">                        
+                        <input id="adeliveryplan" type="date" class="form-control form-control-sm" name="deliveryplan" placeholder="" required>                        
                     </div>
 
                     <div class="col-sm-6">
                         <label for="aoperator" class="col-form-label-sm mt-2">OPERATOR:</label>
-                        <input id="aoperator" type="text" class="form-control form-control-sm" name="operator" placeholder="">                        
+                        <input id="aoperator" type="text" class="form-control form-control-sm" name="operator" placeholder="" required>                        
                     </div>                                           
                     
                 </div> 
@@ -1936,7 +1936,7 @@
 
                     <div class="col-sm-6">
                         <label for="emanufacturedate" class="col-form-label-sm ">MANUFACTURE DATE:</label>
-                        <input id="emanufacturedate" type="date" class="form-control form-control-sm" name="manufacturedate" placeholder="">                        
+                        <input id="emanufacturedate" type="date" class="form-control form-control-sm" name="manufacturedate" placeholder="" required>                        
                     </div> 
 
                     <div class="col-sm-6">
@@ -2027,12 +2027,12 @@
 
                     <div class="col-sm-6">
                         <label for="edeliveryplan" class="col-form-label-sm mt-2">DELIVERY PLAN:</label>
-                        <input id="edeliveryplan" type="date" class="form-control form-control-sm" name="deliveryplan" placeholder="">                        
+                        <input id="edeliveryplan" type="date" class="form-control form-control-sm" name="deliveryplan" placeholder="" required>                        
                     </div>
 
                     <div class="col-sm-6">
                         <label for="eoperator" class="col-form-label-sm mt-2">OPERATOR:</label>
-                        <input id="eoperator" type="text" class="form-control form-control-sm" name="operator" placeholder="">                        
+                        <input id="eoperator" type="text" class="form-control form-control-sm" name="operator" placeholder="" requireds>                        
                     </div>                                           
                     
                 </div> 
@@ -2067,6 +2067,8 @@
       </div>
       <form id="changeprocessform" method="post">
       <input type="hidden" id="cmoldfabricationid" name="moldfabricationid">
+      <input type="hidden" id="prevprocess" name="prevprocess">
+      <input type="hidden" id="prevprocessdatetime" name="prevprocessdatetime">
       <div class="modal-body">      
                                                        
                 <div class="form-group row">
@@ -2077,7 +2079,7 @@
                     
                     <div class="col-sm-6 pt-1">                        
                         
-                        <select id="ccurrentprocess" type="text" class="form-control form-control sel" name="currentprocess" placeholder="">
+                        <select id="ccurrentprocess" type="text" class="form-control form-control sel" name="nextprocess" placeholder="">
                     
                             <?php
 

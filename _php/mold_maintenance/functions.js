@@ -513,11 +513,16 @@ function checkFluency(chckbox,sel,text)
 
 /* ________________ Defect name checkbox ____________________ */
 
+
+/* ________________ Modal reset ____________________ */
+
   $('#mod').on('hide.bs.modal','.modal', function (e) {           
     /* alert('TEST');  */  
     $(this).find('form')[0].reset();
-    $("[type='checkbox']").trigger("change");
+    $("[type='checkbox']").trigger("change");    
   });
+
+  /* ________________ Modal reset ____________________ */
 
 
 /* __________________ LEAD TIME _______________________________ */
@@ -820,10 +825,10 @@ $('#mod').on('submit','#changeprocessform', function (e) {
   
   e.preventDefault();
   e.stopImmediatePropagation();
-  
+  /* alert($('#prevprocessdatetime').val()); */
  swal({
   title: 'Are you sure?',
-  text: "You won't be able to revert this!",
+  text: "Please check the next process again. You won't be able to revert this!",
   type: 'warning',
   showCancelButton: true,
   confirmButtonColor: '#3085d6',
@@ -838,13 +843,13 @@ $('#mod').on('submit','#changeprocessform', function (e) {
       url: '/1_mes/_query/mold_repair/checkprocess.php',
       data: $('#changeprocessform').serialize(),
       success: function (data) {
-        /* var val = JSON.parse(data); */           
+                  
            if(data){
             
             swal({
               type: 'error',
               title: 'Oops...',
-              text: 'The entered process is either in-process or already done.',
+              text: 'The new process is either in-process or already done.',
             })
 
            }
@@ -891,3 +896,48 @@ $('#mod').on('submit','#changeprocessform', function (e) {
 
 
 /* ____________________ MOLD FABRICATION CHANGE PROCESS ________________________ */
+
+
+/* ____________________ MOLD FABRICATION GET ORDER NUMBER ________________________ */
+
+function getordernumber(){
+  /* alert('TEST'); */
+  var num = 0;
+  $.ajax({          
+    url:'/1_mes/_query/mold_repair/getordernumber.php',    
+    async: false,
+    error: function() {
+        alert("Error occured");
+    },
+    success:function(data){
+      
+      /* alert(data); */
+      /* var val = JSON.parse(data); */
+      function pad (str, max) {
+        str = str.toString();
+        return str.length < max ? pad("0" + str, max) : str;
+      }       
+      
+      if(data != 'none'){    
+        /* alert('TEST none'); */           
+        var val = JSON.parse(data);
+        var newnum = parseInt(val.ORDER_NO) + 1;          
+        /* $("#pmcontrol").attr("value",pad(newnum,5));
+        $("#apmcontrol").attr("value",pad(newnum,5)); */
+        /* return newnum; */
+        num = newnum;
+      }
+      else{
+        /* alert('TEST else'); */ 
+        /* $("#pmcontrol").attr("value",pad(1,5));
+        $("#apmcontrol").attr("value",pad(1,5)); */
+        /* return 1; */
+        num = 1;
+      }        
+    } 
+
+    });
+    return num;
+}/* getcontrolnumber */
+
+/* ____________________ MOLD FABRICATION GET ORDER NUMBER ________________________ */

@@ -1965,7 +1965,10 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
       /* scrollerX:      true, */
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,                  
+        "iDisplayLength": 100,
+        fixedColumns: {
+          heightMatch: 'semiauto'
+        },                  
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
@@ -2115,13 +2118,22 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                                                                       
                 },              
                 "targets": 0,
-              },
+              },              
               {
-                "data": null,
-                render: function ( data, type, row ) {
-
-                  /* if(row[2]!=null){
-                    var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
+                "createdCell": function (td, cellData, rowData, row, col) {
+                
+                if ( $(td).text()== "" ) {
+                  /* $(td).text("No data");
+                  $(td).css('color', 'red') */
+                }
+                else
+                {
+                  if($(td).text().charAt(0) == "("){
+                    $(td).css('color', 'blue')
+                    $(td).css('font-weight', 'bold')
+                  }
+                  else{
+                  var second = Date.parse(new Date()) - Date.parse(new Date($(td).text()));
                     var seconds = parseInt(second,10)/1000;
                     var ts = seconds;
                     var days = Math.floor(seconds / (3600*24));
@@ -2130,44 +2142,14 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                     seconds  -= hrs*3600;
                     var mnts = Math.floor(seconds / 60);
                     seconds  -= mnts*60;
-                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
-                    
-                    if(row[3] == 'WAITING' ||  row[3] == 'ON-GOING'){
-
-                      if(ts<=172800){
-                        return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else if(ts<=345600 && ts>172800){
-                        return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else if(ts<=518400 && ts>345600){
-                        return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else{
-                        return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
-                      }
-                    }
-                    else{
-                      var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
-                     
-                      var at = parseInt(a,10)/1000;
-                      var tdays = Math.floor(at / (3600*24));
-                      at  -= tdays*3600*24;
-                      var thrs   = Math.floor(at / 3600);
-                      at  -= thrs*3600;
-                      var tmnts = Math.floor(at / 60);
-                      at  -= tmnts*60;
-                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
-                      return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
-                    } 
+                    var time = "- "+ days+" day, "+hrs+" hr, "+mnts+" min -";
+                  $(td).text(time); 
+                  $(td).css('color', 'green')
+                  $(td).css('font-weight', 'bold')
                   }
-                  else{
-                    return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
-                  } */
-                  return ltime(row[2],row[3],row[19]);                                   
-                },              
-                /* "targets": 2, */
-              },
+                }
+              },"aTargets": 'proc',
+            }
         ],
           "order": [[ 1, 'desc' ]],         
                                
@@ -2182,18 +2164,34 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
               cell.innerHTML = i+1;
           } );
       } ).draw();
-
+      
       $('#Dtable tbody').on( 'click', '#change', function () {
         var data = tble.row( $(this).parents('tr') ).data();
-                        
-            $('#cmoldfabricationid').val(data[1]);
-            $('#ccurrentprocess').val(data[7]);
+
+
+        $.ajax(
+          {
+          method:'post',
+          url:'/1_mes/_query/mold_repair/getrowfab.php',
+          data:
+          {
+              'id': data[1],
+              'ajax': true
+          },
+          success: function(data1) {
+            var val = JSON.parse(data1);
+            $("#cmoldfabricationid").val(val.MOLD_FABRICATION_ID);
+            
+            $('#ccurrentprocess').val(val.CURRENT_PROCESS);
+            $('#prevprocess').val(val.CURRENT_PROCESS);
+            $('#prevprocessdatetime').val(val[$('#ccurrentprocess').val()]);
 
             $('.sel').select2({ width: '100%' });
             $('#changeprocess').modal('show');
-       
-        
-    } );
+
+          }
+        });               
+      } );    
 
       /* ____________________________ FUNCTIONS _________________________ */
     }
@@ -2208,7 +2206,8 @@ $.fn.dataTable.ext.buttons.addfab1 = {
   action: 
   function () {
     /* alert('UNAVAILABLE'); */
-    getcus_name(acustomercode,acustomername);
+    getcus_name(acustomercode,acustomername);    
+    $('#aordernumber').val(getordernumber());
     $("#addmoldfabrication").modal('show');        
     
   }
@@ -2219,7 +2218,7 @@ $.fn.dataTable.ext.buttons.addfab1 = {
     /* ------------------------------- FABRICATION - A ------------------------------------------------  */
 
 
-    /*  -------------------------------- FABRICATION -----------------------------------------------  */
+    /*  -------------------------------- FABRICATION CHECKER -----------------------------------------------  */
         
 function DisplayTbleF(Table_Name,Tablesp,tbltitle) {
   var xhttp;
@@ -2239,7 +2238,10 @@ function DisplayTbleF(Table_Name,Tablesp,tbltitle) {
       /* scrollerX:      true, */
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,                  
+        "iDisplayLength": 100,
+        fixedColumns: {
+          heightMatch: 'semiauto'
+        },                  
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
@@ -2248,13 +2250,13 @@ function DisplayTbleF(Table_Name,Tablesp,tbltitle) {
         'buttons': [            
           { text: '<i class="fas fa-plus"></i>',
             attr:  {
-                title: 'Add Request',
+                title: 'Add fabrication',
                 id: 'addButton'
             },  
             name: 'add',
             className: 'btn btn-export6 btn-xs py-1 addbt',
-            extend: 'add1'               
-          },                
+            extend: 'addfab2'               
+          },                       
           { extend: 'copy', text: '<i class="far fa-copy"></i>', 
           attr:  {
             title: 'Copy to Clipboard',
@@ -2268,26 +2270,62 @@ function DisplayTbleF(Table_Name,Tablesp,tbltitle) {
       },
        filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
           ],        
-          /* select: 'single', */
-            "columnDefs": [ {
+          select: 'single',
+            "columnDefs": [
+              /*  {
               "searchable": false,
               "orderable": false,
-              "targets": 0
-          } ],
-          "order": [[ 2, 'desc' ],[ 3, 'desc' ]],
-          "createdRow": function ( row, data, index ) {
-            if ( data[1] == 'PENDING' ) {
-              $('td', row).eq(1).addClass('pending');
-            }
-            else if(data[1] == 'ON-GOING'){
-              $('td', row).eq(1).addClass('ongoing');
-            }
-            else if(data[1] == 'FINISHED'){
-              $('td', row).eq(1).addClass('finished');
-            }
-           /*  $('td', row).eq(3).addClass('finished'); */
-          },
+              "targets": 1
+              }, */
+              {
+                "data": null,
+                "searchable": false,
+                "orderable": false,
+                render: function ( data, type, row ) {
 
+                  if(row[7]!='FINISHED'){
+                    return "<div class='text-center'><button id='change' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>CHANGE</span></button></div>";
+                  }
+                  else{
+                    return "<div class='text-center'><button id='change' class='btn btn-secondary py-0 px-1 m-0' disabled><span style='font-size:.8em; text-decoration: line-through;'>CHANGE</span></button></div>";
+                  }               
+                                                                      
+                },              
+                "targets": 0,
+              },              
+              {
+                "createdCell": function (td, cellData, rowData, row, col) {
+                
+                if ( $(td).text()== "" ) {
+                  /* $(td).text("No data");
+                  $(td).css('color', 'red') */
+                }
+                else
+                {
+                  if($(td).text().charAt(0) == "("){
+                    $(td).css('color', 'blue')
+                    $(td).css('font-weight', 'bold')
+                  }
+                  else{
+                  var second = Date.parse(new Date()) - Date.parse(new Date($(td).text()));
+                    var seconds = parseInt(second,10)/1000;
+                    var ts = seconds;
+                    var days = Math.floor(seconds / (3600*24));
+                    seconds  -= days*3600*24;
+                    var hrs   = Math.floor(seconds / 3600);
+                    seconds  -= hrs*3600;
+                    var mnts = Math.floor(seconds / 60);
+                    seconds  -= mnts*60;
+                    var time = "- "+ days+" day, "+hrs+" hr, "+mnts+" min -";
+                  $(td).text(time); 
+                  $(td).css('color', 'green')
+                  $(td).css('font-weight', 'bold')
+                  }
+                }
+              },"aTargets": 'proc',
+            }
+        ],
+          "order": [[ 1, 'desc' ]],         
                                
       } );
       
@@ -2296,10 +2334,38 @@ function DisplayTbleF(Table_Name,Tablesp,tbltitle) {
       /* ____________________ FUNCTIONS ___________________ */
 
       tble.on( 'order.dt search.dt processing.dt page.dt', function () {
-          tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+          tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
               cell.innerHTML = i+1;
           } );
       } ).draw();
+      
+      $('#Dtable tbody').on( 'click', '#change', function () {
+        var data = tble.row( $(this).parents('tr') ).data();
+
+
+        $.ajax(
+          {
+          method:'post',
+          url:'/1_mes/_query/mold_repair/getrowfab.php',
+          data:
+          {
+              'id': data[1],
+              'ajax': true
+          },
+          success: function(data1) {
+            var val = JSON.parse(data1);
+            $("#cmoldfabricationid").val(val.MOLD_FABRICATION_ID);
+            
+            $('#ccurrentprocess').val(val.CURRENT_PROCESS);
+            $('#prevprocess').val(val.CURRENT_PROCESS);
+            $('#prevprocessdatetime').val(val[$('#ccurrentprocess').val()]);
+
+            $('.sel').select2({ width: '100%' });
+            $('#changeprocess').modal('show');
+
+          }
+        });               
+      } );    
 
       /* ____________________________ FUNCTIONS _________________________ */
     }
@@ -2310,17 +2376,14 @@ function DisplayTbleF(Table_Name,Tablesp,tbltitle) {
   
 } 
 
-$.fn.dataTable.ext.buttons.add1 = {
+$.fn.dataTable.ext.buttons.addfab2 = {
   action: 
   function () {
-
-    listchange();
-    getctrlnumber();    
-    $("#addmoldrepairA").modal('show');        
+    /* alert('UNAVAILABLE'); */
+    getcus_name(acustomercode,acustomername);    
+    $('#aordernumber').val(getordernumber());
+    $("#addmoldfabrication").modal('show');        
     
   }
 };
-
-
-
-    /* ------------------------------- FABRICATION ------------------------------------------------  */
+    /* ------------------------------- FABRICATION CHECKER ------------------------------------------------  */
