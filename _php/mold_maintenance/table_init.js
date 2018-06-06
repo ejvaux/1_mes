@@ -2144,14 +2144,23 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                     seconds  -= mnts*60;
                     var time = "- "+ days+" day, "+hrs+" hr, "+mnts+" min -";
                   $(td).text(time); 
-                  $(td).css('color', 'green')
+                  $(td).css('color', 'orange')
                   $(td).css('font-weight', 'bold')
+                  $(td).css('text-decoration', 'underline')
                   }
                 }
               },"aTargets": 'proc',
             }
         ],
-          "order": [[ 1, 'desc' ]],         
+          "order": [[ 1, 'desc' ]],       
+          "rowCallback": function( row, data, index ) {
+              if ( data[7] == "FINISHED" )
+              {
+                  $('td', row).css('color', 'green');
+                  $('td', row).css('font-weight', 'bold')
+                  $('td', row).css('font-style', 'italic')
+              }              
+          }         
                                
       } );
       
@@ -2318,14 +2327,23 @@ function DisplayTbleF(Table_Name,Tablesp,tbltitle) {
                     seconds  -= mnts*60;
                     var time = "- "+ days+" day, "+hrs+" hr, "+mnts+" min -";
                   $(td).text(time); 
-                  $(td).css('color', 'green')
+                  $(td).css('color', 'orange')
                   $(td).css('font-weight', 'bold')
+                  $(td).css('text-decoration', 'underline')
                   }
                 }
               },"aTargets": 'proc',
             }
         ],
-          "order": [[ 1, 'desc' ]],         
+          "order": [[ 1, 'desc' ]],
+          "rowCallback": function( row, data, index ) {
+            if ( data[7] == "FINISHED" )
+            {
+                $('td', row).css('color', 'green');
+                $('td', row).css('font-weight', 'bold')
+                $('td', row).css('font-style', 'italic')
+            }              
+          }         
                                
       } );
       

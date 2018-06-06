@@ -39,6 +39,7 @@
 
         $sql = "UPDATE  mmc_mold_fabrication SET
         
+        `$prevprocess` = '$date3',
         FINISHED_DATE = '$date',
         CURRENT_PROCESS = '$nextprocess',
         UPDATE_USER = '$updateuser',

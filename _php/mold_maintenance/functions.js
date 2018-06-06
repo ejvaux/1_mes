@@ -845,7 +845,7 @@ $('#mod').on('submit','#changeprocessform', function (e) {
       success: function (data) {
                   
            if(data){
-            
+            alert("||"+data+"||");
             swal({
               type: 'error',
               title: 'Oops...',
