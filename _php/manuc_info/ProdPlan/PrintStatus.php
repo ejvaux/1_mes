@@ -1,136 +1,84 @@
 
-
-
-
-
 <div class="mod_options" style="z-index: 1;padding-top: 70px;padding-left :15px">
 
   <div style="width: 100%;text-align: left;">
 
-      <form action='PrintStatusSort.php' method='POST'>
+
 
           <div class="row">
 
-                    
 
-
-                    <div class="col-sm-2" style="padding-top: 10px; text-align: center;">
+                    <div class="col">
                       <div class="form-group">
 
-                            <table style="width: 100%">
-                              <tr>
-                                <td><b>SEARCH: &nbsp</b></td>
-                                <td>
-
-                                    
-
-                                          <input type='text' id='search' onkeypress='showTable("PrintStatus","","print_status")' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
-
-                                    
-
-
-
-                                  </td>
-                                  <td>&nbsp
-                                  <button type="button" onclick='showTable("PrintStatus","","print_status")' class="btn btn-outline-secondary btn-export6 p-0 my-2 my-sm-0">&nbsp<i class="fa fa-search"></i>&nbsp</button>
-                                </td>
-
-
-
-                              </tr>
-                            </table>
-
-
-                      </div>
-
-                    </div>
-
-                      <div class="col-md-6">
-
-
-                                  <div class="form-group">
-                                    <div class="row" style="padding-top: 10px;">
-                                        <div class="col-xs-6 col-sm-0" style="font-size: 12px; text-align: center">
-                                            <b> &nbsp &nbsp SORT DATE <br>FROM:</b>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-3">
-
-                                          
-
-                                            <input type='date' id='sortfrom' onchange='showTable("PrintStatus","","print_status")' name='sortingdatefrom' class='form-control' style='font-size: 10px'>
-                                              
-
-                                        </div>
-                                          <!-- Add clearfix for only the required viewport -->
-                                        <div class="clearfix visible-xs"></div>
-                                        <div class="col-xs-6 col-sm-0"> <b> TO: </b></div>
-                                        <div class="col-xs-6 col-sm-3">
-                                              
-                                                 <input type='date' id='sortto' onchange='showTable("PrintStatus","","print_status")' name='sortingdateto' class='form-control' style='font-size: 10px'>
-                                                 
-                                        </div>
-                                        <div class="col-xs-6 col-sm-0"> <b> DIVISION: </b></div>
-                                        <div class="col-xs-6 col-sm-1">
-                                              <table>
-                                              <tr>
-                                                  <td>
-                                                      <div class="form-group">
-
-                                                        <?php
-
-                                                          include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
-                                                          $sqlPlanType = " SELECT SAP_DIVISION_CODE, DIVISION_NAME from dmc_division_code";
-                                                          $resultSqlPlanType = $conn->query($sqlPlanType);
-                                                          ?>
-                                                          <select id="PlanType" class="form-control" onchange="showTable('PrintStatus','','print_status')" style="width: 150px;font-size: 10px; height:28px" name="PlanType">';
-                                                          <?php
-                                                          while ($row = $resultSqlPlanType->fetch_assoc()) {
-                                                              # code...
-                                                                  echo "<option value='" . $row['SAP_DIVISION_CODE'] . "' >" . $row['DIVISION_NAME'] . "</option>";
-                                                              
-                                                          }
-
-                                                          echo '</select>';
-
-                                                          ?>
-                                                      </div>
-                                                  </td>
-
-
-                                              </tr>
-                                              </table>
-                                        </div>
-
-
-
+                        <div class="row">
+                            <div class="col-12">                                                          
+                            <div class="btn-toolbar mb-1" role="toolbar" aria-label="Toolbar with button groups">
+                            
+                                <div class="input-group btn-sm" style="height: 40px;">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" id="btnGroupAddon2">SEARCH:</div>
                                     </div>
-                                  </div>
+                                    <input type='text' id='search' onkeypress='showTable("PrintStatus","","print_status")' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
+                                    <div class="input-group-append" id="btnGroupAddon3">
+                                    <button type="button" onclick='showTable("PrintStatus","","print_status")' class="btn btn-outline-secondary btn-export6 btn-sm" style="z-index:0">&nbsp<i class="fa fa-search"></i>&nbsp</button>    </div>
+                                </div>
+
+                                <div class="input-group btn-sm" style="height: 40px;">
+                                    <div class="input-group-prepend">
+                                    <div class="input-group-text" id="btnGroupAddon2">SORT FROM:</div>
+                                    </div>
+                                    <input type='date' id='sortfrom' onchange='showTable("PrintStatus","","print_status")' name='sortingdatefrom' class='form-control' style='font-size: 10px'>
+                                </div>
+                                
+                                <div class="input-group btn-sm" style="height: 40px;">
+                                    <div class="input-group-prepend">
+                                    <div class="input-group-text" id="btnGroupAddon2">SORT TO:</div>
+                                    </div>
+                                    <input type='date' id='sortto' onchange='showTable("PrintStatus","","print_status")' name='sortingdateto' class='form-control' style='font-size: 10px'>
+                                </div>
+                                
+                                <div class="input-group btn-sm" style="height: 40px;">
+                                    <div class="btn-group btn-group-sm">  
+                                    <button type="button" onclick="cancelfilter('PrintStatus','','print_status')" class="btn btn-outline-secondary btn-export6"><i class="fas fa-ban"></i>&nbspCANCEL FILTER&nbsp&nbsp</button>  
+                                    <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();cancelfilter('PrintStatus','','print_status')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('PrintStatus','','print_status')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
+                                </div>
+                                &nbsp&nbsp
+                                <?php
+
+                                    include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
+                                    $sqlPlanType = " SELECT SAP_DIVISION_CODE, DIVISION_NAME from dmc_division_code";
+                                    $resultSqlPlanType = $conn->query($sqlPlanType);
+                                    ?>
+                                    <select id="PlanType" class="form-control" onchange="showTable('PrintStatus','','print_status')" style="width: 150px;font-size: 10px; height:33px" name="PlanType">';
+                                    <?php
+                                    while ($row = $resultSqlPlanType->fetch_assoc()) {
+                                        # code...
+                                            echo "<option value='" . $row['SAP_DIVISION_CODE'] . "' >" . $row['DIVISION_NAME'] . "</option>";
+                                        
+                                    }
+
+                                    ?>
+                                    </select>
+                                </div>
+                                
+
+                            </div>
+                            </div>
+                        </div>
+                    
+                    </div> <!-- end div of form group -->
+
+
 
                     </div> <!-- end div of col -->
 
-                      <div class="col-md-3" style="padding-top: 10px;">
 
-                     <!--    <table style="width: 100%">
-                          <tr>
-                            <td style="width: 50%;">  &nbsp  <a href="PrintStatus.php" class="btn btn-outline-secondary p-0 my-2 my-sm-0">&nbsp CANCEL FILTER &nbsp</a>
-                            </td>
-                              <td valign="top">
-                              <a href=" CloningResults.php?address=PrintStatus.php" class="btn btn-outline-secondary p-0 my-2 my-sm-0">&nbsp SYNC &nbsp</a>
-                              </td>
-                          </tr>
-                        </table> -->
 
-                            <div class="btn-group btn-group-sm">                                 
-                                <button type="button" onclick="cancelfilter('PrintStatus','','print_status')" class="btn btn-outline-secondary btn-export6"><i class="fas fa-ban"></i>&nbspCANCEL FILTER&nbsp&nbsp</button>  
-                                <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();cancelfilter('PrintStatus','','print_status')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
-                                <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('PrintStatus','','print_status')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
-                                                            
-                            </div>
+          </div> <!-- end div of row -->
 
-                      </div>
 
-          </div>
-      </form>
 
 </div>
 
@@ -140,8 +88,7 @@
       
   
 
-      
-  </div>
+
 
  <!--
    {

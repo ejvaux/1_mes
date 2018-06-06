@@ -9,7 +9,7 @@
  
  
             <div class="row">
-                                      <div class="col-sm-2" style="padding-top: 10px; text-align: center;">
+                                    <!--   <div class="col-sm-2" style="padding-top: 10px; text-align: center;">
                                         <div class="form-group">
 
                                               <table style="width: 100%">
@@ -33,68 +33,59 @@
                                         </div>
 
                                       </div>    
-
-                                        <div class="col-sm-7">
+ -->
+                                        <div class="col">
                                     
                                             
                                                     <div class="form-group">
-                                                      <div class="row" style="padding-top: 10px;">
-                                                          <div class="col-xs-6 col-sm-0" style="font-size: 12px; text-align: center">
-                                                              <b> &nbsp &nbsp SORT DATE <br>FROM:</b>
-                                                          </div>
-                                                          <div class="col-xs-6 col-sm-3">
+                                                    <div class="row">
+                                                          <div class="col-12">                                                          
+                                                            <div class="btn-toolbar mb-1" role="toolbar" aria-label="Toolbar with button groups">
+                                                          
+                                                                <div class="input-group btn-sm" style="height: 40px;">
+                                                                    <div class="input-group-prepend">
+                                                                        <div class="input-group-text" id="btnGroupAddon2">SEARCH:</div>
+                                                                    </div>
+                                                                    <input onkeypress='showTable("ProdResultSMT","SMT","Result")' id='search' type='text' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
+                                                                    <div class="input-group-append" id="btnGroupAddon3">
+                                                                    <button type="button" onclick='showTable("ProdResultSMT","SMT","Result")' class="btn btn-outline-secondary btn-export6 btn-sm" style="z-index:0">&nbsp<i class="fa fa-search"></i>&nbsp</button>    </div>
+                                                                </div>
 
+                                                                <div class="input-group btn-sm" style="height: 40px;">
+                                                                  <div class="input-group-prepend">
+                                                                    <div class="input-group-text" id="btnGroupAddon2">SORT FROM:</div>
+                                                                  </div>
                                                                   <input id='sortfrom' onchange='showTable("ProdResultSMT","SMT","Result")' type='date' name='sortingdatefrom' class='form-control' style='font-size: 10px'>
-                                                           
-
-                                                          </div>
-                                                            <!-- Add clearfix for only the required viewport -->
-                                                          <div class="clearfix visible-xs"></div>
-                                                          <div class="col-xs-6 col-sm-0"> <b> TO: </b></div>
-                                                          <div class="col-xs-6 col-sm-3">
-                                                                 
-
-                                                                   <input id='sortto' onchange='showTable("ProdResultSMT","SMT","Result")' type='date' name='sortingdateto' class='form-control' style='font-size: 10px'>
+                                                                </div>
+                                                                
+                                                                <div class="input-group btn-sm" style="height: 40px;">
+                                                                  <div class="input-group-prepend">
+                                                                    <div class="input-group-text" id="btnGroupAddon2">SORT TO:</div>
+                                                                  </div>
+                                                                  <input id='sortto' onchange='showTable("ProdResultSMT","SMT","Result")' type='date' name='sortingdateto' class='form-control' style='font-size: 10px'>
+                                                                </div>
+                                                                
+                                                                <div class="input-group btn-sm" style="height: 40px;">
+                                                                    <div class="btn-group btn-group-sm">  
+                                                                    <button type="button" onclick="cancelfilter('ProdResultSMT','SMT','Result')" class="btn btn-outline-secondary btn-export6"><i class="fas fa-ban"></i>&nbspCANCEL FILTER&nbsp&nbsp</button>  
+                                                                     <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();cancelfilter('ProdResultSMT','SMT','Result')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
+                                                                    <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('ProdResultSMT','SMT','Result')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
+                                                                </div>
+                                                                &nbsp&nbsp&nbsp<span style="font-size: 16px; font-weight: bold"><h5>Prod Result SMT</h5></span>
+                                                                </div>
                                                              
 
+                                                            </div>
                                                           </div>
-                                                          
-                                                          <div class="col-xs-6 col-sm-3">
-                                                            <!--    <table style="width: 100%">
-                                                                <tr>
-                                                                  <td style="width: 50%;">  &nbsp  <a href="ProdPlanVsResult.php" class="btn btn-outline-secondary p-0 my-2 my-sm-0">&nbsp CANCEL FILTER &nbsp</a>
-                                                                  </td>
-                                                                  <td valign="top">
-                                                                  <a href=" CloningResults.php?address=ProdResult.php" class="btn btn-outline-secondary p-0 my-2 my-sm-0">&nbsp SYNC &nbsp</a>
-                                                                  </td>   
-                                                                </tr>
-                                                              </table>   --> 
-
-                                                                <div class="btn-group btn-group-sm">
-                                                                
-                                                              <button type="button" onclick="cancelfilter('ProdResultSMT','SMT','Result')" class="btn btn-outline-secondary"><i class="fas fa-ban"></i>&nbspCANCEL FILTER&nbsp&nbsp</button>  
-                                                              <button type="button" class="btn btn-outline-secondary" onclick="SyncToProdOutputSystem();cancelfilter('ProdResultSMT','SMT','Result')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
-                                                              <button type="button" class="btn btn-outline-secondary" onclick="exportxlsx('ProdResultSMT','SMT','Result')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
-                                                                </div>
-                                                              
-                                                          </div>
-                                                        
-
-
-                                                      </div>
-                                                    </div>
+                                                        </div>
+                                                    
+                                                    
+                                                    </div> <!-- end div of form group -->
 
                                       </div> <!-- end div of col -->
 
 
-                                      <!--  <div class="col-md-3" style="padding-top: 10px; border-style: solid">
 
-                                          
-
-                                        </div> -->
-                                        <div class="col-sm-3" style="padding-top: 15px; padding-right: 25px; text-align: right;">
-                                       <span><h5>Prod Result SMT</h5></span>
-                                    </div>
                           </div><!-- end of row-->
 
 

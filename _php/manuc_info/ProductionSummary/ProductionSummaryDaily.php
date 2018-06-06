@@ -307,6 +307,7 @@ if ($datenow == "NONE") {
                             if ($prevdate == $currentdate) {
                                 # code... do nothing
                             } else {
+                                
                                 $prevdate = $currentdate;
                                 displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
                             }
@@ -314,7 +315,7 @@ if ($datenow == "NONE") {
                         } else {
                             $prevdate = $currentdate;
 
-                            displaysummary($row2['planqty2'], $row['prodresult2'], $row['DISP_DATE_']);
+                            displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
 
                         }
                         # code...
