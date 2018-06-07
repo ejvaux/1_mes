@@ -540,19 +540,19 @@ function ltime(lead,status,approve){
       seconds  -= mnts*60;
       var time = days+" day, "+hrs+" hr, "+mnts+" min";
       
-      if(status == 'WAITING' ||  status == 'ON-GOING'){
+      if(status == 'WAITING' ||  status == 'ON-GOING' || status == 'FOR MOLD TRIAL'){
 
         if(ts<=172800){
-          return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
+          return "<span style='color: #2ECC71; font-weight: bold;'>( "+time+" )</span>";
         }
         else if(ts<=345600 && ts>172800){
-          return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
+          return "<span style='color: #F4D03F; font-weight: bold;'>( "+time+" )</span>";
         }
         else if(ts<=518400 && ts>345600){
-          return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
+          return "<span style='color: orange; font-weight: bold;'>( "+time+" )</span>";
         }
         else{
-          return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
+          return "<span style='color: red; font-weight: bold;'>( "+time+" )</span>";
         }
       }
       else{
@@ -567,12 +567,13 @@ function ltime(lead,status,approve){
         at  -= tmnts*60;
         var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
         
-        if(status == 'FOR MOLD TRIAL'){
+        /* if(status == 'FOR MOLD TRIAL'){
           return "<span style='color: green; font-weight: bold;'>( "+time+" )</span>";
         }
         else if(status == 'QC APPROVED'){
           return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
-        }
+        } */
+        return "<span style='color: blue; font-weight: bold;'>"+time+"</span>";
         /* return a; */
         
       }

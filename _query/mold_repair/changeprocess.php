@@ -19,6 +19,8 @@
     $date = date('Y-m-d');
     $updateuser = $_SESSION['text'];
     $updatedatetime = date('Y-m-d H:i:s');
+    $processoperator = $_POST['processoperator'];
+    $operatorcolumn = $prevprocess . "_OPERATOR";
 
     $date1 = strtotime($prevprocessdatetime);
     $date2 = strtotime($nextprocessdatetime);
@@ -26,14 +28,21 @@
     $date3 = $date2 - $date1;
     
 
-    function secondsToTime($seconds) {
+    /* function secondsToTime($seconds) {
         $dtF = new \DateTime('@0');
         $dtT = new \DateTime("@$seconds");
         return $dtF->diff($dtT)->format('%a day, %h hr, %i min');
+    } */
+
+    function secondsToTime($seconds) {
+        $dtF = new \DateTime('@0');
+        $dtT = new \DateTime("@$seconds");
+        return $dtF->diff($dtT)->format('%i');
     }
 
-    $date3 = secondsToTime($date3);
-    $date3 = "( " . $date3 . " )";
+    /* $date3 = date('Y-m-d H:i:s',$date3); */
+    /* $date3 = secondsToTime($date3); */
+    $date3 = "(" . $date3 . ")";
 
     if($nextprocess == 'FINISHED'){
 
@@ -43,7 +52,8 @@
         FINISHED_DATE = '$date',
         CURRENT_PROCESS = '$nextprocess',
         UPDATE_USER = '$updateuser',
-        UPDATE_DATETIME = '$updatedatetime'      
+        UPDATE_DATETIME = '$updatedatetime',
+        OPERATOR = ''     
         
         WHERE MOLD_FABRICATION_ID = $moldfabricationid";
 
@@ -54,9 +64,11 @@
         
         `$nextprocess` = '$nextprocessdatetime',
         `$prevprocess` = '$date3',
+        `$operatorcolumn` = '$processoperator',
         CURRENT_PROCESS = '$nextprocess',
         UPDATE_USER = '$updateuser',
-        UPDATE_DATETIME = '$updatedatetime'        
+        UPDATE_DATETIME = '$updatedatetime',
+        OPERATOR = '$processoperator'       
         
         WHERE MOLD_FABRICATION_ID = $moldfabricationid";
 

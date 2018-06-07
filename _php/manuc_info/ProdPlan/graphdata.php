@@ -151,7 +151,6 @@ if(isset($_POST['sortfrom']))
 
 
 
-
                   $between="YES-Search";
                   $currentdate=date("Y-m-d",strtotime($strfrom));
 

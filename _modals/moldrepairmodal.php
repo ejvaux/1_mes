@@ -1890,7 +1890,20 @@
 
                     <div class="col-sm-6">
                         <label for="aoperator" class="col-form-label-sm mt-2">OPERATOR:</label>
-                        <input id="aoperator" type="text" class="form-control form-control-sm" name="operator" placeholder="" required>                        
+                        <select id="aoperator" type="text" class="form-control form-control-sm" name="operator" placeholder="" required>
+
+                            <option value="Operator 1">Operator 1</option>
+                            <option value="Operator 2">Operator 2</option>
+                            <option value="Operator 3">Operator 3</option>
+                            <option value="Operator 4">Operator 4</option>
+                            <option value="Operator 5">Operator 5</option>
+                            <option value="Operator 6">Operator 6</option>
+                            <option value="Operator 7">Operator 7</option>
+                            <option value="Operator 8">Operator 8</option>
+                            <option value="Operator 9">Operator 9</option>
+                            <option value="Operator 10">Operator 10</option>
+
+                        </select>                       
                     </div>                                           
                     
                 </div> 
@@ -2032,7 +2045,20 @@
 
                     <div class="col-sm-6">
                         <label for="eoperator" class="col-form-label-sm mt-2">OPERATOR:</label>
-                        <input id="eoperator" type="text" class="form-control form-control-sm" name="operator" placeholder="" requireds>                        
+                        <select id="eoperator" type="text" class="form-control form-control-sm" name="operator" placeholder="" required>
+                        
+                            <option value="Operator 1">Operator 1</option>
+                            <option value="Operator 2">Operator 2</option>
+                            <option value="Operator 3">Operator 3</option>
+                            <option value="Operator 4">Operator 4</option>
+                            <option value="Operator 5">Operator 5</option>
+                            <option value="Operator 6">Operator 6</option>
+                            <option value="Operator 7">Operator 7</option>
+                            <option value="Operator 8">Operator 8</option>
+                            <option value="Operator 9">Operator 9</option>
+                            <option value="Operator 10">Operator 10</option>
+                        
+                        </select>                        
                     </div>                                           
                     
                 </div> 
@@ -2057,7 +2083,7 @@
 
 
 <div class="modal hide fade in" role="dialog" id="changeprocess" data-keyboard="false" data-backdrop="static" >
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Change Process.</h5>
@@ -2069,15 +2095,130 @@
       <input type="hidden" id="cmoldfabricationid" name="moldfabricationid">
       <input type="hidden" id="prevprocess" name="prevprocess">
       <input type="hidden" id="prevprocessdatetime" name="prevprocessdatetime">
-      <div class="modal-body">      
+      <div class="modal-body">
+
+            <div class="form-group row">
+            <div class="col-sm-6 m-0">
+            <table class='table table-hover table-bordered table-sm nowrap m-0'>
+                <thead>
+                    <tr>
+                        <th>PROCESS</th>
+                        <th>LEAD TIME</th>
+                        <th>OPERATOR</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th><label class="col-form-label">DESIGN-1</label></th>
+                        <td><label id="leadtime_1" class="col-form-label"></label></td>
+                        <td><label id="operator_1" class="col-form-label"></label></td>                        
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">DESIGN-2</label></th>
+                        <td><label id="leadtime_2" class="col-form-label"></label></td>
+                        <td><label id="operator_2" class="col-form-label"></label></td>
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">DESIGN-3</label></th>
+                        <td><label id="leadtime_3" class="col-form-label"></label></td>
+                        <td><label id="operator_3" class="col-form-label"></label></td>
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">RADIAL-1</label></th>
+                        <td><label id="leadtime_4" class="col-form-label"></label></td>
+                        <td><label id="operator_4" class="col-form-label"></label></td>
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">LATHER-1</label></th>
+                        <td><label id="leadtime_5" class="col-form-label"></label></td>
+                        <td><label id="operator_5" class="col-form-label"></label></td>                        
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">BANDSAW</label></th>
+                        <td><label id="leadtime_6" class="col-form-label"></label></td>
+                        <td><label id="operator_6" class="col-form-label"></label></td>                        
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">ML</label></th>
+                        <td><label id="leadtime_7" class="col-form-label"></label></td>
+                        <td><label id="operator_7" class="col-form-label"></label></td>                        
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">GS-1</label></th>
+                        <td><label id="leadtime_8" class="col-form-label"></label></td>
+                        <td><label id="operator_8" class="col-form-label"></label></td>                        
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">GS-2</label></th>
+                        <td><label id="leadtime_9" class="col-form-label"></label></td>
+                        <td><label id="operator_9" class="col-form-label"></label></td>                        
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="col-sm-6 m-0">
+            <table class='table table-hover table-bordered table-sm nowrap m-0'>
+                <thead>
+                    <tr>
+                        <th>PROCESS</th>
+                        <th>LEAD TIME</th>
+                        <th>OPERATOR</th>                          
+                    </tr>
+                </thead>
+                <tbody>                    
+                    <tr>
+                        <th><label class="col-form-label">HSM</label></th>
+                        <td><label id="leadtime_10" class="col-form-label"></label></td>
+                        <td><label id="operator_10" class="col-form-label"></label></td>
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">HSM-1</label></th>
+                        <td><label id="leadtime_11" class="col-form-label"></label></td>
+                        <td><label id="operator_11" class="col-form-label"></label></td>
+                    </tr>                    
+                    <tr>
+                        <th><label class="col-form-label">HSM-2</label></th>
+                        <td><label id="leadtime_12" class="col-form-label"></label></td>
+                        <td><label id="operator_12" class="col-form-label"></label></td>                        
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">WEDM</label></th>
+                        <td><label id="leadtime_13" class="col-form-label"></label></td>
+                        <td><label id="operator_13" class="col-form-label"></label></td>                        
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">M-EDM</label></th>
+                        <td><label id="leadtime_14" class="col-form-label"></label></td>
+                        <td><label id="operator_14" class="col-form-label"></label></td>                        
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">EDM</label></th>
+                        <td><label id="leadtime_15" class="col-form-label"></label></td>
+                        <td><label id="operator_15" class="col-form-label"></label></td>
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">ASSEMBLE-1</label></th>
+                        <td><label id="leadtime_16" class="col-form-label"></label></td>
+                        <td><label id="operator_16" class="col-form-label"></label></td>                        
+                    </tr>
+                    <tr>
+                        <th><label class="col-form-label">POLISHING-1</label></th>
+                        <td><label id="leadtime_17" class="col-form-label"></label></td>
+                        <td><label id="operator_17" class="col-form-label"></label></td>                        
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            
+            </div>
                                                        
-                <div class="form-group row">
+                <div class="form-group row" id="hd1">
                                   
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <label class="col-form-label">CHANGE PROCESS TO:</label>
                     </div>
                     
-                    <div class="col-sm-6 pt-1">                        
+                    <div class="col-sm-4 pt-1">                        
                         
                         <select id="ccurrentprocess" type="text" class="form-control form-control" name="nextprocess" placeholder="">
                     
@@ -2102,12 +2243,36 @@
                             ?>
 
                         </select>
-                    </div>                                                              
+                    </div>
+                </div>
+                <div class="form-group row" id="hd2">
+
+                    <div class="col-sm-3 pt-1">
+                        <label class="col-form-label">PROCESS OPERATOR:</label>
+                    </div>
+
+                    <div class="col-sm-4 pt-1">                        
+                        
+                        <select id="cprocessoperator" type="text" class="form-control form-control" name="processoperator" placeholder="">
+                    
+                            <option value="Operator 1">Operator 1</option>
+                            <option value="Operator 2">Operator 2</option>
+                            <option value="Operator 3">Operator 3</option>
+                            <option value="Operator 4">Operator 4</option>
+                            <option value="Operator 5">Operator 5</option>
+                            <option value="Operator 6">Operator 6</option>
+                            <option value="Operator 7">Operator 7</option>
+                            <option value="Operator 8">Operator 8</option>
+                            <option value="Operator 9">Operator 9</option>
+                            <option value="Operator 10">Operator 10</option>
+
+                        </select>
+                    </div>
                     
                 </div> 
 
                 <div class="modal-footer">
-                    <button type="submit" name='submit' class="btn btn-primary" id=""><i class="fas fa-exchange-alt"></i> Change</button>
+                    <button type="submit" name='submit' class="btn btn-primary" id="hd3"><i class="fas fa-exchange-alt"></i> Change</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn"><i class="fas fa-times"></i> Close</button>
                 </div>
 

@@ -23,6 +23,7 @@
     $insertrequest = $_SESSION['text'];
     $insertdatetime = date('Y-m-d H:i:s');
     $processdatetime = date('Y-m-d H:i:s');
+    $operatorcolumn = $currentprocess . "_OPERATOR";
     
     $sql = "INSERT INTO mmc_mold_fabrication 
     (           
@@ -36,15 +37,16 @@
         OPERATOR,
         INSERT_USER,
         INSERT_DATETIME,
-        `$currentprocess`
+        `$currentprocess`,
+        `$operatorcolumn`
     )
-        VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             
         $stmt = $conn->prepare($sql);
 
         $stmt->bind_param(
 
-            'issssssssss',
+            'isssssssssss',
             $ordernumber,
             $manufacturedate,
             $moldcode,
@@ -55,7 +57,8 @@
             $operator,
             $insertrequest,
             $insertdatetime,
-            $processdatetime
+            $processdatetime,
+            $operator
         );
 
         if ($stmt->execute() === TRUE) {            

@@ -9,6 +9,7 @@
         <th>CUSTOMER CODE</th>
         <th>CUSTOMER NAME</th>
         <th>CURRENT PROCESS</th>
+        <th>CURRENT OPERATOR</th>
         <th class="proc">DESIGN-1 (TIME)</th>
         <th class="proc">DESIGN-2 (TIME)</th>
         <th class="proc">DESIGN-3 (TIME)</th>
@@ -27,8 +28,7 @@
         <th class="proc">ASSEMBLE-1 (TIME)</th>
         <th class="proc">POLISHING-1 (TIME)</th>
         <th>DELIVERY PLAN</th>
-        <th>FINISHED DATE</th>
-        <th>OPERATOR</th>
+        <th>FINISHED DATE</th>        
         <th>INSERT USER</th>
         <th>INSERT DATETIME</th>
         <th>UPDATE USER</th>

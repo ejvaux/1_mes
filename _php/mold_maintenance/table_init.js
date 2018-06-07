@@ -770,7 +770,6 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
           });
 
         }
-
         else{
 
         $.ajax(
@@ -951,51 +950,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
               {
                 "data": null,
                 render: function ( data, type, row ) {
-
-                  /* if(row[2]!=null){
-                    var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
-                    var seconds = parseInt(second,10)/1000;
-                    var ts = seconds;
-                    var days = Math.floor(seconds / (3600*24));
-                    seconds  -= days*3600*24;
-                    var hrs   = Math.floor(seconds / 3600);
-                    seconds  -= hrs*3600;
-                    var mnts = Math.floor(seconds / 60);
-                    seconds  -= mnts*60;
-                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
-                    
-                    if(row[3] == 'WAITING' ||  row[3] == 'ON-GOING'){
-
-                      if(ts<=172800){
-                        return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else if(ts<=345600 && ts>172800){
-                        return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else if(ts<=518400 && ts>345600){
-                        return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else{
-                        return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
-                      }
-                    }
-                    else{
-                      var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
-                     
-                      var at = parseInt(a,10)/1000;
-                      var tdays = Math.floor(at / (3600*24));
-                      at  -= tdays*3600*24;
-                      var thrs   = Math.floor(at / 3600);
-                      at  -= thrs*3600;
-                      var tmnts = Math.floor(at / 60);
-                      at  -= tmnts*60;
-                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
-                      return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
-                    } 
-                  }
-                  else{
-                    return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
-                  } */
+                  
                   return ltime(row[2],row[3],row[21]);                                   
                 },              
                 "targets": 2,
@@ -1003,18 +958,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
             ],
             "order": [[ 4, 'desc' ],[ 5, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              /* if ( data[3] == 'WAITING' ) {
-                $('td', row).eq(3).addClass('pending');
-              }
-              else if(data[3] == 'ON-GOING'){
-                $('td', row).eq(3).addClass('ongoing');
-              }
-              else if(data[3] == 'FOR MOLD TRIAL'){
-                $('td', row).eq(3).addClass('finished');
-              }
-              else if(data[3] == 'QC APPROVED'){
-                $('td', row).eq(3).addClass('approved');
-              } */
+
               $('td', row).eq(3).addClass(statdisplay(data[3]));
             },           
           /* fixedColumns:   true */
@@ -1026,57 +970,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
           tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
               cell.innerHTML = i+1;
           } );
-      } ).draw();
-
-      /* $('#Dtable tbody').on( 'click', '#check', function () {
-          var data = tble.row( $(this).parents('tr') ).data();
-          
-          $.ajax(
-            {
-            method:'post',
-            url:'/1_mes/_query/mold_repair/getrow.php',
-            data:
-            {
-                'id': data[5],
-                'ajax': true
-            },
-            success: function(data1) {
-              var val = JSON.parse(data1);
-              
-              $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
-  
-              $("#aMRI001").val(val.MRI001);
-              $("#aMRI002").val(val.MRI002); 
-              $("#aMRI003").val(val.MRI003); 
-              $("#aMRI004").val(val.MRI004); 
-              $("#aMRI005").val(val.MRI005); 
-              $("#aMRI006").val(val.MRI006); 
-              $("#aMRI007").val(val.MRI007); 
-              $("#aMRI008").val(val.MRI008);
-              
-              if(val.MRI009=='YES'){document.getElementById("aMRI009").checked = true; };
-              if(val.MRI010=='YES'){document.getElementById("aMRI010").checked = true; };
-              if(val.MRI011=='YES'){document.getElementById("aMRI011").checked = true; };
-              if(val.MRI012=='YES'){document.getElementById("aMRI012").checked = true; };
-              if(val.MRI013=='YES'){document.getElementById("aMRI013").checked = true; };
-  
-              if(val.MRI014=='YES'){document.getElementById("aMRI014").checked = true; };
-              if(val.MRI015=='YES'){document.getElementById("aMRI015").checked = true; };
-              if(val.MRI016=='YES'){document.getElementById("aMRI016").checked = true; };
-              if(val.MRI017=='YES'){document.getElementById("aMRI017").checked = true; };
-              if(val.MRI018=='YES'){document.getElementById("aMRI018").checked = true; };
-              if(val.MRI019=='YES'){document.getElementById("aMRI019").checked = true; };
-              if(val.MRI020=='YES'){document.getElementById("aMRI020").checked = true; };
-             
-              $("#aactiontaken").val(val.ACTION_TAKEN);
-
-              $("#achecklistsubmit").hide();
-  
-              $('.sel').select2({ width: '100%' });
-              $('#achcklist').modal('show');
-            }
-          });                   
-      } ); */
+      } ).draw();      
 
       $('#Dtable tbody').on( 'click', '#inspect', function () {
         var data = tble.row( $(this).parents('tr') ).data();
@@ -1301,70 +1195,14 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle) {
               {
                 "data": null,
                 render: function ( data, type, row ) {
-
-                  /* if(row[2]!=null){
-                    var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
-                    var seconds = parseInt(second,10)/1000;
-                    var ts = seconds;
-                    var days = Math.floor(seconds / (3600*24));
-                    seconds  -= days*3600*24;
-                    var hrs   = Math.floor(seconds / 3600);
-                    seconds  -= hrs*3600;
-                    var mnts = Math.floor(seconds / 60);
-                    seconds  -= mnts*60;
-                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
-                    
-                    if(row[3] == 'WAITING' ||  row[3] == 'ON-GOING'){
-
-                      if(ts<=172800){
-                        return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else if(ts<=345600 && ts>172800){
-                        return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else if(ts<=518400 && ts>345600){
-                        return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else{
-                        return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
-                      }
-                    }
-                    else{
-                      var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
-                      
-                      var at = parseInt(a,10)/1000;
-                      var tdays = Math.floor(at / (3600*24));
-                      at  -= tdays*3600*24;
-                      var thrs   = Math.floor(at / 3600);
-                      at  -= thrs*3600;
-                      var tmnts = Math.floor(at / 60);
-                      at  -= tmnts*60;
-                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
-                      return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
-                    } 
-                  }
-                  else{
-                    return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
-                  } */
+                  
                   return ltime(row[2],row[3],row[21]);                                 
                 },              
                 "targets": 2,
               },
             ],
             "order": [[ 4, 'desc' ],[ 5, 'desc' ]],
-            "createdRow": function ( row, data, index ) {
-              /* if ( data[3] == 'WAITING' ) {
-                $('td', row).eq(3).addClass('pending');
-              }
-              else if(data[3] == 'ON-GOING'){
-                $('td', row).eq(3).addClass('ongoing');
-              }
-              else if(data[3] == 'FOR MOLD TRIAL'){
-                $('td', row).eq(3).addClass('finished');
-              }
-              else if(data[3] == 'QC APPROVED'){
-                $('td', row).eq(3).addClass('approved');
-              } */
+            "createdRow": function ( row, data, index ) {              
               $('td', row).eq(3).addClass(statdisplay(data[3]));
             },           
           /* fixedColumns:   true */
@@ -1937,25 +1775,38 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                 render: function ( data, type, row ) {
 
                   if(row[7]!='FINISHED'){
-                    return "<div class='text-center'><button id='change' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>CHANGE</span></button></div>";
+                    return "<div class='text-center'><button id='change' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Change</span></button></div>";
                   }
                   else{
-                    return "<div class='text-center'><button id='change' class='btn btn-secondary py-0 px-1 m-0' disabled><span style='font-size:.8em; text-decoration: line-through;'>CHANGE</span></button></div>";
+                    return "<div class='text-center'><button id='change' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Process</span></button></div>";
                   }               
                                                                       
                 },              
                 "targets": 0,
-              },              
+              },                          
               {
                 "createdCell": function (td, cellData, rowData, row, col) {
-                
-                if ( $(td).text()== "" ) {
-                  /* $(td).text("No data");
-                  $(td).css('color', 'red') */
+
+                if ( $(td).text()== "" ) {                  
                 }
                 else
                 {
                   if($(td).text().charAt(0) == "("){
+                    var min = $(td).text();
+                    min= min.slice(1, -1);
+                    /* min = Math.floor(min / 60); */
+
+                    var seconds = min;
+                    var ts = seconds;
+                    var days = Math.floor(seconds / (3600*24));
+                    seconds  -= days*3600*24;
+                    var hrs   = Math.floor(seconds / 3600);
+                    seconds  -= hrs*3600;
+                    var mnts = Math.floor(seconds / 60);
+                    seconds  -= mnts*60;
+                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
+
+                    $(td).text(time);
                     $(td).css('color', 'blue')
                     $(td).css('font-weight', 'bold')
                   }
@@ -1969,14 +1820,13 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                     seconds  -= hrs*3600;
                     var mnts = Math.floor(seconds / 60);
                     seconds  -= mnts*60;
-                    var time = "- "+ days+" day, "+hrs+" hr, "+mnts+" min -";
+                    var time = "( "+ days+" day, "+hrs+" hr, "+mnts+" min )";
                   $(td).text(time); 
                   $(td).css('color', 'orange')
                   $(td).css('font-weight', 'bold')
-                  $(td).css('text-decoration', 'underline')
                   }
                 }
-              },"aTargets": 'proc',
+              },"targets": 'proc',
             }
         ],
           "order": [[ 1, 'desc' ]],       
@@ -2017,10 +1867,74 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
           success: function(data1) {
             var val = JSON.parse(data1);
             $("#cmoldfabricationid").val(val.MOLD_FABRICATION_ID);
-            
+
+            function ltformat(sec){
+              if(sec.charAt(0) == "("){
+                var min = sec;
+                min= min.slice(1, -1);
+                /* min = Math.floor(min / 60); */
+
+                var seconds = min;
+                var ts = seconds;
+                var days = Math.floor(seconds / (3600*24));
+                seconds  -= days*3600*24;
+                var hrs   = Math.floor(seconds / 3600);
+                seconds  -= hrs*3600;
+                var mnts = Math.floor(seconds / 60);
+                seconds  -= mnts*60;
+                var time = days+" day, "+hrs+" hr, "+mnts+" min";
+                return "<span style='color:blue'>"+time+"</span>";
+              }
+              else if(sec==""){
+                return "";
+              }
+              else{
+                var second = Date.parse(new Date()) - Date.parse(new Date(sec));
+                var seconds = parseInt(second,10)/1000;
+                var ts = seconds;
+                var days = Math.floor(seconds / (3600*24));
+                seconds  -= days*3600*24;
+                var hrs   = Math.floor(seconds / 3600);
+                seconds  -= hrs*3600;
+                var mnts = Math.floor(seconds / 60);
+                seconds  -= mnts*60;
+                var time = "( "+ days+" day, "+hrs+" hr, "+mnts+" min )";
+                return "<span style='color:orange'>"+time+"</span>";
+              }
+            }
+
+            $('#leadtime_1').html(ltformat(val['DESIGN-1'])); $('#operator_1').text(val['DESIGN-1_OPERATOR']);
+            $('#leadtime_2').html(ltformat(val['DESIGN-2'])); $('#operator_2').text(val['DESIGN-2_OPERATOR']);
+            $('#leadtime_3').html(ltformat(val['DESIGN-3'])); $('#operator_3').text(val['DESIGN-3_OPERATOR']);
+            $('#leadtime_4').html(ltformat(val['RADIAL-1'])); $('#operator_4').text(val['RADIAL-1_OPERATOR']);
+            $('#leadtime_5').html(ltformat(val['LATHER-1'])); $('#operator_5').text(val['LATHER-1_OPERATOR']);
+            $('#leadtime_6').html(ltformat(val['BANDSAW'])); $('#operator_6').text(val['BANDSAW_OPERATOR']);
+            $('#leadtime_7').html(ltformat(val['ML'])); $('#operator_7').text(val['ML_OPERATOR']);
+            $('#leadtime_8').html(ltformat(val['GS-1'])); $('#operator_8').text(val['GS-1_OPERATOR']);
+            $('#leadtime_9').html(ltformat(val['GS-2'])); $('#operator_9').text(val['GS-2_OPERATOR']);
+            $('#leadtime_10').html(ltformat(val['HSM'])); $('#operator_10').text(val['HSM_OPERATOR']);
+            $('#leadtime_11').html(ltformat(val['HSM-1'])); $('#operator_11').text(val['HSM-1_OPERATOR']);
+            $('#leadtime_12').html(ltformat(val['HSM-2'])); $('#operator_12').text(val['HSM-2_OPERATOR']);
+            $('#leadtime_13').html(ltformat(val['WEDM'])); $('#operator_13').text(val['WEDM_OPERATOR']);
+            $('#leadtime_14').html(ltformat(val['M-EDM'])); $('#operator_14').text(val['M-EDM_OPERATOR']);
+            $('#leadtime_15').html(ltformat(val['EDM'])); $('#operator_15').text(val['EDM_OPERATOR']);
+            $('#leadtime_16').html(ltformat(val['ASSEMBLE-1'])); $('#operator_16').text(val['ASSEMBLE-1_OPERATOR']);
+            $('#leadtime_17').html(ltformat(val['POLISHING-1'])); $('#operator_17').text(val['POLISHING-1_OPERATOR']);
+                         
             $('#ccurrentprocess').val(val.CURRENT_PROCESS);
             $('#prevprocess').val(val.CURRENT_PROCESS);
             $('#prevprocessdatetime').val(val[$('#ccurrentprocess').val()]);
+
+            if(val.CURRENT_PROCESS=="FINISHED"){
+              $('#hd1').hide();
+              $('#hd2').hide();
+              $('#hd3').hide();
+            }
+            else{
+              $('#hd1').show();
+              $('#hd2').show();
+              $('#hd3').show();
+            }
 
             $('.sel').select2({ width: '100%' });
             $('#changeprocess').modal('show');
