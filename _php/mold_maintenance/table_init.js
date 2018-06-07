@@ -46,7 +46,7 @@ function checkuserauthH(){
 }              
 /* _______________ Table Init H ______________ */
 
-/* ____________ Table Init H ________________ */
+/* ____________ Table Init F ________________ */
 
 function checkuserauthF(){
   if(val=="A"){
@@ -57,7 +57,7 @@ function checkuserauthF(){
     DisplayTbleF('mold_fabrication_table','mold_fabricationsp','Mold Fabrication');
   }
 }              
-/* _______________ Table Init H ______________ */
+/* _______________ Table Init F ______________ */
 
 /* Display Table USER A*/
         
@@ -149,20 +149,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
                     $('.sel').select2({ width: '100%' });
                     $('#editmoldrepair').modal('show');
                   }
-                }); 
-                
-                /* $("#epmcontrol").attr("value",data[2]);                
-                document.getElementById("emcl").value = data[3];    
-                elistchange();
-                $("#emoldshot").attr("value",data[9]);
-                document.getElementById("emachinecode").value = data[9];
-                $("#edaterequired").attr("value",data[10]);
-                $("#etimerequired").attr("value",data[11]);
-                document.getElementById("edefectname").value = data[12];
-                document.getElementById("erepairremarks").value = data[13];
-                document.getElementById("emoldstatus").value = data[17]; */
-                              
-                /* $('#editmoldrepair').modal('show'); */                
+                });                                             
                 
               }
             },
@@ -176,37 +163,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
               name: 'delete',      // do not change name
               className: 'btn btn-export6 btn-xs py-1 delbt',
               
-              action: function ( e, dt, node, config ) {               
-                /* if (confirm('Are you sure you want to delete this?')) {
-                               
-                var data = dt.row( '.selected' ).data();
-                $.ajax(
-                  {
-                  method:'post',
-                  url:'/1_mes/_query/mold_repair/delete_mold_repair.php',
-                  data:
-                  {
-                      'id': data[2],
-                      'ajax': true
-                  },
-                  success: function(data) {
-                    alert(data);
-                    checkuserauth();
-
-                    $.notify({
-                      icon: 'fas fa-info-circle',
-                      title: 'System Notification: ',
-                      message: data,
-                    },{
-                      type:'success',
-                      placement:{
-                        align: 'center'
-                      },           
-                      delay: 3000,                        
-                    });
-                  }
-                  });                  
-                } */
+              action: function ( e, dt, node, config ) {                         
 
                 swal({
                   title: 'Are you sure?',
@@ -282,59 +239,8 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
             {
               "data": null,
               render: function ( data, type, row ) {
-
-                /* if(row[2]!=null){
-                  var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
-                    var seconds = parseInt(second,10)/1000;
-                    var ts = seconds;
-                    var days = Math.floor(seconds / (3600*24));
-                    seconds  -= days*3600*24;
-                    var hrs   = Math.floor(seconds / 3600);
-                    seconds  -= hrs*3600;
-                    var mnts = Math.floor(seconds / 60);
-                    seconds  -= mnts*60;
-                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
-                    
-                    if(row[3] == 'WAITING' ||  row[3] == 'ON-GOING'){
-
-                      if(ts<=172800){
-                        return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else if(ts<=345600 && ts>172800){
-                        return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else if(ts<=518400 && ts>345600){
-                        return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else{
-                        return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
-                      }
-                    }
-                    else{
-                      var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
-                                           
-                      var at = parseInt(a,10)/1000;
-                      var tdays = Math.floor(at / (3600*24));
-                      at  -= tdays*3600*24;
-                      var thrs   = Math.floor(at / 3600);
-                      at  -= thrs*3600;
-                      var tmnts = Math.floor(at / 60);
-                      at  -= tmnts*60;
-                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
-                      
-                      if(row[3] == 'FOR MOLD TRIAL'){
-                        return "<span style='color: green; font-weight: bold;'>( "+time+" )</span>";
-                      }
-                      else if(row[3] == 'QC APPROVED'){
-                        return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
-                      }
-                      
-                    }
-                }
-                else{
-                  return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
-                }  */
-                return ltime(row[2],row[3],row[19]);                                 
+                
+                return ltime(row[2],row[3],row[21]);                                 
               },              
               "targets": 2,
             },
@@ -342,27 +248,11 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
             
             "order": [[ 5, 'desc' ],[ 6, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              /* if ( data[3] == 'WAITING' ) {
-                $('td', row).eq(3).addClass('pending');
-              }
-              else if(data[3] == 'ON-GOING'){
-                $('td', row).eq(3).addClass('ongoing');
-              }
-              else if(data[3] == 'FOR MOLD TRIAL'){
-                $('td', row).eq(3).addClass('finished');
-              }
-              else if(data[3] == 'QC APPROVED'){
-                $('td', row).eq(3).addClass('approved');
-              } */
               $('td', row).eq(3).addClass(statdisplay(data[3]));
             },
             /* responsive: true */
                                  
-        } );
-        
-        /* $("div.toolbar").html('<h5 style="float: left;">'+ tbltitle +'</h5>'); */
-       /*  $("div.dpicker").html('<div style="white-space: nowrap;">Sort date <input type="date" id="min" name="from"> to <input type="date" id="max" name="to"></div>'); */
-        
+        } );       
         
         /* ____________________ FUNCTIONS ___________________ */
 
@@ -462,13 +352,9 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
   $.fn.dataTable.ext.buttons.add1 = {
     action: 
     function () {
-      /* var t = new Date(); */
-      /* alert(t.getHours()+":"+t.getMinutes()); */ 
-      /* $("#timerequired").attr("value",t.getHours()+":"+t.getMinutes()); */
+      
       listchange();
       getctrlnumber();
-      /* document.getElementById("addformA").reset(); */
-      /* $('#addformA').trigger('reset'); */
       $("#addmoldrepairA").modal('show');        
       
     }
@@ -546,52 +432,8 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
               {
                 "data": null,
                 render: function ( data, type, row ) {
-
-                  /* if(row[2]!=null){
-                    var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
-                    var seconds = parseInt(second,10)/1000;
-                    var ts = seconds;
-                    var days = Math.floor(seconds / (3600*24));
-                    seconds  -= days*3600*24;
-                    var hrs   = Math.floor(seconds / 3600);
-                    seconds  -= hrs*3600;
-                    var mnts = Math.floor(seconds / 60);
-                    seconds  -= mnts*60;
-                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
-                    
-                    if(row[3] == 'WAITING' ||  row[3] == 'ON-GOING'){
-
-                      if(ts<=172800){
-                        return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else if(ts<=345600 && ts>172800){
-                        return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else if(ts<=518400 && ts>345600){
-                        return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else{
-                        return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
-                      }
-                    }
-                    else{
-                      var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
-                      
-                      var at = parseInt(a,10)/1000;
-                      var tdays = Math.floor(at / (3600*24));
-                      at  -= tdays*3600*24;
-                      var thrs   = Math.floor(at / 3600);
-                      at  -= thrs*3600;
-                      var tmnts = Math.floor(at / 60);
-                      at  -= tmnts*60;
-                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
-                      return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
-                    }                    
-                  }
-                  else{
-                    return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
-                  } */
-                  return ltime(row[2],row[3],row[19]);                                   
+                  
+                  return ltime(row[2],row[3],row[21]);                                   
                 },              
                 "targets": 2,
               },
@@ -599,18 +441,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
             ],
             "order": [[ 4, 'desc' ],[ 5, 'desc' ]],
             "createdRow": function ( row, data, index ) {
-              /* if ( data[3] == 'WAITING' ) {
-                $('td', row).eq(3).addClass('pending');
-              }
-              else if(data[3] == 'ON-GOING'){
-                $('td', row).eq(3).addClass('ongoing');
-              }
-              else if(data[3] == 'FOR MOLD TRIAL'){
-                $('td', row).eq(3).addClass('finished');
-              }
-              else if(data[3] == 'QC APPROVED'){
-                $('td', row).eq(3).addClass('approved');
-              } */
+
               $('td', row).eq(3).addClass(statdisplay(data[3]));
           }
           /* responsive: true */
@@ -639,11 +470,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
           },
           success: function(data1) {
             var val = JSON.parse(data1);
-            /* alert(data1);
-            alert(val.MOLD_REPAIR_CONTROL_NO); */
-            /* alert("||"+val.MACHINE_CODE+"||");
-            alert("||"+data[3]+"||"); */
-           /* alert(val.MOLD_REPAIR_CONTROL_NO); */
+
             $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
 
             $("#aMRI001").val(val.MRI001);
@@ -852,7 +679,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                   else{
                     return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
                   } */
-                  return ltime(row[2],row[3],row[19]);                                   
+                  return ltime(row[2],row[3],row[21]);                                   
                 },              
                 "targets": 2,
               },
@@ -1169,7 +996,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                   else{
                     return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
                   } */
-                  return ltime(row[2],row[3],row[19]);                                   
+                  return ltime(row[2],row[3],row[21]);                                   
                 },              
                 "targets": 2,
               },
@@ -1519,7 +1346,7 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle) {
                   else{
                     return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
                   } */
-                  return ltime(row[2],row[3],row[19]);                                 
+                  return ltime(row[2],row[3],row[21]);                                 
                 },              
                 "targets": 2,
               },
