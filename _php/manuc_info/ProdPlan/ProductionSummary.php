@@ -64,18 +64,35 @@
                                                                 <button type="button" onclick="cancelfilter('ProductionSummary','','production_summary')" class="btn btn-outline-secondary btn-export6 btn-sm"><i class="fas fa-ban"></i>&nbspCANCEL FILTER</button>    
 
                                                                      &nbsp&nbsp 
-                                                                     <select class="form-control btn-sm" id="sorttype" style="width: 120px;font-size: 10px;height:33px" onchange="showTable('ProductionSummary','','production_summary');filterTableSummary()">
+                                                                     <select class="form-control btn-sm" id="sorttype" style="width: 80px;font-size: 10px;height:33px" onchange="showTable('ProductionSummary','','production_summary');filterTableSummary()">
                                                                         <option>DAILY</option>
                                                                         <option>MONTHLY</option>
                                                                       </select>
                                                                       &nbsp
-                                                                      <select id="charttype" class="form-control" onchange="showTable('ProductionSummary','','production_summary')" style="width: 120px;font-size: 10px; height:33px" name="chartType">
+                                                                      <select id="charttype" class="form-control" onchange="showTable('ProductionSummary','','production_summary')" style="width: 100px;font-size: 10px; height:33px" name="chartType">
                                                                           <option value='bar'>BAR CHART</option>
                                                                           <option value='column'>COLUMN CHART</option>
                                                                           <option value='line' >LINE CHART</option>
                                                                           <option value='spline' >SPLINE CHART</option>
                                                                           <option value='stepLine' >STEPLINE CHART</option>
                                                                       </select>
+                                                                      &nbsp
+                                                                      <?php
+
+                                                                          include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
+                                                                          $sqlPlanType = " SELECT SAP_DIVISION_CODE, DIVISION_NAME from dmc_division_code";
+                                                                          $resultSqlPlanType = $conn->query($sqlPlanType);
+                                                                      ?>
+                                                                          <select id="PlanType" class="form-control" onchange="showTable('ProductionSummary','','production_summary')" style="width: 100px;font-size: 10px; height:33px" name="PlanType">';
+                                                                      <?php
+                                                                          while ($row = $resultSqlPlanType->fetch_assoc()) {
+                                                                              # code...
+                                                                                  echo "<option value='" . $row['SAP_DIVISION_CODE'] . "' >" . $row['DIVISION_NAME'] . "</option>";
+                                                                              
+                                                                          }
+
+                                                                      ?>
+                                                                          </select>
                                                                    
                                                               
                                                                 </div>

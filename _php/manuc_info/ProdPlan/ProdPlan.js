@@ -49,7 +49,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     var department= deptSec;
   
     
-    if(SectionGroup=="PlanWithResult"){
+    if(SectionGroup=="PlanWithResult")
+    {
      $.ajax({
            method:'POST',
            url:'/1_mes/_php/manuc_info/Prodplan/DataProdPlanVsResult.php',
@@ -74,7 +75,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             });
             
      
-        }
+    }
      else if(SectionGroup=="Result")
      {
         $.ajax({
@@ -133,7 +134,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
              
             }
   
-  });
+            });
      }
      else if(SectionGroup=="pending_production")
      {
@@ -159,7 +160,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
              
             }
   
-  });
+             });
      }
      else if(SectionGroup=="production_summary")
      {
@@ -168,6 +169,9 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         var data21,data22;
         var charttypeobj = document.getElementById("charttype");
         var selectedChartType = charttypeobj.options[charttypeobj.selectedIndex].value;
+        var plantypeobj = document.getElementById("PlanType");
+        var selectedOption2 = plantypeobj.options[plantypeobj.selectedIndex].value;
+       
         $.ajax({
             method:'POST',
             url:'/1_mes/_php/manuc_info/ProdPlan/graphdata.php',
@@ -177,6 +181,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 'sortto': strtoobj,
                 'search': searchobj,
                 'sorttype': selectedOption,
+                'PlanType': selectedOption2,
                 'ajax':true
             },
         
@@ -197,7 +202,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         var chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
       exportEnabled: true,
-      
+      zoomEnabled:true,
     
       title:{
           text:"PRODUCTION SUMMARY- PROD PLAN VS PROD RESULT"
@@ -214,16 +219,16 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 type: selectedChartType,
                 name: "Production Plan (PCS)",
             legendText: "PRODUCTION PLAN",
-                indexLabel: "{y}",
-                yValueFormatString: "#,##0.## PCS",
+                //indexLabel: "{y}",
+                //yValueFormatString: "#,##0.## PCS",
                 showInLegend: true,
                 dataPoints: val.datapoints1
             },{
                 type:  selectedChartType,
                 name: "Production Result (PCS)",
                 legendText: "PRODUCTION RESULT",
-                indexLabel: "{y}",
-                yValueFormatString: "#,##0.## PCS",
+                //indexLabel: "{y}",
+                //yValueFormatString: "#,##0.## PCS",
                 showInLegend: true,
                 dataPoints: val.datapoints2
             }]
@@ -642,7 +647,9 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     
     var sorttypeobj = document.getElementById("sorttype");
     var selectedOption = sorttypeobj.options[sorttypeobj.selectedIndex].value;
-    
+    var plantypeobj = document.getElementById("PlanType");
+    var selectedOption2 = plantypeobj.options[plantypeobj.selectedIndex].value;
+   
     if(selectedOption=="DAILY")
     {
         $.ajax({
@@ -654,6 +661,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 'sortto': strtoobj,
                 'search': searchobj,
                 'sorttype': selectedOption,
+                
+                'PlanType': selectedOption2,
                 'ajax':true
             },
         
@@ -684,6 +693,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 'sortto': strtoobj,
                 'search': searchobj,
                 'sorttype': selectedOption,
+                'PlanType': selectedOption2,
                 'ajax':true
             },
         
