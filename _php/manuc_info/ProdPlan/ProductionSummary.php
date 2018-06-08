@@ -61,10 +61,10 @@
                                                                 
                                                                 <div class="input-group btn-sm" style="height: 40px;">
 
-                                                                <div class="btn-group btn-group-sm">   
+                                                                <!-- <div class="btn-group btn-group-sm"> -->   
                                                                 <button type="button" onclick="cancelfilter('ProductionSummary','','production_summary','no')" class="btn btn-outline-secondary btn-export6 btn-sm"><i class="fas fa-ban"></i>&nbspCANCEL FILTER</button>    
-                                                              <button type="button" onclick="exportxlsx('ProductionSummary','','production_summary','no')" class="btn btn-outline-secondary btn-export6 btn-sm"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>    
-                                                                </div>
+                                                             <!--  <button type="button" onclick="exportxlsx('ProductionSummary','','production_summary','no')" class="btn btn-outline-secondary btn-export6 btn-sm"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>    
+                                                                </div> -->
 
                                                                      &nbsp&nbsp 
                                                                      <select class="form-control btn-sm" id="sorttype" style="width: 80px;font-size: 10px;height:33px" onchange="showTable('ProductionSummary','','production_summary','no');filterTableSummary()">
