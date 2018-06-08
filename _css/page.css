@@ -163,6 +163,14 @@ table.dataTable tbody tr.selected {
 	background-color: #3498DB !important;
 }
 
+/* table.datatable{
+	margin: 0 auto;
+  width: 100%;
+  clear: both;
+	table-layout: fixed; 
+  word-wrap:break-word;
+} */
+
 a.modlink:visited {
 	color: black;
 	background-color: transparent;

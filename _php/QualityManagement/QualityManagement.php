@@ -12,7 +12,13 @@
 
     <!-- Custom CSS - START -->
     <style>
-      
+      .table-wrapper-1 {
+            display: block;
+            max-width: 100%;
+            max-height: 430px;
+            overflow-y: auto;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+        }
     </style>
     <!-- Custom CSS - END -->
 

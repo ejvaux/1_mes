@@ -20,7 +20,7 @@
     $updateuser = $_SESSION['text'];
     $updatedatetime = date('Y-m-d H:i:s');
     $processoperator = $_POST['processoperator'];
-    $operatorcolumn = $prevprocess . "_OPERATOR";
+    $operatorcolumn = $nextprocess . "_OPERATOR";
 
     $date1 = strtotime($prevprocessdatetime);
     $date2 = strtotime($nextprocessdatetime);
@@ -42,7 +42,8 @@
 
     /* $date3 = date('Y-m-d H:i:s',$date3); */
     /* $date3 = secondsToTime($date3); */
-    $date3 = "(" . $date3 . ")";
+    /* $date3 = "(" . $date3 . ")"; */
+    $date3 = floor($date3/60);
 
     if($nextprocess == 'FINISHED'){
 
@@ -53,7 +54,7 @@
         CURRENT_PROCESS = '$nextprocess',
         UPDATE_USER = '$updateuser',
         UPDATE_DATETIME = '$updatedatetime',
-        OPERATOR = ''     
+        OPERATOR = 'N/A'     
         
         WHERE MOLD_FABRICATION_ID = $moldfabricationid";
 

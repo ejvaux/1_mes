@@ -464,12 +464,25 @@ if(isset($_POST['sortfrom']))
 				if ($strfrom=="" && $strto=="") 
 		{
 			# search only
-			 $sqlitem="SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ 
-			 FROM mis_product LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
-			 WHERE mis_product.ITEM_NAME = '$search' AND ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
-			 GROUP BY `ITEM_NAME`,DATE_";
+		/* 	 $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0)as sumresult, mis_prod_plan_dl.ITEM_NAME, 
+			 SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_product.DATE_ 
+			 FROM mis_prod_plan_dl 
+			 LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM 
+			 WHERE mis_prod_plan_dl.ITEM_NAME = '$search' AND 
+			 ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
+			 GROUP BY `ITEM_NAME`"; */
+
+			 $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0)as sumresult, mis_prod_plan_dl.ITEM_NAME,
+			  SUM(mis_prod_plan_dl.PLAN_QTY),mis_prod_plan_dl.DATE_ 
+			  FROM mis_prod_plan_dl 
+			  LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM 
+			  WHERE mis_prod_plan_dl.ITEM_NAME = '$search' AND 
+			  ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
+			   GROUP BY ITEM_NAME,DATE_";
+
+			
                        $between="NO";
-                    $currentdate=date("Y-m-d",strtotime($strfrom));
+                    $currentdate=date("Y-m-d",strtotime("2018-05-01"));
                        $datenow="";
 		}
 		elseif ($strfrom!="" && $strto=="") 
@@ -485,15 +498,24 @@ if(isset($_POST['sortfrom']))
                                    $year2=date('Y', strtotime($strto));
                                    $date1=date('Y-m-d', strtotime($year1."-".$month1."01"));
                                    $date2=date('Y-m-d', strtotime($year2."-".$month2."01"));
-				  $sqlitem="SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ 
+		/* 		  $sqlitem="SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ 
 				  FROM mis_product LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
 				  WHERE (mis_product.ITEM_NAME = '$search') AND (MONTH(mis_product.DATE_)='$month1' AND YEAR(mis_product.DATE_)='$year1')
 				  AND ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')  OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
-				  GROUP BY `ITEM_NAME`";
-                          
+				  GROUP BY `ITEM_NAME`"; */
+				  
+				  $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0)as sumresult, mis_prod_plan_dl.ITEM_NAME, 
+				  SUM(mis_prod_plan_dl.PLAN_QTY),mis_prod_plan_dl.DATE_ 
+				  FROM mis_prod_plan_dl
+				  LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM 
+				  WHERE (mis_prod_plan_dl.ITEM_NAME = '$search') AND 
+				  (MONTH(mis_prod_plan_dl.DATE_)='$month1' AND YEAR(mis_prod_plan_dl.DATE_)='$year1') AND
+				   ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')) 
+				   GROUP BY `ITEM_NAME";
+				  
                                  $datenow=$strfrom;
                                  $between="NO";
-                                    $currentdate=date("Y-m-d",strtotime($strfrom));
+                                 $currentdate=date("Y-m-d",strtotime($strfrom));
 			}
 			else
 			{
@@ -581,10 +603,10 @@ if(isset($_POST['sortfrom']))
 										$temp=$row['DATE_'];
                                                  
 
-                                                    $month1=date('m', strtotime($temp));
-                                                    $year1=date('Y', strtotime($temp));
+                                        $month1=date('m', strtotime($temp));
+                                        $year1=date('Y', strtotime($temp));
 
-										$sqlresultsum="SELECT SUM(PRINT_QTY) as prodresult2, DATE_ FROM mis_product WHERE ITEM_NAME='".$row['ITEM_NAME']."' AND (MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."')";
+										$sqlresultsum="SELECT COALESCE(SUM(PRINT_QTY),0) as prodresult2, DATE_ FROM mis_product WHERE ITEM_NAME='".$row['ITEM_NAME']."' AND (MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."')";
 
 										$resultres=$conn->query($sqlresultsum);
 
@@ -612,16 +634,16 @@ if(isset($_POST['sortfrom']))
  
 													
 
-														$currentdate=date('F', strtotime($row['DATE_']));
+														$currentdate=date('m', strtotime($row['DATE_']));
 
-														if (date('F', strtotime($row['DATE_']))>=$currentdate) 
+														if (date('m', strtotime($row['DATE_']))>=$currentdate) 
 														{
 
 															 #$hold=date('Y-m-d', strtotime($currentdate.'+1 day'));
 								                             #$currentdate=$hold;
 
 														
-															$currentdate=date('F', strtotime($row['DATE_']));
+															$currentdate=date('m', strtotime($row['DATE_']));
 
                                                               if (isset($prevdate)) 
                                                               {

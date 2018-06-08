@@ -1,6 +1,4 @@
-<table class="table table-striped">
-        
-          <?php       
+<?php       
               include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
               if(!isset($_POST['sql'])){
@@ -16,7 +14,7 @@
               
               if ($result->num_rows > 0) 
               {
-                  echo "<table class='table table-hover table-bordered table-sm tbl2 nowrap text-center' id='CreatedLotTable'><thead>    
+                  echo "<table class='mt-3 table table-wrapper-1 table-striped table-hover table-bordered table-sm tbl2 nowrap text-center' id='CreatedLotTable'><thead>    
                   <th>REJECTION TYPE</th>
                   <th>JUDGEMENT</th>
                   <th>PROD DATE</th>
@@ -49,7 +47,7 @@
                   echo "</tbody></table>";
               } 
               else {
-                   echo "<table class='table table-hover table-bordered table-sm tbl2' id='CreatedLotTable'><thead>    
+                   echo "<table class='mt-3 table table-striped table-hover table-bordered table-sm tbl2' id='CreatedLotTable'><thead>    
                   <th>REJECTION TYPE</th>
                   <th>LOT JUDGEMENT</th>
                   <th>PROD DATE</th>
@@ -69,4 +67,3 @@
                 }
               $conn->close();
         ?>
-      </table>

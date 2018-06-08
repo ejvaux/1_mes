@@ -36,7 +36,6 @@ margin-left:-70%;
   margin-top:.7%;
   margin-bottom:-1%
 }
-
 </style>
 
 <!-- <select name="value" id="filterText" onchange="filterText()" style="margin-left:15px;margin-top:8px"> -->

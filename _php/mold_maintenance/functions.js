@@ -543,16 +543,16 @@ function ltime(lead,status,approve){
       if(status == 'WAITING' ||  status == 'ON-GOING' || status == 'FOR MOLD TRIAL'){
 
         if(ts<=172800){
-          return "<span style='color: #2ECC71; font-weight: bold;'>( "+time+" )</span>";
+          return "<span style='color: #2ECC71; font-weight: bold;'>("+time+")</span>";
         }
         else if(ts<=345600 && ts>172800){
-          return "<span style='color: #F4D03F; font-weight: bold;'>( "+time+" )</span>";
+          return "<span style='color: #F4D03F; font-weight: bold;'>("+time+")</span>";
         }
         else if(ts<=518400 && ts>345600){
-          return "<span style='color: orange; font-weight: bold;'>( "+time+" )</span>";
+          return "<span style='color: orange; font-weight: bold;'>("+time+")</span>";
         }
         else{
-          return "<span style='color: red; font-weight: bold;'>( "+time+" )</span>";
+          return "<span style='color: red; font-weight: bold;'>("+time+")</span>";
         }
       }
       else{
@@ -942,3 +942,41 @@ function getordernumber(){
 }/* getcontrolnumber */
 
 /* ____________________ MOLD FABRICATION GET ORDER NUMBER ________________________ */
+
+
+/* ____________________ MOLD FABRICATION GET LEAD TIME FORMAT ________________________ */
+function ltformat(sec){
+  if(sec==""){
+    return "";
+  }
+  else if(!moment(sec, "YYYY-MM-DD HH:mm:ss", true).isValid()){
+    var min = sec;
+    /* min= min.slice(1, -1); */
+    /* min = Math.floor(min / 60); */
+    min = min*60;
+    var seconds = min;
+    var ts = seconds;
+    var days = Math.floor(seconds / (3600*24));
+    seconds  -= days*3600*24;
+    var hrs   = Math.floor(seconds / 3600);
+    seconds  -= hrs*3600;
+    var mnts = Math.floor(seconds / 60);
+    seconds  -= mnts*60;
+    var time = days+" day, "+hrs+" hr, "+mnts+" min";
+    return "<span style='color:blue;font-weight:bold'>"+time+"</span>";
+  }              
+  else if(moment(sec, "YYYY-MM-DD HH:mm:ss", true).isValid()){
+    var second = Date.parse(new Date()) - Date.parse(new Date(sec));
+    var seconds = parseInt(second,10)/1000;
+    var ts = seconds;
+    var days = Math.floor(seconds / (3600*24));
+    seconds  -= days*3600*24;
+    var hrs   = Math.floor(seconds / 3600);
+    seconds  -= hrs*3600;
+    var mnts = Math.floor(seconds / 60);
+    seconds  -= mnts*60;
+    var time = "( "+ days+" day, "+hrs+" hr, "+mnts+" min )";
+    return "<span style='color:orange;font-weight:bold'>"+time+"</span>";
+  }
+}
+/* ____________________ MOLD FABRICATION GET LEAD TIME FORMAT ________________________ */

@@ -1632,7 +1632,8 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
         "serverSide": true,
         "iDisplayLength": 100,
         fixedColumns: {
-          heightMatch: 'semiauto'
+          heightMatch: 'semiauto',
+          /* leftColumns: 3 */
         },                  
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
@@ -1759,7 +1760,11 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
           title: 'Export to Excel',
           id: 'exportButton'
       },
-       filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
+       filename: tbltitle, className: 'btn btn-export6 btn-xs py-1',
+       exportOptions: {
+          columns: '.ex'
+      }
+      }
           ],        
           select: 'single',
             "columnDefs": [
@@ -1783,21 +1788,35 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                                                                       
                 },              
                 "targets": 0,
+              },
+              {
+                "data": null,
+                "searchable": false,
+                "orderable": false,
+                render: function ( data, type, row ) {
+
+                  if(row[7]!='FINISHED'){
+                    return "<span style='color:orange;font-weight:bold'>" + row[7] + "</span>";
+                  }
+                  else{
+                    return "<span style='color:green;font-weight:bold'>" + row[7] + "</span>";
+                  }               
+                                                                      
+                },              
+                "targets": 7,
               },                          
               {
                 "createdCell": function (td, cellData, rowData, row, col) {
 
-                if ( $(td).text()== "" ) {                  
+                /* if ( $(td).text()== "" ) {                  
                 }
                 else
                 {
-                  if($(td).text().charAt(0) == "("){
+                  if(!moment($(td).text(), "YYYY-MM-DD HH:mm:ss", true).isValid()){
                     var min = $(td).text();
-                    min= min.slice(1, -1);
-                    /* min = Math.floor(min / 60); */
+                    min = min * 60;
 
                     var seconds = min;
-                    var ts = seconds;
                     var days = Math.floor(seconds / (3600*24));
                     seconds  -= days*3600*24;
                     var hrs   = Math.floor(seconds / 3600);
@@ -1810,7 +1829,7 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                     $(td).css('color', 'blue')
                     $(td).css('font-weight', 'bold')
                   }
-                  else{
+                  else if(moment($(td).text(), "YYYY-MM-DD HH:mm:ss", true).isValid()){
                   var second = Date.parse(new Date()) - Date.parse(new Date($(td).text()));
                     var seconds = parseInt(second,10)/1000;
                     var ts = seconds;
@@ -1821,23 +1840,16 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                     var mnts = Math.floor(seconds / 60);
                     seconds  -= mnts*60;
                     var time = "( "+ days+" day, "+hrs+" hr, "+mnts+" min )";
-                  $(td).text(time); 
-                  $(td).css('color', 'orange')
-                  $(td).css('font-weight', 'bold')
+                  $(td).html("<span style='color:orange;font-weight:bold'>"+time+"</span>"); 
+                  
                   }
-                }
+                } */
+                $(td).html(ltformat($(td).text())); 
+
               },"targets": 'proc',
             }
         ],
-          "order": [[ 1, 'desc' ]],       
-          "rowCallback": function( row, data, index ) {
-              if ( data[7] == "FINISHED" )
-              {
-                  $('td', row).css('color', 'green');
-                  $('td', row).css('font-weight', 'bold')
-                  $('td', row).css('font-style', 'italic')
-              }              
-          }         
+          "order": [[ 1, 'desc' ]],                      
                                
       } );
       
@@ -1868,12 +1880,13 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
             var val = JSON.parse(data1);
             $("#cmoldfabricationid").val(val.MOLD_FABRICATION_ID);
 
-            function ltformat(sec){
-              if(sec.charAt(0) == "("){
+            /* function ltformat(sec){
+              if(sec==""){
+                return "";
+              }
+              else if(!moment(sec, "YYYY-MM-DD HH:mm:ss", true).isValid()){
                 var min = sec;
-                min= min.slice(1, -1);
-                /* min = Math.floor(min / 60); */
-
+                min = min*60;
                 var seconds = min;
                 var ts = seconds;
                 var days = Math.floor(seconds / (3600*24));
@@ -1884,11 +1897,8 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                 seconds  -= mnts*60;
                 var time = days+" day, "+hrs+" hr, "+mnts+" min";
                 return "<span style='color:blue'>"+time+"</span>";
-              }
-              else if(sec==""){
-                return "";
-              }
-              else{
+              }              
+              else if(moment(sec, "YYYY-MM-DD HH:mm:ss", true).isValid()){
                 var second = Date.parse(new Date()) - Date.parse(new Date(sec));
                 var seconds = parseInt(second,10)/1000;
                 var ts = seconds;
@@ -1901,7 +1911,7 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                 var time = "( "+ days+" day, "+hrs+" hr, "+mnts+" min )";
                 return "<span style='color:orange'>"+time+"</span>";
               }
-            }
+            } */
 
             $('#leadtime_1').html(ltformat(val['DESIGN-1'])); $('#operator_1').text(val['DESIGN-1_OPERATOR']);
             $('#leadtime_2').html(ltformat(val['DESIGN-2'])); $('#operator_2').text(val['DESIGN-2_OPERATOR']);

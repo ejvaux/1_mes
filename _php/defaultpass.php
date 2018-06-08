@@ -1,6 +1,7 @@
 <html>
-
+<script src="/1_mes/node_modules/moment/min/moment.min.js"></script>
     <body>
+    <h1 id="dte"></h1>
         <h1>
         <?php
             $salt = "ejvaux";
@@ -50,19 +51,42 @@
 
             echo secondsToTime($date3);
 
+            
+
         ?>
 
-    <!-- <script>
+    <script>
 
-        function checksession(){
+        /* function checksession(){
     
             alert('Boom!');           
 
             setTimeout(checksession,10*1000);
 
         }   
-        checksession();
-    </script> -->
+        checksession(); */
+
+        /* function isDate (date) {
+        return!!(function(d){return(d!=='Invalid Date'&&!isNaN(d))})(new Date(date)); */
+
+        /* var isDate = function(date) {
+            return (new Date(date) !== "Invalid Date" && !isNaN(new Date(date)) ) ? true : false;
+        } */
+
+        if(moment("1312312441241", "YYYY-MM-DD hh:mm:ss", true).isValid()){
+            alert('Date');
+            $('#dte').text('Date');
+        }
+        else{
+            alert('Not Date');
+            $('#dte').text('Not Date');
+        }
+
+       
+
+        
+
+    </script>
     
     
     </body>

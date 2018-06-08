@@ -3,36 +3,36 @@
        
         <th>PROCESS</th>
         <th>NO</th>
-        <th>ORDER #</th>
-        <th>MANUFACTURE DATE</th>
-        <th>MOLD CODE</th>
-        <th>CUSTOMER CODE</th>
-        <th>CUSTOMER NAME</th>
-        <th>CURRENT PROCESS</th>
-        <th>CURRENT OPERATOR</th>
-        <th class="proc">DESIGN-1 (TIME)</th>
-        <th class="proc">DESIGN-2 (TIME)</th>
-        <th class="proc">DESIGN-3 (TIME)</th>
-        <th class="proc">RADIAL-1 (TIME)</th>
-        <th class="proc">LATHER-1 (TIME)</th>
-        <th class="proc">BANDSAW (TIME)</th>
-        <th class="proc">ML (TIME)</th>
-        <th class="proc">GS-1 (TIME)</th>
-        <th class="proc">GS-2 (TIME)</th>
-        <th class="proc">HSM (TIME)</th>
-        <th class="proc">HSM-1 (TIME)</th>
-        <th class="proc">HSM-2 (TIME)</th>
-        <th class="proc">WEDM (TIME)</th>
-        <th class="proc">M-EDM (TIME)</th>
-        <th class="proc">EDM (TIME)</th>
-        <th class="proc">ASSEMBLE-1 (TIME)</th>
-        <th class="proc">POLISHING-1 (TIME)</th>
-        <th>DELIVERY PLAN</th>
-        <th>FINISHED DATE</th>        
-        <th>INSERT USER</th>
-        <th>INSERT DATETIME</th>
-        <th>UPDATE USER</th>
-        <th>UPDATE DATETIME</th>
+        <th class="ex">ORDER #</th>
+        <th class="ex">MANUFACTURE DATE</th>
+        <th class="ex">MOLD CODE</th>
+        <th class="ex">CUSTOMER CODE</th>
+        <th class="ex">CUSTOMER NAME</th>
+        <th class="ex">CURRENT PROCESS</th>
+        <th class="ex">CURRENT OPERATOR</th>
+        <th class="proc ex">DESIGN-1 (TIME)</th>
+        <th class="proc ex">DESIGN-2 (TIME)</th>
+        <th class="proc ex">DESIGN-3 (TIME)</th>
+        <th class="proc ex">RADIAL-1 (TIME)</th>
+        <th class="proc ex">LATHER-1 (TIME)</th>
+        <th class="proc ex">BANDSAW (TIME)</th>
+        <th class="proc ex">ML (TIME)</th>
+        <th class="proc ex">GS-1 (TIME)</th>
+        <th class="proc ex">GS-2 (TIME)</th>
+        <th class="proc ex">HSM (TIME)</th>
+        <th class="proc ex">HSM-1 (TIME)</th>
+        <th class="proc ex">HSM-2 (TIME)</th>
+        <th class="proc ex">WEDM (TIME)</th>
+        <th class="proc ex">M-EDM (TIME)</th>
+        <th class="proc ex">EDM (TIME)</th>
+        <th class="proc ex">ASSEMBLE-1 (TIME)</th>
+        <th class="proc ex">POLISHING-1 (TIME)</th>
+        <th class="ex">DELIVERY PLAN</th>
+        <th class="ex">FINISHED DATE</th>        
+        <th class="">INSERT USER</th>
+        <th class="">INSERT DATETIME</th>
+        <th class="">UPDATE USER</th>
+        <th class="">UPDATE DATETIME</th>
 
 </thead>
     

@@ -81,6 +81,9 @@
 <script src="/1_mes/node_modules/jquery.hotkeys/jquery.hotkeys.js"></script>
 <script src="/1_mes/_includes/shortcuts.js"></script>
 
+<!-- Moment.js -->
+<script src="/1_mes/node_modules/moment/min/moment.min.js"></script>
+
 <!-- Custom CSS link -->
 <link rel="stylesheet" href="/1_mes/_css/page.css">
 <link rel="icon" href="/1_MES/favicon.ico"/>
