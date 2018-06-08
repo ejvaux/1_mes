@@ -236,7 +236,7 @@ ORDER BY `PLAN_QTY` ASC */
                                                           
                                                                 $datenow=$strfrom." to ".$strto;
                                                                 $between="YES-SEARCH";
-                                                                $currentdate=date("Y-m-d",strtotime($strfrom));
+                                                                $currentdate=date("Y-m-d",strtotime(2018-04-01));
                                                           
 
                                                               }
@@ -583,7 +583,7 @@ ORDER BY `PLAN_QTY` ASC */
                                                                   if (isset($prevdate)) 
                                                                   {
                                                                     # code...
-                                                                    if ($prevdate==$row3Month) 
+                                                                    if ($prevdate==$currentMonth) 
                                                                     {
                                                                       # code... do nothing
                                                                       echo "1";
