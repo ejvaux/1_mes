@@ -4,7 +4,7 @@
 
 echo '
 <br>
-<table class="table-hover table-bordered nowrap" style="background-color: white;overflow: auto; width: 80%; text-align: center;margin: 0 auto" id="tbl2">
+<table class="table-hover table-bordered nowrap example-table" style="background-color: white;overflow: auto; width: 80%; text-align: center;margin: 0 auto" id="example-table">
     <thead style=" color:black;font-size: 14px;">
       <tr>
         <th  style="text-align: center;border: 1px solid #ddd;">DATE</th>
@@ -520,3 +520,8 @@ function displaysummary($funcPlan, $funcResult, $funcDate)
 
 
 echo '</tbody></table><br><br>';
+
+echo '<script>
+$("#example-table").tabulator({});
+</script>
+';

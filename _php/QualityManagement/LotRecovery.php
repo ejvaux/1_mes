@@ -42,6 +42,13 @@
   margin-top:.7%;
   margin-bottom:-1%
     }
+    .table-wrapper-3 {
+            display: block;
+            max-width: 100%;
+            max-height: 430px;
+            overflow-y: auto;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+        }
   </style>
 <div class="container-fluid pt-1" style="margin-left:.3%">
   <div class="row">

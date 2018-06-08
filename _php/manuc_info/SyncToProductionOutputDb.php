@@ -14,7 +14,7 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
 	  FROM `mis_prod_plan_dl` 
 	  LEFT JOIN dmc_item_mold_matching on (mis_prod_plan_dl.ITEM_CODE=dmc_item_mold_matching.ITEM_CODE) 
       AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
-      WHERE mis_prod_plan_dl.PROD_OUTPUT_STATUS = 'UPDATED' OR  mis_prod_plan_dl.PROD_OUTPUT_STATUS IS NULL";
+      WHERE mis_prod_plan_dl.PROD_OUTPUT_STATUS = 'UPDATED' OR  mis_prod_plan_dl.PROD_OUTPUT_STATUS IS NULL AND mis_prod_plan_dl.DATE_>='2018-06-07'";
       
       $result=$conn2->query($sql);
       while ($row=$result->fetch_assoc()) {
@@ -58,15 +58,15 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
             $idd=$rowcheck['Id'];
 
             $sqlms="UPDATE jo_table SET CUSTOMER_CODE='$customercode',CUSTOMER_NAME='$customername',
-            ItemCode='$itemcode',ItemDescription='$itemname',Model='$model',PlanQty=$planqty,ProductionQty=$prodqty,
-            RemainQty='$remqty',MachineNo='$machinecode',MoldNo='$toolnumber' WHERE Id = $idd";
+            ItemCode='$itemcode',ItemDescription='$itemname',Model='$model',PlanQty=$planqty
+           ,MachineNo='$machinecode',MoldNo='$toolnumber' WHERE Id = $idd";
 /*             $params = array($customercode,$customername,$itemcode,$itemname,$model,$planqty,$prodqty,$remqty,$machinecode,$toolnumber,$idd);
  */
 
- 
-            /*   echo "UPDATED SUCCESS <br>";
-            echo $rowcheck['Id'];
-           */
+ $ctr=$ctr+1;
+echo $ctr."UPDATED SUCCESS <br>";
+echo $rowcheck['Id'];
+          
           
 
                           /* 
@@ -76,6 +76,7 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
                 
                 
                 /* Execute the query. */  
+               
                 if (sqlsrv_query($conn, $sqlms)) {  
                     echo "Statement executed.\n";  
                 } else {  

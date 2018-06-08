@@ -193,6 +193,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 
                 filterTableSummary();
                 var val = JSON.parse(data);
+
+                $("#example-table").tabulator({});
                // alert(val.datapoints1);
                 //alert(val.datapoints2);
                /* alert(val); */
@@ -708,7 +710,17 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         });
 
     }
-
+    
+ 
  }
  
+
+ function tblexport()
+ {        
+     var sFileName = 'ngophi';
+
+    $('#tbl2').tableExport({fileName: sFileName,
+        type: 'xlsx'
+       });
+ }
  

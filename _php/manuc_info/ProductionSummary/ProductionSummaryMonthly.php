@@ -224,9 +224,9 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
                                                                 WHERE (MONTH(mis_prod_plan_dl.DATE_) BETWEEN '$month1' AND '$month2') 
                                                                AND (YEAR(mis_prod_plan_dl.DATE_)='$year1' OR YEAR(mis_prod_plan_dl.DATE_)='$year2' ) 
-                                                               AND (mis_prod_plan_dl.ITEM_NAME = '$search') AND
+                                                               AND ((mis_prod_plan_dl.ITEM_NAME = '$search') OR (mis_product.ITEM_NAME = '$search')) AND
                                                                 ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
-                                                                 GROUP BY ITEM_NAME,DISP_DATE_
+                                                                 GROUP BY ITEM_NAME,JOB_ORDER_NO
                                                                ORDER BY DISP_DATE_ ASC";
 
                                                                
@@ -236,7 +236,7 @@ ORDER BY `PLAN_QTY` ASC */
                                                           
                                                                 $datenow=$strfrom." to ".$strto;
                                                                 $between="YES-SEARCH";
-                                                                $currentdate=date("Y-m-d",strtotime(2018-04-01));
+                                                                $currentdate=date("Y-m-d",strtotime($strfrom));
                                                           
 
                                                               }
@@ -555,7 +555,7 @@ ORDER BY `PLAN_QTY` ASC */
                                                     
                                                     $sqlresultbetween="SELECT COALESCE(SUM(PRINT_QTY),0) as prodresult2, DATE_ 
                                                     FROM mis_product 
-                                                    WHERE (ITEM_NAME='".$row3['ITEM_NAME']."') AND ((MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."'))";
+                                                    WHERE (ITEM_NAME='".$row3['ITEM_NAME']."') AND ((MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."')) ORDER BY DATE_ ASC";
                                                         
                                                       $resultbet = $conn->query($sqlresultbetween);
                                                       while ($row=$resultbet->fetch_assoc()) 
@@ -563,7 +563,7 @@ ORDER BY `PLAN_QTY` ASC */
                                                           # code...
                                                   
                                                           $sqlplanbetween="SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl
-                                                          WHERE (ITEM_NAME='".$row3['ITEM_NAME']."') AND ((MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."'))";
+                                                          WHERE (ITEM_NAME='".$row3['ITEM_NAME']."') AND ((MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."')) ORDER BY DATE_ ASC";
 
 
                                                           $planbet=$conn2->query($sqlplanbetween);
@@ -592,8 +592,8 @@ ORDER BY `PLAN_QTY` ASC */
                                                                     {
                                                                       $prevdate=$currentMonth;
                                                                       DisplaySummaryMonth($row2['planqty2'],$row['prodresult2'],$row3['DISP_DATE_']);
-                                                                    echo "0";  
-                                                                    }
+
+                                                                      echo "2";                                                                    }
 
                                                                     
 
@@ -601,19 +601,21 @@ ORDER BY `PLAN_QTY` ASC */
                                                                   }
                                                                   else
                                                                   {
-
+                                                                    
+                                                                    echo "3";
                                                                     $prevdate = $currentMonth;
-                                                                        DisplaySummaryMonth($row2['planqty2'],$row['prodresult2'],$row3['DISP_DATE_']);
+                                                                       DisplaySummaryMonth($row2['planqty2'],$row['prodresult2'],$row3['DISP_DATE_']);
                                                                         
-                                                                        echo "3";
-                                                                  }
+
+                                                                      
+                                                                      }
                                                                     # code...
                                                                    
 
                                                              }     else
                                                                {
-                                                                 echo "4";
                                                                  #echo $currentdate;
+                                                                 echo "4";
                                                                  #$hold=date('Y-m-d', strtotime($currentdate.'+1 month'));
                                                                  #$currentdate=$hold;
 

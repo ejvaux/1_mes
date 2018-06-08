@@ -32,6 +32,7 @@
     "popper.js": "^1.14.3",
     "select2": "^4.0.6-rc.1",
     "sweetalert2": "^7.20.7",
+    "tableexport": "^5.0.2",
     "xlsx-org": "^0.8.3"
   },
   "devDependencies": {},

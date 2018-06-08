@@ -14,7 +14,7 @@
               
               if ($result->num_rows > 0) 
               {
-                  echo "<table class='mt-3 table table-wrapper-1 table-striped table-hover table-bordered table-sm tbl2 nowrap text-center' id='CreatedLotTable'><thead>    
+                  echo "<table class='table-bordered table-sm table table-hover table-striped mt-3 fixtable' id='RecoveryTable'><thead>    
                   <th>REJECTION TYPE</th>
                   <th>JUDGEMENT</th>
                   <th>PROD DATE</th>
