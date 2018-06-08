@@ -43,19 +43,29 @@
 
 </style>
 
-<div class="container-fluid pt-1 element">
+<div class="container-fluid pt-1">
   <div class="row">
-    <div class="col-5 tablesss" >
-      <div class="input-group">  
-        <input type="textarea" class="form-control form-control-sm" id="Barcode_text" placeholder="SCAN DANPLA SERIAL NUMBER">
-          <div class="input-group-append">
-            <button type="button" class="btn btn-outline-secondary py-1 bt" id="AddBtn" onclick="AddBtnClick()">ADD</button>
-            <button type="button" class="btn btn-outline-secondary py-1 bt" id="LotCreateBtn" onclick="generateLot()">LOT CREATE</button></td>
-          </div>
-      </div>
+            <div class="col-12 tablesss">
+              <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="input-group">  
+                  <input type="textarea" class="form-control form-control-sm" id="Barcode_text" placeholder="SCAN DANPLA SERIAL NUMBER">
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-outline-secondary py-1" id="AddBtn" onclick="AddBtnClick()">ADD</button>
+                      <button type="button" class="btn btn-outline-secondary py-1" id="LotCreateBtn" onclick="generateLot()">LOT CREATE</button></td>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    <div class="input-group-text" id="btnGroupAddon2">Search</div>
+                    </div>
+                    <input type="text" id="searchText" onchange="searchLot()" class="py-1 form-control" placeholder="Type anything here..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING">
+                    <div class="input-group-append">
+                      <button style="z-index:0" type="button" class="btn btn-outline-secondary" id="ClearSearch" onclick="ClearSearchLot()  " data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
     </div>
-  </div>
-
 <div class="row">
     <div class="col-5.5">
       <table class="table-wrapper-1 table-bordered table-sm table table-hover table-striped mt-3" id='LotCreationTable' >
