@@ -39,11 +39,14 @@ $columns = array(
     array( 'db' => 'MODEL', 'dt' => 7 ),
     array( 'db' => 'ITEM_PRINTCODE', 'dt' => 8 ),
     array( 'db' => 'GROUP_CODE', 'dt' => 9 ),
-    array( 'db' => 'DESCRIPTION', 'dt' => 10 ),
-    array( 'db' => 'INSERT_DATETIME', 'dt' => 11 ),
-    array( 'db' => 'INSERT_USER', 'dt' => 12 ),
-    array( 'db' => 'UPDATE_DATETIME', 'dt' => 13 ),
-    array( 'db' => 'UPDATE_USER', 'dt' => 14 )      
+    array( 'db' => 'PACK_QTY', 'dt' => 10 ),
+    array( 'db' => 'DANPLA_QTY', 'dt' => 11 ),
+    array( 'db' => 'LABEL_TYPE', 'dt' => 12 ),
+    array( 'db' => 'DESCRIPTION', 'dt' => 13 ),
+    array( 'db' => 'INSERT_DATETIME', 'dt' => 14 ),
+    array( 'db' => 'INSERT_USER', 'dt' => 15 ),
+    array( 'db' => 'UPDATE_DATETIME', 'dt' => 16 ),
+    array( 'db' => 'UPDATE_USER', 'dt' => 17 )      
 );
  
 // SQL server connection information
