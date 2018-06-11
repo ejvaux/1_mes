@@ -593,16 +593,16 @@ ORDER BY `PLAN_QTY` ASC */
                                                                     if ($prevdate==$row3Month) 
                                                                     {
                                                                       # code... do nothing
-                                                                      echo "1";
+                                                                      //echo "1";
                                                                       $prevdate=$row3Month;
                                                                     
                                                                     }
                                                                     else
                                                                     {
                                                                       $prevdate=$row3Month;
-                                                                      //DisplaySummaryMonth($row2['planqty2'],$row['prodresult2'],$row3['DISP_DATE_']);
+                                                                      DisplaySummaryMonth($row2['planqty2'],$row['prodresult2'],$row3['DISP_DATE_']);
 
-                                                                      echo "2";                                                      
+                                                                      //echo "2";                                                      
                                                                                   }
 
                                                                     
@@ -612,9 +612,9 @@ ORDER BY `PLAN_QTY` ASC */
                                                                   else
                                                                   {
                                                                     
-                                                                    echo "3";
+                                                                    //echo "3";
                                                                     $prevdate = $row3Month;
-                                                                    //DisplaySummaryMonth($row2['planqty2'],$row['prodresult2'],$row3['DISP_DATE_']);
+                                                                    DisplaySummaryMonth($row2['planqty2'],$row['prodresult2'],$row3['DISP_DATE_']);
                                                                         
 
                                                                       
@@ -625,7 +625,7 @@ ORDER BY `PLAN_QTY` ASC */
                                                              }     else
                                                                {
                                                                  #echo $currentdate;
-                                                                 echo "4";
+                                                                 //echo "4";
                                                                  #$hold=date('Y-m-d', strtotime($currentdate.'+1 month'));
                                                                  #$currentdate=$hold;
 
@@ -634,7 +634,7 @@ ORDER BY `PLAN_QTY` ASC */
                                                           }
 
                                                       }  
-                                                      $row3['DISP_DATE_']="";
+                                                      //$row3['DISP_DATE_']="";
 
                                                   }
                                                   else if($between=="NO")
