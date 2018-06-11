@@ -2082,7 +2082,7 @@
 <!--_________________________________ Fabrication Change Process ________________________________________-->
 
 
-<div class="modal hide fade in" role="dialog" id="changeprocess" data-keyboard="false" data-backdrop="static" >
+<!-- <div class="modal hide fade in" role="dialog" id="changeprocess" data-keyboard="false" data-backdrop="static" >
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -2098,8 +2098,8 @@
       <div class="modal-body">
 
             <div class="form-group row">
-            <div class="col-sm-6 m-0">
-            <table class='table table-hover table-bordered table-sm nowrap m-0'>
+            <div class="col-sm-6">
+            <table class='table table-hover table-bordered table-sm nowrap'>
                 <thead>
                     <tr>
                         <th>PROCESS</th>
@@ -2156,8 +2156,8 @@
                 </tbody>
             </table>
             </div>
-            <div class="col-sm-6 m-0">
-            <table class='table table-hover table-bordered table-sm nowrap m-0'>
+            <div class="col-sm-6">
+            <table class='table table-hover table-bordered table-sm nowrap'>
                 <thead>
                     <tr>
                         <th>PROCESS</th>
@@ -2224,7 +2224,7 @@
                     
                             <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT PROCESS_NAME FROM mmc_mold_fabrication_process";
                                 $result = $conn->query($sql);
@@ -2238,7 +2238,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
 
@@ -2273,6 +2273,339 @@
 
                 <div class="modal-footer">
                     <button type="submit" name='submit' class="btn btn-primary" id="hd3"><i class="fas fa-exchange-alt"></i> Change</button>
+                    <button type="button" class="btn btn-info" id="echangeprocess" onclick=""><i class="fas fa-edit"></i> Edit</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn"><i class="fas fa-times"></i> Close</button>
+                </div>
+
+            </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div> -->
+
+<div class="modal hide fade in" role="dialog" id="changeprocess" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Change Process.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="changeprocessform" method="post">
+      <input type="hidden" id="cmoldfabricationid" name="moldfabricationid">
+      <input type="hidden" id="prevprocess" name="prevprocess">
+      <input type="hidden" id="prevprocessdatetime" name="prevprocessdatetime">
+      <div class="modal-body">
+
+            <div class="form-group row mt-0 mb-0 p-0">
+                
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">PROCESS</label>
+                </div>
+                <div class="col-sm-5">
+                    <label class="col-form-label-sm">LEAD TIME</label>           
+                </div>                
+                <div class="col-sm-4">
+                    <label class="col-form-label-sm">OPERATOR</label>
+                </div>                
+            
+            </div>
+
+            <div class="form-group row mt-0 mb-0 p-0">                  
+                
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">DESIGN-1</label>
+                </div>
+                <div class="col-sm-5">                    
+                    <input id="leadtime_1" type="text" class="form-control form-control-sm" name="leadtime_1" placeholder="" readonly>        
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_1" type="text" class="form-control form-control-sm" name="operator_1" placeholder="" readonly>                    
+                </div>                                          
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">           
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">DESIGN-2</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_2" type="text" class="form-control form-control-sm" name="leadtime_2" placeholder="" readonly>            
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_2" type="text" class="form-control form-control-sm" name="operator_2" placeholder="" readonly>
+                </div>                          
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">            
+                
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">DESIGN-3</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_3" type="text" class="form-control form-control-sm" name="leadtime_3" placeholder="" readonly>          
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_3" type="text" class="form-control form-control-sm" name="operator_3" placeholder="" readonly>
+                </div>                                               
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">            
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">RADIAL-1</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_4" type="text" class="form-control form-control-sm" name="leadtime_4" placeholder="" readonly>           
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_4" type="text" class="form-control form-control-sm" name="operator_4" placeholder="" readonly>
+                </div>                   
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">            
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">LATHER-1</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_5" type="text" class="form-control form-control-sm" name="leadtime_5" placeholder="" readonly>         
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_5" type="text" class="form-control form-control-sm" name="operator_5" placeholder="" readonly>
+                </div>                       
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">           
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">BANDSAW</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_6" type="text" class="form-control form-control-sm" name="leadtime_6" placeholder="" readonly>           
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_6" type="text" class="form-control form-control-sm" name="operator_6" placeholder="" readonly>
+                </div>                     
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">          
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">ML</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_7" type="text" class="form-control form-control-sm" name="leadtime_7" placeholder="" readonly>           
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_7" type="text" class="form-control form-control-sm" name="operator_7" placeholder="" readonly>
+                </div>                           
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">            
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">GS-1</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_8" type="text" class="form-control form-control-sm" name="leadtime_8" placeholder="" readonly>            
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_8" type="text" class="form-control form-control-sm" name="operator_8" placeholder="" readonly>
+                </div>                      
+
+            </div>       
+            <div class="form-group row mt-0 mb-0 p-0">                      
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">GS-2</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_9" type="text" class="form-control form-control-sm" name="leadtime_9" placeholder="" readonly>           
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_9" type="text" class="form-control form-control-sm" name="operator_9" placeholder="" readonly>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                  
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">HSM</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_10" type="text" class="form-control form-control-sm" name="leadtime_10" placeholder="" readonly>           
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_10" type="text" class="form-control form-control-sm" name="operator_10" placeholder="" readonly>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                  
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">HSM-1</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_11" type="text" class="form-control form-control-sm" name="leadtime_11" placeholder="" readonly>           
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_11" type="text" class="form-control form-control-sm" name="operator_11" placeholder="" readonly>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                    
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">HSM-2</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_12" type="text" class="form-control form-control-sm" name="leadtime_12" placeholder="" readonly>           
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_12" type="text" class="form-control form-control-sm" name="operator_12" placeholder="" readonly>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                   
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">WEDM</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_13" type="text" class="form-control form-control-sm" name="leadtime_13" placeholder="" readonly>           
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_13" type="text" class="form-control form-control-sm" name="operator_13" placeholder="" readonly>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                   
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">M-EDM</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_14" type="text" class="form-control form-control-sm" name="leadtime_14" placeholder="" readonly>           
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_14" type="text" class="form-control form-control-sm" name="operator_14" placeholder="" readonly>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                   
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">EDM</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_15" type="text" class="form-control form-control-sm" name="leadtime_15" placeholder="" readonly>           
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_15" type="text" class="form-control form-control-sm" name="operator_15" placeholder="" readonly>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                    
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">ASSEMBLE-1</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_16" type="text" class="form-control form-control-sm" name="leadtime_16" placeholder="" readonly>           
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_16" type="text" class="form-control form-control-sm" name="operator_16" placeholder="" readonly>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 p-0">                     
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">POLISHING-1</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="leadtime_17" type="text" class="form-control form-control-sm" name="leadtime_17" placeholder="" readonly>           
+                </div>
+                <div class="col-sm-4">
+                    <input id="operator_17" type="text" class="form-control form-control-sm" name="operator_17" placeholder="" readonly>
+                </div>
+
+            </div>
+                                                       
+                <div class="form-group row" id="hd1">
+
+                    <div class="col-sm">
+                    </div>        
+                    <div class="col-sm-5">
+                        <label class="col-form-label-sm">CHANGE PROCESS TO:</label>
+                    </div>
+                    
+                    <div class="col-sm-5 pt-1">                        
+                        
+                        <select id="ccurrentprocess" type="text" class="form-control form-control-sm" name="nextprocess" placeholder="">
+                    
+                            <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT PROCESS_NAME FROM mmc_mold_fabrication_process";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+
+                                        echo "<option value='";
+                                        echo $row['PROCESS_NAME'];
+                                        echo "'>";
+                                        echo $row['PROCESS_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                            ?>
+
+                        </select>
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                </div>
+                <div class="form-group row" id="hd2">
+                    
+                    <div class="col-sm">
+                    </div>
+                    <div class="col-sm-5 pt-1">
+                        <label class="col-form-label-sm">PROCESS OPERATOR:</label>
+                    </div>
+
+                    <div class="col-sm-5 pt-1">                        
+                        
+                        <select id="cprocessoperator" type="text" class="form-control form-control-sm" name="processoperator" placeholder="">
+                    
+                            <option value="Operator 1">Operator 1</option>
+                            <option value="Operator 2">Operator 2</option>
+                            <option value="Operator 3">Operator 3</option>
+                            <option value="Operator 4">Operator 4</option>
+                            <option value="Operator 5">Operator 5</option>
+                            <option value="Operator 6">Operator 6</option>
+                            <option value="Operator 7">Operator 7</option>
+                            <option value="Operator 8">Operator 8</option>
+                            <option value="Operator 9">Operator 9</option>
+                            <option value="Operator 10">Operator 10</option>
+
+                        </select>
+                    </div>
+                    <div class="col-sm">
+                    </div>
+                    
+                </div> 
+
+                <div class="modal-footer">
+                    <button type="submit" name='submit' class="btn btn-primary" id="hd3"><i class="fas fa-exchange-alt"></i> Change</button>
+                    <button type="button" class="btn btn-info" id="echangeprocess" onclick=""><i class="fas fa-edit"></i> Edit</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn"><i class="fas fa-times"></i> Close</button>
                 </div>
 
@@ -2285,3 +2618,495 @@
 </div>
 
 <!--_________________________________ Fabrication Change Process ________________________________________-->
+
+
+<!--_________________________________ Fabrication Edit Change Process ________________________________________-->
+
+
+
+<div class="modal hide fade in" role="dialog" id="editchangeprocess" data-keyboard="false" data-backdrop="static" style="overflow: auto !important;" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Change Process.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="editchangeprocessform" method="post">
+      <input type="hidden" id="ecmoldfabricationid" name="moldfabricationid">
+      <div class="modal-body">
+                                    
+            <div class="form-group row mt-0 mb-0 p-0">
+                
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">PROCESS</label>
+                </div>
+                <div class="col-sm-5">
+                    <label class="col-form-label-sm">LEAD TIME</label>           
+                </div>                
+                <div class="col-sm-4">
+                    <label class="col-form-label-sm">OPERATOR</label>
+                </div>                
+            
+            </div>
+
+            <div class="form-group row mt-0 mb-0 p-0">                  
+                
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">DESIGN-1</label>
+                </div>
+                <div class="col-sm-5">                    
+                    <input id="eleadtime_1" type="text" class="form-control form-control-sm" name="leadtime_1" placeholder="" >        
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_1" type="text" class="form-control form-control-sm" name="operator_1" placeholder="" >
+
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>                    
+                </div>                                          
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">           
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">DESIGN-2</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_2" type="text" class="form-control form-control-sm" name="leadtime_2" placeholder="" >            
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_2" type="text" class="form-control form-control-sm" name="operator_2" placeholder="" >
+
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>                          
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">            
+                
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">DESIGN-3</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_3" type="text" class="form-control form-control-sm" name="leadtime_3" placeholder="" >          
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_3" type="text" class="form-control form-control-sm" name="operator_3" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>                                               
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">            
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">RADIAL-1</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_4" type="text" class="form-control form-control-sm" name="leadtime_4" placeholder="" >           
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_4" type="text" class="form-control form-control-sm" name="operator_4" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>                   
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">            
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">LATHER-1</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_5" type="text" class="form-control form-control-sm" name="leadtime_5" placeholder="" >         
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_5" type="text" class="form-control form-control-sm" name="operator_5" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>                       
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">           
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">BANDSAW</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_6" type="text" class="form-control form-control-sm" name="leadtime_6" placeholder="" >           
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_6" type="text" class="form-control form-control-sm" name="operator_6" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>                     
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">          
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">ML</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_7" type="text" class="form-control form-control-sm" name="leadtime_7" placeholder="" >           
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_7" type="text" class="form-control form-control-sm" name="operator_7" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>                           
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">            
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">GS-1</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_8" type="text" class="form-control form-control-sm" name="leadtime_8" placeholder="" >            
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_8" type="text" class="form-control form-control-sm" name="operator_8" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>                      
+
+            </div>       
+            <div class="form-group row mt-0 mb-0 p-0">                      
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">GS-2</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_9" type="text" class="form-control form-control-sm" name="leadtime_9" placeholder="" >           
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_9" type="text" class="form-control form-control-sm" name="operator_9" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                  
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">HSM</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_10" type="text" class="form-control form-control-sm" name="leadtime_10" placeholder="" >           
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_10" type="text" class="form-control form-control-sm" name="operator_10" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                  
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">HSM-1</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_11" type="text" class="form-control form-control-sm" name="leadtime_11" placeholder="" >           
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_11" type="text" class="form-control form-control-sm" name="operator_11" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                    
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">HSM-2</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_12" type="text" class="form-control form-control-sm" name="leadtime_12" placeholder="" >           
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_12" type="text" class="form-control form-control-sm" name="operator_12" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                   
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">WEDM</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_13" type="text" class="form-control form-control-sm" name="leadtime_13" placeholder="" >           
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_13" type="text" class="form-control form-control-sm" name="operator_13" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                   
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">M-EDM</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_14" type="text" class="form-control form-control-sm" name="leadtime_14" placeholder="" >           
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_14" type="text" class="form-control form-control-sm" name="operator_14" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                   
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">EDM</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_15" type="text" class="form-control form-control-sm" name="leadtime_15" placeholder="" >           
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_15" type="text" class="form-control form-control-sm" name="operator_15" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 mb-0 p-0">                    
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">ASSEMBLE-1</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_16" type="text" class="form-control form-control-sm" name="leadtime_16" placeholder="" >           
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_16" type="text" class="form-control form-control-sm" name="operator_16" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group row mt-0 p-0">                     
+
+                <div class="col-sm-3">
+                    <label class="col-form-label-sm">POLISHING-1</label>
+                </div>
+                <div class="col-sm-5">
+                    <input id="eleadtime_17" type="text" class="form-control form-control-sm" name="leadtime_17" placeholder="" >           
+                </div>
+                <div class="col-sm-4">
+                    <select id="eoperator_17" type="text" class="form-control form-control-sm" name="operator_17" placeholder="" >
+                
+                        <option value="Operator 1">Operator 1</option>
+                        <option value="Operator 2">Operator 2</option>
+                        <option value="Operator 3">Operator 3</option>
+                        <option value="Operator 4">Operator 4</option>
+                        <option value="Operator 5">Operator 5</option>
+                        <option value="Operator 6">Operator 6</option>
+                        <option value="Operator 7">Operator 7</option>
+                        <option value="Operator 8">Operator 8</option>
+                        <option value="Operator 9">Operator 9</option>
+                        <option value="Operator 10">Operator 10</option>
+
+                    </select>
+                </div>
+
+            </div> 
+
+            <div class="modal-footer">
+                <button type="submit" name='submit' class="btn btn-primary" id=""><i class="far fa-save"></i> Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="btn"><i class="fas fa-times"></i> Close</button>
+            </div>
+
+            </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+<!--_________________________________ Fabrication Edit Change Process ________________________________________-->

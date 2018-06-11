@@ -1,7 +1,4 @@
 
-
-
-
 /* ____________ Table Init ________________ */
 
 function checkuserauth(){
@@ -54,7 +51,7 @@ function checkuserauthF(){
   }
   
   else{
-    DisplayTbleF('mold_fabrication_table','mold_fabricationsp','Mold Fabrication');
+    DisplayTbleFC('mold_fabrication_table','mold_fabricationsp','Mold Fabrication');
   }
 }              
 /* _______________ Table Init F ______________ */
@@ -1807,43 +1804,7 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
               },                          
               {
                 "createdCell": function (td, cellData, rowData, row, col) {
-
-                /* if ( $(td).text()== "" ) {                  
-                }
-                else
-                {
-                  if(!moment($(td).text(), "YYYY-MM-DD HH:mm:ss", true).isValid()){
-                    var min = $(td).text();
-                    min = min * 60;
-
-                    var seconds = min;
-                    var days = Math.floor(seconds / (3600*24));
-                    seconds  -= days*3600*24;
-                    var hrs   = Math.floor(seconds / 3600);
-                    seconds  -= hrs*3600;
-                    var mnts = Math.floor(seconds / 60);
-                    seconds  -= mnts*60;
-                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
-
-                    $(td).text(time);
-                    $(td).css('color', 'blue')
-                    $(td).css('font-weight', 'bold')
-                  }
-                  else if(moment($(td).text(), "YYYY-MM-DD HH:mm:ss", true).isValid()){
-                  var second = Date.parse(new Date()) - Date.parse(new Date($(td).text()));
-                    var seconds = parseInt(second,10)/1000;
-                    var ts = seconds;
-                    var days = Math.floor(seconds / (3600*24));
-                    seconds  -= days*3600*24;
-                    var hrs   = Math.floor(seconds / 3600);
-                    seconds  -= hrs*3600;
-                    var mnts = Math.floor(seconds / 60);
-                    seconds  -= mnts*60;
-                    var time = "( "+ days+" day, "+hrs+" hr, "+mnts+" min )";
-                  $(td).html("<span style='color:orange;font-weight:bold'>"+time+"</span>"); 
-                  
-                  }
-                } */
+                
                 $(td).html(ltformat($(td).text())); 
 
               },"targets": 'proc',
@@ -1878,58 +1839,25 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
           },
           success: function(data1) {
             var val = JSON.parse(data1);
-            $("#cmoldfabricationid").val(val.MOLD_FABRICATION_ID);
+            $("#cmoldfabricationid").val(val.MOLD_FABRICATION_ID);            
 
-            /* function ltformat(sec){
-              if(sec==""){
-                return "";
-              }
-              else if(!moment(sec, "YYYY-MM-DD HH:mm:ss", true).isValid()){
-                var min = sec;
-                min = min*60;
-                var seconds = min;
-                var ts = seconds;
-                var days = Math.floor(seconds / (3600*24));
-                seconds  -= days*3600*24;
-                var hrs   = Math.floor(seconds / 3600);
-                seconds  -= hrs*3600;
-                var mnts = Math.floor(seconds / 60);
-                seconds  -= mnts*60;
-                var time = days+" day, "+hrs+" hr, "+mnts+" min";
-                return "<span style='color:blue'>"+time+"</span>";
-              }              
-              else if(moment(sec, "YYYY-MM-DD HH:mm:ss", true).isValid()){
-                var second = Date.parse(new Date()) - Date.parse(new Date(sec));
-                var seconds = parseInt(second,10)/1000;
-                var ts = seconds;
-                var days = Math.floor(seconds / (3600*24));
-                seconds  -= days*3600*24;
-                var hrs   = Math.floor(seconds / 3600);
-                seconds  -= hrs*3600;
-                var mnts = Math.floor(seconds / 60);
-                seconds  -= mnts*60;
-                var time = "( "+ days+" day, "+hrs+" hr, "+mnts+" min )";
-                return "<span style='color:orange'>"+time+"</span>";
-              }
-            } */
-
-            $('#leadtime_1').html(ltformat(val['DESIGN-1'])); $('#operator_1').text(val['DESIGN-1_OPERATOR']);
-            $('#leadtime_2').html(ltformat(val['DESIGN-2'])); $('#operator_2').text(val['DESIGN-2_OPERATOR']);
-            $('#leadtime_3').html(ltformat(val['DESIGN-3'])); $('#operator_3').text(val['DESIGN-3_OPERATOR']);
-            $('#leadtime_4').html(ltformat(val['RADIAL-1'])); $('#operator_4').text(val['RADIAL-1_OPERATOR']);
-            $('#leadtime_5').html(ltformat(val['LATHER-1'])); $('#operator_5').text(val['LATHER-1_OPERATOR']);
-            $('#leadtime_6').html(ltformat(val['BANDSAW'])); $('#operator_6').text(val['BANDSAW_OPERATOR']);
-            $('#leadtime_7').html(ltformat(val['ML'])); $('#operator_7').text(val['ML_OPERATOR']);
-            $('#leadtime_8').html(ltformat(val['GS-1'])); $('#operator_8').text(val['GS-1_OPERATOR']);
-            $('#leadtime_9').html(ltformat(val['GS-2'])); $('#operator_9').text(val['GS-2_OPERATOR']);
-            $('#leadtime_10').html(ltformat(val['HSM'])); $('#operator_10').text(val['HSM_OPERATOR']);
-            $('#leadtime_11').html(ltformat(val['HSM-1'])); $('#operator_11').text(val['HSM-1_OPERATOR']);
-            $('#leadtime_12').html(ltformat(val['HSM-2'])); $('#operator_12').text(val['HSM-2_OPERATOR']);
-            $('#leadtime_13').html(ltformat(val['WEDM'])); $('#operator_13').text(val['WEDM_OPERATOR']);
-            $('#leadtime_14').html(ltformat(val['M-EDM'])); $('#operator_14').text(val['M-EDM_OPERATOR']);
-            $('#leadtime_15').html(ltformat(val['EDM'])); $('#operator_15').text(val['EDM_OPERATOR']);
-            $('#leadtime_16').html(ltformat(val['ASSEMBLE-1'])); $('#operator_16').text(val['ASSEMBLE-1_OPERATOR']);
-            $('#leadtime_17').html(ltformat(val['POLISHING-1'])); $('#operator_17').text(val['POLISHING-1_OPERATOR']);
+            $('#leadtime_1').val(ltformatm(val['DESIGN-1'])); $('#operator_1').val(val['DESIGN-1_OPERATOR']);
+            $('#leadtime_2').val(ltformatm(val['DESIGN-2'])); $('#operator_2').val(val['DESIGN-2_OPERATOR']);
+            $('#leadtime_3').val(ltformatm(val['DESIGN-3'])); $('#operator_3').val(val['DESIGN-3_OPERATOR']);
+            $('#leadtime_4').val(ltformatm(val['RADIAL-1'])); $('#operator_4').val(val['RADIAL-1_OPERATOR']);
+            $('#leadtime_5').val(ltformatm(val['LATHER-1'])); $('#operator_5').val(val['LATHER-1_OPERATOR']);
+            $('#leadtime_6').val(ltformatm(val['BANDSAW'])); $('#operator_6').val(val['BANDSAW_OPERATOR']);
+            $('#leadtime_7').val(ltformatm(val['ML'])); $('#operator_7').val(val['ML_OPERATOR']);
+            $('#leadtime_8').val(ltformatm(val['GS-1'])); $('#operator_8').val(val['GS-1_OPERATOR']);
+            $('#leadtime_9').val(ltformatm(val['GS-2'])); $('#operator_9').val(val['GS-2_OPERATOR']);
+            $('#leadtime_10').val(ltformatm(val['HSM'])); $('#operator_10').val(val['HSM_OPERATOR']);
+            $('#leadtime_11').val(ltformatm(val['HSM-1'])); $('#operator_11').val(val['HSM-1_OPERATOR']);
+            $('#leadtime_12').val(ltformatm(val['HSM-2'])); $('#operator_12').val(val['HSM-2_OPERATOR']);
+            $('#leadtime_13').val(ltformatm(val['WEDM'])); $('#operator_13').val(val['WEDM_OPERATOR']);
+            $('#leadtime_14').val(ltformatm(val['M-EDM'])); $('#operator_14').val(val['M-EDM_OPERATOR']);
+            $('#leadtime_15').val(ltformatm(val['EDM'])); $('#operator_15').val(val['EDM_OPERATOR']);
+            $('#leadtime_16').val(ltformatm(val['ASSEMBLE-1'])); $('#operator_16').val(val['ASSEMBLE-1_OPERATOR']);
+            $('#leadtime_17').val(ltformatm(val['POLISHING-1'])); $('#operator_17').val(val['POLISHING-1_OPERATOR']);
                          
             $('#ccurrentprocess').val(val.CURRENT_PROCESS);
             $('#prevprocess').val(val.CURRENT_PROCESS);
@@ -1980,179 +1908,203 @@ $.fn.dataTable.ext.buttons.addfab1 = {
 
     /*  -------------------------------- FABRICATION CHECKER -----------------------------------------------  */
         
-function DisplayTbleF(Table_Name,Tablesp,tbltitle) {
-  var xhttp;
-  if (Table_Name.length == 0) { 
-    document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
-    return;
-  }
-  xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("table_display").innerHTML = this.responseText;
-      var tble = $('#Dtable').DataTable( {
-        deferRender:    true,
-      scrollY:        '61vh',
-      "sScrollX": "100%",
-      /* scrollerX:      true, */
-        "processing": true,
-        "serverSide": true,
-        "iDisplayLength": 100,
-        fixedColumns: {
-          heightMatch: 'semiauto'
-        },                  
-        "ajax": {
-          url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST'
-        },            
-        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
-        'buttons': [            
-          { text: '<i class="fas fa-plus"></i>',
-            attr:  {
-                title: 'Add fabrication',
-                id: 'addButton'
-            },  
-            name: 'add',
-            className: 'btn btn-export6 btn-xs py-1 addbt',
-            extend: 'addfab2'               
-          },                       
-          { extend: 'copy', text: '<i class="far fa-copy"></i>', 
-          attr:  {
-            title: 'Copy to Clipboard',
-            id: 'copyButton'
-        },
-         className: 'btn btn-export6 btn-xs py-1'},
-          { extend: 'excel', text: '<i class="fas fa-table"></i>',
-          attr:  {
-          title: 'Export to Excel',
-          id: 'exportButton'
-      },
-       filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
-          ],        
-          select: 'single',
-            "columnDefs": [
-              /*  {
-              "searchable": false,
-              "orderable": false,
-              "targets": 1
-              }, */
-              {
-                "data": null,
-                "searchable": false,
-                "orderable": false,
-                render: function ( data, type, row ) {
-
-                  if(row[7]!='FINISHED'){
-                    return "<div class='text-center'><button id='change' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>CHANGE</span></button></div>";
-                  }
-                  else{
-                    return "<div class='text-center'><button id='change' class='btn btn-secondary py-0 px-1 m-0' disabled><span style='font-size:.8em; text-decoration: line-through;'>CHANGE</span></button></div>";
-                  }               
-                                                                      
-                },              
-                "targets": 0,
-              },              
-              {
-                "createdCell": function (td, cellData, rowData, row, col) {
-                
-                if ( $(td).text()== "" ) {
-                  /* $(td).text("No data");
-                  $(td).css('color', 'red') */
-                }
-                else
-                {
-                  if($(td).text().charAt(0) == "("){
-                    $(td).css('color', 'blue')
-                    $(td).css('font-weight', 'bold')
-                  }
-                  else{
-                  var second = Date.parse(new Date()) - Date.parse(new Date($(td).text()));
-                    var seconds = parseInt(second,10)/1000;
-                    var ts = seconds;
-                    var days = Math.floor(seconds / (3600*24));
-                    seconds  -= days*3600*24;
-                    var hrs   = Math.floor(seconds / 3600);
-                    seconds  -= hrs*3600;
-                    var mnts = Math.floor(seconds / 60);
-                    seconds  -= mnts*60;
-                    var time = "- "+ days+" day, "+hrs+" hr, "+mnts+" min -";
-                  $(td).text(time); 
-                  $(td).css('color', 'orange')
-                  $(td).css('font-weight', 'bold')
-                  $(td).css('text-decoration', 'underline')
-                  }
-                }
-              },"aTargets": 'proc',
-            }
-        ],
-          "order": [[ 1, 'desc' ]],
-          "rowCallback": function( row, data, index ) {
-            if ( data[7] == "FINISHED" )
-            {
-                $('td', row).css('color', 'green');
-                $('td', row).css('font-weight', 'bold')
-                $('td', row).css('font-style', 'italic')
-            }              
-          }         
-                               
-      } );
-      
-      
-      
-      /* ____________________ FUNCTIONS ___________________ */
-
-      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
-          tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-              cell.innerHTML = i+1;
-          } );
-      } ).draw();
-      
-      $('#Dtable tbody').on( 'click', '#change', function () {
-        var data = tble.row( $(this).parents('tr') ).data();
-
-
-        $.ajax(
-          {
-          method:'post',
-          url:'/1_mes/_query/mold_repair/getrowfab.php',
-          data:
-          {
-              'id': data[1],
-              'ajax': true
+    function DisplayTbleFC(Table_Name,Tablesp,tbltitle) {
+      var xhttp;
+      if (Table_Name.length == 0) { 
+        document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
+        return;
+      }
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("table_display").innerHTML = this.responseText;
+          var tble = $('#Dtable').DataTable( {
+            deferRender:    true,
+          scrollY:        '61vh',
+          "sScrollX": "100%",
+          /* scrollerX:      true, */
+            "processing": true,
+            "serverSide": true,
+            "iDisplayLength": 100,
+            fixedColumns: {
+              heightMatch: 'semiauto',
+              /* leftColumns: 3 */
+            },                  
+            "ajax": {
+              url: "/1_mes/_includes/"+Tablesp+".php",
+              type: 'POST'
+            },            
+            "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+            'buttons': [            
+              { text: '<i class="fas fa-plus"></i>',
+                attr:  {
+                    title: 'Add fabrication',
+                    id: 'addButton'
+                },  
+                name: 'add',
+                className: 'btn btn-export6 btn-xs py-1 addbt',
+                extend: 'addfab1'               
+              },                                      
+              { extend: 'copy', text: '<i class="far fa-copy"></i>', 
+              attr:  {
+                title: 'Copy to Clipboard',
+                id: 'copyButton'
+            },
+             className: 'btn btn-export6 btn-xs py-1'},
+              { extend: 'excel', text: '<i class="fas fa-table"></i>',
+              attr:  {
+              title: 'Export to Excel',
+              id: 'exportButton'
           },
-          success: function(data1) {
-            var val = JSON.parse(data1);
-            $("#cmoldfabricationid").val(val.MOLD_FABRICATION_ID);
-            
-            $('#ccurrentprocess').val(val.CURRENT_PROCESS);
-            $('#prevprocess').val(val.CURRENT_PROCESS);
-            $('#prevprocessdatetime').val(val[$('#ccurrentprocess').val()]);
-
-            $('.sel').select2({ width: '100%' });
-            $('#changeprocess').modal('show');
-
+           filename: tbltitle, className: 'btn btn-export6 btn-xs py-1',
+           exportOptions: {
+              columns: '.ex'
           }
-        });               
-      } );    
-
-      /* ____________________________ FUNCTIONS _________________________ */
-    }
+          }
+              ],        
+              select: 'single',
+                "columnDefs": [
+                  /*  {
+                  "searchable": false,
+                  "orderable": false,
+                  "targets": 1
+                  }, */
+                  {
+                    "data": null,
+                    "searchable": false,
+                    "orderable": false,
+                    render: function ( data, type, row ) {
     
-  };
-  xhttp.open("POST", "/1_mes/_tables/"+Table_Name+".php", true);
-  xhttp.send();   
-  
-} 
-
-$.fn.dataTable.ext.buttons.addfab2 = {
-  action: 
-  function () {
-    /* alert('UNAVAILABLE'); */
-    getcus_name(acustomercode,acustomername);    
-    $('#aordernumber').val(getordernumber());
-    $("#addmoldfabrication").modal('show');        
+                      if(row[7]!='FINISHED'){
+                        return "<div class='text-center'><button id='change' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Change</span></button></div>";
+                      }
+                      else{
+                        return "<div class='text-center'><button id='change' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Process</span></button></div>";
+                      }               
+                                                                          
+                    },              
+                    "targets": 0,
+                  },
+                  {
+                    "data": null,
+                    "searchable": false,
+                    "orderable": false,
+                    render: function ( data, type, row ) {
     
-  }
-};
+                      if(row[7]!='FINISHED'){
+                        return "<span style='color:orange;font-weight:bold'>" + row[7] + "</span>";
+                      }
+                      else{
+                        return "<span style='color:green;font-weight:bold'>" + row[7] + "</span>";
+                      }               
+                                                                          
+                    },              
+                    "targets": 7,
+                  },                          
+                  {
+                    "createdCell": function (td, cellData, rowData, row, col) {
+                    
+                    $(td).html(ltformat($(td).text())); 
+    
+                  },"targets": 'proc',
+                }
+            ],
+              "order": [[ 1, 'desc' ]],                      
+                                   
+          } );
+          
+          
+          
+          /* ____________________ FUNCTIONS ___________________ */
+    
+          tble.on( 'order.dt search.dt processing.dt page.dt', function () {
+              tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                  cell.innerHTML = i+1;
+              } );
+          } ).draw();
+          
+          $('#Dtable tbody').on( 'click', '#change', function () {
+            var data = tble.row( $(this).parents('tr') ).data();
+    
+    
+            $.ajax(
+              {
+              method:'post',
+              url:'/1_mes/_query/mold_repair/getrowfab.php',
+              data:
+              {
+                  'id': data[1],
+                  'ajax': true
+              },
+              success: function(data1) {
+                var val = JSON.parse(data1);
+                $("#cmoldfabricationid").val(val.MOLD_FABRICATION_ID);            
+    
+                $('#leadtime_1').html(ltformat(val['DESIGN-1'])); $('#operator_1').text(val['DESIGN-1_OPERATOR']);
+                $('#leadtime_2').html(ltformat(val['DESIGN-2'])); $('#operator_2').text(val['DESIGN-2_OPERATOR']);
+                $('#leadtime_3').html(ltformat(val['DESIGN-3'])); $('#operator_3').text(val['DESIGN-3_OPERATOR']);
+                $('#leadtime_4').html(ltformat(val['RADIAL-1'])); $('#operator_4').text(val['RADIAL-1_OPERATOR']);
+                $('#leadtime_5').html(ltformat(val['LATHER-1'])); $('#operator_5').text(val['LATHER-1_OPERATOR']);
+                $('#leadtime_6').html(ltformat(val['BANDSAW'])); $('#operator_6').text(val['BANDSAW_OPERATOR']);
+                $('#leadtime_7').html(ltformat(val['ML'])); $('#operator_7').text(val['ML_OPERATOR']);
+                $('#leadtime_8').html(ltformat(val['GS-1'])); $('#operator_8').text(val['GS-1_OPERATOR']);
+                $('#leadtime_9').html(ltformat(val['GS-2'])); $('#operator_9').text(val['GS-2_OPERATOR']);
+                $('#leadtime_10').html(ltformat(val['HSM'])); $('#operator_10').text(val['HSM_OPERATOR']);
+                $('#leadtime_11').html(ltformat(val['HSM-1'])); $('#operator_11').text(val['HSM-1_OPERATOR']);
+                $('#leadtime_12').html(ltformat(val['HSM-2'])); $('#operator_12').text(val['HSM-2_OPERATOR']);
+                $('#leadtime_13').html(ltformat(val['WEDM'])); $('#operator_13').text(val['WEDM_OPERATOR']);
+                $('#leadtime_14').html(ltformat(val['M-EDM'])); $('#operator_14').text(val['M-EDM_OPERATOR']);
+                $('#leadtime_15').html(ltformat(val['EDM'])); $('#operator_15').text(val['EDM_OPERATOR']);
+                $('#leadtime_16').html(ltformat(val['ASSEMBLE-1'])); $('#operator_16').text(val['ASSEMBLE-1_OPERATOR']);
+                $('#leadtime_17').html(ltformat(val['POLISHING-1'])); $('#operator_17').text(val['POLISHING-1_OPERATOR']);
+                             
+                $('#ccurrentprocess').val(val.CURRENT_PROCESS);
+                $('#prevprocess').val(val.CURRENT_PROCESS);
+                $('#prevprocessdatetime').val(val[$('#ccurrentprocess').val()]);
+    
+                if(val.CURRENT_PROCESS=="FINISHED"){
+                  $('#hd1').hide();
+                  $('#hd2').hide();
+                  $('#hd3').hide();
+                }
+                else{
+                  $('#hd1').show();
+                  $('#hd2').show();
+                  $('#hd3').show();
+                }
+    
+                $('.sel').select2({ width: '100%' });
+                $('#changeprocess').modal('show');
+    
+              }
+            });               
+          } );    
+    
+          /* ____________________________ FUNCTIONS _________________________ */
+        }
+        
+      };
+      xhttp.open("POST", "/1_mes/_tables/"+Table_Name+".php", true);
+      xhttp.send();   
+      
+    } 
+    
+    $.fn.dataTable.ext.buttons.addfab1 = {
+      action: 
+      function () {
+        /* alert('UNAVAILABLE'); */
+        getcus_name(acustomercode,acustomername);    
+        $('#aordernumber').val(getordernumber());
+        $("#addmoldfabrication").modal('show');        
+        
+      }
+    };
     /* ------------------------------- FABRICATION CHECKER ------------------------------------------------  */
+
+    /* ------------------------------- OPERATOR DROPDOWN ------------------------------------------------  */
+
+
+
+
+    /* ------------------------------- OPERATOR DROPDOWN ------------------------------------------------  */

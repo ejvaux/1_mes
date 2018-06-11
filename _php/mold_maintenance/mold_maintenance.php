@@ -147,7 +147,7 @@
 
         $('#tb3').click(function(){
           checkuserauthF();
-        });
+        });        
                 
     </script>
     <script src="/1_mes/_php/mold_maintenance/functions.js"></script>

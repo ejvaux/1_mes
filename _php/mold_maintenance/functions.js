@@ -979,3 +979,134 @@ function ltformat(sec){
   }
 }
 /* ____________________ MOLD FABRICATION GET LEAD TIME FORMAT ________________________ */
+
+
+/* ____________________ MOLD FABRICATION GET LEAD TIME MODAL ________________________ */
+function ltformatm(sec){
+  if(sec==""){
+    return "";
+  }
+  else if(!moment(sec, "YYYY-MM-DD HH:mm:ss", true).isValid()){
+    var min = sec;
+    /* min= min.slice(1, -1); */
+    /* min = Math.floor(min / 60); */
+    min = min*60;
+    var seconds = min;
+    var ts = seconds;
+    var days = Math.floor(seconds / (3600*24));
+    seconds  -= days*3600*24;
+    var hrs   = Math.floor(seconds / 3600);
+    seconds  -= hrs*3600;
+    var mnts = Math.floor(seconds / 60);
+    seconds  -= mnts*60;
+    var time = days+" day, "+hrs+" hr, "+mnts+" min";
+    return time;
+  }              
+  else if(moment(sec, "YYYY-MM-DD HH:mm:ss", true).isValid()){
+    var second = Date.parse(new Date()) - Date.parse(new Date(sec));
+    var seconds = parseInt(second,10)/1000;
+    var ts = seconds;
+    var days = Math.floor(seconds / (3600*24));
+    seconds  -= days*3600*24;
+    var hrs   = Math.floor(seconds / 3600);
+    seconds  -= hrs*3600;
+    var mnts = Math.floor(seconds / 60);
+    seconds  -= mnts*60;
+    var time = "( "+ days+" day, "+hrs+" hr, "+mnts+" min )";
+    return time;
+  }
+}
+/* ____________________ MOLD FABRICATION GET LEAD TIME FORMAT MODAL ________________________ */
+
+
+/* ____________________ EDIT CHANGE PROCESS MODAL ________________________ */
+$('#mod').on('click','#echangeprocess', function (e) { 
+  var id = $("#cmoldfabricationid").val()
+
+  $.ajax(
+    {
+    method:'post',
+    url:'/1_mes/_query/mold_repair/getrowfab.php',
+    data:
+    {
+        'id': id,
+        'ajax': true
+    },
+    success: function(data1) {
+      $('#changeprocess').modal('hide');
+      var val = JSON.parse(data1);
+      $("#ecmoldfabricationid").val(val.MOLD_FABRICATION_ID);            
+
+      $('#eleadtime_1').val(val['DESIGN-1']); $('#eoperator_1').val(val['DESIGN-1_OPERATOR']);
+      $('#eleadtime_2').val(val['DESIGN-2']); $('#eoperator_2').val(val['DESIGN-2_OPERATOR']);
+      $('#eleadtime_3').val(val['DESIGN-3']); $('#eoperator_3').val(val['DESIGN-3_OPERATOR']);
+      $('#eleadtime_4').val(val['RADIAL-1']); $('#eoperator_4').val(val['RADIAL-1_OPERATOR']);
+      $('#eleadtime_5').val(val['LATHER-1']); $('#eoperator_5').val(val['LATHER-1_OPERATOR']);
+      $('#eleadtime_6').val(val['BANDSAW']); $('#eoperator_6').val(val['BANDSAW_OPERATOR']);
+      $('#eleadtime_7').val(val['ML']); $('#eoperator_7').val(val['ML_OPERATOR']);
+      $('#eleadtime_8').val(val['GS-1']); $('#eoperator_8').val(val['GS-1_OPERATOR']);
+      $('#eleadtime_9').val(val['GS-2']); $('#eoperator_9').val(val['GS-2_OPERATOR']);
+      $('#eleadtime_10').val(val['HSM']); $('#eoperator_10').val(val['HSM_OPERATOR']);
+      $('#eleadtime_11').val(val['HSM-1']); $('#eoperator_11').val(val['HSM-1_OPERATOR']);
+      $('#eleadtime_12').val(val['HSM-2']); $('#eoperator_12').val(val['HSM-2_OPERATOR']);
+      $('#eleadtime_13').val(val['WEDM']); $('#eoperator_13').val(val['WEDM_OPERATOR']);
+      $('#eleadtime_14').val(val['M-EDM']); $('#eoperator_14').val(val['M-EDM_OPERATOR']);
+      $('#eleadtime_15').val(val['EDM']); $('#eoperator_15').val(val['EDM_OPERATOR']);
+      $('#eleadtime_16').val(val['ASSEMBLE-1']); $('#eoperator_16').val(val['ASSEMBLE-1_OPERATOR']);
+      $('#eleadtime_17').val(val['POLISHING-1']); $('#eoperator_17').val(val['POLISHING-1_OPERATOR']);
+     
+      $('.sel').select2({ width: '100%' });     
+      
+      $('#editchangeprocess').modal('show');
+      $('#eleadtime_1').trigger('focus')
+
+    }
+  });
+
+  
+})
+
+/* ____________________ EDIT CHANGE PROCESS MODAL ________________________ */
+
+
+/* ____________________ EDIT CHANGE PROCESS ________________________ */
+
+$('#mod').on('submit','#editchangeprocessform', function (e) {           
+  
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  
+  $.ajax({
+    type: 'POST',
+    url: '/1_mes/_query/mold_repair/edit_process.php',
+    data: $('#editchangeprocessform').serialize(),
+    success: function (data) {
+        
+      if(data=="success"){
+        
+        $('#editchangeprocessform').trigger('reset');
+        $('#editchangeprocess').modal('hide');          
+        checkuserauthF();
+        loadmodal('moldrepairmodal');
+
+        $.notify({
+          icon: 'fas fa-info-circle',
+          title: 'System Notification: ',
+          message: "Record updated successfully!",
+        },{
+          type:'success',
+          placement:{
+            align: 'center'
+          },           
+          delay: 3000,                        
+        });
+      }
+      else{
+        alert(data);          
+      }
+    }
+  }); 
+  
+});
+
+/* ____________________ EDIT CHANGE PROCESS ________________________ */
