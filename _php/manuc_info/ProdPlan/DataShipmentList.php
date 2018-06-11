@@ -139,21 +139,30 @@ while (($row = mysqli_fetch_array($result))) {
         $temp_date = date("d M Y h:i:s A", strtotime($row['PROD_DATE']));
     }
 
-    if ($row['SHIP_STATUS']=="") {
+    if ($row['SHIP_STATUS']=="") 
+    {
         $lotjudge = "PENDING";
         $shipStat = "WAITING FOR INSPECTION";
-    } else {
+    }
+     else
+    {
         $lotjudge = $row['SHIP_STATUS'];
 
-        if ($lotjudge =="APPROVED") {
+        if ($lotjudge =="APPROVED") 
+        {
             $shipStat = "WAITING FOR SHIPMENT";
-        } elseif ($lotjudge=="DISAPPROVED") {
+        } 
+        elseif ($lotjudge=="DISAPPROVED") 
+        {
             # code...
             $shipStat="REJECT/WAITING FOR REWORKS";
-        } else if($lotjudge=="SHIPPED"){
+        } 
+        else if($lotjudge=="SHIPPED")
+        {
             $shipStat="ALREADY SHIPPED";
         }
-        else {
+        else 
+        {
             $shipStat = "WAITING FOR INSPECTION";
         }
     }
