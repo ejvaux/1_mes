@@ -1,4 +1,4 @@
-<table class="table-wrapper-2 table-bordered table-sm table table-hover table-striped mt-3 ml-5" id='CreatedLotTable' >
+<table class="table-wrapper-LotCreate-2 table-bordered table-sm table table-hover table-striped mt-3" id='CreatedLotTable' >
           <?php       
                 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 

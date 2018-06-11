@@ -104,14 +104,14 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 UNION ALL */
 
                                                                 $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
-                                                                SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, NULL as DISP_DATE_
+                                                                (mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, NULL as DISP_DATE_
                                                                 FROM mis_prod_plan_dl
                                                                 LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
                                                                 WHERE  ((MONTH(mis_prod_plan_dl.DATE_)='$month1' AND YEAR(mis_prod_plan_dl.DATE_)='$year1') OR
                                                                         (MONTH(mis_product.DATE_)='$month1' AND YEAR(mis_product.DATE_)='$year1'))
                                                                         AND (mis_prod_plan_dl.ITEM_NAME = '$search' OR mis_product.ITEM_NAME = '$search') AND 
                                                                         ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')  OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
-                                                                        GROUP BY mis_prod_plan_dl.ITEM_NAME
+                                                                        GROUP BY mis_prod_plan_dl.ITEM_NAME, mis_prod_plan_dl.JOB_ORDER_NO
                                                                         ORDER BY `ITEM_NAME` ASC";
                                                           
                                                                  $datenow=$strfrom;
@@ -153,7 +153,7 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 GROUP BY ITEM_NAME"; */
 
                                                                 $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
-                                                                SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, NULL as DISP_DATE_
+                                                                (mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, NULL as DISP_DATE_
                                                                 FROM mis_prod_plan_dl
                                                                 LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
                                                                 WHERE 
@@ -291,7 +291,7 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 ORDER BY DISP_DATE_ ASC"; */
 
                                                                 $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
-                                                                SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_
+                                                                (mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_
                                                                 FROM mis_prod_plan_dl
                                                                 LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
                                                                 WHERE (MONTH(mis_prod_plan_dl.DATE_) BETWEEN '$month1' AND '$month2') 
@@ -503,13 +503,13 @@ ORDER BY `PLAN_QTY` ASC */
                                                                     if (isset($prevdate)) 
                                                                     {
                                                                       # code...
-                                                                      if ($prevdate==$currentMonth) 
+                                                                      if ($prevdate==$row3Month) 
                                                                       {
                                                                         # code... do nothing
                                                                       }
                                                                       else
                                                                       {
-                                                                        $prevdate=$currentMonth;
+                                                                        $prevdate=$row3Month;
                                                                         DisplaySummaryMonth($row2['planqty2'],$row['prodresult2'],$row3['DISP_DATE_']);
                                                                         }
 
@@ -519,7 +519,7 @@ ORDER BY `PLAN_QTY` ASC */
                                                                     }
                                                                     else
                                                                     {
-                                                                        $prevdate = $currentMonth;
+                                                                        $prevdate = $row3Month;
                                                                       
                                                                           DisplaySummaryMonth($row2['planqty2'],$row['prodresult2'],$row3['DISP_DATE_']);
 
@@ -540,7 +540,7 @@ ORDER BY `PLAN_QTY` ASC */
 
                                                       }  
 
-                                                        $row3['DISP_DATE_']="";
+                                                        #$row3['DISP_DATE_']="";
 
                                                   }
                                                    elseif ($between=="YES-SEARCH") 
@@ -571,7 +571,7 @@ ORDER BY `PLAN_QTY` ASC */
                                                           {
                                                              # code...
                                                              
-                                                             $row3Month = date("m",strtotime($row3['DISP_DATE_']));
+                                                             $row3Month = date("m",strtotime($temp));
                                                              $currentMonth = date("m",strtotime($currentdate));
                                                    
                                                              
@@ -583,17 +583,20 @@ ORDER BY `PLAN_QTY` ASC */
                                                                   if (isset($prevdate)) 
                                                                   {
                                                                     # code...
-                                                                    if ($prevdate==$currentMonth) 
+                                                                    if ($prevdate==$row3Month) 
                                                                     {
                                                                       # code... do nothing
                                                                       echo "1";
+                                                                      $prevdate=$row3Month;
+                                                                    
                                                                     }
                                                                     else
                                                                     {
-                                                                      $prevdate=$currentMonth;
+                                                                      $prevdate=$row3Month;
                                                                       DisplaySummaryMonth($row2['planqty2'],$row['prodresult2'],$row3['DISP_DATE_']);
 
-                                                                      echo "2";                                                                    }
+                                                                      echo "2";                                                      
+                                                                                  }
 
                                                                     
 
@@ -603,8 +606,8 @@ ORDER BY `PLAN_QTY` ASC */
                                                                   {
                                                                     
                                                                     echo "3";
-                                                                    $prevdate = $currentMonth;
-                                                                       DisplaySummaryMonth($row2['planqty2'],$row['prodresult2'],$row3['DISP_DATE_']);
+                                                                    $prevdate = $row3Month;
+                                                                    DisplaySummaryMonth($row2['planqty2'],$row['prodresult2'],$row3['DISP_DATE_']);
                                                                         
 
                                                                       
