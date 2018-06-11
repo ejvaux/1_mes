@@ -1,4 +1,6 @@
-<table class="table-wrapper-LotCreate-2 table-bordered table-sm table table-hover table-striped mt-3" id='CreatedLotTable' >
+
+
+<table class="table-wrapper-LotCreate-2 table-bordered table-sm table table-hover mt-3" id='CreatedLotTable' >
           <?php       
                 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
@@ -40,6 +42,7 @@
                     echo "</tbody></table>";
                 } 
                 else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
                     echo "<thead>    
           
                     <th>PROD DATE</th>

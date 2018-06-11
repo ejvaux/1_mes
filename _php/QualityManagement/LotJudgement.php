@@ -67,12 +67,13 @@ margin-left:-70%;
                     <div class="input-group-text" id="btnGroupAddon2">Filter</div>
                     </div>
                       <select name="value" class ="filterT form-control" id="filterText" onchange="filterJudgement()">
-                          <option value = "ALL">ALL</option>
                           <option value = "PENDING">PENDING</option>
                           <option value = "APPROVED">APPROVED</option>
                           <option value = "DISAPPROVED">DISAPPROVED</option>
+                          <option value = "ALL">ALL</option>
                         </select>
                 </div>
+                
                 <div class="input-group">
                     <div class="input-group-prepend">
                     <div class="input-group-text" id="btnGroupAddon2">Search</div>

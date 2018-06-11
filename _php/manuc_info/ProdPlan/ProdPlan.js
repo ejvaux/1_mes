@@ -138,6 +138,9 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
      }
      else if(SectionGroup=="pending_production")
      {
+        var plantypeobj = document.getElementById("PlanType");
+        var selectedOption2 = plantypeobj.options[plantypeobj.selectedIndex].value;
+       
         $.ajax({
             method:'POST',
             url:'/1_mes/_php/manuc_info/ProdPlan/DataPendingProduction.php',
@@ -146,6 +149,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 'sortfrom': strfromobj,
                 'sortto': strtoobj,
                 'search': searchobj,
+                'planType': selectedOption2,
                 'ajax':true
   
             },
@@ -510,6 +514,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                             {
                                 'packingno': cell.getRow().getData().PACKING_NUMBER,
                                 'lotno':cell.getRow().getData().LOT_NUMBER,
+                                'jono': cell.getRow().getData().JO_NO,
                                 'ajax':true
                   
                             },
@@ -517,13 +522,14 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                             
                             success: function(data) 
                             {
+                               
                                 showTable("ShipmentList","","shipment_management")
                             swal(
                                 'SUCCESS!',
                                 cell.getRow().getData().PACKING_NUMBER+' is marked as shipped.',
                                 'success'
                             )
-                             
+                            //alert(data);
                             }
                   
                         });
@@ -619,7 +625,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         {title:"LOT CREATE DATE", field:"LOT CREATE DATE"},
         {title:"PACKING NUMBER", field:"PACKING_NUMBER"},
         {title:"LOT NUMBER", field:"LOT_NUMBER"},
-        {title:"JO NO", field:"JO NO"},
+        {title:"JO NO", field:"JO_NO"},
         {title:"ITEM CODE", field:"ITEM CODE"},
         {title:"ITEM NAME", field:"ITEM NAME"},
         {title:"MACHINE CODE", field:"MACHINE CODE"},

@@ -39,7 +39,6 @@ $columns = array(
     array( 'db' => 'INSERT_DATETIME', 'dt' => 6 ),
     array( 'db' => 'DEF_QUANTITY', 'dt' => 7 ),
     array( 'db' => 'DEFECT_NAME', 'dt' => 8 ),
-         
 );
  
 // SQL server connection information

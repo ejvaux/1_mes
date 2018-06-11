@@ -9,12 +9,15 @@ if(!$conn2)
 {
 die("Connection failed: ".mysqli_connect_error());
 }
-
+$datenow = date("Y-m-d");
+$dateminus= date('Y-m-d', strtotime('-1 day',strtotime($datenow)));
+$ctr=0;
 $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_mold_matching.TOOL_NUMBER as TN
 	  FROM `mis_prod_plan_dl` 
 	  LEFT JOIN dmc_item_mold_matching on (mis_prod_plan_dl.ITEM_CODE=dmc_item_mold_matching.ITEM_CODE) 
       AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
-      WHERE mis_prod_plan_dl.PROD_OUTPUT_STATUS = 'UPDATED' OR  mis_prod_plan_dl.PROD_OUTPUT_STATUS IS NULL AND mis_prod_plan_dl.DATE_>='2018-06-07'";
+      WHERE mis_prod_plan_dl.PROD_OUTPUT_STATUS = 'UPDATED' OR  mis_prod_plan_dl.PROD_OUTPUT_STATUS IS NULL 
+      AND mis_prod_plan_dl.DATE_>='$dateminus'";
       
       $result=$conn2->query($sql);
       while ($row=$result->fetch_assoc()) {
@@ -64,8 +67,8 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
  */
 
  $ctr=$ctr+1;
-echo $ctr."UPDATED SUCCESS <br>";
-echo $rowcheck['Id'];
+echo $ctr."- UPDATED SUCCESS - ";
+echo $rowcheck['Id']." - ";
           
           
 
@@ -78,7 +81,7 @@ echo $rowcheck['Id'];
                 /* Execute the query. */  
                
                 if (sqlsrv_query($conn, $sqlms)) {  
-                    echo "Statement executed.\n";  
+                    echo "Statement executed. <br>";  
                 } else {  
                     echo "Error in statement execution.\n";  
                     die(print_r(sqlsrv_errors(), true));  

@@ -1,4 +1,4 @@
-<html>
+<!-- <html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -32,4 +32,17 @@
   <body>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
   </body>
-</html>
+</html> -->
+
+<?php
+$datenow = date("Y-m-d");
+$dateminus= date('Y-m-d', strtotime('-2 day',strtotime($datenow)));
+echo $datenow;
+echo "<br>";
+echo $dateminus;
+
+
+?>
+
+
+

@@ -399,9 +399,11 @@ function filterText() {
 }
 
 function searchLot(){
+  var x = document.getElementById("filterText");
+  var y = x.options[x.selectedIndex].value;
   var search = searchText.value;
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
-  var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' ORDER BY PROD_DATE DESC;";
+  var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND LOT_JUDGEMENT = '" + y + "' ORDER BY PROD_DATE DESC;";
   
   $.ajax({
     method: 'post',
@@ -844,10 +846,52 @@ function RecoverySearchLot() {
   });
 }
 
+
+function RecoveryClearSearchLot() {
+  var z = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY ORDER BY PROD_DATE DESC;";
+  /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
+  $.ajax({
+    method: 'post',
+    url: "/1_mes/_php/QualityManagement/table/recovery_table.php",
+    data: {
+      'sql': z,
+      'ajax': true
+    },
+    success: function (data) {
+      document.getElementById("table_recovery").innerHTML = data;
+      RecoverySearch.value = " ";
+    }
+  });
+}
+
 function SearchLotCreate() {
   var search = SearchCreate.value;
+  var d1 = lotDate1.value;
+  var d2 = lotDate2.value;
+
+  
+  if (d1 != "" && d2 != "") {
+    if (search == "") {
+      var z = "SELECT * FROM qmd_lot_create WHERE PROD_DATE BETWEEN '" + d1 + "' AND '" + d2 + "' ORDER BY PROD_DATE ASC;";
+    }
+    else {
+      var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PROD_DATE BETWEEN '" + d1 + "' AND '" + d2 + "') ORDER BY PROD_DATE DESC;";
+    }
+  }
+  else if(d1!="" && d2==""){
+    if(search==""){
+      var z = "SELECT * FROM qmd_lot_create WHERE PROD_DATE LIKE '%"+ d1 +"%';";
+    }
+    else{
+      var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PROD_DATE = '" + d1 + "' ORDER BY PROD_DATE DESC;";
+    }
+  }
+  else if (search != "") {
+    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') ORDER BY PROD_DATE DESC;";
+  }
+  
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
-  var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') ORDER BY PROD_DATE DESC;";
+  alert(z);
   $.ajax({
     method: 'post',
     url: "/1_mes/_php/QualityManagement/table/createdLot_table.php",
@@ -872,25 +916,11 @@ function ClearSearchLotCreate() {
       'ajax': true
     },
     success: function (data) {
+      alert(data);
       document.getElementById("createdLotTable").innerHTML = data;
       SearchCreate.value = "";
-    }
-  });
-}
-
-function RecoveryClearSearchLot() {
-  var z = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY ORDER BY PROD_DATE DESC;";
-  /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
-  $.ajax({
-    method: 'post',
-    url: "/1_mes/_php/QualityManagement/table/recovery_table.php",
-    data: {
-      'sql': z,
-      'ajax': true
-    },
-    success: function (data) {
-      document.getElementById("table_recovery").innerHTML = data;
-      RecoverySearch.value = " ";
+      lotDate1.value = "";
+      lotDate2.value = "";
     }
   });
 }
