@@ -42,7 +42,7 @@
                     echo "</tbody></table>";
                 } 
                 else {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
+                    /* echo "Error: " . $sql . "<br>" . $conn->error; */
                     echo "<thead>    
           
                     <th>PROD DATE</th>
