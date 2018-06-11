@@ -887,7 +887,6 @@ function SearchLotCreate() {
   else if (search != "") {
     var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') ORDER BY PROD_DATE ASC;";
   }
-  alert(z);
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
   $.ajax({
     method: 'post',
