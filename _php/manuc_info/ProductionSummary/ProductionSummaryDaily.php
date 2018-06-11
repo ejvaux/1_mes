@@ -64,7 +64,7 @@ $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_pl
 
         $between = "NO";
         $currentdate = date("Y-m-d", strtotime("2018-05-01"));
-        $datenow = "";
+        $datenow = " OF ".$search;
     } elseif ($strto == "" && $strfrom != "") {
         # code... condition above is whenver from is set
 
@@ -90,7 +90,7 @@ $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_pl
             AND (DATE_='$strfrom')  AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')
             ORDER BY `PLAN_QTY` ASC";
 
-            $datenow = $strfrom;
+            $datenow = "OF ".$strfrom;
             $between = "NO";
             $currentdate = date("Y-m-d", strtotime($strfrom));
 
@@ -135,7 +135,7 @@ $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_pl
                               LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
                               WHERE mis_product.DATE_ = '$strfrom'";
             $currentdate = date("Y-m-d", strtotime($strfrom));
-            $datenow = $strfrom;
+            $datenow = "OF ".$strfrom;
             $between = "YES";
 
         }
@@ -156,7 +156,7 @@ $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_pl
             
             $sqlitem="SELECT * FROM 
             (SELECT  SUM(mis_product.PRINT_QTY)as sumresult,mis_product.ITEM_NAME, 
-            mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ as DISP_DATE_
+            mis_prod_plan_dl.PLAN_QTY,mis_prod_plan_dl.DATE_ as DISP_DATE_
             FROM mis_product
             LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
             WHERE (mis_product.DATE_ BETWEEN '$strfrom' AND '$strto') AND (mis_product.ITEM_NAME = '$search')
@@ -171,7 +171,20 @@ $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_pl
             AND (ITEM_NAME = '$search') AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType') ) as B
             ORDER BY DISP_DATE_ ASC";
 
-            $datenow = $strfrom . " to " . $strto;
+/*         $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
+        (mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_
+        FROM mis_prod_plan_dl
+        LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
+        WHERE (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') 
+        AND ((mis_prod_plan_dl.ITEM_NAME = '$search') OR (mis_product.ITEM_NAME = '$search')) AND
+        ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
+        GROUP BY ITEM_NAME,JOB_ORDER_NO
+        ORDER BY DISP_DATE_ ASC"; */
+
+
+
+
+            $datenow = "FROM ".$strfrom . " to " . $strto;
             $between = "YES-SEARCH";
             $currentdate = date("Y-m-d", strtotime($strfrom));
 
@@ -187,7 +200,7 @@ $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_pl
             WHERE mis_product.DATE_ BETWEEN '$strfrom' AND '$strto' GROUP BY `ITEM_NAME`, DATE_ ORDER BY DATE_ ASC"; */
 
             $sqlitem="SELECT * FROM (SELECT  SUM(mis_product.PRINT_QTY)as sumresult,mis_product.ITEM_NAME, 
-            mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ as DISP_DATE_
+            mis_prod_plan_dl.PLAN_QTY,mis_prod_plan_dl.DATE_ as DISP_DATE_
             FROM mis_product
             LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
             WHERE mis_product.DATE_ BETWEEN '$strfrom' AND '$strto' AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')
@@ -200,7 +213,7 @@ $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_pl
             AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType') ) as B
             ORDER BY `DISP_DATE_` ASC";
 
-            $datenow = $strfrom . " to " . $strto;
+            $datenow ="FROM ".$strfrom . " to " . $strto;
             $between = "YES";
             $currentdate = date("Y-m-d", strtotime($strfrom));
 
@@ -273,7 +286,7 @@ if ($datenow == "NONE") {
 } else {
 
     echo "<tr style='font-size: 2em'>";
-    echo "<td style='border: 1px solid #ddd; height: 100px;' colspan='2'> <b>TOTAL SUMMARY FROM " . $datenow . "</b></td>";
+    echo "<td style='border: 1px solid #ddd; height: 100px;' colspan='2'> <b>TOTAL SUMMARY " . $datenow . "</b></td>";
     #echo "<td style='border: 1px solid #ddd;'>-</td>";
     echo "<td style='border: 1px solid #ddd;'><b>" . $prodplan1 . "</b></td>";
     echo "<td style='border: 1px solid #ddd;'><b>" . $prodresult1 . "<b></td>";

@@ -46,6 +46,25 @@
                                                               <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();cancelfilter('PendingProduction','','pending_production')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
                                                               <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('PendingProduction','','pending_production')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
                                                             </div>
+
+                                                             &nbsp&nbsp
+                                                              <?php
+
+                                                                  include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
+                                                                  $sqlPlanType = " SELECT SAP_DIVISION_CODE, DIVISION_NAME from dmc_division_code";
+                                                                  $resultSqlPlanType = $conn->query($sqlPlanType);
+                                                              ?>
+                                                                  <select id="PlanType" class="form-control" onchange="showTable('PendingProduction','','pending_production')" style="width: 150px;font-size: 10px; height:33px" name="PlanType">';
+                                                              <?php
+                                                                  while ($row = $resultSqlPlanType->fetch_assoc()) {
+                                                                      # code...
+                                                                          echo "<option value='" . $row['SAP_DIVISION_CODE'] . "' >" . $row['DIVISION_NAME'] . "</option>";
+                                                                      
+                                                                  }
+
+                                                              ?>
+                                                                  </select>
+                                                            
                                                        
                                                         </div>
                                                       
@@ -76,6 +95,5 @@
   
 
 <div id="example-table"></div>
-
 
 

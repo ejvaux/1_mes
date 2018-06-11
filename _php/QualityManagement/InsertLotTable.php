@@ -34,7 +34,7 @@
 
 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
     for ($x = 0; $x < $count-1; $x++){
-    $sql = "UPDATE mis_product SET LOT_NUM = '$lot_num' WHERE PACKING_NUMBER IN (SELECT DANPLA_SERIAL FROM qmd_danpla_tempstore)";
+    $sql = "UPDATE mis_product SET LOT_NUM = '$lot_num',SHIP_STATUS='PENDING' WHERE PACKING_NUMBER IN (SELECT DANPLA_SERIAL FROM qmd_danpla_tempstore)";
     }
     $conn->query($sql);
     $conn->close();

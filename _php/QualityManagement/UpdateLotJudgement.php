@@ -26,7 +26,7 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             
             echo "Error updating record: " . $sql . "<br>" . $conn->error;        
             }
-
+            $decision = 'APPROVED';
         }
     else if($decision == "DISAPPROVE"){
         $user = $_SESSION['text'];
@@ -41,7 +41,7 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             
             echo "Error updating record: " . $sql . "<br>" . $conn->error;        
             }
-
+            $decision = 'DISAPPROVED';
         }
         
     else if($decision == "PENDING-REWORK"){
@@ -53,15 +53,12 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         $sql = "UPDATE qmd_lot_create SET LOT_JUDGEMENT = 'PENDING', JUDGE_BY = '$user',DEFECT_QTY = '$qty', REMARKS = '$remarks', JUDGEMENT_DATE = '$update_dateTime' WHERE LOT_NUMBER = '$lot'";
         if($conn->query($sql) === TRUE) {
             echo "SUCCESS";
-
-           
-
-
             } 
         else{
             
             echo "Error updating record: " . $sql . "<br>" . $conn->error;        
             }
+        $decision = 'PENDING';
         }
 
     else if($decision == "PENDING"){
@@ -78,8 +75,14 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             }
 
         }
-
-    $conn->close();
-
-    
+        $conn->close();   
+include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
+    $sql = "UPDATE mis_product SET SHIP_STATUS='$decision' WHERE LOT_NUM ='$lot'";
+    if($conn->query($sql) === TRUE) {
+            echo "SUCCESS";
+            } 
+        else{
+            echo "Error updating record: " . $sql . "<br>" . $conn->error;        
+            }
+    $conn->close();    
 ?>

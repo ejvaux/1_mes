@@ -4,6 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
     $strfrom=$_POST['sortfrom'];
     $strto=$_POST['sortto'];
     $search=$_POST['search'];
+    $PlanType=$_POST['planType'];
 
   /*   if(strpos($url, 'sortfrom=')!==false)
     { */
@@ -25,14 +26,16 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                    
                   LEFT JOIN dmc_item_mold_matching
                      ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
-                  /* AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE)  */
+                     
                   AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
                   LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
                   LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
                   LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
 
 
-                        WHERE (dmc_customer.DIVISION_CODE = 'PTPI001') AND
+                        WHERE 
+                        SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'
+                         AND
                         (mis_prod_plan_dl.JOB_ORDER_NO LIKE '%$search%' or mis_prod_plan_dl.CUSTOMER_CODE LIKE '%$search%' 
                         or mis_prod_plan_dl.CUSTOMER_NAME LIKE '%$search%' or mis_prod_plan_dl.ITEM_CODE LIKE '%$search%' 
                         or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
@@ -58,14 +61,15 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                              
                             LEFT JOIN dmc_item_mold_matching
                                ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
-                             /* AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE)  */
+                               
                   AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
                   LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
                             LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
                             LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
 
 
-                            WHERE (dmc_customer.DIVISION_CODE = 'PTPI001') AND (mis_prod_plan_dl.DATE_ = '$strfrom') AND
+                            WHERE                         
+                            SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType' AND (mis_prod_plan_dl.DATE_ = '$strfrom') AND
                             (mis_prod_plan_dl.JOB_ORDER_NO LIKE '%$search%' or mis_prod_plan_dl.CUSTOMER_CODE LIKE '%$search%' 
                             or mis_prod_plan_dl.CUSTOMER_NAME LIKE '%$search%' or mis_prod_plan_dl.ITEM_CODE LIKE '%$search%' 
                             or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
@@ -90,14 +94,16 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                              
                             LEFT JOIN dmc_item_mold_matching
                                ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
-                            /* AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE)  */
+                               
                   AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
                   LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
                             LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
                             LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
 
 
-                            WHERE (dmc_customer.DIVISION_CODE = 'PTPI001') AND (mis_prod_plan_dl.DATE_ ='$strfrom') ORDER BY mis_prod_plan_dl.DATE_ DESC";
+                            WHERE
+                            SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'
+                             AND (mis_prod_plan_dl.DATE_ ='$strfrom') ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
                             
                           }
@@ -119,14 +125,15 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                              
                             LEFT JOIN dmc_item_mold_matching
                                ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
-                          /* AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE)  */
+                               
                   AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
                     LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
                             LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
                             LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
 
 
-                            WHERE (dmc_customer.DIVISION_CODE = 'PTPI001') AND (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') AND
+                            WHERE
+                            SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType' AND (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') AND
                             (mis_prod_plan_dl.JOB_ORDER_NO LIKE '%$search%' or mis_prod_plan_dl.CUSTOMER_CODE LIKE '%$search%' 
                             or mis_prod_plan_dl.CUSTOMER_NAME LIKE '%$search%' or mis_prod_plan_dl.ITEM_CODE LIKE '%$search%' 
                             or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
@@ -152,14 +159,15 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                              
                             LEFT JOIN dmc_item_mold_matching
                                ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
-                            /* AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE)  */
+                               
                   AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
                   LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
                             LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
                             LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
 
 
-                             WHERE (dmc_customer.DIVISION_CODE = 'PTPI001') AND (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') ORDER BY mis_prod_plan_dl.DATE_ DESC";
+                             WHERE                         
+                             SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType' AND (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') ORDER BY mis_prod_plan_dl.DATE_ DESC";
                   
                           }
 

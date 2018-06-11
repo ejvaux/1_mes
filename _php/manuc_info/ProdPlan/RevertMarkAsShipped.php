@@ -5,7 +5,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 $packingNo = $_POST['packingno'];
 $lotnumber = $_POST['lotno'];
 
-$sql = "UPDATE mis_product SET SHIP_STATUS=NULL WHERE PACKING_NUMBER='$packingNo'";
+$sql = "UPDATE mis_product SET SHIP_STATUS='APPROVED' WHERE PACKING_NUMBER='$packingNo'";
 $result = $conn->query($sql);
 
 

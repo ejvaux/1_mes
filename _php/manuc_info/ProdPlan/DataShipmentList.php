@@ -21,21 +21,21 @@ if ($strto == "" && $strfrom=="") {
     # code... condition above is whenever both date range are null
 
     $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT, qmd_lot_create.PROD_DATE FROM mis_product
+mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE FROM mis_product
 LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
 WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
 OR mis_product.ITEM_CODE LIKE '%$search%' OR     mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
-OR qmd_lot_create.LOT_JUDGEMENT LIKE '%$search%') ";
+OR mis_product.SHIP_STATUS LIKE '%$search%') ";
 
 if($shipstat!="ALL DATA")
 {
     if($shipstat == "PENDING")
     {
-        $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+        $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
     }
     else
     {
-        $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+        $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
     }
 }
 
@@ -49,26 +49,26 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
           # code...
 
         $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT, qmd_lot_create.PROD_DATE FROM mis_product
+            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
             OR mis_product.ITEM_CODE LIKE '%$search%' OR mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
-            OR qmd_lot_create.LOT_JUDGEMENT LIKE '%$search%') AND (DATE(qmd_lot_create.PROD_DATE) = '$strfrom') ";
+            OR mis_product.SHIP_STATUS LIKE '%$search%') AND (DATE(qmd_lot_create.PROD_DATE) = '$strfrom') ";
             if($shipstat!="ALL DATA")
             {
                 if($shipstat == "PENDING")
                 {
-                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                    $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
                 }
                 else
                 {
-                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                    $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
                 }
             }
             $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
     } else {
         $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT, qmd_lot_create.PROD_DATE FROM mis_product
+            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE  (DATE(qmd_lot_create.PROD_DATE) = '$strfrom') ";
             
@@ -76,11 +76,11 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
             {
                 if($shipstat == "PENDING")
                 {
-                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                    $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
                 }
                 else
                 {
-                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                    $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
                 }            }
 
             $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
@@ -90,34 +90,34 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
         # code...
 
         $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT, qmd_lot_create.PROD_DATE FROM mis_product
+            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
             OR mis_product.ITEM_CODE LIKE '%$search%' OR mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
-            OR qmd_lot_create.LOT_JUDGEMENT LIKE '%$search%') AND (qmd_lot_create.PROD_DATE BETWEEN '$strfrom' AND '$strto') ";
+            OR mis_product.SHIP_STATUS LIKE '%$search%') AND (qmd_lot_create.PROD_DATE BETWEEN '$strfrom' AND '$strto') ";
 
             if($shipstat!="ALL DATA")
             {
                 if($shipstat == "PENDING")
                 {
-                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                    $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
                 }
                 else
                 {
-                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                    $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
                 }
             }
             $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
     } else {
         $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT, qmd_lot_create.PROD_DATE FROM mis_product
+            mis_product.MACHINE_CODE, mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE (qmd_lot_create.PROD_DATE BETWEEN '$strfrom' AND '$strto') ";
                        if($shipstat!="ALL DATA")
                        {
                         if($shipstat == "PENDING")
                         {
-                            $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                            $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
                         }
                         else
                         {
@@ -139,11 +139,11 @@ while (($row = mysqli_fetch_array($result))) {
         $temp_date = date("d M Y h:i:s A", strtotime($row['PROD_DATE']));
     }
 
-    if ($row['LOT_JUDGEMENT']=="") {
+    if ($row['SHIP_STATUS']=="") {
         $lotjudge = "PENDING";
         $shipStat = "WAITING FOR INSPECTION";
     } else {
-        $lotjudge = $row['LOT_JUDGEMENT'];
+        $lotjudge = $row['SHIP_STATUS'];
 
         if ($lotjudge =="APPROVED") {
             $shipStat = "WAITING FOR SHIPMENT";
@@ -161,7 +161,7 @@ while (($row = mysqli_fetch_array($result))) {
 
 
     array_push($datavar, ["NO"=> $ctr ,"LOT CREATE DATE"=>$temp_date,"PACKING_NUMBER"=> $row['PACKING_NUMBER'], "LOT_NUMBER"=> $row['LOT_NUM'],
-            "JO NO"=> $row['JO_NUM'],"ITEM CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],
+            "JO_NO"=> $row['JO_NUM'],"ITEM CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],
             "MACHINE CODE"=>$row['MACHINE_CODE'],"LOT JUDGEMENT"=> $lotjudge,"SHIPMENT_STATUS"=> $shipStat]);
 }
 echo json_encode($datavar, true);
