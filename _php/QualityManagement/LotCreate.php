@@ -1,46 +1,22 @@
 
 <style>
-.tbl1{
-  width:450px;
-  /* margin-left:-90px; */
-}
-.tx{
-  height:34px;
-  width:250px;
-  margin-left:-6%;
-  padding-top:10px;
-}
-.bt{
-  
-  width:100%;
-  padding-top:10px;
-}
-.lblqty{
-  /* margin-left:-90px; */
-  margin-top:8px;
-  padding-top:8px;
-  padding-bottom:8px;
-  padding-left:10px;
-  padding-right:10px;
-}
-.txtqty{
-  width:90px;
-}
-.element{
-    height: 70vh; 
-    width:  96vw; 
-}
 .tablesss{
   margin-left:1vw;
 }
-.table-wrapper-2 {
+.table-wrapper-LotCreate {
     display: block;
-    max-width: 93.6%;
-    max-height: 430px;
+    max-width: 40vw;
+    max-height: 65vh;
     overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
-
+.table-wrapper-LotCreate-2 {
+    display: block;
+    max-width: 52.5vw;
+    max-height: 65vh;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
 </style>
 
 <div class="container-fluid pt-1">
@@ -50,8 +26,8 @@
                 <div class="input-group">  
                   <input type="textarea" class="form-control form-control-sm" id="Barcode_text" placeholder="SCAN DANPLA SERIAL NUMBER">
                     <div class="input-group-append">
-                      <button type="button" class="btn btn-outline-secondary py-1" id="AddBtn" onclick="AddBtnClick()">ADD</button>
-                      <button type="button" class="btn btn-outline-secondary py-1" id="LotCreateBtn" onclick="generateLot()">LOT CREATE</button></td>
+                      <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddBtn" onclick="AddBtnClick()">ADD</button>
+                      <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="LotCreateBtn" onclick="generateLot()">LOT CREATE</button></td>
                     </div>
                 </div>
                 <div class="input-group">
@@ -67,8 +43,8 @@
               </div>
     </div>
 <div class="row">
-    <div class="col-5.5 tablesss">
-      <table class="table-wrapper-1 table-bordered table-sm table table-hover table-striped mt-3" id='LotCreationTable' >
+  <div class="d-flex col-12 justify-content-between" style="border-style:solid">
+      <table class="table-wrapper-LotCreate table-bordered table-sm table table-hover table-striped mt-3" id='LotCreationTable' >
                 <?php       
                         include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
@@ -115,12 +91,12 @@
                         $conn->close();
                   ?>
                 </table>
-      </div>
+
     
-    <div class="col-6.5" >
-      <div id="createdLotTable">
-    <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/createdLot_table.php"; ?>
-        </div>
-      </div>
+
+        <div id="createdLotTable">
+          <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/createdLot_table.php"; ?>
+          </div>
     </div>
+  </div>
 </div>
