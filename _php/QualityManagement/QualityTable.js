@@ -887,7 +887,6 @@ function SearchLotCreate() {
   else if (search != "") {
     var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') ORDER BY PROD_DATE DESC;";
   }
-  alert(z);
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
   $.ajax({
     method: 'post',
@@ -905,7 +904,6 @@ function SearchLotCreate() {
 function ClearSearchLotCreate() {
   var z = "SELECT * FROM qmd_lot_create ORDER BY PROD_DATE DESC;";
   /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
-  alert(z);
   $.ajax({
     method: 'post',
     url: "/1_mes/_php/QualityManagement/table/createdLot_table.php",
