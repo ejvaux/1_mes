@@ -1110,3 +1110,13 @@ $('#mod').on('submit','#editchangeprocessform', function (e) {
 });
 
 /* ____________________ EDIT CHANGE PROCESS ________________________ */
+
+
+/* _______________________ Check negative number ____________________________ */
+
+function isNumberNegative(evt){
+  var charCode = (evt.which) ? evt.which : event.keyCode;
+  return !(charCode > 31 && (charCode < 48 || charCode > 57));
+}
+
+/* _______________________ Check negative number ____________________________ */
