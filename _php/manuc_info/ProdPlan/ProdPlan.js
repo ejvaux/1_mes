@@ -15,6 +15,8 @@ function loadtbl2(TableName,deptSec,SectionGroup)
 
         
 
+        
+
       }
     };
       xhttp.open("GET", TableName+".php", true);
@@ -671,7 +673,6 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 'sortto': strtoobj,
                 'search': searchobj,
                 'sorttype': selectedOption,
-                
                 'PlanType': selectedOption2,
                 'ajax':true
             },
@@ -685,12 +686,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 var sumDiv = document.getElementById("cont_sum");
                 var screenheight=Number(screen.height-250);
                 sumDiv.setAttribute("style", "height: 70vh;overflow: auto;");
-              
-                
-     
-            
-                
-                
+
                 
             }
         });
@@ -722,11 +718,14 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         });
 
     }
-    var globalsqlstring= "<?php echo $sql ?>";
-    alert(this.globalsqlstring);
+
 
  }
 
+
  
+ 
+
+
 
  
