@@ -14,12 +14,16 @@
         $idauth = $_POST['iduserauth'];
         $authoritycode = $_POST['eaauthoritycode'];
         $userauthority = $_POST['eauserauthority'];
+        $updatedatetime = Date('Y-m-d H:i:s');
+        $updateuser = $_SESSION['text'];
 
     
     $sql = "UPDATE dmc_user_authority SET
 
         AUTHORITY_CODE = '$authoritycode',
-        USER_AUTHORITY = '$userauthority'
+        USER_AUTHORITY = '$userauthority',
+        UPDATE_DATETIME = '$updatedatetime',
+        UPDATE_USER = '$updateuser'
 
     WHERE AUTHORITY_ID = $idauth";  
        

@@ -1,0 +1,1 @@
+type="number" min="0" onkeypress="return isNumberNegative(event)"
