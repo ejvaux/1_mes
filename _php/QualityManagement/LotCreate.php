@@ -36,7 +36,7 @@ position: inline-block;
                     <div class="input-group-append">
                       <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddBtn" onclick="AddBtnClick()">ADD</button>
                       <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="LotCreateBtn" onclick="generateLot()">LOT CREATE</button></td>
-                      <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="LotCreateBtn" onclick="notWorking()">EXPORT</button></td>
+                      <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="LotCreate_ExportBtn" onclick="notWorking()">EXPORT</button></td>
                     </div>
                 </div>
                 <div class="p-2 input-group">

@@ -864,7 +864,7 @@ function RecoveryClearSearchLot() {
   });
 }
 
-function SearchLotCreate() {
+function SearchLotCreate(){
   var search = SearchCreate.value;
   var d1 = lotDate1.value;
   var d2 = lotDate2.value;
