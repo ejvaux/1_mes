@@ -536,3 +536,7 @@ function displaysummary($funcPlan, $funcResult, $funcDate)
 echo '</tbody></table><br><br>';
 
 
+
+echo'<script>
+</script>
+';
