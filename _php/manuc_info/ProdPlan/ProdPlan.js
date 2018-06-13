@@ -1,3 +1,5 @@
+var globalsqlstring="global";
+
 function loadtbl2(TableName,deptSec,SectionGroup) 
 {
   
@@ -198,7 +200,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 filterTableSummary();
                 var val = JSON.parse(data);
 
-                $("#example-table").tabulator({});
+                
                // alert(val.datapoints1);
                 //alert(val.datapoints2);
                /* alert(val); */
@@ -677,14 +679,18 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             
             success: function(data) 
             {
+
     
                 document.getElementById("tablesummary").innerHTML = data;
                 var sumDiv = document.getElementById("cont_sum");
                 var screenheight=Number(screen.height-250);
-          
                 sumDiv.setAttribute("style", "height: 70vh;overflow: auto;");
-
-
+              
+                
+     
+            
+                
+                
                 
             }
         });
@@ -716,17 +722,11 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         });
 
     }
-    
- 
+    var globalsqlstring= "<?php echo $sql ?>";
+    alert(this.globalsqlstring);
+
  }
+
  
 
- function tblexport()
- {        
-     var sFileName = 'ngophi';
-
-    $('#tbl2').tableExport({fileName: sFileName,
-        type: 'xlsx'
-       });
- }
  
