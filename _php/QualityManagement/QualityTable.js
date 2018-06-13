@@ -928,6 +928,62 @@ function notWorking(){
   );
 }
 
+function SearchDanplaCreate() {
+  var search = SearchPendingDanpla.value;
+  var d1 = danplaDate1.value;
+  var d2 = danplaDate2.value;
+  if (d1 != "" && d2 != "") {
+    if (search == "") {
+      var z = "SELECT * FROM mis_product WHERE PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "' ORDER BY PRINT_DATE DESC;";
+    }
+    else {
+      var z = "SELECT * FROM mis_product WHERE (JO_NUM LIKE '%"+ search +"%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "') ORDER BY PRINT_DATE DESC;";
+    }
+  }
+  else if (d1 != "" && d2 == "") {
+    if (search == "") {
+      var z = "SELECT * FROM mis_product WHERE PRINT_DATE LIKE '%" + d1 + "%';";
+    }
+    else {
+      var z = "SELECT * FROM mis_product WHERE (JO_NUM LIKE '%" + search +"%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PRINT_DATE = '" + d1 + "' ORDER BY PRINT_DATE DESC;";
+    }
+  }
+  else if (search != "") {
+    var z = "SELECT * FROM mis_product WHERE (JO_NUM LIKE '%" + search +"%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') ORDER BY PRINT_DATE DESC;";
+  }
+  /* var z = "SELECT * FROM mis_product WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PRINT_DATE);"; */
+  $.ajax({
+    method: 'post',
+    url: "/1_mes/_php/QualityManagement/table/noLot_table.php",
+    data: {
+      'sql': z,
+      'ajax': true
+    },
+    success: function (data) {
+      document.getElementById("noLotTable").innerHTML = data;
+    }
+  });
+}
+
+function ClearSearchDanplaCreate() {
+  var z = "SELECT * FROM mis_product ORDER BY JO_NUM ASC, PRINT_DATE DESC;";
+  /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PRINT_DATE);"; */
+  $.ajax({
+    method: 'post',
+    url: "/1_mes/_php/QualityManagement/table/noLot_table.php",
+    data: {
+      'sql': z,
+      'ajax': true
+    },
+    success: function (data) {
+      document.getElementById("noLotTable").innerHTML = data;
+      SearchPendingDanpla.value = "";
+      danplaDate1.value = "";
+      danplaDate2.value = "";
+    }
+  });
+}
+
 function defectSearch(){
   var search = defectSearchId.value;
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
