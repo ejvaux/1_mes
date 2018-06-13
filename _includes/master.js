@@ -542,7 +542,10 @@ function DisplayTable3(Table_Name,Tablesp,tbltitle) {
               $("#eimodel").attr("value",data[7]);
               $("#eiitemprintcode").attr("value",data[8]);
               $("#eigroupcode").attr("value",data[9]);
-              $("#eidescription").attr("value",data[10]);
+              $("#eipackqty").val(data[10]);
+              $("#eidanplaqty").val(data[11]);
+              $("#eilabeltype").val(data[12]);
+              $("#eidescription").attr("value",data[13]);
               
               $('.sel').select2({ width: '100%' });
               $('#eitemmod').modal('show');

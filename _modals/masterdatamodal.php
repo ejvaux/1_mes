@@ -160,7 +160,7 @@
                   <label for="guaranteeshot" class="col-form-label-sm">GUARANTEE SHOT:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="guaranteeshot" type="number" class="form-control form-control-sm" name="guaranteeshot" placeholder="">                  
+                  <input id="guaranteeshot" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="guaranteeshot" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -170,7 +170,7 @@
                   <label for="moldshot" class="col-form-label-sm">MOLD SHOT:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="moldshot" type="number" class="form-control form-control-sm" name="moldshot" placeholder="">                  
+                  <input id="moldshot" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="moldshot" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -183,7 +183,7 @@
                   <label for="cavity" class="col-form-label-sm">CAVITY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="cavity" type="number" class="form-control form-control-sm" name="cavity" placeholder="">                  
+                  <input id="cavity" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="cavity" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -523,7 +523,7 @@
                   <label for="packqty" class="col-form-label-sm">PACK QTY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="packqty" type="text" class="form-control form-control-sm" name="packqty" placeholder="">                  
+                  <input id="packqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="packqty" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -533,7 +533,7 @@
                   <label for="danplaqty" class="col-form-label-sm">DANPLA QTY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="danplaqty" type="text" class="form-control form-control-sm" name="danplaqty" placeholder="">                  
+                  <input id="danplaqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="danplaqty" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -549,7 +549,7 @@
                   <input id="labeltype" type="text" class="form-control form-control-sm" name="labeltype" placeholder="">                  
                 </div>
               </div>
-            </div>                                
+            </div>                                           
           </div>
   
 
@@ -944,7 +944,7 @@
                   <label for="sapcode" class="col-form-label-sm">SAP DIV CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="sapcode" type="number" class="form-control form-control-sm" name="sapcode" placeholder="" required>
+                  <input id="sapcode" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="sapcode" placeholder="" required>
                 </div>
               </div>
             </div>                               
@@ -1130,7 +1130,7 @@
                   <label for="eguaranteeshot" class="col-form-label-sm">GUARANTEE SHOT:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eguaranteeshot" type="number" class="form-control form-control-sm" name="eguaranteeshot" placeholder="">                  
+                  <input id="eguaranteeshot" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="eguaranteeshot" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1140,7 +1140,7 @@
                   <label for="emoldshot" class="col-form-label-sm">MOLD SHOT:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="emoldshot" type="number" class="form-control form-control-sm" name="emoldshot" placeholder="">                  
+                  <input id="emoldshot" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="emoldshot" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -1153,7 +1153,7 @@
                   <label for="ecavity" class="col-form-label-sm">CAVITY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="ecavity" type="number" class="form-control form-control-sm" name="ecavity" placeholder="">                  
+                  <input id="ecavity" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="ecavity" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1487,6 +1487,42 @@
                 </div>
               </div>
             </div>                    
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eipackqty" class="col-form-label-sm">PACK QTY:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eipackqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="eipackqty" placeholder="">                  
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eidanplaqty" class="col-form-label-sm">DANPLA QTY:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eidanplaqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="eidanplaqty" placeholder="">                  
+                </div>
+              </div>
+            </div>                    
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eilabeltype" class="col-form-label-sm">LABEL TYPE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eilabeltype" type="text" class="form-control form-control-sm" name="eilabeltype" placeholder="">                  
+                </div>
+              </div>
+            </div>                                
           </div>
   
 
@@ -1894,7 +1930,7 @@
                   <label for="edsapcode" class="col-form-label-sm">SAP DIV CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="edsapcode" type="number" class="form-control form-control-sm" name="edsapcode" placeholder="" required>
+                  <input id="edsapcode" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="edsapcode" placeholder="" required>
                 </div>
               </div>
             </div>                               

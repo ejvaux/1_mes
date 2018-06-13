@@ -21,6 +21,9 @@
         $itemprintcode = $_POST['itemprintcode'];
         $groupcode = $_POST['groupcode'];
         $description = $_POST['description'];
+        $packqty = $_POST['packqty'];
+        $danplaqty = $_POST['danplaqty'];
+        $labeltype = $_POST['labeltype'];
         $insertdatetime = Date('Y-m-d H:i:s');
         $insertuser = $_SESSION['text'];
     
@@ -37,16 +40,19 @@
         GROUP_CODE,
         DESCRIPTION,
         INSERT_DATETIME,
-        INSERT_USER
+        INSERT_USER,
+        PACK_QTY,
+        DANPLA_QTY,
+        LABEL_TYPE
 
     )
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
         $stmt = $conn->prepare($sql);
 
         $stmt->bind_param(
 
-            'ssssssssssss',
+            'ssssssssssssiis',
             $itemcode,
             $divisioncode,
             $customercode,
@@ -58,7 +64,10 @@
             $groupcode,
             $description,
             $insertdatetime,
-            $insertuser
+            $insertuser,
+            $packqty,
+            $danplaqty,
+            $labeltype
         );
 
         if ($stmt->execute() === TRUE) {            

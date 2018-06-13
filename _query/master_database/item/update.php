@@ -21,6 +21,9 @@
         $model = $_POST['eimodel'];
         $itemprintcode = $_POST['eiitemprintcode'];
         $groupcode = $_POST['eigroupcode'];
+        $packqty = $_POST['eipackqty'];
+        $danplaqty = $_POST['eidanplaqty'];
+        $labeltype = $_POST['eilabeltype'];
         $description = $_POST['eidescription'];
         $updatedatetime = Date('Y-m-d H:i:s');
         $updateuser = $_SESSION['text'];
@@ -38,7 +41,10 @@
         GROUP_CODE = '$groupcode',
         DESCRIPTION = '$description',
         UPDATE_DATETIME = '$updatedatetime',
-        UPDATE_USER = '$updateuser'
+        UPDATE_USER = '$updateuser',
+        PACK_QTY = '$packqty',
+        DANPLA_QTY = '$danplaqty',
+        LABEL_TYPE = '$labeltype'
 
     WHERE ITEM_ID = $itemid";   
 
