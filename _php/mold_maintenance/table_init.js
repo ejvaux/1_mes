@@ -1759,7 +1759,10 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
       },
        filename: tbltitle, className: 'btn btn-export6 btn-xs py-1',
        exportOptions: {
-          columns: '.ex'
+          columns: '.ex',
+          modifier: {
+            selected: null
+          }
       }
       }
           ],        
