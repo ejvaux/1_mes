@@ -13,22 +13,28 @@
     
         $authoritycode = $_POST['authoritycode'];
         $userauthority = $_POST['userauthority'];
+        $insertdatetime = Date('Y-m-d H:i:s');
+        $insertuser = $_SESSION['text'];
 
     $sql = "INSERT INTO dmc_user_authority
     (           
 
         AUTHORITY_CODE,
-        USER_AUTHORITY
+        USER_AUTHORITY,
+        INSERT_DATETIME,
+        INSERT_USER
     )
-        VALUES (?,?)";
+        VALUES (?,?,?,?)";
             
         $stmt = $conn->prepare($sql);
 
         $stmt->bind_param(
 
-            'ss',
+            'ssss',
             $authoritycode,
-            $userauthority
+            $userauthority,
+            $insertdatetime,
+            $insertuser
 
         );
 
