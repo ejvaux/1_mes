@@ -515,6 +515,42 @@
               </div>
             </div>                    
           </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="packqty" class="col-form-label-sm">PACK QTY:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="packqty" type="text" class="form-control form-control-sm" name="packqty" placeholder="">                  
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="danplaqty" class="col-form-label-sm">DANPLA QTY:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="danplaqty" type="text" class="form-control form-control-sm" name="danplaqty" placeholder="">                  
+                </div>
+              </div>
+            </div>                    
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="labeltype" class="col-form-label-sm">LABEL TYPE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="labeltype" type="text" class="form-control form-control-sm" name="labeltype" placeholder="">                  
+                </div>
+              </div>
+            </div>                                
+          </div>
   
 
           <!-- ____________ FORM END __________________ -->
