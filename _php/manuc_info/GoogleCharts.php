@@ -45,68 +45,95 @@ echo $dateminus;
 <html xmlns:x="urn:schemas-microsoft-com:office:excel">
 <head>
 
-<script type="text/javascript" src="/1_mes/node_modules/@tarunbatta/excelexportjs/dist/excelExportJs.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/TableExport/3.2.5/css/tableexport.min.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/3.3.5/js/tableexport.min.js"></script>
 
+<style>
 
+table ,tr td{
+    border:1px solid red
+}
+tbody {
+    display:block;
+    height:450px;
+    overflow:auto;
+}
+thead, tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;/* even columns width , fix width of table too*/
+}
+thead {
+    width: calc( 100% - 1em )/* scrollbar is average 1em/16px width, remove it from thead width */
+}
+.btn-toolbar {
+     margin-left: 0px;
+}
+</style>
 
 
 </head>
 <body>
-
-
-<div id="dv">
-				<table id="tblExport" style="border:1px solid black; ">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th>Username</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td style='background-color:red;'>1</td>
-							<td>Mark</td>
-							<td>Otto</td>
-							<td>@mdo</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>Jacob</td>
-							<td>Thornton</td>
-							<td>@fat</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>Larry</td>
-							<td>the Bird</td>
-							<td>@twitter</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div>
-				<button id="btnExport">Export to excel</button>
-			</div>
-        </div>
-
-
+<div class="tbl_container1">
+		<table id="listing" class="table table-bordered table table-hover" cellspacing="0" width="100%">
+			<colgroup><col><col><col></colgroup>
+			<thead>
+				<tr>
+					<tr>
+						<th>Name</th>
+						<th >Salary</th>
+						<th>Age</th>
+					</tr>
+				</tr>
+			</thead>
+			<tbody id="emp_body">
+			</tbody>
+		</table>
+	</div>
 
 </body>
 </html>
 
 
- <script>
- var excelExportJs = require("/1_mes/node_modules/@tarunbatta/excelexportjs/dist/excelExportJs.js");
-$(document).ready(function () {
-        $("#btnExport").click(function () {
-            $("#tblExport").btechco_excelexport({
-                containerid: "tblExport"
-               , datatype: $datatype.Table
-            });
-        });
-    });
+<script type="text/javascript">
+$(document).ready(function(){
+	$.ajax({
+		url: "http://dummy.restapiexample.com/api/v1/employees",
+		async: true,
+		dataType: 'json',
+		success: function (data) {
+			var tr;
+			for (var i = 0; i < data.length; i++) {
+				tr = $('<tr/>');
+				tr.append("<td>" + data[i].employee_name + "</td>");
+				tr.append("<td>" + data[i].employee_salary + "</td>");
+				tr.append("<td>" + data[i].employee_age + "</td>");
+				$('#emp_body').append(tr);
+			}
+			ExportTable();
+		}
+	});
+});
+
+$(document).ready(function(){
+	function ExportTable(){
+				$("table").tableExport({
+				headings: true,                    // (Boolean), display table headings (th/td elements) in the <thead>
+				footers: true,                     // (Boolean), display table footers (th/td elements) in the <tfoot>
+				formats: ["xls", "csv", "txt"],    // (String[]), filetypes for the export
+				fileName: "id",                    // (id, String), filename for the downloaded file
+				bootstrap: true,                   // (Boolean), style buttons using bootstrap
+				position: "well" ,                // (top, bottom), position of the caption element relative to table
+				ignoreRows: null,                  // (Number, Number[]), row indices to exclude from the exported file
+				ignoreCols: null,                 // (Number, Number[]), column indices to exclude from the exported file
+				ignoreCSS: ".tableexport-ignore"   // (selector, selector[]), selector(s) to exclude from the exported file
+			});
+			}
+});
  </script>
 
 
