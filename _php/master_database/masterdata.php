@@ -63,6 +63,7 @@
             <li><a id="tb6" class="nav-link tbl " href="#" onclick="DisplayTable6('user_info_table','user_infosp','User Information')">User Information</a></li>
             <li><a id="tb7" class="nav-link tbl " href="#" onclick="DisplayTable7('user_auth_table','user_authsp','User Authority')">User Authority</a></li>
             <li><a id="tb8" class="nav-link tbl " href="#" onclick="DisplayTable8('division_code_table','division_codesp','Division Code')">Division Code</a></li>
+            <li><a id="tb9" class="nav-link tbl " href="#" onclick="DisplayTable9('employee_table','employeesp','Employee List')">Employee</a></li>
           </ul>
                     
           <!-- ICONS ON LEFT -->
