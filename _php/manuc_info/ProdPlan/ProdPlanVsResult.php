@@ -102,7 +102,7 @@ $(document).on('change','#ICode', function() {
 
 </head>
 
-<body style="margin-top: -24px; overflow: hidden">
+<body style="margin-top: -24px; overflow-x: hidden; overflow-y: visible">
 
 
    <?php
@@ -226,7 +226,7 @@ $(document).on('change','#ICode', function() {
          <a class="nav-link tbl" id="menuhover" href="#" onclick="loadtbl2('PendingProduction','','pending_production')">Pending Production</a>
        </li>
        <li>
-         <a class="nav-link tbl" id="menuhover" href="#">Production Stop</a>
+         <a class="nav-link tbl" id="menuhover" href="#" onclick="underConstruct()">Production Stop</a>
        </li>
        <li>
          <a class="nav-link tbl" id="menuhover" href="#" onclick="loadtbl2('ShipmentList','','shipment_management')">Shipment List</a>

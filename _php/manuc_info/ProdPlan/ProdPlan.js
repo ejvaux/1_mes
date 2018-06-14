@@ -723,6 +723,17 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
  }
 
 
+ function underConstruct()
+ {
+    swal({
+        type: 'error',
+        title: 'This section is currently unavailable. ',
+        text: 'STATUS: currently creating  ' 
+   
+    })
+   
+ }
+
  
  
 
