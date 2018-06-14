@@ -41,10 +41,11 @@ echo $datenow;
 echo "<br>";
 echo $dateminus;
  -->
+
  <?php
 
 
-require_once  $_SERVER['DOCUMENT_ROOT'].'/1_mes/_includes/phpexcel/Classes/PHPExcel.php';
+/* require_once  $_SERVER['DOCUMENT_ROOT'].'/1_mes/_includes/phpexcel/Classes/PHPExcel.php';
 $excel = new PHPExcel();
 $filename="ProductionSummary~".date("Y")."".date("F")."".date("d").".xlsx";
 $excel  ->setActiveSheetIndex(0)
@@ -60,7 +61,10 @@ $excel  ->setActiveSheetIndex(0)
         flush(); 
         $objWriter->save('php://output');
 
-        exit;
+        exit; */
+
+echo date("Y-m-d");
+
 ?>
 
 
