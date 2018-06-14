@@ -271,11 +271,11 @@
 
       <div  class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="218" data-image-src='/1_MES/_images/DSC_3967.jpg' data-natural-width="800" data-natural-height="400"></div>
 
-      <div class="container mt-0">
+      <div class="container">
 
         <div class="row">
             <div class="col"></div>
-            <div class="col-sm-5 text-center">
+            <div class="col-xs-5 text-center">
               <image src="/1_mes/_images/primatech-logo3.png" width="400" height="238" ></image>
             </div>
             <div class="col"></div>
@@ -284,7 +284,7 @@
         <div class="row">
             
             <div class="col"></div>
-            <div class="col-sm-4 text-center">
+            <div class="col-xs-4 text-center">
 
               <div class="card-deck mb-3 text-center">
                 <!-- <div class="card mb-4 box-shadow">
