@@ -201,7 +201,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 
                 filterTableSummary();
                 var val = JSON.parse(data);
-
+                $('.sel2').select2({width: '200px'});
                 
                // alert(val.datapoints1);
                 //alert(val.datapoints2);
@@ -315,7 +315,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
            //layout:"fitColumns", //fit columns to width of table (optional)
            pagination:"local",
            paginationSize:100,
-           placeholder:"No Data to Display",
+           placeholder:"No Data to Display or Today's plan is not yet available.",
            movableColumns:true,
            groupBy:"DATE",    columns:[
                {title:"NO", field:"NO", width:60,align:"center"},
@@ -353,7 +353,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        paginationSize:100,
        movableColumns:true,
        groupBy:"JO DATE",
-       placeholder:"No Data to Display",
+       placeholder:"No Data to Display or Today's plan is not yet available.",
       // responsiveLayout:"collapse",
        columns:[ //Define Table Columns
         //{formatter:"responsiveCollapse", width:30, minWidth:30, align:"center", resizable:false, headerSort:false},
@@ -415,7 +415,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        //layout:"fitColumns", //fit columns to width of table (optional)
        pagination:"local",
        paginationSize:100,
-       placeholder:"No Data to Display",
+       placeholder:"No Data to Display or Today's plan is not yet available.",
        movableColumns:true,
        groupBy:"DATE",    
        columns:[
@@ -594,7 +594,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 swal({
                     type: 'error',
                     title: 'This data cant be marked as shipped due to its lot judgement.',
-                    text: 'LOT JUDGEMENT: ' + shipStat  
+                    text: 'SHIPMENT STATUS: ' + shipStat  
                
                 })
                   
