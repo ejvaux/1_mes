@@ -38,18 +38,40 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                          # code... condition above is whenever both date range are null
                   /*        $sql="SELECT * from MIS_PROD_PLAN_DL WHERE JOB_ORDER_NO LIKE '%$str%' or CUSTOMER_CODE LIKE '%$str%' or CUSTOMER_NAME LIKE '%$str%' or ITEM_CODE LIKE '%$str%' or ITEM_NAME LIKE '%$str%' or TOOL_NUMBER LIKE '%$str%' or MACHINE_CODE LIKE '%$str%' or mACHINE_MAKER LIKE '%$str%' or TONNAGE LIKE '%$str%' or MACHINE_GROUP LIKE '%$str%' or PRIORITY LIKE '%$str%' order by DATE_ DESC"; */
 
-                  $sql="SELECT DISTINCT(mis_summarize_results.NO), mis_product.JO_NUM, 
-                  mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-                  mis_product.TOOL_NUM,mis_summarize_results.PROD_RESULT, mis_product.DATE_,
-                  mis_prod_plan_dl.PLAN_QTY as misPlan 
-                  FROM `mis_summarize_results`
-                    LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM
-                    LEFT JOIN mis_prod_plan_dl on mis_summarize_results.JOB_ORDER_NO = mis_prod_plan_dl.JOB_ORDER_NO
-                      WHERE (mis_summarize_results.JOB_ORDER_NO LIKE '%$search%' or mis_product.CUST_CODE LIKE '%$search%' or
-                       mis_product.CUST_NAME LIKE '%$search%' or  mis_product.ITEM_CODE LIKE '%$search%' or  
-                       mis_product.ITEM_NAME LIKE '%$search%' or mis_product.TOOL_NUM LIKE '%$search%') AND (SUBSTRING(mis_product.JO_NUM,1,1) = '$deptnum')
-                       ORDER BY mis_product.DATE_ DESC";
-     } 
+                            if($search!="")
+                            {
+
+                              $sql="SELECT DISTINCT(mis_summarize_results.NO), mis_product.JO_NUM, 
+                              mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
+                              mis_product.TOOL_NUM,mis_summarize_results.PROD_RESULT, mis_prod_plan_dl.DATE_,
+                              mis_prod_plan_dl.PLAN_QTY as misPlan 
+                              FROM `mis_summarize_results`
+                              LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM
+                              LEFT JOIN mis_prod_plan_dl on mis_summarize_results.JOB_ORDER_NO = mis_prod_plan_dl.JOB_ORDER_NO
+                              WHERE (mis_summarize_results.JOB_ORDER_NO LIKE '%$search%' or mis_product.CUST_CODE LIKE '%$search%' or
+                              mis_product.CUST_NAME LIKE '%$search%' or  mis_product.ITEM_CODE LIKE '%$search%' or  
+                              mis_product.ITEM_NAME LIKE '%$search%' or mis_product.TOOL_NUM LIKE '%$search%') AND (SUBSTRING(mis_product.JO_NUM,1,1) = '$deptnum')
+                              ORDER BY mis_prod_plan_dl.DATE_ DESC";                              
+                            }
+                            else
+                            {
+                              $datetoday=date("Y-m-d");
+                              $sql="SELECT DISTINCT(mis_summarize_results.NO), mis_product.JO_NUM, 
+                              mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
+                              mis_product.TOOL_NUM,mis_summarize_results.PROD_RESULT, mis_prod_plan_dl.DATE_,
+                              mis_prod_plan_dl.PLAN_QTY as misPlan 
+                              FROM `mis_summarize_results`
+                              LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM
+                              LEFT JOIN mis_prod_plan_dl on mis_summarize_results.JOB_ORDER_NO = mis_prod_plan_dl.JOB_ORDER_NO
+                              WHERE 
+                              (mis_prod_plan_dl.DATE_='$datetoday')
+                              AND (SUBSTRING(mis_product.JO_NUM,1,1) = '$deptnum')
+                              ORDER BY mis_prod_plan_dl.DATE_ DESC";
+
+                            }
+
+
+                       } 
 
                       elseif ($strto=="" && $strfrom!="") 
                       {
@@ -60,27 +82,27 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 
                              $sql="SELECT DISTINCT(mis_summarize_results.NO), mis_product.JO_NUM, mis_product.CUST_CODE,
                              mis_product.CUST_NAME, mis_product.ITEM_CODE, mis_product.ITEM_NAME, mis_product.TOOL_NUM,
-                             mis_summarize_results.PROD_RESULT,mis_product.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan 
+                             mis_summarize_results.PROD_RESULT,mis_prod_plan_dl.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan 
                              FROM `mis_summarize_results`
                        LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM
                        LEFT JOIN mis_prod_plan_dl on mis_summarize_results.JOB_ORDER_NO = mis_prod_plan_dl.JOB_ORDER_NO 
                        WHERE (mis_summarize_results.JOB_ORDER_NO LIKE '%$search%' or mis_product.CUST_CODE LIKE '%$search%' or
                           mis_product.CUST_NAME LIKE '%$search%' or  mis_product.ITEM_CODE LIKE '%$search%' or  
                           mis_product.ITEM_NAME LIKE '%$search%' or mis_product.TOOL_NUM LIKE '%$search%') 
-                        AND (mis_product.DATE_='$strfrom') AND (SUBSTRING(mis_product.JO_NUM,1,1) = '$deptnum')
-                        ORDER BY mis_product.DATE_ DESC";
+                        AND (mis_prod_plan_dl.DATE_='$strfrom') AND (SUBSTRING(mis_product.JO_NUM,1,1) = '$deptnum')
+                        ORDER BY mis_prod_plan_dl.DATE_ DESC";
                           }
 
                           else
                           {
                              $sql="SELECT DISTINCT(mis_summarize_results.NO), mis_product.JO_NUM, mis_product.CUST_CODE,
                              mis_product.CUST_NAME, mis_product.ITEM_CODE, mis_product.ITEM_NAME, mis_product.TOOL_NUM,
-                             mis_summarize_results.PROD_RESULT,mis_product.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan 
+                             mis_summarize_results.PROD_RESULT,mis_prod_plan_dl.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan 
                              FROM `mis_summarize_results` 
                              LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM 
                              LEFT JOIN mis_prod_plan_dl on mis_summarize_results.JOB_ORDER_NO = mis_prod_plan_dl.JOB_ORDER_NO 
-                             WHERE (mis_product.DATE_='$strfrom') AND (SUBSTRING(mis_product.JO_NUM,1,1) = '$deptnum')
-                             ORDER BY mis_product.DATE_ DESC";
+                             WHERE (mis_prod_plan_dl.DATE_='$strfrom') AND (SUBSTRING(mis_product.JO_NUM,1,1) = '$deptnum')
+                             ORDER BY mis_prod_plan_dl.DATE_ DESC";
                             }
                              
                       }
@@ -93,27 +115,27 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             $sql="SELECT DISTINCT(mis_summarize_results.NO), mis_product.JO_NUM, 
                             mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.ITEM_CODE, 
                             mis_product.ITEM_NAME, mis_product.TOOL_NUM,mis_summarize_results.PROD_RESULT,
-                            mis_product.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan 
+                            mis_prod_plan_dl.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan 
                             FROM `mis_summarize_results`
                        LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM
                        LEFT JOIN mis_prod_plan_dl on mis_summarize_results.JOB_ORDER_NO = mis_prod_plan_dl.JOB_ORDER_NO 
                        WHERE (mis_summarize_results.JOB_ORDER_NO LIKE '%$search%' or mis_product.CUST_CODE LIKE '%$search%' or
                           mis_product.CUST_NAME LIKE '%$search%' or  mis_product.ITEM_CODE LIKE '%$search%' or  
                           mis_product.ITEM_NAME LIKE '%$search%' or mis_product.TOOL_NUM LIKE '%$search%') 
-                       AND (mis_product.DATE_ BETWEEN '$strfrom' AND '$strto') AND (SUBSTRING(mis_product.JO_NUM,1,1) = '$deptnum')
-                       ORDER BY mis_product.DATE_ DESC";
+                       AND (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') AND (SUBSTRING(mis_product.JO_NUM,1,1) = '$deptnum')
+                       ORDER BY mis_prod_plan_dl.DATE_ DESC";
          
                           }
                           else
                           {
                          $sql="SELECT DISTINCT(mis_summarize_results.NO),mis_product.JO_NUM, mis_product.CUST_CODE,
                          mis_product.CUST_NAME, mis_product.ITEM_CODE, mis_product.ITEM_NAME, mis_product.TOOL_NUM,
-                         mis_summarize_results.PROD_RESULT,mis_product.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan 
+                         mis_summarize_results.PROD_RESULT,mis_prod_plan_dl.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan 
                          FROM `mis_summarize_results`
                       LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM
                        LEFT JOIN mis_prod_plan_dl on mis_summarize_results.JOB_ORDER_NO = mis_prod_plan_dl.JOB_ORDER_NO 
-                       WHERE (mis_product.DATE_ BETWEEN '$strfrom' AND '$strto') AND (SUBSTRING(mis_product.JO_NUM,1,1) = '$deptnum')
-                       ORDER BY mis_product.DATE_ DESC";
+                       WHERE (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') AND (SUBSTRING(mis_product.JO_NUM,1,1) = '$deptnum')
+                       ORDER BY mis_prod_plan_dl.DATE_ DESC";
                           }
 
 

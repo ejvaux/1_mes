@@ -20,7 +20,7 @@
                                 
       ?>
            
-        <title>Home</title>
+        <title>Home | Primatech</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="/1_MES/favicon.ico"/>
@@ -64,25 +64,30 @@
         <script src="/1_mes/_includes/sessioncheck.js"></script>
         <script src="/1_mes/_includes/clock.js"></script>            
 
-        <style>                           
+        <style>
+
+          /* body{
+                background-image: url('/1_MES/_images/symphony.png'); 
+                background-repeat: repeat;
+          }  */                          
           
           /* Full-width input fields */
-          input[type=text], input[type=password] {
+          /* input[type=text], input[type=password] {
               width: 50%;
               padding: 12px 20px;
               margin: 8px 0;
               display: inline-block;
               border: 1px solid #ccc;
               box-sizing: border-box;
-          }                  
+          }   */                
 
           /* Center the image and position the close button */
           
-          .container {
+          /* .container {
               padding: 16px;
               position: relative;
               text-align: center;
-          }
+          } */
 
           /* The Modal (background) */
           
@@ -143,7 +148,7 @@
           }
 
           .parallax-container {
-            height: 500px;
+            height: 370px;
             width: 100%;
           }
     
@@ -185,28 +190,7 @@
         }
       ?>
 
-        <!-- <div class="page-bg"></div> -->
-
-        <div style="overflow:hidden;" class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="100" data-image-src='/1_MES/_images/DSC_3967.jpg' data-natural-width="1300" data-natural-height="700">
-        
-          <div class="row" >
-            <div class="col"></div>
-            <div class="col-8 p-4">
-
-              <div class="jumbotron tr">
-                
-                <h3 class="display-4 text-center" style="font-size:8vw;">WELCOME</h3>
-                <p class="lead">This may contain News, Bulletin, Announcement. This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                <hr class="my-4">
-                <p class="text-center">It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                
-              </div>
-              
-            </div>
-            <div class="col"></div>
-          </div>
-        
-        </div>
+        <!-- <div class="page-bg"></div> -->        
         
         <!-- <div class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="100" data-image-src='http://primatechcorporation.com/wp-content/uploads/2015/02/home_parallax1.jpg' data-natural-width="1400" data-natural-height="900"></div>
 
@@ -285,9 +269,75 @@
           
           <!-- End of Navbar -->
 
+      <div  class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="218" data-image-src='/1_MES/_images/DSC_3967.jpg' data-natural-width="800" data-natural-height="400"></div>
 
+      <div class="container mt-0">
 
-      <div class="container-fluid">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-sm-5 text-center">
+              <image src="/1_mes/_images/primatech-logo3.png" width="400" height="238" ></image>
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <div class="row">
+            
+            <div class="col"></div>
+            <div class="col-sm-4 text-center">
+
+              <div class="card-deck mb-3 text-center">
+                <!-- <div class="card mb-4 box-shadow">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Free</h4>
+                  </div>
+                  <div class="card-body">
+                    <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li>10 users included</li>
+                      <li>2 GB of storage</li>
+                      <li>Email support</li>
+                      <li>Help center access</li>
+                    </ul>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
+                  </div>
+                </div> -->
+                <div class="card mb-4 box-shadow">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">AMS</h4>
+                  </div>
+                  <div class="card-body">
+                    <h1 class="card-title pricing-card-title">APPROVAL MANAGEMENT SYSTEM</h1>
+                    <!-- <ul class="list-unstyled mt-3 mb-4">
+                      <li>20 users included</li>
+                      <li>10 GB of storage</li>
+                      <li>Priority email support</li>
+                      <li>Help center access</li>
+                    </ul>  -->
+                    <button type="button" class="btn btn-lg btn-block btn-primary">Go to</button>                 
+                  </div>
+                </div>
+                <!-- <div class="card mb-4 box-shadow">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Enterprise</h4>
+                  </div>
+                  <div class="card-body">
+                    <h1 class="card-title pricing-card-title">$29 <small class="text-muted">/ mo</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li>30 users included</li>
+                      <li>15 GB of storage</li>
+                      <li>Phone and email support</li>
+                      <li>Help center access</li>
+                    </ul>
+                    <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+            <div class="col"></div>
+        </div>
+
+              
 
           <!-- Jumbotron -->
 
@@ -336,11 +386,11 @@
                 
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <div class="input-group-text mt-2" style="height: 50px;">
+                    <div class="input-group-text ">
                       <i class="fa fa-user"></i>
                     </div>
                   </div>
-                  <input type="text" class="form-control" placeholder="Enter Username" name="myusername" required autofocus>
+                  <input type="text" class="form-control form-control-lg" placeholder="Enter Username" name="myusername" required autofocus>
                 </div>                
                 
                 
@@ -354,11 +404,11 @@
 
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <div class="input-group-text mt-2" style="height: 50px;">
+                      <div class="input-group-text ">
                         <i class="fa fa-key"></i>
                       </div>
                     </div>
-                    <input class="form-control" type="password" placeholder="Enter Password" name="mypassword" required>
+                    <input class="form-control form-control-lg" type="password" placeholder="Enter Password" name="mypassword" required>
                   </div>
   
                   

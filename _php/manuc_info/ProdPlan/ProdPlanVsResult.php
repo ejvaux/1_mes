@@ -102,7 +102,7 @@ $(document).on('change','#ICode', function() {
 
 </head>
 
-<body style="margin-top: -24px; overflow: hidden">
+<body style="margin-top: -24px; overflow-x: hidden; overflow-y: visible">
 
 
    <?php

@@ -20,7 +20,7 @@
 }
 .table-wrapper-LotCreate-3{
   display: block;
-  max-width: 98vw;
+  max-width: 65.5vw;
   max-height: 25vh;
   overflow-y: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
@@ -141,15 +141,13 @@ position: inline-block;
       </div>
     </div>
 
-
-
   <!-- -------------------------Footer Part------------------------- -->
   <div id="pendingLot">
 
     <div class="row">
 
       <div class="col-12">
-        <div class="d-flex btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="d-flex btn-toolbar justify-content-start" role="toolbar" aria-label="Toolbar with button groups">
 
                   <div class="p-2 input-group">
                     <div class="input-group-prepend">
@@ -163,10 +161,10 @@ position: inline-block;
                     <div class="input-group-append"> 
                       <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="lotPending" onclick="notWorking()">EXPORT</button>
                     </div>
-                  </div>
+                  <!-- </div>
 
 
-                  <div class="p-2 input-group">
+                  <div class="p-2 input-group">-->
                     <div class="input-group-prepend">
                       <div class="input-group-text" id="btnGroupAddon2">Search</div>
                     </div>
