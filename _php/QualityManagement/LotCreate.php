@@ -83,8 +83,8 @@ position: inline-block;
     <div class="col-12">
       <div class="d-flex justify-content-between">
                           
-<div id="LotCreationTable" class="p-2 input-group">
-                            <table class="table-wrapper-LotCreate table-bordered table-sm table table-hover mt-3">
+<div class="p-2 input-group">
+                            <table id="LotCreationTable" class="table-wrapper-LotCreate table-bordered table-sm table table-hover mt-3">
                                 <?php
                                   include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
