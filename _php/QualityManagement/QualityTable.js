@@ -3,7 +3,6 @@ function loadDoc(TableName) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      /* totalQty(); */
      document.getElementById("table_display").innerHTML = this.responseText;
       
     }
@@ -37,10 +36,10 @@ function AddBtnClick(){
               if (val.LOT_NUM == null || val.LOT_NUM == "" || val.LOT_NUM == undefined ){
                   var x = document.getElementById("LotCreationTable").rows.length;
                   var check = "false";
-                          if(x > 1 ){
+                          if(x > 2 ){
                             check = CheckDanpla(val.PACKING_NUMBER, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);    
                             }
-                          else if(x = 1){
+                          else if(x = 2){
                             InsertDanpla(val.PACKING_NUMBER, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
                             } 
                 }
@@ -82,7 +81,6 @@ function InsertDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, i
     success: function(data) {
       swal({text: data, type: 'success'});
       loadDoc("LotCreate");
-      totalQty();
                       }
                     });
 
@@ -106,7 +104,6 @@ function CheckDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, in
     success: function(data) {
       if (data == "false"){
         InsertDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertMachine);
-        totalQty();
       }
       else if (data == '"true1"'){
         swal({ text: 'DANPLA EXIST', type: 'error' });
@@ -116,22 +113,6 @@ function CheckDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, in
         swal({ text: 'DANPLA IS FROM DIFFERENT JO', type: 'error' });
         }
       }
-    });
-  }
-
-
-function totalQty(){
-  $.ajax({
-    url:'/1_mes/_php/QualityManagement/TotalQty.php',
-    method:'post',
-    success: function(data){
-      if (data != null){
-      document.getElementById('Quantity_text').value = data;
-      }
-      else{
-        document.getElementById('Quantity_text').value = "0";
-      }
-    }
     });
   }
 
