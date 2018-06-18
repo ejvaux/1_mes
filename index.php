@@ -20,7 +20,7 @@
                                 
       ?>
            
-        <title>Home | Primatech</title>
+        <title>Home | MES - Primatech</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="/1_MES/favicon.ico"/>
@@ -284,7 +284,7 @@
         <div class="row">
             
             <div class="col"></div>
-            <div class="col-xs-4 text-center">
+            <div class="col-md-5 text-center">
 
               <div class="card-deck mb-3 text-center">
                 <!-- <div class="card mb-4 box-shadow">

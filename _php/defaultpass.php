@@ -52,7 +52,7 @@
 
             echo secondsToTime($date3);
             
-            echo "date today is:" ;
+            echo "date today is:" ;                        
 
         ?>
 
