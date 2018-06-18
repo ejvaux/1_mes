@@ -367,23 +367,17 @@
     <div id="id01" class="modal" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <form id="loginform" class="modal-content animate" method="post" action="/1_mes/_php/checklogin.php">
-                <div class="modal-header">
-                <i class="fas fa-user-lock"></i><h5 class="modal-title">Account Login</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                  </button>
-                  <i class="fas fa-user-lock"></i>
-                </div>                
-          <div class="container">
-
-            <!-- <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-
-            <i class="fas fa-user-lock"></i><h1>Account Login</h1> -->
-
+          <div class="modal-header">
+            <i class="fas fa-user-lock"></i><h5 class="modal-title">Account Login</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+              </button>
+            <i class="fas fa-user-lock"></i>
+          </div>
+          <div class="modal-body">              
+          <div class="container">          
             <div class="form-group row">
-
               <div class="col">
-                
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <div class="input-group-text ">
@@ -391,17 +385,11 @@
                     </div>
                   </div>
                   <input type="text" class="form-control form-control-lg" placeholder="Enter Username" name="myusername" required autofocus>
-                </div>                
-                
-                
-              </div>          
-              
+                </div>         
+              </div>                        
             </div>
-
             <div class="form-group row">
-
                 <div class="col">
-
                   <div class="input-group">
                     <div class="input-group-prepend">
                       <div class="input-group-text ">
@@ -410,30 +398,17 @@
                     </div>
                     <input class="form-control form-control-lg" type="password" placeholder="Enter Password" name="mypassword" required>
                   </div>
-  
-                  
-  
-                </div>          
-                
+                </div>                        
             </div>
-            
-            <div class="row" style="text-align: right">
-
-              <div class="col">&nbsp</div>
-
-              <div class="col">
-
-                <button class="btn btn-info" type="submit" name="btnsub" id="btnsub"><i class="fas fa-sign-in-alt"></i> Login</button>
-
-              </div>              
-                                
-            </div>            
-                        
-          </div>      
-          
+            </div>
+            <div class="modal-footer">                                             
+                <button class="btn btn-info" type="submit" name="btnsub" id="btnsub"><i class="fas fa-sign-in-alt"></i> Login</button>                         
+            </div>                                 
+          </div>              
         </form>
         </div>
     </div>
+
     <div class="mdl" style=" z-index: 5000"><!-- Place at bottom of page --></div>
     <!-- Optional JavaScript -->
     <script type="text/javascript">
