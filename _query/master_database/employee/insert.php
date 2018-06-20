@@ -15,6 +15,7 @@
     $employeename = $_POST['employeename'];
     $employeestatus = $_POST['employeestatus'];
     $datehired = $_POST['datehired'];
+    $division = $_POST['division'];
     $insertdatetime = DATE('Y-m-d H:i:s');
     $insertuser = $_SESSION['text'];
 
@@ -25,21 +26,23 @@
         EMPLOYEE_NAME,
         EMPLOYEE_STATUS,
         DATE_HIRED,
+        DIVISION,
         INSERT_DATETIME,
         INSERT_USER
 
     )
-        VALUES (?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?)";
             
         $stmt = $conn->prepare($sql);
 
         $stmt->bind_param(
 
-            'isssss',            
+            'issssss',            
             $employeecode,
             $employeename,
             $employeestatus,
             $datehired,
+            $division,
             $insertdatetime,
             $insertuser 
 
