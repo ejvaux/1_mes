@@ -214,7 +214,6 @@ function AddLotBtnClick(lotGlobal){
           {
             'row_count': x,
             'lot_number': lotGlobal,
-            'lot_qty': document.getElementById('Quantity_text').value,
             'ajax': true
           },
         success: function (data) {
