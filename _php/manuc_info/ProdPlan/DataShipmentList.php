@@ -188,10 +188,8 @@ while (($row = mysqli_fetch_array($result))) {
         }
     }
 
-
-
     array_push($datavar, ["NO"=> $ctr ,"LOT CREATE DATE"=>$temp_date,"PACKING_NUMBER"=> $row['PACKING_NUMBER'], "LOT_NUMBER"=> $row['LOT_NUM'],
-            "JO_NO"=> $row['JO_NUM'],"ITEM_CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],
+            "JO_NO"=> $row['JO_NUM'],"ITEM_CODE"=>$row['ITEM_CODE'],"ITEM_NAME"=>$row['ITEM_NAME'],
             "MACHINE_CODE"=>$row['MACHINE_CODE'],"LOT JUDGEMENT"=> $lotjudge,"SHIPMENT_STATUS"=> $shipStat]);
 }
 echo json_encode($datavar, true);

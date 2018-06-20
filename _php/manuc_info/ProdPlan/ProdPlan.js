@@ -270,11 +270,12 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         if(param1!="no")
         {
             $("#example-table2").tabulator("destroy");
+            $("#example-table3").tabulator("destroy");
             
         }
         var ShipStat = document.getElementById("StatusSort");
         var selectedOption = ShipStat.options[ShipStat.selectedIndex].value;
- 
+ //example table
       $.ajax({
             method:'POST',
             url:'/1_mes/_php/manuc_info/ProdPlan/DataShipmentList.php',
@@ -297,7 +298,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             }
  
              });
-
+//example table 2
         $.ajax({
         method:'POST',
         url:'/1_mes/_php/manuc_info/ProdPlan/DataTempShipmentList.php',
@@ -316,6 +317,27 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         }
 
             });     
+//example table 3
+var searchobj2 = document.getElementById("search2").value;
+            $.ajax({
+                method:'POST',
+                url:'/1_mes/_php/manuc_info/ProdPlan/DataGroupList.php',
+                data:
+                {
+                    'search': searchobj2,
+                    'ajax':true
+                },
+                success: function(data) 
+                {
+                    initTbl2("GroupList");
+                    var val = JSON.parse(data);
+                    //alert(data);
+                    //$("#example-table").tabulator("setData",val);
+                    $("#example-table3").tabulator("setData",val);
+                }
+        
+                    });     
+                    
     
      }
     
@@ -327,6 +349,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     document.getElementById("sortfrom").value="";
     document.getElementById("search").value="";
     document.getElementById("sortto").value="";
+    if(moduleID=="ShipmentList")
+    {
+        document.getElementById("search2").value="";   
+    }
     showTable(moduleID,deptSec,SectionGroup);
  }
 
@@ -548,6 +574,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                                 'jono': cell.getRow().getData().JO_NO,
                                 'itemcode':cell.getRow().getData().ITEM_CODE,
                                 'machinecode': cell.getRow().getData().MACHINE_CODE,
+                                'itemname': cell.getRow().getData().ITEM_NAME,
+                                
                                 'ajax':true
                   
                             },
@@ -664,7 +692,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         {title:"LOT NUMBER", field:"LOT_NUMBER"},
         {title:"JO NO", field:"JO_NO"},
         {title:"ITEM CODE", field:"ITEM_CODE"},
-        {title:"ITEM NAME", field:"ITEM NAME"},
+        {title:"ITEM NAME", field:"ITEM_NAME"},
         {title:"MACHINE CODE", field:"MACHINE_CODE"},
         {title:"LOT JUDGEMENT", field:"LOT JUDGEMENT"}
             ],
@@ -675,7 +703,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
    else if(TabName=="TempGroup")
    {
        
-$("#example-table2").tabulator({
+    $("#example-table2").tabulator({
     height: "60vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
     //layout:"fitColumns", //fit columns to width of table (optional)
   
@@ -735,9 +763,83 @@ $("#example-table2").tabulator({
         },
         {title:"PACKING_NUMBER", field:"PACKING_NUMBER"},
         {title:"LOT_NUMBER", field:"LOT_NUMBER"},
-        {title:"ITEM_CODE", field:"ITEM_CODE"}
+        {title:"ITEM_CODE", field:"ITEM_CODE"},
+        {title:"ITEM_NAME", field:"ITEM_NAME"}
     ]
-});
+    });
+   }
+ 
+   else if(TabName=="GroupList")
+   {
+       
+    $("#example-table3").tabulator({
+    height: "60vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+    layout:"fitColumns", //fit columns to width of table (optional)
+  
+    paginationSize:100,
+    placeholder:"No Data to Display",
+    movableColumns:true,
+    groupBy: "GROUP_NAME",
+    columns:[
+        {title:"NO", field:"NO", width:60,align:"center"},
+        {title:"CONTROLS", field:"CTRLS",align: "center",
+        formatter:function(cell, formatterParams)
+                { //plain text value
+
+                    return '<button type="button" class="btn btn-danger btn-sm"> <i class="fas fa-trash-alt"></i> REMOVE FROM GROUP </button>';
+                },
+        cellClick:function(e, cell)
+                {
+                    //alert("This data is already shipped.");  
+                swal({
+                    title: 'Are you sure you want to remove this in group '+cell.getRow().getData().GROUP_NAME+"?",
+                    text: "PACKING NUMBER: " +cell.getRow().getData().PACKING_NUMBER,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, remove this record!'
+                  }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            method:'POST',
+                            url:'/1_mes/_php/manuc_info/Prodplan/DeleteFromGroupList.php',
+                            data:
+                            {
+                                'packingno': cell.getRow().getData().PACKING_NUMBER,
+                                'lotno':cell.getRow().getData().LOT_NUMBER,
+                                'itemcode': cell.getRow().getData().ITEM_CODE,
+                                'groupname': cell.getRow().getData().GROUP_NAME,
+                                'ajax':true
+                  
+                            },
+                        
+                            
+                            success: function(data) 
+                            {
+                                showTable("ShipmentList","","shipment_management");
+                            swal(
+                                'SUCCESS!',
+                                cell.getRow().getData().PACKING_NUMBER+' Remove from temp group.',
+                                'success'
+                            )
+                             
+                            }
+                  
+                        });
+                
+                    }
+                  })
+                } 
+        },
+        {title:"GROUP NAME", field:"GROUP_NAME"},
+        {title:"PACKING_NUMBER", field:"PACKING_NUMBER"},
+        {title:"LOT_NUMBER", field:"LOT_NUMBER"},
+        {title:"JOB ORDER NO", field:"JOB_ORDER_NO"},
+        {title:"ITEM_CODE", field:"ITEM_CODE"},
+        {title:"ITEM_NAME", field:"ITEM_NAME"}
+    ]
+    });
    }
  
    
