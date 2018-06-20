@@ -78,7 +78,7 @@
                                                                       <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();cancelfilter('ProdPlanVsResultINJ','INJ','PlanWithResult')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
                                                                       <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('ProdPlanVsResultINJ','INJ','PlanWithResult')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
                                                                     </div>
-                                                                    &nbsp&nbsp&nbsp<span><h5>Prod Plan Vs Result INJ</h5></span>
+                                                                    &nbsp&nbsp&nbsp<span><h5>ProdPlan Vs Result INJ</h5></span>
                                                                 </div>
                                                                 
                                                                 

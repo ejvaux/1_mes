@@ -28,6 +28,11 @@
 .dateText{
   max-width:29.38%;
 }
+.bt{
+  width:75px;
+  font-size: 12px;
+  padding: 0px;
+}
 
 /* #createdLotTable thead{
 position: fixed;
@@ -106,7 +111,7 @@ position: inline-block;
                                       {
                                       echo " <tbody>";
                                   
-                                      echo "<td>" . $row['DANPLA_SERIAL'] . "</td>";
+                                      echo "<td><button type='button' class='btn btn-danger bt deleteDanpla' id='". $row['DANPLA_SERIAL'] . "'>DELETE</button> ". $row['DANPLA_SERIAL'] . "</td>";
                                       echo "<td>" . $row['JO_NUM'] . "</td>";
                                       echo "<td>" . $row['ITEM_CODE'] . "</td>";
                                       echo "<td>" . $row['QUANTITY'] . "</td>";

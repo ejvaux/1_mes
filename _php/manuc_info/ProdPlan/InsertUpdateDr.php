@@ -16,9 +16,10 @@ if($optiontype=="group")
         $jo=$row['jo_number'];
         $itemcode=$row['item_code'];
         $machinecode=$row['machine_code'];
+        $itemname=$row['item_name'];
 
-        $sql2="INSERT INTO mis_dr_assigned(group_name,packing_number,lot_number,jo_number,item_code,machine_code)
-        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode')";
+        $sql2="INSERT INTO mis_dr_assigned(group_name,packing_number,lot_number,jo_number,item_code,machine_code,item_name)
+        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname')";
         $result2=$conn->query($sql2);
 
     }
@@ -40,9 +41,10 @@ else
         $jo=$row['jo_number'];
         $itemcode=$row['item_code'];
         $machinecode=$row['machine_code'];
+        $itemname=$row['item_name'];
 
-        $sql2="INSERT INTO mis_dr_assigned(dr_number,packing_number,lot_number,jo_number,item_code,machine_code)
-        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode')";
+        $sql2="INSERT INTO mis_dr_assigned(dr_number,packing_number,lot_number,jo_number,item_code,machine_code,item_name)
+        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname')";
         $result2=$conn->query($sql2);
 
     }

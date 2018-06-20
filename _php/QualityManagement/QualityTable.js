@@ -32,33 +32,32 @@ function AddBtnClick(){
               },
           success: function(data) {
             var val = JSON.parse(data);
-            if (val != undefined){
+          if (val != undefined){
               if (val.LOT_NUM == null || val.LOT_NUM == "" || val.LOT_NUM == undefined ){
                   var x = document.getElementById("LotCreationTable").rows.length;
                   var check = "false";
                           if(x > 2 ){
-                            check = CheckDanpla(val.PACKING_NUMBER, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);    
+                            check = CheckDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);    
                             }
                           else if(x = 2){
-                            InsertDanpla(val.PACKING_NUMBER, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
+                            InsertDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
                             } 
                 }
-              else{
-                swal(
-                  'Items already allocated into other lot.',
-                  'Please insert new danpla be allocated.',
-                  'warning'
-                )
-                
-                }
+                else{
+                  swal(
+                    'Items already allocated into other lot.',
+                    'Please insert new danpla be allocated.',
+                    'warning'
+                      )
+                    }
               }
-            else{
-              swal(
-                'Items does not exist!',
-                'Please insert existing danpla be allocated.',
-                'warning'
-              )
-              }
+          else{
+            swal(
+              'Items does not exist!',
+              'Please insert existing danpla be allocated.',
+              'warning'
+            )
+            }
             }
     });
   }
@@ -276,7 +275,7 @@ $(document).on('click', '.lotApprove', function () {
     }
   })
 
-});
+ });
 
 $(document).on('click', '.lotPending', function () {
   //$('#dataModal').modal();
@@ -315,7 +314,7 @@ $(document).on('click', '.lotPending', function () {
 
 
   
-});
+ });
 
 /* function filterText() {
   var rex = new RegExp($('#filterText').val());
@@ -324,7 +323,7 @@ $(document).on('click', '.lotPending', function () {
   $('.content').filter(function () {
     return rex.test($(this).text());
   }).show();
-} */
+ } */
 
 function filterJudgement(){
   var x = document.getElementById("filterText");
@@ -350,7 +349,7 @@ function filterJudgement(){
       document.getElementById("table_judgement").innerHTML = data;
     }
   });
-}
+ }
 
 function filterText() {
   var x = document.getElementById("filterText");
@@ -376,7 +375,7 @@ function filterText() {
       document.getElementById("table_judgement").innerHTML = data;
     }
   });
-}
+ }
 
 function searchLot(){
   var x = document.getElementById("filterText");
@@ -396,7 +395,7 @@ function searchLot(){
       document.getElementById("table_judgement").innerHTML = data;
     }
   });
-}
+ }
 function ClearSearchLot() {
   var x = document.getElementById("filterText");
   var y = x.options[x.selectedIndex].value;
@@ -416,11 +415,11 @@ function ClearSearchLot() {
       'ajax': true
     },
     success: function (data) {
-      document.getElementById("table_judgement").innerHTML = data;
+      document.getElementById("table_juddgement").innerHTML = data;
       searchText.value = " ";
     }
   });
-}
+ }
 
 $(document).on('click', '.lotDisapprove', function () {
   //$('#dataModal').modal();
@@ -428,15 +427,15 @@ $(document).on('click', '.lotDisapprove', function () {
   /* DisplayLotDetails(lotNumber); */
   document.getElementById('lot_num').value = lotNumber;
 
-});
+ });
 
-$(document).on('click', '.lotDanpla', function () {
+$(document).on('click', '.lotDanpla', function () { 
   //$('#dataModal').modal();
   var lotNumber = $(this).attr("id");
   DisplayLotDetails(lotNumber);
   document.getElementById('LOT_NUMBER').value = lotNumber; 
   
-});
+ });
 
 function DisplayLotDetails(lotNum){
   var x = lotNum;
@@ -450,11 +449,10 @@ function DisplayLotDetails(lotNum){
       'ajax': true
     },
     success: function (data) {
-      
       document.getElementById("tblModal").innerHTML = data;
     }
   });
-}
+ }
 
 /* $(document).on('click', '.checkBoxDefect', function () {
   //$('#dataModal').modal();
@@ -471,7 +469,7 @@ function DisplayLotDetails(lotNum){
     def.value = "";
   }
   
-}); */
+ }); */
 
 /* $(document).on('click', '#ConfirmDefect', function () {
   //$('#dataModal').modal();
@@ -481,7 +479,7 @@ function DisplayLotDetails(lotNum){
   var totalDefect = parseInt(0);
   var switchCount = 0;
 
-swal({
+ swal({
   title: "Are you sure you want to record lot:" + " " + lotNumber + " " + "as Defect?",
   text: "Revert this in Lot Reject Recovery > Find " + lotNumber + " > Click:REWORK > Lot Judgement > FILTER TABLE:APPROVED > Find " + lotNumber + " > Click:PENDING/DISAPPROVE",
     type: 'warning',
@@ -546,30 +544,29 @@ swal({
     }
   });
 
-}); */
+ }); */
 
 
 /* function a(){
-
-var rowCount = document.getElementById("LotDetails").rows.length;
-for (var ctr = 1; ctr < rowCount; ctr++){
-  var y = document.getElementById("LotDetails").rows[ctr].cells[2].innerHTML;
-  var actualQty = parseInt(document.getElementById("LotDetails").rows[ctr].cells[3].innerHTML);
-  var defectQtyID = "DEFECT_QUANTITY" + y;
-  var defectQTY = parseInt(document.getElementById(defectQtyID).value);
-  var def1 = document.getElementById(defectQtyID);
-    if(defectQTY>actualQty){
-      swal({
-        text: 'DEFECT QUANTITY IS HIGHER THAN ITS ACTUAL QUANTITY. PLEASE CHECK',
-        type: 'error'
-      });
-      document.getElementById("DEFECT_QUANTITY" + y).value = "";
-      var switchID1 = document.getElementById(y).checked = false;
-      def1.className = "hiddenText";
-      exit();
-      
+  var rowCount = document.getElementById("LotDetails").rows.length;
+  for (var ctr = 1; ctr < rowCount; ctr++){
+    var y = document.getElementById("LotDetails").rows[ctr].cells[2].innerHTML;
+    var actualQty = parseInt(document.getElementById("LotDetails").rows[ctr].cells[3].innerHTML);
+    var defectQtyID = "DEFECT_QUANTITY" + y;
+    var defectQTY = parseInt(document.getElementById(defectQtyID).value);
+    var def1 = document.getElementById(defectQtyID);
+      if(defectQTY>actualQty){
+        swal({
+          text: 'DEFECT QUANTITY IS HIGHER THAN ITS ACTUAL QUANTITY. PLEASE CHECK',
+          type: 'error'
+        });
+        document.getElementById("DEFECT_QUANTITY" + y).value = "";
+        var switchID1 = document.getElementById(y).checked = false;
+        def1.className = "hiddenText";
+        exit();
+        
+        }
       }
-    }
   } */
 
 $(document).on('click', '.reworkbtn', function () {
@@ -744,7 +741,7 @@ $(document).on('click', '#ConfirmDefect', function () {
       )
     }
   });
-});
+ });
 
 function InsertReject(defect, lotNum, rmks) {
   $.ajax({
@@ -760,7 +757,7 @@ function InsertReject(defect, lotNum, rmks) {
     success: function (data) {
     }
   });
-}
+ }
 
 function insertRework(lotNum, Quantity, reworkRemarks){
   
@@ -777,7 +774,7 @@ function insertRework(lotNum, Quantity, reworkRemarks){
       
     }
   });
-}
+ }
 
 function a(){
   var lotNumber = document.getElementById("lot_num").value;
@@ -807,7 +804,7 @@ function a(){
       }
     }
   });
-}
+ }
 
 function RecoverySearchLot() {
   var search = RecoverySearch.value;
@@ -824,7 +821,7 @@ function RecoverySearchLot() {
       document.getElementById("table_recovery").innerHTML = data;
     }
   });
-}
+ }
 
 
 function RecoveryClearSearchLot() {
@@ -842,7 +839,7 @@ function RecoveryClearSearchLot() {
       RecoverySearch.value = " ";
     }
   });
-}
+ }
 
 function SearchLotCreate(){
   var search = SearchCreate.value;
@@ -879,7 +876,7 @@ function SearchLotCreate(){
       document.getElementById("createdLotTable").innerHTML = data;
     }
   });
-}
+ }
 
 function ClearSearchLotCreate() {
   var z = "SELECT * FROM qmd_lot_create ORDER BY PROD_DATE DESC;";
@@ -898,7 +895,7 @@ function ClearSearchLotCreate() {
       lotDate2.value = "";
     }
   });
-}
+ }
 
 function notWorking(){
   swal(
@@ -906,7 +903,7 @@ function notWorking(){
     'Under construction.',
     'error'
   );
-}
+ }
 
 function SearchDanplaCreate() {
   var search = SearchPendingDanpla.value;
@@ -943,9 +940,9 @@ function SearchDanplaCreate() {
       document.getElementById("noLotTable").innerHTML = data;
     }
   });
-}
+ }
 
-function ClearSearchDanplaCreate() {
+function ClearSearchDanplaCreate() { 
   var z = "SELECT * FROM mis_product ORDER BY JO_NUM ASC, PRINT_DATE DESC;";
   /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PRINT_DATE);"; */
   $.ajax({
@@ -962,7 +959,7 @@ function ClearSearchDanplaCreate() {
       danplaDate2.value = "";
     }
   });
-}
+ }
 
 function defectSearch(){
   var search = defectSearchId.value;
@@ -979,7 +976,7 @@ function defectSearch(){
       document.getElementById("table_defect").innerHTML = data;
     }
   });
-}
+ }
 
 function ClearDefectSearch(){
   var z = "SELECT * FROM qmd_defect_dl WHERE REJECTION_REMARKS = 'DEFECT'";
@@ -995,7 +992,7 @@ function ClearDefectSearch(){
       defectSearchId.value = " ";
     }
   });
-}
+ }
 
 $(document).on('change', '#JobOrderNo', function () {
     var jobOrderNumber = $(this).val();
@@ -1071,7 +1068,7 @@ $(document).on('change', '#defectInputID', function () {
       document.getElementById("DefectCodeID").value = val.DEFECT_CODE;
     }
   });
-});
+ });
 
 $(document).on('change', '#datalistLotNumber', function () {
   var defectMgmt_LotNum = $(this).val();
@@ -1099,7 +1096,7 @@ $(document).on('change', '#datalistLotNumber', function () {
       document.getElementById("LotQuantityID").value = val.LOT_QTY;
     }
   });
-});
+ });
 
 $(document).on('click', '#defectConfirm', function () {
   var DefectInputID = document.getElementById("defectInputID").value;
@@ -1149,11 +1146,11 @@ $(document).on('click', '#defectConfirm', function () {
       DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
     }
   });
-});
+ });
 
 /* $(document).ready(function () {
   $('#example').DataTable();
-});
+ });
  */
 
 function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
@@ -1281,14 +1278,14 @@ function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
   };
   xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name   + ".php", true);
   xhttp.send();
-}
-$.fn.dataTable.ext.buttons.add0 = {
+ }
+ $.fn.dataTable.ext.buttons.add0 = {
   action: function () {
     $("#moldlistmod").modal('show');
   }
  };
 
- function getDefectDtls(defect_id){
+function getDefectDtls(defect_id){
 
   $.ajax({
     url: "/1_mes/_php/QualityManagement/list/getDefectDetails.php",
@@ -1332,7 +1329,7 @@ $.fn.dataTable.ext.buttons.add0 = {
 
     }
   });
-}
+ }
 
 $(document).on('change', '#eJobOrderNo', function () {
   document.getElementById("edatalistLotNumber").value = "";
@@ -1388,7 +1385,7 @@ $(document).on('change', '#eJobOrderNo', function () {
     }
   });
 
-});
+ });
 
 $(document).on('change', '#edatalistLotNumber', function () {
   var defectMgmt_LotNum = $(this).val();
@@ -1416,7 +1413,7 @@ $(document).on('change', '#edatalistLotNumber', function () {
       document.getElementById("eLotQuantityID").value = val.LOT_QTY;
     }
   });
-});
+ });
 
 $(document).on('change', '#edefectInputID', function () {
   var defectName = $(this).val();
@@ -1437,7 +1434,7 @@ $(document).on('change', '#edefectInputID', function () {
       document.getElementById("eDefectCodeID").value = val.DEFECT_CODE;
     }
   });
-});
+ });
 
 function deleteDefect(def_ID){
   var x = def_ID;
@@ -1453,7 +1450,7 @@ function deleteDefect(def_ID){
       DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
     }
   });
-}
+ }
 
 $(document).on('click', '#updateDefect', function () {
   var def_ID = document.getElementById("defectID").value;
@@ -1506,4 +1503,47 @@ $(document).on('click', '#updateDefect', function () {
       DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
     }
   });
-});
+ });
+
+$(document).on('click', '.deleteDanpla', function () {
+  //$('#dataModal').modal();
+  var danpla = $(this).attr("id");
+  
+ swal({
+    title: 'Delete' + danpla + "?",
+    text: "Are you sure you want to delete?",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Delete Danpla'
+  }).then((result) => {
+    if (result.value) {
+
+
+      $.ajax({
+        method: 'post',
+        url: '/1_mes/_php/QualityManagement/delete_defect.php',
+        data:
+          {
+            'danpla': danpla,
+            'ajax': true
+          },
+        success: function (data) {
+
+          swal(
+            data,
+            'Danpla ' + danpla + ' Deleted!!',
+            'success'
+          )
+
+          loadDoc("LotCreate");
+          return;
+
+        }
+      });
+
+      
+    }
+  });
+ });

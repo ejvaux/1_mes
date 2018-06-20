@@ -121,7 +121,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
                         }
                         else
                         {
-                            $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                            $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
                         }
                        }
                        $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
@@ -175,7 +175,21 @@ while (($row = mysqli_fetch_array($result))) {
                 {
                     if($row4['dr_assigned_id']!="")
                     {
-                        $shipStat = "DR/GROUP ASSIGNED";              
+                        $shipStat = "GROUP ASSIGNED";              
+                    }
+                }
+
+                $sql5 ="SELECT dr_assigned_id FROM mis_dr_assigned WHERE packing_number = '$packno' AND lot_number='$lotnumber' AND dr_number !=''";
+                $result5=$conn->query($sql5); 
+                
+                while($row5=$result5->fetch_assoc())
+                {
+                    if($row5['dr_assigned_id']!="")
+                    {
+                        $shipStat = "ALREADY SHIPPED";
+                        $sql6 = "UPDATE mis_product SET SHIP_STATUS='SHIPPED' 
+                        WHERE PACKING_NUMBER='$packno'";
+                        $result6 = $conn->query($sql6);              
                     }
                 }
 
@@ -194,10 +208,8 @@ while (($row = mysqli_fetch_array($result))) {
         }
     }
 
-
-
     array_push($datavar, ["NO"=> $ctr ,"LOT CREATE DATE"=>$temp_date,"PACKING_NUMBER"=> $row['PACKING_NUMBER'], "LOT_NUMBER"=> $row['LOT_NUM'],
-            "JO_NO"=> $row['JO_NUM'],"ITEM_CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],
+            "JO_NO"=> $row['JO_NUM'],"ITEM_CODE"=>$row['ITEM_CODE'],"ITEM_NAME"=>$row['ITEM_NAME'],
             "MACHINE_CODE"=>$row['MACHINE_CODE'],"LOT JUDGEMENT"=> $lotjudge,"SHIPMENT_STATUS"=> $shipStat]);
 }
 echo json_encode($datavar, true);
