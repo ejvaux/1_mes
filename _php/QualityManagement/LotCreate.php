@@ -128,9 +128,7 @@ position: inline-block;
                                       <th>QUANTITY</th>
                                       <th>MACHINE CODE</th>
                                       </thead>
-                                      <tbody>
-                                          <td colspan='5' style='text-align:center'><h4>INSERT DANPLA DETAILS</h4></td>
-                                        </tbody>
+                                      
                                       </table>";
                                   }
                                   $conn->close();
