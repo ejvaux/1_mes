@@ -78,7 +78,7 @@ margin-left:-70%;
                     <div class="input-group-prepend">
                     <div class="input-group-text" id="btnGroupAddon2">Search</div>
                     </div>
-                    <input type="text" id="searchText" onchange="searchLot()" class="py-1 form-control" placeholder="Type anything here..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING">
+                    <input type="text" id="searchText" onkeypress="searchLot()" class="py-1 form-control" placeholder="Type anything here..." data-toggle="tooltip" title="PRESS ENTER AFTER TYPING">
                     <div class="input-group-append">
                       <button style="z-index:0" type="button" class="btn btn-outline-secondary" id="ClearSearch" onclick="ClearSearchLot()  " data-toggle="tooltip" title="CLEAR SEARCH"><i class="fas fa-sync-alt"></i></button>
                     </div>
