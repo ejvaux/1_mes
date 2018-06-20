@@ -314,7 +314,7 @@
                       <li>Priority email support</li>
                       <li>Help center access</li>
                     </ul>  -->
-                    <button type="button" class="btn btn-lg btn-block btn-primary">Go to</button>                 
+                    <a type="button" class="btn btn-lg btn-block btn-primary" href="/1_ams/public/">Go to</a>                 
                   </div>
                 </div>
                 <!-- <div class="card mb-4 box-shadow">
