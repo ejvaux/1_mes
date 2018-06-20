@@ -16,6 +16,7 @@
         $employeename = $_POST['employeename'];
         $employeestatus = $_POST['employeestatus'];
         $datehired = $_POST['datehired'];
+        $division = $_POST['division'];
         $updatedatetime = DATE('Y-m-d H:i:s');
         $updateuser = $_SESSION['text'];
 
@@ -26,6 +27,7 @@
         EMPLOYEE_NAME = '$employeename',
         EMPLOYEE_STATUS = '$employeestatus',
         DATE_HIRED = '$datehired',
+        DIVISION = '$division',
         UPDATE_DATETIME = '$updatedatetime',
         UPDATE_USER = '$updateuser'
 

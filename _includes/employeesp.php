@@ -34,10 +34,11 @@ $columns = array(
     array( 'db' => 'EMPLOYEE_NAME', 'dt' => 2 ),
     array( 'db' => 'EMPLOYEE_STATUS', 'dt' => 3 ),
     array( 'db' => 'DATE_HIRED', 'dt' => 4 ),
-    array( 'db' => 'INSERT_DATETIME', 'dt' => 5 ),
-    array( 'db' => 'INSERT_USER', 'dt' => 6 ),
-    array( 'db' => 'UPDATE_DATETIME', 'dt' => 7 ),
-    array( 'db' => 'UPDATE_USER', 'dt' => 8 ),
+    array( 'db' => 'DIVISION', 'dt' => 5 ),
+    array( 'db' => 'INSERT_DATETIME', 'dt' => 6 ),
+    array( 'db' => 'INSERT_USER', 'dt' => 7 ),
+    array( 'db' => 'UPDATE_DATETIME', 'dt' => 8 ),
+    array( 'db' => 'UPDATE_USER', 'dt' => 9 ),
           
 );
  
