@@ -157,16 +157,24 @@ while (($row = mysqli_fetch_array($result))) {
         $result2 = $conn->query($sql2);
             
           
-                if($result2->num_rows > 0) 
-                {
+                if ($result2->num_rows > 0) {
                     $shipStat = "ALREADY IN THE GROUP";
-
                 }
                 else
                 {
                     $shipStat = "WAITING FOR SHIPMENT";
                 }
-            
+                
+                $sql4 ="SELECT dr_assigned_id FROM mis_dr_assigned WHERE packing_number = '$packno' AND lot_number='$lotnumber'";
+                $result4=$conn->query($sql4); 
+                
+                while($row4=$result4->fetch_assoc())
+                {
+                    if($row4['dr_assigned_id']!="")
+                    {
+                        $shipStat = "DR/GROUP ASSIGNED";              
+                    }
+                }
 
         
         } elseif ($lotjudge=="DISAPPROVED") {
