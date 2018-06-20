@@ -90,11 +90,13 @@
   
   <div class="col-lg-4" style="padding-right: 25px;">
       <div style="margin-bottom: 5px">
-          GROUP LIST
-          <button type="button" class="btn btn-primary btn-sm" style="float: right; margin-bottom: 5px" data-toggle="modal" data-target="#exampleModal">
+          GROUP DETAIL LIST
+          <button type="button" class="btn btn-primary btn-sm" style="float: right; margin-bottom: 5px" 
+          data-toggle="modal" data-target="#exampleModal" onclick="IncrementGroupName()">
           <i class="fas fa-list-alt"></i> CREATE GROUP
         </button>
       </div>
+      
   <div id="example-table2" style="clear: both"></div>
   
   </div>
@@ -119,12 +121,12 @@
                     
                       <div class="form-check-inline">
                         <label class="form-check-label">
-                          <input onclick="CheckCreationType('group')" type="radio" class="form-check-input" name="optradio" checked="checked">Create Group
+                          <input id="radioGroup" onclick="CheckCreationType('group')" type="radio" class="form-check-input" name="optradio" checked="checked">Create Group
                         </label>
                       </div>
                       <div class="form-check-inline">
                         <label class="form-check-label">
-                          <input onclick="CheckCreationType('dr')" type="radio" class="form-check-input" name="optradio">Assign DR
+                          <input id="radioDr" onclick="CheckCreationType('dr')" type="radio" class="form-check-input" name="optradio">Assign DR
                         </label>
                       </div>
               </div>   
@@ -138,7 +140,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Group Name: </span>
                     </div>
-                    <input type="text" class="form-control" id="grouptext" placeholder="Group Name">
+                    <input type="text" class="form-control" id="grouptext" placeholder="Group Name" required>
                   </div>
 
               </div>
@@ -163,8 +165,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button id="btnclose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="InsertDrGroup()" >Save changes</button>
       </div>
     </div>
   </div>
