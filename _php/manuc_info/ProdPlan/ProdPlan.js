@@ -340,6 +340,34 @@ var searchobj2 = document.getElementById("search2").value;
                     
     
      }
+     else if(SectionGroup=="shipment_management1")
+     {
+        var ShipStat = document.getElementById("StatusSort");
+        var selectedOption = ShipStat.options[ShipStat.selectedIndex].value;
+ //example table
+      $.ajax({
+            method:'POST',
+            url:'/1_mes/_php/manuc_info/ProdPlan/DataShipmentList.php',
+            data:
+            {
+                'sortfrom': strfromobj,
+                'sortto': strtoobj,
+                'search': searchobj,
+                'ShipStat': selectedOption,
+                'ajax':true
+            },
+            success: function(data) 
+            {
+             initTbl2("ShipmentList1");
+                var val = JSON.parse(data);
+                 
+               /* alert(val); */
+               $("#example-table").tabulator("setData",val);
+               //$("#example-table2").tabulator("setData",val);
+            }
+ 
+             });
+     }
     
      
 }
@@ -676,7 +704,7 @@ var searchobj2 = document.getElementById("search2").value;
             {
                 return "<span style='color:Blue; font-weight:bold;'>" + datacell + "</span>";
             }
-            else if(datacell=="DR/GROUP ASSIGNED")
+            else if(datacell=="GROUP ASSIGNED")
             {
                 return "<span style='color:#bf1df2; font-weight:bold;'>" + datacell + "</span>";
             }
@@ -699,7 +727,79 @@ var searchobj2 = document.getElementById("search2").value;
     });
 
    }
+   else if(TabName=="ShipmentList1")
+   {
+    var screenheight=Number(screen.height-350);
+    $("#example-table").tabulator({
+        height: "65vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+    //layout:"fitColumns", //fit columns to width of table (optional)
+    
+    pagination:"local",
+    paginationSize:100,
+    placeholder:"No Data to Display",
+    movableColumns:true,
+    groupBy:"LOT_NUMBER",
+    groupHeader:function(value, count, data, group){
+        //value - the value all members of this group share
+        //count - the number of rows in this group
+        //data - an array of all the row data objects in this group
+        //group - the group component for the group
+        if(count > 1)
+        {
+            return "LOT NUMBER: "+ value + "<span style='margin-left:10px;'>(" + count + " items) </span>";
+        }
+        else
+        {
+            return "LOT NUMBER: "+ value + "<span style='margin-left:10px;'>(" + count + " item) </span>";
+        }
 
+
+    },
+    tooltipsHeader:true,
+    columns:[
+        
+        {title:"NO", field:"NO", width:60,align:"center"},
+       
+ 
+        {title:"SHIPMENT STATUS", field:"SHIPMENT_STATUS",formatter:function(cell, formatterParams){
+            //cell - the cell component
+            //formatterParams - parameters set for the column
+            var datacell = cell.getValue();
+            if(datacell=="REJECT/WAITING FOR REWORKS")
+            {
+                return "<span style='color:red; font-weight:bold;'>" + datacell + "</span>";
+            }
+            else if(datacell=="WAITING FOR SHIPMENT")
+            {
+                return "<span style='color:green; font-weight:bold;'>" + datacell + "</span>";
+            }
+            else if(datacell=="ALREADY SHIPPED")
+            {
+                return "<span style='color:Blue; font-weight:bold;'>" + datacell + "</span>";
+            }
+            else if(datacell=="GROUP ASSIGNED")
+            {
+                return "<span style='color:#bf1df2; font-weight:bold;'>" + datacell + "</span>";
+            }
+            else
+            {
+                return "<span style='color:orange; font-weight:bold;'>" + datacell + "</span>";
+            }
+    
+        }},
+        
+        {title:"LOT CREATE DATE", field:"LOT CREATE DATE"},
+        {title:"PACKING NUMBER", field:"PACKING_NUMBER"},
+        {title:"LOT NUMBER", field:"LOT_NUMBER"},
+        {title:"JO NO", field:"JO_NO"},
+        {title:"ITEM CODE", field:"ITEM_CODE"},
+        {title:"ITEM NAME", field:"ITEM_NAME"},
+        {title:"MACHINE CODE", field:"MACHINE_CODE"},
+        {title:"LOT JUDGEMENT", field:"LOT JUDGEMENT"}
+            ],
+    });
+
+   }
    else if(TabName=="TempGroup")
    {
        
@@ -786,7 +886,7 @@ var searchobj2 = document.getElementById("search2").value;
         formatter:function(cell, formatterParams)
                 { //plain text value
 
-                    return '<button type="button" class="btn btn-danger btn-sm"> <i class="fas fa-trash-alt"></i> REMOVE FROM GROUP </button>';
+                    return '<button type="button" class="btn btn-danger btn-sm"> <i class="fas fa-trash-alt"></i> REMOVE TO GROUP </button>';
                 },
         cellClick:function(e, cell)
                 {
