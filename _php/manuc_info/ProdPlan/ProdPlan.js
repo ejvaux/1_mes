@@ -648,6 +648,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             {
                 return "<span style='color:Blue; font-weight:bold;'>" + datacell + "</span>";
             }
+            else if(datacell=="DR/GROUP ASSIGNED")
+            {
+                return "<span style='color:#bf1df2; font-weight:bold;'>" + datacell + "</span>";
+            }
             else
             {
                 return "<span style='color:orange; font-weight:bold;'>" + datacell + "</span>";
@@ -840,19 +844,112 @@ $("#example-table2").tabulator({
     {
         document.getElementById('grouptext').disabled=false;
         document.getElementById('drtext').disabled=true; 
+        document.getElementById("grouptext").focus();
      
     }
     else
     {
         document.getElementById('grouptext').disabled=true; 
         document.getElementById('drtext').disabled=false; 
+        document.getElementById("drtext").focus();
     
-
     }
 
  }
  
+function IncrementGroupName()
+{
 
+    $.ajax({
+        method:'POST',
+        url:'/1_mes/_php/manuc_info/Prodplan/CheckIncrementGroupName.php',
+        data:
+        {
+            'ajax':true
+        },
+    
+        
+        success: function(data) 
+        {
+            
+         document.getElementById('grouptext').value = data;
+            
+        }
+
+    });
+
+
+
+}
+
+
+function InsertDrGroup()
+{
+ var grtext =document.getElementById('grouptext').value;
+ var ddrtext =document.getElementById('drtext').value;
+    if(document.getElementById('radioGroup').checked)
+    {
+
+        $.ajax({
+            method:'POST',
+            url:'/1_mes/_php/manuc_info/Prodplan/InsertUpdateDr.php',
+            data:
+            {
+                'groupname': grtext,
+                'optionType':'group',
+                'ajax':true
+            },
+        
+            
+            success: function(data) 
+            {
+             //alert(data);
+           
+             $('#exampleModal').modal('hide');
+             swal({
+                type: 'success',
+                title: 'SUCCESS!',
+                text: 'Record saved successfully!' 
+            })
+            showTable("ShipmentList","","shipment_management");
+            }
+    
+        });
+    
+
+    }
+    else
+    {
+
+        $.ajax({
+            method:'POST',
+            url:'/1_mes/_php/manuc_info/Prodplan/InsertUpdateDr.php',
+            data:
+            {
+                'groupname': ddrtext,
+                'optionType':'dr',
+                'ajax':true
+            },
+        
+            
+            success: function(data) 
+            {
+             //alert(data);
+           
+             $('#exampleModal').modal('hide');
+             swal({
+                type: 'success',
+                title: 'SUCCESS!',
+                text: 'Record saved successfully!' 
+            })
+            showTable("ShipmentList","","shipment_management");
+            }
+    
+        });
+    
+    }
+
+}
 
 
  
