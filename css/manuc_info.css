@@ -215,3 +215,15 @@ margin: 0 auto;
 }
 
 
+
+.mydrp
+{
+  width: 100px;
+  height: 32px;
+  font-size: 10px;
+}
+
+.select2-results__options{
+  font-size:11px;
+  
+}

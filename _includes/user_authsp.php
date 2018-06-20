@@ -32,6 +32,10 @@ $columns = array(
     array( 'db' => 'AUTHORITY_ID', 'dt' => 0 ),
     array( 'db' => 'AUTHORITY_CODE', 'dt' => 1 ),
     array( 'db' => 'USER_AUTHORITY', 'dt' => 2 ),
+    array( 'db' => 'INSERT_DATETIME', 'dt' => 3 ),
+    array( 'db' => 'INSERT_USER', 'dt' => 4 ),
+    array( 'db' => 'UPDATE_DATETIME', 'dt' => 5 ),
+    array( 'db' => 'UPDATE_USER', 'dt' => 6 ),
          
 );
  

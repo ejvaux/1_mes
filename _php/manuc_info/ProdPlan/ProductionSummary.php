@@ -19,12 +19,12 @@
                                                           <div class="col-12">                                                          
                                                             <div class="btn-toolbar mb-1" role="toolbar" aria-label="Toolbar with button groups">
                                                           
-                                                                <div class="input-group btn-sm" style="height: 40px;">
+                                                                <div class="input-group btn-sm" style="height: 39px;">
                                                                     <div class="input-group-prepend">
                                                                         <div class="input-group-text" id="btnGroupAddon2">SEARCH:</div>
                                                                     </div>
                                                                  
-                                                                  <select id='search' name='search1' onchange="showTable('ProductionSummary','','production_summary','no')"  class='form-control' style='font-size: 10px; height:32px; width: 200px'>
+                                                                  <select class="sel2 form-control mydrp" id='search' name='search1' style="height: 39px;" onchange="showTable('ProductionSummary','','production_summary','no')" >
                                                                       <option value=''>--SELECT ITEM--</option>";
                                                                
                                                                         <?php
@@ -61,10 +61,10 @@
                                                                 
                                                                 <div class="input-group btn-sm" style="height: 40px;">
 
-                                                                <!-- <div class="btn-group btn-group-sm"> -->   
+                                                                 <div class="btn-group btn-group-sm">
                                                                 <button type="button" onclick="loadtbl2('ProductionSummary','','production_summary')" class="btn btn-outline-secondary btn-export6 btn-sm"><i class="fas fa-ban"></i>&nbspCANCEL FILTER</button>    
-                                                             <!--  <button type="button" onclick="exportxlsx('ProductionSummary','','production_summary','no')" class="btn btn-outline-secondary btn-export6 btn-sm"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>    
-                                                                </div> -->
+                                                               <button type="button" onclick="prodexport()" class="btn btn-outline-secondary btn-export6 btn-sm"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>    
+                                                                </div>
 
                                                                      &nbsp&nbsp 
                                                                      <select class="form-control btn-sm" id="sorttype" style="width: 80px;font-size: 10px;height:33px" onchange="showTable('ProductionSummary','','production_summary','no');filterTableSummary()">

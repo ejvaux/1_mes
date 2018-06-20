@@ -31,7 +31,8 @@
             echo $np = md5($nn);
             echo "<br>";
             /* echo random_bytes(64); */
-            echo "<br>";            
+            echo "<br>";
+            echo "date today is:" . Date('Y-m-d H:i:s') ;           
         ?>        
         </h1>
         <?php
@@ -50,8 +51,8 @@
             }
 
             echo secondsToTime($date3);
-
             
+            echo "date today is:" ;                        
 
         ?>
 
@@ -80,11 +81,8 @@
         else{
             alert('Not Date');
             $('#dte').text('Not Date');
-        }
-
-       
-
-        
+        }      
+      
 
     </script>
     

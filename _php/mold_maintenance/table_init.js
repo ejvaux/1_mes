@@ -1759,7 +1759,10 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
       },
        filename: tbltitle, className: 'btn btn-export6 btn-xs py-1',
        exportOptions: {
-          columns: '.ex'
+          columns: '.ex',
+          modifier: {
+            selected: null
+          }
       }
       }
           ],        
@@ -1860,6 +1863,7 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
             $('#leadtime_17').val(ltformatm(val['POLISHING-1'])); $('#operator_17').val(val['POLISHING-1_OPERATOR']);
                          
             $('#ccurrentprocess').val(val.CURRENT_PROCESS);
+            $('#cprocessoperator').val(val.OPERATOR);
             $('#prevprocess').val(val.CURRENT_PROCESS);
             $('#prevprocessdatetime').val(val[$('#ccurrentprocess').val()]);
 

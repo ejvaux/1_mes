@@ -963,6 +963,120 @@
 </div>
 
 
+<div class="modal hide fade in" role="dialog" id="employeemod" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Insert Employee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="employeeform"  method="post">
+      <input type="hidden" id="" name="">
+      <div class="modal-body" style="">
+      
+          <!-- ____________ FORM __________________ -->
+  
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="employeecode" class="col-form-label-sm">EMPLOYEE CODE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="employeecode" type="text" class="form-control form-control-sm" name="employeecode" placeholder="" readonly>                  
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="employeename" class="col-form-label-sm">EMPLOYEE NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="employeename" type="text" class="form-control form-control-sm" name="employeename" placeholder="" required>
+                </div>
+              </div>
+            </div>
+                                
+          </div>
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="employeestatus" class="col-form-label-sm">EMPLOYEE STATUS:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="employeestatus" type="text" class="form-control form-control-sm" name="employeestatus" placeholder="" required>                  
+                
+                      <option value="ACTIVE">ACTIVE</option>
+                      <option value="RESIGNED">RESIGNED</option>
+                      <option value="AWOL">AWOL</option>
+                
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="datehired" class="col-form-label-sm">DATE HIRED:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="datehired" type="date" class="form-control form-control-sm" name="datehired" placeholder="" required>
+                </div>
+              </div>
+            </div>                               
+          </div>
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="emdivision" class="col-form-label-sm">DIVISION:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="emdivision" type="text" class="form-control form-control-sm" name="division" placeholder="">
+
+                    <?php
+
+                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                        $sql = "SELECT DIVISION_NAME FROM dmc_division_code ORDER BY DIVISION_NAME ASC";
+                        $result = $conn->query($sql);
+                        
+                            while($row = $result->fetch_assoc()) {
+
+                                echo "<option value='";
+                                echo $row['DIVISION_NAME'];
+                                echo "'>";
+                                echo $row['DIVISION_NAME'];
+                                echo "</option>";
+                            }
+                        
+                        $conn->close();
+
+                    ?>
+
+                  </select>                 
+                </div>
+              </div>
+            </div>                                           
+          </div>
+
+          <!-- ____________ FORM END __________________ -->
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" name="submit" id="employeesubmit"><i class="far fa-save"></i> Save</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 <!--  _________________________________ INSERT MODALS ________________________________  -->
 
 
@@ -1941,6 +2055,120 @@
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary" name="submit" id="edivcodesubmit"><i class="far fa-save"></i> Save</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal hide fade in" role="dialog" id="eemployeemod" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Employee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="eemployeeform"  method="post">
+      <input type="hidden" id="employeeid" name="employeeid">
+      <div class="modal-body" style="">
+      
+          <!-- ____________ FORM __________________ -->
+  
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eemployeecode" class="col-form-label-sm">EMPLOYEE CODE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eemployeecode" type="text" class="form-control form-control-sm" name="employeecode" placeholder="" readonly>                  
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eemployeename" class="col-form-label-sm">EMPLOYEE NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eemployeename" type="text" class="form-control form-control-sm" name="employeename" placeholder="" required>
+                </div>
+              </div>
+            </div>                                
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eemployeestatus" class="col-form-label-sm">EMPLOYEE STATUS:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="eemployeestatus" type="text" class="form-control form-control-sm" name="employeestatus" placeholder="" required>                  
+                
+                      <option value="ACTIVE">ACTIVE</option>
+                      <option value="RESIGNED">RESIGNED</option>
+                      <option value="AWOL">AWOL</option>
+                
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="edatehired" class="col-form-label-sm">DATE HIRED:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="edatehired" type="date" class="form-control form-control-sm" name="datehired" placeholder="" required>
+                </div>
+              </div>
+            </div>                               
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eemdivision" class="col-form-label-sm">DIVISION:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="eemdivision" type="text" class="form-control form-control-sm" name="division" placeholder="">
+
+                    <?php
+
+                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                        $sql = "SELECT DIVISION_NAME FROM dmc_division_code ORDER BY DIVISION_NAME ASC";
+                        $result = $conn->query($sql);
+                        
+                            while($row = $result->fetch_assoc()) {
+
+                                echo "<option value='";
+                                echo $row['DIVISION_NAME'];
+                                echo "'>";
+                                echo $row['DIVISION_NAME'];
+                                echo "</option>";
+                            }
+                        
+                        $conn->close();
+
+                    ?>
+
+                  </select>                  
+                </div>
+              </div>
+            </div>                                           
+          </div>
+
+          <!-- ____________ FORM END __________________ -->
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" name="submit" id="employeesubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>

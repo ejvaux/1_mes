@@ -699,6 +699,93 @@ $('#mod').on('submit','#edivcodeform', function (e) {
 /* ______________________ DIVISION LIST ______________________ */
 
 
+/* ______________________ EMPLOYEE LIST ______________________ */
+
+/* Insert */
+
+$('#mod').on('submit','#employeeform', function (e) {           
+  /* alert('TEST'); */
+  e.preventDefault();
+    e.stopImmediatePropagation();
+  
+  $.ajax({
+    type: 'POST',
+    url: '/1_mes/_query/master_database/employee/insert.php',
+    data: $('#employeeform').serialize(),
+    success: function (data) {         
+      if(data=="success"){
+        /* alert("Record saved successfully!"); */
+        $('#employeeform').trigger('reset');
+        $('#employeemod').modal('hide');          
+        DisplayTable9('employee_table','employeesp','Employee List');
+        loadmodal('masterdatamodal');
+        
+        $.notify({
+          icon: 'fas fa-info-circle',
+          title: 'System Notification: ',
+          message: "Record saved successfully!",
+        },{
+          type:'success',
+          placement:{
+            align: 'center'
+          },           
+          delay: 3000,                        
+        });
+      }
+      else{
+        alert(data);          
+      }
+    }
+  }); 
+  
+});
+
+/* Insert */
+
+/* Update */
+
+$('#mod').on('submit','#eemployeeform', function (e) {           
+  /* alert('TEST');  */
+  e.preventDefault();
+    e.stopImmediatePropagation();
+  
+  $.ajax({
+    type: 'POST',
+    url: '/1_mes/_query/master_database/employee/update.php',
+    data: $('#eemployeeform').serialize(),
+    success: function (data) {    
+      if(data=="success"){
+        /* alert("Record Updated Successfully!"); */
+        $('#eemployeeform').trigger('reset');
+        $('#eemployeemod').modal('hide');
+        DisplayTable9('employee_table','employeesp','Employee List');
+        loadmodal('masterdatamodal');
+
+        $.notify({
+          icon: 'fas fa-info-circle',
+          title: 'System Notification: ',
+          message: "Record updated successfully!",
+        },{
+          type:'success',
+          placement:{
+            align: 'center'
+          },           
+          delay: 3000,                        
+        });
+      }
+      else{
+        alert(data);          
+      }
+    }
+  }); 
+  
+});
+
+/* Update */
+
+/* ______________________ EMPLOYEE LIST ______________________ */
+
+
 
 
 /* Display Data */
@@ -812,3 +899,37 @@ function isNumberNegative(evt){
 }
 
 /* _______________________ Check negative number ____________________________ */
+
+
+/* _______________________ Get employee code - Employee table ____________________________ */
+
+function getemployeecode(id){
+  /* alert('TEST'); */
+  $.ajax({          
+    url:'/1_mes/_query/master_database/get/getemployeecode.php',
+    success:function(data){
+      
+      /* alert(data); */
+      /* var val = JSON.parse(data); */
+      function pad (str, max) {
+        str = str.toString();
+        return str.length < max ? pad("0" + str, max) : str;
+      }       
+      
+      if(data != 'none'){    
+        /* alert('TEST none'); */           
+        var val = JSON.parse(data);
+        var newnum = parseInt(val.EMPLOYEE_CODE) + 1;          
+        $(id).val(pad(newnum,6));
+        
+      }
+      else{
+        /* alert('TEST else'); */ 
+        $(id).val(pad(1,6));
+      }        
+    } 
+
+    });
+  }
+
+/* _______________________ Get employee code - Employee table ____________________________ */

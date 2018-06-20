@@ -11,7 +11,7 @@
         
         <link rel ="stylesheet" href="/1_MES/css/animate.css">
                     
-        <title>Portal</title>
+        <title>Portal | MES - Primatech</title>
         <script src="/1_mes/_includes/auth_portal.js"></script>
         <style type="text/css">
             body{

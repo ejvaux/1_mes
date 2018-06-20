@@ -80,7 +80,97 @@
 
 
 
+<div class="row" style="box-shadow: 0 0 3px gray; padding-top: 10px">
+  <div class="col-lg-8" style="padding-left:20px;">
+  PACKING LIST
+  <div id="example-table" style="margin-top: 13px"></div>
 
-<div id="example-table"></div>
+  </div>
+
+  
+  <div class="col-lg-4" style="padding-right: 25px;">
+      <div style="margin-bottom: 5px">
+          GROUP DETAIL LIST
+          <button type="button" class="btn btn-primary btn-sm" style="float: right; margin-bottom: 5px" 
+          data-toggle="modal" data-target="#exampleModal" onclick="IncrementGroupName()">
+          <i class="fas fa-list-alt"></i> CREATE GROUP
+        </button>
+      </div>
+      
+  <div id="example-table2" style="clear: both"></div>
+  
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-list-alt"></i> CREATE GROUP FOR DELIVERY </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+            <div class="card">
+              <div class="card-header">Choose an option</div>
+              <div class="card-body">
+                    
+                      <div class="form-check-inline">
+                        <label class="form-check-label">
+                          <input id="radioGroup" onclick="CheckCreationType('group')" type="radio" class="form-check-input" name="optradio" checked="checked">Create Group
+                        </label>
+                      </div>
+                      <div class="form-check-inline">
+                        <label class="form-check-label">
+                          <input id="radioDr" onclick="CheckCreationType('dr')" type="radio" class="form-check-input" name="optradio">Assign DR
+                        </label>
+                      </div>
+              </div>   
+            </div>
+<br>
+            <div class="card">
+              <div class="card-header">Create Group</div>
+              <div class="card-body">
+           
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Group Name: </span>
+                    </div>
+                    <input type="text" class="form-control" id="grouptext" placeholder="Group Name" required>
+                  </div>
+
+              </div>
+            </div>
+<br>
+            <div class="card">
+              <div class="card-header">Assign a DR</div>
+              <div class="card-body">
+           
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">DR #: </span>
+                    </div>
+                    <select class="form-control" id="drtext" disabled>
+                    <option>--SELECT A DR#--</option>
+                    </select>
+                  </div>
+
+              </div>
+            </div>            
+
+
+      </div>
+      <div class="modal-footer">
+        <button id="btnclose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="InsertDrGroup()" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 

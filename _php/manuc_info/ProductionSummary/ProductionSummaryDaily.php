@@ -240,6 +240,7 @@ $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_pl
 
 }
 
+
 $conn2 = mysqli_connect("localhost", "root", "", "masterdatabase");
 
 $result = $conn->query($sqlprodresult);
@@ -534,7 +535,8 @@ function displaysummary($funcPlan, $funcResult, $funcDate)
 
 echo '</tbody></table><br><br>';
 
-echo '<script>
-$("#example-table").tabulator({});
+
+
+echo'<script>
 </script>
 ';
