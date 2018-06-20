@@ -36,10 +36,10 @@ function AddBtnClick(){
               if (val.LOT_NUM == null || val.LOT_NUM == "" || val.LOT_NUM == undefined ){
                   var x = document.getElementById("LotCreationTable").rows.length;
                   var check = "false";
-                          if(x > 2 ){
+                          if(x > 1 ){
                             check = CheckDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);    
                             }
-                          else if(x = 2){
+                          else if(x = 1){
                             InsertDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
                             } 
                 }
@@ -329,7 +329,7 @@ function filterJudgement(){
   var x = document.getElementById("filterText");
   var y = x.options[x.selectedIndex].value;
   if(y == "ALL"){
-    var z = 'SELECT * FROM qmd_lot_create ORDER BY LOT_JUDGEMENT DESC;';
+    var z = 'SELECT * FROM qmd_lot_create ORDER BY PROD_DATE DESC;';
   }
   else{
     var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC;' ;
@@ -356,7 +356,7 @@ function filterText() {
   var y = x.options[x.selectedIndex].value;
   
   if(y == "ALL"){
-    var z = 'SELECT * FROM qmd_lot_create ORDER BY LOT_JUDGEMENT DESC;';
+    var z = 'SELECT * FROM qmd_lot_create ORDER BY PROD_DATE DESC;';
   }
   else{
     var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC;' ;
@@ -382,8 +382,13 @@ function searchLot(){
   var y = x.options[x.selectedIndex].value;
   var search = searchText.value;
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
-  var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND LOT_JUDGEMENT = '" + y + "' ORDER BY PROD_DATE DESC;";
-  
+ 
+  if (y == "ALL") {
+    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') ORDER BY PROD_DATE DESC;";
+  }
+  else {
+    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND LOT_JUDGEMENT = '" + y + "' ORDER BY PROD_DATE DESC;";
+  }
   $.ajax({
     method: 'post',
     url: '/1_mes/_php/QualityManagement/table/judgement_table.php',
@@ -415,7 +420,7 @@ function ClearSearchLot() {
       'ajax': true
     },
     success: function (data) {
-      document.getElementById("table_juddgement").innerHTML = data;
+      document.getElementById("table_judgement").innerHTML = data;
       searchText.value = " ";
     }
   });
