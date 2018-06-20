@@ -32,33 +32,32 @@ function AddBtnClick(){
               },
           success: function(data) {
             var val = JSON.parse(data);
-            if (val != undefined){
+          if (val != undefined){
               if (val.LOT_NUM == null || val.LOT_NUM == "" || val.LOT_NUM == undefined ){
                   var x = document.getElementById("LotCreationTable").rows.length;
                   var check = "false";
                           if(x > 2 ){
-                            check = CheckDanpla(val.PACKING_NUMBER, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);    
+                            check = CheckDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);    
                             }
                           else if(x = 2){
-                            InsertDanpla(val.PACKING_NUMBER, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
+                            InsertDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
                             } 
                 }
-              else{
-                swal(
-                  'Items already allocated into other lot.',
-                  'Please insert new danpla be allocated.',
-                  'warning'
-                )
-                
-                }
+                else{
+                  swal(
+                    'Items already allocated into other lot.',
+                    'Please insert new danpla be allocated.',
+                    'warning'
+                      )
+                    }
               }
-            else{
-              swal(
-                'Items does not exist!',
-                'Please insert existing danpla be allocated.',
-                'warning'
-              )
-              }
+          else{
+            swal(
+              'Items does not exist!',
+              'Please insert existing danpla be allocated.',
+              'warning'
+            )
+            }
             }
     });
   }
@@ -1504,6 +1503,49 @@ $(document).on('click', '#updateDefect', function () {
       );
 
       DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
+    }
+  });
+});
+
+$(document).on('click', '.deleteDanpla', function () {
+  //$('#dataModal').modal();
+  var danpla = $(this).attr("id");
+  
+swal({
+    title: 'Delete' + danpla + "?",
+    text: "Are you sure you want to delete?",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Delete Danpla'
+  }).then((result) => {
+    if (result.value) {
+
+
+      $.ajax({
+        method: 'post',
+        url: '/1_mes/_php/QualityManagement/delete_defect.php',
+        data:
+          {
+            'danpla': danpla,
+            'ajax': true
+          },
+        success: function (data) {
+
+          swal(
+            data,
+            'Danpla ' + danpla + ' Deleted!!',
+            'success'
+          )
+
+          loadDoc("LotCreate");
+          return;
+
+        }
+      });
+
+      
     }
   });
 });
