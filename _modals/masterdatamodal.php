@@ -1042,15 +1042,15 @@
 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
-                        $sql = "SELECT DIVISION_CODE FROM dmc_division_code ORDER BY DIVISION_CODE ASC";
+                        $sql = "SELECT DIVISION_NAME FROM dmc_division_code ORDER BY DIVISION_NAME ASC";
                         $result = $conn->query($sql);
                         
                             while($row = $result->fetch_assoc()) {
 
                                 echo "<option value='";
-                                echo $row['DIVISION_CODE'];
+                                echo $row['DIVISION_NAME'];
                                 echo "'>";
-                                echo $row['DIVISION_CODE'];
+                                echo $row['DIVISION_NAME'];
                                 echo "</option>";
                             }
                         
@@ -2142,15 +2142,15 @@
 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
-                        $sql = "SELECT DIVISION_CODE FROM dmc_division_code ORDER BY DIVISION_CODE ASC";
+                        $sql = "SELECT DIVISION_NAME FROM dmc_division_code ORDER BY DIVISION_NAME ASC";
                         $result = $conn->query($sql);
                         
                             while($row = $result->fetch_assoc()) {
 
                                 echo "<option value='";
-                                echo $row['DIVISION_CODE'];
+                                echo $row['DIVISION_NAME'];
                                 echo "'>";
-                                echo $row['DIVISION_CODE'];
+                                echo $row['DIVISION_NAME'];
                                 echo "</option>";
                             }
                         
