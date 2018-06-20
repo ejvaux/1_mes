@@ -967,7 +967,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Insert Division</h5>
+        <h5 class="modal-title">Insert Employee</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -1028,6 +1028,40 @@
                 </div>
               </div>
             </div>                               
+          </div>
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="emdivision" class="col-form-label-sm">DIVISION:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="emdivision" type="text" class="form-control form-control-sm" name="division" placeholder="">
+
+                    <?php
+
+                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                        $sql = "SELECT DIVISION_NAME FROM dmc_division_code ORDER BY DIVISION_NAME ASC";
+                        $result = $conn->query($sql);
+                        
+                            while($row = $result->fetch_assoc()) {
+
+                                echo "<option value='";
+                                echo $row['DIVISION_NAME'];
+                                echo "'>";
+                                echo $row['DIVISION_NAME'];
+                                echo "</option>";
+                            }
+                        
+                        $conn->close();
+
+                    ?>
+
+                  </select>                 
+                </div>
+              </div>
+            </div>                                           
           </div>
 
           <!-- ____________ FORM END __________________ -->
@@ -2032,7 +2066,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Insert Division</h5>
+        <h5 class="modal-title">Edit Employee</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -2063,9 +2097,9 @@
                   <input id="eemployeename" type="text" class="form-control form-control-sm" name="employeename" placeholder="" required>
                 </div>
               </div>
-            </div>
-                                
+            </div>                                
           </div>
+
           <div class="form-group row">
             <div class="col-6">
               <div class="row">
@@ -2093,6 +2127,41 @@
                 </div>
               </div>
             </div>                               
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eemdivision" class="col-form-label-sm">DIVISION:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="eemdivision" type="text" class="form-control form-control-sm" name="division" placeholder="">
+
+                    <?php
+
+                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                        $sql = "SELECT DIVISION_NAME FROM dmc_division_code ORDER BY DIVISION_NAME ASC";
+                        $result = $conn->query($sql);
+                        
+                            while($row = $result->fetch_assoc()) {
+
+                                echo "<option value='";
+                                echo $row['DIVISION_NAME'];
+                                echo "'>";
+                                echo $row['DIVISION_NAME'];
+                                echo "</option>";
+                            }
+                        
+                        $conn->close();
+
+                    ?>
+
+                  </select>                  
+                </div>
+              </div>
+            </div>                                           
           </div>
 
           <!-- ____________ FORM END __________________ -->

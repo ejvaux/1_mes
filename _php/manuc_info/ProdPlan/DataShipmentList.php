@@ -150,10 +150,29 @@ while (($row = mysqli_fetch_array($result))) {
 
         if ($lotjudge =="APPROVED") 
         {
-            $shipStat = "WAITING FOR SHIPMENT";
-        } 
-        elseif ($lotjudge=="DISAPPROVED") 
-        {
+            
+        $packno = $row['PACKING_NUMBER'];
+        $lotnumber = $row['LOT_NUM'];
+
+        
+        
+        $sql2="SELECT ship_group_id FROM mis_temp_ship_group WHERE packing_number = '$packno' AND lot_number='$lotnumber'";
+        $result2 = $conn->query($sql2);
+            
+          
+                if($result2->num_rows > 0) 
+                {
+                    $shipStat = "ALREADY IN THE GROUP";
+
+                }
+                else
+                {
+                    $shipStat = "WAITING FOR SHIPMENT";
+                }
+            
+
+        
+        } elseif ($lotjudge=="DISAPPROVED") {
             # code...
             $shipStat="REJECT/WAITING FOR REWORKS";
         } 
@@ -170,7 +189,7 @@ while (($row = mysqli_fetch_array($result))) {
 
 
     array_push($datavar, ["NO"=> $ctr ,"LOT CREATE DATE"=>$temp_date,"PACKING_NUMBER"=> $row['PACKING_NUMBER'], "LOT_NUMBER"=> $row['LOT_NUM'],
-            "JO_NO"=> $row['JO_NUM'],"ITEM CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],
-            "MACHINE CODE"=>$row['MACHINE_CODE'],"LOT JUDGEMENT"=> $lotjudge,"SHIPMENT_STATUS"=> $shipStat]);
+            "JO_NO"=> $row['JO_NUM'],"ITEM_CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],
+            "MACHINE_CODE"=>$row['MACHINE_CODE'],"LOT JUDGEMENT"=> $lotjudge,"SHIPMENT_STATUS"=> $shipStat]);
 }
 echo json_encode($datavar, true);

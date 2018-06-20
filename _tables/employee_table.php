@@ -5,6 +5,7 @@
         <th>EMPLOYEE NAME</th>
         <th>EMPLOYEE STATUS</th>
         <th>DATE HIRED</th>
+        <th>DIVISION</th>
         <th>INSERT DATETIME</th>
         <th>INSERT USER</th>
         <th>UPDATE DATETIME</th>

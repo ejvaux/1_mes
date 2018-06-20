@@ -1654,6 +1654,7 @@ function DisplayTable9(Table_Name,Tablesp,tbltitle) {
               $("#eemployeename").val(data[2]);
               $('#eemployeestatus').val(data[3]);
               $('#edatehired').val(data[4]);
+              $('#eemdivision').val(data[5]);
               
               $('#eemployeemod').modal('show');
             }
