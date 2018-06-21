@@ -36,7 +36,7 @@ function AddBtnClick(){
               if (val.LOT_NUM == null || val.LOT_NUM == "" || val.LOT_NUM == undefined ){
                   var x = document.getElementById("LotCreationTable").rows.length;
                   var check = "false";
-                          if(x > 1 ){
+                          if(x > 2){
                             check = CheckDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);    
                             }
                           else if(x = 1){
@@ -146,7 +146,7 @@ var lotGlobal;
 var lotlot;
 function generateLot(){
   var z = document.getElementById("LotCreationTable").rows.length;
-  if (z <= 2) {
+  if (z <= 1) {
     swal(
       'No items allocated.',
       'Please insert danpla to create lot.',
@@ -421,7 +421,7 @@ function ClearSearchLot() {
     },
     success: function (data) {
       document.getElementById("table_judgement").innerHTML = data;
-      searchText.value = " ";
+      searchText.value = "";
     }
   });
  }
@@ -841,7 +841,7 @@ function RecoveryClearSearchLot() {
     },
     success: function (data) {
       document.getElementById("table_recovery").innerHTML = data;
-      RecoverySearch.value = " ";
+      RecoverySearch.value = "";
     }
   });
  }
@@ -994,7 +994,7 @@ function ClearDefectSearch(){
     },
     success: function (data) {
       document.getElementById("table_defect").innerHTML = data;
-      defectSearchId.value = " ";
+      defectSearchId.value = "";
     }
   });
  }
