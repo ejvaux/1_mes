@@ -267,6 +267,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
 
      else if(SectionGroup=="shipment_management")
      {
+        $('.sel2').select2({width: '200px'});
         if(param1!="no")
         {
             $("#example-table2").tabulator("destroy");
@@ -603,6 +604,8 @@ var searchobj2 = document.getElementById("search2").value;
                                 'itemcode':cell.getRow().getData().ITEM_CODE,
                                 'machinecode': cell.getRow().getData().MACHINE_CODE,
                                 'itemname': cell.getRow().getData().ITEM_NAME,
+                                'customercode': cell.getRow().getData().CUSTOMER_CODE,
+                                'customername': cell.getRow().getData().CUSTOMER_NAME,
                                 
                                 'ajax':true
                   
@@ -722,7 +725,9 @@ var searchobj2 = document.getElementById("search2").value;
         {title:"ITEM CODE", field:"ITEM_CODE"},
         {title:"ITEM NAME", field:"ITEM_NAME"},
         {title:"MACHINE CODE", field:"MACHINE_CODE"},
-        {title:"LOT JUDGEMENT", field:"LOT JUDGEMENT"}
+        {title:"LOT JUDGEMENT", field:"LOT JUDGEMENT"},
+        {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
+        {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}
             ],
     });
 
@@ -795,7 +800,9 @@ var searchobj2 = document.getElementById("search2").value;
         {title:"ITEM CODE", field:"ITEM_CODE"},
         {title:"ITEM NAME", field:"ITEM_NAME"},
         {title:"MACHINE CODE", field:"MACHINE_CODE"},
-        {title:"LOT JUDGEMENT", field:"LOT JUDGEMENT"}
+        {title:"LOT JUDGEMENT", field:"LOT JUDGEMENT"},
+        {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
+        {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}
             ],
     });
 
@@ -864,7 +871,9 @@ var searchobj2 = document.getElementById("search2").value;
         {title:"PACKING_NUMBER", field:"PACKING_NUMBER"},
         {title:"LOT_NUMBER", field:"LOT_NUMBER"},
         {title:"ITEM_CODE", field:"ITEM_CODE"},
-        {title:"ITEM_NAME", field:"ITEM_NAME"}
+        {title:"ITEM_NAME", field:"ITEM_NAME"},
+        {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
+        {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}
     ]
     });
    }
@@ -885,8 +894,7 @@ var searchobj2 = document.getElementById("search2").value;
         {title:"CONTROLS", field:"CTRLS",align: "center",
         formatter:function(cell, formatterParams)
                 { //plain text value
-
-                    return '<button type="button" class="btn btn-danger btn-sm"> <i class="fas fa-trash-alt"></i> REMOVE TO GROUP </button>';
+                return '<button type="button" class="btn btn-danger btn-sm"> <i class="fas fa-trash-alt"></i> REMOVE </button>';
                 },
         cellClick:function(e, cell)
                 {
@@ -937,7 +945,9 @@ var searchobj2 = document.getElementById("search2").value;
         {title:"LOT_NUMBER", field:"LOT_NUMBER"},
         {title:"JOB ORDER NO", field:"JOB_ORDER_NO"},
         {title:"ITEM_CODE", field:"ITEM_CODE"},
-        {title:"ITEM_NAME", field:"ITEM_NAME"}
+        {title:"ITEM_NAME", field:"ITEM_NAME"},
+        {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
+        {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}
     ]
     });
    }
@@ -1032,8 +1042,7 @@ var searchobj2 = document.getElementById("search2").value;
     swal({
         type: 'error',
         title: 'This section is currently unavailable. ',
-        text: 'STATUS: currently creating  ' 
-   
+        text: 'STATUS: currently creating  '
     })
    
  }
@@ -1061,6 +1070,7 @@ var searchobj2 = document.getElementById("search2").value;
  
 function IncrementGroupName()
 {
+    $('.sel2').select2({width: '200px'});
 
     $.ajax({
         method:'POST',
@@ -1105,15 +1115,32 @@ function InsertDrGroup()
             
             success: function(data) 
             {
-             //alert(data);
-           
-             $('#exampleModal').modal('hide');
-             swal({
-                type: 'success',
-                title: 'SUCCESS!',
-                text: 'Record saved successfully!' 
-            })
-            showTable("ShipmentList","","shipment_management");
+             
+                    if(data=="nodata")
+                    {
+
+                        $('#exampleModal').modal('hide');
+                        swal({
+                            type: 'error',
+                            title: 'No packing number to saved!',
+                            text: 'Please add a packing number to the the GROUP DETAIL LIST' 
+                       
+                        })
+                    }   
+                    else
+                    {
+                        document.getElementById('radioGroup').checked = true;
+                        CheckCreationType("group");
+                        $('#exampleModal').modal('hide');
+                        showTable("ShipmentList","","shipment_management");
+                        swal({
+                           type: 'success',
+                           title: 'SUCCESS!',
+                           text: 'Record saved successfully!' 
+                       })
+                       
+                       
+                    }
             }
     
         });
@@ -1137,7 +1164,8 @@ function InsertDrGroup()
             success: function(data) 
             {
              //alert(data);
-           
+             document.getElementById('radioGroup').checked = true;
+             CheckCreationType("group");
              $('#exampleModal').modal('hide');
              swal({
                 type: 'success',
@@ -1145,6 +1173,7 @@ function InsertDrGroup()
                 text: 'Record saved successfully!' 
             })
             showTable("ShipmentList","","shipment_management");
+
             }
     
         });

@@ -4,6 +4,12 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 
 $optiontype=$_POST['optionType'];
 $groupname=$_POST['groupname'];
+
+$sql4="SELECT ship_group_id FROM mis_temp_ship_group ORDER BY ship_group_id DESC LIMIT 1";
+$result4=$conn->query($sql4);
+if($result4->num_rows > 0)
+{
+
 if($optiontype=="group")
 {
 
@@ -17,9 +23,11 @@ if($optiontype=="group")
         $itemcode=$row['item_code'];
         $machinecode=$row['machine_code'];
         $itemname=$row['item_name'];
+        $customercode=$row['customer_code'];
+        $customername=$row['customer_name'];
 
-        $sql2="INSERT INTO mis_dr_assigned(group_name,packing_number,lot_number,jo_number,item_code,machine_code,item_name)
-        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname')";
+        $sql2="INSERT INTO mis_dr_assigned(group_name,packing_number,lot_number,jo_number,item_code,machine_code,item_name,customer_code,customer_name)
+        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$customercode','$customername')";
         $result2=$conn->query($sql2);
 
     }
@@ -56,5 +64,10 @@ $result3=$conn->query($sql3);
 
 }
 
+}
+else
+{
+    echo "nodata";
+}
 
 ?>
