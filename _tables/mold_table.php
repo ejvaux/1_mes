@@ -5,6 +5,7 @@
         <th>TOOL NUMBER</th>
         <th>ITEM CODE</th>
         <th>ITEM NAME</th>
+        <th>ITEM MODEL</th>
         <th>CUSTOMER CODE</th>
         <th>CUSTOMER NAME</th> 
         <th>APPROVAL DATE</th>

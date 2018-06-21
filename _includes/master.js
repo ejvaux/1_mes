@@ -149,7 +149,44 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
                 var data = dt.row( '.selected' ).data();                                    
                 /* alert( data[0] +" is the ID. " ); */
 
-                $("#idmoldlist").attr("value",data[0]);
+                $.ajax(
+                  {
+                  method:'post',
+                  url:'/1_mes/_query/master_database/get/getmoldlistrow.php',
+                  data:
+                  {
+                      'id': data[0],
+                      'ajax': true
+                  },
+                  success: function(data1) {
+                    var val = JSON.parse(data1);
+
+                    $("#idmoldlist").val(val['MOLD_ID']);
+                    $("#emoldcode").val(val['MOLD_CODE']);
+                    $("#etoolnumber").val(val['TOOL_NUMBER']);
+                    $("#eitemcode").val(val['ITEM_CODE']);
+                    $("#eitemname").val("");
+                    $("#eitemmodel").val("");
+                    $("#ecustomercode").val(val['CUSTOMER_CODE']);
+                    $("#ecustomername").val("");
+                    $("#eapprovaldate").val(val['APPROVAL_DATE']);
+                    $("#edrawingrevision").val(val['DRAWING_REVISION']);
+                    $("#eguaranteeshot").val(val['GUARANTEE_SHOT']);
+                    $("#emoldshot").val(val['MOLD_SHOT']);
+                    $("#ecavity").val(val['CAVITY']);
+                    $("#emoldremarks").val(val['MOLD_REMARKS']);
+                    $("#eassetnumber").val(val['ASSET_NUMBER']);
+                    $("#etransferdate").val(val['TRANSFER_DATE']);
+                    
+                    getitemname('eitemcode',eitemname,eitemmodel);
+                    getcustomername('edit','ecustomercode');
+                    $('.sel').select2({ width: '100%' });
+                    $('#emoldlistmod').modal('show');                   
+        
+                  }
+                }); 
+
+                /* $("#idmoldlist").attr("value",data[0]);
                 $("#emoldcode").attr("value",data[1]);
                 $("#etoolnumber").attr("value",data[2]);
                 $("#eitemcode").val(data[3]);
@@ -168,7 +205,7 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
                 $('.sel').select2({ width: '100%' });
                 $('#emoldlistmod').modal('show');
                 getitemname('edit','eitemcode');
-                getcustomername('edit','ecustomercode');
+                getcustomername('edit','ecustomercode'); */
               }
             },
             {
@@ -291,7 +328,7 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
   
   $.fn.dataTable.ext.buttons.add1 = {
     action: function () {  
-      getitemname('add','itemcode');
+      getitemname('itemcode',itemname,itemmodel);
       getcustomername('add','amcustomercode');         
       $("#moldlistmod").modal('show');
     }
