@@ -134,7 +134,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -184,8 +184,24 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">DR #: </span>
                     </div>
-                    <select class="form-control" id="drtext" disabled>
+                    <select class="sel2 form-control" id="drtext" disabled>
                     <option>--SELECT A DR#--</option>
+                        <?php
+                        $datenow = date("Y-m-d");
+                        include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
+                        $sql="SELECT DISTINCT(dr_number) FROM sap_dr WHERE dr_date = '$datenow'";
+
+                        $result = $conn->query($sql);
+                        while($row=$result->fetch_assoc())
+                        {
+                          echo '<option>'.$row['dr_number'].'</option>';
+                        }
+                        
+
+
+
+                        ?>
+                    
                     </select>
                   </div>
 
@@ -195,8 +211,8 @@
 
       </div>
       <div class="modal-footer">
-        <button id="btnclose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" onclick="InsertDrGroup()" >Save changes</button>
+        <button id="btnclose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

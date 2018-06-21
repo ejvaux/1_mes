@@ -8,7 +8,8 @@ while($row = $result->fetch_assoc())
 {
 $ctr+=1;
 array_push($datavar,["NO"=> $ctr,"ITEM_CODE"=>$row['item_code'],"PACKING_NUMBER"=>$row['packing_number'],
-"LOT_NUMBER"=>$row['lot_number'],"ITEM_NAME"=>$row['item_name']]);
+"LOT_NUMBER"=>$row['lot_number'],"ITEM_NAME"=>$row['item_name'],
+"CUSTOMER_CODE"=>$row['customer_code'],"CUSTOMER_NAME"=>$row['customer_name']]);
 }
 echo json_encode($datavar, true);
 ?>

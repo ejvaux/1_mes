@@ -222,8 +222,14 @@ margin: 0 auto;
   height: 32px;
   font-size: 10px;
 }
-
 .select2-results__options{
   font-size:11px;
   
+}
+.select2-selection__rendered {
+  line-height: 36px !important;
+}
+
+.select2-selection {
+  height: 36px !important;
 }
