@@ -21,7 +21,7 @@ if ($strto == "" && $strfrom=="") {
     # code... condition above is whenever both date range are null
 
     $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE FROM mis_product
+mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME FROM mis_product
 LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
 WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
 OR mis_product.ITEM_CODE LIKE '%$search%' OR     mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
@@ -49,7 +49,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
           # code...
 
         $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE FROM mis_product
+            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
             OR mis_product.ITEM_CODE LIKE '%$search%' OR mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
@@ -68,7 +68,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
             $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
     } else {
         $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE FROM mis_product
+            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE  (DATE(qmd_lot_create.PROD_DATE) = '$strfrom') ";
             
@@ -90,7 +90,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
         # code...
 
         $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE FROM mis_product
+            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
             OR mis_product.ITEM_CODE LIKE '%$search%' OR mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
@@ -110,7 +110,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
             $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
     } else {
         $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE, mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE FROM mis_product
+            mis_product.MACHINE_CODE, mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE (qmd_lot_create.PROD_DATE BETWEEN '$strfrom' AND '$strto') ";
                        if($shipstat!="ALL DATA")
@@ -121,7 +121,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
                         }
                         else
                         {
-                            $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
+                            $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
                         }
                        }
                        $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
@@ -157,16 +157,38 @@ while (($row = mysqli_fetch_array($result))) {
         $result2 = $conn->query($sql2);
             
           
-                if($result2->num_rows > 0) 
-                {
+                if ($result2->num_rows > 0) {
                     $shipStat = "ALREADY IN THE GROUP";
-
                 }
                 else
                 {
                     $shipStat = "WAITING FOR SHIPMENT";
                 }
-            
+                
+                $sql4 ="SELECT dr_assigned_id FROM mis_dr_assigned WHERE packing_number = '$packno' AND lot_number='$lotnumber'";
+                $result4=$conn->query($sql4); 
+                
+                while($row4=$result4->fetch_assoc())
+                {
+                    if($row4['dr_assigned_id']!="")
+                    {
+                        $shipStat = "GROUP ASSIGNED";              
+                    }
+                }
+
+                $sql5 ="SELECT dr_assigned_id FROM mis_dr_assigned WHERE packing_number = '$packno' AND lot_number='$lotnumber' AND dr_number !=''";
+                $result5=$conn->query($sql5); 
+                
+                while($row5=$result5->fetch_assoc())
+                {
+                    if($row5['dr_assigned_id']!="")
+                    {
+                        $shipStat = "ALREADY SHIPPED";
+                        $sql6 = "UPDATE mis_product SET SHIP_STATUS='SHIPPED' 
+                        WHERE PACKING_NUMBER='$packno'";
+                        $result6 = $conn->query($sql6);              
+                    }
+                }
 
         
         } elseif ($lotjudge=="DISAPPROVED") {
@@ -180,10 +202,9 @@ while (($row = mysqli_fetch_array($result))) {
         }
     }
 
-
-
     array_push($datavar, ["NO"=> $ctr ,"LOT CREATE DATE"=>$temp_date,"PACKING_NUMBER"=> $row['PACKING_NUMBER'], "LOT_NUMBER"=> $row['LOT_NUM'],
-            "JO_NO"=> $row['JO_NUM'],"ITEM_CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],
-            "MACHINE_CODE"=>$row['MACHINE_CODE'],"LOT JUDGEMENT"=> $lotjudge,"SHIPMENT_STATUS"=> $shipStat]);
+            "JO_NO"=> $row['JO_NUM'],"ITEM_CODE"=>$row['ITEM_CODE'],"ITEM_NAME"=>$row['ITEM_NAME'],
+            "MACHINE_CODE"=>$row['MACHINE_CODE'],"LOT JUDGEMENT"=> $lotjudge,"SHIPMENT_STATUS"=> $shipStat,
+            "CUSTOMER_CODE"=>$row['CUST_CODE'],"CUSTOMER_NAME"=>$row['CUST_NAME']]);
 }
 echo json_encode($datavar, true);

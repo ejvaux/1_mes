@@ -13,7 +13,7 @@
                         $x = ('true1');
                     }
                     else if ($row['JO_NUM'] != $_POST['jo_num']){
-                        $x = ('true2');
+                        $x = ('true2');/*  */
                     }
                   }
                 }

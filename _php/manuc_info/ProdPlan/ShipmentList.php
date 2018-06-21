@@ -90,19 +90,51 @@
   
   <div class="col-lg-4" style="padding-right: 25px;">
       <div style="margin-bottom: 5px">
-          GROUP LIST
-          <button type="button" class="btn btn-primary btn-sm" style="float: right; margin-bottom: 5px" data-toggle="modal" data-target="#exampleModal">
+          GROUP DETAIL LIST
+          <button type="button" class="btn btn-primary btn-sm" style="float: right; margin-bottom: 5px" 
+          data-toggle="modal" data-target="#exampleModal" onclick="IncrementGroupName()">
           <i class="fas fa-list-alt"></i> CREATE GROUP
         </button>
       </div>
+      
   <div id="example-table2" style="clear: both"></div>
+  
+  </div>
+</div><br>
+
+<div class="row">
+  <div class="col-4"style="padding-left: 30px; padding-top:7px;">
+      <b>GROUP LIST(UNASSIGNED DR)</b>
+  </div>
+  <div class="col-8">
+            <div class="btn-toolbar mb-1" role="toolbar" aria-label="Toolbar with button groups" style="float: right">
+                                
+                  <div class="input-group btn-sm" style="height: 40px;">
+                      <div class="input-group-prepend">
+                          <div class="input-group-text" id="btnGroupAddon2">SEARCH:</div>
+                      </div>
+                      <input onkeypress='showTable("ShipmentList","","shipment_management")' id='search2' type='text' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
+                      <div class="input-group-append" id="btnGroupAddon3">
+                        <button type="button" onclick='showTable("ShipmentList","","shipment_management")' class="btn btn-outline-secondary btn-export6 btn-sm" style="z-index:0">&nbsp<i class="fa fa-search"></i>&nbsp</button>    
+                      </div>
+                  </div>
+
+                  <div class="input-group btn-sm" style="height: 40px;">
+                      <div class="btn-group btn-group-sm">  
+                        <button type="button" onclick="cancelfilter('ShipmentList','','shipment_management')" class="btn btn-outline-secondary btn-export6"><i class="fas fa-ban"></i>&nbspCANCEL FILTER&nbsp&nbsp</button>  
+                      </div>
+                  </div>
+      
+          </div>
   
   </div>
 </div>
 
+  <div id="example-table3" style="margin: 5px"></div>
+
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -119,12 +151,12 @@
                     
                       <div class="form-check-inline">
                         <label class="form-check-label">
-                          <input onclick="CheckCreationType('group')" type="radio" class="form-check-input" name="optradio" checked="checked">Create Group
+                          <input id="radioGroup" onclick="CheckCreationType('group')" type="radio" class="form-check-input" name="optradio" checked="checked">Create Group
                         </label>
                       </div>
                       <div class="form-check-inline">
                         <label class="form-check-label">
-                          <input onclick="CheckCreationType('dr')" type="radio" class="form-check-input" name="optradio">Assign DR
+                          <input id="radioDr" onclick="CheckCreationType('dr')" type="radio" class="form-check-input" name="optradio">Assign DR
                         </label>
                       </div>
               </div>   
@@ -138,7 +170,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Group Name: </span>
                     </div>
-                    <input type="text" class="form-control" id="grouptext" placeholder="Group Name">
+                    <input type="text" class="form-control" id="grouptext" placeholder="Group Name" required>
                   </div>
 
               </div>
@@ -152,8 +184,24 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">DR #: </span>
                     </div>
-                    <select class="form-control" id="drtext" disabled>
+                    <select class="sel2 form-control" id="drtext" disabled>
                     <option>--SELECT A DR#--</option>
+                        <?php
+                        $datenow = date("Y-m-d");
+                        include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
+                        $sql="SELECT DISTINCT(dr_number) FROM sap_dr WHERE dr_date = '$datenow'";
+
+                        $result = $conn->query($sql);
+                        while($row=$result->fetch_assoc())
+                        {
+                          echo '<option>'.$row['dr_number'].'</option>';
+                        }
+                        
+
+
+
+                        ?>
+                    
                     </select>
                   </div>
 
@@ -163,8 +211,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" onclick="InsertDrGroup()" >Save changes</button>
+        <button id="btnclose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

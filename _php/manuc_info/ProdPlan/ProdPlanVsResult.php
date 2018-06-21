@@ -229,9 +229,14 @@ $(document).on('change','#ICode', function() {
          <a class="nav-link tbl" id="menuhover" href="#" onclick="underConstruct()">Production Stop</a>
        </li>
        <li>
-         <a class="nav-link tbl" id="menuhover" href="#" onclick="loadtbl2('ShipmentList','','shipment_management')">Shipment List</a>
+         <a class="nav-link tbl" id="menuhover" href="#" onclick="loadtbl2('ShipmentList1','','shipment_management1')">Shipment List</a>
        </li>
-     
+       <li>
+         <a class="nav-link tbl" id="menuhover" href="#" onclick="loadtbl2('ShipmentList','','shipment_management')">Group Mngmt</a>
+       </li>
+       <li>
+         <a class="nav-link tbl" id="menuhover" href="#" onclick="underConstruct()">DR-Assign</a>
+       </li>
      
 
 
