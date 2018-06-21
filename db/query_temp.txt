@@ -1,0 +1,57 @@
+DROP PROCEDURE IF EXISTS WhileLoop;
+DELIMITER $$
+CREATE  PROCEDURE   WhileLoop()
+
+BEGIN
+
+set @i=0;
+WHILE @i<100000000 do
+
+    UPDATE `dmc_mold_list` SET 
+    `ITEM_CODE`= (SELECT `ITEM_CODE` FROM (SELECT CONCAT(`ITEM_CODE`, `TOOL_NUMBER`) AS `ITEM_CODE` FROM 		dmc_mold_list WHERE `MOLD_ID` = @i) as `ITEM_CODE`)
+    WHERE `MOLD_ID` = @i;
+
+    set @i= @i+1;
+END WHILE;
+
+END$$
+call WhileLoop();
+
+
+#############################################################################
+
+
+DROP
+PROCEDURE IF EXISTS WhileLoop;
+DELIMITER
+    $$
+CREATE PROCEDURE WhileLoop()
+BEGIN
+    SET
+        @i = 0 ; WHILE @i < 1000
+    DO
+UPDATE
+    `dmc_mold_list`
+SET
+    `ITEM_MODEL` =(
+    SELECT
+        `MODEL`
+    FROM
+        (
+        SELECT
+            dmc_item_mold_matching.`MODEL`
+        FROM
+            dmc_item_mold_matching
+        INNER JOIN dmc_mold_list ON dmc_item_mold_matching.`ITEM_CODE` = dmc_mold_list.`ITEM_CODE`
+        WHERE
+           `MOLD_ID` = @i
+    ) AS `MODEL`
+)
+WHERE
+    `MOLD_ID` = @i;
+SET
+    @i = @i +1 ;
+END WHILE ;
+END $$
+CALL
+    WhileLoop() ;

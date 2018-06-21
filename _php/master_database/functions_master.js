@@ -790,49 +790,29 @@ $('#mod').on('submit','#eemployeeform', function (e) {
 
 /* Display Data */
 
-  function getitemname(mod,id){
+  function getitemname(id,tb1,tb2){
 
     // find the dropdown
     var ddl = document.getElementById(id);
     // find the selected option
-    var selectedOption = ddl.options[ddl.selectedIndex].text;
-
-    if(mod=='add'){
-
+    if(ddl.selectedIndex>=0){
+      var selectedOption = ddl.options[ddl.selectedIndex].value;
+    
       $.ajax({
-      type:'POST',
-      data:{
-        'mc': selectedOption
-      },
-      url:'/1_mes/_query/master_database/get/getitemname.php',
-      success:function(data){
-          var val = JSON.parse(data);          
-          $("#itemname").val(val.ITEM_NAME);
-      } 
-      });
-
-    }
-
-    else if(mod=='edit'){
-
-      $.ajax({
-      type:'POST',
-      data:{
-        'mc': selectedOption
-      },
-      url:'/1_mes/_query/master_database/get/getitemname.php',
-      success:function(data){
-          var val = JSON.parse(data);          
-          $("#eitemname").val(val.ITEM_NAME);
-      } 
-      });
-
-    }
-    else{
-      alert('INVALID MODAL');
+        type:'POST',
+        data:{
+          'mc': selectedOption
+        },
+        url:'/1_mes/_query/master_database/get/getitemname.php',
+        success:function(data){
+            var val = JSON.parse(data);
+            $(ddl).val(val.ITEM_CODE);
+            $(tb1).val(val.ITEM_NAME);
+            $(tb2).val(val.MODEL);
+        } 
+        });  
     }
     
-     
 
   } /* getitemname */
   
@@ -840,46 +820,48 @@ $('#mod').on('submit','#eemployeeform', function (e) {
 
     // find the dropdown
     var ddl = document.getElementById(id);
-    // find the selected option
-    var selectedOption = ddl.options[ddl.selectedIndex].text;
+    if(ddl.selectedIndex>=0){
+      // find the selected option
+      var selectedOption = ddl.options[ddl.selectedIndex].text;
+      
+      if(mod=='add'){      
+
+        $.ajax({
+        type:'POST',
+        data:{
+          'mc': selectedOption
+        },
+        url:'/1_mes/_query/master_database/get/getcustomername.php',
+        success:function(data){
+            var val = JSON.parse(data);          
+            $("#amcustomername").val(val.CUSTOMER_NAME);
+            $("#aicustomername").val(val.CUSTOMER_NAME);
+        } 
+        });
+
+      }
+
+      else if(mod=='edit'){
+
+        $.ajax({
+        type:'POST',
+        data:{
+          'mc': selectedOption
+        },
+        url:'/1_mes/_query/master_database/get/getcustomername.php',
+        success:function(data){
+            var val = JSON.parse(data);          
+            $("#ecustomername").val(val.CUSTOMER_NAME);
+            $("#eicustomername").val(val.CUSTOMER_NAME);
+        } 
+        });
+
+      }
+      else{
+        alert('INVALID MODAL');
+      }
+    }
     
-    if(mod=='add'){      
-
-      $.ajax({
-      type:'POST',
-      data:{
-        'mc': selectedOption
-      },
-      url:'/1_mes/_query/master_database/get/getcustomername.php',
-      success:function(data){
-          var val = JSON.parse(data);          
-          $("#amcustomername").val(val.CUSTOMER_NAME);
-          $("#aicustomername").val(val.CUSTOMER_NAME);
-      } 
-      });
-
-    }
-
-    else if(mod=='edit'){
-
-      $.ajax({
-      type:'POST',
-      data:{
-        'mc': selectedOption
-      },
-      url:'/1_mes/_query/master_database/get/getcustomername.php',
-      success:function(data){
-          var val = JSON.parse(data);          
-          $("#ecustomername").val(val.CUSTOMER_NAME);
-          $("#eicustomername").val(val.CUSTOMER_NAME);
-      } 
-      });
-
-    }
-    else{
-      alert('INVALID MODAL');
-    }
-
   } /* getitemname */
 
   $('#mod').on('hide.bs.modal','.modal', function (e) {           
