@@ -80,7 +80,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             
      
     }
-     else if(SectionGroup=="Result")
+    else if(SectionGroup=="Result")
      {
         $.ajax({
             method:'POST',
@@ -374,6 +374,13 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
 
       else if(SectionGroup=="dr_assign")
      {
+
+        if(param1!="no")
+        {
+            $("#example-table2").tabulator("destroy");
+            
+        }
+
         var DrDataTypeobj = document.getElementById("DrDataType");
         var selectedOption2 = DrDataTypeobj.options[DrDataTypeobj.selectedIndex].value;
        
@@ -401,7 +408,11 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             }
   
              });
+
+LoadTableOfDrDetails("testing");
+
      }
+     
     
     
      
@@ -989,15 +1000,20 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
    }
    else if(TabName=="Dr-Assign")
    {
+
     var screenheight=Number(screen.height-350);
     $("#example-table").tabulator({
        height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
        layout:"fitColumns", //fit columns to width of table (optional)
        pagination:"local",
        paginationSize:100,
-       placeholder:"No Data to Display or Today's plan is not yet available.",
+       placeholder:"No Data to Display",
        movableColumns:true,
        groupBy:"DR_DATE",    
+       rowClick:function(e, row)
+           {
+            LoadTableOfDrDetails(row.getData().DR_NO);
+           },
        columns:[
            {title:"NO", field:"NO", width:60,align:"center"},
            { title:"CTRLS ",align:"center", align:"center",
@@ -1011,6 +1027,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                     else
                     {
                         return '<div class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> EDIT DR</div>';
+                      
                     }
 
                 },
@@ -1022,6 +1039,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 {
                     $('#exampleModal').modal('show');
                     document.getElementById("grouptext").value = cell.getRow().getData().GROUP_NAME;
+                    document.getElementById("drtext").value = "";
                     $('#drtextchange').val("--SELECT A DR#--").trigger('change'); 
                    
                 }
@@ -1031,6 +1049,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                     document.getElementById("grouptext").value = cell.getRow().getData().GROUP_NAME;
                     document.getElementById("drtext").value = cell.getRow().getData().DR_NO;
                     $('#drtextchange').val(cell.getRow().getData().DR_NO).trigger('change'); 
+                    
                 }
                }
             },
@@ -1039,8 +1058,57 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
            {title:"GROUP NAME", field:"GROUP_NAME"}
        ],
    });
+
+///example2
    
    }
+
+   else if(TabName=="dr-details")
+   {
+       
+    $("#example-table2").tabulator({
+    height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+    //layout:"fitColumns", //fit columns to width of table (optional)
+    pagination:"local",
+    paginationSize:100,
+    placeholder:"No Data to Display",
+    movableColumns:true,
+    groupBy:"DR_DATE",    
+    columns:[
+        {title:"NO", field:"NO", width:60,align:"center"},
+        { title:"CTRLS ",align:"center", align:"center",
+        formatter:function(cell, formatterParams)
+             {
+                 
+             return '<div class="btn btn-danger btn-sm"><i class="fas fa-file-medical"></i> ASSIGN DR</div>';
+                                
+             },
+        cellClick:function(e, cell)
+            {
+           
+            }
+         },
+        {title:"DR DATE", field:"DR_DATE"},
+        {title:"DR NO", field:"DR_NO"},
+        {title:"GROUP NAME", field:"GROUP_NAME"},
+        {title:"PACKING NO", field:"PACKING_NO"},
+        {title:"LOT NUMBER", field:"LOT_NUMBER"},
+        {title:"JOB ORDER NO", field:"JOB_ORDER_NO"},
+        {title:"ITEM CODE", field:"ITEM_CODE"},
+        {title:"ITEM NAME", field:"ITEM_NAME"},
+        {title:"MACHINE CODE", field:"MACHINE_CODE"},
+        {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
+        {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}
+
+       
+    
+  
+    ],
+    });
+
+
+   }
+   
  
    
  
@@ -1272,5 +1340,91 @@ function InsertDrGroup()
 
 }
 
+function setdr()
+{
+    var newdr = document.getElementById("drtextchange").value;
+    var olddr = document.getElementById("drtext").value;
+    var grname = document.getElementById("grouptext").value;
+    var updatetype;
 
+    if(olddr!="")
+    {
+        updatetype="dr";
+    }
+    else
+    {
+        updatetype="group";
+    }
+
+    
+
+    swal({
+        title: 'Confirmation',
+        text: "Are you sure you want to save all the changes? ",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Save the data!'
+      }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                method:'POST',
+                url:'/1_mes/_php/manuc_info/Prodplan/SetDr.php',
+                data:
+                {
+                    'newdr': newdr,
+                    'olddr': olddr,
+                    'grname': grname,
+                    'updatetype': updatetype,
+                    'ajax':true
+      
+                },
+            
+                
+                success: function(data) 
+                {
+                    showTable("Dr-Assign","","dr_assign");
+                    $('#exampleModal').modal('hide');
+
+                swal(
+                    'SUCCESS!',
+                    'Dr data saved successfully!',
+                    'success'
+                )
+                
+
+                }
+      
+            });
+    
+        }
+      })
+}
  
+
+function LoadTableOfDrDetails(Drno)
+{
+    $.ajax({
+        method:'POST',
+        url:'/1_mes/_php/manuc_info/Prodplan/DataDrDetails.php',
+        data:
+        {
+            'drno': Drno,
+            'ajax':true
+
+        },
+    
+        
+        success: function(data) 
+        {
+            initTbl2("dr-details");
+            var val = JSON.parse(data);
+           /* alert(val); */
+           $("#example-table2").tabulator("setData",val); 
+         
+        }
+
+    });
+
+}
