@@ -8,7 +8,13 @@
     $sql = "SELECT * FROM dmc_item_mold_matching WHERE ITEM_CODE = '$mcode' ";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
-    echo json_encode($row,true);    
+
+    if(isset($row)){
+        echo json_encode($row,true); 
+    }
+    else{
+        echo "none";
+    }  
     
     $conn->close();
 

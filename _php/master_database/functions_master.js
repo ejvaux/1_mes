@@ -797,7 +797,7 @@ $('#mod').on('submit','#eemployeeform', function (e) {
     // find the selected option
     if(ddl.selectedIndex>=0){
       var selectedOption = ddl.options[ddl.selectedIndex].value;
-    
+      alert(selectedOption);
       $.ajax({
         type:'POST',
         data:{
@@ -805,9 +805,19 @@ $('#mod').on('submit','#eemployeeform', function (e) {
         },
         url:'/1_mes/_query/master_database/get/getitemname.php',
         success:function(data){
+
+          if(data != 'none'){    
             var val = JSON.parse(data);
+            $(ddl).val(val.ITEM_CODE);
             $(tb1).val(val.ITEM_NAME);
             $(tb2).val(val.MODEL);
+            
+          }
+          else{
+            $(ddl).val('');
+            $(tb1).val('');
+            $(tb2).val('');
+          } 
         } 
         });  
     }
