@@ -50,11 +50,12 @@ else
         $itemcode=$row['item_code'];
         $machinecode=$row['machine_code'];
         $itemname=$row['item_name'];
-
-        $sql2="INSERT INTO mis_dr_assigned(dr_number,packing_number,lot_number,jo_number,item_code,machine_code,item_name)
-        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname')";
+        $datenow=date("Y-m-d");
+        $customercode=$row['customer_code'];
+        $customername=$row['customer_name'];
+        $sql2="INSERT INTO mis_dr_assigned(dr_number,packing_number,lot_number,jo_number,item_code,machine_code,item_name,dr_date,customer_code,customer_name)
+        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$datenow','$customercode','$customername')";
         $result2=$conn->query($sql2);
-
     }
 
 $sql3="DELETE FROM mis_temp_ship_group";

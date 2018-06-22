@@ -62,7 +62,7 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
 
             $sqlms="UPDATE jo_table SET CUSTOMER_CODE='$customercode',CUSTOMER_NAME='$customername',
             ItemCode='$itemcode',ItemDescription='$itemname',Model='$model',PlanQty=$planqty
-           ,MachineNo='$machinecode',MoldNo='$toolnumber' WHERE Id = $idd";
+           ,MachineNo='$machinecode',MoldNo='$toolnumber', Date='$jodate' WHERE Id = $idd";
 /*             $params = array($customercode,$customername,$itemcode,$itemname,$model,$planqty,$prodqty,$remqty,$machinecode,$toolnumber,$idd);
  */
 

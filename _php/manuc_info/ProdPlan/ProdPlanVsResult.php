@@ -235,7 +235,7 @@ $(document).on('change','#ICode', function() {
          <a class="nav-link tbl" id="menuhover" href="#" onclick="loadtbl2('ShipmentList','','shipment_management')">Group Mngmt</a>
        </li>
        <li>
-         <a class="nav-link tbl" id="menuhover" href="#" onclick="underConstruct()">DR-Assign</a>
+         <a class="nav-link tbl" id="menuhover" href="#" onclick="loadtbl2('Dr-Assign','','dr_assign')">DR-Assign</a>
        </li>
      
 
