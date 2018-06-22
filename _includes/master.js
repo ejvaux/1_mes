@@ -179,33 +179,12 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
                     $("#etransferdate").val(val['TRANSFER_DATE']);
                     
                     getitemname('eitemcode',eitemname,eitemmodel);
-                    getcustomername('edit','ecustomercode');
+                    getcustomername('ecustomercode',ecustomername);
                     $('.sel').select2({ width: '100%' });
                     $('#emoldlistmod').modal('show');                   
         
                   }
-                }); 
-
-                /* $("#idmoldlist").attr("value",data[0]);
-                $("#emoldcode").attr("value",data[1]);
-                $("#etoolnumber").attr("value",data[2]);
-                $("#eitemcode").val(data[3]);
-                $("#eitemname").val("");
-                $("#ecustomercode").val(data[5]);
-                $("#ecustomername").val("");
-                $("#eapprovaldate").attr("value",data[7]);
-                $("#edrawingrevision").attr("value",data[8]);
-                $("#eguaranteeshot").attr("value",data[9]);
-                $("#emoldshot").attr("value",data[10]);
-                $("#ecavity").attr("value",data[11]);
-                $("#emoldremarks").attr("value",data[12]);
-                $("#eassetnumber").attr("value",data[13]);
-                $("#etransferdate").attr("value",data[18]);
-
-                $('.sel').select2({ width: '100%' });
-                $('#emoldlistmod').modal('show');
-                getitemname('edit','eitemcode');
-                getcustomername('edit','ecustomercode'); */
+                });                
               }
             },
             {
@@ -329,7 +308,7 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
   $.fn.dataTable.ext.buttons.add1 = {
     action: function () {  
       getitemname('itemcode',itemname,itemmodel);
-      getcustomername('add','amcustomercode');         
+      getcustomername('amcustomercode',amcustomername);
       $("#moldlistmod").modal('show');
     }
   };
@@ -586,7 +565,7 @@ function DisplayTable3(Table_Name,Tablesp,tbltitle) {
               
               $('.sel').select2({ width: '100%' });
               $('#eitemmod').modal('show');
-              getcustomername('edit','eicustomercode');
+              getcustomername('eicustomercode',eicustomername);
             }
           },
           {
@@ -706,7 +685,7 @@ function DisplayTable3(Table_Name,Tablesp,tbltitle) {
 
 $.fn.dataTable.ext.buttons.add3 = {
   action: function () { 
-    getcustomername('add','aicustomercode');            
+    getcustomername('aicustomercode',aicustomername);            
     $("#itemmod").modal('show');
   }
 };

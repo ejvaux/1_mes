@@ -78,7 +78,7 @@
                   <label for="amcustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="amcustomercode" type="text" class="form-control form-control-sm sel" name="customercode" placeholder="" onchange="getcustomername('add','amcustomercode')" >
+                  <select id="amcustomercode" type="text" class="form-control form-control-sm sel" name="customercode" placeholder="" onchange="getcustomername('amcustomercode',amcustomername);" >
 
                     <?php
 
@@ -387,7 +387,7 @@
                   <label for="aicustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="aicustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcustomername('add','aicustomercode')" placeholder="">
+                  <select id="aicustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcustomername('aicustomercode',aicustomername)" placeholder="">
                     
                   <?php
 
@@ -1175,7 +1175,7 @@
                   <label for="ecustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="ecustomercode" type="text" class="form-control form-control-sm sel" name="ecustomercode" placeholder="" onchange="getcustomername('edit','ecustomercode')">
+                  <select id="ecustomercode" type="text" class="form-control form-control-sm sel" name="ecustomercode" placeholder="" onchange="getcustomername('ecustomercode',ecustomername)">
                   
                     <?php
 
@@ -1487,7 +1487,7 @@
                   <label for="eicustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eicustomercode" type="text" class="form-control form-control-sm sel" name="eicustomercode" onchange="getcustomername('edit','eicustomercode')" placeholder="" >
+                  <select id="eicustomercode" type="text" class="form-control form-control-sm sel" name="eicustomercode" onchange="getcustomername('eicustomercode',eicustomername)" placeholder="" >
                     
                     <?php
 

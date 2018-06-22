@@ -796,8 +796,7 @@ $('#mod').on('submit','#eemployeeform', function (e) {
     var ddl = document.getElementById(id);
     // find the selected option
     if(ddl.selectedIndex>=0){
-      var selectedOption = ddl.options[ddl.selectedIndex].value;
-      alert(selectedOption);
+      var selectedOption = ddl.options[ddl.selectedIndex].value;      
       $.ajax({
         type:'POST',
         data:{
@@ -808,13 +807,10 @@ $('#mod').on('submit','#eemployeeform', function (e) {
 
           if(data != 'none'){    
             var val = JSON.parse(data);
-            $(ddl).val(val.ITEM_CODE);
             $(tb1).val(val.ITEM_NAME);
-            $(tb2).val(val.MODEL);
-            
+            $(tb2).val(val.MODEL);            
           }
           else{
-            $(ddl).val('');
             $(tb1).val('');
             $(tb2).val('');
           } 
@@ -825,7 +821,7 @@ $('#mod').on('submit','#eemployeeform', function (e) {
 
   } /* getitemname */
   
-  function getcustomername(mod,id){
+  function getcustomername(id,tb1){
 
     // find the dropdown
     var ddl = document.getElementById(id);
@@ -833,42 +829,22 @@ $('#mod').on('submit','#eemployeeform', function (e) {
       // find the selected option
       var selectedOption = ddl.options[ddl.selectedIndex].text;
       
-      if(mod=='add'){      
-
-        $.ajax({
+      $.ajax({
         type:'POST',
         data:{
           'mc': selectedOption
         },
         url:'/1_mes/_query/master_database/get/getcustomername.php',
         success:function(data){
-            var val = JSON.parse(data);          
-            $("#amcustomername").val(val.CUSTOMER_NAME);
-            $("#aicustomername").val(val.CUSTOMER_NAME);
+            if(data != 'none'){    
+              var val = JSON.parse(data);         
+              $(tb1).val(val.CUSTOMER_NAME);
+            }
+            else{
+              $(tb1).val('');
+            }
         } 
         });
-
-      }
-
-      else if(mod=='edit'){
-
-        $.ajax({
-        type:'POST',
-        data:{
-          'mc': selectedOption
-        },
-        url:'/1_mes/_query/master_database/get/getcustomername.php',
-        success:function(data){
-            var val = JSON.parse(data);          
-            $("#ecustomername").val(val.CUSTOMER_NAME);
-            $("#eicustomername").val(val.CUSTOMER_NAME);
-        } 
-        });
-
-      }
-      else{
-        alert('INVALID MODAL');
-      }
     }
     
   } /* getitemname */

@@ -66,10 +66,9 @@
 
         <style>
 
-          /* body{
-                background-image: url('/1_MES/_images/symphony.png'); 
-                background-repeat: repeat;
-          }  */                          
+          body{
+            padding-top: 63px;
+          }                           
           
           /* Full-width input fields */
           /* input[type=text], input[type=password] {
@@ -148,7 +147,7 @@
           }
 
           .parallax-container {
-            height: 370px;
+            height: 800px;
             width: 100%;
           }
     
@@ -269,17 +268,17 @@
           
           <!-- End of Navbar -->
 
-      <div  class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="218" data-image-src='/1_MES/_images/DSC_3967.jpg' data-natural-width="800" data-natural-height="400"></div>
+      <div  class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="0" data-image-src='/1_MES/_images/DSC_3967.jpg' data-natural-width="800" data-natural-height="400"></div>
 
       <div class="container">
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col"></div>
             <div class="col-xs-5 text-center">
               <image src="/1_mes/_images/primatech-logo3.png" width="400" height="238" ></image>
             </div>
             <div class="col"></div>
-        </div>
+        </div> -->
 
         <div class="row">
             
