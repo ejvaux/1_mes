@@ -790,7 +790,7 @@ $('#mod').on('submit','#eemployeeform', function (e) {
 
 /* Display Data */
 
-  function getitemname(id,tb1,tb2){
+  function getitemname(id,tb1){
 
     // find the dropdown
     var ddl = document.getElementById(id);
@@ -807,12 +807,10 @@ $('#mod').on('submit','#eemployeeform', function (e) {
 
           if(data != 'none'){    
             var val = JSON.parse(data);
-            $(tb1).val(val.ITEM_NAME);
-            $(tb2).val(val.MODEL);            
+            $(tb1).val(val.ITEM_NAME);      
           }
           else{
             $(tb1).val('');
-            $(tb2).val('');
           } 
         } 
         });  

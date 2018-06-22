@@ -46,13 +46,13 @@
                   <label for="itemcode" class="col-form-label-sm">ITEM CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="itemcode" class="form-control form-control-sm sel" name="itemcode" placeholder="" onchange="getitemname('itemcode',itemname,itemmodel);">
+                  <select id="itemcode" class="form-control form-control-sm sel" name="itemcode" placeholder="" onchange="getitemname('itemcode',itemname);">
                     
                   <?php
 
                   include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
-                      $sql = "SELECT DISTINCT ITEM_CODE FROM dmc_item_mold_matching ORDER BY ITEM_CODE ASC";
+                      $sql = "SELECT DISTINCT ITEM_CODE FROM dmc_item_list ORDER BY ITEM_CODE ASC";
                       $result = $conn->query($sql);
                           
                           while($row = $result->fetch_assoc()) {
@@ -134,10 +134,10 @@
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="itemmodel" class="col-form-label-sm">ITEM MODEL:</label>                  
+                  <label for="approvaldate" class="col-form-label-sm">APPROVAL DATE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="itemmodel" type="text" class="form-control form-control-sm" name="itemmodel" placeholder="" readonly>                  
+                  <input id="approvaldate" type="date" class="form-control form-control-sm" name="approvaldate" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -222,18 +222,7 @@
             </div>                    
           </div>
 
-          <div class="form-group row">
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="approvaldate" class="col-form-label-sm">APPROVAL DATE:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="approvaldate" type="date" class="form-control form-control-sm" name="approvaldate" placeholder="">                  
-                </div>
-              </div>
-            </div>                   
-          </div>
+          
 
           <!-- ____________ FORM END __________________ -->
         
@@ -1143,13 +1132,13 @@
                   <label for="eitemcode" class="col-form-label-sm">ITEM CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eitemcode" type="text" class="form-control form-control-sm sel" name="eitemcode" placeholder="" onchange="getitemname('eitemcode',eitemname,eitemmodel);">
+                  <select id="eitemcode" type="text" class="form-control form-control-sm sel" name="eitemcode" placeholder="" onchange="getitemname('eitemcode',eitemname);">
                   
                     <?php
 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
-                        $sql = "SELECT DISTINCT ITEM_CODE FROM dmc_item_mold_matching ORDER BY ITEM_CODE ASC";
+                        $sql = "SELECT DISTINCT ITEM_CODE FROM dmc_item_list ORDER BY ITEM_CODE ASC";
                         $result = $conn->query($sql);
                         
                             while($row = $result->fetch_assoc()) {
@@ -1231,10 +1220,10 @@
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="eitemmodel" class="col-form-label-sm">ITEM MODEL:</label>                  
+                  <label for="eapprovaldate" class="col-form-label-sm">APPROVAL DATE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eitemmodel" type="text" class="form-control form-control-sm" name="itemmodel" placeholder="" readonly>                  
+                  <input id="eapprovaldate" type="date" class="form-control form-control-sm" name="eapprovaldate" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1317,20 +1306,7 @@
                 </div>
               </div>
             </div>                    
-          </div>
-
-          <div class="form-group row">
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="eapprovaldate" class="col-form-label-sm">APPROVAL DATE:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="eapprovaldate" type="date" class="form-control form-control-sm" name="eapprovaldate" placeholder="">                  
-                </div>
-              </div>
-            </div>                  
-          </div>
+          </div>          
 
           <!-- ____________ FORM END __________________ -->
         

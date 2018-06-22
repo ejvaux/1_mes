@@ -166,7 +166,6 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
                     $("#etoolnumber").val(val['TOOL_NUMBER']);
                     $("#eitemcode").val(val['ITEM_CODE']);
                     $("#eitemname").val("");
-                    $("#eitemmodel").val("");
                     $("#ecustomercode").val(val['CUSTOMER_CODE']);
                     $("#ecustomername").val("");
                     $("#eapprovaldate").val(val['APPROVAL_DATE']);
@@ -178,7 +177,7 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
                     $("#eassetnumber").val(val['ASSET_NUMBER']);
                     $("#etransferdate").val(val['TRANSFER_DATE']);
                     
-                    getitemname('eitemcode',eitemname,eitemmodel);
+                    getitemname('eitemcode',eitemname);
                     getcustomername('ecustomercode',ecustomername);
                     $('.sel').select2({ width: '100%' });
                     $('#emoldlistmod').modal('show');                   
@@ -307,7 +306,7 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
   
   $.fn.dataTable.ext.buttons.add1 = {
     action: function () {  
-      getitemname('itemcode',itemname,itemmodel);
+      getitemname('itemcode',itemname);
       getcustomername('amcustomercode',amcustomername);
       $("#moldlistmod").modal('show');
     }
