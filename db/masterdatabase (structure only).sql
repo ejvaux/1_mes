@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2018 at 09:51 AM
+-- Generation Time: Jun 22, 2018 at 11:21 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -66,7 +66,7 @@ CREATE TABLE `dmc_customer` (
   `CUSTOMER_INITIAL` varchar(11) DEFAULT NULL,
   `CUSTOMER_CODE` varchar(50) DEFAULT NULL,
   `DIVISION_CODE` varchar(50) DEFAULT NULL,
-  `CUSTOMER_NAME` varchar(50) DEFAULT NULL,
+  `CUSTOMER_NAME` varchar(100) DEFAULT NULL,
   `GROUP_CODE` int(11) DEFAULT NULL,
   `INSERT_DATETIME` varchar(50) DEFAULT NULL,
   `INSERT_USER` varchar(50) DEFAULT NULL,
@@ -112,6 +112,25 @@ CREATE TABLE `dmc_division_code` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dmc_employee`
+--
+
+CREATE TABLE `dmc_employee` (
+  `EMPLOYEE_ID` int(11) NOT NULL,
+  `EMPLOYEE_CODE` int(6) UNSIGNED ZEROFILL NOT NULL,
+  `EMPLOYEE_NAME` varchar(50) NOT NULL,
+  `EMPLOYEE_STATUS` varchar(50) NOT NULL,
+  `DATE_HIRED` varchar(50) NOT NULL,
+  `DIVISION` varchar(50) NOT NULL,
+  `INSERT_DATETIME` varchar(50) NOT NULL,
+  `INSERT_USER` varchar(50) NOT NULL,
+  `UPDATE_DATETIME` varchar(50) NOT NULL,
+  `UPDATE_USER` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dmc_item_list`
 --
 
@@ -119,7 +138,7 @@ CREATE TABLE `dmc_item_list` (
   `ITEM_ID` int(11) NOT NULL,
   `DIVISION_CODE` varchar(50) DEFAULT NULL,
   `CUSTOMER_CODE` varchar(50) DEFAULT NULL,
-  `CUSTOMER_NAME` varchar(50) DEFAULT NULL,
+  `CUSTOMER_NAME` varchar(255) DEFAULT NULL,
   `BARCODE` varchar(4) DEFAULT NULL,
   `ITEM_CODE` varchar(50) NOT NULL,
   `ITEM_NAME` varchar(50) DEFAULT NULL,
@@ -192,7 +211,7 @@ CREATE TABLE `dmc_mold_list` (
   `ITEM_CODE` varchar(25) DEFAULT NULL,
   `ITEM_NAME` varchar(60) DEFAULT NULL,
   `CUSTOMER_CODE` varchar(25) DEFAULT NULL,
-  `CUSTOMER_NAME` varchar(50) DEFAULT NULL,
+  `CUSTOMER_NAME` varchar(100) DEFAULT NULL,
   `APPROVAL_DATE` varchar(60) DEFAULT NULL,
   `DRAWING_REVISION` varchar(25) DEFAULT NULL,
   `GUARANTEE_SHOT` varchar(25) DEFAULT NULL,
@@ -235,7 +254,11 @@ CREATE TABLE `dmc_packing_list` (
 CREATE TABLE `dmc_user_authority` (
   `AUTHORITY_ID` int(11) NOT NULL,
   `AUTHORITY_CODE` varchar(25) DEFAULT NULL,
-  `USER_AUTHORITY` varchar(25) DEFAULT NULL
+  `USER_AUTHORITY` varchar(25) DEFAULT NULL,
+  `INSERT_DATETIME` varchar(50) NOT NULL,
+  `INSERT_USER` varchar(50) NOT NULL,
+  `UPDATE_DATETIME` varchar(50) NOT NULL,
+  `UPDATE_USER` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -295,6 +318,27 @@ CREATE TABLE `mdm_machine_history` (
 
 CREATE TABLE `mdm_machine_pm` (
   `MACHINE_PM_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mis_dr_assigned`
+--
+
+CREATE TABLE `mis_dr_assigned` (
+  `dr_assigned_id` int(11) NOT NULL,
+  `dr_date` date DEFAULT NULL,
+  `dr_number` varchar(90) NOT NULL,
+  `group_name` varchar(90) NOT NULL,
+  `packing_number` varchar(90) NOT NULL,
+  `lot_number` varchar(90) NOT NULL,
+  `jo_number` varchar(90) NOT NULL,
+  `item_code` varchar(90) NOT NULL,
+  `item_name` varchar(90) NOT NULL,
+  `machine_code` varchar(90) NOT NULL,
+  `customer_code` varchar(90) NOT NULL,
+  `customer_name` varchar(90) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -369,6 +413,24 @@ CREATE TABLE `mis_summarize_results` (
   `PROD_RESULT` varchar(70) NOT NULL,
   `ACHIEVE_RATE` varchar(70) NOT NULL,
   `DEFECT_RATE` varchar(70) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mis_temp_ship_group`
+--
+
+CREATE TABLE `mis_temp_ship_group` (
+  `ship_group_id` int(11) NOT NULL,
+  `packing_number` varchar(90) NOT NULL,
+  `lot_number` varchar(90) NOT NULL,
+  `jo_number` varchar(90) NOT NULL,
+  `item_code` varchar(90) NOT NULL,
+  `item_name` varchar(90) NOT NULL,
+  `machine_code` varchar(90) NOT NULL,
+  `customer_code` varchar(90) DEFAULT NULL,
+  `customer_name` varchar(90) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -613,7 +675,9 @@ CREATE TABLE `qmd_lot_create` (
   `DEFECT_QTY` int(255) DEFAULT NULL,
   `REMARKS` varchar(255) DEFAULT '---',
   `JUDGE_BY` varchar(255) DEFAULT '---',
-  `JUDGEMENT_DATE` varchar(255) DEFAULT NULL
+  `JUDGEMENT_DATE` varchar(255) DEFAULT NULL,
+  `SAP_TRANSFER_STATUS` varchar(70) DEFAULT NULL,
+  `FROM_WAREHOUSE` varchar(255) NOT NULL DEFAULT 'QP01'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -631,6 +695,22 @@ CREATE TABLE `qmd_lot_rework` (
   `DEFECT_QTY` int(10) DEFAULT NULL,
   `REMARKS` varchar(255) DEFAULT NULL,
   `JUDGE_BY` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sap_dr`
+--
+
+CREATE TABLE `sap_dr` (
+  `sap_dr_id` int(11) NOT NULL,
+  `dr_number` varchar(90) NOT NULL,
+  `dr_date` date NOT NULL,
+  `customer_code` varchar(90) NOT NULL,
+  `customer_name` varchar(90) NOT NULL,
+  `item_code` varchar(90) NOT NULL,
+  `item_name` varchar(90) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -683,6 +763,12 @@ ALTER TABLE `dmc_division_code`
   ADD PRIMARY KEY (`DIVISION_ID`),
   ADD UNIQUE KEY `DIVISION_CODE` (`DIVISION_CODE`),
   ADD UNIQUE KEY `SAP_DIVISION_CODE` (`SAP_DIVISION_CODE`);
+
+--
+-- Indexes for table `dmc_employee`
+--
+ALTER TABLE `dmc_employee`
+  ADD PRIMARY KEY (`EMPLOYEE_ID`);
 
 --
 -- Indexes for table `dmc_item_list`
@@ -752,6 +838,12 @@ ALTER TABLE `mdm_machine_pm`
   ADD PRIMARY KEY (`MACHINE_PM_ID`);
 
 --
+-- Indexes for table `mis_dr_assigned`
+--
+ALTER TABLE `mis_dr_assigned`
+  ADD PRIMARY KEY (`dr_assigned_id`);
+
+--
 -- Indexes for table `mis_product`
 --
 ALTER TABLE `mis_product`
@@ -768,6 +860,12 @@ ALTER TABLE `mis_prod_plan_dl`
 --
 ALTER TABLE `mis_summarize_results`
   ADD PRIMARY KEY (`NO`);
+
+--
+-- Indexes for table `mis_temp_ship_group`
+--
+ALTER TABLE `mis_temp_ship_group`
+  ADD PRIMARY KEY (`ship_group_id`);
 
 --
 -- Indexes for table `mmc_mold_fabrication`
@@ -835,6 +933,12 @@ ALTER TABLE `qmd_lot_rework`
   ADD PRIMARY KEY (`LOT_JUDGE_ID`);
 
 --
+-- Indexes for table `sap_dr`
+--
+ALTER TABLE `sap_dr`
+  ADD PRIMARY KEY (`sap_dr_id`);
+
+--
 -- Indexes for table `testing_table`
 --
 ALTER TABLE `testing_table`
@@ -863,16 +967,22 @@ ALTER TABLE `dmc_division_code`
   MODIFY `DIVISION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
+-- AUTO_INCREMENT for table `dmc_employee`
+--
+ALTER TABLE `dmc_employee`
+  MODIFY `EMPLOYEE_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `dmc_item_list`
 --
 ALTER TABLE `dmc_item_list`
-  MODIFY `ITEM_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=390;
+  MODIFY `ITEM_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=403;
 
 --
 -- AUTO_INCREMENT for table `dmc_item_mold_matching`
 --
 ALTER TABLE `dmc_item_mold_matching`
-  MODIFY `NO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=774;
+  MODIFY `NO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=871;
 
 --
 -- AUTO_INCREMENT for table `dmc_machine_list`
@@ -902,7 +1012,7 @@ ALTER TABLE `dmc_user_authority`
 -- AUTO_INCREMENT for table `dmc_user_info`
 --
 ALTER TABLE `dmc_user_info`
-  MODIFY `NO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `NO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `jo_update_hist`
@@ -917,22 +1027,34 @@ ALTER TABLE `mdm_machine_pm`
   MODIFY `MACHINE_PM_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `mis_dr_assigned`
+--
+ALTER TABLE `mis_dr_assigned`
+  MODIFY `dr_assigned_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `mis_product`
 --
 ALTER TABLE `mis_product`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1145;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4085;
 
 --
 -- AUTO_INCREMENT for table `mis_prod_plan_dl`
 --
 ALTER TABLE `mis_prod_plan_dl`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1540;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2065;
 
 --
 -- AUTO_INCREMENT for table `mis_summarize_results`
 --
 ALTER TABLE `mis_summarize_results`
-  MODIFY `NO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=401;
+  MODIFY `NO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=581;
+
+--
+-- AUTO_INCREMENT for table `mis_temp_ship_group`
+--
+ALTER TABLE `mis_temp_ship_group`
+  MODIFY `ship_group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `mmc_mold_fabrication`
@@ -968,31 +1090,37 @@ ALTER TABLE `mmc_mold_scheduling`
 -- AUTO_INCREMENT for table `pathtable`
 --
 ALTER TABLE `pathtable`
-  MODIFY `pathID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pathID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `qmd_danpla_tempstore`
 --
 ALTER TABLE `qmd_danpla_tempstore`
-  MODIFY `TEMP_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `TEMP_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=239;
 
 --
 -- AUTO_INCREMENT for table `qmd_defect_dl`
 --
 ALTER TABLE `qmd_defect_dl`
-  MODIFY `LOT_DEFECT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=335;
+  MODIFY `LOT_DEFECT_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=336;
 
 --
 -- AUTO_INCREMENT for table `qmd_lot_create`
 --
 ALTER TABLE `qmd_lot_create`
-  MODIFY `LOT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
+  MODIFY `LOT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=549;
 
 --
 -- AUTO_INCREMENT for table `qmd_lot_rework`
 --
 ALTER TABLE `qmd_lot_rework`
-  MODIFY `LOT_JUDGE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `LOT_JUDGE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+
+--
+-- AUTO_INCREMENT for table `sap_dr`
+--
+ALTER TABLE `sap_dr`
+  MODIFY `sap_dr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `testing_table`
