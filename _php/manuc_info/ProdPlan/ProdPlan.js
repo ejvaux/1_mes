@@ -267,7 +267,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
 
      else if(SectionGroup=="shipment_management")
      {
-        $('.sel2').select2({width: '200px'});
+        $('.sel2').select2({width: '80%'});
         if(param1!="no")
         {
             $("#example-table2").tabulator("destroy");
@@ -276,8 +276,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         }
         var ShipStat = document.getElementById("StatusSort");
         var selectedOption = ShipStat.options[ShipStat.selectedIndex].value;
- //example table
-      $.ajax({
+        //example table
+        $.ajax({
             method:'POST',
             url:'/1_mes/_php/manuc_info/ProdPlan/DataShipmentList.php',
             data:
@@ -299,7 +299,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             }
  
              });
-//example table 2
+        //example table 2
         $.ajax({
         method:'POST',
         url:'/1_mes/_php/manuc_info/ProdPlan/DataTempShipmentList.php',
@@ -317,9 +317,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             $("#example-table2").tabulator("setData",val);
         }
 
-            });     
-//example table 3
-var searchobj2 = document.getElementById("search2").value;
+        });     
+        
+        //example table 3
+        var searchobj2 = document.getElementById("search2").value;
             $.ajax({
                 method:'POST',
                 url:'/1_mes/_php/manuc_info/ProdPlan/DataGroupList.php',
@@ -341,11 +342,12 @@ var searchobj2 = document.getElementById("search2").value;
                     
     
      }
+
      else if(SectionGroup=="shipment_management1")
      {
         var ShipStat = document.getElementById("StatusSort");
         var selectedOption = ShipStat.options[ShipStat.selectedIndex].value;
- //example table
+        //example table
       $.ajax({
             method:'POST',
             url:'/1_mes/_php/manuc_info/ProdPlan/DataShipmentList.php',
@@ -369,8 +371,42 @@ var searchobj2 = document.getElementById("search2").value;
  
              });
      }
+
+      else if(SectionGroup=="dr_assign")
+     {
+        var DrDataTypeobj = document.getElementById("DrDataType");
+        var selectedOption2 = DrDataTypeobj.options[DrDataTypeobj.selectedIndex].value;
+       
+        $.ajax({
+            method:'POST',
+            url:'/1_mes/_php/manuc_info/ProdPlan/DataDrAssign.php',
+            data:
+            {
+                'sortfrom': strfromobj,
+                'sortto': strtoobj,
+                'search': searchobj,
+                'drdatatype': selectedOption2,
+                'ajax':true
+  
+            },
+        
+            
+            success: function(data) 
+            {
+                initTbl2("Dr-Assign");
+                var val = JSON.parse(data);
+               /* alert(val); */
+               $("#example-table").tabulator("setData",val); 
+             
+            }
+  
+             });
+     }
+    
     
      
+
+
 }
 
  function cancelfilter(moduleID,deptSec,SectionGroup)
@@ -388,8 +424,8 @@ var searchobj2 = document.getElementById("search2").value;
 
  function initTbl2(TabName)
  {
-     if(TabName=="ProdPlanVsResult")
-     {
+    if(TabName=="ProdPlanVsResult")
+    {
         var screenheight=Number(screen.height-350);
         $("#example-table").tabulator({
            height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
@@ -485,7 +521,7 @@ var searchobj2 = document.getElementById("search2").value;
            {title:"PRINT TIME", field:"PRINT TIME"},
            {title:"PRINTED BY", field:"PRINTED BY"}
        ],
-   });
+     });
    
    }
    else if(TabName=="PendingProduction")
@@ -503,7 +539,7 @@ var searchobj2 = document.getElementById("search2").value;
            {title:"NO", field:"NO", width:60,align:"center"},
            {title:"DATE", field:"DATE"},
            {title:"JO NO", field:"JO NO"},
-           {title:"CUSTOMER CODE", field:"CUSTOMER CODE",},
+           {title:"CUSTOMER CODE", field:"CUSTOMER CODE"},
            {title:"CUSTOMER NAME", field:"CUSTOMER NAME"},
            {title:"ITEM CODE", field:"ITEM CODE"},
            {title:"ITEM NAME", field:"ITEM NAME"},
@@ -951,6 +987,60 @@ var searchobj2 = document.getElementById("search2").value;
     ]
     });
    }
+   else if(TabName=="Dr-Assign")
+   {
+    var screenheight=Number(screen.height-350);
+    $("#example-table").tabulator({
+       height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+       layout:"fitColumns", //fit columns to width of table (optional)
+       pagination:"local",
+       paginationSize:100,
+       placeholder:"No Data to Display or Today's plan is not yet available.",
+       movableColumns:true,
+       groupBy:"DR_DATE",    
+       columns:[
+           {title:"NO", field:"NO", width:60,align:"center"},
+           { title:"CTRLS ",align:"center", align:"center",
+           formatter:function(cell, formatterParams)
+                {
+                    $hasDR = cell.getRow().getData().DR_NO;
+                    if($hasDR=="UNASSIGNED DR")
+                    {
+                        return '<div class="btn btn-success btn-sm"><i class="fas fa-file-medical"></i> ASSIGN DR</div>';
+                    }
+                    else
+                    {
+                        return '<div class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> EDIT DR</div>';
+                    }
+
+                },
+           cellClick:function(e, cell)
+               {
+                $('.sel2').select2({width: '84%'});
+                $hasDR = cell.getRow().getData().DR_NO;
+                if($hasDR=="UNASSIGNED DR")
+                {
+                    $('#exampleModal').modal('show');
+                    document.getElementById("grouptext").value = cell.getRow().getData().GROUP_NAME;
+                    $('#drtextchange').val("--SELECT A DR#--").trigger('change'); 
+                   
+                }
+                else
+                {
+                    $('#exampleModal').modal('show');
+                    document.getElementById("grouptext").value = cell.getRow().getData().GROUP_NAME;
+                    document.getElementById("drtext").value = cell.getRow().getData().DR_NO;
+                    $('#drtextchange').val(cell.getRow().getData().DR_NO).trigger('change'); 
+                }
+               }
+            },
+           {title:"DR DATE", field:"DR_DATE"},
+           {title:"DR NO", field:"DR_NO"},
+           {title:"GROUP NAME", field:"GROUP_NAME"}
+       ],
+   });
+   
+   }
  
    
  
@@ -1070,7 +1160,7 @@ var searchobj2 = document.getElementById("search2").value;
  
 function IncrementGroupName()
 {
-    $('.sel2').select2({width: '200px'});
+    $('.sel2').select2({width: '84%'});
 
     $.ajax({
         method:'POST',

@@ -197,9 +197,6 @@
                           echo '<option>'.$row['dr_number'].'</option>';
                         }
                         
-
-
-
                         ?>
                     
                     </select>
