@@ -16,14 +16,15 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                          # code... condition above is whenever both date range are null
                   /*        $sql="SELECT * from MIS_PROD_PLAN_DL WHERE JOB_ORDER_NO LIKE '%$str%' or CUSTOMER_CODE LIKE '%$str%' or CUSTOMER_NAME LIKE '%$str%' or ITEM_CODE LIKE '%$str%' or ITEM_NAME LIKE '%$str%' or TOOL_NUMBER LIKE '%$str%' or MACHINE_CODE LIKE '%$str%' or mACHINE_MAKER LIKE '%$str%' or TONNAGE LIKE '%$str%' or MACHINE_GROUP LIKE '%$str%' or PRIORITY LIKE '%$str%' order by DATE_ DESC"; */
 
-                  $sql="SELECT mis_product.*, dmc_item_list.MODEL 
+                  $sql="SELECT mis_product.*, dmc_item_list.MODEL, mis_prod_plan_dl.DATE_ as jodate
                   FROM `mis_product`
-                  LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE 
-                  WHERE (mis_product.MACHINE_CODE LIKE '%$search%' or mis_product.PRINT_DATE LIKE '%$search%' 
+                  LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE
+                  LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
+                  WHERE (mis_product.MACHINE_CODE LIKE '%$search%' or mis_prod_plan_dl.DATE_ LIKE '%$search%' 
                   or mis_product.ITEM_CODE LIKE '%$search%' or mis_product.ITEM_NAME LIKE '%$search%' or mis_product.JO_NUM LIKE '%$search%'
                    or mis_product.TOOL_NUM LIKE '%$search%' or dmc_item_list.MODEL LIKE '%$search%') 
                    AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') 
-                  ORDER BY mis_product.PRINT_DATE DESC";  
+                  ORDER BY mis_prod_plan_dl.DATE_ DESC";  
  
                        } 
 
@@ -33,28 +34,28 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                         if ($search!="") 
                         {
                           # code...
-                           $sql="SELECT mis_product.*, dmc_item_list.MODEL 
+                           $sql="SELECT mis_product.*, dmc_item_list.MODEL,mis_prod_plan_dl.DATE_ as jodate
                            FROM `mis_product`
                           LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE 
-                          
-                          WHERE (mis_product.MACHINE_CODE LIKE '%$search%' or mis_product.PRINT_DATE LIKE '%$search%' 
+                          LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
+                          WHERE (mis_product.MACHINE_CODE LIKE '%$search%' or mis_prod_plan_dl.DATE_ LIKE '%$search%' 
                           or mis_product.ITEM_CODE LIKE '%$search%' or mis_product.JO_NUM LIKE '%$search%' 
                           or mis_product.ITEM_NAME LIKE '%$search%' or mis_product.TOOL_NUM LIKE '%$search%' 
                           or dmc_item_list.MODEL LIKE '%$search%') 
                           AND (mis_product.DATE_ = '$strfrom') AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')
-                          ORDER BY mis_product.PRINT_DATE DESC";
+                          ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
 
                         }
 
                         else
                         {
-                             $sql="SELECT mis_product.*, dmc_item_list.MODEL
+                             $sql="SELECT mis_product.*, dmc_item_list.MODEL,mis_prod_plan_dl.DATE_ as jodate 
                              FROM `mis_product`
                              LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE
-                             
+                             LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
                              WHERE (mis_product.DATE_ = '$strfrom') AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')
-                             ORDER BY mis_product.PRINT_DATE DESC";
+                             ORDER BY mis_prod_plan_dl.DATE_ DESC";
                    
                         }
                       }
@@ -66,17 +67,17 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                            {
                                         # code...
 
-                                         $sql="SELECT mis_product.*, dmc_item_list.MODEL
+                                         $sql="SELECT mis_product.*, dmc_item_list.MODEL,mis_prod_plan_dl.DATE_ as jodate
                                          FROM `mis_product`
                                          LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE
-                                                                       
+                                         LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO                              
                                          WHERE ( mis_product.MACHINE_CODE LIKE '%$search%' or 
-                                         mis_product.PRINT_DATE LIKE '%$search%' or mis_product.ITEM_CODE LIKE '%$search%' 
+                                         mis_prod_plan_dl.DATE_ LIKE '%$search%' or mis_product.ITEM_CODE LIKE '%$search%' 
                                          or mis_product.ITEM_NAME LIKE '%$search%' or mis_product.JO_NUM LIKE '%$search%' 
                                          or mis_product.TOOL_NUM LIKE '%$search%' or dmc_item_list.MODEL LIKE '%$search%') 
                                          AND (mis_product.DATE_ BETWEEN '$strfrom' AND '$strto') 
                                          AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')
-                                         ORDER BY mis_product.PRINT_DATE DESC";
+                                         ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
                                           
 
@@ -84,12 +85,13 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 
                             else
                             {
-                                         $sql="SELECT mis_product.*, dmc_item_list.MODEL
+                                         $sql="SELECT mis_product.*, dmc_item_list.MODEL,mis_prod_plan_dl as jodate
                                          FROM `mis_product`
                                          LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE
+                                         LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
                                         WHERE (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') 
                                         AND (mis_product.DATE_ BETWEEN '$strfrom' AND '$strto') 
-                                        ORDER BY mis_product.PRINT_DATE DESC";
+                                        ORDER BY mis_prod_plan_dl.DATE_ DESC";
          
                             }
 
@@ -134,7 +136,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
    
       
       array_push($datavar,["NO"=> $ctr ,"JO NO"=>$row['JO_NUM'], "SERIAL PRINT"=> $row['JO_BARCODE'] ,
-      "PROD DATE"=>$temp_date,"ITEM CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],"MODEL"=>$row['MODEL'],
+      "JO_DATE"=>$row['DATE_'],"ITEM CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],"MODEL"=>$row['MODEL'],
       "PRINT QTY"=>$row['PRINT_QTY'],"MACHINE CODE"=>$row['MACHINE_CODE'],"TOOL NO"=>$row['TOOL_NUM'],"PACKING NUMBER"=>$row['PACKING_NUMBER']
       ,"PRINT TIME"=>$temp_date,"PRINTED BY"=>$row['PRINTED_BY']]);
     

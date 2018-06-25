@@ -515,9 +515,9 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         //{formatter:"responsiveCollapse", width:30, minWidth:30, align:"center", resizable:false, headerSort:false},
    
            {title:"NO", field:"NO", width:60},
+           {title:"JO DATE", field:"JO_DATE", align:"center"},
            {title:"JO NO", field:"JO NO"},
            {title:"SERIAL PRINT", field:"SERIAL PRINT"},
-           {title:"PROD DATE", field:"PROD DATE", align:"center"},
            {title:"ITEM CODE", field:"ITEM CODE"},
            {title:"ITEM NAME", field:"ITEM NAME"},
            {title:"MODEL", field:"MODEL"},
