@@ -35,6 +35,11 @@ else
 }
 
 $result=$conn->query($sql);
+
+
+$sql2="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' WHERE PACKING_NUMBER IN (SELECT packing_number from mis_dr_assigned WHERE dr_number='$newdr')";
+$result2=$conn->query($sql2);
+
 }
 
 

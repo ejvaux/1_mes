@@ -10,8 +10,6 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
   /*   if(strpos($url, 'sortfrom=')!==false)
     { */
         
-      
-
                       if ($strto == "" && $strfrom=="") 
                       {
                          # code... condition above is whenever both date range are null

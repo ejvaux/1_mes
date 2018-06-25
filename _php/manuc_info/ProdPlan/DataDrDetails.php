@@ -1,7 +1,16 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 $drno=$_POST['drno'];
-$sql="SELECT * FROM mis_dr_assigned WHERE dr_number='$drno'";
+$datasorttype=$_POST['datasorttype'];
+if($datasorttype=="UnassignedDr")
+{
+    $sql="SELECT * FROM mis_dr_assigned WHERE group_name='$drno'";
+}
+else
+{
+    $sql="SELECT * FROM mis_dr_assigned WHERE dr_number='$drno'";
+}
+
 $result = $conn->query($sql);
 $datavar=[];
 $ctr=0;

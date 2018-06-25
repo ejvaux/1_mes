@@ -11,7 +11,7 @@ if($search!="")
 }
 else
 {
-    $sql = "SELECT * FROM mis_dr_assigned WHERE dr_number = ''  ORDER BY dr_assigned_id DESC";
+    $sql = "SELECT * FROM mis_dr_assigned WHERE dr_number = '' OR dr_number IS NULL  ORDER BY dr_assigned_id DESC";
 
 }
 

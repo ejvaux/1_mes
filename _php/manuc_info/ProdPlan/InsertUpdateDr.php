@@ -56,6 +56,13 @@ else
         $sql2="INSERT INTO mis_dr_assigned(dr_number,packing_number,lot_number,jo_number,item_code,machine_code,item_name,dr_date,customer_code,customer_name)
         VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$datenow','$customercode','$customername')";
         $result2=$conn->query($sql2);
+
+        $sql4="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' WHERE PACKING_NUMBER IN (SELECT packing_number from mis_dr_assigned WHERE dr_number='$groupname')";
+        $result4=$conn->query($sql4);
+
+
+
+
     }
 
 $sql3="DELETE FROM mis_temp_ship_group";

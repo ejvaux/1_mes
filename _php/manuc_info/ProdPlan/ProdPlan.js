@@ -375,11 +375,6 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
       else if(SectionGroup=="dr_assign")
      {
 
-        if(param1!="no")
-        {
-            $("#example-table2").tabulator("destroy");
-            
-        }
 
         var DrDataTypeobj = document.getElementById("DrDataType");
         var selectedOption2 = DrDataTypeobj.options[DrDataTypeobj.selectedIndex].value;
@@ -400,6 +395,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             
             success: function(data) 
             {
+                LoadTableOfDrDetails("testing","UnassignedDr","no");
                 initTbl2("Dr-Assign");
                 var val = JSON.parse(data);
                /* alert(val); */
@@ -409,7 +405,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
   
              });
 
-LoadTableOfDrDetails("testing");
+
 
      }
      
@@ -1009,14 +1005,25 @@ LoadTableOfDrDetails("testing");
        paginationSize:100,
        placeholder:"No Data to Display",
        movableColumns:true,
-       groupBy:"DR_DATE",    
-       rowClick:function(e, row)
-           {
-            LoadTableOfDrDetails(row.getData().DR_NO);
-           },
+       groupBy:"DR_DATE",         
+        rowClick:function(e, row){
+        //e - the click event object
+        //row - row component
+        DataToSort=row.getData().DR_NO;
+        if(DataToSort=="UNASSIGNED DR")
+        {
+            LoadTableOfDrDetails(row.getData().GROUP_NAME,"UnassignedDr");
+        }
+        else
+        {
+            LoadTableOfDrDetails(row.getData().DR_NO,"assignedDr");
+        }
+        },
+ 
+       
        columns:[
            {title:"NO", field:"NO", width:60,align:"center"},
-           { title:"CTRLS ",align:"center", align:"center",
+           { title:"CTRLS ",align:"center",
            formatter:function(cell, formatterParams)
                 {
                     $hasDR = cell.getRow().getData().DR_NO;
@@ -1034,8 +1041,8 @@ LoadTableOfDrDetails("testing");
            cellClick:function(e, cell)
                {
                 $('.sel2').select2({width: '84%'});
-                $hasDR = cell.getRow().getData().DR_NO;
-                if($hasDR=="UNASSIGNED DR")
+                hasDR = cell.getRow().getData().DR_NO;
+                if(hasDR=="UNASSIGNED DR")
                 {
                     $('#exampleModal').modal('show');
                     document.getElementById("grouptext").value = cell.getRow().getData().GROUP_NAME;
@@ -1050,9 +1057,31 @@ LoadTableOfDrDetails("testing");
                     document.getElementById("drtext").value = cell.getRow().getData().DR_NO;
                     $('#drtextchange').val(cell.getRow().getData().DR_NO).trigger('change'); 
                     
+                    
                 }
                }
             },
+           /*  {title:"VIEW", field:"VIEW",width:"15px",
+                 formatter:function(cell, formatterParams)
+                {
+                    return '<div class="btn btn-success btn-sm"><i class="fas fa-file-medical"></i> VIEW</div>';
+                },
+                cellClick:function(e, cell)
+                {
+                    DataToSort=cell.getRow().getData().DR_NO;
+                    if(DataToSort=="UNASSIGNED DR")
+                    {
+                        LoadTableOfDrDetails(cell.getRow().getData().GROUP_NAME,"UnassignedDr");
+                    }
+                    else
+                    {
+                        LoadTableOfDrDetails(cell.getRow().getData().DR_NO,"assignedDr");
+                    }
+                }
+      
+
+
+           }, */
            {title:"DR DATE", field:"DR_DATE"},
            {title:"DR NO", field:"DR_NO"},
            {title:"GROUP NAME", field:"GROUP_NAME"}
@@ -1080,12 +1109,64 @@ LoadTableOfDrDetails("testing");
         formatter:function(cell, formatterParams)
              {
                  
-             return '<div class="btn btn-danger btn-sm"><i class="fas fa-file-medical"></i> ASSIGN DR</div>';
+             return '<div class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> REMOVE</div>';
                                 
              },
         cellClick:function(e, cell)
             {
-           
+              
+                                    ///alert("Printing row data for: " + cell.getRow().getData().PACKING_NUMBER);
+                swal({
+                    title: 'Are you sure you want to remove '+ cell.getRow().getData().PACKING_NO+" to this group or DR#?  ",
+                    text: "All remove items status will be set to 'UNASSIGNED DR' automatically.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes,Remove this item!'
+                  }).then((result) => {
+
+                    if (result.value) {
+
+                        $.ajax({
+                            method:'POST',
+                            url:'/1_mes/_php/manuc_info/Prodplan/RevertMarkAsShipped.php',
+                            data:
+                            {
+                                'packingno': cell.getRow().getData().PACKING_NO,
+                                'lotno':cell.getRow().getData().LOT_NUMBER,
+/*                                 'jono': cell.getRow().getData().JO_NO,
+                                'itemcode':cell.getRow().getData().ITEM_CODE,
+                                'machinecode': cell.getRow().getData().MACHINE_CODE,
+                                'itemname': cell.getRow().getData().ITEM_NAME,
+                                'customercode': cell.getRow().getData().CUSTOMER_CODE,
+                                'customername': cell.getRow().getData().CUSTOMER_NAME, */
+                                'ajax':true
+                  
+                            },
+                        
+                            
+                            success: function(data) 
+                            {
+                               
+                                showTable("Dr-Assign","","dr_assign");
+                            swal(
+                                'SUCCESS!',
+                                cell.getRow().getData().PACKING_NUMBER+' removed from the list.',
+                                'success'
+                            )
+                            alert(data);
+                            }
+                  
+                        });
+                
+
+
+                    }
+                 
+                })
+
+
             }
          },
         {title:"DR DATE", field:"DR_DATE"},
@@ -1307,6 +1388,16 @@ function InsertDrGroup()
     }
     else
     {
+        if(ddrtext=="--SELECT A DR#--")
+        {
+            swal({
+                type: 'error',
+                title: 'ERROR!',
+                text: 'Please select a DR#!' 
+            })
+        }
+        else
+        {
 
         $.ajax({
             method:'POST',
@@ -1335,6 +1426,8 @@ function InsertDrGroup()
             }
     
         });
+
+        }
     
     }
 
@@ -1356,11 +1449,21 @@ function setdr()
         updatetype="group";
     }
 
-    
+    if(newdr=="--SELECT A DR#--")
+    {
+        swal(
+            'ERROR!',
+            'Please select a DR#!',
+            'error'
+        )
+       
+    }
+    else
+    {
 
     swal({
-        title: 'Confirmation',
-        text: "Are you sure you want to save all the changes? ",
+        title: 'Are you sure you want to save all the changes? ',
+        text: "Assigning a Dr will automatically set the item's status to SHIPPED",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -1400,16 +1503,26 @@ function setdr()
     
         }
       })
+    }
+
 }
  
 
-function LoadTableOfDrDetails(Drno)
+function LoadTableOfDrDetails(Drno,datasorttype,param1)
 {
+
+    if(param1!="no")
+    {
+        $("#example-table2").tabulator("destroy");
+        
+    }
+
     $.ajax({
         method:'POST',
         url:'/1_mes/_php/manuc_info/Prodplan/DataDrDetails.php',
         data:
         {
+            'datasorttype': datasorttype,
             'drno': Drno,
             'ajax':true
 
@@ -1419,9 +1532,9 @@ function LoadTableOfDrDetails(Drno)
         success: function(data) 
         {
             initTbl2("dr-details");
-            var val = JSON.parse(data);
+            var val2 = JSON.parse(data);
            /* alert(val); */
-           $("#example-table2").tabulator("setData",val); 
+           $("#example-table2").tabulator("setData",val2); 
          
         }
 
