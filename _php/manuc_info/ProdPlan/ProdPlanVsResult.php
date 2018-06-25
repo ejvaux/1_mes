@@ -120,7 +120,7 @@ $(document).on('change','#ICode', function() {
    <ul class="navbar-nav nav-tabs mr-auto mt-1" id="tb">                
    <li class="nav-item dropdown" style="overflow:visible;">
      <a class="nav-link tbl dropdown-toggle bar active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-     Production Plan Vs Result
+     ProdPlan Vs Result
      </a>
        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">                  
          <div class="container dropdown-header text-left">

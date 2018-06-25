@@ -88,6 +88,7 @@
         <div id="example-table"></div>
     </div>
     <div class="col-lg-7">
+        <div id="example-table2"></div>
     </div>
 </div>
 
@@ -155,7 +156,7 @@
         </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" onclick="setdr()">Save changes</button>
         <button id="btnclose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
