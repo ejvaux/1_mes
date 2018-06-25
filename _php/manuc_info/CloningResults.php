@@ -15,7 +15,7 @@ if(!$conn2){echo "Connection failure</br>";}
 
 
 
-$sql="SELECT * from LogTable";
+$sql="SELECT TOP(500) * from LogTable ORDER BY date DESC";
 
 
 $result=sqlsrv_query($conn2,$sql);
@@ -134,6 +134,7 @@ $sql7="update mis_summarize_results set JOB_ORDER_NO='$jonum',PROD_RESULT='$sum'
 
 
 }
+
 
 
 $address=$_GET['address'];
