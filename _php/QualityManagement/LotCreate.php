@@ -48,13 +48,7 @@ position: inline-block;
       <div class="d-flex btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
         
                 
-                <div class="mr-auto p-2 input-group">  
-                  <input type="textarea" class="form-control form-control-sm" id="Barcode_text" placeholder="SCAN DANPLA SERIAL NUMBER">
-                    <div class="input-group-append">
-                      <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddBtn" onclick="AddBtnClick()">ADD</button>
-                      <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="LotCreateBtn" onclick="generateLot()">LOT CREATE</button>
-                    </div>
-                </div>
+                <div class="mr-auto p-2 input-group"><input type="textarea" class="form-control form-control-sm" id="Barcode_text" placeholder="SCAN DANPLA SERIAL NUMBER"><div class="input-group-append"><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddBtn" onclick="AddBtnClick()">ADD</button><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="LotCreateBtn" onclick="generateLot()">LOT CREATE</button></div></div>
 
 
                 <div class="p-2 input-group">

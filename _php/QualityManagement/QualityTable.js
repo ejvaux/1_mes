@@ -4,7 +4,13 @@ function loadDoc(TableName) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
      document.getElementById("table_display").innerHTML = this.responseText;
-      
+
+     
+      if (TableName == '1stTab'){
+        DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp')
+        DisplayTable2('CreatedLot', 'CreatedLotSP', 'Created_Lot')
+        DisplayTable3('PendingLot', 'PendingLotSP', 'Pending_Lot')
+      }
     }
   };
     xhttp.open("GET", TableName+".php", true);
@@ -34,12 +40,12 @@ function AddBtnClick(){
             var val = JSON.parse(data);
           if (val != undefined){
               if (val.LOT_NUM == null || val.LOT_NUM == "" || val.LOT_NUM == undefined ){
-                  var x = document.getElementById("LotCreationTable").rows.length;
+                  var x = document.getElementById("DanplaTable").rows.length;
                   var check = "false";
-                          if(x > 2){
+                          if(x >= 1){
                             check = CheckDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);    
                             }
-                          else if(x = 1){
+                          else if(x = 0){
                             InsertDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
                             } 
                 }
@@ -79,7 +85,7 @@ function InsertDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, i
         },
     success: function(data) {
       swal({text: data, type: 'success'});
-      loadDoc("LotCreate");
+      loadDoc('1stTab');
                       }
                     });
 
@@ -145,8 +151,8 @@ function CheckDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, in
 var lotGlobal;
 var lotlot;
 function generateLot(){
-  var z = document.getElementById("LotCreationTable").rows.length;
-  if (z <= 1) {
+  var x = document.getElementById("DanplaTable").rows[1].cells[0].innerHTML;
+  if (x == "No data available in table") {
     swal(
       'No items allocated.',
       'Please insert danpla to create lot.',
@@ -155,8 +161,8 @@ function generateLot(){
     return;
   }
   else{
-  var x = document.getElementById("LotCreationTable").rows[1].cells[1].innerHTML;
-  var y = document.getElementById("LotCreationTable").rows[1].cells[4].innerHTML;
+  var x = document.getElementById("DanplaTable").rows[1].cells[1].innerHTML;
+  var y = document.getElementById("DanplaTable").rows[1].cells[6].innerHTML;
   }
 
   $.ajax({
@@ -189,7 +195,7 @@ function generateLot(){
 
 function AddLotBtnClick(lotGlobal){
   
-  var x = document.getElementById("LotCreationTable").rows.length;
+  var x = document.getElementById("DanplaTable").rows.length;
   if(lotGlobal==undefined){
     alert("No Lot Number Try Again");
     return;
@@ -216,7 +222,7 @@ function AddLotBtnClick(lotGlobal){
             'ajax': true
           },
         success: function (data) {
-          loadDoc("LotCreate");
+          loadDoc('1stTab');
           return;
 
         }
@@ -356,10 +362,10 @@ function filterText() {
   var y = x.options[x.selectedIndex].value;
   
   if(y == "ALL"){
-    var z = 'SELECT * FROM qmd_lot_create GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;';
+    var z = 'SELECT * FROM qmd_lot_create ORDER BY PROD_DATE DESC;';
   }
   else{
-    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;' ;
+    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC;' ;
   }
 
   
@@ -384,10 +390,10 @@ function searchLot(){
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
  
   if (y == "ALL") {
-    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
+    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') ORDER BY PROD_DATE DESC;";
   }
   else {
-    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND LOT_JUDGEMENT = '" + y + "' GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
+    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND LOT_JUDGEMENT = '" + y + "' ORDER BY PROD_DATE DESC;";
   }
   $.ajax({
     method: 'post',
@@ -406,10 +412,10 @@ function ClearSearchLot() {
   var y = x.options[x.selectedIndex].value;
 
   if (y == "ALL") {
-    var z = 'SELECT * FROM qmd_lot_create GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;';
+    var z = 'SELECT * FROM qmd_lot_create ORDER BY LOT_JUDGEMENT DESC;';
   }
   else {
-    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;';
+    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC;';
   }
   /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
   $.ajax({
@@ -1158,6 +1164,7 @@ $(document).on('click', '#defectConfirm', function () {
  });
  */
 
+
 function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
   
   var xhttp;
@@ -1238,10 +1245,7 @@ function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
                 );
               }
             });
-            
-            
 
-              
             }
           },
           {
@@ -1285,10 +1289,225 @@ function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
   xhttp.send();
  }
  $.fn.dataTable.ext.buttons.add0 = {
-  action: function () {
-    $("#moldlistmod").modal('show');
-  }
  };
+
+function DisplayTable1(Table_Name, Tablesp, tbltitle) {
+
+  var xhttp;
+  if (Table_Name.length == 0) {
+    document.getElementById("first_table").innerHTML = "<h1>No table to display.</h1>";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+
+    if (this.readyState == 4 && this.status == 200) {
+
+      document.getElementById("first_table").innerHTML = this.responseText;
+      var tble = $('#DanplaTable').DataTable({
+        deferRender: true, 
+        scrollY: '49vh',
+        "sScrollX": "100%",
+        "processing": true,
+        "serverSide": true,
+        "iDisplayLength": 100,
+        "ajax": {
+          url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
+          type: 'POST'
+        },
+        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5"f>><"row"<"col-12"<"dd">>>t<"row"<"col"i><"col"p>>',
+        'buttons': [
+          {
+            name: 'delete',      // do not change name
+            text: '<i class="fas fa-trash"></i>',
+            className: 'btn btn-export6 btn-xs py-1',
+            extend: 'selected', // Bind to Selected row
+            action: function (e, dt, node, config) {
+              var data = dt.row('.selected').data();
+              deleteDanpla(data[0]);
+            }
+          },
+          {
+            extend: 'copy', text: '<i class="far fa-copy"></i>',
+            attr: {
+              title: 'Copy to Clipboard',
+              id: 'copyButton'
+            },
+            className: 'btn btn-export6 btn-xs py-1'
+          },
+          {
+            extend: 'excel', text: '<i class="fas fa-table"></i>',
+            attr: {
+              title: 'Export to Excel',
+              id: 'exportButton'
+            },
+            filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'
+          }
+        ],
+        select: 'single',
+        "columnDefs": [{
+          /* sortable: false,
+          "class": "index",
+          "searchable": false,
+          "orderable": false, */
+          "targets": 0
+        }],
+        "order": [[0, 'desc']]
+
+      });
+
+      $("div.dd").html('<div class="py-1 input-group"><input type="textarea" class="form-control form-control-sm" id="Barcode_text" placeholder="SCAN DANPLA SERIAL NUMBER"><div class="input-group-append"><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddBtn" onclick="AddBtnClick()">ADD</button><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="LotCreateBtn" onclick="generateLot()">LOT CREATE</button></div></div>');
+
+      tble.on('order.dt search.dt processing.dt page.dt', function () {
+        tble.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+          cell.innerHTML = i + 1;
+        });
+      }).draw();
+
+    }
+  };
+  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
+  xhttp.send();
+    }
+    $.fn.dataTable.ext.buttons.add0 = {
+  };
+
+function DisplayTable2(Table_Name, Tablesp, tbltitle) {
+
+  var xhttp;
+  if (Table_Name.length == 0) {
+    document.getElementById("second_table").innerHTML = "<h1>No table to display.</h1>";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+
+    if (this.readyState == 4 && this.status == 200) {
+
+      document.getElementById("second_table").innerHTML = this.responseText;
+      var tble = $('#LotTable').DataTable({
+        deferRender: true,
+        scrollY: '59vh',
+        "sScrollX": "100%",
+        "processing": true,
+        "serverSide": true,
+        "iDisplayLength": 100,
+        "ajax": {
+          url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
+          type: 'POST'
+        },
+        "dom": '<"row"<"col-4"B><"col"><"col"><"col-sm-4 pl-5 ml-0"f>>t<"row"<"col"p>>',
+        'buttons': [
+          {
+            extend: 'copy', text: '<i class="far fa-copy"></i>',
+            attr: {
+              title: 'Copy to Clipboard',
+              id: 'copyButton'
+            },
+            className: 'btn btn-export6 btn-xs py-1'
+          },
+          {
+            extend: 'excel', text: '<i class="fas fa-table"></i>',
+            attr: {
+              title: 'Export to Excel',
+              id: 'exportButton'
+            },
+            filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'
+          }
+        ],
+        select: 'single',
+        "columnDefs": [{
+          /* sortable: false,
+          "class": "index",
+          "searchable": false,
+          "orderable": false, */
+          "targets": 0
+        }],
+        "order": [[0, 'desc']]
+
+      });
+
+      tble.on('order.dt search.dt processing.dt page.dt', function () {
+        tble.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+          cell.innerHTML = i + 1;
+        });
+      }).draw();
+
+    }
+  };
+  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
+  xhttp.send();
+   }
+    $.fn.dataTable.ext.buttons.add0 = {
+  };
+function DisplayTable3(Table_Name, Tablesp, tbltitle) {
+
+  var xhttp;
+  if (Table_Name.length == 0) {
+    document.getElementById("third_table").innerHTML = "<h1>No table to display.</h1>";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+
+    if (this.readyState == 4 && this.status == 200) {
+
+      document.getElementById("third_table").innerHTML = this.responseText;
+      var tble = $('#pendingLotTable').DataTable({
+        deferRender: true,
+        scrollY: '59vh',
+        "sScrollX": "100%",
+        "processing": true,
+        "serverSide": true,
+        "iDisplayLength": 100,
+        "ajax": {
+          url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
+          type: 'POST'
+        },
+        "dom": '<"row"<"col-4"B><"col"><"col"><"col-sm-4 pl-5 ml-0"f>>t<"row"<"col"p>>',
+        'buttons': [
+          {
+            extend: 'copy', text: '<i class="far fa-copy"></i>',
+            attr: {
+              title: 'Copy to Clipboard',
+              id: 'copyButton'
+            },
+            className: 'btn btn-export6 btn-xs py-1'
+          },
+          {
+            extend: 'excel', text: '<i class="fas fa-table"></i>',
+            attr: {
+              title: 'Export to Excel',
+              id: 'exportButton'
+            },
+            filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'
+          }
+        ],
+        select: 'single',
+        "columnDefs": [{
+          /* sortable: false,
+          "class": "index",
+          "searchable": false,
+          "orderable": false, */
+          "targets": 0
+        }],
+        "order": [[0, 'desc']]
+
+      });
+
+      tble.on('order.dt search.dt processing.dt page.dt', function () {
+        tble.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+          cell.innerHTML = i + 1;
+        });
+      }).draw();
+
+    }
+  };
+  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
+  xhttp.send();
+  }
+  $.fn.dataTable.ext.buttons.add0 = {
+  };
 
 function getDefectDtls(defect_id){
 
@@ -1542,7 +1761,7 @@ $(document).on('click', '.deleteDanpla', function () {
             'success'
           )
 
-          loadDoc("LotCreate");
+          loadDoc('1stTab');
           return;
 
         }
@@ -1552,3 +1771,43 @@ $(document).on('click', '.deleteDanpla', function () {
     }
   });
  });
+
+function deleteDanpla(danpla_ID) {
+  //$('#dataModal').modal();
+  var danpla = danpla_ID;
+  swal({
+    title: 'Are you sure you want to delete?',
+    text: "You won't able to revert this.",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Delete Danpla'
+  }).then((result) => {
+    if (result.value) {
+
+
+      $.ajax({
+        method: 'post',
+        url: '/1_mes/_php/QualityManagement/delete_danpla.php',
+        data:
+          {
+            'danpla': danpla,
+            'ajax': true
+          },
+        success: function (data) {
+
+          swal(
+            'Success!',
+            'Danpla deleted!!',
+            'success'
+          )
+
+          DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp');
+          return;
+
+        }
+      });
+    }
+  });
+ }
