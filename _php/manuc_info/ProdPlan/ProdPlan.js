@@ -1540,7 +1540,4 @@ function LoadTableOfDrDetails(Drno,datasorttype,param1)
 
     });
 
-<<<<<<< HEAD
-=======
 }
->>>>>>> localJEFF
