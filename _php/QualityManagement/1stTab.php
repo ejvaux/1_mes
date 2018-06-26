@@ -10,11 +10,11 @@
 </style>
 <div style="width: 100%;">
   <div class="row">      
-    <div class="col-5" id="first_table"> 
+    <div class="col-md-5" id="first_table"> 
     <!-- weasdsdasdasd
     <script>DisplayTable1('DanplaTempStore','DanplaTempStoreSP','DanplaTemp')</script> -->
       </div>
-    <div class="col-7" id="second_table">
+    <div class="col-md-7" id="second_table">
     <!-- weasdsdasdasd
         <script>DisplayTable2('CreatedLot','CreatedLotSP','Created_Lot')</script> -->
         </div>
