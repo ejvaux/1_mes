@@ -24,6 +24,7 @@ $columns = array(
  
 // SQL server connection information
 $sql_details = array(
+    'type' => 'Mysql',
     'user' => 'root',
     'pass' => '',
     'db'   => 'masterdatabase',
@@ -39,6 +40,6 @@ $sql_details = array(
 require( $_SERVER['DOCUMENT_ROOT'].'/1_mes/_includes/ssp.class.php' );
  
 echo json_encode(
-    SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns )
+    SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns, "LOT_NUM = ''" )
 );
 ?>

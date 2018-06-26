@@ -9,7 +9,7 @@ function loadDoc(TableName) {
       if (TableName == '1stTab'){
         DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp')
         DisplayTable2('CreatedLot', 'CreatedLotSP', 'Created_Lot')
-        DisplayTable3('PendingLot', 'PendingLotSP', 'Pending_Lot')
+        /* DisplayTable3('PendingLot', 'PendingLotSP', 'Pending_Lot') */
       }
     }
   };
@@ -922,22 +922,22 @@ function SearchDanplaCreate() {
   var d2 = danplaDate2.value;
   if (d1 != "" && d2 != "") {
     if (search == "") {
-      var z = "SELECT * FROM mis_product WHERE PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "' GROUP BY PACKING_NUMBER ASC;";
+      var z = "SELECT * FROM mis_product WHERE PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
     else {
-      var z = "SELECT * FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "') GROUP BY PACKING_NUMBER ASC;";
+      var z = "SELECT * FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "') GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
   }
   else if (d1 != "" && d2 == "") {
     if (search == "") {
-      var z = "SELECT * FROM mis_product WHERE PRINT_DATE LIKE '%" + d1 + "%';";
+      var z = "SELECT * FROM mis_product WHERE PRINT_DATE LIKE '%" + d1 + "%' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
     else {
-      var z = "SELECT * FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PRINT_DATE = '" + d1 + "' GROUP BY PACKING_NUMBER ASC;";
+      var z = "SELECT * FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PRINT_DATE = '" + d1 + "' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
   }
   else if (search != "") {
-    var z = "SELECT * FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') GROUP BY PACKING_NUMBER ASC;";
+    var z = "SELECT * FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
   }
   /* var z = "SELECT * FROM mis_product WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PRINT_DATE);"; */
   $.ajax({
@@ -954,7 +954,7 @@ function SearchDanplaCreate() {
  }
 
 function ClearSearchDanplaCreate() { 
-  var z = "SELECT * FROM mis_product ORDER BY JO_NUM ASC, PRINT_DATE DESC;";
+  var z = "SELECT * FROM mis_product GROUP BY PACKING_NUMBER GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
   /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PRINT_DATE);"; */
   $.ajax({
     method: 'post',
@@ -1306,7 +1306,7 @@ function DisplayTable1(Table_Name, Tablesp, tbltitle) {
       document.getElementById("first_table").innerHTML = this.responseText;
       var tble = $('#DanplaTable').DataTable({
         deferRender: true, 
-        scrollY: '49vh',
+        scrollY: '54vh',
         "sScrollX": "100%",
         "processing": true,
         "serverSide": true,
@@ -1387,7 +1387,7 @@ function DisplayTable2(Table_Name, Tablesp, tbltitle) {
       document.getElementById("second_table").innerHTML = this.responseText;
       var tble = $('#LotTable').DataTable({
         deferRender: true,
-        scrollY: '59vh',
+        scrollY: '60vh',
         "sScrollX": "100%",
         "processing": true,
         "serverSide": true,
@@ -1440,7 +1440,7 @@ function DisplayTable2(Table_Name, Tablesp, tbltitle) {
    }
     $.fn.dataTable.ext.buttons.add0 = {
   };
-function DisplayTable3(Table_Name, Tablesp, tbltitle) {
+/* function DisplayTable3(Table_Name, Tablesp, tbltitle) {
 
   var xhttp;
   if (Table_Name.length == 0) {
@@ -1485,10 +1485,6 @@ function DisplayTable3(Table_Name, Tablesp, tbltitle) {
         ],
         select: 'single',
         "columnDefs": [{
-          /* sortable: false,
-          "class": "index",
-          "searchable": false,
-          "orderable": false, */
           "targets": 0
         }],
         "order": [[0, 'desc']]
@@ -1508,7 +1504,7 @@ function DisplayTable3(Table_Name, Tablesp, tbltitle) {
   }
   $.fn.dataTable.ext.buttons.add0 = {
   };
-
+ */
 function getDefectDtls(defect_id){
 
   $.ajax({
