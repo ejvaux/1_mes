@@ -1,7 +1,7 @@
 <style>
 .table-wrapper-LotCreate-3{
   display: block;
-  max-width: 67vw;
+  max-width: 100vw;
   max-height: 65vh; 
   overflow-y: auto;
   overflow-x: auto;
@@ -37,10 +37,10 @@
     <div class="row"></div>
     <div id="pendingLot">
 
-    <div class="row">
+    <div class="row ml-1">
 
       <div class="col-12">
-        <div class="d-flex btn-toolbar justify-content-start" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="d-flex btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
 
                   <div class="p-2 input-group">
                     <div class="input-group-prepend">
@@ -71,7 +71,7 @@
 
       </div>
       
-      <div class="row">
+      <div class="row ml-1">
         <div class="col-12" id="noLotTable">
           
               <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/noLot_table.php"; ?>

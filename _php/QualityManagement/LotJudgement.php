@@ -7,11 +7,6 @@
   /* margin-top:5%; */
   /* padding-top:10px; */
 }
-/* .filterT{
-  margin-left:-5%;
-  height:34px;
-  width:200px;
-} */
 .bt{
   width:75px;
   font-size: 12px;
