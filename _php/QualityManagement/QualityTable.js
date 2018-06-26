@@ -1498,6 +1498,12 @@ function DisplayTable2(Table_Name, Tablesp, tbltitle) {
   }
   $.fn.dataTable.ext.buttons.add0 = {
   };
+
+
+
+
+
+
  */
 function getDefectDtls(defect_id){
 
