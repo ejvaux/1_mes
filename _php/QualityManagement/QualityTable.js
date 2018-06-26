@@ -85,7 +85,7 @@ function InsertDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, i
         },
     success: function(data) {
       swal({text: data, type: 'success'});
-      loadDoc('1stTab');
+      DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp');
                       }
                     });
 
@@ -120,8 +120,8 @@ function CheckDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, in
       }
     });
   }
-
-  function buildLotNumber(){
+var lotNO;
+function buildLotNumber(){
     var d = new Date();
     var month = d.getUTCMonth() + 1; //months from 1-12
     var day = d.getUTCDate();
@@ -141,16 +141,14 @@ function CheckDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, in
         var machine = val.MACHINE_CODE.slice(-4);
         
         var lotNumber = month + "" + day + "" + shift + machine + "01";
-        lotlot = lotNumber;
-        
-        
+        lotNO = lotNumber;
       }
     });
   }
 
-var lotGlobal;
-var lotlot;
 function generateLot(){
+  var lotNew, newL;
+  
   var x = document.getElementById("DanplaTable").rows[1].cells[0].innerHTML;
   if (x == "No data available in table") {
     swal(
@@ -174,29 +172,28 @@ function generateLot(){
       'ajax' : true
     },
     success: function(data){
-      if (data == "true" || data == "false" ){
-        buildLotNumber();
-        lotGlobal = lotlot;
-        
+      
+      if (data == "true" || data== "false" ){
+        buildLotNumber(newL);
+        AddLotBtnClick(lotNO);
       }
       else if (data != "false" || data != "true"){
+        
       var val = JSON.parse(data);
+      
                   var lotPrev = val.slice(0,11);
                   var series= val.slice(-1);
                   var i = parseInt(series) + 1;
-        lotlot = lotPrev + i;
-        lotGlobal = lotlot;
-       
+        lotNew = lotPrev + i;
+        AddLotBtnClick(lotNew);
       }
-      AddLotBtnClick(lotGlobal);
     }
   });
 }
 
-function AddLotBtnClick(lotGlobal){
-  
+function AddLotBtnClick(newLot){
   var x = document.getElementById("DanplaTable").rows.length;
-  if(lotGlobal==undefined){
+  if (newLot==undefined){
     alert("No Lot Number Try Again");
     return;
   }
@@ -218,18 +215,19 @@ function AddLotBtnClick(lotGlobal){
         data:
           {
             'row_count': x,
-            'lot_number': lotGlobal,
+            'lot_number': newLot,
             'ajax': true
           },
         success: function (data) {
           loadDoc('1stTab');
+          lotNO = "";
           return;
 
         }
       });
 
       swal(
-        'Lot '  + lotGlobal + ' Created!',
+        'Lot ' + newLot + ' Created!',
         'Your items is now allocated!! Please note the lot number!!',
         'success'
       )
@@ -922,22 +920,22 @@ function SearchDanplaCreate() {
   var d2 = danplaDate2.value;
   if (d1 != "" && d2 != "") {
     if (search == "") {
-      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "') AND LOT_NUM = ''  GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
     else {
-      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "') GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE ((PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "')) AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
   }
   else if (d1 != "" && d2 == "") {
     if (search == "") {
-      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE PRINT_DATE LIKE '%" + d1 + "%' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PRINT_DATE LIKE '%" + d1 + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
     else {
-      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PRINT_DATE = '" + d1 + "' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE ((PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PRINT_DATE = '" + d1 + "') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
   }
   else if (search != "") {
-    var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+    var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
   }
   /* var z = "SELECT * FROM mis_product WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PRINT_DATE);"; */
   $.ajax({
@@ -954,7 +952,7 @@ function SearchDanplaCreate() {
  }
 
 function ClearSearchDanplaCreate() { 
-  var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+  var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
   /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PRINT_DATE);"; */
   $.ajax({
     method: 'post',
