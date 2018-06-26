@@ -1,6 +1,6 @@
 @echo off
 TITLE MOLD SHOT UPDATE
-SET t=15:35
+SET t=16:40
 echo %t%
 echo %time:~0,5%
 
