@@ -137,8 +137,8 @@ $sql7="update mis_summarize_results set JOB_ORDER_NO='$jonum',PROD_RESULT='$sum'
 
 
 
-$address=$_GET['address'];
-header("Location: ".$address);
+#$address=$_GET['address'];
+#header("Location: ".$address);
 
 
 

@@ -14,9 +14,10 @@
     <style>
       .table-wrapper-1 {
             display: block;
-            max-width: 100%;
-            max-height: 430px;
+            max-width: 100vw;
+            max-height: 69vh;
             overflow-y: auto;
+            overflow-x: auto;
             -ms-overflow-style: -ms-autohiding-scrollbar;
         }
     </style>
@@ -41,7 +42,7 @@
           </button>
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1" id="tb">           
-              <li><a class="nav-link tbl active" id='tb1' href="#" onclick="loadDoc('LotCreate')">Lot Create</a></li>
+              <li><a class="nav-link tbl active" id='tb1' href="#" onclick="loadDoc('1stTab')">Lot Create</a></li>
               <li><a class="nav-link tbl" id='tb2' href="#" onclick="loadDoc('LotJudgement');">Lot Judgement</a></li>
               <li><a class="nav-link tbl" id='tb3' href="#" onclick="loadDoc('LotRecovery')">Lot Reject Recovery</a></li>
               <li><a class="nav-link tbl" id='tb4' href="#" onclick="DisplayTableDefect('DefectTable','DefectTableSP','Defective_List')">Defect Management</a></li>
@@ -71,7 +72,7 @@
     <div class="col-11" > 
       <script>       
 
-        loadDoc("LotCreate");
+        loadDoc('1stTab');
 
         </script>
       </div>

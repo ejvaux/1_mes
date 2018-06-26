@@ -1,4 +1,4 @@
-
+<table class=' text-center mt-3 table-wrapper-1 table table-striped table-hover table-bordered table-sm nowrap' id='lot_judgement'>
           <?php       
                 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
@@ -15,7 +15,7 @@
 
                 if ($result->num_rows > 0) 
                 {
-                    echo "<table class='mt-3 table-wrapper-1 table table-striped table-hover table-bordered table-sm fixtable nowrap' id='lot_judgement'><thead>    
+                    echo "<thead>    
                     
                     <th>INSPECT</th>
                     <th>JUDGEMENT</th>
@@ -50,7 +50,7 @@
                             echo "<td class='text-primary font-weight-bold'>".$row['LOT_JUDGEMENT']."-REWORK(".$reworkID.")</td>";
                           }
                           else{
-                            echo "<td class='text-primary font-weight-bold'>" . $row['LOT_JUDGEMENT'] . "</td>";
+                            echo "<td class='text-primary font-weight-bold'>WAITING</td>";
                           }
                           
                           
@@ -90,7 +90,7 @@
                     echo "</tbody></table>";
                 } 
                 else {
-                      echo "<table class='mt-3 table-wrapper-1 table table-striped table-hover table-bordered table-sm fixtable nowrap' id='lot_judgement'><thead>    
+                      echo "<thead>    
                   
                     <th>INSPECT</th>
                     <th>JUDGEMENT</th>

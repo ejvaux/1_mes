@@ -1,26 +1,25 @@
 <?php
  
 // DB table to use
-$table = 'qmd_defect_dl';
+$table = 'qmd_danpla_tempstore';
  
 // Table's primary key
-$primaryKey = 'LOT_DEFECT_ID';
+$primaryKey = 'TEMP_ID';
  
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'LOT_DEFECT_ID', 'dt' => 0 ),
+    array( 'db' => 'TEMP_ID', 'dt' => 0 ),
 /*     array( 'db' => 'LOT_DEFECT_ID', 'dt' => 1 ), */
-    array( 'db' => 'JOB_ORDER_NO', 'dt' => 1 ),
-    array( 'db' => 'PROD_DATE', 'dt' => 2 ),
+    array( 'db' => 'DANPLA_SERIAL', 'dt' => 1 ),
+    array( 'db' => 'JO_NUM', 'dt' => 2 ),
     array( 'db' => 'ITEM_CODE', 'dt' => 3 ),
     array( 'db' => 'ITEM_NAME', 'dt' => 4 ),
-    array( 'db' => 'INSERT_USER', 'dt' => 5 ),
-    array( 'db' => 'INSERT_DATETIME', 'dt' => 6 ),
-    array( 'db' => 'DEF_QUANTITY', 'dt' => 7 ),
-    array( 'db' => 'DEFECT_NAME', 'dt' => 8 ),
+    array( 'db' => 'QUANTITY', 'dt' => 5 ),
+    array( 'db' => 'MACHINE_CODE', 'dt' => 6 ),
+
 );
  
 // SQL server connection information

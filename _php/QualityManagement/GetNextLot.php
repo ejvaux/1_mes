@@ -9,7 +9,7 @@
                 while($row = $result->fetch_assoc()){
 
 
-                    if($row['JO_NUM'] == $_POST['jo_num'] && $row['MACHINE_CODE'] == $_POST['machine_code']){
+                    if($row['JO_NUM'] == $_POST['jo_num']){
                         $lot = $row['LOT_NUMBER'];
                         break;
                         }
