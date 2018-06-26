@@ -14,9 +14,10 @@
     <style>
       .table-wrapper-1 {
             display: block;
-            max-width: 100%;
-            max-height: 430px;
+            max-width: 100vw;
+            max-height: 69vh;
             overflow-y: auto;
+            overflow-x: auto;
             -ms-overflow-style: -ms-autohiding-scrollbar;
         }
     </style>
