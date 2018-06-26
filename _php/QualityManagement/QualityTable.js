@@ -922,22 +922,22 @@ function SearchDanplaCreate() {
   var d2 = danplaDate2.value;
   if (d1 != "" && d2 != "") {
     if (search == "") {
-      var z = "SELECT * FROM mis_product WHERE PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
     else {
-      var z = "SELECT * FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "') GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "') GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
   }
   else if (d1 != "" && d2 == "") {
     if (search == "") {
-      var z = "SELECT * FROM mis_product WHERE PRINT_DATE LIKE '%" + d1 + "%' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE PRINT_DATE LIKE '%" + d1 + "%' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
     else {
-      var z = "SELECT * FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PRINT_DATE = '" + d1 + "' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PRINT_DATE = '" + d1 + "' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
   }
   else if (search != "") {
-    var z = "SELECT * FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+    var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
   }
   /* var z = "SELECT * FROM mis_product WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PRINT_DATE);"; */
   $.ajax({
@@ -954,7 +954,7 @@ function SearchDanplaCreate() {
  }
 
 function ClearSearchDanplaCreate() { 
-  var z = "SELECT * FROM mis_product GROUP BY PACKING_NUMBER GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+  var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
   /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PRINT_DATE);"; */
   $.ajax({
     method: 'post',
@@ -1315,7 +1315,7 @@ function DisplayTable1(Table_Name, Tablesp, tbltitle) {
           url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
           type: 'POST'
         },
-        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5"f>><"row"<"col-12"<"dd">>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5">><"row"<"col-12"<"dd">>>t<"row"<"col"i><"col"p>>',
         'buttons': [
           {
             name: 'delete',      // do not change name
@@ -1346,10 +1346,6 @@ function DisplayTable1(Table_Name, Tablesp, tbltitle) {
         ],
         select: 'single',
         "columnDefs": [{
-          /* sortable: false,
-          "class": "index",
-          "searchable": false,
-          "orderable": false, */
           "targets": 0
         }],
         "order": [[0, 'desc']]

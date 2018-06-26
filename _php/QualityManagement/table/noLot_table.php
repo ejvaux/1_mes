@@ -1,14 +1,14 @@
 
 
 <div class="p-2">
-    <table class='table-wrapper-LotCreate-3 table-bordered table-sm table table-hover mt-1' id="pendingLot">
+    <table class='table-wrapper-LotCreate-3 table-bordered table-sm table table-hover mt-1 text-center' id="pendingLot">
         <?php       
                 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
 
                 if(!isset($_POST['sql'])){
                   
-                $sql = "SELECT * FROM mis_product WHERE LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC";
+                $sql = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC";
                 
                 }
                 else{
@@ -20,11 +20,11 @@
                 {
                     echo "<thead>    
           
-                    <th>PACKING NUMBER</th>
-                    <th>JOB ORDER NO</th>
-                    <th>PRINT DATE</th>
-                    <th>ITEM CODE</th>
-                    <th>ITEM NAME</th>
+                    <th style='width:15%'>PACKING NUMBER</th>
+                    <th style='width:15%'>JOB ORDER NO</th>
+                    <th style='width:20%'>PRINT DATE</th>
+                    <th style='width:20%'>ITEM CODE</th>
+                    <th style='width:20%'>ITEM NAME</th>
                     <th>PRINT QTY</th>
                     <th>PRINTED BY</th>
                     </thead><tbody>";
@@ -39,7 +39,7 @@
                     echo "<td>" . $row['PRINT_DATE'] . "</td>";
                     echo "<td>" . $row['ITEM_CODE'] . "</td>";
                     echo "<td>" . $row['ITEM_NAME'] . "</td>";
-                    echo "<td>" . $row['PRINT_QTY'] . "</td>";
+                    echo "<td>" . $row['SUMQTY'] . "</td>";
                     echo "<td>" . $row['PRINTED_BY'] . "</td>";
                     }
                     echo "</tbody></table>";
