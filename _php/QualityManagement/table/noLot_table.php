@@ -1,14 +1,14 @@
 
 
 <div class="p-2">
-    <table class='table-wrapper-LotCreate-3 table-bordered table-sm table table-hover mt-1'>
+    <table class='table-wrapper-LotCreate-3 table-bordered table-sm table table-hover mt-1' id="pendingLot">
         <?php       
                 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
 
                 if(!isset($_POST['sql'])){
                   
-                $sql = "SELECT * FROM mis_product WHERE LOT_NUM = '' ORDER BY JO_NUM DESC";
+                $sql = "SELECT * FROM mis_product WHERE LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC";
                 
                 }
                 else{
