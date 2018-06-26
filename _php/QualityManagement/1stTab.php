@@ -21,17 +21,7 @@
     </div>
     <!-- <div class="row">
       <div class="col" id="third_table">
-      <?php /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/noLot_table.php"; */ ?>
-
-      <link type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-      
-
-      <script type="text/javascript">
-          $('#pendingLot').DataTable({
-            dom: 'Bfrtip',
-            buttons:[]
-          })
-      </script>
+     
       </div>
     </div> -->
     <div class="row"></div>
