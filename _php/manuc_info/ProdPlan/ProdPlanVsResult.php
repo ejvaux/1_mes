@@ -16,7 +16,6 @@
  
 <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php";?>
 <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header2.php";?>
-<script src="/1_mes/_php/manuc_info/AutoSync.js"></script>
 
 
 
