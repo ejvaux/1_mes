@@ -106,7 +106,7 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
       
       if ($errorupdate1=="")
       {
-      $errorupdate1="BARCODE UPDATE SYNC STATUS: COMPLETE\n";
+      $errorupdate1="BARCODE UPDATE SYNC STATUS: COMPLETE";
       echo $errorupdate1;
 
     }
@@ -118,9 +118,6 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
       $txt = "\n\n## " . date('Y-m-d h:i:s A') . " ##\n";
       fwrite($myfile, $txt);
       fwrite($myfile, $errorinsert1.$errorupdate1);
-
-
-
 ?>
 
 
