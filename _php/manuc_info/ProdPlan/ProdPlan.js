@@ -531,6 +531,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        paginationSize:100,
        placeholder:"No Data to Display",
        movableColumns:true,
+       selectable: 1,
        //groupBy:"PROD DATE",
       // responsiveLayout:"collapse",
        columns:[ //Define Table Columns
@@ -563,6 +564,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        paginationSize:100,
        placeholder:"No Data to Display or Today's plan is not yet available.",
        movableColumns:true,
+       selectable: 1,
        groupBy:"DATE",    
        columns:[
            {title:"NO", field:"NO", width:60,align:"center"},
@@ -595,7 +597,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     $("#example-table").tabulator({
         height: "60vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
     //layout:"fitColumns", //fit columns to width of table (optional)
-    
+    selectable: 1,
     pagination:"local",
     paginationSize:100,
     placeholder:"No Data to Display",
@@ -621,7 +623,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     columns:[
         
         {title:"NO", field:"NO", width:60,align:"center"},
-        { title:"CTRLS ",align:"center", align:"center",
+        { title:"CTRLS ",align:"center", align:"center",width:"20px",
          formatter:function(cell, formatterParams){ //plain text value
         
             var shipStat = cell.getRow().getData().SHIPMENT_STATUS;
@@ -803,7 +805,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     $("#example-table").tabulator({
         height: "65vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
     //layout:"fitColumns", //fit columns to width of table (optional)
-    
+    selectable: 1,
     pagination:"local",
     paginationSize:100,
     placeholder:"No Data to Display",
@@ -878,7 +880,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     $("#example-table2").tabulator({
     height: "60vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
     //layout:"fitColumns", //fit columns to width of table (optional)
-  
+    selectable: 1,
     paginationSize:100,
     placeholder:"No Data to Display",
     movableColumns:true,
@@ -949,7 +951,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     $("#example-table3").tabulator({
     height: "60vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
     layout:"fitColumns", //fit columns to width of table (optional)
-  
+    selectable: 1,
     paginationSize:100,
     placeholder:"No Data to Display",
     movableColumns:true,
@@ -1027,7 +1029,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        paginationSize:100,
        placeholder:"No Data to Display",
        movableColumns:true,
-       groupBy:"DR_DATE",         
+       groupBy:"DR_DATE", 
+       selectable: 1,        
         rowClick:function(e, row){
         //e - the click event object
         //row - row component
@@ -1124,6 +1127,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     paginationSize:100,
     placeholder:"No Data to Display",
     movableColumns:true,
+    selectable: 1,
     groupBy:"DR_DATE",    
     columns:[
         {title:"NO", field:"NO", width:60,align:"center"},
@@ -1410,7 +1414,7 @@ function InsertDrGroup()
     }
     else
     {
-        if(ddrtext=="--SELECT A DR#--")
+        if(ddrtext=="--SELECT A DR#--" || ddrtext==""|| ddrtext==null)
         {
             swal({
                 type: 'error',
@@ -1471,7 +1475,7 @@ function setdr()
         updatetype="group";
     }
 
-    if(newdr=="--SELECT A DR#--")
+    if(newdr=="--SELECT A DR#--" || newdr==""||newdr==null)
     {
         swal(
             'ERROR!',
