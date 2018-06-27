@@ -489,7 +489,7 @@
                   <label for="itemprintcode" class="col-form-label-sm">ITEM PRINTCODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="itemprintcode" type="text" class="form-control form-control-sm" name="itemprintcode" placeholder="">                  
+                  <input id="itemprintcode" type="text" class="form-control form-control-sm" name="itemprintcode" placeholder="" required>                  
                 </div>
               </div>
             </div>                    
@@ -1576,7 +1576,7 @@
                   <label for="eiitemprintcode" class="col-form-label-sm">ITEM PRINTCODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eiitemprintcode" type="text" class="form-control form-control-sm" name="eiitemprintcode" placeholder="">                  
+                  <input id="eiitemprintcode" type="text" class="form-control form-control-sm" name="eiitemprintcode" placeholder="" required>                  
                 </div>
               </div>
             </div>                    
