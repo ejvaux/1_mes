@@ -14,7 +14,7 @@ $errorinsert1="";
 $errorupdate1="";
 
 $datenow = date("Y-m-d");
-$dateminus= date('Y-m-d', strtotime('-15 day',strtotime($datenow)));
+$dateminus= date('Y-m-d', strtotime('-1 day',strtotime($datenow)));
 $ctr=0;
 $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_mold_matching.TOOL_NUMBER as TN
 	  FROM `mis_prod_plan_dl` 
