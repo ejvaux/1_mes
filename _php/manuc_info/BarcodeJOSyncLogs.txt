@@ -8977,3 +8977,2160 @@ REASON: Array
 )
 
 BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:48:47 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:48:47 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:48:49 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:49:02 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:49:02 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:49:03 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:49:18 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:49:19 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:49:20 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:49:33 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:49:33 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:49:34 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:49:49 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:49:50 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:49:51 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:50:04 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:50:05 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:50:06 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:50:21 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:50:22 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:50:22 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:50:35 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:50:36 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:50:37 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:50:51 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:50:52 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:50:53 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:51:07 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:51:07 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:51:08 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:51:23 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:51:23 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:51:25 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:51:37 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:51:38 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:51:39 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:51:54 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-26 06:51:55 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 100000503 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => 23000
+            [SQLSTATE] => 23000
+            [1] => 2627
+            [code] => 2627
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Violation of PRIMARY KEY constraint 'PK_jo_table'. Cannot insert duplicate key in object 'dbo.jo_table'. The duplicate key value is (100000503).
+        )
+
+    [1] => Array
+        (
+            [0] => 01000
+            [SQLSTATE] => 01000
+            [1] => 3621
+            [code] => 3621
+            [2] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+            [message] => [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]The statement has been terminated.
+        )
+
+)
+
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:43:18 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:43:22 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:43:27 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:43:32 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:43:37 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:43:47 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:43:53 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:43:58 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:44:03 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:44:08 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:44:13 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:44:19 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:44:24 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:44:30 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:44:33 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:44:39 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:44:44 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:44:50 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:44:54 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:45:01 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
+
+
+## 2018-06-27 09:45:04 AM ##
+BARCODE INSERT SYNC STATUS: COMPLETE
+BARCODE UPDATE SYNC STATUS: COMPLETE
