@@ -8,7 +8,7 @@
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 </style>
-<div style="width: 100%;">
+<div style="width: 99%;">
   <div class="row">      
     <div class="col-md-5" id="first_table"> 
     <!-- weasdsdasdasd
@@ -24,7 +24,6 @@
      
       </div>
     </div> -->
-    <div class="row"></div>
     <div id="pendingLot">
 
     <div class="row ml-1">

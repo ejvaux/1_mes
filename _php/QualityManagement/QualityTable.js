@@ -1390,7 +1390,7 @@ function DisplayTable2(Table_Name, Tablesp, tbltitle) {
           url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
           type: 'POST'
         },
-        "dom": '<"row"<"col-3"B><"col mr-2"f>><"row"<"col"t>><"row"<"col"><"col"><"col"p>>',
+        "dom": '<"row"<"col-3"B><"col"f>><"row"<"col"t>><"row"<"col">><"row"<"col"><"col"><"col"p>>',
         'buttons': [
           {
             extend: 'copy', text: '<i class="far fa-copy"></i>',
