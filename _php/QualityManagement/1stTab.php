@@ -8,33 +8,22 @@
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 </style>
-<div style="width: 100%;">
+<div style="width: 99%;">
   <div class="row">      
-    <div class="col-5" id="first_table"> 
+    <div class="col-md-5" id="first_table"> 
     <!-- weasdsdasdasd
     <script>DisplayTable1('DanplaTempStore','DanplaTempStoreSP','DanplaTemp')</script> -->
       </div>
-    <div class="col-7" id="second_table">
+    <div class="col-md-7" id="second_table">
     <!-- weasdsdasdasd
         <script>DisplayTable2('CreatedLot','CreatedLotSP','Created_Lot')</script> -->
         </div>
     </div>
     <!-- <div class="row">
       <div class="col" id="third_table">
-      <?php /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/noLot_table.php"; */ ?>
-
-      <link type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-      
-
-      <script type="text/javascript">
-          $('#pendingLot').DataTable({
-            dom: 'Bfrtip',
-            buttons:[]
-          })
-      </script>
+     
       </div>
     </div> -->
-    <div class="row"></div>
     <div id="pendingLot">
 
     <div class="row ml-1">

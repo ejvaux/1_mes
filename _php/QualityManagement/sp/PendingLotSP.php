@@ -36,10 +36,10 @@ $sql_details = array(
  * If you just want to use the basic configuration for DataTables with PHP
  * server-side, there is no need to edit below this line.
  */
- 
+
+
 require( $_SERVER['DOCUMENT_ROOT'].'/1_mes/_includes/ssp.class.php' );
- 
 echo json_encode(
-    SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns, "LOT_NUM = ''" )
+    SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns);
 );
 ?>

@@ -1304,7 +1304,7 @@ function DisplayTable1(Table_Name, Tablesp, tbltitle) {
       document.getElementById("first_table").innerHTML = this.responseText;
       var tble = $('#DanplaTable').DataTable({
         deferRender: true, 
-        scrollY: '54vh',
+        scrollY: '54.2vh',
         "sScrollX": "100%",
         "processing": true,
         "serverSide": true,
@@ -1313,7 +1313,7 @@ function DisplayTable1(Table_Name, Tablesp, tbltitle) {
           url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
           type: 'POST'
         },
-        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5">><"row"<"col-12"<"dd">>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5">><"row"<"col-12"<"dd">>>t',
         'buttons': [
           {
             name: 'delete',      // do not change name
@@ -1390,7 +1390,7 @@ function DisplayTable2(Table_Name, Tablesp, tbltitle) {
           url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
           type: 'POST'
         },
-        "dom": '<"row"<"col-4"B><"col"><"col"><"col-sm-4 pl-5 ml-0"f>>t<"row"<"col"p>>',
+        "dom": '<"row"<"col-3"B><"col"f>><"row"<"col"t>><"row"<"col">><"row"<"col"><"col"><"col"p>>',
         'buttons': [
           {
             extend: 'copy', text: '<i class="far fa-copy"></i>',
@@ -1498,6 +1498,12 @@ function DisplayTable2(Table_Name, Tablesp, tbltitle) {
   }
   $.fn.dataTable.ext.buttons.add0 = {
   };
+
+
+
+
+
+
  */
 function getDefectDtls(defect_id){
 
