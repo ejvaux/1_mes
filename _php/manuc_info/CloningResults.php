@@ -9,15 +9,15 @@ $serverName="DATASRV2\PTPISQLSVR";
 $connectionInfo=array('Database'=>'ProdOutput_db', "UID"=>"e.rubio", "PWD"=>"prima");
 
 
+$errorsummary = "";
+$errorinsert="";
+$errorProducts="";
+
+
+
 $conn2 = sqlsrv_connect($serverName,$connectionInfo);
-
 if(!$conn2){echo "Connection failure</br>";}
-
-
-
 $sql="SELECT TOP(500) * from LogTable ORDER BY date DESC";
-
-
 $result=sqlsrv_query($conn2,$sql);
 
 while($row=sqlsrv_fetch_array($result))
@@ -30,7 +30,6 @@ $packingNo;
 if ($classify=="P") {
 	# code...
 	$packingNo = $row['danpla'];
-
 }
 elseif ($classify=="T") {
 	# code...
@@ -64,14 +63,19 @@ elseif ($classify=="T") {
 		$machinecode=$row['machine_num'];
 
 
-	   		$date1=date("Y-m-d",strtotime($row['date']));
+	   	$date1=date("Y-m-d",strtotime($row['date']));
 	   	$sql3="INSERT INTO mis_product(NO, JO_BARCODE,JO_NUM,PRINT_DATE,ITEM_CODE,ITEM_NAME,CUST_NAME,PRINT_QTY,DANPLA,ACTUAL_QTY,TOOL_NUM,PACKING_NUMBER,PRINTED_BY,CUST_CODE,DATE_,LOT_NUM,MACHINE_CODE)
 	   	VALUES('$no2','$jo_barcode','$jo_no','$print_date','$itemcode','$itemname','$custname','$printqty','$danpla','$actualqty','$toolnum','$packingNo','$printedby','$custcode', '$date1','$lotnum','$machinecode')";
 
-	   	$res3 = $conn->query($sql3);
+		   if ($conn->query($sql3)=== TRUE)
+		   {
+			$errorProducts.="";
+		   }
+		   else
+		   {
+			$errorProducts.="MIS_PRODUCT-INSERT-ERROR: JO#: ".$jo_no." || PACKING #: ".$packingNo."\nREASON: ".$conn->error."\n";
+		   }
 
-	   	echo "DATA SYNCED<br>";
-	   
 	   }
 	   else
 	   {
@@ -86,7 +90,7 @@ elseif ($classify=="T") {
 
 
 #below code is for summarizing the log table
-$sql4 ="SELECT DISTINCT(JO_NUM) from mis_product";
+$sql4 ="SELECT DISTINCT(JO_NUM) from mis_product ORDER BY DATE_ DESC LIMIT 500";
 $res4 = $conn->query($sql4);
 
 while ($row4=$res4->fetch_assoc()) {
@@ -106,25 +110,42 @@ $result2=$conn->query($sql6);
 $row2=$result2->fetch_assoc();
 $summarize_jo_no=$row2['JOB_ORDER_NO'];
 
-$query;
-  if($summarize_jo_no==""){
+  if($summarize_jo_no=="")
+{
 	# code...
 	# insertquery
-
-
 	$sql7="INSERT INTO mis_summarize_results(JOB_ORDER_NO,PROD_RESULT) values('$jonum','$sum')";
 	mysqli_query($conn, $sql7);
- #  echo "New record created successfully";
+	
+	if ($conn->query($sql7)=== TRUE)
+	{
+	$errorinsert.=""; 
+	}
+	else
+	{
+	$errorinsert.="SUMMARIZATION-INSERT-ERROR: JO#: ".$jonum." || RESULT: ".$sum."\nREASON: ".$conn->error."\n";
+	}
 }
 	
 else{
 #code...
 #update query here
 
-$sql7="update mis_summarize_results set JOB_ORDER_NO='$jonum',PROD_RESULT='$sum' WHERE JOB_ORDER_NO = '$summarize_jo_no'";
-	mysqli_query($conn, $sql7);
+$sql7="UPDATE mis_summarize_results set JOB_ORDER_NO='$jonum',PROD_RESULT='$sum' WHERE JOB_ORDER_NO = '$summarize_jo_no'";
 
-#echo "updatequery1";	
+	if ($conn->query($sql7)=== TRUE)
+	{
+		$errorsummary.=""; 
+	}
+	else
+	{
+	 $errorsummary.="SUMMARIZATION-UPDATE-ERROR: JO#: ".$jonum." || RESULT: ".$sum."\nREASON: ".$conn->error."\n";
+	}
+
+
+}
+
+
 
 }
 
@@ -133,14 +154,46 @@ $sql7="update mis_summarize_results set JOB_ORDER_NO='$jonum',PROD_RESULT='$sum'
 
 
 
+
+if ($errorProducts=="")
+{
+echo "MIS_PRODUCTS SYNC STATUS: COMPLETE\n";
+$errorProducts="MIS_PRODUCTS SYNC STATUS: COMPLETE\n";
+}
+else
+{
+	echo $errorProducts;
+}
+
+if ($errorinsert=="")
+{
+echo "DATA SUMMARIZATION INSERT SYNC STATUS: COMPLETE\n";
+$errorinsert="DATA SUMMARIZATION INSERT SYNC STATUS: COMPLETE\n";
+}
+else
+{
+	echo $errorsummary;
 }
 
 
+if ($errorsummary=="")
+{
+echo "DATA SUMMARIZATION UPDATE SYNC STATUS: COMPLETE\n";
+$errorsummary="DATA SUMMARIZATION UPDATE SYNC STATUS: COMPLETE\n";
+}
+else
+{
+	echo $errorsummary;
+}
 
-$address=$_GET['address'];
-header("Location: ".$address);
+$myfile = fopen("CloningResultsLogs.txt", "a") or die("Unable to open file!");
+$txt = "\n## " . date('Y-m-d h:i:s A') . " ##\n";
+fwrite($myfile, $txt);
+fwrite($myfile, $errorProducts.$errorinsert.$errorsummary);
 
+#$address=$_GET['address'];
+#header("Location: ".$address);
 
-
+include 'SyncToProductionOutputDb.php';
 
 ?>
