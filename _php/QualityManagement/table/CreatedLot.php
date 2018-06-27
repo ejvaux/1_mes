@@ -6,9 +6,10 @@
         <th>NO </th>
         <th>PROD DATE</th>
         <th>LOT NUMBER</th>
+        <th>JOB ORDER</th>
         <th>QUANTITY</th>
         <th>LOT CREATOR</th>
-        <th>ITEM NAME</th>
+        
         <th>ITEM CODE</th>
         <th>ITEM NAME</th>
 </thead>
