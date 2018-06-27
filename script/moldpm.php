@@ -24,14 +24,25 @@ sleep(2);
 
 $sql = "CALL sel_mold_itemcode()";
 $result = $conn->query($sql);
-
-while ($row = $result->fetch_assoc()){   
-    $json[] = $row;
+$nm = 0;
+while ($row = $result->fetch_assoc()){    
+    
+    if($row['ITEM_CODE']==null){             
+        $nm++;        
+    }
+    else{
+        $json[] = $row;
+    } 
+    
+    $msg = "Checking " . $obj->MOLD_CODE . "...";
+    echo str_pad($msg, 60) . "\r";
 }
 
 $conn->close();
 
-echo $txt = "DONE!\n\n";
+$txt = $nm . " mold/s - No Item Code.\n\n";
+echo str_pad($txt, 30) . "\r";
+fwrite($myfile, $txt);
 sleep(2);
 
 echo $txt = "Checking and Calculating mold shots.\n\n";

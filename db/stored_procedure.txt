@@ -1,0 +1,160 @@
+DELIMITER $$
+CREATE DEFINER=`'root `@` 'localhost'` PROCEDURE `sel_mold_itemcode`()
+    READS SQL DATA
+    SQL SECURITY INVOKER
+SELECT `ITEM_CODE` FROM `dmc_mold_list`$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_mold_day_used`(IN `code` VARCHAR(50), IN `moldshot` INT(11))
+    MODIFIES SQL DATA
+BEGIN
+
+DECLARE current_days INT(11);
+DECLARE days INT(11);
+DECLARE total_days INT(11);
+
+SET current_days = (SELECT `DAYS_USED` FROM `dmc_mold_list` WHERE `ITEM_CODE` = code);
+
+IF moldshot>0 THEN
+	SET days = 1;
+ELSE
+	SET days = 0;
+END IF;
+
+
+SET total_days = current_days + days;
+
+UPDATE `dmc_mold_list` SET 
+    `DAYS_USED`= total_days
+    WHERE `ITEM_CODE` = code;
+
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `xWhileLoop`()
+BEGIN
+
+set @i=120;
+WHILE @i<240 do
+
+    UPDATE `dmc_machine_list` SET 
+    `INSERT_DATETIME` = '2018-06-25 11:40:13',
+    `INSERT_USER` = 'Edmund Mati Jr'
+    WHERE `MACHINE_ID` = @i;
+
+    set @i= @i+1;
+END WHILE;
+
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_mold_shot`(IN `code` VARCHAR(50), OUT `moldshot` INT(11), OUT `itemcode` VARCHAR(50), OUT `moldcode` VARCHAR(50))
+    READS SQL DATA
+BEGIN
+
+DECLARE cav INT(11);
+DECLARE total_product INT(11);
+DECLARE total_defect INT(11);
+DECLARE total_qty INT(11);
+DECLARE dte varchar(50);
+
+SET dte = CURDATE() - INTERVAL 1 DAY;
+
+SET moldcode = (SELECT `MOLD_CODE` FROM `dmc_mold_list` WHERE `ITEM_CODE` = code);
+
+SET cav = (SELECT `CAVITY` FROM `dmc_mold_list` WHERE `ITEM_CODE` = code);
+
+SET total_defect = (SELECT SUM(`DEF_QUANTITY`) FROM `qmd_defect_dl` WHERE `ITEM_CODE` = code AND `PROD_DATE` LIKE CONCAT(dte,'%'));
+
+SET total_product = (SELECT SUM(`PRINT_QTY`) FROM `mis_product` WHERE `ITEM_CODE` = code AND `PRINT_DATE` LIKE CONCAT(dte,'%'));
+
+IF total_product IS null THEN 
+SET total_product = 0;
+END IF;
+
+IF total_defect IS null THEN 
+SET total_defect = 0;
+END IF;
+
+SET total_qty = total_defect + total_product;
+
+IF cav IS NOT null THEN 
+	IF cav!=0 THEN
+	SET moldshot = total_qty / cav;
+    ELSE
+    SET moldshot = 0;
+    END IF;
+ELSE 
+SET moldshot = 0;
+END IF;
+
+SET itemcode = code;
+
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_mold_shot`(IN `code` VARCHAR(50), IN `moldshot` INT(11))
+    MODIFIES SQL DATA
+BEGIN
+
+DECLARE current_repair_moldshot INT(11);
+DECLARE total_repair_moldshot INT(11);
+
+DECLARE current_moldshot INT(11);
+DECLARE total_moldshot INT(11);
+
+SELECT `REPAIR_MOLD_SHOT`,`MOLD_SHOT` INTO current_repair_moldshot,current_moldshot FROM `dmc_mold_list` WHERE `ITEM_CODE` = code;
+
+SET total_repair_moldshot = current_repair_moldshot + moldshot;
+
+SET total_moldshot = current_moldshot + moldshot;
+
+UPDATE `dmc_mold_list` SET 
+    `REPAIR_MOLD_SHOT`= total_repair_moldshot,
+    `MOLD_SHOT` = total_moldshot
+    WHERE `ITEM_CODE` = code;
+
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_mold_pm`(IN `moldcode` VARCHAR(50), OUT `output` VARCHAR(50))
+    READS SQL DATA
+BEGIN
+
+DECLARE moldshot INT(11);
+DECLARE days INT(11);
+DECLARE control_number INT(11);
+DECLARE request_date varchar(50);
+DECLARE insert_date varchar(50);
+DECLARE result varchar(50);
+
+SET moldshot = (SELECT `REPAIR_MOLD_SHOT` FROM `dmc_mold_list` WHERE `MOLD_CODE` = moldcode);
+
+SET days = (SELECT `DAYS_USED` FROM `dmc_mold_list` WHERE `MOLD_CODE` = moldcode);
+
+IF moldshot>=40000 OR days>=10 THEN
+	SET result = 'TRUE';
+ELSE
+	SET result = 'FALSE';
+END IF;
+
+SET control_number = (SELECT `MOLD_REPAIR_CONTROL_NO` FROM mmc_mold_repair ORDER BY `MOLD_REPAIR_CONTROL_NO` DESC LIMIT 1 );
+
+SET control_number = control_number + 1;
+SET request_date = CURDATE();
+SET insert_date = now();
+
+IF (result = 'TRUE') THEN
+		UPDATE `dmc_mold_list` SET `REPAIR_MOLD_SHOT` = 0, `DAYS_USED` = 0 WHERE `MOLD_CODE` = moldcode;
+        INSERT INTO `mmc_mold_repair`(`INSERT_DATETIME`, `REQUEST_DATE`, `MOLD_REPAIR_CONTROL_NO`, `MOLD_CODE`, `USER_REQUEST`,`MOLD_STATUS`) VALUES (insert_date,request_date,control_number,moldcode,'System','FOR REPAIR');
+END IF;
+
+SET output = result;
+
+END$$
+DELIMITER ;

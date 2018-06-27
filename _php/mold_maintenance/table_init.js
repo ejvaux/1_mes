@@ -228,8 +228,15 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
               "data": null,
               "searchable": false,
               "orderable": false,
-              render: function ( data, type, row ) {                
-                  return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";                                                                
+              render: function ( data, type, row ) {
+                
+                if(row[3]=='FOR REPAIR' ){
+                    return "<div class='text-center'><button class='btn btn-export4 py-0 px-1 m-0'><span style='font-size:.8em;'>REPAIR</span></button></div>";
+                  }
+                  else{
+                    return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
+                  }
+                                                                                  
               },              
               "targets": 0,
             },
@@ -622,9 +629,9 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                     return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
                   }
                   else{
-
+                    return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div>";
                   }
-                    return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div>";                                                           
+                                                                               
                 },              
                 "targets": 0,
               },
