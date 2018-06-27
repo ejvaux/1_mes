@@ -110,6 +110,11 @@ td.approved{
 	color: blue  ;
 }
 
+td.repair{
+	font-weight: bold;
+	color: pink  ;
+}
+
 #Dtable_filter .form-control-sm{
 	background-image: url("/1_MES/_icons/search.svg");
 	background-size: 20px 20px;
