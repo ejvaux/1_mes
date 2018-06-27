@@ -1,4 +1,3 @@
-<?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/manuc_info/ProdPlan/ProdPlanVsResultMODMENU.php";?>
 
 <div class="mod_options" style="z-index: 0;padding-top: 70px; padding-left: 10px">
                 
@@ -77,7 +76,7 @@
                                                                         <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();cancelfilter('ProdPlanVsResultPRINTING','PRINTING','PlanWithResult')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
                                                                         <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('ProdPlanVsResultPRINTING','PRINTING','PlanWithResult')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
                                                                     </div>
-                                                                    &nbsp<span style="font-size: 16px; font-weight: bold">Prod Plan Vs Result PRINTING</span>
+                                                                    &nbsp<span style="font-size: 15px; font-weight: bold">&nbsp&nbspProdPlan Vs Result PRINTING</span>
                                                                 </div>
                                                              
 

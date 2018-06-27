@@ -46,7 +46,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                           ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
 
-                        }
+}
 
                         else
                         {
