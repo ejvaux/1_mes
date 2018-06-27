@@ -1,5 +1,5 @@
 
-<div class="row" style="width: 125%;">
+<div class="row" style="width: 105%;">
       <div class="col"> 
 <table class='table-sm table table-hover table-bordered table-sm nowrap' id='LotTable'>
 <thead> 
