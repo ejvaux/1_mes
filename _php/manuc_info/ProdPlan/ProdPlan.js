@@ -441,6 +441,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
            paginationSize:100,
            placeholder:"No Data to Display or Today's plan is not yet available.",
            movableColumns:true,
+           selectable: 1,
            groupBy:"DATE",    columns:[
                {title:"NO", field:"NO", width:60,align:"center"},
                {title:"DATE", field:"DATE"},
@@ -448,12 +449,31 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                {title:"CUSTOMER CODE", field:"CUSTOMER CODE",},
                {title:"CUSTOMER NAME", field:"CUSTOMER NAME"},
                {title:"ITEM CODE", field:"ITEM CODE"},
+               {title:"ITEM MODEL", field:"ITEM_MODEL"},
                {title:"ITEM NAME", field:"ITEM NAME"},
                {title:"MACHINE CODE", field:"MACHINE CODE"},
                {title:"MACHINE MAKER", field:"MACHINE MAKER"},
                {title:"TONNAGE", field:"TONNAGE"},
                {title:"MACHINE GROUP", field:"MACHINE GROUP"},
-               {title:"TOOL NO", field:"TOOL NO"},
+               {title:"TOOL NO", field:"TOOL NO",
+               formatter: function(cell, formatterParams) {
+                var cellValue = cell.getValue();
+
+                if (cellValue != null) {
+                  cell.getRow().getElement().css({
+                                     
+                  });
+                  return cellValue;
+                } else {
+                  cell.getRow().getElement().css({
+
+                    "background-color": "#db9176",
+                    "font-weight":"bold"
+                  });
+                  return cellValue;
+                }
+              }
+               },
                {title:"PRIORITY", field:"PRIORITY"},
                {title:"CYCLE TIME", field:"CYCLE TIME"},
                {title:"PLAN QTY", field:"PLAN QTY",align: "center"},
@@ -472,11 +492,12 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     var screenheight=Number(screen.height-350);
     $("#example-table").tabulator({
        height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
-       layout:"fitColumns", //fit columns to width of table (optional)
+       //layout:"fitColumns", //fit columns to width of table (optional)
        pagination:"local",
        paginationSize:100,
        movableColumns:true,
        groupBy:"JO DATE",
+       selectable: 1,
        placeholder:"No Data to Display or Today's plan is not yet available.",
       // responsiveLayout:"collapse",
        columns:[ //Define Table Columns
@@ -488,6 +509,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
            {title:"CUSTOMER CODE", field:"CUSTOMER CODE"},
            {title:"CUSTOMER NAME", field:"CUSTOMER NAME"},
            {title:"ITEM CODE", field:"ITEM CODE"},
+           {title:"ITEM MODEL", field:"ITEM_MODEL"},
            {title:"ITEM NAME", field:"ITEM NAME"},
            {title:"TOOL NO", field:"TOOL NO"},
            {title:"PLAN QTY", field:"PLAN QTY"},
