@@ -18,7 +18,9 @@
     $item_name = $_POST['item_name'];
     $print_qty = $_POST['print_qty'];
     $machine_code = $_POST['machine_code'];
-    
+    $insertUser = $_SESSION['text'];
+    $insert_datetime = Date('Y-m-d H:i:s');
+
     $sql = "INSERT INTO qmd_danpla_tempstore
     (   
         DANPLA_SERIAL,
@@ -26,22 +28,27 @@
         ITEM_CODE,
         ITEM_NAME,
         QUANTITY,
-        MACHINE_CODE
+        MACHINE_CODE,
+        INSERT_USER,
+        INSERT_DATETIME
+
     )
 
-        VALUES (?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?,?)";
             
         $stmt = $conn->prepare($sql);
 
         $stmt->bind_param(
 
-            'ssssis',
+            'ssssisss',
             $jo_barcode,
             $jo_num,
             $item_code,
             $item_name,
             $print_qty,
-            $machine_code
+            $machine_code,
+            $insertUser,
+            $insert_datetime
         );
         
         if ($stmt->execute() === TRUE) {

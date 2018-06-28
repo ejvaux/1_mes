@@ -1,5 +1,4 @@
-function loadDoc(TableName) {
-  
+function loadDoc(TableName, uname) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -7,7 +6,7 @@ function loadDoc(TableName) {
 
      
       if (TableName == '1stTab'){
-        DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp')
+        DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp', uname)
         DisplayTable2('CreatedLot', 'CreatedLotSP', 'Created_Lot')
         /* DisplayTable3('PendingLot', 'PendingLotSP', 'Pending_Lot') */
       }
@@ -1289,8 +1288,7 @@ function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
  $.fn.dataTable.ext.buttons.add0 = {
  };
 
-function DisplayTable1(Table_Name, Tablesp, tbltitle) {
-
+function DisplayTable1(Table_Name, Tablesp, tbltitle, tbluser) {
   var xhttp;
   if (Table_Name.length == 0) {
     document.getElementById("first_table").innerHTML = "<h1>No table to display.</h1>";
@@ -1303,8 +1301,12 @@ function DisplayTable1(Table_Name, Tablesp, tbltitle) {
 
       document.getElementById("first_table").innerHTML = this.responseText;
       var tble = $('#DanplaTable').DataTable({
+        
         deferRender: true, 
         scrollY: '54.2vh',
+        "oSearch": {
+          "sSearch": tbluser
+        },
         "sScrollX": "100%",
         "processing": true,
         "serverSide": true,
@@ -1313,6 +1315,7 @@ function DisplayTable1(Table_Name, Tablesp, tbltitle) {
           url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
           type: 'POST'
         },
+        
         "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5">><"row"<"col-12"<"dd">>>t',
         'buttons': [
           {
@@ -1345,7 +1348,12 @@ function DisplayTable1(Table_Name, Tablesp, tbltitle) {
         select: 'single',
         "columnDefs": [{
           "targets": 0
-        }],
+        },
+          {
+            "targets": 7,
+            "visible": false,
+          }
+      ],
         "order": [[0, 'desc']]
 
       });

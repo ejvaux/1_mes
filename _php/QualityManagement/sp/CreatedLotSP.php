@@ -1,7 +1,22 @@
 <?php
  
 // DB table to use
-$table = 'qmd_lot_create';
+$table = <<<EOT
+ (
+    SELECT 
+        LOT_ID,
+        PROD_DATE,
+        LOT_NUMBER,
+        JO_NUM,
+        SUM(LOT_QTY) AS SUMQ,
+        LOT_CREATOR,
+        ITEM_CODE,
+        ITEM_NAME
+    FROM qmd_lot_create
+    GROUP BY LOT_NUMBER
+ ) temp
+EOT;
+
  
 // Table's primary key
 $primaryKey = 'LOT_ID';
@@ -16,7 +31,7 @@ $columns = array(
     array( 'db' => 'PROD_DATE', 'dt' => 1 ),
     array( 'db' => 'LOT_NUMBER', 'dt' => 2 ),
     array( 'db' => 'JO_NUM', 'dt' => 3 ),
-    array( 'db' => 'LOT_QTY', 'dt' => 4 ),
+    array( 'db' => 'SUMQ', 'dt' => 4 ),
     array( 'db' => 'LOT_CREATOR', 'dt' => 5 ),
     array( 'db' => 'ITEM_CODE', 'dt' => 6 ),
     array( 'db' => 'ITEM_NAME', 'dt' => 7 ),
@@ -36,7 +51,7 @@ $sql_details = array(
  * server-side, there is no need to edit below this line.
  */
  
-require( $_SERVER['DOCUMENT_ROOT'].'/1_mes/_includes/ssp.class.php' );
+require( $_SERVER['DOCUMENT_ROOT'].'/1_mes/_includes/ssp2.class.php' );
  
 echo json_encode(
     SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns )

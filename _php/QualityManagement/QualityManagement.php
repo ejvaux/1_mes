@@ -8,8 +8,8 @@
 
     <!-- Custom JS -->
     <script src="/1_mes/_php/QualityManagement/QualityTable.js"></script>   
+    <script src="https://cdn.datatables.net/rowgroup/1.0.3/js/dataTables.rowGroup.min.js"></script>
     <!-- Change Title --> <title>Quality Management</title>
-
     <!-- Custom CSS - START -->
     <style>
       .table-wrapper-1 {
@@ -31,8 +31,11 @@
         <?php
             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/navbar.php";            
         ?>
+        
     <!-- Navbar - END -->
-
+    <script>
+    var username = '<?php echo $_SESSION["text"];?>';
+    </script>
     <!-- Page specific Navbar START-->
 
       <div style="position: absolute;margin-top: -14px;" id="innernavbar">
@@ -42,7 +45,7 @@
           </button>
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1" id="tb">           
-              <li><a class="nav-link tbl active" id='tb1' href="#" onclick="loadDoc('1stTab')">Lot Create</a></li>
+              <li><a class="nav-link tbl active" id='tb1' href="#" onclick="loadDoc('1stTab','<?php echo $_SESSION["text"];?>')">Lot Create</a></li>
               <li><a class="nav-link tbl" id='tb2' href="#" onclick="loadDoc('LotJudgement');">Lot Judgement</a></li>
               <li><a class="nav-link tbl" id='tb3' href="#" onclick="loadDoc('LotRecovery')">Lot Reject Recovery</a></li>
               <li><a class="nav-link tbl" id='tb4' href="#" onclick="DisplayTableDefect('DefectTable','DefectTableSP','Defective_List')">Defect Management</a></li>
@@ -71,8 +74,8 @@
   <div class="row text-left">      
     <div class="col-11" > 
       <script>       
-
-        loadDoc('1stTab');
+        
+        loadDoc('1stTab',username);
 
         </script>
       </div>
