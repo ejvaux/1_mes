@@ -338,7 +338,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
         else{
           tble
           .columns( 3 )
-          .search( '')
+          .search('')
           .draw();
         }
         
