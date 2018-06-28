@@ -374,8 +374,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
 
       else if(SectionGroup=="dr_assign")
      {
-
-
+      
         var DrDataTypeobj = document.getElementById("DrDataType");
         var selectedOption2 = DrDataTypeobj.options[DrDataTypeobj.selectedIndex].value;
        
@@ -599,7 +598,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     //layout:"fitColumns", //fit columns to width of table (optional)
     selectable: 1,
     pagination:"local",
-    paginationSize:100,
+    paginationSize:50,
+    //progressiveRender:"remote",
     placeholder:"No Data to Display",
     movableColumns:true,
     groupBy:"LOT_NUMBER",
@@ -682,7 +682,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                             success: function(data) 
                             {
                                
-                                showTable("ShipmentList","","shipment_management")
+                                showTable("ShipmentList","","shipment_management");
+                                loadmodal1('ShipmentModal');
                             swal(
                                 'SUCCESS!',
                                 cell.getRow().getData().PACKING_NUMBER+' is added to the group table.',
@@ -728,6 +729,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                             success: function(data) 
                             {
                                 showTable("ShipmentList","","shipment_management");
+                                loadmodal1('ShipmentModal');
                             swal(
                                 'SUCCESS!',
                                 cell.getRow().getData().PACKING_NUMBER+' Revert status from SHIPPED to APPROVED.',
@@ -803,11 +805,12 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
    {
     var screenheight=Number(screen.height-350);
     $("#example-table").tabulator({
-        height: "65vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+    height: "65vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
     //layout:"fitColumns", //fit columns to width of table (optional)
     selectable: 1,
     pagination:"local",
-    paginationSize:100,
+    paginationSize:50,
+    //ajaxProgressiveLoad: true,
     placeholder:"No Data to Display",
     movableColumns:true,
     groupBy:"LOT_NUMBER",
@@ -1020,13 +1023,15 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
    }
    else if(TabName=="Dr-Assign")
    {
-
+       
+                    
     var screenheight=Number(screen.height-350);
     $("#example-table").tabulator({
        height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
        layout:"fitColumns", //fit columns to width of table (optional)
        pagination:"local",
-       paginationSize:100,
+       paginationSize:50,
+       //progressiveRender:"remote",
        placeholder:"No Data to Display",
        movableColumns:true,
        groupBy:"DR_DATE", 
@@ -1069,6 +1074,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 hasDR = cell.getRow().getData().DR_NO;
                 if(hasDR=="UNASSIGNED DR")
                 {
+                    
                     $('#exampleModal').modal('show');
                     document.getElementById("grouptext").value = cell.getRow().getData().GROUP_NAME;
                     document.getElementById("drtext").value = "";
@@ -1181,7 +1187,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                                 cell.getRow().getData().PACKING_NUMBER+' removed from the list.',
                                 'success'
                             )
-                            alert(data);
+                            //alert(data);
                             }
                   
                         });
@@ -1385,6 +1391,8 @@ function InsertDrGroup()
                     {
 
                         $('#exampleModal').modal('hide');
+                        loadmodal1('ShipmentModal');
+
                         swal({
                             type: 'error',
                             title: 'No packing number to saved!',
@@ -1397,6 +1405,8 @@ function InsertDrGroup()
                         document.getElementById('radioGroup').checked = true;
                         CheckCreationType("group");
                         $('#exampleModal').modal('hide');
+                        loadmodal1('ShipmentModal');
+
                         showTable("ShipmentList","","shipment_management");
                         swal({
                            type: 'success',
@@ -1406,6 +1416,9 @@ function InsertDrGroup()
                        
                        
                     }
+
+                    
+
             }
     
         });
@@ -1461,6 +1474,8 @@ function InsertDrGroup()
 
 function setdr()
 {
+
+    
     var newdr = document.getElementById("drtextchange").value;
     var olddr = document.getElementById("drtext").value;
     var grname = document.getElementById("grouptext").value;
@@ -1475,11 +1490,11 @@ function setdr()
         updatetype="group";
     }
 
-    if(newdr=="--SELECT A DR#--" || newdr==""||newdr==null)
+    if(newdr=="--SELECT A DR#--"||newdr==null||newdr=="")
     {
         swal(
             'ERROR!',
-            'Please select a DR#!',
+            'Please select a DR#',
             'error'
         )
        
@@ -1513,7 +1528,8 @@ function setdr()
                 
                 success: function(data) 
                 {
-                    showTable("Dr-Assign","","dr_assign");
+                    //showTable("Dr-Assign","","dr_assign");
+                    loadtbl2('Dr-Assign','','dr_assign')
                     $('#exampleModal').modal('hide');
 
                 swal(
@@ -1530,7 +1546,6 @@ function setdr()
         }
       })
     }
-
 }
  
 
@@ -1567,3 +1582,52 @@ function LoadTableOfDrDetails(Drno,datasorttype,param1)
     });
 
 }
+
+///modal
+function loadmodal1(TableName)
+{
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        /* totalQty(); */
+        document.getElementById("modal_display1").innerHTML = "";
+       document.getElementById("modal_display1").innerHTML = this.responseText;
+       var tablename = TableName;
+        
+
+        showmodal1(TableName);
+        
+      }
+    };
+      xhttp.open("GET", TableName+".php", true);
+      xhttp.send();
+  }
+ 
+  function showmodal1(TableName)
+  {
+
+    $.ajax({
+        method:'POST',
+        url:'/1_mes/_php/manuc_info/Prodplan/'+TableName+'.php',
+        data:
+        {
+            
+            'ajax':true
+
+        },
+    
+        
+        success: function(data) 
+        {
+            //var val2 = JSON.parse(data);
+           /* alert(val); */
+         //alert(data);
+         CheckCreationType("group");
+        }
+
+    });
+
+  }
+
+
+//modal
