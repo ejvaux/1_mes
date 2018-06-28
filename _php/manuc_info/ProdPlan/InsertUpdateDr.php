@@ -25,9 +25,10 @@ if($optiontype=="group")
         $itemname=$row['item_name'];
         $customercode=$row['customer_code'];
         $customername=$row['customer_name'];
+        $datenow=date("Y-m-d");
 
-        $sql2="INSERT INTO mis_dr_assigned(group_name,packing_number,lot_number,jo_number,item_code,machine_code,item_name,customer_code,customer_name)
-        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$customercode','$customername')";
+        $sql2="INSERT INTO mis_dr_assigned(group_name,packing_number,lot_number,jo_number,item_code,machine_code,item_name,customer_code,customer_name,Date_Inserted)
+        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$customercode','$customername','$datenow')";
         $result2=$conn->query($sql2);
 
     }
@@ -53,8 +54,8 @@ else
         $datenow=date("Y-m-d");
         $customercode=$row['customer_code'];
         $customername=$row['customer_name'];
-        $sql2="INSERT INTO mis_dr_assigned(dr_number,packing_number,lot_number,jo_number,item_code,machine_code,item_name,dr_date,customer_code,customer_name)
-        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$datenow','$customercode','$customername')";
+        $sql2="INSERT INTO mis_dr_assigned(dr_number,packing_number,lot_number,jo_number,item_code,machine_code,item_name,dr_date,customer_code,customer_name,Date_Inserted)
+        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$datenow','$customercode','$customername','$datenow')";
         $result2=$conn->query($sql2);
 
         $sql4="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' WHERE PACKING_NUMBER IN (SELECT packing_number from mis_dr_assigned WHERE dr_number='$groupname')";

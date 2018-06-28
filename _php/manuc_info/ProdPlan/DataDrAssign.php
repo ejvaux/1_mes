@@ -34,7 +34,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                              $sql="SELECT * FROM mis_dr_assigned ";
                                     if($drdatatype=="UNASSIGNED DR")
                                     {
-                                        $sql.=" WHERE dr_number IS NULL OR dr_number ='' ";
+                                        $sql.=" WHERE dr_number IS NULL OR dr_number =''";
                                     }
                                     else if ($drdatatype=="ASSIGNED DR")
                                     {
