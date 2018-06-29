@@ -369,7 +369,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
         
       } );
 
-      $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
+      $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -474,8 +474,15 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
                 "data": null,
                 "searchable": false,
                 "orderable": false,
-                render: function ( data, type, row ) {                
-                    return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";                                                                
+                render: function ( data, type, row ) {
+                  
+                  if(row[3]=='FOR PM' ){
+                    return "<div class='text-center'><button id='forpm' class='btn btn-export4 py-0 px-1 m-0'><span style='font-size:.8em;'>Add PM</span></button></div>";
+                  }
+                  else{                   
+                    return "<div class='text-center'><button id='checking' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
+                  }
+                                                                                    
                 },              
                 "targets": 0,
               },            
@@ -505,7 +512,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
           } );
       } ).draw();
       
-      $('#Dtable tbody').on( 'click', 'button', function () {
+      $('#Dtable tbody').on( 'click', '#checking', function () {
         var data = tble.row( $(this).parents('tr') ).data();
         /* alert(data[5]); */
 
@@ -557,7 +564,53 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
         
       } );
 
-      $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
+      $('#Dtable tbody').on( 'click', '#forpm', function () {
+        var data = tble.row( $(this).parents('tr') ).data();
+                
+        $.ajax(
+          {
+          method:'post',
+          url:'/1_mes/_query/mold_repair/getrow.php',
+          data:
+          {
+              'id': data[5],
+              'ajax': true
+          },
+          success: function(data1) {
+            var val = JSON.parse(data1);
+            /* alert(data1);
+            alert(val.MOLD_REPAIR_CONTROL_NO); */
+            /* alert("||"+val.MACHINE_CODE+"||");
+            alert("||"+data[3]+"||"); */
+
+            $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
+            $("#emcl").val(val.MOLD_CODE);   
+            elistchange();
+            $("#emoldshot").val(val.MOLD_SHOT);
+            $("#emachinecode").val(val.MACHINE_CODE);
+            $("#edaterequired").val(val.DATE_REQUIRED);
+            $("#etimerequired").val(val.TIME_REQUIRED);
+            $("#edefectname").val(val.DEFECT_NAME);
+            $("#erepairremarks").val(val.REPAIR_REMARKS);
+            $("#emoldstatus").attr('disabled','disabled');
+            $("#hemoldstatus").removeAttr('disabled');
+            $("#hemoldstatus").val('WAITING');
+            /* alert($("#edefectname").val()); */
+            if($("#edefectname").val()==null){
+              /* alert('test'); */
+              $("#eothers").prop('checked', true);
+              $("#eothers").trigger("change");
+              $("#edno").val(val.DEFECT_NAME);
+            }
+            
+            $('.sel').select2({ width: '100%' });
+            $('#editmoldrepair').modal('show');
+          }
+        });
+        
+      } );
+
+      $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -672,10 +725,13 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
                 render: function ( data, type, row ) {  
                   
                   if(row[3]=='FOR MOLD TRIAL' || row[3]=='QC APPROVED'){
-                    return "<div class='text-center'><button class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
+                    return "<div class='text-center'><button id='checking' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
+                  }
+                  else if(row[3]=='FOR PM' ){
+                    return "<div class='text-center'><button id='forpm' class='btn btn-export4 py-0 px-1 m-0'><span style='font-size:.8em;'>Add PM</span></button></div>";
                   }
                   else{
-                    return "<div class='text-center'><button class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div>";
+                    return "<div class='text-center'><button id='checking' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div>";
                   }
                                                                                
                 },              
@@ -683,71 +739,14 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
               },
               {
                 "data": null,
-                render: function ( data, type, row ) {
-
-                  /* if(row[2]!=null){
-                    var second = Date.parse(new Date()) - Date.parse(new Date(row[2]));
-                    var seconds = parseInt(second,10)/1000;
-                    var ts = seconds;
-                    var days = Math.floor(seconds / (3600*24));
-                    seconds  -= days*3600*24;
-                    var hrs   = Math.floor(seconds / 3600);
-                    seconds  -= hrs*3600;
-                    var mnts = Math.floor(seconds / 60);
-                    seconds  -= mnts*60;
-                    var time = days+" day, "+hrs+" hr, "+mnts+" min";
-                    
-                    if(row[3] == 'WAITING' ||  row[3] == 'ON-GOING'){
-
-                      if(ts<=172800){
-                        return "<span style='color: #2ECC71; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else if(ts<=345600 && ts>172800){
-                        return "<span style='color: #F4D03F; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else if(ts<=518400 && ts>345600){
-                        return "<span style='color: orange; font-weight: bold;'>"+time+"</span>";
-                      }
-                      else{
-                        return "<span style='color: red; font-weight: bold;'>"+time+"</span>";
-                      }
-                    }
-                    else{
-                      var a = Date.parse(new Date(row[19])) - Date.parse(new Date(row[2]));
-                                            
-                      var at = parseInt(a,10)/1000;
-                      var tdays = Math.floor(at / (3600*24));
-                      at  -= tdays*3600*24;
-                      var thrs   = Math.floor(at / 3600);
-                      at  -= thrs*3600;
-                      var tmnts = Math.floor(at / 60);
-                      at  -= tmnts*60;
-                      var time = tdays+" day, "+thrs+" hr, "+tmnts+" min";
-                      return "<span style='color: blue; font-weight: bold;'>( "+time+" )</span>";
-                    }
-                  }
-                  else{
-                    return "<span style='color:blue; font-weight: bold;'>NO DATE</span>";
-                  } */
+                render: function ( data, type, row ) {                  
                   return ltime(row[2],row[3],row[21]);                                   
                 },              
                 "targets": 2,
               },
             ],
             "order": [[ 4, 'desc' ],[ 5, 'desc' ]],
-            "createdRow": function ( row, data, index ) {
-             /*  if ( data[3] == 'WAITING' ) {
-                $('td', row).eq(3).addClass('pending');
-              }
-              else if(data[3] == 'ON-GOING'){
-                $('td', row).eq(3).addClass('ongoing');
-              }
-              else if(data[3] == 'FOR MOLD TRIAL'){
-                $('td', row).eq(3).addClass('finished');
-              }
-              else if(data[3] == 'QC APPROVED'){
-                $('td', row).eq(3).addClass('approved');
-              } */
+            "createdRow": function ( row, data, index ) {             
               $('td', row).eq(3).addClass(statdisplay(data[3]));
             },           
           /* fixedColumns:   true */
@@ -761,7 +760,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
           } );
       } ).draw();
 
-      $('#Dtable tbody').on( 'click', 'button', function () {
+      $('#Dtable tbody').on( 'click', '#checking', function () {
         var data = tble.row( $(this).parents('tr') ).data();
         /* var tt =JSON.stringify(data); */
         /* alert(data[5]); */
@@ -873,7 +872,53 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
       }
     } );
 
-    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
+    $('#Dtable tbody').on( 'click', '#forpm', function () {
+      var data = tble.row( $(this).parents('tr') ).data();
+              
+      $.ajax(
+        {
+        method:'post',
+        url:'/1_mes/_query/mold_repair/getrow.php',
+        data:
+        {
+            'id': data[5],
+            'ajax': true
+        },
+        success: function(data1) {
+          var val = JSON.parse(data1);
+          /* alert(data1);
+          alert(val.MOLD_REPAIR_CONTROL_NO); */
+          /* alert("||"+val.MACHINE_CODE+"||");
+          alert("||"+data[3]+"||"); */
+
+          $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
+          $("#emcl").val(val.MOLD_CODE);   
+          elistchange();
+          $("#emoldshot").val(val.MOLD_SHOT);
+          $("#emachinecode").val(val.MACHINE_CODE);
+          $("#edaterequired").val(val.DATE_REQUIRED);
+          $("#etimerequired").val(val.TIME_REQUIRED);
+          $("#edefectname").val(val.DEFECT_NAME);
+          $("#erepairremarks").val(val.REPAIR_REMARKS);
+          $("#emoldstatus").attr('disabled','disabled');
+          $("#hemoldstatus").removeAttr('disabled');
+          $("#hemoldstatus").val('WAITING');
+          /* alert($("#edefectname").val()); */
+          if($("#edefectname").val()==null){
+            /* alert('test'); */
+            $("#eothers").prop('checked', true);
+            $("#eothers").trigger("change");
+            $("#edno").val(val.DEFECT_NAME);
+          }
+          
+          $('.sel').select2({ width: '100%' });
+          $('#editmoldrepair').modal('show');
+        }
+      });
+      
+    } );
+
+    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -987,9 +1032,9 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
                   if ( data[3] == 'WAITING' || data[3] == 'ON-GOING') {
                     return "<div class='text-center'><button id='inspect' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div>";
                   }
-                  /* else if(data[3] == 'ON-GOING'){
-                    return "<div class='text-center'><button id='inspect' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div><div class='text-center'><button id='approve' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Approve</span></button></div>";
-                  } */
+                  else if(row[3]=='FOR PM' ){
+                    return "<div class='text-center'><button id='forpm' class='btn btn-export4 py-0 px-1 m-0'><span style='font-size:.8em;'>Add PM</span></button></div>";
+                  }
                   else {
                     return "<div class='text-center'><button id='check' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
                   }
@@ -1125,7 +1170,53 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
         
     } );
 
-    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
+    $('#Dtable tbody').on( 'click', '#forpm', function () {
+      var data = tble.row( $(this).parents('tr') ).data();
+              
+      $.ajax(
+        {
+        method:'post',
+        url:'/1_mes/_query/mold_repair/getrow.php',
+        data:
+        {
+            'id': data[5],
+            'ajax': true
+        },
+        success: function(data1) {
+          var val = JSON.parse(data1);
+          /* alert(data1);
+          alert(val.MOLD_REPAIR_CONTROL_NO); */
+          /* alert("||"+val.MACHINE_CODE+"||");
+          alert("||"+data[3]+"||"); */
+
+          $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
+          $("#emcl").val(val.MOLD_CODE);   
+          elistchange();
+          $("#emoldshot").val(val.MOLD_SHOT);
+          $("#emachinecode").val(val.MACHINE_CODE);
+          $("#edaterequired").val(val.DATE_REQUIRED);
+          $("#etimerequired").val(val.TIME_REQUIRED);
+          $("#edefectname").val(val.DEFECT_NAME);
+          $("#erepairremarks").val(val.REPAIR_REMARKS);
+          $("#emoldstatus").attr('disabled','disabled');
+          $("#hemoldstatus").removeAttr('disabled');
+          $("#hemoldstatus").val('WAITING');
+          /* alert($("#edefectname").val()); */
+          if($("#edefectname").val()==null){
+            /* alert('test'); */
+            $("#eothers").prop('checked', true);
+            $("#eothers").trigger("change");
+            $("#edno").val(val.DEFECT_NAME);
+          }
+          
+          $('.sel').select2({ width: '100%' });
+          $('#editmoldrepair').modal('show');
+        }
+      });
+      
+    } );
+
+    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -1366,7 +1457,7 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle) {
         
     } );
 
-    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
+    $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
