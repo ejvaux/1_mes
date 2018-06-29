@@ -124,6 +124,7 @@ function buildLotNumber(){
     var d = new Date();
     var month = d.getUTCMonth() + 1; //months from 1-12
     var day = d.getUTCDate();
+  var year = d.getUTCFullYear().toString().substr(2, 2);
     // first 4 chars in LOT NUMBER
     if (month < 10) { month = '0' + month }
     if (day < 10) { day = '0' + day }
@@ -131,22 +132,22 @@ function buildLotNumber(){
     var shift = "01"; //DayShift
     var today = new Date().getHours();
     if (today <= 6 && today >= 18) { shift = "02" }
-  
+   
     $.ajax({
       method: 'post',
       url: '/1_mes/_php/QualityManagement/GetMachine.php',
       success: function (data) {
         var val = JSON.parse(data);
-        var machine = val.MACHINE_CODE.slice(-4);
-        
-        var lotNumber = month + "" + day + "" + shift + machine + "01";
+        var machine = val.MACHINE_CODE;
+        var lotNumber = year + "" + month + "" + day + "" + shift + machine + "01";
         lotNO = lotNumber;
+        return lotNO;
       }
     });
   }
 
 function generateLot(){
-  var lotNew, newL;
+  var lotNew,newL;
   
   var x = document.getElementById("DanplaTable").rows[1].cells[0].innerHTML;
   if (x == "No data available in table") {
@@ -171,16 +172,16 @@ function generateLot(){
       'ajax' : true
     },
     success: function(data){
-      
+      alert(data);
       if (data == "true" || data== "false" ){
+        
         buildLotNumber(newL);
+        alert(newL);
         AddLotBtnClick(lotNO);
       }
       else if (data != "false" || data != "true"){
-        
       var val = JSON.parse(data);
-      
-                  var lotPrev = val.slice(0,10);
+                  var lotPrev = val.slice(0,12);
                   var series= val.slice(-1);
                   var i = parseInt(series) + 1;
         lotNew = lotPrev + i;
@@ -191,6 +192,7 @@ function generateLot(){
 }
 
 function AddLotBtnClick(newLot){
+  alert(newLot);
   var x = document.getElementById("DanplaTable").rows.length;
   if (newLot==undefined){
     alert("No Lot Number Try Again");

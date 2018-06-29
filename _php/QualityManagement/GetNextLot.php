@@ -8,20 +8,22 @@
 
                 while($row = $result->fetch_assoc()){
 
-
-                    if($row['JO_NUM'] == $_POST['jo_num']){
-                        $lot = $row['LOT_NUMBER'];
-                        break;
-                        }
-                else if($row['JO_NUM'] != $_POST['jo_num'] && $row['MACHINE_CODE'] == $_POST['machine_code']){
-                        $lot = $row['LOT_NUMBER'];
-                        break;
-                        }
-                elseif($row['JO_NUM'] != $_POST['jo_num'] && $row['MACHINE_CODE'] != $_POST['machine_code']){
-                        $lot = (false); 
-                        }
-                    } 
+                    if(strlen($row['LOT_NUMBER']) < 14){
+                        
+                        if($row['JO_NUM'] == $_POST['jo_num']){
+                            $lot = $row['LOT_NUMBER'];
+                            break;
+                            }
+                        else if($row['JO_NUM'] != $_POST['jo_num'] && $row['MACHINE_CODE'] == $_POST['machine_code']){
+                            $lot = $row['LOT_NUMBER'];
+                            break;
+                            }
+                        elseif($row['JO_NUM'] != $_POST['jo_num'] && $row['MACHINE_CODE'] != $_POST['machine_code']){
+                            $lot = (false); 
+                            }
+                    }
                 }
+            }
 
             else{
                 $lot = (true);
