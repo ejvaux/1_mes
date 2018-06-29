@@ -163,6 +163,10 @@ $errorProducts="MIS_PRODUCTS SYNC STATUS: COMPLETE\n";
 else
 {
 	echo $errorProducts;
+	$myfile = fopen("CloningResultsLogs.txt", "a") or die("Unable to open file!");
+$txt = "\n## " . date('Y-m-d h:i:s A') . " ##\n";
+fwrite($myfile, $txt);
+fwrite($myfile, $errorProducts.$errorinsert.$errorsummary);
 }
 
 if ($errorinsert=="")
@@ -173,6 +177,10 @@ $errorinsert="DATA SUMMARIZATION INSERT SYNC STATUS: COMPLETE\n";
 else
 {
 	echo $errorsummary;
+	$myfile = fopen("CloningResultsLogs.txt", "a") or die("Unable to open file!");
+$txt = "\n## " . date('Y-m-d h:i:s A') . " ##\n";
+fwrite($myfile, $txt);
+fwrite($myfile, $errorProducts.$errorinsert.$errorsummary);
 }
 
 
@@ -184,12 +192,13 @@ $errorsummary="DATA SUMMARIZATION UPDATE SYNC STATUS: COMPLETE\n";
 else
 {
 	echo $errorsummary;
-}
-
-$myfile = fopen("CloningResultsLogs.txt", "a") or die("Unable to open file!");
+	$myfile = fopen("CloningResultsLogs.txt", "a") or die("Unable to open file!");
 $txt = "\n## " . date('Y-m-d h:i:s A') . " ##\n";
 fwrite($myfile, $txt);
 fwrite($myfile, $errorProducts.$errorinsert.$errorsummary);
+}
+
+
 
 #$address=$_GET['address'];
 #header("Location: ".$address);
