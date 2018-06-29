@@ -28,6 +28,9 @@
     $transferdate = $_POST['etransferdate'];
     $updatedatetime = date('Y-m-d H:i:s');
     $updateuser = $_SESSION['text'];
+    $moldmodel = $_POST['moldmodel'];
+    $moldmaker = $_POST['moldmaker'];
+    $moldcategory = $_POST['moldcategory'];
   
     $sql = "UPDATE dmc_mold_list SET
         
@@ -46,7 +49,10 @@
         ASSET_NUMBER = '$assetnumber',	
         UPDATE_DATETIME = '$updatedatetime',
         UPDATE_USER = '$updateuser',		
-        TRANSFER_DATE = '$transferdate'
+        TRANSFER_DATE = '$transferdate',
+        MOLD_MODEL = '$moldmodel',
+        MOLD_MAKER = '$moldmaker',
+        MOLD_CATEGORY = '$moldcategory'
 
     WHERE MOLD_ID = $moldid";   
 
@@ -55,7 +61,7 @@
         echo "success";
     } else {
         
-        echo "Error updating record: " . $sql . "<br>" . $conn->error;        
+        echo "Error updating record: " . $conn->error;        
     }
 
     $conn->close();

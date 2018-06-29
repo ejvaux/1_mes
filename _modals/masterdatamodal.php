@@ -130,28 +130,7 @@
             </div>                    
           </div>
 
-          <div class="form-group row">
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="approvaldate" class="col-form-label-sm">APPROVAL DATE:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="approvaldate" type="date" class="form-control form-control-sm" name="approvaldate" placeholder="">                  
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="drawingrevision" class="col-form-label-sm">DRAWING REVISION:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="drawingrevision" type="text" class="form-control form-control-sm" name="drawingrevision" placeholder="">                  
-                </div>
-              </div>
-            </div>                    
-          </div>
+          
 
           <div class="form-group row">
             <div class="col-6">
@@ -220,6 +199,65 @@
                 </div>
               </div>
             </div>                    
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="approvaldate" class="col-form-label-sm">APPROVAL DATE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="approvaldate" type="date" class="form-control form-control-sm" name="approvaldate" placeholder="">                  
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="drawingrevision" class="col-form-label-sm">DRAWING REVISION:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="drawingrevision" type="text" class="form-control form-control-sm" name="drawingrevision" placeholder="">                  
+                </div>
+              </div>
+            </div>                    
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="moldmodel" class="col-form-label-sm">MODEL:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="moldmodel" type="text" class="form-control form-control-sm" name="moldmodel" placeholder="">                  
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="moldmaker" class="col-form-label-sm">MAKER:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="moldmaker" type="text" class="form-control form-control-sm" name="moldmaker" placeholder="">                  
+                </div>
+              </div>
+            </div>                    
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="moldcategory" class="col-form-label-sm">CATEGORY:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="moldcategory" type="text" class="form-control form-control-sm" name="moldcategory" placeholder="">                  
+                </div>
+              </div>
+            </div>                               
           </div>
 
           
@@ -1214,30 +1252,7 @@
                 </div>
               </div>
             </div>                    
-          </div>
-
-          <div class="form-group row">
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="eapprovaldate" class="col-form-label-sm">APPROVAL DATE:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="eapprovaldate" type="date" class="form-control form-control-sm" name="eapprovaldate" placeholder="">                  
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="edrawingrevision" class="col-form-label-sm">DRAWING REVISION:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="edrawingrevision" type="text" class="form-control form-control-sm" name="edrawingrevision" placeholder="">                  
-                </div>
-              </div>
-            </div>                    
-          </div>
+          </div>          
 
           <div class="form-group row">
             <div class="col-6">
@@ -1306,6 +1321,65 @@
                 </div>
               </div>
             </div>                    
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eapprovaldate" class="col-form-label-sm">APPROVAL DATE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eapprovaldate" type="date" class="form-control form-control-sm" name="eapprovaldate" placeholder="">                  
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="edrawingrevision" class="col-form-label-sm">DRAWING REVISION:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="edrawingrevision" type="text" class="form-control form-control-sm" name="edrawingrevision" placeholder="">                  
+                </div>
+              </div>
+            </div>                    
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="emoldmodel" class="col-form-label-sm">MODEL:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="emoldmodel" type="text" class="form-control form-control-sm" name="moldmodel" placeholder="">                  
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="emoldmaker" class="col-form-label-sm">MAKER:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="emoldmaker" type="text" class="form-control form-control-sm" name="moldmaker" placeholder="">                  
+                </div>
+              </div>
+            </div>                    
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="emoldcategory" class="col-form-label-sm">CATEGORY:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="emoldcategory" type="text" class="form-control form-control-sm" name="moldcategory" placeholder="">                  
+                </div>
+              </div>
+            </div>                               
           </div>          
 
           <!-- ____________ FORM END __________________ -->

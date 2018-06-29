@@ -36,18 +36,21 @@ $columns = array(
     array( 'db' => 'ITEM_NAME', 'dt' => 4 ),
     array( 'db' => 'CUSTOMER_CODE', 'dt' => 5 ),
     array( 'db' => 'CUSTOMER_NAME', 'dt' => 6 ),
-    array( 'db' => 'APPROVAL_DATE', 'dt' => 7 ),
-    array( 'db' => 'DRAWING_REVISION', 'dt' => 8 ),
-    array( 'db' => 'GUARANTEE_SHOT', 'dt' => 9 ),
-    array( 'db' => 'MOLD_SHOT', 'dt' => 10 ),
-    array( 'db' => 'CAVITY', 'dt' => 11 ),
-    array( 'db' => 'MOLD_REMARKS', 'dt' => 12 ),
-    array( 'db' => 'ASSET_NUMBER', 'dt' => 13 ),
-    array( 'db' => 'INSERT_DATETIME', 'dt' => 14 ),
-    array( 'db' => 'INSERT_USER', 'dt' => 15 ),
-    array( 'db' => 'UPDATE_DATETIME', 'dt' => 16 ),
-    array( 'db' => 'UPDATE_USER', 'dt' => 17 ),
-    array( 'db' => 'TRANSFER_DATE', 'dt' => 18 )
+    array( 'db' => 'MOLD_MODEL', 'dt' => 7 ),
+    array( 'db' => 'MOLD_MAKER', 'dt' => 8 ),
+    array( 'db' => 'MOLD_CATEGORY', 'dt' => 9 ),
+    array( 'db' => 'GUARANTEE_SHOT', 'dt' => 10 ),
+    array( 'db' => 'MOLD_SHOT', 'dt' => 11 ),
+    array( 'db' => 'CAVITY', 'dt' => 12 ),
+    array( 'db' => 'MOLD_REMARKS', 'dt' => 13 ),
+    array( 'db' => 'TRANSFER_DATE', 'dt' => 14 ),    
+    array( 'db' => 'APPROVAL_DATE', 'dt' => 15 ),
+    array( 'db' => 'DRAWING_REVISION', 'dt' => 16 ),
+    array( 'db' => 'ASSET_NUMBER', 'dt' => 17 ),
+    array( 'db' => 'INSERT_DATETIME', 'dt' => 18 ),
+    array( 'db' => 'INSERT_USER', 'dt' => 19 ),
+    array( 'db' => 'UPDATE_DATETIME', 'dt' => 20 ),
+    array( 'db' => 'UPDATE_USER', 'dt' => 21 )
 
       
 );

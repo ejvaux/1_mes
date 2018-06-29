@@ -26,6 +26,9 @@
     $cavity = $_POST['cavity'];
     $moldremarks = $_POST['moldremarks'];
     $assetnumber = $_POST['assetnumber'];
+    $moldmodel = $_POST['moldmodel'];
+    $moldmaker = $_POST['moldmaker'];
+    $moldcategory = $_POST['moldcategory'];
     $transferdate = $_POST['transferdate'];
     $insertdatetime = date('Y-m-d H:i:s');
     $insertuser = $_SESSION['text'];
@@ -47,17 +50,20 @@
         ASSET_NUMBER,	
         INSERT_DATETIME,
         INSERT_USER,		
-        TRANSFER_DATE
+        TRANSFER_DATE,
+        MOLD_MODEL,
+        MOLD_MAKER,
+        MOLD_CATEGORY
 
     )
 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
         $stmt = $conn->prepare($sql);
 
         $stmt->bind_param(
 
-            'ssssssssiiisssss',
+            'ssssssssiiissssssss',
             $moldcode,
             $toolnumber,            
             $itemcode,
@@ -73,7 +79,10 @@
             $assetnumber,
             $insertdatetime,
             $insertuser,
-            $transferdate
+            $transferdate,
+            $moldmodel,
+            $moldmaker,
+            $moldcategory
         );
 
         if ($stmt->execute() === TRUE) {            

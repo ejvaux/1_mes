@@ -176,6 +176,9 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
                     $("#emoldremarks").val(val['MOLD_REMARKS']);
                     $("#eassetnumber").val(val['ASSET_NUMBER']);
                     $("#etransferdate").val(val['TRANSFER_DATE']);
+                    $("#emoldmodel").val(val['MOLD_MODEL']);
+                    $("#emoldmaker").val(val['MOLD_MAKER']);
+                    $("#emoldcategory").val(val['MOLD_CATEGORY']);
                     
                     getitemname('eitemcode',eitemname);
                     getcustomername('ecustomercode',ecustomername);
