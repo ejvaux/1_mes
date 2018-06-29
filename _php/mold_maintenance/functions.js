@@ -540,7 +540,7 @@ function ltime(lead,status,approve){
       seconds  -= mnts*60;
       var time = days+" day, "+hrs+" hr, "+mnts+" min";
       
-      if(status == 'WAITING' ||  status == 'ON-GOING' || status == 'FOR MOLD TRIAL' || status == 'FOR REPAIR'){
+      if(status == 'WAITING' ||  status == 'ON-GOING' || status == 'FOR MOLD TRIAL' || status == 'FOR PM'){
 
         if(ts<=172800){
           return "<span style='color: #2ECC71; font-weight: bold;'>("+time+")</span>";
@@ -602,7 +602,7 @@ function statdisplay(stat){
   else if(stat == 'QC APPROVED'){
     return 'approved';
   }
-  else if(stat == 'FOR REPAIR'){
+  else if(stat == 'FOR PM'){
     return 'repair';
   } 
 }

@@ -550,6 +550,7 @@
                     <div class="col-sm-6">
                         <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
                         <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
+                        <input type="hidden" id="hemoldstatus" name="moldstatus" disabled>
                         <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
                         <select id="emoldstatus" type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
                                 

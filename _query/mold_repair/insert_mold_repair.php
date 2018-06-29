@@ -77,13 +77,29 @@
             $insertdatetime
         );
 
-        if ($stmt->execute() === TRUE) {            
-            echo "success";
+        if ($stmt->execute() === TRUE) {
+
+            $stmt->close();
+            $conn->close();
+
+            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
+            
+            $sql = "UPDATE dmc_mold_list SET  
+            REPAIR_MOLD_SHOT = 0,
+            DAYS_USED = 0
+            WHERE MOLD_CODE = '$moldcode'";   
+
+            if ($conn->query($sql) === TRUE) {                
+                echo "success";
+            } else {                
+                echo "Error updating record: " . $conn->error;        
+            }
+            
         } else {            
             echo "Error: " . $conn->error;
         }
 
                 
-        $stmt->close();
+        /* $stmt->close(); */
         $conn->close();
 ?>

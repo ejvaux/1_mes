@@ -112,12 +112,12 @@ td.approved{
 
 td.repair{
 	font-weight: bold;
-	color: pink  ;
+	color: blueviolet  ;
 }
 
 .ogs{
 	background: tomato;
-	color: white ;
+	/* color: white ; */
 }
 
 #Dtable_filter .form-control-sm{
