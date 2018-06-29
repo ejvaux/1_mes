@@ -102,6 +102,10 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
       else
       {
           echo $errorinsert1;
+          $myfile = fopen("BarcodeJOSyncLogs.txt", "a") or die("Unable to open file!");
+          $txt = "\n\n## " . date('Y-m-d h:i:s A') . " ##\n";
+          fwrite($myfile, $txt);
+          fwrite($myfile, $errorinsert1.$errorupdate1);
       }
       
       if ($errorupdate1=="")
@@ -113,11 +117,12 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
       else
       {
           echo $errorupdate1;
+          $myfile = fopen("BarcodeJOSyncLogs.txt", "a") or die("Unable to open file!");
+          $txt = "\n\n## " . date('Y-m-d h:i:s A') . " ##\n";
+          fwrite($myfile, $txt);
+          fwrite($myfile, $errorinsert1.$errorupdate1);
       }
-      $myfile = fopen("BarcodeJOSyncLogs.txt", "a") or die("Unable to open file!");
-      $txt = "\n\n## " . date('Y-m-d h:i:s A') . " ##\n";
-      fwrite($myfile, $txt);
-      fwrite($myfile, $errorinsert1.$errorupdate1);
+
 ?>
 
 
