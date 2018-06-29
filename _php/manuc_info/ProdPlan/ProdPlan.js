@@ -131,6 +131,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             
             success: function(data) 
             {
+                //alert(data);
                 initTbl2("PrintStatus");
                 var val = JSON.parse(data);
                /* alert(val); */

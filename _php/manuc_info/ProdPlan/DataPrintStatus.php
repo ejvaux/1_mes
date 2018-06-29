@@ -103,7 +103,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 
                             else
                             {
-                                         $sql="SELECT mis_product.*, dmc_item_list.MODEL,mis_prod_plan_dl as jodate
+                                         $sql="SELECT mis_product.*, dmc_item_list.MODEL,mis_prod_plan_dl.DATE_ as jodate
                                          FROM `mis_product`
                                          LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE
                                          LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
