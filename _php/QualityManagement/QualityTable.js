@@ -180,7 +180,7 @@ function generateLot(){
         
       var val = JSON.parse(data);
       
-                  var lotPrev = val.slice(0,11);
+                  var lotPrev = val.slice(0,10);
                   var series= val.slice(-1);
                   var i = parseInt(series) + 1;
         lotNew = lotPrev + i;
