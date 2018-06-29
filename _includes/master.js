@@ -124,6 +124,14 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
           "ajax": {
             url: "/1_mes/_includes/"+Tablesp+".php",
             type: 'POST'
+          },
+          "createdRow": function( row, data){
+            if(data[13] != null){
+              if(data[13].match(/.*RUNNING OGS.*/) || data[13].match(/.*FOR SCRAP.*/)){
+                  $(row).addClass('ogs');
+                  /* $(row).text(data[13]); */
+              }
+            }            
           },            
           "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
           'buttons': [            
@@ -293,7 +301,8 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
             select: 'single',
             "columnDefs": [ {              
               "targets": 0
-          } ],
+            },              
+        ],
                                            
         } );           
         tble.on( 'order.dt search.dt processing.dt page.dt', function () {
