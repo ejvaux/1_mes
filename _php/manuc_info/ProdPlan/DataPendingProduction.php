@@ -275,6 +275,29 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
              $gap.=$row['PLAN_QTY']-$row['PROD_RESULT'];
 
           }
+
+          $jonumber=$row['JOB_ORDER_NO'];
+          $itemcode=$row['ITEM_CODE'];
+    
+          $sqldef = "SELECT SUM(DEF_QUANTITY) as TOTAL_DEFECT FROM qmd_defect_dl
+           WHERE JOB_ORDER_NO='$jonumber' AND ITEM_CODE='$itemcode'";
+           $resultdef=$conn->query($sqldef);
+           
+           while($rowDef=$resultdef->fetch_assoc()){
+            $defectpercentage="0%";
+            if($rowDef['TOTAL_DEFECT']!=NULL)
+            {
+              $defectpercentage = (($rowDef['TOTAL_DEFECT']/$row['PLAN_QTY'])*100);
+              $defectpercentage=round($defectpercentage,2);
+              $defectpercentage=$defectpercentage."%";
+              #$defectpercentage="asd%"
+            }
+            else
+            {
+              $defectpercentage="0%";
+            }
+           }
+    
   
           
       if($row['PROD_RESULT']<=$row['PLAN_QTY'])
@@ -282,7 +305,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
             array_push($datavar,["NO"=> $ctr ,"DATE"=>$temp_date, "JO NO"=> $row['JOB_ORDER_NO'] ,
             "CUSTOMER CODE"=>$row['CUSTOMER_CODE'],"CUSTOMER NAME"=>$row['CUSTOMER_NAME'],"ITEM CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],
             "MACHINE CODE"=>$row['MACHINE_CODE'],"MACHINE MAKER"=>$row['MACHINE_MAKER'],"TONNAGE"=>$row['TONNAGE'],"MACHINE GROUP"=>$row['MACHINE_GROUP']
-            ,"TOOL NO"=>$row['TOOL_NUMBER'],"PRIORITY"=>"","CYCLE TIME"=>"","PLAN QTY"=>$row['PLAN_QTY'],"PROD RESULT"=>$row['PROD_RESULT'],"GAP"=>$gap,"ACHIEVE RATE"=>$achievepercent."% ","DEFECT RATE"=>""]);
+            ,"TOOL NO"=>$row['TOOL_NUMBER'],"PRIORITY"=>"","CYCLE TIME"=>"","PLAN QTY"=>$row['PLAN_QTY'],"PROD RESULT"=>$row['PROD_RESULT'],"GAP"=>$gap,"ACHIEVE RATE"=>$achievepercent."% ","DEFECT RATE"=>$defectpercentage]);
       
         }
       
