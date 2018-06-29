@@ -19,7 +19,7 @@ else
         
 if ($strto == "" && $strfrom=="") {
     # code... condition above is whenever both date range are null
-
+if ($search!="") {
     $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
 mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME FROM mis_product
 LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
@@ -27,17 +27,33 @@ WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '
 OR mis_product.ITEM_CODE LIKE '%$search%' OR     mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
 OR mis_product.SHIP_STATUS LIKE '%$search%') ";
 
-if($shipstat!="ALL DATA")
-{
-    if($shipstat == "PENDING")
-    {
-        $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
-    }
-    else
-    {
-        $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
+    if ($shipstat!="ALL DATA") {
+        if ($shipstat == "PENDING") {
+            $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
+        } else {
+            $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
+        }
     }
 }
+     else{                                
+        $datetoday=date("Y-m-d");
+        $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
+mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME FROM mis_product
+LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
+WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
+OR mis_product.ITEM_CODE LIKE '%$search%' OR  mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
+OR mis_product.SHIP_STATUS LIKE '%$search%') AND (qmd_lot_create.PROD_DATE LIKE '$datetoday%')";
+
+        if ($shipstat!="ALL DATA") {
+            if ($shipstat == "PENDING") {
+                $sql.=" AND ((mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat')) ";
+            } else {
+                $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
+            }
+        }
+    }
+ 
+
 
 $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
 
@@ -66,7 +82,8 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
                 }
             }
             $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
-    } else {
+    }
+    else {
         $sql="SELECT mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
             mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
@@ -81,7 +98,8 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
                 else
                 {
                     $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
-                }            }
+                }           
+             }
 
             $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
     }

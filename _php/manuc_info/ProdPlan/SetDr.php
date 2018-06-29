@@ -19,7 +19,6 @@ if($updatetype=="dr")
     if($grname=="No group name")
     {
         $sql="UPDATE mis_dr_assigned SET dr_number='$newdr', dr_date='$drdate' WHERE dr_number='$olddr' AND group_name IS NULL";
-
     }
     else
     {

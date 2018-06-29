@@ -11,6 +11,7 @@
         <th>ITEM NAME</th>
         <th>QUANTITY</th>
         <th>MACHINE CODE</th>
+        <th>LOT CREATOR</th>
 </thead>
 </table>
       </div>

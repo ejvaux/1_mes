@@ -12,7 +12,7 @@
     $defectQty = $_POST['defectQty'];
     $lotNumber = $_POST['lotNumber'];
     $defectName = $_POST['remarks'];
-    $insertDate =  Date('Y-m-d H:i:s');
+    $insertDate =  Date('Y-m-d H:i');
     $insertUser = $_SESSION['text'];
 
 

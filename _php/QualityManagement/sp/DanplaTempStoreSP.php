@@ -19,7 +19,7 @@ $columns = array(
     array( 'db' => 'ITEM_NAME', 'dt' => 4 ),
     array( 'db' => 'QUANTITY', 'dt' => 5 ),
     array( 'db' => 'MACHINE_CODE', 'dt' => 6 ),
-
+    array( 'db' => 'INSERT_USER', 'dt' => 7 ),
 );
  
 // SQL server connection information
