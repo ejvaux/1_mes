@@ -115,7 +115,7 @@ $summarize_jo_no=$row2['JOB_ORDER_NO'];
 	# code...
 	# insertquery
 	$sql7="INSERT INTO mis_summarize_results(JOB_ORDER_NO,PROD_RESULT) values('$jonum','$sum')";
-	mysqli_query($conn, $sql7);
+	
 	
 	if ($conn->query($sql7)=== TRUE)
 	{
