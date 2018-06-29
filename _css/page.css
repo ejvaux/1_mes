@@ -115,6 +115,11 @@ td.repair{
 	color: pink  ;
 }
 
+.ogs{
+	background: tomato;
+	color: white ;
+}
+
 #Dtable_filter .form-control-sm{
 	background-image: url("/1_MES/_icons/search.svg");
 	background-size: 20px 20px;

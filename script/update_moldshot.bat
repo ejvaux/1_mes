@@ -1,7 +1,7 @@
 @echo off
 TITLE MOLD SHOT UPDATE SCRIPT
 echo SCRIPT START
-SET t=11:55
+SET t=00:05
 
 :timer
 ping localhost -n 61 > nul
