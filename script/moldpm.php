@@ -12,7 +12,15 @@ $conn = new mysqli($servername, $username, $password,$dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$myfile = fopen("moldshot_update.log", "a") or die("Unable to open file!");
+
+$filename = "Mold Update Logs/". Date('Y') ."/" . Date('F') ."/". Date('d') . "_moldshot_update.log";
+$dirname = dirname($filename);
+if (!is_dir($dirname))
+{
+    mkdir($dirname, 0755, true);
+}
+
+$myfile = fopen($filename, "a") or die("Unable to open file!");
 
 echo $txt = "\n\n#### " . Date('Y-m-d H:i') . " ####\n\n";
 fwrite($myfile, $txt);
