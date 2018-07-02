@@ -4,4 +4,4 @@ echo SCRIPT START
 
 D:\xampp\php\php.exe -f D:\xampp\htdocs\1_mes\script\moldpm.php
 
-pause
+timeout /t 10 /nobreak
