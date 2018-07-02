@@ -13,7 +13,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$filename = "Mold Update Logs/". Date('Y') ."/" . Date('F') ."/". Date('d') . "_moldshot_update.log";
+$filename = "D:/xampp/htdocs/1_MES/script/Mold Update Logs/". Date('Y') ."/" . Date('F') ."/". Date('d') . "_moldshot_update.log";
 $dirname = dirname($filename);
 if (!is_dir($dirname))
 {
