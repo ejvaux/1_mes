@@ -13,3 +13,4 @@ yarn-error.log
 .env
 *.log
 *Logs.txt
+/test

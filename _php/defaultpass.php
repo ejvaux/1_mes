@@ -1,4 +1,10 @@
 <html>
+
+<?php
+      include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php"; 
+      $auth = $_SESSION['auth'];
+      $auth = stripslashes($auth);            
+    ?>
 <script src="/1_mes/node_modules/moment/min/moment.min.js"></script>
     <body>
     <h1 id="dte"></h1>
@@ -56,7 +62,26 @@
 
         ?>
 
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text m-0" style="height: 31px;">Date:</div>
+            </div>
+
+            <input type="date" id="min">
+
+            <div class="input-group-prepend">
+                <div class="input-group-text m-0" style="height: 31px;">to</div>
+            </div>
+
+            <input type="date" id="max">
+
+        </div>
+
     <script>
+
+    $('#min, #max').on('change',function(){
+        alert('test');          
+      });
 
         /* function checksession(){
     
