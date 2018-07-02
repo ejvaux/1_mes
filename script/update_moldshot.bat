@@ -2,6 +2,6 @@
 TITLE MOLD SHOT UPDATE SCRIPT
 echo SCRIPT START
 
-php moldpm.php
+D:\xampp\php\php.exe -f D:\xampp\htdocs\1_mes\script\moldpm.php
 
-timeout /t 10 /nobreak
+pause
