@@ -20,11 +20,11 @@
                     <th>INSPECT</th>
                     <th>JUDGEMENT</th>
                     <th>LOT CREATED</th>
-                    <th>LOT NUMBER</th>
+                    <th style='width:30%'>LOT NUMBER</th>
                     <th>LOT QTY</th>
                     <th>LOT CREATOR</th>
                     <th>ITEM CODE</th>
-                    <th>ITEM NAME</th>
+                    <th style='width:30%'>ITEM NAME</th>
                     <th>JUDGE BY</th>
                     <th>DEFECT QTY</th>
                     <th>REMARKS</th>
@@ -92,17 +92,17 @@
                 else {
                       echo "<thead>    
                   
-                    <th>INSPECT</th>
-                    <th>JUDGEMENT</th>
-                    <th>JUDGE DATE</th>
-                    <th>LOT NUMBER</th>
-                    <th>LOT QTY</th>
-                    <th>LOT CREATOR</th>
+                    <th style='width:10%'>INSPECT</th>
+                    <th style='width:10%'>JUDGEMENT</th>
+                    <th style='width:10%'>JUDGE DATE</th>
+                    <th style='width:10%'>LOT NUMBER</th>
+                    <th style='width:10%'>LOT QTY</th>
+                    <th style='width:10%'>LOT CREATOR</th>
                     <th>ITEM CODE</th>
-                    <th>ITEM NAME</th>
-                    <th>JUDGE BY</th>
+                    <th style='width:10%'>ITEM NAME</th>
+                    <th style='width:10%'>JUDGE BY</th>
                     <th>DEFECT QTY</th>
-                    <th>REMARKS</th>
+                    <th style='width:10%'>REMARKS</th>
                     </thead>
                     <tbody>
                       <td colspan='11' style='text-align:center'><h4>NO LOT DETAIL AVAILABLE</h4></td>
