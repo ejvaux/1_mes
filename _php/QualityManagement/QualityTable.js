@@ -172,11 +172,8 @@ function generateLot(){
       'ajax' : true
     },
     success: function(data){
-      alert(data);
       if (data == "true" || data== "false" ){
-        
         buildLotNumber(newL);
-        alert(newL);
         AddLotBtnClick(lotNO);
       }
       else if (data != "false" || data != "true"){
@@ -192,7 +189,6 @@ function generateLot(){
 }
 
 function AddLotBtnClick(newLot){
-  alert(newLot);
   var x = document.getElementById("DanplaTable").rows.length;
   if (newLot==undefined){
     alert("No Lot Number Try Again");
