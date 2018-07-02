@@ -13,7 +13,9 @@
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
 
 
-    $sql = "SELECT *,SUM(QUANTITY) as SUMQ FROM qmd_danpla_tempstore";
+    $sql = "SELECT qmd_danpla_tempstore.*,SUM(qmd_danpla_tempstore.QUANTITY) as SUMQ ,mis_prod_plan_dl.TO_WAREHOUSE as WAREHOUSE
+            FROM qmd_danpla_tempstore
+            LEFT join mis_prod_plan_dl on qmd_danpla_tempstore.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO";
 
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
@@ -28,7 +30,7 @@
             $lot_num = $_POST['lot_number'];
             $lot_quantity = $row['SUMQ'];
             $lot_creator = $_SESSION['text'];
-            $lot_num = $_POST['lot_number'];
+            $warehouse = $row['WAREHOUSE'];
     
     $conn->close();
 
@@ -43,7 +45,7 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
     echo "$prod_date, $lot_num, $jo_num,
             $lot_quantity, $lot_creator,
             $item_code, $item_name,
-            $machine_code";
+            $machine_code,$warehouse";
 
     $sql = "INSERT INTO qmd_lot_create
     (   
@@ -54,12 +56,13 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         LOT_CREATOR,
         ITEM_CODE,
         ITEM_NAME,
-        MACHINE_CODE
+        MACHINE_CODE,
+        TO_WAREHOUSE
     )
-        VALUES (?,?,?,?,?,?,?,?)";    
+        VALUES (?,?,?,?,?,?,?,?,?)";    
         $stmt = $conn->prepare($sql);
         $stmt->bind_param(
-            'sssissss',
+            'sssisssss',
             $prod_date,
             $lot_num,
             $jo_num,
@@ -67,7 +70,8 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             $lot_creator,
             $item_code,
             $item_name,
-            $machine_code
+            $machine_code,
+            $warehouse
             );
         if ($stmt->execute() === TRUE) {
             echo "Record saved successfully"; 
