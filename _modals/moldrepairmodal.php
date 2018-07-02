@@ -25,7 +25,7 @@
                     <div class="col-sm-6">
                         <label for="inputFirstname" class="col-form-label-sm">MOLD CODE:</label>
                         <select class="form-control form-control-sm sel" name="moldcode" placeholder="" onchange="listchange()" id="mcl">
-                        
+                        <option value="">Please select</option>
                         <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -122,7 +122,8 @@
                         <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
                         <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
                         <select type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
-                                
+                            
+                            <option value="">Please select</option>
                             <option value="WAITING">WAITING</option>
                             <option value="ON-GOING">ON-GOING</option>
                             <option value="DONE">DONE</option>
@@ -138,7 +139,7 @@
                         <label for="defectname" class="checkbox col-form-label-sm">DEFECT NAME:<input type="checkbox" class="ml-2" id="others" onchange="checkFluency(this,dn,dno)"> OTHERS</label>
                                                 
                         <select type="text" class="form-control form-control-sm sel" id="dn" name="defectname" placeholder="">
-                            
+                        <option value="">Please select</option>
                         <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -234,7 +235,7 @@
                     <div class="col-sm-6">
                         <label for="inputFirstname" class="col-form-label-sm">MOLD CODE:</label>
                         <select class="form-control form-control-sm sel" name="moldcode" placeholder="" onchange="alistchange()" id="amcl">
-                        
+                        <option value="">Please select</option>
                         <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -348,7 +349,7 @@
                     <div class="col-sm-6">
                         <label for="inputLastname" class="col-form-label-sm">DEFECT NAME:<input type="checkbox" class="ml-2" id="arothers" onchange="checkFluency(this,ardn,ardno)"> OTHERS</label>
                         <select id="ardn" type="text" class="form-control form-control-sm sel" name="defectname" placeholder="">
-                            
+                        <option value="">Please select</option>
                         <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -461,7 +462,7 @@
                     <div class="col-sm-6">
                         <label for="inputFirstname" class="col-form-label-sm">MOLD CODE:</label>
                         <select class="form-control form-control-sm sel" name="moldcode" placeholder="" onchange="elistchange()" id="emcl">
-                        
+                        <option value="">Please select</option>
                         <?php
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
@@ -553,7 +554,8 @@
                         <input type="hidden" id="hemoldstatus" name="moldstatus" disabled>
                         <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
                         <select id="emoldstatus" type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
-                                
+                            
+                            <option value="">Please select</option>
                             <option value="WAITING">WAITING</option>
                             <option value="ON-GOING">ON-GOING</option>
                             <option value="DONE">DONE</option>
@@ -572,7 +574,7 @@
                     <div class="col-sm-6">
                         <label for="inputLastname" class="col-form-label-sm">DEFECT NAME:<input type="checkbox" class="ml-2" id="eothers" onchange="checkFluency(this,edefectname,edno)"> OTHERS</label>
                         <select id="edefectname" type="text" class="form-control form-control-sm sel" name="defectname" placeholder="">
-                            
+                        <option value="">Please select</option>
                         <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1638,7 +1640,7 @@
                     <div class="col-sm-6">
                         <label for="historymoldcode" class="col-form-label-sm">MOLD CODE:</label>
                         <select id="historymoldcode" class="form-control form-control-sm sel" name="moldcode" placeholder="">
-
+                        <option value="">Please select</option>
                             <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1715,7 +1717,7 @@
                     <div class="col-sm-6">
                         <label for="ehistorymoldcode" class="col-form-label-sm">MOLD CODE:</label>
                         <select id="ehistorymoldcode" class="form-control form-control-sm sel" name="moldcode" placeholder="">
-
+                        <option value="">Please select</option>
                             <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1801,7 +1803,7 @@
                     <div class="col-sm-6">
                         <label for="addmoldfabricationmcode" class="col-form-label-sm mt-2">MOLD CODE:</label>
                         <select id="addmoldfabricationmcode" class="form-control form-control-sm sel" name="moldcode" placeholder="">
-
+                        <option value="">Please select</option>
                             <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1828,7 +1830,7 @@
                     <div class="col-sm-6">                        
                         <label for="acustomercode" class="col-form-label-sm mt-2">CUSTOMER CODE:</label>
                         <select id="acustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcus_name(acustomercode,acustomername)" placeholder="">
-                    
+                        <option value="">Please select</option>
                             <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1860,7 +1862,7 @@
                     <div class="col-sm-6">                        
                         <label for="acurrentprocess" class="col-form-label-sm mt-2">INITIAL PROCESS:</label>
                         <select id="acurrentprocess" type="text" class="form-control form-control-sm sel" name="currentprocess" placeholder="">
-                    
+                        <option value="">Please select</option>
                             <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1892,17 +1894,26 @@
                     <div class="col-sm-6">
                         <label for="aoperator" class="col-form-label-sm mt-2">OPERATOR:</label>
                         <select id="aoperator" type="text" class="form-control form-control-sm" name="operator" placeholder="" required>
+                        <option value="">Please select</option>
+                        <?php
 
-                            <option value="Operator 1">Operator 1</option>
-                            <option value="Operator 2">Operator 2</option>
-                            <option value="Operator 3">Operator 3</option>
-                            <option value="Operator 4">Operator 4</option>
-                            <option value="Operator 5">Operator 5</option>
-                            <option value="Operator 6">Operator 6</option>
-                            <option value="Operator 7">Operator 7</option>
-                            <option value="Operator 8">Operator 8</option>
-                            <option value="Operator 9">Operator 9</option>
-                            <option value="Operator 10">Operator 10</option>
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                         </select>                       
                     </div>                                           
@@ -1956,7 +1967,7 @@
                     <div class="col-sm-6">
                         <label for="emoldfabricationmcode" class="col-form-label-sm mt-2">MOLD CODE:</label>
                         <select id="emoldfabricationmcode" class="form-control form-control-sm sel" name="moldcode" placeholder="">
-
+                        <option value="">Please select</option>
                             <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1983,7 +1994,7 @@
                     <div class="col-sm-6">                        
                         <label for="ecustomercode" class="col-form-label-sm mt-2">CUSTOMER CODE:</label>
                         <select id="ecustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcus_name(ecustomercode,ecustomername)" placeholder="">
-                    
+                        <option value="">Please select</option>
                             <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -2015,7 +2026,7 @@
                     <div class="col-sm-6">                        
                         <label for="ecurrentprocess" class="col-form-label-sm mt-2">CURRENT PROCESS:</label>
                         <select id="ecurrentprocess" type="text" class="form-control form-control-sm sel" name="currentprocess" placeholder="">
-                    
+                        <option value="">Please select</option>
                             <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -2047,17 +2058,26 @@
                     <div class="col-sm-6">
                         <label for="eoperator" class="col-form-label-sm mt-2">OPERATOR:</label>
                         <select id="eoperator" type="text" class="form-control form-control-sm" name="operator" placeholder="" required>
-                        
-                            <option value="Operator 1">Operator 1</option>
-                            <option value="Operator 2">Operator 2</option>
-                            <option value="Operator 3">Operator 3</option>
-                            <option value="Operator 4">Operator 4</option>
-                            <option value="Operator 5">Operator 5</option>
-                            <option value="Operator 6">Operator 6</option>
-                            <option value="Operator 7">Operator 7</option>
-                            <option value="Operator 8">Operator 8</option>
-                            <option value="Operator 9">Operator 9</option>
-                            <option value="Operator 10">Operator 10</option>
+                        <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
                         
                         </select>                        
                     </div>                                           
@@ -2344,7 +2364,7 @@
                     <div class="col-sm-5 pt-1">                        
                         
                         <select id="ccurrentprocess" type="text" class="form-control form-control-sm" name="nextprocess" placeholder="">
-                    
+                        <option value="">Please select</option>
                             <?php
 
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -2381,17 +2401,26 @@
                     <div class="col-sm-5 pt-1">                        
                         
                         <select id="cprocessoperator" type="text" class="form-control form-control-sm" name="processoperator" placeholder="">
-                    
-                            <option value="Operator 1">Operator 1</option>
-                            <option value="Operator 2">Operator 2</option>
-                            <option value="Operator 3">Operator 3</option>
-                            <option value="Operator 4">Operator 4</option>
-                            <option value="Operator 5">Operator 5</option>
-                            <option value="Operator 6">Operator 6</option>
-                            <option value="Operator 7">Operator 7</option>
-                            <option value="Operator 8">Operator 8</option>
-                            <option value="Operator 9">Operator 9</option>
-                            <option value="Operator 10">Operator 10</option>
+                        <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                         </select>
                     </div>
@@ -2458,17 +2487,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_1" type="text" class="form-control form-control-sm" name="operator_1" placeholder="" >
+                    <option value="">Please select</option>
+                        <?php
 
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>                    
                 </div>                                          
@@ -2484,17 +2522,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_2" type="text" class="form-control form-control-sm" name="operator_2" placeholder="" >
+                    <option value="">Please select</option>
+                        <?php
 
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>                          
@@ -2510,17 +2557,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_3" type="text" class="form-control form-control-sm" name="operator_3" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>                                               
@@ -2536,17 +2592,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_4" type="text" class="form-control form-control-sm" name="operator_4" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>                   
@@ -2562,17 +2627,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_5" type="text" class="form-control form-control-sm" name="operator_5" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>                       
@@ -2588,17 +2662,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_6" type="text" class="form-control form-control-sm" name="operator_6" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>                     
@@ -2614,17 +2697,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_7" type="text" class="form-control form-control-sm" name="operator_7" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>                           
@@ -2640,17 +2732,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_8" type="text" class="form-control form-control-sm" name="operator_8" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>                      
@@ -2666,17 +2767,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_9" type="text" class="form-control form-control-sm" name="operator_9" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>
@@ -2692,17 +2802,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_10" type="text" class="form-control form-control-sm" name="operator_10" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>
@@ -2718,17 +2837,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_11" type="text" class="form-control form-control-sm" name="operator_11" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>
@@ -2744,17 +2872,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_12" type="text" class="form-control form-control-sm" name="operator_12" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>
@@ -2770,17 +2907,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_13" type="text" class="form-control form-control-sm" name="operator_13" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>
@@ -2796,17 +2942,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_14" type="text" class="form-control form-control-sm" name="operator_14" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>
@@ -2822,17 +2977,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_15" type="text" class="form-control form-control-sm" name="operator_15" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>
@@ -2848,17 +3012,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_16" type="text" class="form-control form-control-sm" name="operator_16" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>
@@ -2874,17 +3047,26 @@
                 </div>
                 <div class="col-sm-4">
                     <select id="eoperator_17" type="text" class="form-control form-control-sm" name="operator_17" placeholder="" >
-                
-                        <option value="Operator 1">Operator 1</option>
-                        <option value="Operator 2">Operator 2</option>
-                        <option value="Operator 3">Operator 3</option>
-                        <option value="Operator 4">Operator 4</option>
-                        <option value="Operator 5">Operator 5</option>
-                        <option value="Operator 6">Operator 6</option>
-                        <option value="Operator 7">Operator 7</option>
-                        <option value="Operator 8">Operator 8</option>
-                        <option value="Operator 9">Operator 9</option>
-                        <option value="Operator 10">Operator 10</option>
+                    <option value="">Please select</option>
+                        <?php
+
+                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                                $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
+                                $result = $conn->query($sql);
+                                
+                                    while($row = $result->fetch_assoc()) {
+                   
+                                        echo "<option value='";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "'>";
+                                        echo $row['OPERATOR_NAME'];
+                                        echo "</option>";
+                                    }
+                                
+                                $conn->close();
+
+                        ?>
 
                     </select>
                 </div>
@@ -2907,3 +3089,92 @@
 
 
 <!--_________________________________ Fabrication Edit Change Process ________________________________________-->
+
+
+ <!-- ________ Operator add ____________ -->
+
+ <div class="modal hide fade in" role="dialog" id="operatormod" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Insert Operator</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="operatorform"  method="post">
+      <input type="hidden" id="" name="">
+      <div class="modal-body" style="">
+      
+          <!-- ____________ FORM __________________ -->
+  
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="operatorname" class="col-form-label-sm">OPERATOR NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="operatorname" type="text" class="form-control form-control-sm" name="operatorname" placeholder="" required>
+                </div>
+              </div>
+            </div>                               
+          </div>          
+
+          <!-- ____________ FORM END __________________ -->
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" name="submit" id="operatorsubmit"><i class="far fa-save"></i> Save</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ________ Operator add ____________ -->
+
+
+<!-- ________ Operator Edit ____________ -->
+
+<div class="modal hide fade in" role="dialog" id="eoperatormod" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Operator</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="eoperatorform"  method="post">
+      <input type="hidden" id="operatorid" name="operatorid">
+      <div class="modal-body" style="">
+          <!-- ____________ FORM __________________ -->
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eoperatorname" class="col-form-label-sm">OPERATOR NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eoperatorname" type="text" class="form-control form-control-sm" name="operatorname" placeholder="" required>
+                </div>
+              </div>
+            </div>                               
+          </div>
+
+          <!-- ____________ FORM END __________________ -->
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" name="submit" id="eoperatorsubmit"><i class="far fa-save"></i> Save</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ________ Operator Edit ____________ -->

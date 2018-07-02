@@ -56,6 +56,15 @@ function checkuserauthF(){
 }              
 /* _______________ Table Init F ______________ */
 
+/* ____________ Table Init O ________________ */
+
+function checkuserauthO(){
+  
+    DisplayTbleO('mold_operator_table','mold_operatorsp','Mold Operator List');
+  
+}              
+/* _______________ Table Init F ______________ */
+
 /* Display Table USER A*/
         
 function DisplayTble(Table_Name,Tablesp,tbltitle) {
@@ -403,8 +412,8 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
     action: 
     function () {
       
-      listchange();
-      getctrlnumber();
+      /* listchange();
+      getctrlnumber(); */
       $("#addmoldrepairA").modal('show');        
       
     }
@@ -2250,9 +2259,151 @@ $.fn.dataTable.ext.buttons.addfab1 = {
     };
     /* ------------------------------- FABRICATION CHECKER ------------------------------------------------  */
 
-    /* ------------------------------- OPERATOR DROPDOWN ------------------------------------------------  */
+    /* ------------------------------- OPERATOR ------------------------------------------------  */
+
+    function DisplayTbleO(Table_Name,Tablesp,tbltitle) {
+      var xhttp;
+      if (Table_Name.length == 0) { 
+        document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
+        return;
+      }
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("table_display").innerHTML = this.responseText;
+          var tble = $('#Dtable').DataTable( { 
+            deferRender:    true,
+            scrollY:        '61vh',
+            "sScrollX": "100%",          
+            "processing": true,
+            "serverSide": true,
+            "iDisplayLength": 100,        
+            "ajax": {
+              url: "/1_mes/_includes/"+Tablesp+".php",
+              type: 'POST'
+            },            
+            "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+            'buttons': [            
+              { text: '<i class="fas fa-plus"></i>',
+                attr:  {
+                      title: 'Insert Data',
+                      id: 'addButton'
+                  }, 
+                name: 'add', // do not change name 
+                className: 'btn btn-export6 btn-xs py-1',
+                extend: 'addopt'                 
+              },
+              { extend: 'selected', // Bind to Selected row
+                text: '<i class="fas fa-edit"></i>',              
+                attr:  {
+                      title: 'Edit Data',
+                      id: 'editButton'
+                  },
+                name: 'edit',        // do not change name
+                className: 'btn btn-export6 btn-xs py-1',
+                action: function ( e, dt, node, config ) {
+                  /* alert('test Edit button'); */
+                  var data = dt.row( '.selected' ).data();                                    
+                  /* alert( data[0] +" is the ID. " ); */
+    
+                  $("#operatorid").attr("value",data[0]);
+                  $("#eoperatorname").attr("value",data[1]);
+                  
+                  $('#eoperatormod').modal('show');
+                }
+              },
+              {
+                text: '<i class="fas fa-trash"></i>',              
+                attr:  {
+                      title: 'Delete Data',
+                      id: 'deleteButton'
+                  },
+                name: 'delete',      // do not change name
+                className: 'btn btn-export6 btn-xs py-1',
+                extend: 'selected', // Bind to Selected row
+                action: function ( e, dt, node, config ) {                  
+    
+                  swal({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                  }).then((result) => {
+                    if (result.value) {
+                      
+                      var data = dt.row( '.selected' ).data();
+                  
+                      $.ajax(
+                        {
+                        method:'post',
+                        url:'/1_mes/_query/mold_repair/operator/delete.php',
+                        data:
+                        {
+                            'id': data[0],
+                            'ajax': true
+                        },
+                        success: function(data) {
+                          checkuserauthO();
+                          loadmodal('moldrepairmodal');
+    
+                          $.notify({
+                            icon: 'fas fa-info-circle',
+                            title: 'System Notification: ',
+                            message: data,
+                          },{
+                            type:'success',
+                            placement:{
+                              align: 'center'
+                            },           
+                            delay: 3000,                        
+                          });
+                        }
+                        });
+    
+                    }
+                  })
+    
+                }                
+              },
+              { extend: 'copy', text: '<i class="far fa-copy"></i>', 
+              attr:  {
+                    title: 'Copy to Clipboard',
+                    id: 'copyButton'
+                },
+                 className: 'btn btn-export6 btn-xs py-1'},
+              { extend: 'excel', text: '<i class="fas fa-table"></i>',
+              attr:  {
+                    title: 'Export to Excel',
+                    id: 'exportButton'
+                },
+                filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
+              ],          
+              select: 'single',
+              "columnDefs": [ {              
+                "targets": 0
+            } ],
+                                            
+          } );           
+          tble.on( 'order.dt search.dt processing.dt page.dt', function () {
+            tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw();
+        }
+      };
+      xhttp.open("POST", "/1_mes/_tables/"+Table_Name+".php", true);
+      xhttp.send();       
+    }  
+    
+    $.fn.dataTable.ext.buttons.addopt = {
+      action: function () {             
+        $("#operatormod").modal('show');
+      }
+    };
 
 
-
-
-    /* ------------------------------- OPERATOR DROPDOWN ------------------------------------------------  */
+    /* ------------------------------- OPERATOR ------------------------------------------------  */

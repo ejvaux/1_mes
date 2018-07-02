@@ -63,6 +63,7 @@
               <li><a id="tb1" class="nav-link tbl active" href="#" onclick="">Mold  Repair</a></li>
               <li><a id="tb2" class="nav-link tbl" href="#" onclick="">Mold  History</a></li>
               <li><a id="tb3" class="nav-link tbl" href="#" onclick="">Mold  Fabrication</a></li>
+              <li><a id="tb4" class="nav-link tbl" href="#" onclick="">Operator List</a></li>
             </ul>
 
             <!-- ICONS ON LEFT -->
@@ -110,9 +111,11 @@
         
         if(val=="DC" || val=="A"){
           $('#tb3').show();
+          $('#tb4').show();
         }
         else{
-          $('#tb3').hide();
+          $('#tb3').show();
+          $('#tb4').hide();
         }
         
         checkuserauth(); 
@@ -147,7 +150,11 @@
 
         $('#tb3').click(function(){
           checkuserauthF();
-        });        
+        });
+
+        $('#tb4').click(function(){
+          checkuserauthO();
+        });    
                 
     </script>
     <script src="/1_mes/_php/mold_maintenance/functions.js"></script>
