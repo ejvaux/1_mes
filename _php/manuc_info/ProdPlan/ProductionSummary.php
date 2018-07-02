@@ -124,7 +124,8 @@
 
 <div id="cont_sum">
 <div id="chart_cont">
-<div id="chartContainer" style="height: 100%; width: 95%; margin: 0 auto; clear: both"></div>
+<div id="chartContainer" style="height: 100%; width: 95%; margin: 0 auto; clear: both">
+</div>
 </div>
 
 <div id="tablesummary" style="position: relative; top:400px">
@@ -132,6 +133,8 @@
 </div>
  
  </div>
+
+ 
      
 
 
