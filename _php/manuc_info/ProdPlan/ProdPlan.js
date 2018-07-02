@@ -1242,7 +1242,6 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     var strfromobj = document.getElementById("sortfrom").value;
     var searchobj = document.getElementById("search").value;
     var strtoobj = document.getElementById("sortto").value;
-    
     var sorttypeobj = document.getElementById("sorttype");
     var selectedOption = sorttypeobj.options[sorttypeobj.selectedIndex].value;
     var plantypeobj = document.getElementById("PlanType");
@@ -1629,6 +1628,56 @@ function loadmodal1(TableName)
     });
 
   }
+
+function prodexport()
+{
+
+    var strfromobj = document.getElementById("sortfrom").value;
+    var searchobj = document.getElementById("search").value;
+    var strtoobj = document.getElementById("sortto").value;
+    var sorttypeobj = document.getElementById("sorttype");
+    var selectedOption = sorttypeobj.options[sorttypeobj.selectedIndex].value;
+    var plantypeobj = document.getElementById("PlanType");
+    var selectedOption2 = plantypeobj.options[plantypeobj.selectedIndex].value;
+   
+    if(selectedOption=="DAILY")
+    {
+        var win1 = window.open('ProdSummaryExcelExportDaily.php?sortfrom='+strfromobj+"&sortto="+strtoobj+"&search="+searchobj+"&sorttype="+selectedOption+"&PlanType="+selectedOption2, '_blank');
+    
+    }
+    else
+    {
+        var win2 = window.open('ProdSummaryExcelExportMonthly.php?sortfrom='+strfromobj+"&sortto="+strtoobj+"&search="+searchobj+"&sorttype="+selectedOption+"&PlanType="+selectedOption2, '_blank');
+    
+    }
+      /*   $.ajax({
+            method:'POST',
+            url:'/1_mes/_php/manuc_info/ProdPlan/ProdSummaryExcelExportDaily.php',
+            data:
+            {
+                'sortfrom': strfromobj,
+                'sortto': strtoobj,
+                'search': searchobj,
+                'sorttype': selectedOption,
+                'PlanType': selectedOption2,
+                'ajax':true
+            },
+        
+            
+            success: function(data) 
+            {
+
+                document.getElementById("tblexport").innerHTML = data;
+                
+            }
+        });
+        */
+    
+
+
+
+}
+
 
 
 //modal

@@ -46,6 +46,8 @@
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
   integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
   crossorigin="anonymous"></script>
+  <script src="/1_mes/node_modules/jquery-ui/ui/jqueryui.js"></script>
+  
 <script src="/1_mes/node_modules/select2/dist/js/select2.min.js"></script>
 
 <!-- Popper JS -->

@@ -62,7 +62,7 @@ $excel  ->setActiveSheetIndex(0)
         flush(); 
         $objWriter->save('php://output');
 
-        exit; */
+exit; */
 
 echo date("Y-m-d");
 
