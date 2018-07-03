@@ -44,21 +44,21 @@
                   </div>
                 </div>
                 <div class="row">
-                <div class="col-m-4"></div>
-                <div class="col-m-6" id="tblModal">
+                <div class="col-4"></div>
+                <div class="col-6" id="tblModal">
                 
                   <!-- <button type='button' class='btn btn-outline-secondary lotView1' id='LotView'>VIEW LOT DETAILS</button> -->
-                  <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/TableDefectModal.php"; ?>
+                  <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/LotDanplaList.php"; ?>
 
                   </div>
-                <div class="col-m-1"></div>
+                <div class="col-1"></div>
                 </div>
 
               <div class="row">
-                <div class="col-m-7">
+                <div class="col-7">
                                  
                   </div>
-                <div class="col-m-5" style="text-align:right; padding-top:7px">
+                <div class="col-5" style="text-align:right; padding-top:7px">
                     <button type='button' class='btn btn-danger close' data-dismiss="modal">CLOSE</button></div>
                   </div>
                 </div>

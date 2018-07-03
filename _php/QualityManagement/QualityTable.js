@@ -10,6 +10,9 @@ function loadDoc(TableName, uname) {
         DisplayTable2('CreatedLot', 'CreatedLotSP', 'Created_Lot')
         /* DisplayTable3('PendingLot', 'PendingLotSP', 'Pending_Lot') */
       }
+      else if(TableName == 'ItemReceiving'){
+        DisplayTableItemReceiving('ItemReceivedTable', 'ItemReceivedTableSP', 'Received_Items', uname)
+      }
     }
   };
     xhttp.open("GET", TableName+".php", true);
@@ -570,9 +573,8 @@ function DisplayLotDetails(lotNum){
         var switchID1 = document.getElementById(y).checked = false;
         def1.className = "hiddenText";
         exit();
-        
-        }
       }
+    }
   } */
 
 $(document).on('click', '.reworkbtn', function () {
@@ -1431,12 +1433,6 @@ function DisplayTable2(Table_Name, Tablesp, tbltitle) {
   }
   $.fn.dataTable.ext.buttons.add0 = {
   };
-
-
-
-
-
-
  */
 function getDefectDtls(defect_id){
 
@@ -1465,20 +1461,16 @@ function getDefectDtls(defect_id){
         document.getElementById("eprodDateID").value = prodDate;
         document.getElementById("eprodTimeID").value = prodTime;
       }
-      
-      defectID
+
       document.getElementById("defectID").value = val.LOT_DEFECT_ID;
       document.getElementById("eJobOrderNo").value = val.JOB_ORDER_NO;
       document.getElementById("eDivCodeID").value = val.DIVISION_CODE;
-      /* document.getElementById("DivNameID").value; */
+      document.getElementById("eDivNameID").value = val.DIVI_NAME;
       document.getElementById("eitemCodeID").value = val.ITEM_CODE;
       document.getElementById("eitemNameID").value = val.ITEM_NAME;
       document.getElementById("eDefectCodeID").value = val.DEFECT_CODE;
       document.getElementById("edefectInputID").value = val.DEFECT_NAME;
       document.getElementById("eDefQty").value = val.DEF_QUANTITY;
-
-
-
 
     }
   });
@@ -1697,3 +1689,89 @@ function deleteDanpla(danpla_ID) {
     }
   });
  }
+
+function DisplayTableItemReceiving(Table_Name, Tablesp, tbltitle, tbluser) {
+  var xhttp;
+  if (Table_Name.length == 0) {
+    document.getElementById("first_table").innerHTML = "<h1>No table to display.</h1>";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+
+    if (this.readyState == 4 && this.status == 200) {
+
+      document.getElementById("first_table").innerHTML = this.responseText;
+      var tble = $('#ItemReceivedTable').DataTable({
+
+        deferRender: true,
+        scrollY: '54.2vh',
+        "oSearch": {
+          "sSearch": tbluser
+        },
+        "sScrollX": "100%",
+        "processing": true,
+        "serverSide": true,
+        "iDisplayLength": 100,
+        "ajax": {
+          url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
+          type: 'POST'
+        },
+
+        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5">><"row"<"col-12"<"dd">>>t',
+        'buttons': [
+          {
+            name: 'delete',      // do not change name
+            text: '<i class="fas fa-trash"></i>',
+            className: 'btn btn-export6 btn-xs py-1',
+            extend: 'selected', // Bind to Selected row
+            action: function (e, dt, node, config) {
+              var data = dt.row('.selected').data();
+              deleteDanpla(data[0]);
+            }
+          },
+          {
+            extend: 'copy', text: '<i class="far fa-copy"></i>',
+            attr: {
+              title: 'Copy to Clipboard',
+              id: 'copyButton'
+            },
+            className: 'btn btn-export6 btn-xs py-1'
+          },
+          {
+            extend: 'excel', text: '<i class="fas fa-table"></i>',
+            attr: {
+              title: 'Export to Excel',
+              id: 'exportButton'
+            },
+            filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'
+          }
+        ],
+        select: 'single',
+        "columnDefs": [{
+          "targets": 0
+        },
+        {
+          "targets": 7,
+          "visible": false,
+        }
+        ],
+        "order": [[0, 'desc']]
+
+      });
+
+      $("div.dd").html('<div class="py-1 input-group"><input type="textarea" class="form-control form-control-sm" id="ReceiveBarcode_Text" placeholder="SCAN DANPLA SERIAL NUMBER"><div class="input-group-append"><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddBtn" onclick="">ADD</button><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="LotReceived" disable onclick="">RECEIVE LOT</button></div></div>');
+
+      tble.on('order.dt search.dt processing.dt page.dt', function () {
+        tble.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+          cell.innerHTML = i + 1;
+        });
+      }).draw();
+
+    }
+  };
+  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
+  xhttp.send();
+}
+$.fn.dataTable.ext.buttons.add0 = {
+};
