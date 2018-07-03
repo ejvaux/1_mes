@@ -110,7 +110,7 @@
 
       $(document).ready(function(){
         
-        if(val=="DC" || val=="A"){
+        if(val=="DC" || val=="A" || val=="DA"){
           $('#tb3').show();
           $('#tb4').show();
         }

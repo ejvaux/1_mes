@@ -24,7 +24,7 @@
 
                     <div class="col-sm-6">
                         <label for="inputFirstname" class="col-form-label-sm">MOLD CODE:</label>
-                        <select class="form-control form-control-sm sel" name="moldcode" placeholder="" onchange="listchange()" id="mcl">
+                        <select class="form-control form-control-sm sel" name="moldcode" placeholder="" onchange="listchange()" id="mcl" required>
                         <option value="">Please select</option>
                         <?php
 
@@ -121,7 +121,7 @@
                         <!-- <label for="inputLastname" class="col-form-label-sm">APPROVER:</label>
                         <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
                         <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
-                        <select type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
+                        <select type="text" class="form-control form-control-sm" name="moldstatus" placeholder="" required>
                             
                             <option value="">Please select</option>
                             <option value="WAITING">WAITING</option>
@@ -138,7 +138,7 @@
                         
                         <label for="defectname" class="checkbox col-form-label-sm">DEFECT NAME:<input type="checkbox" class="ml-2" id="others" onchange="checkFluency(this,dn,dno)"> OTHERS</label>
                                                 
-                        <select type="text" class="form-control form-control-sm sel" id="dn" name="defectname" placeholder="">
+                        <select type="text" class="form-control form-control-sm sel" id="dn" name="defectname" placeholder="" required>
                         <option value="">Please select</option>
                         <?php
 
@@ -234,7 +234,7 @@
 
                     <div class="col-sm-6">
                         <label for="inputFirstname" class="col-form-label-sm">MOLD CODE:</label>
-                        <select class="form-control form-control-sm sel" name="moldcode" placeholder="" onchange="alistchange()" id="amcl">
+                        <select class="form-control form-control-sm sel" name="moldcode" placeholder="" onchange="alistchange()" id="amcl" required>
                         <option value="">Please select</option>
                         <?php
 
@@ -348,7 +348,7 @@
 
                     <div class="col-sm-6">
                         <label for="inputLastname" class="col-form-label-sm">DEFECT NAME:<input type="checkbox" class="ml-2" id="arothers" onchange="checkFluency(this,ardn,ardno)"> OTHERS</label>
-                        <select id="ardn" type="text" class="form-control form-control-sm sel" name="defectname" placeholder="">
+                        <select id="ardn" type="text" class="form-control form-control-sm sel" name="defectname" placeholder=""  required>
                         <option value="">Please select</option>
                         <?php
 
@@ -461,7 +461,7 @@
 
                     <div class="col-sm-6">
                         <label for="inputFirstname" class="col-form-label-sm">MOLD CODE:</label>
-                        <select class="form-control form-control-sm sel" name="moldcode" placeholder="" onchange="elistchange()" id="emcl">
+                        <select class="form-control form-control-sm sel" name="moldcode" placeholder="" onchange="elistchange()" id="emcl" required>
                         <option value="">Please select</option>
                         <?php
                             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -553,7 +553,7 @@
                         <input type="text" class="form-control form-control-sm" name="approver" placeholder=""> -->
                         <input type="hidden" id="hemoldstatus" name="moldstatus" disabled>
                         <label for="inputFirstname" class="col-form-label-sm">STATUS:</label>
-                        <select id="emoldstatus" type="text" class="form-control form-control-sm" name="moldstatus" placeholder="">
+                        <select id="emoldstatus" type="text" class="form-control form-control-sm" name="moldstatus" placeholder="" required>
                             
                             <option value="">Please select</option>
                             <option value="WAITING">WAITING</option>
@@ -573,7 +573,7 @@
                     
                     <div class="col-sm-6">
                         <label for="inputLastname" class="col-form-label-sm">DEFECT NAME:<input type="checkbox" class="ml-2" id="eothers" onchange="checkFluency(this,edefectname,edno)"> OTHERS</label>
-                        <select id="edefectname" type="text" class="form-control form-control-sm sel" name="defectname" placeholder="">
+                        <select id="edefectname" type="text" class="form-control form-control-sm sel" name="defectname" placeholder="" required>
                         <option value="">Please select</option>
                         <?php
 
@@ -1639,7 +1639,7 @@
 
                     <div class="col-sm-6">
                         <label for="historymoldcode" class="col-form-label-sm">MOLD CODE:</label>
-                        <select id="historymoldcode" class="form-control form-control-sm sel" name="moldcode" placeholder="">
+                        <select id="historymoldcode" class="form-control form-control-sm sel" name="moldcode" placeholder="" required>
                         <option value="">Please select</option>
                             <?php
 
@@ -1716,7 +1716,7 @@
 
                     <div class="col-sm-6">
                         <label for="ehistorymoldcode" class="col-form-label-sm">MOLD CODE:</label>
-                        <select id="ehistorymoldcode" class="form-control form-control-sm sel" name="moldcode" placeholder="">
+                        <select id="ehistorymoldcode" class="form-control form-control-sm sel" name="moldcode" placeholder="" required>
                         <option value="">Please select</option>
                             <?php
 
@@ -1802,7 +1802,7 @@
 
                     <div class="col-sm-6">
                         <label for="addmoldfabricationmcode" class="col-form-label-sm mt-2">MOLD CODE:</label>
-                        <select id="addmoldfabricationmcode" class="form-control form-control-sm sel" name="moldcode" placeholder="">
+                        <select id="addmoldfabricationmcode" class="form-control form-control-sm sel" name="moldcode" placeholder="" required>
                         <option value="">Please select</option>
                             <?php
 
@@ -1829,7 +1829,7 @@
 
                     <div class="col-sm-6">                        
                         <label for="acustomercode" class="col-form-label-sm mt-2">CUSTOMER CODE:</label>
-                        <select id="acustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcus_name(acustomercode,acustomername)" placeholder="">
+                        <select id="acustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcus_name(acustomercode,acustomername)" placeholder="" required>
                         <option value="">Please select</option>
                             <?php
 
@@ -1861,7 +1861,7 @@
 
                     <div class="col-sm-6">                        
                         <label for="acurrentprocess" class="col-form-label-sm mt-2">INITIAL PROCESS:</label>
-                        <select id="acurrentprocess" type="text" class="form-control form-control-sm sel" name="currentprocess" placeholder="">
+                        <select id="acurrentprocess" type="text" class="form-control form-control-sm sel" name="currentprocess" placeholder="" required>
                         <option value="">Please select</option>
                             <?php
 
@@ -1966,7 +1966,7 @@
 
                     <div class="col-sm-6">
                         <label for="emoldfabricationmcode" class="col-form-label-sm mt-2">MOLD CODE:</label>
-                        <select id="emoldfabricationmcode" class="form-control form-control-sm sel" name="moldcode" placeholder="">
+                        <select id="emoldfabricationmcode" class="form-control form-control-sm sel" name="moldcode" placeholder="" required>
                         <option value="">Please select</option>
                             <?php
 
@@ -1993,7 +1993,7 @@
 
                     <div class="col-sm-6">                        
                         <label for="ecustomercode" class="col-form-label-sm mt-2">CUSTOMER CODE:</label>
-                        <select id="ecustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcus_name(ecustomercode,ecustomername)" placeholder="">
+                        <select id="ecustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcus_name(ecustomercode,ecustomername)" placeholder="" required>
                         <option value="">Please select</option>
                             <?php
 
@@ -2025,7 +2025,7 @@
 
                     <div class="col-sm-6">                        
                         <label for="ecurrentprocess" class="col-form-label-sm mt-2">CURRENT PROCESS:</label>
-                        <select id="ecurrentprocess" type="text" class="form-control form-control-sm sel" name="currentprocess" placeholder="">
+                        <select id="ecurrentprocess" type="text" class="form-control form-control-sm sel" name="currentprocess" placeholder="" required>
                         <option value="">Please select</option>
                             <?php
 
@@ -2363,7 +2363,7 @@
                     
                     <div class="col-sm-5 pt-1">                        
                         
-                        <select id="ccurrentprocess" type="text" class="form-control form-control-sm" name="nextprocess" placeholder="">
+                        <select id="ccurrentprocess" type="text" class="form-control form-control-sm" name="nextprocess" placeholder="" required>
                         <option value="">Please select</option>
                             <?php
 
@@ -2400,7 +2400,7 @@
 
                     <div class="col-sm-5 pt-1">                        
                         
-                        <select id="cprocessoperator" type="text" class="form-control form-control-sm" name="processoperator" placeholder="">
+                        <select id="cprocessoperator" type="text" class="form-control form-control-sm" name="processoperator" placeholder="" required>
                         <option value="">Please select</option>
                         <?php
 
@@ -2486,7 +2486,7 @@
                     <input id="eleadtime_1" type="text" class="form-control form-control-sm" name="leadtime_1" placeholder="" >        
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_1" type="text" class="form-control form-control-sm" name="operator_1" placeholder="" >
+                    <select id="eoperator_1" type="text" class="form-control form-control-sm" name="operator_1" placeholder=""  required>
                     <option value="">Please select</option>
                         <?php
 
@@ -2521,7 +2521,7 @@
                     <input id="eleadtime_2" type="text" class="form-control form-control-sm" name="leadtime_2" placeholder="" >            
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_2" type="text" class="form-control form-control-sm" name="operator_2" placeholder="" >
+                    <select id="eoperator_2" type="text" class="form-control form-control-sm" name="operator_2" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2556,7 +2556,7 @@
                     <input id="eleadtime_3" type="text" class="form-control form-control-sm" name="leadtime_3" placeholder="" >          
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_3" type="text" class="form-control form-control-sm" name="operator_3" placeholder="" >
+                    <select id="eoperator_3" type="text" class="form-control form-control-sm" name="operator_3" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2591,7 +2591,7 @@
                     <input id="eleadtime_4" type="text" class="form-control form-control-sm" name="leadtime_4" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_4" type="text" class="form-control form-control-sm" name="operator_4" placeholder="" >
+                    <select id="eoperator_4" type="text" class="form-control form-control-sm" name="operator_4" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2626,7 +2626,7 @@
                     <input id="eleadtime_5" type="text" class="form-control form-control-sm" name="leadtime_5" placeholder="" >         
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_5" type="text" class="form-control form-control-sm" name="operator_5" placeholder="" >
+                    <select id="eoperator_5" type="text" class="form-control form-control-sm" name="operator_5" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2661,7 +2661,7 @@
                     <input id="eleadtime_6" type="text" class="form-control form-control-sm" name="leadtime_6" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_6" type="text" class="form-control form-control-sm" name="operator_6" placeholder="" >
+                    <select id="eoperator_6" type="text" class="form-control form-control-sm" name="operator_6" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2696,7 +2696,7 @@
                     <input id="eleadtime_7" type="text" class="form-control form-control-sm" name="leadtime_7" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_7" type="text" class="form-control form-control-sm" name="operator_7" placeholder="" >
+                    <select id="eoperator_7" type="text" class="form-control form-control-sm" name="operator_7" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2731,7 +2731,7 @@
                     <input id="eleadtime_8" type="text" class="form-control form-control-sm" name="leadtime_8" placeholder="" >            
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_8" type="text" class="form-control form-control-sm" name="operator_8" placeholder="" >
+                    <select id="eoperator_8" type="text" class="form-control form-control-sm" name="operator_8" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2766,7 +2766,7 @@
                     <input id="eleadtime_9" type="text" class="form-control form-control-sm" name="leadtime_9" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_9" type="text" class="form-control form-control-sm" name="operator_9" placeholder="" >
+                    <select id="eoperator_9" type="text" class="form-control form-control-sm" name="operator_9" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2801,7 +2801,7 @@
                     <input id="eleadtime_10" type="text" class="form-control form-control-sm" name="leadtime_10" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_10" type="text" class="form-control form-control-sm" name="operator_10" placeholder="" >
+                    <select id="eoperator_10" type="text" class="form-control form-control-sm" name="operator_10" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2836,7 +2836,7 @@
                     <input id="eleadtime_11" type="text" class="form-control form-control-sm" name="leadtime_11" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_11" type="text" class="form-control form-control-sm" name="operator_11" placeholder="" >
+                    <select id="eoperator_11" type="text" class="form-control form-control-sm" name="operator_11" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2871,7 +2871,7 @@
                     <input id="eleadtime_12" type="text" class="form-control form-control-sm" name="leadtime_12" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_12" type="text" class="form-control form-control-sm" name="operator_12" placeholder="" >
+                    <select id="eoperator_12" type="text" class="form-control form-control-sm" name="operator_12" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2906,7 +2906,7 @@
                     <input id="eleadtime_13" type="text" class="form-control form-control-sm" name="leadtime_13" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_13" type="text" class="form-control form-control-sm" name="operator_13" placeholder="" >
+                    <select id="eoperator_13" type="text" class="form-control form-control-sm" name="operator_13" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2941,7 +2941,7 @@
                     <input id="eleadtime_14" type="text" class="form-control form-control-sm" name="leadtime_14" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_14" type="text" class="form-control form-control-sm" name="operator_14" placeholder="" >
+                    <select id="eoperator_14" type="text" class="form-control form-control-sm" name="operator_14" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -2976,7 +2976,7 @@
                     <input id="eleadtime_15" type="text" class="form-control form-control-sm" name="leadtime_15" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_15" type="text" class="form-control form-control-sm" name="operator_15" placeholder="" >
+                    <select id="eoperator_15" type="text" class="form-control form-control-sm" name="operator_15" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -3011,7 +3011,7 @@
                     <input id="eleadtime_16" type="text" class="form-control form-control-sm" name="leadtime_16" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_16" type="text" class="form-control form-control-sm" name="operator_16" placeholder="" >
+                    <select id="eoperator_16" type="text" class="form-control form-control-sm" name="operator_16" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
@@ -3046,7 +3046,7 @@
                     <input id="eleadtime_17" type="text" class="form-control form-control-sm" name="leadtime_17" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_17" type="text" class="form-control form-control-sm" name="operator_17" placeholder="" >
+                    <select id="eoperator_17" type="text" class="form-control form-control-sm" name="operator_17" placeholder="" required >
                     <option value="">Please select</option>
                         <?php
 
