@@ -5,7 +5,7 @@ function loadDoc(TableName, uname) {
      document.getElementById("table_display").innerHTML = this.responseText;
 
      
-      if (TableName == '1stTab'){
+      if (TableName == 'LotCreate'){
         DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp', uname)
         DisplayTable2('CreatedLot', 'CreatedLotSP', 'Created_Lot')
         /* DisplayTable3('PendingLot', 'PendingLotSP', 'Pending_Lot') */
@@ -29,7 +29,7 @@ function AddBtnClick(){
               }
   $.ajax({
           method:'post',
-          url:'/1_mes/_php/QualityManagement/DanplaDetails.php',
+    url:'/1_mes/_php/QualityManagement/query/get/getDanplaDetails.php',
           data:
               {
                 'jo_barcode': bcode ,
@@ -70,7 +70,7 @@ function InsertDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, i
   
   $.ajax({
     method:'post',
-    url:'/1_mes/_php/QualityManagement/InsertDanplaTable.php',
+    url:'/1_mes/_php/QualityManagement/query/insert/InsertDanplaTable.php',
     data:
         {
           'jo_barcode': insertBarcode ,
@@ -94,7 +94,7 @@ function CheckDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, in
   
   $.ajax({
     method:'post',
-    url:'/1_mes/_php/QualityManagement/CheckDanplaJO.php',
+    url:'/1_mes/_php/QualityManagement/query/get/getDanplaJO.php',
     data:
         {
           'jo_barcode': insertBarcode ,
@@ -135,7 +135,7 @@ function buildLotNumber(){
    
     $.ajax({
       method: 'post',
-      url: '/1_mes/_php/QualityManagement/GetMachine.php',
+      url: '/1_mes/_php/QualityManagement/query/get/GetMachine.php',
       success: function (data) {
         var val = JSON.parse(data);
         var machine = val.MACHINE_CODE;
@@ -165,7 +165,7 @@ function generateLot(){
 
   $.ajax({
     method:'post',
-    url:'/1_mes/_php/QualityManagement/GetNextLot.php',
+    url:'/1_mes/_php/QualityManagement/query/get/GetNextLot.php',
     data:{
       'jo_num':x,
       'machine_code': y,
@@ -195,7 +195,7 @@ function AddLotBtnClick(newLot){
     return;
   }
   swal({
-    title: 'Lot Confirmation',
+    title: 'Create Lot ' + newLot + ' ? Confirm?',
     text: "You won't be able to revert this anymore!",
     type: 'warning',
     showCancelButton: true,
@@ -208,7 +208,7 @@ function AddLotBtnClick(newLot){
 
       $.ajax({
         method: 'post',
-        url: '/1_mes/_php/QualityManagement/InsertLotTable.php',
+        url: '/1_mes/_php/QualityManagement/query/insert/InsertLotTable.php',
         data:
           {
             'row_count': x,
@@ -216,18 +216,18 @@ function AddLotBtnClick(newLot){
             'ajax': true
           },
         success: function (data) {
-          loadDoc('1stTab');
+          loadDoc('LotCreate');
           lotNO = "";
-          return;
+          swal(
+            'Lot ' + newLot + ' Created!',
+            'Your items is now allocated!! Please note the lot number!!',
+            'success'
+          )
 
         }
       });
 
-      swal(
-        'Lot ' + newLot + ' Created!',
-        'Your items is now allocated!! Please note the lot number!!',
-        'success'
-      )
+      
     }
   });
 
@@ -257,7 +257,7 @@ $(document).on('click', '.lotApprove', function () {
     if (result.value) {
 
       $.ajax({
-        url: "/1_mes/_php/QualityManagement/UpdateLotJudgement.php",
+        url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
         method: "POST",
         data: {
           'lot_number': lotNumber,
@@ -294,7 +294,7 @@ $(document).on('click', '.lotPending', function () {
     if (result.value) {
 
       $.ajax({
-        url: "/1_mes/_php/QualityManagement/UpdateLotJudgement.php",
+        url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
         method: "POST",
         data: {
           'lot_number': lotNumber,
@@ -447,7 +447,7 @@ function DisplayLotDetails(lotNum){
   var x = lotNum;
   var z = "SELECT PACKING_NUMBER, SUM(PRINT_QTY) as SUMQ FROM mis_product WHERE LOT_NUM ='" + x + "' GROUP BY PACKING_NUMBER";
   $.ajax({
-    url: "/1_mes/_php/QualityManagement/_modal/TableDefectModal.php",
+    url: "/1_mes/_php/QualityManagement/table/LotDanplaList.php",
     method: "POST",
     data: {
       'sql1': z,
@@ -528,7 +528,7 @@ function DisplayLotDetails(lotNum){
         
     
       $.ajax({
-        url: "/1_mes/_php/QualityManagement/UpdateLotJudgement.php",
+        url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
         method: "POST",
         data: { 'lot_number': lotNumber,
                 'defect_qty': totalDefect,
@@ -591,7 +591,7 @@ $(document).on('click', '.reworkbtn', function () {
       if (result.value) {
 
         $.ajax({
-          url: "/1_mes/_php/QualityManagement/ApproveRework.php",
+          url: "/1_mes/_php/QualityManagement/query/update/ApproveRework.php",
           method: "POST",
           data: {
             'lot_number': lotNumber,
@@ -645,7 +645,7 @@ $(document).on('click', '.scrapbtn', function () {
         }
 
         $.ajax({
-          url: "/1_mes/_php/QualityManagement/ApproveScrap.php",
+          url: "/1_mes/_php/QualityManagement/query/update/ApproveScrap.php",
           method: "POST",
           data: {
             'lot_number': lotNumber,
@@ -697,7 +697,7 @@ $(document).on('click', '#ConfirmDefect', function () {
       var decision = 'PENDING-REWORK';
       
       $.ajax({
-        url: "/1_mes/_php/QualityManagement/UpdateLotJudgement.php",
+        url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
         method: "POST",
         data: {
           'lot_number': lotNumber,
@@ -725,7 +725,7 @@ $(document).on('click', '#ConfirmDefect', function () {
       var decision = 'DISAPPROVE';
 
       $.ajax({
-        url: "/1_mes/_php/QualityManagement/UpdateLotJudgement.php",
+        url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
         method: "POST",
         data: {
           'lot_number': lotNumber,
@@ -752,7 +752,7 @@ $(document).on('click', '#ConfirmDefect', function () {
 function InsertReject(defect, lotNum, rmks) {
   $.ajax({
     method: 'post',
-    url: '/1_mes/_php/QualityManagement/InsertLotDefect.php',
+    url: '/1_mes/_php/QualityManagement/query/insert/InsertLotDefect.php',
     data:
       {
         'defectQty': defect,
@@ -768,7 +768,7 @@ function InsertReject(defect, lotNum, rmks) {
 function insertRework(lotNum, Quantity, reworkRemarks){
   
   $.ajax({
-    url: "/1_mes/_php/QualityManagement/InsertRework.php",
+    url: "/1_mes/_php/QualityManagement/query/insert/InsertRework.php",
     method: "POST",
     data: {
       'lot_number': lotNum,
@@ -786,7 +786,7 @@ function a(){
   var lotNumber = document.getElementById("lot_num").value;
   var defect = parseInt(document.getElementById('defect_QTY').value);
   $.ajax({
-    url: "/1_mes/_php/QualityManagement/GetQty.php",
+    url: "/1_mes/_php/QualityManagement/query/get/GetQty.php",
     method: "POST",
     data: {
       'lot_number': lotNumber,
@@ -843,62 +843,6 @@ function RecoveryClearSearchLot() {
     success: function (data) {
       document.getElementById("table_recovery").innerHTML = data;
       RecoverySearch.value = "";
-    }
-  });
- }
-
-function SearchLotCreate(){
-  var search = SearchCreate.value;
-  var d1 = lotDate1.value;
-  var d2 = lotDate2.value;
-  if (d1 != "" && d2 != "") {
-    if (search == "") {
-      var z = "SELECT * FROM qmd_lot_create WHERE PROD_DATE BETWEEN '" + d1 + "' AND '" + (d2+1) + "' ORDER BY PROD_DATE DESC;";
-    }
-    else {
-      var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PROD_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "') ORDER BY PROD_DATE DESC;";
-    }
-  }
-  else if(d1!="" && d2==""){
-    if(search==""){
-      var z = "SELECT * FROM qmd_lot_create WHERE PROD_DATE LIKE '%"+ d1 +"%';";
-    }
-    else{
-      var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PROD_DATE = '" + d1 + "' ORDER BY PROD_DATE DESC;";
-    }
-  }
-  else if (search != "") {
-    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') ORDER BY PROD_DATE DESC;";
-  }
-  /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
-  $.ajax({
-    method: 'post',
-    url: "/1_mes/_php/QualityManagement/table/createdLot_table.php",
-    data: {
-      'sql': z,
-      'ajax': true
-    },
-    success: function (data) {
-      document.getElementById("createdLotTable").innerHTML = data;
-    }
-  });
- }
-
-function ClearSearchLotCreate() {
-  var z = "SELECT * FROM qmd_lot_create ORDER BY PROD_DATE DESC;";
-  /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
-  $.ajax({
-    method: 'post',
-    url: "/1_mes/_php/QualityManagement/table/createdLot_table.php",
-    data: {
-      'sql': z,
-      'ajax': true
-    },
-    success: function (data) {
-      document.getElementById("createdLotTable").innerHTML = data;
-      SearchCreate.value = "";
-      lotDate1.value = "";
-      lotDate2.value = "";
     }
   });
  }
@@ -967,39 +911,6 @@ function ClearSearchDanplaCreate() {
   });
  }
 
-function defectSearch(){
-  var search = defectSearchId.value;
-  /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
-  var z = "SELECT * FROM qmd_defect_dl LEFT JOIN qmd_lot_create ON qmd_defect_dl.LOT_NUMBER = qmd_lot_create.LOT_NUMBER WHERE (qmd_defect_dl.UPDATE_USER LIKE '%" + search + "%' OR qmd_defect_dl.DEFECT_NAME LIKE '%" + search + "%' OR qmd_defect_dl.PROD_DATE LIKE '%" + search + "%' OR qmd_defect_dl.JOB_ORDER_NO LIKE '%" + search + "%' OR qmd_lot_create.LOT_CREATOR LIKE '%" + search + "%' OR qmd_defect_dl.ITEM_CODE LIKE '%" + search + "%' OR qmd_defect_dl.ITEM_NAME LIKE '%" + search + "%') AND qmd_defect_dl.REJECTION_REMARKS = 'DEFECT' ORDER BY qmd_lot_create.PROD_DATE DESC;";
-  $.ajax({
-    method: 'post',
-    url: "/1_mes/_php/QualityManagement/table/defect_table.php",
-    data: {
-      'sql': z,
-      'ajax': true
-    },
-    success: function (data) {
-      document.getElementById("table_defect").innerHTML = data;
-    }
-  });
- }
-
-function ClearDefectSearch(){
-  var z = "SELECT * FROM qmd_defect_dl WHERE REJECTION_REMARKS = 'DEFECT'";
-  $.ajax({
-    method: 'post',
-    url: "/1_mes/_php/QualityManagement/table/defect_table.php",
-    data: {
-      'sql': z,
-      'ajax': true
-    },
-    success: function (data) {
-      document.getElementById("table_defect").innerHTML = data;
-      defectSearchId.value = "";
-    }
-  });
- }
-
 $(document).on('change', '#JobOrderNo', function () {
     var jobOrderNumber = $(this).val();
   if (jobOrderNumber == " " || jobOrderNumber == null || jobOrderNumber == undefined){
@@ -1017,25 +928,36 @@ $(document).on('change', '#JobOrderNo', function () {
 
       success: function (data) {
           document.getElementById("datalistLotNumber").innerHTML = data;
-    }
-    }),
+          getDefectDetails(jobOrderNumber);
+      }
+    })
+  });
 
+function getDefectDetails(jobOrder){
   $.ajax({
     method: 'post',
     url: '/1_mes/_php/QualityManagement/_modal/DefectDetails.php',
     data:
-      {
-        'jobOrder': jobOrderNumber,
-        'ajax': true
-      },
+    {
+      'jobOrder': jobOrder,
+      'ajax': true
+    },
     success: function (data) {
-          var val = JSON.parse(data);
-      document.getElementById("LotQuantityID").value = "";  
+      var val = JSON.parse(data);
+      document.getElementById("LotQuantityID").value = "";
       if (val == '' || val == null || val == undefined) {
-        itemCodeID.value = "";
-        itemNameID.value = "";
         DivCodeID.value = "";
         DivNameID.value = "";
+        itemCodeID.value = "";
+        itemNameID.value = "";
+        datalistLotNumber.value = "";
+        LotQuantityID.value = "";
+        DefectCodeID.value = "";
+        defectInputID.value = "";
+        prodDateID.value = "";
+        prodTimeID.value = "";
+        DefQty.value = "";
+        remarks.value = "";
         document.getElementById("JobOrderNo").value = "";
         swal(
           'Job Order does not exist!',
@@ -1045,15 +967,20 @@ $(document).on('change', '#JobOrderNo', function () {
         return;
       }
       else {
-        document.getElementById("itemCodeID").value = val.ITEMCODE;
-        document.getElementById("itemNameID").value = val.ITEMNAME;
         document.getElementById("DivCodeID").value = val.DIVI_CODE;
         document.getElementById("DivNameID").value = val.DIVI_NAME;
-        }
+        document.getElementById("itemCodeID").value = val.ITEMCODE;
+        document.getElementById("itemNameID").value = val.ITEMNAME;
+        LotQuantityID.value = "";
+        DefectCodeID.value = "";
+        prodDateID.value = "";
+        prodTimeID.value = "";
+        DefQty.value = "";
+        remarks.value = "";
       }
-    });
-
+    }
   });
+}
 
 $(document).on('change', '#defectInputID', function () {
   var defectName = $(this).val();
@@ -1665,7 +1592,7 @@ $(document).on('change', '#edefectInputID', function () {
 function deleteDefect(def_ID){
   var x = def_ID;
   $.ajax({
-    url: "/1_mes/_php/QualityManagement/deleteDefect.php",
+    url: "/1_mes/_php/QualityManagement/query/delete/delete_defect.php",
     type: 'post',
     data: {
       'defect_ID': x,
@@ -1731,49 +1658,6 @@ $(document).on('click', '#updateDefect', function () {
   });
  });
 
-$(document).on('click', '.deleteDanpla', function () {
-  //$('#dataModal').modal();
-  var danpla = $(this).attr("id");
-  
- swal({
-    title: 'Delete' + danpla + "?",
-    text: "Are you sure you want to delete?",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Delete Danpla'
-  }).then((result) => {
-    if (result.value) {
-
-
-      $.ajax({
-        method: 'post',
-        url: '/1_mes/_php/QualityManagement/delete_defect.php',
-        data:
-          {
-            'danpla': danpla,
-            'ajax': true
-          },
-        success: function (data) {
-
-          swal(
-            data,
-            'Danpla ' + danpla + ' Deleted!!',
-            'success'
-          )
-
-          loadDoc('1stTab');
-          return;
-
-        }
-      });
-
-      
-    }
-  });
- });
-
 function deleteDanpla(danpla_ID) {
   //$('#dataModal').modal();
   var danpla = danpla_ID;
@@ -1791,7 +1675,7 @@ function deleteDanpla(danpla_ID) {
 
       $.ajax({
         method: 'post',
-        url: '/1_mes/_php/QualityManagement/delete_danpla.php',
+        url: '/1_mes/_php/QualityManagement/query/delete/delete_danpla.php',
         data:
           {
             'danpla': danpla,

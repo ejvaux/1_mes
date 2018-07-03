@@ -8,8 +8,7 @@
       include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php"; 
       $auth = $_SESSION['auth'];
       $auth = stripslashes($auth);            
-    ?>
-  
+    ?>  
   <script src="/1_mes/_includes/displaymodal.js"></script>
     <script src="/1_mes/_php/mold_maintenance/table_init.js"></script>
     
@@ -26,7 +25,9 @@
 
     <script>
 
-      $(document).ready(function(){              
+      $(document).ready(function(){      
+        
+        
         
         /* $(document.body).on('change','#mcl',function(){
             alert('Change Happened');

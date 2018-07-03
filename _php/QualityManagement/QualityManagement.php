@@ -45,13 +45,13 @@
           </button>
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1" id="tb">           
-              <li><a class="nav-link tbl active" id='tb1' href="#" onclick="loadDoc('1stTab','<?php echo $_SESSION["text"];?>')">Lot Create</a></li>
+              <li><a class="nav-link tbl active" id='tb1' href="#" onclick="loadDoc('LotCreate','<?php echo $_SESSION["text"];?>')">Lot Create</a></li>
               <li><a class="nav-link tbl" id='tb2' href="#" onclick="loadDoc('LotJudgement');">Lot Judgement</a></li>
               <li><a class="nav-link tbl" id='tb3' href="#" onclick="loadDoc('LotRecovery')">Lot Reject Recovery</a></li>
               <li><a class="nav-link tbl" id='tb4' href="#" onclick="DisplayTableDefect('DefectTable','DefectTableSP','Defective_List')">Defect Management</a></li>
               <li><a class="nav-link tbl" id='tb5' href="#" onclick="notWorking()">Initial Sample List</a></li>
-              <!-- <li><a class="nav-link" href="#" onclick="">Tab 5</a></li>
-              <li><a class="nav-link" href="#" onclick="">Tab 6</a></li>
+              <li><a class="nav-link tbl" id='tb5' href="#" onclick="notWorking()">Item Receiving</a></li>
+              <!-- <li><a class="nav-link" href="#" onclick="">Tab 6</a></li>
               <li><a class="nav-link" href="#" onclick="">Tab 7</a></li>
               <li><a class="nav-link" href="#" onclick="">Tab 8</a></li> -->
             </ul>

@@ -4,7 +4,6 @@
 <table class='table table-hover table-bordered table-sm nowrap text-center' id='Dtable'>
 <thead> 
         <th style="width: 5%">NO</th>
-        <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/InsertDefectModal.php"; ?>
         <th style="width: 5%">JOB ORDER</th>
         <th style="width: 10%">PROD DATE</th>
         <th style="width: 15%">ITEM CODE</th>

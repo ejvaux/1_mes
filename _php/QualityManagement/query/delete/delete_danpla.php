@@ -8,9 +8,7 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
             echo "SUCCESS";
             } 
         else{
-            
             echo "Error updating record: " . $sql . "<br>" . $conn->error;        
             }
-            $decision = 'APPROVED';
     
 ?>
