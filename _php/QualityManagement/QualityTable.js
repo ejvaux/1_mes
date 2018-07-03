@@ -1470,7 +1470,7 @@ function getDefectDtls(defect_id){
       document.getElementById("defectID").value = val.LOT_DEFECT_ID;
       document.getElementById("eJobOrderNo").value = val.JOB_ORDER_NO;
       document.getElementById("eDivCodeID").value = val.DIVISION_CODE;
-      /* document.getElementById("DivNameID").value; */
+      document.getElementById("eDivNameID").value = val.DIVI_NAME;
       document.getElementById("eitemCodeID").value = val.ITEM_CODE;
       document.getElementById("eitemNameID").value = val.ITEM_NAME;
       document.getElementById("eDefectCodeID").value = val.DEFECT_CODE;

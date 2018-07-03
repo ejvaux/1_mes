@@ -75,7 +75,7 @@
     <div class="col-11" > 
       <script>       
         
-        loadDoc('1stTab',username);
+        loadDoc('LotCreate',username);
 
         </script>
       </div>
