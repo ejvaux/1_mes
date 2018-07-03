@@ -9,7 +9,17 @@
         exit();
     }
 
-    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
+    include_once $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/dbclass.php";
+    $db = new DBQUERY;
+    $form_data = array(
+        "OPERATOR_NAME" => $_POST['operatorname'],
+        "UPDATE_DATETIME" => date('Y-m-d H:i:s'),
+        "UPDATE_USER" => $_SESSION['text'],
+    );
+
+    echo $db->update_row('mmc_mold_operator',$form_data,'OPERATOR_ID',$_POST['operatorid']);
+
+    /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
 
         $operatorid = $_POST['operatorid'];
         $operatorname = $_POST['operatorname'];
@@ -32,5 +42,5 @@
         echo "Error updating record: " . $conn->error;        
     }
 
-    $conn->close();
+    $conn->close(); */
 ?>
