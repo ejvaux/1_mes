@@ -94,4 +94,4 @@ margin-left:-70%;
     </div>
   </div>
 <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/DefectModal.php"; ?>
-<?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/DefectModal_old.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/LotDanplaListModal.php"; ?>
