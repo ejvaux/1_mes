@@ -529,7 +529,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        //layout:"fitColumns", //fit columns to width of table (optional)
        pagination:"local",
        paginationSize:100,
-       placeholder:"No Data to Display",
+       placeholder:"No Data to Display or Today's Plan is not yet available",
        movableColumns:true,
        selectable: 1,
        //groupBy:"PROD DATE",
@@ -601,7 +601,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     pagination:"local",
     paginationSize:50,
     //progressiveRender:"remote",
-    placeholder:"No Data to Display",
+    placeholder:"No Data to Display or Today's shipment is not yet available",
     movableColumns:true,
     groupBy:"LOT_NUMBER",
     groupHeader:function(value, count, data, group){
@@ -812,7 +812,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     pagination:"local",
     paginationSize:50,
     //ajaxProgressiveLoad: true,
-    placeholder:"No Data to Display",
+    placeholder:"No Data to Display or Today's shipment is not yet available",
     movableColumns:true,
     groupBy:"LOT_NUMBER",
     groupHeader:function(value, count, data, group){
@@ -1033,7 +1033,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        pagination:"local",
        paginationSize:50,
        //progressiveRender:"remote",
-       placeholder:"No Data to Display",
+       placeholder:"No Data to Display  or Today's DR is not yet available.",
        movableColumns:true,
        groupBy:"DR_DATE", 
        selectable: 1,        
