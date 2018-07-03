@@ -74,7 +74,7 @@
             </div>
 
             <input type="date" id="max">
-
+            <button type="button"><i class="fas fa-sync-alt"></i></button>
         </div>
 
     <script>

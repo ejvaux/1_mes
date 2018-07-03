@@ -1,9 +1,9 @@
 
 /* ____________ Table Init ________________ */
 
-function checkuserauth(){
+function checkuserauth(sd,ed){
   if(val=="A" || val=="G"){
-    DisplayTble('mold_repair_table','mold_repairsp','Mold Repair');
+    DisplayTble('mold_repair_table','mold_repairsp','Mold Repair',sd,ed);
   }
   
   else if(val=="DC"){
@@ -67,7 +67,7 @@ function checkuserauthO(){
 
 /* Display Table USER A*/
         
-function DisplayTble(Table_Name,Tablesp,tbltitle) {
+function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
     var xhttp;
     if (Table_Name.length == 0) { 
       document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -78,8 +78,8 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
       
       if (this.readyState == 4 && this.status == 200) {
         document.getElementById("table_display").innerHTML = this.responseText;       
+        
         var tble = $('#Dtable').DataTable( {
-          deferRender:    true,
         scrollY:        '61vh',
         "sScrollX": "100%",
         /* scrollerX:      true, */
@@ -88,12 +88,16 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
           "iDisplayLength": 100,          
           fixedColumns: {
               heightMatch: 'semiauto'
-          },         
+          },
+          "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',         
           "ajax": {
             url: "/1_mes/_includes/"+Tablesp+".php",
-            type: 'POST'
-          },            
-          "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+            type: 'POST',
+            data: {
+              "sday": startdate,
+              "eday": enddate
+            }
+          },                      
           'buttons': [            
             { text: '<i class="fas fa-plus"></i>',
               attr:  {
@@ -379,8 +383,11 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
       } );
 
       $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date:</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"></div>');
-        
+      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date:</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh"><i class="fas fa-sync-alt"></i></button></div>');
+      
+      $('#min').val(startdate);
+      $('#max').val(enddate);
+
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
         var selectedValue = $(this).val();
@@ -400,13 +407,28 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
         
       });
 
-      $('#min, #max').on('change',function(){        
-        tble.draw(); 
+      $('#min, #max').on('change',function(){
+        var sdate = $('#min').val();
+        var edate = $('#max').val();
+
+        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
+          /* alert('Good'); */
+          
+          checkuserauth(sdate,edate);          
+        }
+        else{
+          /* alert('No Good'); */
+        }
+        /* alert('test'); */        
+      });
+
+      $('#refresh').on('click',function(){
+        checkuserauth();
       });
 
       /* $('#min, #max').keyup( function() {
         tble.draw();
-    } );  */  
+    } ); */   
         /* ____________________________ FUNCTIONS _________________________ */
       }
       
@@ -426,19 +448,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle) {
       
     }
   };
-
-  $.fn.dataTable.ext.search.push(
-    function (settings, data, dataIndex) {
-  var min = $('#min').val();
-  var max = $('#max').val();
-  var startDate = data[4];
-  if (min == null && max == null) { return true; }
-  if (min == null && startDate <= max) { return true;}
-  if(max == null && startDate >= min) {return true;}
-  if (startDate <= max && startDate >= min) { return true; }
-  return false;
-}
-);
+  
       /* Display Table - END */
 
 /* --------------------------- user G ------------------------------------------- */
