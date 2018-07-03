@@ -7,19 +7,19 @@ function checkuserauth(sd,ed){
   }
   
   else if(val=="DC"){
-    DisplayTbleC('mold_repair_table2','mold_repairsp2','Mold Repair');
+    DisplayTbleC('mold_repair_table2','mold_repairsp','Mold Repair',sd,ed);
   }
   
   else if(val=="DG"){
-    DisplayTbleG('mold_repair_table3','mold_repairsp3','Mold Repair');
+    DisplayTbleG('mold_repair_table3','mold_repairsp','Mold Repair',sd,ed);
   }
 
   else if(val=="DA"){
-    DisplayTbleA('mold_repair_table2','mold_repairsp2','Mold Repair');
+    DisplayTbleA('mold_repair_table2','mold_repairsp','Mold Repair',sd,ed);
   }
 
   else if(val=="C"){
-    DisplayTbleQC('mold_repair_table2','mold_repairsp2','Mold Repair');
+    DisplayTbleQC('mold_repair_table2','mold_repairsp','Mold Repair',sd,ed);
   }
 
   else{
@@ -383,7 +383,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       } );
 
       $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date:</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh"><i class="fas fa-sync-alt"></i></button></div>');
+      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
       
       $('#min').val(startdate);
       $('#max').val(enddate);
@@ -453,7 +453,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
 
 /* --------------------------- user G ------------------------------------------- */
 
-function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
+function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
   var xhttp;
   if (Table_Name.length == 0) { 
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -476,9 +476,13 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
         },
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST'
+          type: 'POST',
+          data: {
+            "sday": startdate,
+            "eday": enddate
+          }
         },            
-        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [            
           { text: '<i class="fas fa-plus"></i>',
           attr:  {
@@ -650,6 +654,10 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
       } );
 
       $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
+      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+
+      $('#min').val(startdate);
+      $('#max').val(enddate);
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -668,7 +676,26 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
           .draw();
         }
         
-      });      
+      });
+      
+      $('#min, #max').on('change',function(){
+        var sdate = $('#min').val();
+        var edate = $('#max').val();
+
+        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
+          /* alert('Good'); */
+          
+          checkuserauth(sdate,edate);          
+        }
+        else{
+          /* alert('No Good'); */
+        }
+        /* alert('test'); */        
+      });
+
+      $('#refresh').on('click',function(){
+        checkuserauth();
+      });
 
       /* ____________________________ FUNCTIONS _________________________ */
     }
@@ -696,7 +723,7 @@ $.fn.dataTable.ext.buttons.add2 = {
 
 /* -------------------------------------- User C -------------------------------------------- */
 
-function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
+function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
   var xhttp;
   if (Table_Name.length == 0) { 
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -720,9 +747,13 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
         /* "ajax": "/1_mes/_includes/"+Tablesp+".php", */
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST'
+          type: 'POST',
+          data: {
+            "sday": startdate,
+            "eday": enddate
+          }
         },            
-        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [
           { text: '<i class="fas fa-plus"></i>',
           attr:  {
@@ -958,6 +989,10 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
     } );
 
     $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
+    $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+
+    $('#min').val(startdate);
+    $('#max').val(enddate);
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -976,6 +1011,25 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
           .draw();
         }
         
+      });
+
+      $('#min, #max').on('change',function(){
+        var sdate = $('#min').val();
+        var edate = $('#max').val();
+
+        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
+          /* alert('Good'); */
+          
+          checkuserauth(sdate,edate);          
+        }
+        else{
+          /* alert('No Good'); */
+        }
+        /* alert('test'); */        
+      });
+
+      $('#refresh').on('click',function(){
+        checkuserauth();
       });
 
       /* ____________________________ FUNCTIONS _________________________ */
@@ -1001,7 +1055,7 @@ $.fn.dataTable.ext.buttons.add3 = {
 
 /* -------------------------------------- User Approver-------------------------------------------- */
 
-function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
+function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
   var xhttp;
   if (Table_Name.length == 0) { 
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -1025,9 +1079,13 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
         /* "ajax": "/1_mes/_includes/"+Tablesp+".php", */
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST'
+          type: 'POST',
+          data: {
+            "sday": startdate,
+            "eday": enddate
+          }
         },            
-        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [ 
           { text: '<i class="fas fa-plus"></i>',
           attr:  {
@@ -1256,6 +1314,10 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
     } );
 
     $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
+    $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+
+    $('#min').val(startdate);
+    $('#max').val(enddate);
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -1275,6 +1337,26 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
         }
         
       });
+
+      $('#min, #max').on('change',function(){
+        var sdate = $('#min').val();
+        var edate = $('#max').val();
+
+        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
+          /* alert('Good'); */
+          
+          checkuserauth(sdate,edate);          
+        }
+        else{
+          /* alert('No Good'); */
+        }
+        /* alert('test'); */        
+      });
+
+      $('#refresh').on('click',function(){
+        checkuserauth();
+      });
+
 
       /* ____________________________ FUNCTIONS _________________________ */
     }
@@ -1301,7 +1383,7 @@ $.fn.dataTable.ext.buttons.add3 = {
 
 /* -------------------------------------- QC -------------------------------------------- */
 
-function DisplayTbleQC(Table_Name,Tablesp,tbltitle) {
+function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
   var xhttp;
   if (Table_Name.length == 0) { 
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -1325,9 +1407,13 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle) {
         /* "ajax": "/1_mes/_includes/"+Tablesp+".php", */
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST'
+          type: 'POST',
+          data: {
+            "sday": startdate,
+            "eday": enddate
+          }
         },            
-        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [                                       
           { extend: 'copy', text: '<i class="far fa-copy"></i>',
           attr:  {
@@ -1497,6 +1583,10 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle) {
     } );
 
     $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
+    $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+
+      $('#min').val(startdate);
+      $('#max').val(enddate);
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -1515,6 +1605,25 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle) {
           .draw();
         }
         
+      });
+
+      $('#min, #max').on('change',function(){
+        var sdate = $('#min').val();
+        var edate = $('#max').val();
+
+        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
+          /* alert('Good'); */
+          
+          checkuserauth(sdate,edate);          
+        }
+        else{
+          /* alert('No Good'); */
+        }
+        /* alert('test'); */        
+      });
+
+      $('#refresh').on('click',function(){
+        checkuserauth();
       });
 
       /* ____________________________ FUNCTIONS _________________________ */
