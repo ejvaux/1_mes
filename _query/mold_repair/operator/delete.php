@@ -8,9 +8,13 @@
         header('Location: /1_mes/');
         exit();
     }
+
+    include_once $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/dbclass.php";
+    $db = new DBQUERY;
     
+    echo $db->delete_row('mmc_mold_operator','OPERATOR_ID',$_POST["id"]);
     
-    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
+    /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
 
     $rowid = $_POST["id"];
     
@@ -25,5 +29,5 @@
     }
 
                 
-        $conn->close();
+        $conn->close() */;
 ?>

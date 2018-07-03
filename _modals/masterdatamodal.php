@@ -319,7 +319,7 @@
                   <label for="cdivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="cdivisioncode" class="form-control form-control-sm sel" name="divisioncode" placeholder="">
+                  <select id="cdivisioncode" class="form-control form-control-sm sel" name="divisioncode" placeholder=""  required>
                   <option value="">-Please select-</option>
                   <?php
 
@@ -482,7 +482,7 @@
                   <label for="idivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="idivisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder="">
+                  <select id="idivisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder=""  required>
                   <option value="">-Please select-</option>
                   <?php
 
@@ -725,7 +725,7 @@
                   <label for="divisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="divisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder="">
+                  <select id="divisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder="" required>
                   <option value="">-Please select-</option>
                   <?php
 
@@ -1170,7 +1170,7 @@
                   <label for="eitemcode" class="col-form-label-sm">ITEM CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eitemcode" type="text" class="form-control form-control-sm sel" name="eitemcode" placeholder="" onchange="getitemname('eitemcode',eitemname);">
+                  <select id="eitemcode" type="text" class="form-control form-control-sm sel" name="eitemcode" placeholder="" onchange="getitemname('eitemcode',eitemname);"  required>
                   <option value="">-Please select-</option>
                     <?php
 
@@ -1202,7 +1202,7 @@
                   <label for="ecustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="ecustomercode" type="text" class="form-control form-control-sm sel" name="ecustomercode" placeholder="" onchange="getcustomername('ecustomercode',ecustomername)">
+                  <select id="ecustomercode" type="text" class="form-control form-control-sm sel" name="ecustomercode" placeholder="" onchange="getcustomername('ecustomercode',ecustomername)"  required>
                   <option value="">-Please select-</option>
                     <?php
 
@@ -1440,7 +1440,7 @@
                   <label for="ecdivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="ecdivisioncode" type="text" class="form-control form-control-sm sel" name="ecdivisioncode" placeholder="">
+                  <select id="ecdivisioncode" type="text" class="form-control form-control-sm sel" name="ecdivisioncode" placeholder=""  required>
                   <option value="">-Please select-</option>
                   <?php
 
@@ -1537,7 +1537,7 @@
                   <label for="eicustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eicustomercode" type="text" class="form-control form-control-sm sel" name="eicustomercode" onchange="getcustomername('eicustomercode',eicustomername)" placeholder="" >
+                  <select id="eicustomercode" type="text" class="form-control form-control-sm sel" name="eicustomercode" onchange="getcustomername('eicustomercode',eicustomername)" placeholder=""  required>
                   <option value="">-Please select-</option>
                     <?php
 
@@ -1605,7 +1605,7 @@
                   <label for="eidivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eidivisioncode" type="text" class="form-control form-control-sm  sel" name="eidivisioncode" placeholder="">
+                  <select id="eidivisioncode" type="text" class="form-control form-control-sm  sel" name="eidivisioncode" placeholder=""  required>
                   <option value="">-Please select-</option>
                   <?php
 
@@ -1850,7 +1850,7 @@
                   <label for="eddivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eddivisioncode" type="text" class="form-control form-control-sm sel" name="eddivisioncode" placeholder="">
+                  <select id="eddivisioncode" type="text" class="form-control form-control-sm sel" name="eddivisioncode" placeholder=""  required>
                   <option value="">-Please select-</option>
                   <?php
 
@@ -2184,7 +2184,8 @@
                 </div>
                 <div class="col-7">
                   <select id="eemployeestatus" type="text" class="form-control form-control-sm" name="employeestatus" placeholder="" required>                  
-                
+                      
+                      <option value="">-Please select-</option>
                       <option value="ACTIVE">ACTIVE</option>
                       <option value="RESIGNED">RESIGNED</option>
                       <option value="AWOL">AWOL</option>
@@ -2212,7 +2213,7 @@
                   <label for="eemdivision" class="col-form-label-sm">DIVISION:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eemdivision" type="text" class="form-control form-control-sm" name="division" placeholder="">
+                  <select id="eemdivision" type="text" class="form-control form-control-sm" name="division" placeholder=""  required>
                   <option value="">-Please select-</option>
                     <?php
 

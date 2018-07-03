@@ -1,6 +1,25 @@
 <?php
-    
     session_start();
+    if(!isset($_SESSION['username'])){
+                
+        // not logged in
+        header('Location: /1_mes/');
+        exit();
+    }
+    include_once $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/dbclass.php";      
+    $db = new DBQUERY;
+
+    $form_data = array(
+        'OPERATOR_NAME'=>$_POST['operatorname'],
+        'INSERT_USER'=>$_SESSION['text'],
+        'INSERT_DATETIME'=>date('Y-m-d H:i:s')
+
+    );
+
+    echo $db->insert_row('mmc_mold_operator',$form_data);
+
+    
+    /* session_start();
 
     if(!isset($_SESSION['username'])){
                 
@@ -43,5 +62,5 @@
         }
                 
         $stmt->close();
-        $conn->close();
+        $conn->close(); */
 ?>
