@@ -537,6 +537,3 @@ echo '</tbody></table><br><br>';
 
 
 
-echo'<script>
-</script>
-';

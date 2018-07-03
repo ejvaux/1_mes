@@ -27,14 +27,6 @@
                 while($row = $result->fetch_assoc()) 
                 {
                 echo " <tbody>";
-                /* onKeyDown='if(this.value.length==6 && event.keyCode>47 && event.keyCode<58)return false;' */
-                /* onkeydown='a()' */
-                /* echo "<td class='text-center'><input type='number' id='DEFECT_QUANTITY". $row['JO_BARCODE']."' class='hiddenText defectTextBox' min='0' max='" . $row['SUMQ'] . "' value='0' onfocusout='a()' onkeydown='a()'></input></td>"; 
-                echo "<td class='text-center'>
-                <label class='switch'>
-                <input type='checkbox' class='btn btn-danger checkBoxDefect' id='". $row['JO_BARCODE'] ."'><span class='slider'></span>
-                </label>
-                </td>"; */
                 echo "<td class='text-center'>" . $row['PACKING_NUMBER'] . "</td>";
                 echo "<td class='text-center'>" . $row['SUMQ'] . "</td>";
                 
