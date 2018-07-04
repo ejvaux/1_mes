@@ -145,7 +145,7 @@ if(isset($_POST['sortfrom']))
 				FROM mis_prod_plan_dl
 				LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
 				WHERE (mis_product.ITEM_NAME = '$search' OR mis_prod_plan_dl.ITEM_NAME='$search') AND  
-				((mis_product.DATE_ BETWEEN '$strfrom' AND '$strto') OR (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto')) 
+				((mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto')) 
 			 AND ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')  OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
 				GROUP BY ITEM_NAME, DISP_DATE_";
 
@@ -172,7 +172,7 @@ if(isset($_POST['sortfrom']))
 				FROM mis_prod_plan_dl
 				LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
 				WHERE 
-				((mis_product.DATE_ BETWEEN '$strfrom' AND '$strto') OR (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto')) 
+				((mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto')) 
 				AND                 
 				((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')  OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
 				GROUP BY DISP_DATE_";
