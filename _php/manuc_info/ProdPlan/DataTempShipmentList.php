@@ -1,6 +1,11 @@
 <?php
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
-$sql = "SELECT * FROM mis_temp_ship_group";
+$user= $_SESSION['text'];
+$sql = "SELECT * FROM mis_temp_ship_group WHERE user_insert='$user'";
 $result = $conn->query($sql);
 $datavar=array();
 $ctr=0;

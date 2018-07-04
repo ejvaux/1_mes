@@ -126,7 +126,8 @@
                             <option value="">Please select</option>
                             <option value="WAITING">WAITING</option>
                             <option value="ON-GOING">ON-GOING</option>
-                            <option value="DONE">DONE</option>
+                            <option value="FOR MOLD TRIAL">FOR MOLD TRIAL</option>
+                            <option value="QC APPROVED">QC APPROVED</option>                          
 
                         </select>
                     </div>
@@ -451,7 +452,7 @@
         <!-- <p>Modal body text goes here.</p> -->
         <!-- method="post" action="/1_mes/_query/insert_mold_repair.php" -->
         <form name="myForm" id="editform"  method="post">
-                                               
+        <input type="hidden" id="emoldrepairid" name="id">
                 <div class="form-group row">
 
                     <div class="col-sm-6">
@@ -558,7 +559,8 @@
                             <option value="">Please select</option>
                             <option value="WAITING">WAITING</option>
                             <option value="ON-GOING">ON-GOING</option>
-                            <option value="DONE">DONE</option>
+                            <option value="FOR MOLD TRIAL">FOR MOLD TRIAL</option>
+                            <option value="QC APPROVED">QC APPROVED</option>
 
                         </select>
                     </div>
@@ -656,6 +658,7 @@
         </button>
       </div>
       <form id="checklistform"  method="post">
+      <input type="hidden" id="chkmoldrepairid" name="id">
       <input type="hidden" id="chkrepaircontrol" name="repaircontrol">
       <input type="hidden" id="chkmoldstatus" name="moldstatus">
       <input type="hidden" id="chkrequestdate" name="requestdate">
@@ -982,6 +985,7 @@
         </button>
       </div>
       <form id="achecklistform"  method="post">
+      <input type="hidden" id="achkmoldrepairid" name="id">
       <input type="hidden" id="achkrepaircontrol" name="repaircontrol">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
@@ -1307,7 +1311,10 @@
         </button>
       </div>
       <form id="qcchecklistform"  method="post">
+      <input type="hidden" id="qcchkmoldrepairid" name="id">
       <input type="hidden" id="qcchkrepaircontrol" name="repaircontrol">
+      <input type="hidden" id="qcchkrequestdate" name="requestdate">
+      <input type="hidden" id="qcchkmoldcode" name="moldcode">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
 
@@ -1709,7 +1716,7 @@
         </button>
       </div>
       <form id="editmoldhistoryform" method="post">
-      <input type="hidden" id="emoldhistoryid" name="moldhistoryid">
+      <input type="hidden" id="emoldhistoryid" name="id">
       <div class="modal-body">      
                                                        
                 <div class="form-group row">                   
@@ -3148,7 +3155,7 @@
         </button>
       </div>
       <form id="eoperatorform"  method="post">
-      <input type="hidden" id="operatorid" name="operatorid">
+      <input type="hidden" id="operatorid" name="id">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
 
