@@ -1,25 +1,35 @@
 <?php
- 
+
 class DBQUERY
 {
-    public $servername = "localhost";
-    public $username = "root";     
-    public $password = "";
-    public $dbname = "masterdatabase";
-    
+    protected $servername = "localhost";
+    protected $username = "root";     
+    protected $password = "";
+    protected $dbname = "masterdatabase";
+    protected $connect;
+
+    public function __construct(){
+        $this->connect = new mysqli($this->servername, $this->username, $this->password,$this->dbname);
+    }    
+
     public function get_rows(){
 
         $args = func_get_args();
 
-        $conn = new mysqli($this->servername, $this->username, $this->password,$this->dbname); 
+        $conn = $this->connect;
         
         $where = (isset($args[1]) && isset($args[2]))? " WHERE ". $args[1] ."=".$args[2] : "";
 
         $sql = "SELECT * FROM " . $args[0] . $where;
 
         $result = $conn->query($sql);
-        
-        $row = mysqli_fetch_all($result,MYSQLI_ASSOC);
+
+        if($where){
+            $row = $result->fetch_assoc();
+        }
+        else{
+            $row = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        }              
 
         if(isset($row)){
             return json_encode($row,true); 
@@ -37,44 +47,45 @@ class DBQUERY
         
         $fields = array_keys($form_data);
 
-        $conn = new mysqli($this->servername, $this->username, $this->password,$this->dbname); 
+        $conn = $this->connect; 
         
         $sql = "INSERT INTO ".$table."
         (`".implode('`,`', $fields)."`)
         VALUES('".implode("','", $form_data)."')";
 
         if ($conn->query($sql) === TRUE) {
-            return "success";
+            return TRUE;
         } else {            
-            return "Error: " . $conn->error;
+            return "Error inserting record: " . $conn->error;
         }
-
+        
         $conn->close();
     }
 
     public function delete_row($table,$col,$id){      
         
-        $conn = new mysqli($this->servername, $this->username, $this->password,$this->dbname); 
+        $conn = $this->connect; 
         
         $whereSQL = (isset($col) && isset($id))? " WHERE ".$col."=".$id : "";
 
         $sql = "DELETE FROM ".$table.$whereSQL;
 
         if ($conn->query($sql) === TRUE) {        
-            return "Record deleted successfully!";
+            /* return "Record deleted successfully!"; */
+            return TRUE;
         } 
         
         else {
             return "Error deleting record: " . $conn->error;
-        }                   
+        }        
         $conn->close();
     }
 
     public function update_row($table,$form_data,$col,$id){      
         
-        $conn = new mysqli($this->servername, $this->username, $this->password,$this->dbname); 
+        $conn = $this->connect; 
         
-        $whereSQL = (isset($col) && isset($id))? " WHERE ".$col."=".$id : "";
+        $whereSQL = (isset($col) && isset($id))? " WHERE ".$col." = ".$id : "";
 
         $sql = "UPDATE ".$table." SET ";
         
@@ -88,10 +99,12 @@ class DBQUERY
         $sql .= $whereSQL;
 
         if ($conn->query($sql) === TRUE) {        
-            return "success";
+            return TRUE;
         } else {            
-            return "Error updating record: " . $conn->error;        
-        }                   
+            /* return "Error updating record: " . $conn->error; */
+            return $sql;       
+        }                
+           
         $conn->close();
     }
 
