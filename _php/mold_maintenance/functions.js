@@ -304,12 +304,14 @@ function listchange(){
                 },           
                 delay: 3000,                        
               }); */
+              var formdata =  $('#qcchecklistform').serializeArray();
+              formdata.push({name: 'action', value: 'insert'});
               $.ajax({
               type: 'POST',
-              url: '/1_mes/_query/mold_repair/insert_history.php',
-              data: $('#qcchecklistform').serialize(),
+              url: '/1_mes/database/table_handler/mold/historyHandler.php',
+              data: $.param(formdata),
               success: function (data) {    
-                if(data=="success"){
+                if(data==true){
 
                   $('#qcchcklist').modal('hide');
                   checkuserauth();
@@ -624,14 +626,15 @@ $('#mod').on('submit','#addmoldhistoryform', function (e) {
   /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
   e.preventDefault();
   e.stopImmediatePropagation();
-  
+  var formdata =  $('#addmoldhistoryform').serializeArray();
+  formdata.push({name: 'action', value: 'insert'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/mold_repair/insert_history.php',
-    data: $('#addmoldhistoryform').serialize(),
+    url: '/1_mes/database/table_handler/mold/historyHandler.php',
+    data: $.param(formdata),
     success: function (data) {
       /* alert(data);  */  
-      if(data=="success"){
+      if(data==true){
         /* alert("Record saved successfully!"); */
         $('#addmoldhistoryform').trigger('reset');
         $('#addmoldhistory').modal('hide');          
@@ -669,14 +672,15 @@ $('#mod').on('submit','#editmoldhistoryform', function (e) {
   /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
   e.preventDefault();
   e.stopImmediatePropagation();
-  
+  var formdata =  $('#editmoldhistoryform').serializeArray();
+  formdata.push({name: 'action', value: 'update'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/mold_repair/edit_history.php',
-    data: $('#editmoldhistoryform').serialize(),
+    url: '/1_mes/database/table_handler/mold/historyHandler.php',
+    data: $.param(formdata),
     success: function (data) {
       /* alert(data);  */  
-      if(data=="success"){
+      if(data==true){
         /* alert("Record saved successfully!"); */
         $('#editmoldhistoryform').trigger('reset');
         $('#editmoldhistory').modal('hide');          

@@ -1806,26 +1806,34 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
                   $.ajax(
                     {
                     method:'post',
-                    url:'/1_mes/_query/mold_repair/delete_history.php',
+                    url:'/1_mes/database/table_handler/mold/historyHandler.php',
                     data:
                     {
-                        'id': data[0],
-                        'ajax': true
+                      'action': 'delete',
+                      'id': data[0],
+                      'ajax': true
                     },
                     success: function(data) {
-                      checkuserauthH();
 
-                      $.notify({
-                        icon: 'fas fa-info-circle',
-                        title: 'System Notification: ',
-                        message: data,
-                      },{
-                        type:'success',
-                        placement:{
-                          align: 'center'
-                        },           
-                        delay: 3000,                        
-                      });
+                      if(data==true){
+                        checkuserauthH();
+
+                        $.notify({
+                          icon: 'fas fa-info-circle',
+                          title: 'System Notification: ',
+                          message: 'Record deleted successfully!',
+                        },{
+                          type:'success',
+                          placement:{
+                            align: 'center'
+                          },           
+                          delay: 3000,                        
+                        });
+                      }
+                      else{
+                        alert(data);
+                      }
+                      
                     }
                     });
 

@@ -1716,7 +1716,7 @@
         </button>
       </div>
       <form id="editmoldhistoryform" method="post">
-      <input type="hidden" id="emoldhistoryid" name="moldhistoryid">
+      <input type="hidden" id="emoldhistoryid" name="id">
       <div class="modal-body">      
                                                        
                 <div class="form-group row">                   
