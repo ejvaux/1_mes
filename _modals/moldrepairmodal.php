@@ -2493,7 +2493,7 @@
                     <input id="eleadtime_1" type="text" class="form-control form-control-sm" name="leadtime_1" placeholder="" >        
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_1" type="text" class="form-control form-control-sm" name="operator_1" placeholder=""  required>
+                    <select id="eoperator_1" type="text" class="form-control form-control-sm" name="operator_1" placeholder="">
                     <option value="">Please select</option>
                         <?php
 
@@ -2528,7 +2528,7 @@
                     <input id="eleadtime_2" type="text" class="form-control form-control-sm" name="leadtime_2" placeholder="" >            
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_2" type="text" class="form-control form-control-sm" name="operator_2" placeholder="" required >
+                    <select id="eoperator_2" type="text" class="form-control form-control-sm" name="operator_2" placeholder="">
                     <option value="">Please select</option>
                         <?php
 
@@ -2563,7 +2563,7 @@
                     <input id="eleadtime_3" type="text" class="form-control form-control-sm" name="leadtime_3" placeholder="" >          
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_3" type="text" class="form-control form-control-sm" name="operator_3" placeholder="" required >
+                    <select id="eoperator_3" type="text" class="form-control form-control-sm" name="operator_3" placeholder="">
                     <option value="">Please select</option>
                         <?php
 
@@ -2598,7 +2598,7 @@
                     <input id="eleadtime_4" type="text" class="form-control form-control-sm" name="leadtime_4" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_4" type="text" class="form-control form-control-sm" name="operator_4" placeholder="" required >
+                    <select id="eoperator_4" type="text" class="form-control form-control-sm" name="operator_4" placeholder="">
                     <option value="">Please select</option>
                         <?php
 
@@ -2633,7 +2633,7 @@
                     <input id="eleadtime_5" type="text" class="form-control form-control-sm" name="leadtime_5" placeholder="" >         
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_5" type="text" class="form-control form-control-sm" name="operator_5" placeholder="" required >
+                    <select id="eoperator_5" type="text" class="form-control form-control-sm" name="operator_5" placeholder="">
                     <option value="">Please select</option>
                         <?php
 
@@ -2668,7 +2668,7 @@
                     <input id="eleadtime_6" type="text" class="form-control form-control-sm" name="leadtime_6" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_6" type="text" class="form-control form-control-sm" name="operator_6" placeholder="" required >
+                    <select id="eoperator_6" type="text" class="form-control form-control-sm" name="operator_6" placeholder="">
                     <option value="">Please select</option>
                         <?php
 
@@ -2703,7 +2703,7 @@
                     <input id="eleadtime_7" type="text" class="form-control form-control-sm" name="leadtime_7" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_7" type="text" class="form-control form-control-sm" name="operator_7" placeholder="" required >
+                    <select id="eoperator_7" type="text" class="form-control form-control-sm" name="operator_7" placeholder="">
                     <option value="">Please select</option>
                         <?php
 
@@ -2738,7 +2738,7 @@
                     <input id="eleadtime_8" type="text" class="form-control form-control-sm" name="leadtime_8" placeholder="" >            
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_8" type="text" class="form-control form-control-sm" name="operator_8" placeholder="" required >
+                    <select id="eoperator_8" type="text" class="form-control form-control-sm" name="operator_8" placeholder="">
                     <option value="">Please select</option>
                         <?php
 
@@ -2773,7 +2773,7 @@
                     <input id="eleadtime_9" type="text" class="form-control form-control-sm" name="leadtime_9" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_9" type="text" class="form-control form-control-sm" name="operator_9" placeholder="" required >
+                    <select id="eoperator_9" type="text" class="form-control form-control-sm" name="operator_9" placeholder="">
                     <option value="">Please select</option>
                         <?php
 
@@ -2808,7 +2808,7 @@
                     <input id="eleadtime_10" type="text" class="form-control form-control-sm" name="leadtime_10" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_10" type="text" class="form-control form-control-sm" name="operator_10" placeholder="" required >
+                    <select id="eoperator_10" type="text" class="form-control form-control-sm" name="operator_10" placeholder=""  >
                     <option value="">Please select</option>
                         <?php
 
@@ -2843,7 +2843,7 @@
                     <input id="eleadtime_11" type="text" class="form-control form-control-sm" name="leadtime_11" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_11" type="text" class="form-control form-control-sm" name="operator_11" placeholder="" required >
+                    <select id="eoperator_11" type="text" class="form-control form-control-sm" name="operator_11" placeholder=""  >
                     <option value="">Please select</option>
                         <?php
 
@@ -2878,7 +2878,7 @@
                     <input id="eleadtime_12" type="text" class="form-control form-control-sm" name="leadtime_12" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_12" type="text" class="form-control form-control-sm" name="operator_12" placeholder="" required >
+                    <select id="eoperator_12" type="text" class="form-control form-control-sm" name="operator_12" placeholder=""  >
                     <option value="">Please select</option>
                         <?php
 
@@ -2913,7 +2913,7 @@
                     <input id="eleadtime_13" type="text" class="form-control form-control-sm" name="leadtime_13" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_13" type="text" class="form-control form-control-sm" name="operator_13" placeholder="" required >
+                    <select id="eoperator_13" type="text" class="form-control form-control-sm" name="operator_13" placeholder="" >
                     <option value="">Please select</option>
                         <?php
 
@@ -2948,7 +2948,7 @@
                     <input id="eleadtime_14" type="text" class="form-control form-control-sm" name="leadtime_14" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_14" type="text" class="form-control form-control-sm" name="operator_14" placeholder="" required >
+                    <select id="eoperator_14" type="text" class="form-control form-control-sm" name="operator_14" placeholder=""  >
                     <option value="">Please select</option>
                         <?php
 
@@ -2983,7 +2983,7 @@
                     <input id="eleadtime_15" type="text" class="form-control form-control-sm" name="leadtime_15" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_15" type="text" class="form-control form-control-sm" name="operator_15" placeholder="" required >
+                    <select id="eoperator_15" type="text" class="form-control form-control-sm" name="operator_15" placeholder=""  >
                     <option value="">Please select</option>
                         <?php
 
@@ -3018,7 +3018,7 @@
                     <input id="eleadtime_16" type="text" class="form-control form-control-sm" name="leadtime_16" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_16" type="text" class="form-control form-control-sm" name="operator_16" placeholder="" required >
+                    <select id="eoperator_16" type="text" class="form-control form-control-sm" name="operator_16" placeholder="" >
                     <option value="">Please select</option>
                         <?php
 
@@ -3053,7 +3053,7 @@
                     <input id="eleadtime_17" type="text" class="form-control form-control-sm" name="leadtime_17" placeholder="" >           
                 </div>
                 <div class="col-sm-4">
-                    <select id="eoperator_17" type="text" class="form-control form-control-sm" name="operator_17" placeholder="" required >
+                    <select id="eoperator_17" type="text" class="form-control form-control-sm" name="operator_17" placeholder="">
                     <option value="">Please select</option>
                         <?php
 
