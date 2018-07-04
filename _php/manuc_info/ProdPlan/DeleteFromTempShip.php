@@ -1,5 +1,6 @@
 <?php
 
+
 include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 $packingno=$_POST['packingno'];
 $lotno=$_POST['lotno'];

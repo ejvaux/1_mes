@@ -42,8 +42,11 @@ ORDER BY `PLAN_QTY` ASC */
                                                       if ($strto == "" && $strfrom=="") 
                                                       {
                                                          #code... condition above is whenever both date range are null
-                                                                $sqlprodresult="SELECT PRINT_QTY from mis_product WHERE ITEM_NAME = '$search' AND
-                                                                 (SUBSTRING(JO_NUM,1,1)='$PlanType')";
+                                                                $sqlprodresult="SELECT mis_product.PRINT_QTY from mis_product
+                                                                 LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
+                                                                  WHERE mis_prod_plan_dl.ITEM_NAME = '$search' AND
+                                                                 (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
+
                                                                 $sqlprodplan="SELECT PLAN_QTY from mis_prod_plan_dl WHERE ITEM_NAME = '$search' AND
                                                                  (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
                                                                 /* $sqlitem="SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ 
@@ -52,10 +55,10 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 WHERE mis_product.ITEM_NAME = '$search' 
                                                                 GROUP BY `ITEM_NAME`, DATE_"; */
 
-                                                                $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
-                                                              (mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_
+                                                                $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult, mis_prod_plan_dl.ITEM_NAME,
+                                                              SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_
                                                                 FROM mis_prod_plan_dl
-                                                                LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
+                                                                LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
                                                                 WHERE (mis_prod_plan_dl.ITEM_NAME = '$search') AND 
                                                                 ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
                                                                 GROUP BY mis_prod_plan_dl.ITEM_NAME, DISP_DATE_
@@ -80,9 +83,12 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 $date1=date('Y-m-d', strtotime($year1."-".$month1."01"));
                                                                 $date2=date('Y-m-d', strtotime($year2."-".$month2."01"));
 
-                                                                $sqlprodresult="SELECT PRINT_QTY from mis_product WHERE (ITEM_NAME = '$search') 
-                                                                AND  (MONTH(DATE_)='$month1' AND YEAR(DATE_)='$year1')   AND 
-                                                                (SUBSTRING(JO_NUM,1,1)='$PlanType')";
+                                                                $sqlprodresult="SELECT mis_product.PRINT_QTY from mis_product
+                                                                LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
+                                                                 WHERE (mis_prod_plan_dl.ITEM_NAME = '$search') 
+                                                                AND  (MONTH(mis_prod_plan_dl.DATE_)='$month1' AND YEAR(mis_prod_plan_dl.DATE_)='$year1')   AND 
+                                                                (SUBSTRING(mis_prod_plan-dl.JOB_ORDER_NO,1,1)='$PlanType')";
+
                                                                 $sqlprodplan="SELECT PLAN_QTY from mis_prod_plan_dl WHERE (ITEM_NAME = '$search') 
                                                                 AND (MONTH(DATE_)='$month1' AND YEAR(DATE_)='$year1')   AND 
                                                                 (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
@@ -103,14 +109,13 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 GROUP BY mis_product.`ITEM_NAME`
                                                                 UNION ALL */
 
-                                                                $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
-                                                                (mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, NULL as DISP_DATE_
+                                                                $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
+                                                                SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, NULL as DISP_DATE_
                                                                 FROM mis_prod_plan_dl
-                                                                LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
-                                                                WHERE  ((MONTH(mis_prod_plan_dl.DATE_)='$month1' AND YEAR(mis_prod_plan_dl.DATE_)='$year1') OR
-                                                                        (MONTH(mis_product.DATE_)='$month1' AND YEAR(mis_product.DATE_)='$year1'))
-                                                                        AND (mis_prod_plan_dl.ITEM_NAME = '$search' OR mis_product.ITEM_NAME = '$search') AND 
-                                                                        ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')  OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
+                                                                LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
+                                                                WHERE  ((MONTH(mis_prod_plan_dl.DATE_)='$month1' AND YEAR(mis_prod_plan_dl.DATE_)='$year1') 
+                                                                        AND (mis_prod_plan_dl.ITEM_NAME = '$search') AND 
+                                                                        ((SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
                                                                         GROUP BY mis_prod_plan_dl.ITEM_NAME, mis_prod_plan_dl.JOB_ORDER_NO
                                                                         ORDER BY `ITEM_NAME` ASC";
                                                           
@@ -129,8 +134,11 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 $date1=date('Y-m-d', strtotime($year1."-".$month1."01"));
                                                                 $date2=date('Y-m-d', strtotime($year2."-".$month2."01"));
 
-                                                                $sqlprodresult="SELECT PRINT_QTY from mis_product WHERE MONTH(DATE_)='$month1' AND 
-                                                                YEAR(DATE_)='$year1' AND (SUBSTRING(JO_NUM,1,1)='$PlanType')";
+                                                                $sqlprodresult="SELECT mis_product.PRINT_QTY from mis_product 
+                                                                LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
+                                                                WHERE MONTH(mis_prod_plan_dl.DATE_)='$month1' AND 
+                                                                YEAR(mis_prod_plan_dl.DATE_)='$year1' AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
+
                                                                 $sqlprodplan="SELECT PLAN_QTY from mis_prod_plan_dl WHERE  MONTH(DATE_)='$month1' AND 
                                                                 YEAR(DATE_)='$year1' AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
                                                                 /* $sqlitem="SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ 
@@ -152,13 +160,13 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 (MONTH(DATE_)='$month1' AND YEAR(DATE_)='$year1')
                                                                 GROUP BY ITEM_NAME"; */
 
-                                                                $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
-                                                                (mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, NULL as DISP_DATE_
+                                                                $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
+                                                                SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, NULL as DISP_DATE_
                                                                 FROM mis_prod_plan_dl
-                                                                LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
+                                                                LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
                                                                 WHERE 
                                                                 (MONTH(mis_prod_plan_dl.DATE_)='$month1' AND YEAR(mis_prod_plan_dl.DATE_)='$year1') AND 
-                                                                ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
+                                                                ((SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
                                                                 GROUP BY mis_prod_plan_dl.ITEM_NAME
                                                                 ORDER BY ITEM_NAME ASC";
 /* 
@@ -188,8 +196,12 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 $date1=date('Y-m-d', strtotime($year1."-".$month1."01"));
                                                                 $date2=date('Y-m-d', strtotime($year2."-".$month2."01"));
 
-                                                                $sqlprodresult="SELECT PRINT_QTY from mis_product WHERE (DATE_ BETWEEN '$strfrom' AND '$strto') 
-                                                                AND (ITEM_NAME = '$search') AND (SUBSTRING(JO_NUM,1,1)='$PlanType')";
+                                                                $sqlprodresult="SELECT PRINT_QTY from mis_product
+                                                                LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
+                                                                 WHERE (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') 
+                                                                AND (mis_prod_plan_dl.ITEM_NAME = '$search') AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
+
+
                                                                 $sqlprodplan="SELECT PLAN_QTY from mis_prod_plan_dl WHERE (DATE_ BETWEEN '$strfrom' AND '$strto')
                                                                  AND (ITEM_NAME = '$search') AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
                                                                 /* $sqlitem="SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ 
@@ -218,14 +230,14 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 AND (ITEM_NAME = '$search') GROUP BY ITEM_NAME ) as B
                                                                 ORDER BY DISP_DATE_ ASC"; */
 
-                                                                $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
-                                                                (mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_
+                                                                $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
+                                                                SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_
                                                                 FROM mis_prod_plan_dl
-                                                                LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
+                                                                LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
                                                                 WHERE (MONTH(mis_prod_plan_dl.DATE_) BETWEEN '$month1' AND '$month2') 
                                                                AND (YEAR(mis_prod_plan_dl.DATE_)='$year1' OR YEAR(mis_prod_plan_dl.DATE_)='$year2' ) 
-                                                               AND ((mis_prod_plan_dl.ITEM_NAME = '$search') OR (mis_product.ITEM_NAME = '$search')) AND
-                                                                ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
+                                                               AND ((mis_prod_plan_dl.ITEM_NAME = '$search')) AND
+                                                                ((SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
                                                                  GROUP BY ITEM_NAME,JOB_ORDER_NO
                                                                ORDER BY DISP_DATE_ ASC";
 
@@ -253,10 +265,11 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 $date2=date('Y-m-d', strtotime($year2."-".$month2."01"));
 
 
-                                                                $sqlprodresult="SELECT PRINT_QTY 
+                                                                $sqlprodresult="SELECT mis_product.PRINT_QTY 
                                                                 from mis_product 
-                                                                WHERE (MONTH(DATE_) BETWEEN '$month1' AND '$month2') 
-                                                                AND (YEAR(DATE_)='$year1' OR YEAR(DATE_)='$year2' ) AND (SUBSTRING(JO_NUM,1,1)='$PlanType')";
+                                                                LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
+                                                                WHERE (MONTH(mis_prod_plan_dl.DATE_) BETWEEN '$month1' AND '$month2') 
+                                                                AND (YEAR(DATE_)='$year1' OR YEAR(mis_prod_plan_dl.DATE_)='$year2' ) AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
 
                                                                 $sqlprodplan="SELECT PLAN_QTY from mis_prod_plan_dl 
                                                                 WHERE 
@@ -290,15 +303,15 @@ ORDER BY `PLAN_QTY` ASC */
                                                                 AND (YEAR(DATE_)='$year1' OR YEAR(DATE_)='$year2' ) GROUP BY ITEM_NAME ) as B
                                                                 ORDER BY DISP_DATE_ ASC"; */
 
-                                                                $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
-                                                                (mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_
+                                                                $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
+                                                                SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_
                                                                 FROM mis_prod_plan_dl
-                                                                LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
+                                                                LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
                                                                 WHERE (MONTH(mis_prod_plan_dl.DATE_) BETWEEN '$month1' AND '$month2') 
                                                                AND (YEAR(mis_prod_plan_dl.DATE_)='$year1' 
                                                                OR YEAR(mis_prod_plan_dl.DATE_)='$year2' )
                                                                AND (YEAR(mis_prod_plan_dl.DATE_)='$year1' OR YEAR(mis_prod_plan_dl.DATE_)='$year2' ) AND 
-                                                               ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
+                                                               ((SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
                                                                GROUP BY mis_prod_plan_dl.ITEM_NAME
                                                                ORDER BY DISP_DATE_ ASC";
 
