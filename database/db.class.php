@@ -20,7 +20,7 @@ class DBQUERY
         
         $where = (isset($args[1]) && isset($args[2]))? " WHERE ". $args[1] ."=".$args[2] : "";
 
-        $where += (isset($args[3]) && isset($args[4]))? " AND ". $args[3] ."=".$args[4] : "";
+        $where .= (isset($args[3]) && isset($args[4]))? " AND ". $args[3] ."=".$args[4] : "";
 
         $sql = "SELECT * FROM " . $args[0] . $where;
 
