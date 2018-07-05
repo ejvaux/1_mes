@@ -252,32 +252,40 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
                 }).then((result) => {
                   if (result.value) {
 
-                    var data = dt.row( '.selected' ).data();                    
+                    var data = dt.row( '.selected' ).data();
+
                     $.ajax(
                       {
                       method:'post',
-                      url:'/1_mes/_query/master_database/mold/delete.php',
+                      url:'/1_mes/database/table_handler/master/moldlistHandler.php',
                       data:
                       {
-                          'id': data[0],
-                          'ajax': true
+                        'action':'delete',
+                        'id': data[0],
+                        'ajax': true
                       },
                       success: function(data) {
                         /* alert(data); */
-                        DisplayTable1('mold_table','moldsp','Mold List');
-                        loadmodal('masterdatamodal');                        
-                        
-                        $.notify({
-                          icon: 'fas fa-info-circle',
-                          title: 'System Notification: ',
-                          message: data,
-                        },{
-                          type:'success',
-                          placement:{
-                            align: 'center'
-                          },           
-                          delay: 3000,                        
-                        });
+
+                        if(data==true){
+                          DisplayTable1('mold_table','moldsp','Mold List');
+                          loadmodal('masterdatamodal');
+
+                          $.notify({
+                            icon: 'fas fa-info-circle',
+                            title: 'System Notification: ',
+                            message: 'Record deleted successfully!',
+                          },{
+                            type:'success',
+                            placement:{
+                              align: 'center'
+                            },           
+                            delay: 3000,                        
+                          });
+                        }
+                        else{
+                          alert(data);
+                        }                                                
                       }
                       });                    
                   }
@@ -441,28 +449,36 @@ function DisplayTable2(Table_Name,Tablesp,tbltitle) {
                   $.ajax(
                     {
                     method:'post',
-                    url:'/1_mes/_query/master_database/customer/delete.php',
+                    url:'/1_mes/database/table_handler/master/customerHandler.php',
                     data:
                     {
+                      'action':'delete',
                         'id': data[0],
                         'ajax': true
                     },
                     success: function(data) {
                       /* alert(data); */
-                      DisplayTable2('customer_table','customersp','Customer List');
-                      loadmodal('masterdatamodal');
-    
-                      $.notify({
-                        icon: 'fas fa-info-circle',
-                        title: 'System Notification: ',
-                        message: data,
-                      },{
-                        type:'success',
-                        placement:{
-                          align: 'center'
-                        },           
-                        delay: 3000,                        
-                      });
+
+                      if(data==true){
+                        DisplayTable2('customer_table','customersp','Customer List');
+                        loadmodal('masterdatamodal');
+      
+                        $.notify({
+                          icon: 'fas fa-info-circle',
+                          title: 'System Notification: ',
+                          message: 'Record deleted successfully!',
+                        },{
+                          type:'success',
+                          placement:{
+                            align: 'center'
+                          },           
+                          delay: 3000,                        
+                        });
+                      }
+                      else{
+                        alert(data);
+                      }
+                      
                     }
                     });
 
@@ -634,28 +650,35 @@ function DisplayTable3(Table_Name,Tablesp,tbltitle) {
                   $.ajax(
                     {
                     method:'post',
-                    url:'/1_mes/_query/master_database/item/delete.php',
+                    url:'/1_mes/database/table_handler/master/itemHandler.php',
                     data:
                     {
+                      'action':'delete',
                         'id': data[0],
                         'ajax': true
                     },
                     success: function(data) {
                       /* alert(data); */
-                      DisplayTable3('item_list_table','item_listsp','Item List');
-                      loadmodal('masterdatamodal');
+                      if(data==true){
+                        DisplayTable3('item_list_table','item_listsp','Item List');
+                        loadmodal('masterdatamodal');
 
-                      $.notify({
-                        icon: 'fas fa-info-circle',
-                        title: 'System Notification: ',
-                        message: data,
-                      },{
-                        type:'success',
-                        placement:{
-                          align: 'center'
-                        },           
-                        delay: 3000,                        
-                      });
+                        $.notify({
+                          icon: 'fas fa-info-circle',
+                          title: 'System Notification: ',
+                          message: 'Record deleted successfully!',
+                        },{
+                          type:'success',
+                          placement:{
+                            align: 'center'
+                          },           
+                          delay: 3000,                        
+                        });
+                      }
+                      else{
+                        alert(data);
+                      }
+                      
                     }
                     });
 
@@ -823,28 +846,35 @@ function DisplayTable4(Table_Name,Tablesp,tbltitle) {
                 $.ajax(
                   {
                   method:'post',
-                  url:'/1_mes/_query/master_database/machine/delete.php',
+                  url:'/1_mes/database/table_handler/master/machineHandler.php',
                   data:
                   {
+                    'action':'delete',
                       'id': data[0],
                       'ajax': true
                   },
                   success: function(data) {
                     /* alert(data); */
-                    DisplayTable4('machine_list_table','machine_listsp','Machine List');
-                    loadmodal('masterdatamodal');
+                    if(data==true){
+                      DisplayTable4('machine_list_table','machine_listsp','Machine List');
+                      loadmodal('masterdatamodal');
 
-                    $.notify({
-                      icon: 'fas fa-info-circle',
-                      title: 'System Notification: ',
-                      message: data,
-                    },{
-                      type:'success',
-                      placement:{
-                        align: 'center'
-                      },           
-                      delay: 3000,                        
-                    });
+                      $.notify({
+                        icon: 'fas fa-info-circle',
+                        title: 'System Notification: ',
+                        message: data,
+                      },{
+                        type:'success',
+                        placement:{
+                          align: 'center'
+                        },           
+                        delay: 3000,                        
+                      });
+                    }
+                    else{
+                      alert(data);
+                    }
+                    
                   }
                   });
 
@@ -1009,28 +1039,35 @@ function DisplayTable5(Table_Name,Tablesp,tbltitle) {
                   $.ajax(
                     {
                     method:'post',
-                    url:'/1_mes/_query/master_database/defect/delete.php',
+                    url:'/1_mes/database/table_handler/master/defectHandler.php',
                     data:
                     {
+                      'action':'delete',
                         'id': data[0],
                         'ajax': true
                     },
                     success: function(data) {
                       
-                      DisplayTable5('defect_code_table','defect_codesp','Defect Code');
-                      loadmodal('masterdatamodal');
+                      if(data==true){
+                        DisplayTable5('defect_code_table','defect_codesp','Defect Code');
+                        loadmodal('masterdatamodal');
 
-                      $.notify({
-                        icon: 'fas fa-info-circle',
-                        title: 'System Notification: ',
-                        message: data,
-                      },{
-                        type:'success',
-                        placement:{
-                          align: 'center'
-                        },           
-                        delay: 3000,                        
-                      });
+                        $.notify({
+                          icon: 'fas fa-info-circle',
+                          title: 'System Notification: ',
+                          message: 'Record deleted successfully!',
+                        },{
+                          type:'success',
+                          placement:{
+                            align: 'center'
+                          },           
+                          delay: 3000,                        
+                        });
+                      }
+                      else{
+                        alert(data);
+                      }
+                      
                     }
                     });
 
@@ -1195,27 +1232,34 @@ function DisplayTable6(Table_Name,Tablesp,tbltitle) {
                   $.ajax(
                     {
                     method:'post',
-                    url:'/1_mes/_query/master_database/userinfo/delete.php',
+                    url:'/1_mes/database/table_handler/master/userinfoHandler.php',
                     data:
                     {
+                      'action':'delete',
                         'id': data[0],
                         'ajax': true
                     },
                     success: function(data) {
-                      DisplayTable6('user_info_table','user_infosp','User Information');
-                      loadmodal('masterdatamodal');
+                      if(data==true){
+                        DisplayTable6('user_info_table','user_infosp','User Information');
+                        loadmodal('masterdatamodal');
+                        
+                        $.notify({
+                          icon: 'fas fa-info-circle',
+                          title: 'System Notification: ',
+                          message: 'Record deleted successfully!',
+                        },{
+                          type:'success',
+                          placement:{
+                            align: 'center'
+                          },           
+                          delay: 3000,                        
+                        });
+                      }
+                      else{
+                        alert(data);
+                      }
                       
-                      $.notify({
-                        icon: 'fas fa-info-circle',
-                        title: 'System Notification: ',
-                        message: data,
-                      },{
-                        type:'success',
-                        placement:{
-                          align: 'center'
-                        },           
-                        delay: 3000,                        
-                      });
                     }
                     });
 
@@ -1376,27 +1420,34 @@ function DisplayTable7(Table_Name,Tablesp,tbltitle) {
                   $.ajax(
                     {
                     method:'post',
-                    url:'/1_mes/_query/master_database/userauth/delete.php',
+                    url:'/1_mes/database/table_handler/master/userauthHandler.php',
                     data:
                     {
+                      'action':'delete',
                         'id': data[0],
                         'ajax': true
                     },
                     success: function(data) {
-                      DisplayTable7('user_auth_table','user_authsp','User Authority');
-                      loadmodal('masterdatamodal');
+                      if(data==true){
+                        DisplayTable7('user_auth_table','user_authsp','User Authority');
+                        loadmodal('masterdatamodal');
 
-                      $.notify({
-                        icon: 'fas fa-info-circle',
-                        title: 'System Notification: ',
-                        message: data,
-                      },{
-                        type:'success',
-                        placement:{
-                          align: 'center'
-                        },           
-                        delay: 3000,                        
-                      });
+                        $.notify({
+                          icon: 'fas fa-info-circle',
+                          title: 'System Notification: ',
+                          message: 'Record deleted successfully!',
+                        },{
+                          type:'success',
+                          placement:{
+                            align: 'center'
+                          },           
+                          delay: 3000,                        
+                        });
+                      }
+                      else{
+                        alert(data);
+                      }
+                      
                     }
                     });
 
@@ -1559,27 +1610,34 @@ function DisplayTable8(Table_Name,Tablesp,tbltitle) {
                   $.ajax(
                     {
                     method:'post',
-                    url:'/1_mes/_query/master_database/divcode/delete.php',
+                    url:'/1_mes/database/table_handler/master/divisionHandler.php',
                     data:
                     {
+                      'action':'delete',
                         'id': data[0],
                         'ajax': true
                     },
                     success: function(data) {
-                      DisplayTable8('division_code_table','division_codesp','Division Code');
-                      loadmodal('masterdatamodal');
+                      if(data==true){
+                        DisplayTable8('division_code_table','division_codesp','Division Code');
+                        loadmodal('masterdatamodal');
 
-                      $.notify({
-                        icon: 'fas fa-info-circle',
-                        title: 'System Notification: ',
-                        message: data,
-                      },{
-                        type:'success',
-                        placement:{
-                          align: 'center'
-                        },           
-                        delay: 3000,                        
-                      });
+                        $.notify({
+                          icon: 'fas fa-info-circle',
+                          title: 'System Notification: ',
+                          message: 'Record deleted successfully!',
+                        },{
+                          type:'success',
+                          placement:{
+                            align: 'center'
+                          },           
+                          delay: 3000,                        
+                        });
+                      }
+                      else{
+                        alert(data);
+                      }
+                      
                     }
                     });
 
@@ -1713,27 +1771,34 @@ function DisplayTable9(Table_Name,Tablesp,tbltitle) {
                   $.ajax(
                     {
                     method:'post',
-                    url:'/1_mes/_query/master_database/employee/delete.php',
+                    url:'/1_mes/database/table_handler/master/employeeHandler.php',
                     data:
                     {
+                      'action':'delete',
                         'id': data[0],
                         'ajax': true
                     },
                     success: function(data) {
-                      DisplayTable9('employee_table','employeesp','Employee List');
-                      loadmodal('masterdatamodal');
+                      if(data==true){
+                        DisplayTable9('employee_table','employeesp','Employee List');
+                        loadmodal('masterdatamodal');
 
-                      $.notify({
-                        icon: 'fas fa-info-circle',
-                        title: 'System Notification: ',
-                        message: data,
-                      },{
-                        type:'success',
-                        placement:{
-                          align: 'center'
-                        },           
-                        delay: 3000,                        
-                      });
+                        $.notify({
+                          icon: 'fas fa-info-circle',
+                          title: 'System Notification: ',
+                          message: 'Record deleted successfully!',
+                        },{
+                          type:'success',
+                          placement:{
+                            align: 'center'
+                          },           
+                          delay: 3000,                        
+                        });
+                      }
+                      else{
+                        alert(alert);
+                      }
+                      
                     }
                     });
 

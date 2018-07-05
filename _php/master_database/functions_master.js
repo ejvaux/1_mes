@@ -6,14 +6,15 @@ $('#mod').on('submit','#moldlistform', function (e) {
     /* alert('TEST'); */
     e.preventDefault();
     e.stopImmediatePropagation();
-
+    var formdata =  $('#moldlistform').serializeArray();
+    formdata.push({name: 'action', value: 'insert'});
     $.ajax({
       type: 'POST',
-      url: '/1_mes/_query/master_database/mold/insert.php',
-      data: $('#moldlistform').serialize(),
+      url: '/1_mes/database/table_handler/master/moldlistHandler.php',
+      data: $.param(formdata),
       success: function (data) {
         /* alert(data); */   
-        if(data=="success"){          
+        if(data==true){          
           /* alert("Record saved successfully!"); */
           $('#moldlistform').trigger('reset');
           $('#moldlistmod').modal('hide');          
@@ -48,13 +49,14 @@ $('#mod').on('submit','#emoldlistform', function (e) {
   /* alert('TEST'); */
   e.preventDefault();
   e.stopImmediatePropagation();
-  
+  var formdata =  $('#emoldlistform').serializeArray();
+  formdata.push({name: 'action', value: 'update'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/mold/update.php',
-    data: $('#emoldlistform').serialize(),
+    url: '/1_mes/database/table_handler/master/moldlistHandler.php',
+    data: $.param(formdata),
     success: function (data) {    
-      if(data=="success"){
+      if(data==true){
         /* alert("Record Updated Successfully!"); */
         $('#emoldlistform').trigger('reset');
         $('#emoldlistmod').modal('hide');
@@ -94,14 +96,15 @@ $('#mod').on('submit','#customerform', function (e) {
     /* alert('TEST'); */
     e.preventDefault();
     e.stopImmediatePropagation();
-    
+    var formdata =  $('#customerform').serializeArray();
+    formdata.push({name: 'action', value: 'insert'});
     $.ajax({
       type: 'POST',
-      url: '/1_mes/_query/master_database/customer/insert.php',
-      data: $('#customerform').serialize(),
+      url: '/1_mes/database/table_handler/master/customerHandler.php',
+      data: $.param(formdata),
       success: function (data) {
         /* alert(data); */   
-        if(data=="success"){
+        if(data==true){
           /* alert("Record saved successfully!"); */
           $('#customerform').trigger('reset');
           $('#customermod').modal('hide');          
@@ -136,13 +139,14 @@ $('#mod').on('submit','#ecustomerform', function (e) {
   /* alert('TEST'); */
   e.preventDefault();
     e.stopImmediatePropagation();
-  
+    var formdata =  $('#ecustomerform').serializeArray();
+    formdata.push({name: 'action', value: 'update'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/customer/update.php',
-    data: $('#ecustomerform').serialize(),
-    success: function (data) {    
-      if(data=="success"){
+    url: '/1_mes/database/table_handler/master/customerHandler.php',
+    data: $.param(formdata),
+    success: function (data) {
+      if(data==true){
         /* alert("Record Updated Successfully!"); */
         $('#ecustomerform').trigger('reset');
         $('#ecustomermod').modal('hide');
@@ -181,15 +185,16 @@ $('#mod').on('submit','#ecustomerform', function (e) {
 $('#mod').on('submit','#itemform', function (e) {           
   /* alert('TEST'); */
   e.preventDefault();
-    e.stopImmediatePropagation();
-  
+  e.stopImmediatePropagation();
+  var formdata =  $('#itemform').serializeArray();
+  formdata.push({name: 'action', value: 'insert'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/item/insert.php',
-    data: $('#itemform').serialize(),
+    url: '/1_mes/database/table_handler/master/itemHandler.php',
+    data: $.param(formdata),
     success: function (data) {
       /* alert(data); */   
-      if(data=="success"){
+      if(data==true){
         /* alert("Record saved successfully!"); */
         $('#itemform').trigger('reset');
         $('#itemmod').modal('hide');          
@@ -224,14 +229,15 @@ $('#mod').on('submit','#itemform', function (e) {
 $('#mod').on('submit','#eitemform', function (e) {           
   /* alert('TEST');  */
   e.preventDefault();
-    e.stopImmediatePropagation();
-  
+  e.stopImmediatePropagation();
+  var formdata =  $('#eitemform').serializeArray();
+  formdata.push({name: 'action', value: 'update'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/item/update.php',
-    data: $('#eitemform').serialize(),
+    url: '/1_mes/database/table_handler/master/itemHandler.php',
+    data: $.param(formdata),
     success: function (data) {    
-      if(data=="success"){
+      if(data==true){
         /* alert("Record Updated Successfully!"); */
         $('#eitemform').trigger('reset');
         $('#eitemmod').modal('hide');
@@ -271,13 +277,14 @@ $('#mod').on('submit','#machineform', function (e) {
   /* alert('TEST'); */
   e.preventDefault();
     e.stopImmediatePropagation();
-  
+    var formdata =  $('#machineform').serializeArray();
+    formdata.push({name: 'action', value: 'insert'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/machine/insert.php',
-    data: $('#machineform').serialize(),
+    url: '/1_mes/database/table_handler/master/machineHandler.php',
+    data: $.param(formdata),
     success: function (data) {         
-      if(data=="success"){
+      if(data==true){
         /* alert("Record saved successfully!"); */
         $('#machineform').trigger('reset');
         $('#machinemod').modal('hide');          
@@ -312,13 +319,14 @@ $('#mod').on('submit','#emachineform', function (e) {
   /* alert('TEST');  */
   e.preventDefault();
     e.stopImmediatePropagation(); 
-  
+    var formdata =  $('#emachineform').serializeArray();
+    formdata.push({name: 'action', value: 'update'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/machine/update.php',
-    data: $('#emachineform').serialize(),
+    url: '/1_mes/database/table_handler/master/machineHandler.php',
+    data: $.param(formdata),
     success: function (data) {    
-      if(data=="success"){
+      if(data==true){
         /* alert("Record Updated Successfully!"); */
         $('#emachineform').trigger('reset');
         $('#emachinemod').modal('hide');
@@ -358,13 +366,14 @@ $('#mod').on('submit','#defectform', function (e) {
   /* alert('TEST'); */
   e.preventDefault();
     e.stopImmediatePropagation();
-  
+    var formdata =  $('#defectform').serializeArray();
+    formdata.push({name: 'action', value: 'insert'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/defect/insert.php',
-    data: $('#defectform').serialize(),
+    url: '/1_mes/database/table_handler/master/defectHandler.php',
+    data: $.param(formdata),
     success: function (data) {         
-      if(data=="success"){
+      if(data==true){
         /* alert("Record saved successfully!"); */
         $('#defectform').trigger('reset');
         $('#defectmod').modal('hide');          
@@ -399,13 +408,14 @@ $('#mod').on('submit','#edefectform', function (e) {
   /* alert('TEST');  */
   e.preventDefault();
     e.stopImmediatePropagation(); 
-  
+    var formdata =  $('#edefectform').serializeArray();
+    formdata.push({name: 'action', value: 'update'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/defect/update.php',
-    data: $('#edefectform').serialize(),
+    url: '/1_mes/database/table_handler/master/defectHandler.php',
+    data: $.param(formdata),
     success: function (data) {    
-      if(data=="success"){
+      if(data==true){
         /* alert("Record Updated Successfully!"); */
         $('#edefectform').trigger('reset');
         $('#edefectmod').modal('hide');
@@ -446,13 +456,14 @@ $('#mod').on('submit','#userinfoform', function (e) {
   /* alert('TEST'); */
   e.preventDefault();
     e.stopImmediatePropagation();
-  
+    var formdata =  $('#userinfoform').serializeArray();
+    formdata.push({name: 'action', value: 'insert'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/userinfo/insert.php',
-    data: $('#userinfoform').serialize(),
+    url: '/1_mes/database/table_handler/master/userinfoHandler.php',
+    data: $.param(formdata),
     success: function (data) {         
-      if(data=="success"){
+      if(data==true){
         /* alert("Record saved successfully!"); */
         $('#userinfoform').trigger('reset');
         $('#userinfomod').modal('hide');          
@@ -487,13 +498,14 @@ $('#mod').on('submit','#euserinfoform', function (e) {
   /* alert('TEST'); */
   e.preventDefault();
     e.stopImmediatePropagation();  
-  
+    var formdata =  $('#euserinfoform').serializeArray();
+    formdata.push({name: 'action', value: 'update'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/userinfo/update.php',
-    data: $('#euserinfoform').serialize(),
+    url: '/1_mes/database/table_handler/master/userinfoHandler.php',
+    data: $.param(formdata),
     success: function (data) {    
-      if(data=="success"){
+      if(data==true){
         /* alert("Record Updated Successfully!"); */
         $('#euserinfoform').trigger('reset');
         $('#euserinfomod').modal('hide');
@@ -533,13 +545,14 @@ $('#mod').on('submit','#userauthform', function (e) {
   /* alert('TEST'); */
   e.preventDefault();
     e.stopImmediatePropagation();
-  
+    var formdata =  $('#userauthform').serializeArray();
+    formdata.push({name: 'action', value: 'insert'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/userauth/insert.php',
-    data: $('#userauthform').serialize(),
+    url: '/1_mes/database/table_handler/master/userauthHandler.php',
+    data: $.param(formdata),
     success: function (data) {         
-      if(data=="success"){
+      if(data==true){
         /* alert("Record saved successfully!"); */
         $('#userauthform').trigger('reset');
         $('#userauthmod').modal('hide');          
@@ -574,13 +587,14 @@ $('#mod').on('submit','#euserauthform', function (e) {
   /* alert('TEST'); */
   e.preventDefault();
     e.stopImmediatePropagation(); 
-  
+    var formdata =  $('#euserauthform').serializeArray();
+    formdata.push({name: 'action', value: 'update'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/userauth/update.php',
-    data: $('#euserauthform').serialize(),
+    url: '/1_mes/database/table_handler/master/userauthHandler.php',
+    data: $.param(formdata),
     success: function (data) {    
-      if(data=="success"){
+      if(data==true){
         /* alert("Record Updated Successfully!"); */
         $('#euserauthform').trigger('reset');
         $('#euserauthmod').modal('hide');
@@ -620,13 +634,14 @@ $('#mod').on('submit','#divcodeform', function (e) {
   /* alert('TEST'); */
   e.preventDefault();
     e.stopImmediatePropagation();
-  
+    var formdata =  $('#divcodeform').serializeArray();
+    formdata.push({name: 'action', value: 'insert'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/divcode/insert.php',
-    data: $('#divcodeform').serialize(),
+    url: '/1_mes/database/table_handler/master/divisionHandler.php',
+    data: $.param(formdata),
     success: function (data) {         
-      if(data=="success"){
+      if(data==true){
         /* alert("Record saved successfully!"); */
         $('#divcodeform').trigger('reset');
         $('#divcodemod').modal('hide');          
@@ -661,13 +676,14 @@ $('#mod').on('submit','#edivcodeform', function (e) {
   /* alert('TEST');  */
   e.preventDefault();
     e.stopImmediatePropagation();
-  
+    var formdata =  $('#edivcodeform').serializeArray();
+    formdata.push({name: 'action', value: 'update'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/divcode/update.php',
-    data: $('#edivcodeform').serialize(),
+    url: '/1_mes/database/table_handler/master/divisionHandler.php',
+    data: $.param(formdata),
     success: function (data) {    
-      if(data=="success"){
+      if(data==true){
         /* alert("Record Updated Successfully!"); */
         $('#edivcodeform').trigger('reset');
         $('#edivcodemod').modal('hide');
@@ -707,13 +723,14 @@ $('#mod').on('submit','#employeeform', function (e) {
   /* alert('TEST'); */
   e.preventDefault();
     e.stopImmediatePropagation();
-  
+    var formdata =  $('#employeeform').serializeArray();
+    formdata.push({name: 'action', value: 'insert'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/employee/insert.php',
-    data: $('#employeeform').serialize(),
+    url: '/1_mes/database/table_handler/master/employeeHandler.php',
+    data: $.param(formdata),
     success: function (data) {         
-      if(data=="success"){
+      if(data==true){
         /* alert("Record saved successfully!"); */
         $('#employeeform').trigger('reset');
         $('#employeemod').modal('hide');          
@@ -748,13 +765,14 @@ $('#mod').on('submit','#eemployeeform', function (e) {
   /* alert('TEST');  */
   e.preventDefault();
     e.stopImmediatePropagation();
-  
+    var formdata =  $('#eemployeeform').serializeArray();
+    formdata.push({name: 'action', value: 'update'});
   $.ajax({
     type: 'POST',
-    url: '/1_mes/_query/master_database/employee/update.php',
-    data: $('#eemployeeform').serialize(),
+    url: '/1_mes/database/table_handler/master/employeeHandler.php',
+    data: $.param(formdata),
     success: function (data) {    
-      if(data=="success"){
+      if(data==true){
         /* alert("Record Updated Successfully!"); */
         $('#eemployeeform').trigger('reset');
         $('#eemployeemod').modal('hide');
