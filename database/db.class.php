@@ -107,8 +107,8 @@ class DBQUERY
         if ($conn->query($sql) === TRUE) {        
             return TRUE;
         } else {            
-            /* return "Error updating record: " . $conn->error; */
-            return $sql;       
+            return "Error updating record: " . $conn->error;
+            /* return $sql;  */      
         }                
         
         $conn->close();
