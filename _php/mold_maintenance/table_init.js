@@ -393,9 +393,11 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         });
         
       } );
-
+      var dt = new Date();
+      dt.setMonth(dt.getMonth() - 1);
+      dt.setDate(1);
       $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
       
       $('#min').val(startdate);
       $('#max').val(enddate);
@@ -435,7 +437,8 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        checkuserauth();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        checkuserauth(dtdt,dtdt);
       });
 
       /* $('#min, #max').keyup( function() {
@@ -666,9 +669,11 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         });
         
       } );
-
+      var dt = new Date();
+      dt.setMonth(dt.getMonth() - 1);
+      dt.setDate(1);
       $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
 
       $('#min').val(startdate);
       $('#max').val(enddate);
@@ -708,7 +713,8 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        checkuserauth();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        checkuserauth(dtdt,dtdt);
       });
 
       /* ____________________________ FUNCTIONS _________________________ */
@@ -1007,9 +1013,11 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
       
     } );
-
+    var dt = new Date();
+      dt.setMonth(dt.getMonth() - 1);
+      dt.setDate(1);
     $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-    $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+    $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
 
     $('#min').val(startdate);
     $('#max').val(enddate);
@@ -1049,7 +1057,8 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        checkuserauth();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        checkuserauth(dtdt,dtdt);
       });
 
       /* ____________________________ FUNCTIONS _________________________ */
@@ -1388,9 +1397,11 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         }
       });                   
   } );
-
+  var dt = new Date();
+  dt.setMonth(dt.getMonth() - 1);
+  dt.setDate(1);
     $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-    $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+    $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
 
     $('#min').val(startdate);
     $('#max').val(enddate);
@@ -1430,7 +1441,8 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        checkuserauth();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        checkuserauth(dtdt,dtdt);
       });
 
 
@@ -1663,9 +1675,11 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         });
         
     } );
-
+    var dt = new Date();
+      dt.setMonth(dt.getMonth() - 1);
+      dt.setDate(1);
     $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-    $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+    $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
 
       $('#min').val(startdate);
       $('#max').val(enddate);
@@ -1705,7 +1719,8 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        checkuserauth();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        checkuserauth(dtdt,dtdt);
       });
 
       /* ____________________________ FUNCTIONS _________________________ */
@@ -1749,7 +1764,7 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
             "eday": enddate
           }
         },            
-        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-5"<"dr">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [            
           { text: '<i class="fas fa-plus"></i>',
             attr:  {
@@ -1877,8 +1892,10 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
               cell.innerHTML = i+1;
           } );
       } ).draw();
-
-      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+      var dt = new Date();
+      dt.setMonth(dt.getMonth() - 1);
+      dt.setDate(1);
+      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
 
       $('#min').val(startdate);
       $('#max').val(enddate);
@@ -1904,7 +1921,9 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        checkuserauthH();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+          var dtdt2 = moment(dtdt,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+        checkuserauthH(dtdt,dtdt2);
       });
 
       /* ____________________________ FUNCTIONS _________________________ */
@@ -1960,7 +1979,7 @@ function DisplayTbleH(Table_Name,Tablesp,tbltitle,startdate,enddate) {
             "eday": enddate
           }
         },            
-        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-5"<"dr">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [             
           { extend: 'copy', text: '<i class="far fa-copy"></i>', 
           attr:  {
@@ -1991,8 +2010,10 @@ function DisplayTbleH(Table_Name,Tablesp,tbltitle,startdate,enddate) {
               cell.innerHTML = i+1;
           } );
       } ).draw();
-
-      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+      var dt = new Date();
+      dt.setMonth(dt.getMonth() - 1);
+      dt.setDate(1);
+      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
 
       $('#min').val(startdate);
       $('#max').val(enddate);
@@ -2018,7 +2039,9 @@ function DisplayTbleH(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        checkuserauthH();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        var dtdt2 = moment(dtdt,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+        checkuserauthH(dtdt,dtdt2);
       });
 
       /* ____________________________ FUNCTIONS _________________________ */
@@ -2066,7 +2089,7 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
             "eday": enddate
           }
         },            
-        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-5"<"dr">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [            
           { text: '<i class="fas fa-plus"></i>',
             attr:  {
@@ -2256,8 +2279,10 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
               cell.innerHTML = i+1;
           } );
       } ).draw();
-
-      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+      var dt = new Date();
+      dt.setMonth(dt.getMonth() - 1);
+      dt.setDate(1);
+      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
 
       $('#min').val(startdate);
       $('#max').val(enddate);
@@ -2340,7 +2365,9 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        checkuserauthF();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        var dtdt2 = moment(dtdt,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+        checkuserauthF(dtdt,dtdt2);
       });
 
       /* ____________________________ FUNCTIONS _________________________ */
@@ -2401,7 +2428,7 @@ $.fn.dataTable.ext.buttons.addfab1 = {
                 "eday": enddate
               }
             },            
-            "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-5"<"dr">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+            "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
             'buttons': [            
               { text: '<i class="fas fa-plus"></i>',
                 attr:  {
@@ -2489,8 +2516,10 @@ $.fn.dataTable.ext.buttons.addfab1 = {
                   cell.innerHTML = i+1;
               } );
           } ).draw();
-
-          $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+          var dt = new Date();
+          dt.setMonth(dt.getMonth() - 1);
+          dt.setDate(1);
+          $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
 
           $('#min').val(startdate);
           $('#max').val(enddate);
@@ -2573,7 +2602,9 @@ $.fn.dataTable.ext.buttons.addfab1 = {
           });
     
           $('#refresh').on('click',function(){
-            checkuserauthF();
+            var dtdt =moment(Date()).format('YYYY-MM-DD');
+            var dtdt2 = moment(dtdt,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();            
+            checkuserauthF(dtdt,dtdt2);
           });
     
           /* ____________________________ FUNCTIONS _________________________ */
