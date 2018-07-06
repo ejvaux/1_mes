@@ -17,7 +17,7 @@ $errorProducts="";
 
 $conn2 = sqlsrv_connect($serverName,$connectionInfo);
 if(!$conn2){echo "Connection failure</br>";}
-$sql="SELECT TOP(500) * from LogTable  ORDER BY date DESC";
+$sql="SELECT TOP(500) * from LogTable ORDER BY date DESC";
 $result=sqlsrv_query($conn2,$sql);
 
 while($row=sqlsrv_fetch_array($result))
@@ -80,7 +80,6 @@ elseif ($classify=="T") {
 	   else
 	   {
 	   //data exists
-	   
 
 	   }
 

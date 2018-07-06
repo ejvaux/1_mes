@@ -46,8 +46,8 @@
                   <label for="itemcode" class="col-form-label-sm">ITEM CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="itemcode" class="form-control form-control-sm sel" name="itemcode" placeholder="" onchange="getitemname('itemcode',itemname);" required>
-                  <option value="">-Please select-</option>
+                  <select id="itemcode" class="form-control form-control-sm sel" name="itemcode" placeholder="" onchange="getitemname('itemcode',itemname);">
+                    
                   <?php
 
                   include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -78,8 +78,8 @@
                   <label for="amcustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="amcustomercode" type="text" class="form-control form-control-sm sel" name="customercode" placeholder="" onchange="getcustomername('amcustomercode',amcustomername);" required>
-                  <option value="">-Please select-</option>
+                  <select id="amcustomercode" type="text" class="form-control form-control-sm sel" name="customercode" placeholder="" onchange="getcustomername('amcustomercode',amcustomername);" >
+
                     <?php
 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -319,8 +319,8 @@
                   <label for="cdivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="cdivisioncode" class="form-control form-control-sm sel" name="divisioncode" placeholder=""  required>
-                  <option value="">-Please select-</option>
+                  <select id="cdivisioncode" class="form-control form-control-sm sel" name="divisioncode" placeholder="">
+                  
                   <?php
 
                   include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -404,7 +404,7 @@
                   <label for="itemcode" class="col-form-label-sm">ITEM CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="itemcode" type="text" class="form-control form-control-sm" name="itemcode" placeholder="" required>                  
+                  <input id="itemcode" type="text" class="form-control form-control-sm" name="itemcode" placeholder="" required required>                  
                 </div>
               </div>
             </div>
@@ -414,8 +414,8 @@
                   <label for="aicustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="aicustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcustomername('aicustomercode',aicustomername)" placeholder="" required>
-                  <option value="">-Please select-</option>
+                  <select id="aicustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcustomername('aicustomercode',aicustomername)" placeholder="">
+                    
                   <?php
 
                   include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -482,8 +482,8 @@
                   <label for="idivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="idivisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder=""  required>
-                  <option value="">-Please select-</option>
+                  <select id="idivisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder="">
+                  
                   <?php
 
                   include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -725,8 +725,8 @@
                   <label for="divisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="divisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder="" required>
-                  <option value="">-Please select-</option>
+                  <select id="divisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder="">
+                  
                   <?php
 
                   include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -844,7 +844,7 @@
                 </div>
                 <div class="col-7">
                   <select id="userauthority" type="text" class="form-control form-control-sm sel" name="userauthority" placeholder="" required> 
-                  <option value="">-Please select-</option>
+                    
                   <?php
 
                   include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1077,7 +1077,7 @@
                 </div>
                 <div class="col-7">
                   <select id="emdivision" type="text" class="form-control form-control-sm" name="division" placeholder="">
-                  <option value="">-Please select-</option>
+
                     <?php
 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1170,8 +1170,8 @@
                   <label for="eitemcode" class="col-form-label-sm">ITEM CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eitemcode" type="text" class="form-control form-control-sm sel" name="eitemcode" placeholder="" onchange="getitemname('eitemcode',eitemname);"  required>
-                  <option value="">-Please select-</option>
+                  <select id="eitemcode" type="text" class="form-control form-control-sm sel" name="eitemcode" placeholder="" onchange="getitemname('eitemcode',eitemname);">
+                  
                     <?php
 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1202,8 +1202,8 @@
                   <label for="ecustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="ecustomercode" type="text" class="form-control form-control-sm sel" name="ecustomercode" placeholder="" onchange="getcustomername('ecustomercode',ecustomername)"  required>
-                  <option value="">-Please select-</option>
+                  <select id="ecustomercode" type="text" class="form-control form-control-sm sel" name="ecustomercode" placeholder="" onchange="getcustomername('ecustomercode',ecustomername)">
+                  
                     <?php
 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1440,8 +1440,8 @@
                   <label for="ecdivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="ecdivisioncode" type="text" class="form-control form-control-sm sel" name="ecdivisioncode" placeholder=""  required>
-                  <option value="">-Please select-</option>
+                  <select id="ecdivisioncode" type="text" class="form-control form-control-sm sel" name="ecdivisioncode" placeholder="">
+                  
                   <?php
 
                   include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1537,8 +1537,8 @@
                   <label for="eicustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eicustomercode" type="text" class="form-control form-control-sm sel" name="eicustomercode" onchange="getcustomername('eicustomercode',eicustomername)" placeholder=""  required>
-                  <option value="">-Please select-</option>
+                  <select id="eicustomercode" type="text" class="form-control form-control-sm sel" name="eicustomercode" onchange="getcustomername('eicustomercode',eicustomername)" placeholder="" >
+                    
                     <?php
 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1605,8 +1605,8 @@
                   <label for="eidivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eidivisioncode" type="text" class="form-control form-control-sm  sel" name="eidivisioncode" placeholder=""  required>
-                  <option value="">-Please select-</option>
+                  <select id="eidivisioncode" type="text" class="form-control form-control-sm  sel" name="eidivisioncode" placeholder="">
+                  
                   <?php
 
                   include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1850,8 +1850,8 @@
                   <label for="eddivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eddivisioncode" type="text" class="form-control form-control-sm sel" name="eddivisioncode" placeholder=""  required>
-                  <option value="">-Please select-</option>
+                  <select id="eddivisioncode" type="text" class="form-control form-control-sm sel" name="eddivisioncode" placeholder="">
+                    
                   <?php
 
                   include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -1970,7 +1970,7 @@
                 </div>
                 <div class="col-7">
                   <select id="euuserauthority" type="text" class="form-control form-control-sm sel" name="euuserauthority" placeholder="" required>
-                  <option value="">-Please select-</option>
+
                     <?php
 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
@@ -2184,8 +2184,7 @@
                 </div>
                 <div class="col-7">
                   <select id="eemployeestatus" type="text" class="form-control form-control-sm" name="employeestatus" placeholder="" required>                  
-                      
-                      <option value="">-Please select-</option>
+                
                       <option value="ACTIVE">ACTIVE</option>
                       <option value="RESIGNED">RESIGNED</option>
                       <option value="AWOL">AWOL</option>
@@ -2213,8 +2212,8 @@
                   <label for="eemdivision" class="col-form-label-sm">DIVISION:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eemdivision" type="text" class="form-control form-control-sm" name="division" placeholder=""  required>
-                  <option value="">-Please select-</option>
+                  <select id="eemdivision" type="text" class="form-control form-control-sm" name="division" placeholder="">
+
                     <?php
 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  

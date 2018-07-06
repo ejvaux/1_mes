@@ -1,17 +1,21 @@
+var username;
 function loadDoc(TableName, uname) {
+  username = uname;
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
      document.getElementById("table_display").innerHTML = this.responseText;
-
+      
      
       if (TableName == 'LotCreate'){
-        DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp', uname)
-        DisplayTable2('CreatedLot', 'CreatedLotSP', 'Created_Lot')
+        DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp', uname);
+        DisplayTable2('CreatedLot', 'CreatedLotSP', 'Created_Lot');
         /* DisplayTable3('PendingLot', 'PendingLotSP', 'Pending_Lot') */
       }
       else if(TableName == 'ItemReceiving'){
-        DisplayTableItemReceiving('ItemReceivedTable', 'ItemReceivedTableSP', 'Received_Items', uname)
+        DisplayTableItemReceiving('ItemReceivedTable', 'ItemReceivedTableSP', uname);
+        //ReloadTableList()
+        DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', '123');
       }
     }
   };
@@ -42,14 +46,9 @@ function AddBtnClick(){
             var val = JSON.parse(data);
           if (val != undefined){
               if (val.LOT_NUM == null || val.LOT_NUM == "" || val.LOT_NUM == undefined ){
-                  var x = document.getElementById("DanplaTable").rows.length;
-                  var check = "false";
-                          if(x >= 1){
-                            check = CheckDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);    
-                            }
-                          else if(x = 0){
-                            InsertDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
-                            } 
+                 
+                  CheckDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);    
+                            
                 }
                 else{
                   swal(
@@ -87,7 +86,7 @@ function InsertDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, i
         },
     success: function(data) {
       swal({text: data, type: 'success'});
-      DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp');
+      DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp', username);
                       }
                     });
 
@@ -100,12 +99,8 @@ function CheckDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, in
     url:'/1_mes/_php/QualityManagement/query/get/getDanplaJO.php',
     data:
         {
-          'jo_barcode': insertBarcode ,
-          'jo_num': insertJO ,
-          'item_code': insertItemCode ,
-          'item_name': insertItemName ,
-          'print_qty': insertQuantity ,
-          'machine_code': insertMachine,
+          'jo_barcode': insertBarcode,
+          'jo_num': insertJO,
           'ajax': true
         },
     success: function(data) {
@@ -162,7 +157,7 @@ function generateLot(){
     return;
   }
   else{
-  var x = document.getElementById("DanplaTable").rows[1].cells[1].innerHTML;
+  var joborder = document.getElementById("DanplaTable").rows[1].cells[2].innerHTML;
   var y = document.getElementById("DanplaTable").rows[1].cells[6].innerHTML;
   }
 
@@ -170,14 +165,14 @@ function generateLot(){
     method:'post',
     url:'/1_mes/_php/QualityManagement/query/get/GetNextLot.php',
     data:{
-      'jo_num':x,
+      'jo_num': joborder,
       'machine_code': y,
       'ajax' : true
     },
     success: function(data){
       if (data == "true" || data== "false" ){
         buildLotNumber(newL);
-        AddLotBtnClick(lotNO);
+        AddLotBtnClick(lotNO, joborder);
       }
       else if (data != "false" || data != "true"){
       var val = JSON.parse(data);
@@ -185,13 +180,13 @@ function generateLot(){
                   var series= val.slice(-1);
                   var i = parseInt(series) + 1;
         lotNew = lotPrev + i;
-        AddLotBtnClick(lotNew);
+        AddLotBtnClick(lotNew, joborder);
       }
     }
   });
 }
 
-function AddLotBtnClick(newLot){
+function AddLotBtnClick(newLot,joborder){
   var x = document.getElementById("DanplaTable").rows.length;
   if (newLot==undefined){
     alert("No Lot Number Try Again");
@@ -214,12 +209,13 @@ function AddLotBtnClick(newLot){
         url: '/1_mes/_php/QualityManagement/query/insert/InsertLotTable.php',
         data:
           {
+            'jo_num': joborder,
             'row_count': x,
             'lot_number': newLot,
             'ajax': true
           },
         success: function (data) {
-          loadDoc('LotCreate');
+          loadDoc('LotCreate',username);
           lotNO = "";
           swal(
             'Lot ' + newLot + ' Created!',
@@ -1263,14 +1259,6 @@ function DisplayTable1(Table_Name, Tablesp, tbltitle, tbluser) {
             },
             className: 'btn btn-export6 btn-xs py-1'
           },
-          {
-            extend: 'excel', text: '<i class="fas fa-table"></i>',
-            attr: {
-              title: 'Export to Excel',
-              id: 'exportButton'
-            },
-            filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'
-          }
         ],
         select: 'single',
         "columnDefs": [{
@@ -1690,7 +1678,45 @@ function deleteDanpla(danpla_ID) {
   });
  }
 
-function DisplayTableItemReceiving(Table_Name, Tablesp, tbltitle, tbluser) {
+function clearReceive() {
+  //$('#dataModal').modal();
+  swal({
+    title: 'Are you sure you want to delete?',
+    text: "You won't able to revert this.",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Delete Danpla'
+  }).then((result) => {
+    if (result.value) {
+
+
+      $.ajax({
+        method: 'post',
+        url: '/1_mes/_php/QualityManagement/query/delete/delete_receive.php',
+        data:
+        {
+          'ajax': true
+        },
+        success: function (data) {
+
+          swal(
+            data,
+            'Danpla deleted!!',
+            'success'
+          )
+
+          loadDoc("ItemReceiving");
+          return;
+
+        }
+      });
+    }
+  });
+}
+
+function DisplayTableItemReceiving(Table_Name, Tablesp, tbluser) {
   var xhttp;
   if (Table_Name.length == 0) {
     document.getElementById("first_table").innerHTML = "<h1>No table to display.</h1>";
@@ -1718,49 +1744,21 @@ function DisplayTableItemReceiving(Table_Name, Tablesp, tbltitle, tbluser) {
           type: 'POST'
         },
 
-        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5">><"row"<"col-12"<"dd">>>t',
-        'buttons': [
-          {
-            name: 'delete',      // do not change name
-            text: '<i class="fas fa-trash"></i>',
-            className: 'btn btn-export6 btn-xs py-1',
-            extend: 'selected', // Bind to Selected row
-            action: function (e, dt, node, config) {
-              var data = dt.row('.selected').data();
-              deleteDanpla(data[0]);
-            }
-          },
-          {
-            extend: 'copy', text: '<i class="far fa-copy"></i>',
-            attr: {
-              title: 'Copy to Clipboard',
-              id: 'copyButton'
-            },
-            className: 'btn btn-export6 btn-xs py-1'
-          },
-          {
-            extend: 'excel', text: '<i class="fas fa-table"></i>',
-            attr: {
-              title: 'Export to Excel',
-              id: 'exportButton'
-            },
-            filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'
-          }
-        ],
+        "dom": '<"row"<"col-4"><"col"><"col-sm-3 pl-0 mr-5">><"row"<"col-md-12"<"db">>>t',
         select: 'single',
         "columnDefs": [{
           "targets": 0
         },
         {
-          "targets": 7,
+          "targets": 6,
           "visible": false,
-        }
+          }
         ],
         "order": [[0, 'desc']]
 
       });
 
-      $("div.dd").html('<div class="py-1 input-group"><input type="textarea" class="form-control form-control-sm" id="ReceiveBarcode_Text" placeholder="SCAN DANPLA SERIAL NUMBER"><div class="input-group-append"><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddBtn" onclick="">ADD</button><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="LotReceived" disable onclick="">RECEIVE LOT</button></div></div>');
+      $("div.db").html('<div class="py-1 input-group"><input type="textarea" class="form-control form-control-sm" id="ReceivingBarcode_text" placeholder="SCAN DANPLA SERIAL NUMBER"><div class="input-group-append"><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddReceiveBtn" onclick="AddReceive()">ADD</button><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="ConfirmReceiveBtn" onclick="ApproveTransfer()">TRANSFER</button><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="clearReceive" onclick="clearReceive()">CANCEL TRANSFER</button></div></div>');
 
       tble.on('order.dt search.dt processing.dt page.dt', function () {
         tble.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
@@ -1775,3 +1773,258 @@ function DisplayTableItemReceiving(Table_Name, Tablesp, tbltitle, tbluser) {
 }
 $.fn.dataTable.ext.buttons.add0 = {
 };
+
+function AddReceive(){
+  
+  var bcode = ReceivingBarcode_text.value;
+  if (bcode == "") {
+    swal(
+      'Input Barcode!',
+      'Please insert danpla to receive.',
+      'warning'
+    )
+    return;
+  }
+  
+  $.ajax({
+    method: 'post',
+    url: '/1_mes/_php/QualityManagement/query/get/getDanplaDetails.php',
+    data:
+    {
+      'jo_barcode': bcode,
+      'ajax': true
+    },
+    success: function (data) {
+      
+      var val = JSON.parse(data);
+      if (val != undefined) {
+        checkReceive(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.LOT_NUM);  
+      }
+      else {
+        swal(
+          'Serial does not exist in database!',
+          'Please insert existing danpla be allocated.',
+          'warning'
+        )
+      }
+    }
+  });
+}
+
+function ReloadTableList(){
+  var x = document.getElementById('ItemReceivedTable').rows[1].cells[0].innerHTML;
+  if (x != "No data available in table"){
+    var vblLot = document.getElementById('ItemReceivedTable').rows[1].cells[2].innerHTML;
+    DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', vblLot);
+  }
+}
+
+function DisplayTableDanplaList(Table_Name, Tablesp, tbltitle, tblLot) {
+    
+    var xhttp;
+    if (Table_Name.length == 0) {
+      document.getElementById("second_table").innerHTML = "<h1>No table to display.</h1>";
+      return;
+    }
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+
+      if (this.readyState == 4 && this.status == 200) {
+
+        document.getElementById("second_table").innerHTML = this.responseText;
+        var tble = $('#ItemReceiveDanplaTable').DataTable({
+          deferRender: true,
+          scrollY: '54.2vh',
+          "sScrollX": "100%",
+          "processing": true,
+          "serverSide": true,
+          "iDisplayLength": 100,
+          "ajax": {
+            url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
+            data:{
+              'lot_number':tblLot,
+              'ajax': true
+            },
+            type: 'POST'
+          },
+          "dom": '<"row py-1"<"col-3"B><"col"f>><"row"<"col"t>><"row"<"col"><"dd">>',
+          'buttons': [
+            {
+              extend: 'copy', text: '<i class="far fa-copy"></i>',
+              attr: {
+                title: 'Copy to Clipboard',
+                id: 'copyButton'
+              },
+              className: 'btn btn-export6 btn-xs py-1'
+            },
+            {
+              extend: 'excel', text: '<i class="fas fa-table"></i>',
+              attr: {
+                title: 'Export to Excel',
+                id: 'exportButton'
+              },
+              filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'
+            }
+          ],
+          select: 'single',
+          "columnDefs": [{
+            "targets": 0
+          },
+          {
+              "targets": 5,
+              "visible": false,
+            },
+            {
+              "targets":6,
+              "visible": false,
+            }
+          ],
+          "order": [[0, 'desc']]
+
+        });
+       
+        $("div.dd").html('<div class="py-1"><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="reloadtbl" onclick="ReloadTableList()">RELOAD</button></div>');
+
+        tble.on('order.dt search.dt processing.dt page.dt', function () {
+          tble.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+          });
+        }).draw();
+      }
+    };
+    xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
+    xhttp.send();
+  }
+  $.fn.dataTable.ext.buttons.add0 = {
+  };
+
+
+function AddReceive() {
+
+  var bcode = ReceivingBarcode_text.value;
+  if (bcode == "") {
+    swal(
+      'Input Barcode!',
+      'Please insert danpla to receive.',
+      'warning'
+    )
+    return;
+  }
+
+  $.ajax({
+    method: 'post',
+    url: '/1_mes/_php/QualityManagement/query/get/getDanplaDetails.php',
+    data:
+    {
+      'jo_barcode': bcode,
+      'ajax': true
+    },
+    success: function (data) {
+
+      var val = JSON.parse(data);
+      if (val != undefined) {
+        checkReceive(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.LOT_NUM);
+      }
+      else {
+        swal(
+          'Serial does not exist in database!',
+          'Please insert existing danpla be allocated.',
+          'warning'
+        )
+      }
+    }
+  });
+}
+
+  function checkReceive(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertLot) {
+    
+      $.ajax({
+        method: 'post',
+        url: '/1_mes/_php/QualityManagement/query/get/getDanplaLot.php',
+        data:
+        {
+          'jo_barcode': insertBarcode,
+          'jo_num': insertJO,
+          'lot_num': insertLot,
+          'ajax': true
+        },
+        success: function (data) {
+          if (data == '"true1"') {
+            swal({ text: 'DANPLA EXIST', type: 'error' });
+            document.getElementById('ReceivingBarcode_text').value = "";
+          }
+          else if (data == '"true2"') {
+            swal({ text: 'DANPLA IS FROM DIFFERENT JO', type: 'error' });
+            document.getElementById('ReceivingBarcode_text').value = "";
+          }
+          else if (data == '"true3"') {
+            swal({ text: 'DANPLA IS FROM DIFFERENT LOT', type: 'error' });
+            document.getElementById('ReceivingBarcode_text').value = "";
+          }
+          else if (data == '"true4"') {
+            swal('LOT STILL NOT APPROVED','Please get back to QM Dept for LOT APPROVAL', 'error');
+          }
+          else if (data == '"false"') {
+            insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertLot);
+          }
+        }
+      });
+    }
+function insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertLot) {
+
+  $.ajax({
+    method: 'post',
+    url: '/1_mes/_php/QualityManagement/query/insert/InsertReceiveItem.php',
+    data:
+    {
+      'jo_barcode': insertBarcode,
+      'jo_num': insertJO,
+      'item_code': insertItemCode,
+      'item_name': insertItemName,
+      'print_qty': insertQuantity,
+      'lot_num': insertLot,
+      'ajax': true
+    },
+    success: function (data) {
+      swal({ text: data, type: 'success' });
+      DisplayTableItemReceiving('ItemReceivedTable', 'ItemReceivedTableSP', username);
+      DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList',insertLot);
+    }
+  });
+
+}
+function ApproveTransfer(){
+
+  var gathered = document.getElementById("ItemReceivedTable").rows.length;
+  var list = document.getElementById("ItemReceiveDanplaTable").rows.length;
+  var x = document.getElementById('ItemReceivedTable').rows[1].cells[0].innerHTML;
+  var y = document.getElementById('ItemReceiveDanplaTable').rows[1].cells[0].innerHTML;
+  alert(gathered + " " + list + " " + x + " " + y);
+
+  if (x != "No data available in table" && y == "No data available in table") {
+    ReloadTableList();
+    swal('Try again','Table is now reloaded.','error');
+    return;
+  }
+  else if (x == "No data available in table" && y == "No data available in table"){
+    swal(
+      'Please scan barcode!',
+      'Please insert danpla to be receive.',
+      'warning'
+    )
+    return;
+  }
+  else if(gathered != list){
+    swal(
+      'WAIT!',
+      'Please scan all danpla before receiving!',
+      'warning'
+    )
+    return;
+  }
+  else if (gathered == list) {
+    alert("wewewewewew ");
+  }
+
+  
+}

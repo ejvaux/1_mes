@@ -22,7 +22,7 @@ if (!is_dir($dirname))
 
 $myfile = fopen($filename, "a") or die("Unable to open file!");
 
-echo $txt = "\n\n#### " . Date('Y-m-d H:i') . " ####\r\n\r\n";
+echo $txt = "\n\n#### " . Date('Y-m-d H:i') . " ####\n\n";
 fwrite($myfile, $txt);
 
 echo $txt = "PROCESS START\n\n";
@@ -48,7 +48,7 @@ while ($row = $result->fetch_assoc()){
 
 $conn->close();
 
-$txt = $nm . " mold/s - No Item Code.\r\n\r\n";
+$txt = $nm . " mold/s - No Item Code.\n\n";
 echo str_pad($txt, 30) . "\r";
 fwrite($myfile, $txt);
 sleep(2);
@@ -83,7 +83,7 @@ $json = json_decode($json);
     $moldshot = json_decode($moldshot);
 
     echo "Updating mold shots.\n\n";
-    $txt = "Mold shot update.\r\n\r\n";
+    $txt = "Mold shot update.\n\n";
     fwrite($myfile, $txt);
     sleep(2);
 
@@ -131,12 +131,12 @@ $json = json_decode($json);
         $count2 = 0;
     }
     
-    echo $txt = str_pad($count2 . "% Updated", 52) . "\r\n\r\n";
+    echo $txt = str_pad($count2 . "% Updated", 52) . "\n\n";
     fwrite($myfile, $txt);
     sleep(2);
 
     echo "Updating mold days used.\n\n";
-    $txt = "Mold days used update.\r\n\r\n";
+    $txt = "Mold days used update.\n\n";
     fwrite($myfile, $txt);
     sleep(2);
 
@@ -168,7 +168,7 @@ $json = json_decode($json);
             
             $msg = "Error updating " . $obj->MOLD_CODE;
             echo str_pad($msg, 52) . "\n\n";
-            $msg = "Error updating " . $obj->MOLD_CODE . "\r\n\r\n";
+            $msg = "Error updating " . $obj->MOLD_CODE . "\n\n";
             fwrite($myfile, $msg);
             $count2 = $count2 + $counter;
             sleep(1);
@@ -184,12 +184,12 @@ $json = json_decode($json);
         $count2 = 0;
     }
 
-    echo $txt = str_pad($count2 . "% Updated", 52) . "\r\n\r\n";
+    echo $txt = str_pad($count2 . "% Updated", 52) . "\n\n";
     fwrite($myfile, $txt);
     sleep(2);
 
-    echo "Checking molds for PM.\r\n\r\n";
-    $txt = "Mold/s for PM:\r\n\r\n";
+    echo "Checking molds for PM.\n\n";
+    $txt = "Mold/s for PM:\n\n";
     fwrite($myfile, $txt);
     sleep(2);
 
@@ -217,7 +217,7 @@ $json = json_decode($json);
         $row = $result->fetch_assoc();
         
         if ($row['OUTPUT']=='TRUE') {       
-            echo $msg = $obj->MOLD_CODE . "\r\n";       
+            echo $msg = $obj->MOLD_CODE . "\n";       
             fwrite($myfile, $msg);              
             $pm++;
             sleep(1);   
@@ -226,9 +226,9 @@ $json = json_decode($json);
         /* sleep(1); */        
     }
 
-    echo $txt = "\r\n" . $pm . " mold/s PM initialized.\r\n\r\n";
+    echo $txt = "\n" . $pm . " mold/s PM initialized.\n\n";
     fwrite($myfile, $txt);
     sleep(2);
 
-    echo $txt = "PROCESS FINISHED\r\n\r\n";
+    echo $txt = "PROCESS FINISHED\n\n";
 ?>

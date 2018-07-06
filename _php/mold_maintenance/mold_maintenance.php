@@ -8,7 +8,8 @@
       include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php"; 
       $auth = $_SESSION['auth'];
       $auth = stripslashes($auth);            
-    ?>  
+    ?>
+  
   <script src="/1_mes/_includes/displaymodal.js"></script>
     <script src="/1_mes/_php/mold_maintenance/table_init.js"></script>
     
@@ -25,9 +26,7 @@
 
     <script>
 
-      $(document).ready(function(){      
-        
-        
+      $(document).ready(function(){              
         
         /* $(document.body).on('change','#mcl',function(){
             alert('Change Happened');
@@ -64,7 +63,6 @@
               <li><a id="tb1" class="nav-link tbl active" href="#" onclick="">Mold  Repair</a></li>
               <li><a id="tb2" class="nav-link tbl" href="#" onclick="">Mold  History</a></li>
               <li><a id="tb3" class="nav-link tbl" href="#" onclick="">Mold  Fabrication</a></li>
-              <li><a id="tb4" class="nav-link tbl" href="#" onclick="">Operator List</a></li>
             </ul>
 
             <!-- ICONS ON LEFT -->
@@ -110,13 +108,11 @@
 
       $(document).ready(function(){
         
-        if(val=="DC" || val=="A" || val=="DA"){
+        if(val=="DC" || val=="A"){
           $('#tb3').show();
-          $('#tb4').show();
         }
         else{
-          $('#tb3').show();
-          $('#tb4').hide();
+          $('#tb3').hide();
         }
         
         checkuserauth(); 
@@ -151,11 +147,7 @@
 
         $('#tb3').click(function(){
           checkuserauthF();
-        });
-
-        $('#tb4').click(function(){
-          checkuserauthO();
-        });    
+        });        
                 
     </script>
     <script src="/1_mes/_php/mold_maintenance/functions.js"></script>

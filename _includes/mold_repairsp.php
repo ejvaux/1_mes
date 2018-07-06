@@ -1,18 +1,5 @@
 <?php
  
- if(isset($_POST['sday'])){
-    $sday = $_POST['sday'];
- }
- else{
-     $sday = "none";
- }
-
- if(isset($_POST['eday'])){
-    $eday = $_POST['eday'];
- }
- else{
-     $eday = "none";
- }
 /*
  * DataTables example server-side processing script.
  *
@@ -32,31 +19,7 @@
  */
  
 // DB table to use
-/* $table = 'mmc_mold_repair'; */
-
-if($sday!='none' && $eday!='none'){
-    $table = <<<EOT
- (
-    SELECT 
-      *
-    FROM mmc_mold_repair
-    WHERE REQUEST_DATE BETWEEN '$sday' AND '$eday'
- ) temp
-EOT;
-}
-else{
-    $table = <<<EOT
- (
-    SELECT 
-      *
-    FROM mmc_mold_repair    
- ) temp
-EOT;
-}
-
-
-
-
+$table = 'mmc_mold_repair';
  
 // Table's primary key
 $primaryKey = 'MOLD_REPAIR_CONTROL_NO';
@@ -107,7 +70,7 @@ $sql_details = array(
  * server-side, there is no need to edit below this line.
  */
  
-require( $_SERVER['DOCUMENT_ROOT'].'/1_mes/_includes/ssp2.class.php' );
+require( $_SERVER['DOCUMENT_ROOT'].'/1_mes/_includes/ssp.class.php' );
  
 echo json_encode(
     SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns )

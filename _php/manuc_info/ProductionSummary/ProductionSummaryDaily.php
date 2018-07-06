@@ -28,9 +28,7 @@ echo '
     
     if ($strto == "" && $strfrom == "") {
         #code... condition above is whenever both date range are null
-        $sqlprodresult = "SELECT mis_product.PRINT_QTY from mis_product
-          LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-         WHERE mis_prod_plan_dl.ITEM_NAME = '$search' AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
+        $sqlprodresult = "SELECT PRINT_QTY from mis_product WHERE ITEM_NAME = '$search' AND (SUBSTRING(JO_NUM,1,1)='$PlanType')";
         $sqlprodplan = "SELECT PLAN_QTY from mis_prod_plan_dl WHERE ITEM_NAME = '$search' AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
         /* $sqlitem = "SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ 
         FROM mis_product 
@@ -55,12 +53,12 @@ echo '
         AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')) as B
         ORDER BY `DISP_DATE_` ASC";
  */
-$sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult,mis_prod_plan_dl.ITEM_NAME, 
-            SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_ 
+$sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_plan_dl.ITEM_NAME, 
+            mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_ 
             FROM mis_prod_plan_dl 
-            LEFT JOIN mis_summarize_result ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_result.JOB_ORDER_NO 
-            WHERE ((mis_prod_plan_dl.ITEM_NAME = '$search')) AND 
-            ((SUBSTRING(mis_summarize_result.JOB_ORDER_NO,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')) 
+            LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM 
+            WHERE ((mis_prod_plan_dl.ITEM_NAME = '$search') OR (mis_product.ITEM_NAME = '$search')) AND 
+            ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')) 
              GROUP BY JOB_ORDER_NO
             ORDER BY DISP_DATE_ ASC";
 
@@ -72,41 +70,25 @@ $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult
 
         if ($search != "") {
             # code... if from and search is set
-            $sqlprodresult = "SELECT mis_product.PRINT_QTY from mis_product
-              LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-             WHERE mis_product.ITEM_NAME = '$search' AND mis_prod_plan_dl.DATE_ = '$strfrom' 
-             AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
-            
-            $sqlprodplan = "SELECT PLAN_QTY from mis_prod_plan_dl 
-            WHERE ITEM_NAME = '$search' AND DATE_ = '$strfrom' AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
+            $sqlprodresult = "SELECT PRINT_QTY from mis_product WHERE ITEM_NAME = '$search' AND DATE_ = '$strfrom' AND (SUBSTRING(JO_NUM,1,1)='$PlanType')";
+            $sqlprodplan = "SELECT PLAN_QTY from mis_prod_plan_dl WHERE ITEM_NAME = '$search' AND DATE_ = '$strfrom' AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
             /* $sqlitem = "SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ 
             FROM mis_product LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
             WHERE mis_product.ITEM_NAME = '$search' AND mis_product.DATE_='$strfrom' 
             GROUP BY `ITEM_NAME`"; */
 
-/*             $sqlitem="SELECT  SUM(mis_summarize_result.PROD_RESULT)as sumresult,mis_prod_plan_dl.ITEM_NAME, 
-            mis_prod_plan_dl.PLAN_QTY,mis_prod_plan_dl.DATE_ as DISP_DATE_
+            $sqlitem="SELECT  SUM(mis_product.PRINT_QTY)as sumresult,mis_product.ITEM_NAME, 
+            mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ as DISP_DATE_
             FROM mis_product
             LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
-            WHERE mis_product.ITEM_NAME = '$search' AND mis_prod_plan_dl.DATE_='$strfrom' AND (SUBSTRING(mis_prod_plan_dl.JO_NUM,1,1)='$PlanType')
+            WHERE mis_product.ITEM_NAME = '$search' AND mis_product.DATE_='$strfrom' AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')
             GROUP BY mis_product.`ITEM_NAME`
             UNION ALL
             SELECT PROD_RESULT,ITEM_NAME,PLAN_QTY,DATE_
             FROM mis_prod_plan_dl
             WHERE JOB_ORDER_NO NOT IN (SELECT JO_NUM FROM mis_product) AND (ITEM_NAME = '$search') 
             AND (DATE_='$strfrom')  AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')
-            ORDER BY `PLAN_QTY` ASC"; */
-
-            $sqlitem="SELECT COALESCE(sum(mis_summarize_results.PROD_RESULT),0) as sumresult,mis_prod_plan_dl.ITEM_NAME, 
-            SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_ 
-            FROM mis_prod_plan_dl 
-            LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-            WHERE
-            (mis_prod_plan_dl.DATE_='$strfrom') AND (mis_prod_plan_dl.ITEM_NAME='$search') AND
-            ((SUBSTRING(mis_summarize_results.JOB_ORDER_NO,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')) 
-            GROUP BY  mis_prod_plan_dl.ITEM_NAME 
-            ORDER BY `ITEM_NAME` ASC";
-
+            ORDER BY `PLAN_QTY` ASC";
 
             $datenow = "OF ".$strfrom;
             $between = "NO";
@@ -114,12 +96,9 @@ $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult
 
         } else {
             #if date from only is set
-            
-            $sqlprodresult = "SELECT mis_product.PRINT_QTY from mis_product 
-                             LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-                             WHERE mis_prod_plan_dl.DATE_ = '$strfrom' AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
-            $sqlprodplan = "SELECT PLAN_QTY from mis_prod_plan_dl WHERE 
-                            DATE_ = '$strfrom' AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
+
+            $sqlprodresult = "SELECT PRINT_QTY from mis_product WHERE DATE_ = '$strfrom' AND (SUBSTRING(JO_NUM,1,1)='$PlanType')";
+            $sqlprodplan = "SELECT PLAN_QTY from mis_prod_plan_dl WHERE DATE_ = '$strfrom' AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
           /*   $sqlitem = "SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_
                          FROM mis_product
                          LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
@@ -140,14 +119,14 @@ $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult
                         ORDER BY `PLAN_QTY` ASC"; */
 
 
-                        $sqlitem="SELECT COALESCE(sum(mis_summarize_results.PROD_RESULT),0) as sumresult,mis_prod_plan_dl.ITEM_NAME, 
-                        SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_ 
+                        $sqlitem="SELECT COALESCE(sum(mis_product.PRINT_QTY),0) as sumresult,mis_prod_plan_dl.ITEM_NAME, 
+                        mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_ 
                         FROM mis_prod_plan_dl 
-                        LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+                        LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM 
                         WHERE
-                        ((mis_prod_plan_dl.DATE_='$strfrom')) AND
-                        ((SUBSTRING(mis_summarize_results.JOB_ORDER_NO,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')) 
-                        GROUP BY  mis_prod_plan_dl.ITEM_NAME 
+                        ((mis_prod_plan_dl.DATE_='$strfrom') OR (mis_product.DATE_='$strfrom')) AND
+                        ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')) 
+                        GROUP BY DISP_DATE_, ITEM_NAME 
                         ORDER BY `ITEM_NAME` ASC";
 
          
@@ -165,12 +144,8 @@ $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult
         #if both date range are NOT null
         if ($search != "") {
             # code... whenever date range are NOT null and Search is NOT null
-            $sqlprodresult = "SELECT mis_product.PRINT_QTY 
-            from mis_product 
-            LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-            WHERE (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') 
-            AND (mis_prod_plan_dl.ITEM_NAME = '$search') AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
-
+            $sqlprodresult = "SELECT PRINT_QTY from mis_product WHERE (DATE_ BETWEEN '$strfrom' AND '$strto') 
+            AND (ITEM_NAME = '$search') AND (SUBSTRING(JO_NUM,1,1)='$PlanType')";
             $sqlprodplan = "SELECT PLAN_QTY from mis_prod_plan_dl WHERE (DATE_ BETWEEN '$strfrom' AND '$strto') 
             AND (ITEM_NAME = '$search') AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
             /* $sqlitem = "SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ 
@@ -179,13 +154,12 @@ $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult
             WHERE (mis_product.DATE_ BETWEEN '$strfrom' AND '$strto') AND (mis_product.ITEM_NAME = '$search') 
             GROUP BY `ITEM_NAME`,DATE_  ORDER BY DATE_ ASC"; */
             
-          /*   $sqlitem="SELECT * FROM 
-            (SELECT  SUM(mis_summarize_result.PROD_RESULT)as sumresult,mis_product.ITEM_NAME, 
-           SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY,mis_prod_plan_dl.DATE_ as DISP_DATE_
+            $sqlitem="SELECT * FROM 
+            (SELECT  SUM(mis_product.PRINT_QTY)as sumresult,mis_product.ITEM_NAME, 
+            mis_prod_plan_dl.PLAN_QTY,mis_prod_plan_dl.DATE_ as DISP_DATE_
             FROM mis_product
             LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
-            LEFT JOIN mis_summarize_result ON mis_product.JO_NUM = mis_summarize_result.JOB_ORDER_NO
-            WHERE (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') AND (mis_product.ITEM_NAME = '$search')
+            WHERE (mis_product.DATE_ BETWEEN '$strfrom' AND '$strto') AND (mis_product.ITEM_NAME = '$search')
             AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')
             GROUP BY mis_product.`ITEM_NAME`, DISP_DATE_
             ) as A
@@ -195,8 +169,8 @@ $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult
             FROM mis_prod_plan_dl
             WHERE JOB_ORDER_NO NOT IN (SELECT JO_NUM FROM mis_product) AND (DATE_ BETWEEN '$strfrom' AND '$strto') 
             AND (ITEM_NAME = '$search') AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType') ) as B
-            ORDER BY DISP_DATE_ ASC"; RECENT WORKING SQL
- */
+            ORDER BY DISP_DATE_ ASC";
+
 /*         $sqlitem="SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as sumresult,mis_prod_plan_dl.ITEM_NAME,
         (mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_
         FROM mis_prod_plan_dl
@@ -207,15 +181,7 @@ $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult
         GROUP BY ITEM_NAME,JOB_ORDER_NO
         ORDER BY DISP_DATE_ ASC"; */
 
-        $sqlitem="SELECT COALESCE(sum(mis_summarize_results.PROD_RESULT),0) as sumresult,mis_prod_plan_dl.ITEM_NAME, 
-        SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_ 
-        FROM mis_prod_plan_dl 
-        LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-        WHERE
-        ((mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto')) AND (mis_prod_plan_dl.ITEM_NAME='$search') AND 
-        ((SUBSTRING(mis_summarize_results.JOB_ORDER_NO,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')) 
-        GROUP BY  mis_prod_plan_dl.ITEM_NAME, DISP_DATE_
-        ORDER BY `DISP_DATE_` ASC";
+
 
 
             $datenow = "FROM ".$strfrom . " to " . $strto;
@@ -224,11 +190,8 @@ $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult
 
         } else {
             #if both date range are not null while search is NULL
-            $sqlprodresult = "SELECT mis_product.PRINT_QTY from mis_product 
-              LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-              WHERE mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto'
-             AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
-
+            $sqlprodresult = "SELECT PRINT_QTY from mis_product WHERE DATE_ BETWEEN '$strfrom' AND '$strto'
+             AND (SUBSTRING(JO_NUM,1,1)='$PlanType')";
             $sqlprodplan = "SELECT PLAN_QTY from mis_prod_plan_dl WHERE DATE_ BETWEEN '$strfrom' AND '$strto'
             AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
             /* $sqlitem = "SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_product.DATE_ 
@@ -236,11 +199,11 @@ $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult
             LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
             WHERE mis_product.DATE_ BETWEEN '$strfrom' AND '$strto' GROUP BY `ITEM_NAME`, DATE_ ORDER BY DATE_ ASC"; */
 
-/*             $sqlitem="SELECT * FROM (SELECT  SUM(mis_product.PRINT_QTY)as sumresult,mis_product.ITEM_NAME, 
+            $sqlitem="SELECT * FROM (SELECT  SUM(mis_product.PRINT_QTY)as sumresult,mis_product.ITEM_NAME, 
             mis_prod_plan_dl.PLAN_QTY,mis_prod_plan_dl.DATE_ as DISP_DATE_
             FROM mis_product
             LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
-            WHERE mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto' AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')
+            WHERE mis_product.DATE_ BETWEEN '$strfrom' AND '$strto' AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')
             GROUP BY mis_product.`ITEM_NAME`, DISP_DATE_) as A
             UNION ALL
             SELECT * FROM (
@@ -248,16 +211,6 @@ $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult
             FROM mis_prod_plan_dl
             WHERE JOB_ORDER_NO NOT IN (SELECT JO_NUM FROM mis_product) AND (DATE_ BETWEEN '$strfrom' AND '$strto')
             AND (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType') ) as B
-            ORDER BY `DISP_DATE_` ASC"; */
-
-            $sqlitem="SELECT COALESCE(sum(mis_summarize_results.PROD_RESULT),0) as sumresult,mis_prod_plan_dl.ITEM_NAME, 
-            SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_ 
-            FROM mis_prod_plan_dl 
-            LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-            WHERE
-            ((mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto')) AND 
-            ((SUBSTRING(mis_summarize_results.JOB_ORDER_NO,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')) 
-            GROUP BY  mis_prod_plan_dl.ITEM_NAME, DISP_DATE_
             ORDER BY `DISP_DATE_` ASC";
 
             $datenow ="FROM ".$strfrom . " to " . $strto;
@@ -272,9 +225,7 @@ $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult
 
     #if date range and search is null
 
-    $sqlprodresult = "SELECT mis_product.PRINT_QTY from mis_product 
-                      LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-                      WHERE (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
+    $sqlprodresult = "SELECT PRINT_QTY from mis_product WHERE (SUBSTRING(JO_NUM,1,1)='$PlanType')";
     $sqlprodplan = "SELECT PLAN_QTY from mis_prod_plan_dl WHERE (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
     $sqlitem = "SELECT SUM(`mis_product.PRINT_QTY`)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY
                 LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
@@ -378,10 +329,7 @@ if ($datenow == "NONE") {
         {
             # code...
 
-            $sqlresultbetween = "SELECT SUM(mis_product.PRINT_QTY) as prodresult2 
-                                FROM mis_product
-                                LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-                                 WHERE mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' ";
+            $sqlresultbetween = "SELECT SUM(PRINT_QTY) as prodresult2 FROM mis_product WHERE DATE_ ='" . $row3['DISP_DATE_'] . "' ";
             
             $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE DATE_='" . $row3['DISP_DATE_'] . "'";
 
@@ -433,10 +381,7 @@ if ($datenow == "NONE") {
         {
             # code...
 
-            $sqlresultbetween = "SELECT SUM(mis_product.PRINT_QTY) as prodresult2, mis_prod_plan_dl.DATE_ 
-            FROM mis_product 
-            LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-            WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME'] . "' AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' ";
+            $sqlresultbetween = "SELECT SUM(PRINT_QTY) as prodresult2, DATE_ FROM mis_product WHERE ITEM_NAME='" . $row3['ITEM_NAME'] . "' AND DATE_ ='" . $row3['DISP_DATE_'] . "' ";
 
             $resultbet = $conn->query($sqlresultbetween);
             while ($row = $resultbet->fetch_assoc()) {
@@ -486,10 +431,7 @@ if ($datenow == "NONE") {
         else
         {
 #start of else braces
-$sqlresultbetween = "SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as prodresult2, mis_prod_plan_dl.DATE_ 
-FROM mis_product 
-LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME']."' AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' ";
+$sqlresultbetween = "SELECT COALESCE(SUM(PRINT_QTY),0) as prodresult2, DATE_ FROM mis_product WHERE ITEM_NAME='" . $row3['ITEM_NAME']."' AND DATE_ ='" . $row3['DISP_DATE_'] . "' ";
 
 $resultbet = $conn->query($sqlresultbetween);
 while ($row = $resultbet->fetch_assoc()) {
@@ -595,3 +537,6 @@ echo '</tbody></table><br><br>';
 
 
 
+echo'<script>
+</script>
+';

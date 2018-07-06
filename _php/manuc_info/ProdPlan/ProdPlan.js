@@ -529,7 +529,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        //layout:"fitColumns", //fit columns to width of table (optional)
        pagination:"local",
        paginationSize:100,
-       placeholder:"No Data to Display or Today's Plan is not yet available",
+       placeholder:"No Data to Display",
        movableColumns:true,
        selectable: 1,
        //groupBy:"PROD DATE",
@@ -601,7 +601,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     pagination:"local",
     paginationSize:50,
     //progressiveRender:"remote",
-    placeholder:"No Data to Display or Today's shipment is not yet available",
+    placeholder:"No Data to Display",
     movableColumns:true,
     groupBy:"LOT_NUMBER",
     groupHeader:function(value, count, data, group){
@@ -812,7 +812,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     pagination:"local",
     paginationSize:50,
     //ajaxProgressiveLoad: true,
-    placeholder:"No Data to Display or Today's shipment is not yet available",
+    placeholder:"No Data to Display",
     movableColumns:true,
     groupBy:"LOT_NUMBER",
     groupHeader:function(value, count, data, group){
@@ -1033,7 +1033,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        pagination:"local",
        paginationSize:50,
        //progressiveRender:"remote",
-       placeholder:"No Data to Display  or Today's DR is not yet available.",
+       placeholder:"No Data to Display",
        movableColumns:true,
        groupBy:"DR_DATE", 
        selectable: 1,        
@@ -1242,6 +1242,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     var strfromobj = document.getElementById("sortfrom").value;
     var searchobj = document.getElementById("search").value;
     var strtoobj = document.getElementById("sortto").value;
+    
     var sorttypeobj = document.getElementById("sorttype");
     var selectedOption = sorttypeobj.options[sorttypeobj.selectedIndex].value;
     var plantypeobj = document.getElementById("PlanType");
@@ -1628,56 +1629,6 @@ function loadmodal1(TableName)
     });
 
   }
-
-function prodexport()
-{
-
-    var strfromobj = document.getElementById("sortfrom").value;
-    var searchobj = document.getElementById("search").value;
-    var strtoobj = document.getElementById("sortto").value;
-    var sorttypeobj = document.getElementById("sorttype");
-    var selectedOption = sorttypeobj.options[sorttypeobj.selectedIndex].value;
-    var plantypeobj = document.getElementById("PlanType");
-    var selectedOption2 = plantypeobj.options[plantypeobj.selectedIndex].value;
-   
-    if(selectedOption=="DAILY")
-    {
-        var win1 = window.open('ProdSummaryExcelExportDaily.php?sortfrom='+strfromobj+"&sortto="+strtoobj+"&search="+searchobj+"&sorttype="+selectedOption+"&PlanType="+selectedOption2, '_blank');
-    
-    }
-    else
-    {
-        var win2 = window.open('ProdSummaryExcelExportMonthly.php?sortfrom='+strfromobj+"&sortto="+strtoobj+"&search="+searchobj+"&sorttype="+selectedOption+"&PlanType="+selectedOption2, '_blank');
-    
-    }
-      /*   $.ajax({
-            method:'POST',
-            url:'/1_mes/_php/manuc_info/ProdPlan/ProdSummaryExcelExportDaily.php',
-            data:
-            {
-                'sortfrom': strfromobj,
-                'sortto': strtoobj,
-                'search': searchobj,
-                'sorttype': selectedOption,
-                'PlanType': selectedOption2,
-                'ajax':true
-            },
-        
-            
-            success: function(data) 
-            {
-
-                document.getElementById("tblexport").innerHTML = data;
-                
-            }
-        });
-        */
-    
-
-
-
-}
-
 
 
 //modal

@@ -17,15 +17,15 @@ function alistchange(){
     },
     url:'/1_mes/_query/mold_repair/moldcode_ddl.php',
     success:function(data){
-
-      if(data != 'none'){
         var val = JSON.parse(data);                   
-        
+        /* var x = val.ITEM_NAME;
+        var y = val.TOOL_NUMBER;
+        alert(x+" ==== "+y); */
+        /* document.getElementById("#tnum").value(y); */
         $("#atoolnumber").attr("value",val.TOOL_NUMBER);
         $("#aitemname").attr("value",val.ITEM_NAME);
         $("#aitemcode").attr("value",val.ITEM_CODE);
         $("#acustomername").attr("value",val.CUSTOMER_NAME);
-      }      
         
     } 
 
@@ -39,7 +39,7 @@ function listchange(){
     // find the dropdown
     var ddl = document.getElementById("mcl");
       // find the selected option
-      var selectedOption = ddl.options[ddl.selectedIndex].value;
+      var selectedOption = ddl.options[ddl.selectedIndex].text;
       /* alert(selectedOption); */
 
       if(selectedOption !== null){
@@ -51,15 +51,16 @@ function listchange(){
           },
           url:'/1_mes/_query/mold_repair/moldcode_ddl.php',
           success:function(data){
-
-            if(data != 'none'){
               var val = JSON.parse(data);                   
-              
+              /* var x = val.ITEM_NAME;
+              var y = val.TOOL_NUMBER;
+              alert(x+" ==== "+y); */
+              /* document.getElementById("#tnum").value(y); */
               $("#toolnumber").attr("value",val.TOOL_NUMBER);
               $("#itemname").attr("value",val.ITEM_NAME);
               $("#itemcode").attr("value",val.ITEM_CODE);
               $("#customername").attr("value",val.CUSTOMER_NAME);
-            }                       
+              
           } 
     
           });
@@ -82,15 +83,15 @@ function listchange(){
       },
       url:'/1_mes/_query/mold_repair/moldcode_ddl.php',
       success:function(data){
-
-        if(data != 'none'){
           var val = JSON.parse(data);                   
-          
+          /* var x = val.ITEM_NAME;
+          var y = val.TOOL_NUMBER;
+          alert(x+" ==== "+y); */
+          /* document.getElementById("#tnum").value(y); */
           $("#etoolnumber").attr("value",val.TOOL_NUMBER);
           $("#eitemname").attr("value",val.ITEM_NAME);
           $("#eitemcode").attr("value",val.ITEM_CODE);
           $("#ecustomername").attr("value",val.CUSTOMER_NAME);
-        }          
       } 
 
       }); 
@@ -136,14 +137,13 @@ function listchange(){
   $('#mod').on('click','#checklistsubmit', function (e) {           
     /* alert('TEST');
     alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
-    var formdata =  $('#checklistform').serializeArray();
-    formdata.push({name: 'action', value: 'update_chk'});
+    
     $.ajax({
       type: 'POST',
-      url: '/1_mes/database/table_handler/mold/moldrepairHandler.php',
-      data: $.param(formdata),
+      url: '/1_mes/_query/mold_repair/update_check.php',
+      data: $('#checklistform').serialize(),
       success: function (data) {    
-        if(data==true){
+        if(data=="success"){
           /* alert("Checklist Saved Successfully!"); */
           $('#checklistform').trigger('reset');
           $('#chcklist').modal('hide');
@@ -191,16 +191,22 @@ function listchange(){
       confirmButtonText: 'Yes, approve it!'
     }).then((result) => {
       if (result.value) {
-        var formdata =  $('#checklistform').serializeArray();
-        formdata.push({name: 'action', value: 'update_aprv'});
+
         $.ajax({
           type: 'POST',
-          url: '/1_mes/database/table_handler/mold/moldrepairHandler.php',
-          data: $.param(formdata),
+          url: '/1_mes/_query/mold_repair/approve.php',
+          data: $('#checklistform').serialize(),
           success: function (data) {    
-            if(data==true){
+            if(data=="success"){
 
-              $('#chcklist').modal('hide');
+              $.ajax({
+                type: 'POST',
+                url: '/1_mes/_query/mold_repair/insert_history.php',
+                data: $('#checklistform').serialize(),
+                success: function (data) {    
+                  if(data=="success"){
+
+                    $('#chcklist').modal('hide');
                     checkuserauth();
                     loadmodal('moldrepairmodal');
           
@@ -215,7 +221,29 @@ function listchange(){
                       },           
                       delay: 3000,                        
                     });
-                            
+                    
+                  }
+                  else{
+                    alert(data);          
+                  }
+                }
+              });
+              
+              /* $('#chcklist').modal('hide');
+              checkuserauth();
+              loadmodal('moldrepairmodal');
+    
+              $.notify({
+                icon: 'fas fa-info-circle',
+                title: 'System Notification: ',
+                message: "Repair Approved!",
+              },{
+                type:'success',
+                placement:{
+                  align: 'center'
+                },           
+                delay: 3000,                        
+              }); */
             }
             else{
               alert(data);          
@@ -224,43 +252,42 @@ function listchange(){
         });
         
       }
-    })  
-        
+    })
+    
+    /* $.ajax({
+      type: 'POST',
+      url: '/1_mes/_query/mold_repair/approve.php',
+      data: $('#checklistform').serialize(),
+      success: function (data) {    
+        if(data=="success"){
+          
+          $('#chcklist').modal('hide');
+          checkuserauth();
+          loadmodal('moldrepairmodal');
+
+          $.notify({
+            icon: 'fas fa-info-circle',
+            title: 'System Notification: ',
+            message: "Repair Approved!",
+          },{
+            type:'success',
+            placement:{
+              align: 'center'
+            },           
+            delay: 3000,                        
+          });
+        }
+        else{
+          alert(data);          
+        }
+      }
+    }); */ 
+    
   });
 
 
   /* ____________________ Approve ________________________ */
 
-
-  /* $.ajax({
-    type: 'POST',
-    url: '/1_mes/_query/mold_repair/insert_history.php',
-    data: $('#checklistform').serialize(),
-    success: function (data) {    
-      if(data=="success"){
-
-        $('#chcklist').modal('hide');
-        checkuserauth();
-        loadmodal('moldrepairmodal');
-
-        $.notify({
-          icon: 'fas fa-info-circle',
-          title: 'System Notification: ',
-          message: "Repair Approved!",
-        },{
-          type:'success',
-          placement:{
-            align: 'center'
-          },           
-          delay: 3000,                        
-        });
-        
-      }
-      else{
-        alert(data);          
-      }
-    }
-  }); */
 
 
   /* ____________________ QC Approve ________________________ */
@@ -280,16 +307,15 @@ function listchange(){
       confirmButtonText: 'Yes, approve it!'
     }).then((result) => {
       if (result.value) {
-        var formdata =  $('#qcchecklistform').serializeArray();
-        formdata.push({name: 'action', value: 'update_qc'});
+
         $.ajax({
           type: 'POST',
-          url: '/1_mes/database/table_handler/mold/moldrepairHandler.php',
-          data: $.param(formdata),
+          url: '/1_mes/_query/mold_repair/qc_approve.php',
+          data: $('#qcchecklistform').serialize(),
           success: function (data) {    
-            if(data==true){
+            if(data=="success"){
               
-              /* $('#qcchcklist').modal('hide');
+              $('#qcchcklist').modal('hide');
               checkuserauth();
               loadmodal('moldrepairmodal');
     
@@ -303,37 +329,6 @@ function listchange(){
                   align: 'center'
                 },           
                 delay: 3000,                        
-              }); */
-              var formdata =  $('#qcchecklistform').serializeArray();
-              formdata.push({name: 'action', value: 'insert'});
-              $.ajax({
-              type: 'POST',
-              url: '/1_mes/database/table_handler/mold/historyHandler.php',
-              data: $.param(formdata),
-              success: function (data) {    
-                if(data==true){
-
-                  $('#qcchcklist').modal('hide');
-                  checkuserauth();
-                  loadmodal('moldrepairmodal');
-        
-                  $.notify({
-                    icon: 'fas fa-info-circle',
-                    title: 'System Notification: ',
-                    message: "Repair Approved!",
-                  },{
-                    type:'success',
-                    placement:{
-                      align: 'center'
-                    },           
-                    delay: 3000,                        
-                  });                 
-                  
-                }
-                else{
-                  alert(data);          
-                }
-              }
               });
             }
             else{
@@ -359,18 +354,17 @@ function listchange(){
     alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
     e.preventDefault();
     e.stopImmediatePropagation();
-    var formdata =  $('#editform').serializeArray();
-    formdata.push({name: 'action', value: 'update_a'});
+    
     $.ajax({
       type: 'POST',
-      url: '/1_mes/database/table_handler/mold/moldrepairHandler.php',
-      data: $.param(formdata),
+      url: '/1_mes/_query/mold_repair/edit_mold_repair.php',
+      data: $('#editform').serialize(),
       success: function (data) {    
-        if(data==true){
+        if(data=="success"){
           /* alert("Record Updated Successfully!"); */
           $('#editform').trigger('reset');
           $('#editmoldrepair').modal('hide');
-          checkuserauth();          
+          checkuserauth();
           loadmodal('moldrepairmodal');
 
           $.notify({
@@ -405,15 +399,14 @@ function listchange(){
     /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
     e.preventDefault();
     e.stopImmediatePropagation();
-    var formdata =  $('#addformA').serializeArray();
-    formdata.push({name: 'action', value: 'insert'});
+    
     $.ajax({
       type: 'POST',
-      url: '/1_mes/database/table_handler/mold/moldrepairHandler.php',
-      data: $.param(formdata),
+      url: '/1_mes/_query/mold_repair/insert_mold_repair.php',
+      data: $('#addformA').serialize(),
       success: function (data) {
         /* alert(data);  */  
-        if(data==true){
+        if(data=="success"){
           /* alert("Record saved successfully!"); */
           $('#addformA').trigger('reset');
           $('#addmoldrepairA').modal('hide');          
@@ -452,15 +445,14 @@ function listchange(){
     /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
     e.preventDefault();
     e.stopImmediatePropagation();
-    var formdata =  $('#addform').serializeArray();
-    formdata.push({name: 'action', value: 'insert'});
+    
     $.ajax({
       type: 'POST',
-      url: '/1_mes/database/table_handler/mold/moldrepairHandler.php',
-      data: $.param(formdata),
+      url: '/1_mes/_query/mold_repair/insert_mold_repair.php',
+      data: $('#addform').serialize(),
       success: function (data) {
         /* alert(data); */   
-        if(data==true){
+        if(data=="success"){
           /* alert("Record saved successfully!"); */
           $('#addform').trigger('reset');
           $('#addmoldrepair').modal('hide');          
@@ -528,7 +520,6 @@ function checkFluency(chckbox,sel,text)
     /* alert('TEST');  */  
     $(this).find('form')[0].reset();
     $("[type='checkbox']").trigger("change");    
-    $('.sel').val('').trigger('change.select2');
   });
 
   /* ________________ Modal reset ____________________ */
@@ -626,15 +617,14 @@ $('#mod').on('submit','#addmoldhistoryform', function (e) {
   /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
   e.preventDefault();
   e.stopImmediatePropagation();
-  var formdata =  $('#addmoldhistoryform').serializeArray();
-  formdata.push({name: 'action', value: 'insert'});
+  
   $.ajax({
     type: 'POST',
-    url: '/1_mes/database/table_handler/mold/historyHandler.php',
-    data: $.param(formdata),
+    url: '/1_mes/_query/mold_repair/insert_history.php',
+    data: $('#addmoldhistoryform').serialize(),
     success: function (data) {
       /* alert(data);  */  
-      if(data==true){
+      if(data=="success"){
         /* alert("Record saved successfully!"); */
         $('#addmoldhistoryform').trigger('reset');
         $('#addmoldhistory').modal('hide');          
@@ -672,15 +662,14 @@ $('#mod').on('submit','#editmoldhistoryform', function (e) {
   /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
   e.preventDefault();
   e.stopImmediatePropagation();
-  var formdata =  $('#editmoldhistoryform').serializeArray();
-  formdata.push({name: 'action', value: 'update'});
+  
   $.ajax({
     type: 'POST',
-    url: '/1_mes/database/table_handler/mold/historyHandler.php',
-    data: $.param(formdata),
+    url: '/1_mes/_query/mold_repair/edit_history.php',
+    data: $('#editmoldhistoryform').serialize(),
     success: function (data) {
       /* alert(data);  */  
-      if(data==true){
+      if(data=="success"){
         /* alert("Record saved successfully!"); */
         $('#editmoldhistoryform').trigger('reset');
         $('#editmoldhistory').modal('hide');          
@@ -822,11 +811,8 @@ function getcus_name(dd,input){
           },
           url:'/1_mes/_query/mold_repair/getcustomername.php',
           success:function(data){
-
-            if(data!='none'){
               var val = JSON.parse(data);              
-              $(input).val(val.CUSTOMER_NAME);  
-            }                                               
+              $(input).val(val.CUSTOMER_NAME);                                   
           } 
     
           });
@@ -1134,99 +1120,3 @@ function isNumberNegative(evt){
 }
 
 /* _______________________ Check negative number ____________________________ */
-
-
-/* ____________________ ADD Operator ________________________ */
-
-$('#mod').on('submit','#operatorform', function (e) {           
-  /* alert('TEST'); */
-  /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
-  e.preventDefault();
-  e.stopImmediatePropagation();
- /*  alert('test'); */
- var formdata = $('#operatorform').serializeArray();
- formdata.push({name: 'action', value: 'insert'});
-  $.ajax({
-    type: 'POST',
-    url: '/1_mes/database/table_handler/mold/operatorHandler.php',
-    data: $.param(formdata),
-    success: function (data) {
-      /* alert(data); */   
-      
-      if(data == true){
-        /* alert("Record saved successfully!"); */
-        $('#operatorform').trigger('reset');
-        $('#operatormod').modal('hide');          
-        checkuserauthO();
-        loadmodal('moldrepairmodal');
-
-        $.notify({
-          icon: 'fas fa-info-circle',
-          title: 'System Notification: ',
-          message: "Record saved successfully!",
-        },{
-          type:'success',
-          placement:{
-            align: 'center'
-          },           
-          delay: 3000,                        
-        });
-      }
-      else{
-        alert(data);          
-      }
-    }
-  }); 
-  
-});
-
-
-/* ____________________ ADD operator ________________________ */
-
-
-/* ____________________ EDIT Operator ________________________ */
-
-$('#mod').on('submit','#eoperatorform', function (e) {           
-  /* alert('TEST'); */
-  /* alert(document.getElementById("MRI009").checked ? 'YES' : 'NO'); */
-  e.preventDefault();
-  e.stopImmediatePropagation();
- /*  alert('test'); */
- var formdata = $('#eoperatorform').serializeArray();
- formdata.push({name: 'action', value: 'update'});
-  $.ajax({
-    type: 'POST',
-    url: '/1_mes/database/table_handler/mold/operatorHandler.php',
-    data: $.param(formdata),
-    success: function (data) {
-      /* alert(data); */   
-      
-      if(data == true){
-        /* alert("Record saved successfully!"); */
-        $('#eoperatorform').trigger('reset');
-        $('#eoperatormod').modal('hide');          
-        checkuserauthO();
-        loadmodal('moldrepairmodal');
-
-        $.notify({
-          icon: 'fas fa-info-circle',
-          title: 'System Notification: ',
-          message: "Record saved successfully!",
-        },{
-          type:'success',
-          placement:{
-            align: 'center'
-          },           
-          delay: 3000,                        
-        });
-      }
-      else{
-        alert(data);          
-      }
-    }
-  }); 
-  
-});
-
-
-/* ____________________ EDIT operator ________________________ */

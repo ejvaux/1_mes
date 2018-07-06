@@ -2,11 +2,6 @@
 
 include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 
-
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
 $optiontype=$_POST['optionType'];
 $groupname=$_POST['groupname'];
 
@@ -37,8 +32,8 @@ if($optiontype=="group")
         $result2=$conn->query($sql2);
 
     }
-$user = $_SESSION['text'];
-$sql3="DELETE FROM mis_temp_ship_group WHERE user_insert = '$user'";
+
+$sql3="DELETE FROM mis_temp_ship_group";
 $result3=$conn->query($sql3);
 
 }//end of if optionType==group
@@ -70,8 +65,8 @@ else
 
 
     }
-$user = $_SESSION['text'];
-$sql3="DELETE FROM mis_temp_ship_group WHERE user_insert = '$user'";
+
+$sql3="DELETE FROM mis_temp_ship_group";
 $result3=$conn->query($sql3);
 
 

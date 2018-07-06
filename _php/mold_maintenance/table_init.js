@@ -1,25 +1,25 @@
 
 /* ____________ Table Init ________________ */
 
-function checkuserauth(sd,ed){
+function checkuserauth(){
   if(val=="A" || val=="G"){
-    DisplayTble('mold_repair_table','mold_repairsp','Mold Repair',sd,ed);
+    DisplayTble('mold_repair_table','mold_repairsp','Mold Repair');
   }
   
   else if(val=="DC"){
-    DisplayTbleC('mold_repair_table2','mold_repairsp','Mold Repair',sd,ed);
+    DisplayTbleC('mold_repair_table2','mold_repairsp2','Mold Repair');
   }
   
   else if(val=="DG"){
-    DisplayTbleG('mold_repair_table3','mold_repairsp','Mold Repair',sd,ed);
+    DisplayTbleG('mold_repair_table3','mold_repairsp3','Mold Repair');
   }
 
   else if(val=="DA"){
-    DisplayTbleA('mold_repair_table2','mold_repairsp','Mold Repair',sd,ed);
+    DisplayTbleA('mold_repair_table2','mold_repairsp2','Mold Repair');
   }
 
   else if(val=="C"){
-    DisplayTbleQC('mold_repair_table2','mold_repairsp','Mold Repair',sd,ed);
+    DisplayTbleQC('mold_repair_table2','mold_repairsp2','Mold Repair');
   }
 
   else{
@@ -56,18 +56,9 @@ function checkuserauthF(){
 }              
 /* _______________ Table Init F ______________ */
 
-/* ____________ Table Init O ________________ */
-
-function checkuserauthO(){
-  
-    DisplayTbleO('mold_operator_table','mold_operatorsp','Mold Operator List');
-  
-}              
-/* _______________ Table Init F ______________ */
-
 /* Display Table USER A*/
         
-function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
+function DisplayTble(Table_Name,Tablesp,tbltitle) {
     var xhttp;
     if (Table_Name.length == 0) { 
       document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -77,9 +68,9 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
     xhttp.onreadystatechange = function() {
       
       if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("table_display").innerHTML = this.responseText;       
-        
+        document.getElementById("table_display").innerHTML = this.responseText;
         var tble = $('#Dtable').DataTable( {
+          deferRender:    true,
         scrollY:        '61vh',
         "sScrollX": "100%",
         /* scrollerX:      true, */
@@ -88,16 +79,12 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           "iDisplayLength": 100,          
           fixedColumns: {
               heightMatch: 'semiauto'
-          },
-          "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',         
+          },         
           "ajax": {
             url: "/1_mes/_includes/"+Tablesp+".php",
-            type: 'POST',
-            data: {
-              "sday": startdate,
-              "eday": enddate
-            }
-          },                      
+            type: 'POST'
+          },            
+          "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
           'buttons': [            
             { text: '<i class="fas fa-plus"></i>',
               attr:  {
@@ -106,7 +93,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
               },  
               name: 'add',
               className: 'btn btn-export6 btn-xs py-1 addbt',
-              extend: 'addA'               
+              extend: 'add1'               
             },
             { extend: 'selected', // Bind to Selected row
               text: '<i class="fas fa-edit"></i>',
@@ -125,12 +112,11 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
                 $.ajax(
                   {
                   method:'post',
-                  url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+                  url:'/1_mes/_query/mold_repair/getrow.php',
                   data:
                   {
-                    'action': 'select',
-                    'id': data[1],
-                    'ajax': true
+                      'id': data[5],
+                      'ajax': true
                   },
                   success: function(data1) {
                     var val = JSON.parse(data1);
@@ -139,7 +125,6 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
                     /* alert("||"+val.MACHINE_CODE+"||");
                     alert("||"+data[3]+"||"); */
 
-                    $("#emoldrepairid").val(val.MOLD_REPAIR_ID);
                     $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
                     $("#emcl").val(val.MOLD_CODE);   
                     elistchange();
@@ -192,33 +177,26 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
                     $.ajax(
                       {
                       method:'post',
-                      url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+                      url:'/1_mes/_query/mold_repair/delete_mold_repair.php',
                       data:
                       {
-                          'id': data[1],
-                          'action': 'delete',
+                          'id': data[5],
                           'ajax': true
                       },
                       success: function(data) {
+                        checkuserauth();
 
-                        if(data==true){
-                          checkuserauth();
-                          $.notify({
-                            icon: 'fas fa-info-circle',
-                            title: 'System Notification: ',
-                            message: "Record deleted successfully!",
-                          },{
-                            type:'success',
-                            placement:{
-                              align: 'center'
-                            },           
-                            delay: 3000,                        
-                          });
-                        }
-                        else{
-                          alert(data);
-                        }
-                        
+                        $.notify({
+                          icon: 'fas fa-info-circle',
+                          title: 'System Notification: ',
+                          message: data,
+                        },{
+                          type:'success',
+                          placement:{
+                            align: 'center'
+                          },           
+                          delay: 3000,                        
+                        });
                       }
                       });
 
@@ -280,13 +258,13 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
                                  
         } );       
         
-        /* ____________________ FUNCTIONS ___________________ */        
+        /* ____________________ FUNCTIONS ___________________ */
 
         tble.on( 'order.dt search.dt processing.dt page.dt processing.dt page.dt', function () {
             tble.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                 cell.innerHTML = i+1;
             } );
-        } ).draw();     
+        } ).draw();
 
         $('#Dtable tbody').on( 'click', '#checking', function () {
           var data = tble.row( $(this).parents('tr') ).data();
@@ -297,12 +275,11 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           $.ajax(
             {
             method:'post',
-            url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+            url:'/1_mes/_query/mold_repair/getrow.php',
             data:
             {
-              'action': 'select',
-              'id': data[1],
-              'ajax': true
+                'id': data[5],
+                'ajax': true
             },
             success: function(data1) {
               var val = JSON.parse(data1);
@@ -310,7 +287,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
               alert(val.MOLD_REPAIR_CONTROL_NO); */
               /* alert("||"+val.MACHINE_CODE+"||");
               alert("||"+data[3]+"||"); */
-              $('#chkmoldrepairid').val(val.MOLD_REPAIR_ID);
+             /* alert(val.MOLD_REPAIR_CONTROL_NO); */
               $("#chkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
   
               $("#MRI001").val(val.MRI001);
@@ -352,12 +329,11 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         $.ajax(
           {
           method:'post',
-          url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+          url:'/1_mes/_query/mold_repair/getrow.php',
           data:
           {
-            'action': 'select',
-            'id': data[1],
-            'ajax': true
+              'id': data[5],
+              'ajax': true
           },
           success: function(data1) {
             var val = JSON.parse(data1);
@@ -366,7 +342,6 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
             /* alert("||"+val.MACHINE_CODE+"||");
             alert("||"+data[3]+"||"); */
 
-            $("#emoldrepairid").val(val.MOLD_REPAIR_ID);
             $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
             $("#emcl").val(val.MOLD_CODE);   
             elistchange();
@@ -395,10 +370,6 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       } );
 
       $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
-      
-      $('#min').val(startdate);
-      $('#max').val(enddate);
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -419,28 +390,6 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         
       });
 
-      $('#min, #max').on('change',function(){
-        var sdate = $('#min').val();
-        var edate = $('#max').val();
-
-        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
-          /* alert('Good'); */
-          
-          checkuserauth(sdate,edate);          
-        }
-        else{
-          /* alert('No Good'); */
-        }
-        /* alert('test'); */        
-      });
-
-      $('#refresh').on('click',function(){
-        checkuserauth();
-      });
-
-      /* $('#min, #max').keyup( function() {
-        tble.draw();
-    } ); */   
         /* ____________________________ FUNCTIONS _________________________ */
       }
       
@@ -450,22 +399,22 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
     
   } 
   
-  $.fn.dataTable.ext.buttons.addA = {
+  $.fn.dataTable.ext.buttons.add1 = {
     action: 
     function () {
       
-      /* listchange(); */
+      listchange();
       getctrlnumber();
       $("#addmoldrepairA").modal('show');        
       
     }
-  };
-  
+  };  
+
       /* Display Table - END */
 
 /* --------------------------- user G ------------------------------------------- */
 
-function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
+function DisplayTbleG(Table_Name,Tablesp,tbltitle) {
   var xhttp;
   if (Table_Name.length == 0) { 
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -488,13 +437,9 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         },
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST',
-          data: {
-            "sday": startdate,
-            "eday": enddate
-          }
+          type: 'POST'
         },            
-        "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [            
           { text: '<i class="fas fa-plus"></i>',
           attr:  {
@@ -574,16 +519,15 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         $.ajax(
           {
           method:'post',
-          url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+          url:'/1_mes/_query/mold_repair/getrow.php',
           data:
           {
-            'action': 'select',
-              'id': data[1],
+              'id': data[5],
               'ajax': true
           },
           success: function(data1) {
             var val = JSON.parse(data1);
-            
+
             $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
 
             $("#aMRI001").val(val.MRI001);
@@ -626,12 +570,11 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         $.ajax(
           {
           method:'post',
-          url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+          url:'/1_mes/_query/mold_repair/getrow.php',
           data:
           {
-            'action': 'select',
-            'id': data[1],
-            'ajax': true
+              'id': data[5],
+              'ajax': true
           },
           success: function(data1) {
             var val = JSON.parse(data1);
@@ -639,7 +582,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
             alert(val.MOLD_REPAIR_CONTROL_NO); */
             /* alert("||"+val.MACHINE_CODE+"||");
             alert("||"+data[3]+"||"); */
-            $("#emoldrepairid").val(val.MOLD_REPAIR_ID);
+
             $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
             $("#emcl").val(val.MOLD_CODE);   
             elistchange();
@@ -668,10 +611,6 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       } );
 
       $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
-
-      $('#min').val(startdate);
-      $('#max').val(enddate);
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -690,26 +629,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           .draw();
         }
         
-      });
-      
-      $('#min, #max').on('change',function(){
-        var sdate = $('#min').val();
-        var edate = $('#max').val();
-
-        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
-          /* alert('Good'); */
-          
-          checkuserauth(sdate,edate);          
-        }
-        else{
-          /* alert('No Good'); */
-        }
-        /* alert('test'); */        
-      });
-
-      $('#refresh').on('click',function(){
-        checkuserauth();
-      });
+      });      
 
       /* ____________________________ FUNCTIONS _________________________ */
     }
@@ -737,7 +657,7 @@ $.fn.dataTable.ext.buttons.add2 = {
 
 /* -------------------------------------- User C -------------------------------------------- */
 
-function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
+function DisplayTbleC(Table_Name,Tablesp,tbltitle) {
   var xhttp;
   if (Table_Name.length == 0) { 
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -761,13 +681,9 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         /* "ajax": "/1_mes/_includes/"+Tablesp+".php", */
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST',
-          data: {
-            "sday": startdate,
-            "eday": enddate
-          }
+          type: 'POST'
         },            
-        "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [
           { text: '<i class="fas fa-plus"></i>',
           attr:  {
@@ -776,7 +692,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           },
             name: 'add', // do not change name 
             className: 'btn btn-export6 btn-xs py-1 addbt',
-            extend: 'add3'               
+            extend: 'add2'               
           },                                
           { extend: 'copy', text: '<i class="far fa-copy"></i>',
           attr:  {
@@ -850,17 +766,16 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         /* alert(data[5]); */
         /* document.getElementById("chkrepaircontrol").value = data[5]; */
 
-        if(data[3]=='FOR MOLD TRIAL' || data[3]=='QC APPROVED'){
+        if(data[3]=='FOR MOLD TRIAL'){
 
           $.ajax(
             {
             method:'post',
-            url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+            url:'/1_mes/_query/mold_repair/getrow.php',
             data:
             {
-              'action': 'select',
-              'id': data[1],
-              'ajax': true
+                'id': data[5],
+                'ajax': true
             },
             success: function(data1) {
               var val = JSON.parse(data1);
@@ -868,9 +783,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
               alert(val.MOLD_REPAIR_CONTROL_NO); */
               /* alert("||"+val.MACHINE_CODE+"||");
               alert("||"+data[3]+"||"); */
-              /* alert(val.MOLD_REPAIR_CONTROL_NO); */
-
-              $('#achkmoldrepairid').val(val.MOLD_REPAIR_ID);
+             /* alert(val.MOLD_REPAIR_CONTROL_NO); */
               $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
   
               $("#aMRI001").val(val.MRI001);
@@ -911,12 +824,11 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         $.ajax(
           {
           method:'post',
-          url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+          url:'/1_mes/_query/mold_repair/getrow.php',
           data:
           {
-            'action': 'select',
-            'id': data[1],
-            'ajax': true
+              'id': data[5],
+              'ajax': true
           },
           success: function(data1) {
             var val = JSON.parse(data1);
@@ -925,7 +837,6 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
             /* alert("||"+val.MACHINE_CODE+"||");
             alert("||"+data[3]+"||"); */
            /* alert(val.MOLD_REPAIR_CONTROL_NO); */
-            $("#chkmoldrepairid").val(val.MOLD_REPAIR_ID);
             $("#chkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
 
             $("#MRI001").val(val.MRI001);
@@ -967,12 +878,11 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       $.ajax(
         {
         method:'post',
-        url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+        url:'/1_mes/_query/mold_repair/getrow.php',
         data:
         {
-          'action': 'select',
-          'id': data[1],
-          'ajax': true
+            'id': data[5],
+            'ajax': true
         },
         success: function(data1) {
           var val = JSON.parse(data1);
@@ -980,7 +890,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           alert(val.MOLD_REPAIR_CONTROL_NO); */
           /* alert("||"+val.MACHINE_CODE+"||");
           alert("||"+data[3]+"||"); */
-          $("#emoldrepairid").val(val.MOLD_REPAIR_ID);
+
           $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
           $("#emcl").val(val.MOLD_CODE);   
           elistchange();
@@ -1009,10 +919,6 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
     } );
 
     $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-    $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
-
-    $('#min').val(startdate);
-    $('#max').val(enddate);
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -1031,25 +937,6 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           .draw();
         }
         
-      });
-
-      $('#min, #max').on('change',function(){
-        var sdate = $('#min').val();
-        var edate = $('#max').val();
-
-        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
-          /* alert('Good'); */
-          
-          checkuserauth(sdate,edate);          
-        }
-        else{
-          /* alert('No Good'); */
-        }
-        /* alert('test'); */        
-      });
-
-      $('#refresh').on('click',function(){
-        checkuserauth();
       });
 
       /* ____________________________ FUNCTIONS _________________________ */
@@ -1075,7 +962,7 @@ $.fn.dataTable.ext.buttons.add3 = {
 
 /* -------------------------------------- User Approver-------------------------------------------- */
 
-function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
+function DisplayTbleA(Table_Name,Tablesp,tbltitle) {
   var xhttp;
   if (Table_Name.length == 0) { 
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -1099,13 +986,9 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         /* "ajax": "/1_mes/_includes/"+Tablesp+".php", */
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST',
-          data: {
-            "sday": startdate,
-            "eday": enddate
-          }
+          type: 'POST'
         },            
-        "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [ 
           { text: '<i class="fas fa-plus"></i>',
           attr:  {
@@ -1114,7 +997,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           },
             name: 'add', // do not change name 
             className: 'btn btn-export6 btn-xs py-1 addbt',
-            extend: 'add4'               
+            extend: 'add2'               
           },                            
           { extend: 'copy', text: '<i class="far fa-copy"></i>',
           attr:  {
@@ -1190,20 +1073,19 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         $.ajax(
           {
           method:'post',
-          url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+          url:'/1_mes/_query/mold_repair/getrow.php',
           data:
           {
-            'action': 'select',
-            'id': data[1],
-            'ajax': true
+              'id': data[5],
+              'ajax': true
           },
           success: function(data1) {
             var val = JSON.parse(data1);
             
-            $("#chkmoldrepairid").val(val.MOLD_REPAIR_ID);
             $("#chkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
             $("#chkrequestdate").val(val.REQUEST_DATE);
             $("#chkmoldcode").val(val.MOLD_CODE);
+
 
             $("#MRI001").val(val.MRI001);
             $("#MRI002").val(val.MRI002); 
@@ -1239,23 +1121,21 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
     } );
 
 
-    /* $('#Dtable tbody').on( 'click', '#approve', function () {
+    $('#Dtable tbody').on( 'click', '#approve', function () {
         var data = tble.row( $(this).parents('tr') ).data();
                 
         $.ajax(
           {
           method:'post',
-          url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+          url:'/1_mes/_query/mold_repair/getrow.php',
           data:
           {
-            'action': 'select',
-            'id': data[1],
-            'ajax': true
+              'id': data[5],
+              'ajax': true
           },
           success: function(data1) {
             var val = JSON.parse(data1);
-
-            $('#achkmoldrepairid').val(val.MOLD_REPAIR_ID);
+            
             $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
 
             $("#aMRI001").val(val.MRI001);
@@ -1288,7 +1168,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           }
         });
         
-    } ); */
+    } );
 
     $('#Dtable tbody').on( 'click', '#forpm', function () {
       var data = tble.row( $(this).parents('tr') ).data();
@@ -1296,11 +1176,10 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       $.ajax(
         {
         method:'post',
-        url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+        url:'/1_mes/_query/mold_repair/getrow.php',
         data:
         {
-            'action': 'select',
-            'id': data[1],
+            'id': data[5],
             'ajax': true
         },
         success: function(data1) {
@@ -1309,7 +1188,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           alert(val.MOLD_REPAIR_CONTROL_NO); */
           /* alert("||"+val.MACHINE_CODE+"||");
           alert("||"+data[3]+"||"); */
-          $("#emoldrepairid").val(val.MOLD_REPAIR_ID);
+
           $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
           $("#emcl").val(val.MOLD_CODE);   
           elistchange();
@@ -1337,63 +1216,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       
     } );
 
-    $('#Dtable tbody').on( 'click', '#check', function () {
-      var data = tble.row( $(this).parents('tr') ).data();
-      
-      $.ajax(
-        {
-        method:'post',
-        url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
-          data:
-          {
-            'action': 'select',
-            'id': data[1],
-            'ajax': true
-        },
-        success: function(data1) {
-          var val = JSON.parse(data1);
-
-          $("#achkmoldrepairid").val(val.MOLD_REPAIR_ID);
-          $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
-
-          $("#aMRI001").val(val.MRI001);
-          $("#aMRI002").val(val.MRI002); 
-          $("#aMRI003").val(val.MRI003); 
-          $("#aMRI004").val(val.MRI004); 
-          $("#aMRI005").val(val.MRI005); 
-          $("#aMRI006").val(val.MRI006); 
-          $("#aMRI007").val(val.MRI007); 
-          $("#aMRI008").val(val.MRI008);
-          
-          if(val.MRI009=='YES'){document.getElementById("aMRI009").checked = true; };
-          if(val.MRI010=='YES'){document.getElementById("aMRI010").checked = true; };
-          if(val.MRI011=='YES'){document.getElementById("aMRI011").checked = true; };
-          if(val.MRI012=='YES'){document.getElementById("aMRI012").checked = true; };
-          if(val.MRI013=='YES'){document.getElementById("aMRI013").checked = true; };
-
-          if(val.MRI014=='YES'){document.getElementById("aMRI014").checked = true; };
-          if(val.MRI015=='YES'){document.getElementById("aMRI015").checked = true; };
-          if(val.MRI016=='YES'){document.getElementById("aMRI016").checked = true; };
-          if(val.MRI017=='YES'){document.getElementById("aMRI017").checked = true; };
-          if(val.MRI018=='YES'){document.getElementById("aMRI018").checked = true; };
-          if(val.MRI019=='YES'){document.getElementById("aMRI019").checked = true; };
-          if(val.MRI020=='YES'){document.getElementById("aMRI020").checked = true; };
-         
-          $("#aactiontaken").val(val.ACTION_TAKEN);
-
-          $("#achecklistsubmit").hide();
-
-          $('.sel').select2({ width: '100%' });
-          $('#achcklist').modal('show');
-        }
-      });                   
-  } );
-
     $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-    $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
-
-    $('#min').val(startdate);
-    $('#max').val(enddate);
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -1414,26 +1237,6 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         
       });
 
-      $('#min, #max').on('change',function(){
-        var sdate = $('#min').val();
-        var edate = $('#max').val();
-
-        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
-          /* alert('Good'); */
-          
-          checkuserauth(sdate,edate);          
-        }
-        else{
-          /* alert('No Good'); */
-        }
-        /* alert('test'); */        
-      });
-
-      $('#refresh').on('click',function(){
-        checkuserauth();
-      });
-
-
       /* ____________________________ FUNCTIONS _________________________ */
     }
     
@@ -1443,7 +1246,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
   
 } 
 
-$.fn.dataTable.ext.buttons.add4 = {
+$.fn.dataTable.ext.buttons.add3 = {
   action: 
   function () {
       alistchange();
@@ -1459,7 +1262,7 @@ $.fn.dataTable.ext.buttons.add4 = {
 
 /* -------------------------------------- QC -------------------------------------------- */
 
-function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
+function DisplayTbleQC(Table_Name,Tablesp,tbltitle) {
   var xhttp;
   if (Table_Name.length == 0) { 
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -1483,13 +1286,9 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         /* "ajax": "/1_mes/_includes/"+Tablesp+".php", */
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST',
-          data: {
-            "sday": startdate,
-            "eday": enddate
-          }
+          type: 'POST'
         },            
-        "dom": '<"row"<"col-sm-3"B><"col-sm-5"<"dr">><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [                                       
           { extend: 'copy', text: '<i class="far fa-copy"></i>',
           attr:  {
@@ -1564,17 +1363,15 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           $.ajax(
             {
             method:'post',
-            url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+            url:'/1_mes/_query/mold_repair/getrow.php',
             data:
             {
-              'action': 'select',
-              'id': data[1],
-              'ajax': true
+                'id': data[5],
+                'ajax': true
             },
             success: function(data1) {
               var val = JSON.parse(data1);
               
-              $("#achkmoldrepairid").val(val.MOLD_REPAIR_ID);
               $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
   
               $("#aMRI001").val(val.MRI001);
@@ -1617,20 +1414,16 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         $.ajax(
           {
           method:'post',
-          url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
+          url:'/1_mes/_query/mold_repair/getrow.php',
           data:
           {
-            'action': 'select',
-            'id': data[1],
+              'id': data[5],
               'ajax': true
           },
           success: function(data1) {
             var val = JSON.parse(data1);
             
-            $("#qcchkmoldrepairid").val(val.MOLD_REPAIR_ID);
             $("#qcchkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
-            $("#qcchkrequestdate").val(val.REQUEST_DATE);
-            $("#qcchkmoldcode").val(val.MOLD_CODE);
 
             $("#qcMRI001").val(val.MRI001);
             $("#qcMRI002").val(val.MRI002); 
@@ -1665,10 +1458,6 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
     } );
 
     $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-    $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
-
-      $('#min').val(startdate);
-      $('#max').val(enddate);
 
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
@@ -1689,25 +1478,6 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         
       });
 
-      $('#min, #max').on('change',function(){
-        var sdate = $('#min').val();
-        var edate = $('#max').val();
-
-        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
-          /* alert('Good'); */
-          
-          checkuserauth(sdate,edate);          
-        }
-        else{
-          /* alert('No Good'); */
-        }
-        /* alert('test'); */        
-      });
-
-      $('#refresh').on('click',function(){
-        checkuserauth();
-      });
-
       /* ____________________________ FUNCTIONS _________________________ */
     }
     
@@ -1715,7 +1485,18 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
   xhttp.open("POST", "/1_mes/_tables/"+Table_Name+".php", true);
   xhttp.send();   
   
-}   
+} 
+
+$.fn.dataTable.ext.buttons.add3 = {
+  action: 
+  function () {
+      alistchange();
+      getctrlnumber();    
+    $("#addmoldrepair").modal('show');
+    /* alert('TEST');  */    
+    
+  }
+};   
 
 /* -------------------------------------- QC -------------------------------------------- */
 
@@ -1806,34 +1587,26 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
                   $.ajax(
                     {
                     method:'post',
-                    url:'/1_mes/database/table_handler/mold/historyHandler.php',
+                    url:'/1_mes/_query/mold_repair/delete_history.php',
                     data:
                     {
-                      'action': 'delete',
-                      'id': data[0],
-                      'ajax': true
+                        'id': data[0],
+                        'ajax': true
                     },
                     success: function(data) {
+                      checkuserauthH();
 
-                      if(data==true){
-                        checkuserauthH();
-
-                        $.notify({
-                          icon: 'fas fa-info-circle',
-                          title: 'System Notification: ',
-                          message: 'Record deleted successfully!',
-                        },{
-                          type:'success',
-                          placement:{
-                            align: 'center'
-                          },           
-                          delay: 3000,                        
-                        });
-                      }
-                      else{
-                        alert(data);
-                      }
-                      
+                      $.notify({
+                        icon: 'fas fa-info-circle',
+                        title: 'System Notification: ',
+                        message: data,
+                      },{
+                        type:'success',
+                        placement:{
+                          align: 'center'
+                        },           
+                        delay: 3000,                        
+                      });
                     }
                     });
 
@@ -1963,6 +1736,17 @@ function DisplayTbleH(Table_Name,Tablesp,tbltitle) {
   xhttp.send();   
   
 } 
+
+$.fn.dataTable.ext.buttons.add1 = {
+  action: 
+  function () {
+
+    listchange();
+    getctrlnumber();    
+    $("#addmoldrepairA").modal('show');        
+    
+  }
+};
 
 /* ---------------------------- TH ------------------------------ */
 
@@ -2308,7 +2092,7 @@ $.fn.dataTable.ext.buttons.addfab1 = {
                 },  
                 name: 'add',
                 className: 'btn btn-export6 btn-xs py-1 addbt',
-                extend: 'addfab2'               
+                extend: 'addfab1'               
               },                                      
               { extend: 'copy', text: '<i class="far fa-copy"></i>', 
               attr:  {
@@ -2454,7 +2238,7 @@ $.fn.dataTable.ext.buttons.addfab1 = {
       
     } 
     
-    $.fn.dataTable.ext.buttons.addfab2 = {
+    $.fn.dataTable.ext.buttons.addfab1 = {
       action: 
       function () {
         /* alert('UNAVAILABLE'); */
@@ -2466,162 +2250,9 @@ $.fn.dataTable.ext.buttons.addfab1 = {
     };
     /* ------------------------------- FABRICATION CHECKER ------------------------------------------------  */
 
-    /* ------------------------------- OPERATOR ------------------------------------------------  */
-
-    function DisplayTbleO(Table_Name,Tablesp,tbltitle) {
-      var xhttp;
-      if (Table_Name.length == 0) { 
-        document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
-        return;
-      }
-      xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("table_display").innerHTML = this.responseText;
-          var tble = $('#Dtable').DataTable( { 
-            deferRender:    true,
-            scrollY:        '61vh',
-            "sScrollX": "100%",          
-            "processing": true,
-            "serverSide": true,
-            "iDisplayLength": 100,        
-            "ajax": {
-              url: "/1_mes/_includes/"+Tablesp+".php",
-              type: 'POST'
-            },            
-            "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
-            'buttons': [            
-              { text: '<i class="fas fa-plus"></i>',
-                attr:  {
-                      title: 'Insert Data',
-                      id: 'addButton'
-                  }, 
-                name: 'add', // do not change name 
-                className: 'btn btn-export6 btn-xs py-1',
-                extend: 'addopt'                 
-              },
-              { extend: 'selected', // Bind to Selected row
-                text: '<i class="fas fa-edit"></i>',              
-                attr:  {
-                      title: 'Edit Data',
-                      id: 'editButton'
-                  },
-                name: 'edit',        // do not change name
-                className: 'btn btn-export6 btn-xs py-1',
-                action: function ( e, dt, node, config ) {
-                  /* alert('test Edit button'); */
-                  var data = dt.row( '.selected' ).data();                                    
-                  /* alert( data[0] +" is the ID. " ); */
-    
-                  $("#operatorid").attr("value",data[0]);
-                  $("#eoperatorname").attr("value",data[1]);
-                  
-                  $('#eoperatormod').modal('show');
-                }
-              },
-              {
-                text: '<i class="fas fa-trash"></i>',              
-                attr:  {
-                      title: 'Delete Data',
-                      id: 'deleteButton'
-                  },
-                name: 'delete',      // do not change name
-                className: 'btn btn-export6 btn-xs py-1',
-                extend: 'selected', // Bind to Selected row
-                action: function ( e, dt, node, config ) {                  
-    
-                  swal({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                  }).then((result) => {
-                    if (result.value) {
-                      
-                      var data = dt.row( '.selected' ).data();
-                  
-                      $.ajax(
-                        {
-                        method:'post',
-                        /* url:'/1_mes/_query/mold_repair/operator/delete.php', */
-                        url:'/1_mes/database/table_handler/mold/operatorHandler.php',
-                        data:
-                        {
-                          'action': 'delete',                        
-                          'id': data[0],
-                          'ajax': true
-                        },
-                        success: function(data) {
-
-                          if(data == true){
-
-                            checkuserauthO();
-                            loadmodal('moldrepairmodal');
-    
-                            $.notify({
-                            icon: 'fas fa-info-circle',
-                            title: 'System Notification: ',
-                            message: "Record deleted successfully!",
-                          },{
-                            type:'success',
-                            placement:{
-                              align: 'center'
-                            },           
-                            delay: 3000,                        
-                          });
-
-                          }
-                          else{
-                            alert(data);
-                          }
-                          
-                        }
-                        });
-    
-                    }
-                  })
-    
-                }                
-              },
-              { extend: 'copy', text: '<i class="far fa-copy"></i>', 
-              attr:  {
-                    title: 'Copy to Clipboard',
-                    id: 'copyButton'
-                },
-                 className: 'btn btn-export6 btn-xs py-1'},
-              { extend: 'excel', text: '<i class="fas fa-table"></i>',
-              attr:  {
-                    title: 'Export to Excel',
-                    id: 'exportButton'
-                },
-                filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
-              ],          
-              select: 'single',
-              "columnDefs": [ {              
-                "targets": 0
-            } ],
-                                            
-          } );           
-          tble.on( 'order.dt search.dt processing.dt page.dt', function () {
-            tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                cell.innerHTML = i+1;
-            } );
-        } ).draw();
-        }
-      };
-      xhttp.open("POST", "/1_mes/_tables/"+Table_Name+".php", true);
-      xhttp.send();       
-    }  
-    
-    $.fn.dataTable.ext.buttons.addopt = {
-      action: function () {             
-        $("#operatormod").modal('show');
-      }
-    };
+    /* ------------------------------- OPERATOR DROPDOWN ------------------------------------------------  */
 
 
-    /* ------------------------------- OPERATOR ------------------------------------------------  */
+
+
+    /* ------------------------------- OPERATOR DROPDOWN ------------------------------------------------  */

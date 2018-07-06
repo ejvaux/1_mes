@@ -898,14 +898,3 @@ function getemployeecode(id){
   }
 
 /* _______________________ Get employee code - Employee table ____________________________ */
-
- /* ______ Modal Reset ______ */
-
- $('#mod').on('hide.bs.modal','.modal', function (e) {           
-  /* alert('TEST'); */   
-  $(this).find('form')[0].reset();
-  $("[type='checkbox']").trigger("change");
-  $('.sel').val('').trigger('change.select2');
-});
-
- /* ______ Modal Reset ______ */

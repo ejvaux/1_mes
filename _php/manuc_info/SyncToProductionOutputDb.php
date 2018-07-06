@@ -113,7 +113,7 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
       $errorupdate1="BARCODE UPDATE SYNC STATUS: COMPLETE";
       echo $errorupdate1;
 
-      }
+    }
       else
       {
           echo $errorupdate1;
