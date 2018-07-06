@@ -170,11 +170,13 @@ function generateLot(){
       'ajax' : true
     },
     success: function(data){
-      if (data == "true" || data== "false" ){
+      alert(data);
+      if (data == '"true"' || data== '"false"' ){
         buildLotNumber(newL);
         AddLotBtnClick(lotNO, joborder);
       }
-      else if (data != "false" || data != "true"){
+      else if (data != '"false"' || data != '"true"'){
+      
       var val = JSON.parse(data);
                   var lotPrev = val.slice(0,12);
                   var series= val.slice(-1);
@@ -1681,13 +1683,13 @@ function deleteDanpla(danpla_ID) {
 function clearReceive() {
   //$('#dataModal').modal();
   swal({
-    title: 'Are you sure you want to delete?',
+    title: 'Cancel Transferred Items?',
     text: "You won't able to revert this.",
     type: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Delete Danpla'
+    confirmButtonText: 'Clear Items'
   }).then((result) => {
     if (result.value) {
 
@@ -1963,6 +1965,11 @@ function AddReceive() {
           }
           else if (data == '"true4"') {
             swal('LOT STILL NOT APPROVED','Please get back to QM Dept for LOT APPROVAL', 'error');
+            document.getElementById('ReceivingBarcode_text').value = "";
+          }
+          else if (data == '"true5"') {
+            swal('DANPLA ALREADY TRANSFERRED', 'Please verify your stocks before inputting.', 'error');
+            document.getElementById('ReceivingBarcode_text').value = "";
           }
           else if (data == '"false"') {
             insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertLot);
@@ -1999,7 +2006,7 @@ function ApproveTransfer(){
   var list = document.getElementById("ItemReceiveDanplaTable").rows.length;
   var x = document.getElementById('ItemReceivedTable').rows[1].cells[0].innerHTML;
   var y = document.getElementById('ItemReceiveDanplaTable').rows[1].cells[0].innerHTML;
-  alert(gathered + " " + list + " " + x + " " + y);
+  var vblLot = document.getElementById('ItemReceivedTable').rows[1].cells[2].innerHTML;
 
   if (x != "No data available in table" && y == "No data available in table") {
     ReloadTableList();
@@ -2023,8 +2030,39 @@ function ApproveTransfer(){
     return;
   }
   else if (gathered == list) {
-    alert("wewewewewew ");
-  }
+    updateWarehouseReceive(vblLot);
+  } 
+}
 
-  
+function updateWarehouseReceive(lotNumber){
+  swal({
+    title: 'Confirm Transfer?',
+    text: "You won't able to revert this.",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Transfer'
+  }).then((result) => {
+    if (result.value) {
+
+
+      $.ajax({
+        method: 'post',
+        url: '/1_mes/_php/QualityManagement/query/update/UpdateWarehouseReceive.php',
+        data: {
+          'lot_num': lotNumber,
+          'ajax': true
+        },
+        success: function (data) {
+          swal(
+            data,
+            'Lot ' + lotNumber + "is now transferred.",
+            'success'
+          )
+          loadDoc('ItemReceiving');
+        }
+      });
+    }
+  });
 }
