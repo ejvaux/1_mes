@@ -16,7 +16,7 @@ function DisplayTable(Table_Name,Tablesp,tbltitle) {
         "sScrollX": "100%",          
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,                
+        "iDisplayLength": 1000,                
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
@@ -120,7 +120,7 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
           "sScrollX": "100%",          
           "processing": true,
           "serverSide": true,
-          "iDisplayLength": 100,          
+          "iDisplayLength": 1000,          
           "ajax": {
             url: "/1_mes/_includes/"+Tablesp+".php",
             type: 'POST'
@@ -354,7 +354,7 @@ function DisplayTable2(Table_Name,Tablesp,tbltitle) {
         "sScrollX": "100%",          
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,        
+        "iDisplayLength": 1000,        
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
@@ -546,7 +546,7 @@ function DisplayTable3(Table_Name,Tablesp,tbltitle) {
         "sScrollX": "100%",          
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,        
+        "iDisplayLength": 1000,        
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
@@ -747,7 +747,7 @@ function DisplayTable4(Table_Name,Tablesp,tbltitle) {
         "sScrollX": "100%",          
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,        
+        "iDisplayLength": 1000,        
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
@@ -942,7 +942,7 @@ function DisplayTable5(Table_Name,Tablesp,tbltitle) {
         "sScrollX": "100%",          
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,        
+        "iDisplayLength": 1000,        
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
@@ -1135,7 +1135,7 @@ function DisplayTable6(Table_Name,Tablesp,tbltitle) {
         "sScrollX": "100%",          
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,        
+        "iDisplayLength": 1000,        
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
@@ -1326,7 +1326,7 @@ function DisplayTable7(Table_Name,Tablesp,tbltitle) {
         "sScrollX": "100%",          
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,        
+        "iDisplayLength": 1000,        
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
@@ -1515,7 +1515,7 @@ function DisplayTable8(Table_Name,Tablesp,tbltitle) {
         "sScrollX": "100%",          
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,        
+        "iDisplayLength": 1000,        
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'
@@ -1705,7 +1705,7 @@ function DisplayTable9(Table_Name,Tablesp,tbltitle) {
         "sScrollX": "100%",          
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,        
+        "iDisplayLength": 1000,        
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST'

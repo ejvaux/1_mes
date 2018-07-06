@@ -85,7 +85,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         /* scrollerX:      true, */
           "processing": true,
           "serverSide": true,
-          "iDisplayLength": 100,          
+          "iDisplayLength": 1000,          
           fixedColumns: {
               heightMatch: 'semiauto'
           },
@@ -485,7 +485,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         "sScrollX": "100%",
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,        
+        "iDisplayLength": 1000,        
         fixedColumns: {
             heightMatch: 'semiauto'
         },
@@ -760,7 +760,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         "sScrollX": "100%",
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,        
+        "iDisplayLength": 1000,        
         fixedColumns: {
             heightMatch: 'semiauto'
         },
@@ -1101,7 +1101,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         "sScrollX": "100%",
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,        
+        "iDisplayLength": 1000,        
         fixedColumns: {
             heightMatch: 'semiauto'
         },
@@ -1488,7 +1488,7 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         "sScrollX": "100%",
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,        
+        "iDisplayLength": 1000,        
         fixedColumns: {
             heightMatch: 'semiauto'
         },
@@ -1755,7 +1755,7 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       /* scrollerX:      true, */
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,                  
+        "iDisplayLength": 1000,                  
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST',
@@ -1970,7 +1970,7 @@ function DisplayTbleH(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       /* scrollerX:      true, */
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,          
+        "iDisplayLength": 1000,          
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST',
@@ -2076,7 +2076,7 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       /* scrollerX:      true, */
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,
+        "iDisplayLength": 1000,
         fixedColumns: {
           heightMatch: 'semiauto',
           /* leftColumns: 3 */
@@ -2415,7 +2415,7 @@ $.fn.dataTable.ext.buttons.addfab1 = {
           /* scrollerX:      true, */
             "processing": true,
             "serverSide": true,
-            "iDisplayLength": 100,
+            "iDisplayLength": 1000,
             fixedColumns: {
               heightMatch: 'semiauto',
               /* leftColumns: 3 */
@@ -2647,7 +2647,7 @@ $.fn.dataTable.ext.buttons.addfab1 = {
             "sScrollX": "100%",          
             "processing": true,
             "serverSide": true,
-            "iDisplayLength": 100,        
+            "iDisplayLength": 1000,        
             "ajax": {
               url: "/1_mes/_includes/"+Tablesp+".php",
               type: 'POST'
