@@ -32,26 +32,26 @@ function checkuserauth(sd,ed){
 
 /* ____________ Table Init H ________________ */
 
-function checkuserauthH(){
+function checkuserauthH(sd,ed){
   if(val=="A"){
-    DisplayTbleHA('mold_history_table','mold_historysp','Mold History');
+    DisplayTbleHA('mold_history_table','mold_historysp','Mold History',sd,ed);
   }
   
   else{
-    DisplayTbleH('mold_history_table','mold_historysp','Mold History');
+    DisplayTbleH('mold_history_table','mold_historysp','Mold History',sd,ed);
   }
 }              
 /* _______________ Table Init H ______________ */
 
 /* ____________ Table Init F ________________ */
 
-function checkuserauthF(){
+function checkuserauthF(sd,ed){
   if(val=="A"){
-    DisplayTbleFA('mold_fabrication_table','mold_fabricationsp','Mold Fabrication');
+    DisplayTbleFA('mold_fabrication_table','mold_fabricationsp','Mold Fabrication',sd,ed);
   }
   
   else{
-    DisplayTbleFC('mold_fabrication_table','mold_fabricationsp','Mold Fabrication');
+    DisplayTbleFC('mold_fabrication_table','mold_fabricationsp','Mold Fabrication',sd,ed);
   }
 }              
 /* _______________ Table Init F ______________ */
@@ -1722,7 +1722,7 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
 
 /*  -------------------------------- TH - A -----------------------------------------------  */
         
-function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
+function DisplayTbleHA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
   var xhttp;
   if (Table_Name.length == 0) { 
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -1743,9 +1743,13 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
         "iDisplayLength": 100,                  
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST'
+          type: 'POST',
+          data: {
+            "sday": startdate,
+            "eday": enddate
+          }
         },            
-        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-5"<"dr">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [            
           { text: '<i class="fas fa-plus"></i>',
             attr:  {
@@ -1874,6 +1878,35 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle) {
           } );
       } ).draw();
 
+      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+
+      $('#min').val(startdate);
+      $('#max').val(enddate);
+
+      $('#min, #max').on('change',function(){
+        var sdate = $('#min').val();
+        var edate = $('#max').val();
+
+        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
+          /* alert('Good'); */
+          moment(sdate).format('YYYY-MM-DD HH:mm:ss');
+          moment(edate).format('YYYY-MM-DD HH:mm:ss');
+          if(sdate == edate){
+            edate = moment(edate,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+            
+          }
+          checkuserauthH(sdate,edate);          
+        }
+        else{
+          /* alert('No Good'); */
+        }
+        /* alert('test'); */        
+      });
+
+      $('#refresh').on('click',function(){
+        checkuserauthH();
+      });
+
       /* ____________________________ FUNCTIONS _________________________ */
     }
     
@@ -1900,7 +1933,7 @@ $.fn.dataTable.ext.buttons.addh = {
 
 /* ---------------------------- TH ------------------------------ */
 
-function DisplayTbleH(Table_Name,Tablesp,tbltitle) {
+function DisplayTbleH(Table_Name,Tablesp,tbltitle,startdate,enddate) {
   var xhttp;
   if (Table_Name.length == 0) { 
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -1921,9 +1954,13 @@ function DisplayTbleH(Table_Name,Tablesp,tbltitle) {
         "iDisplayLength": 100,          
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST'
+          type: 'POST',
+          data: {
+            "sday": startdate,
+            "eday": enddate
+          }
         },            
-        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-5"<"dr">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [             
           { extend: 'copy', text: '<i class="far fa-copy"></i>', 
           attr:  {
@@ -1955,6 +1992,35 @@ function DisplayTbleH(Table_Name,Tablesp,tbltitle) {
           } );
       } ).draw();
 
+      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+
+      $('#min').val(startdate);
+      $('#max').val(enddate);
+
+      $('#min, #max').on('change',function(){
+        var sdate = $('#min').val();
+        var edate = $('#max').val();
+
+        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
+          /* alert('Good'); */
+          moment(sdate).format('YYYY-MM-DD HH:mm:ss');
+          moment(edate).format('YYYY-MM-DD HH:mm:ss');
+          if(sdate == edate){
+            edate = moment(edate,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+            
+          }
+          checkuserauthH(sdate,edate);          
+        }
+        else{
+          /* alert('No Good'); */
+        }
+        /* alert('test'); */        
+      });
+
+      $('#refresh').on('click',function(){
+        checkuserauthH();
+      });
+
       /* ____________________________ FUNCTIONS _________________________ */
     }
     
@@ -1969,7 +2035,7 @@ function DisplayTbleH(Table_Name,Tablesp,tbltitle) {
 
 /*  -------------------------------- FABRICATION - A -----------------------------------------------  */
         
-function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
+function DisplayTbleFA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
   var xhttp;
   if (Table_Name.length == 0) { 
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -1994,9 +2060,13 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
         },                  
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
-          type: 'POST'
+          type: 'POST',
+          data: {
+            "sday": startdate,
+            "eday": enddate
+          }
         },            
-        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-5"<"dr">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [            
           { text: '<i class="fas fa-plus"></i>',
             attr:  {
@@ -2140,10 +2210,10 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
                 render: function ( data, type, row ) {
 
                   if(row[7]!='FINISHED'){
-                    return "<div class='text-center'><button id='change' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Change</span></button></div>";
+                    return "<div class='text-center'><button id='changea' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Change</span></button></div>";
                   }
                   else{
-                    return "<div class='text-center'><button id='change' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Process</span></button></div>";
+                    return "<div class='text-center'><button id='changea' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Process</span></button></div>";
                   }               
                                                                       
                 },              
@@ -2186,10 +2256,14 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
               cell.innerHTML = i+1;
           } );
       } ).draw();
-      
-      $('#Dtable tbody').on( 'click', '#change', function () {
-        var data = tble.row( $(this).parents('tr') ).data();
 
+      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+
+      $('#min').val(startdate);
+      $('#max').val(enddate);
+      
+      $('#Dtable tbody').on( 'click', '#changea', function () {
+        var data = tble.row( $(this).parents('tr') ).data();       
 
         $.ajax(
           {
@@ -2243,7 +2317,31 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle) {
 
           }
         });               
-      } );    
+      } );
+      
+      $('#min, #max').on('change',function(){
+        var sdate = $('#min').val();
+        var edate = $('#max').val();
+
+        if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
+          /* alert('Good'); */
+          moment(sdate).format('YYYY-MM-DD HH:mm:ss');
+          moment(edate).format('YYYY-MM-DD HH:mm:ss');
+          if(sdate == edate){
+            edate = moment(edate,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+            
+          }
+          checkuserauthF(sdate,edate);          
+        }
+        else{
+          /* alert('No Good'); */
+        }
+        /* alert('test'); */        
+      });
+
+      $('#refresh').on('click',function(){
+        checkuserauthF();
+      });
 
       /* ____________________________ FUNCTIONS _________________________ */
     }
@@ -2272,7 +2370,7 @@ $.fn.dataTable.ext.buttons.addfab1 = {
 
     /*  -------------------------------- FABRICATION CHECKER -----------------------------------------------  */
         
-    function DisplayTbleFC(Table_Name,Tablesp,tbltitle) {
+    function DisplayTbleFC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       var xhttp;
       if (Table_Name.length == 0) { 
         document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
@@ -2297,9 +2395,13 @@ $.fn.dataTable.ext.buttons.addfab1 = {
             },                  
             "ajax": {
               url: "/1_mes/_includes/"+Tablesp+".php",
-              type: 'POST'
+              type: 'POST',
+              data: {
+                "sday": startdate,
+                "eday": enddate
+              }
             },            
-            "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-2"<"dd">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+            "dom": '<"row"<"col-sm-3"B><"col"><"col-sm-5"<"dr">><"col-sm-2 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
             'buttons': [            
               { text: '<i class="fas fa-plus"></i>',
                 attr:  {
@@ -2387,10 +2489,14 @@ $.fn.dataTable.ext.buttons.addfab1 = {
                   cell.innerHTML = i+1;
               } );
           } ).draw();
+
+          $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+
+          $('#min').val(startdate);
+          $('#max').val(enddate);
           
           $('#Dtable tbody').on( 'click', '#change', function () {
             var data = tble.row( $(this).parents('tr') ).data();
-    
     
             $.ajax(
               {
@@ -2405,25 +2511,26 @@ $.fn.dataTable.ext.buttons.addfab1 = {
                 var val = JSON.parse(data1);
                 $("#cmoldfabricationid").val(val.MOLD_FABRICATION_ID);            
     
-                $('#leadtime_1').html(ltformat(val['DESIGN-1'])); $('#operator_1').text(val['DESIGN-1_OPERATOR']);
-                $('#leadtime_2').html(ltformat(val['DESIGN-2'])); $('#operator_2').text(val['DESIGN-2_OPERATOR']);
-                $('#leadtime_3').html(ltformat(val['DESIGN-3'])); $('#operator_3').text(val['DESIGN-3_OPERATOR']);
-                $('#leadtime_4').html(ltformat(val['RADIAL-1'])); $('#operator_4').text(val['RADIAL-1_OPERATOR']);
-                $('#leadtime_5').html(ltformat(val['LATHER-1'])); $('#operator_5').text(val['LATHER-1_OPERATOR']);
-                $('#leadtime_6').html(ltformat(val['BANDSAW'])); $('#operator_6').text(val['BANDSAW_OPERATOR']);
-                $('#leadtime_7').html(ltformat(val['ML'])); $('#operator_7').text(val['ML_OPERATOR']);
-                $('#leadtime_8').html(ltformat(val['GS-1'])); $('#operator_8').text(val['GS-1_OPERATOR']);
-                $('#leadtime_9').html(ltformat(val['GS-2'])); $('#operator_9').text(val['GS-2_OPERATOR']);
-                $('#leadtime_10').html(ltformat(val['HSM'])); $('#operator_10').text(val['HSM_OPERATOR']);
-                $('#leadtime_11').html(ltformat(val['HSM-1'])); $('#operator_11').text(val['HSM-1_OPERATOR']);
-                $('#leadtime_12').html(ltformat(val['HSM-2'])); $('#operator_12').text(val['HSM-2_OPERATOR']);
-                $('#leadtime_13').html(ltformat(val['WEDM'])); $('#operator_13').text(val['WEDM_OPERATOR']);
-                $('#leadtime_14').html(ltformat(val['M-EDM'])); $('#operator_14').text(val['M-EDM_OPERATOR']);
-                $('#leadtime_15').html(ltformat(val['EDM'])); $('#operator_15').text(val['EDM_OPERATOR']);
-                $('#leadtime_16').html(ltformat(val['ASSEMBLE-1'])); $('#operator_16').text(val['ASSEMBLE-1_OPERATOR']);
-                $('#leadtime_17').html(ltformat(val['POLISHING-1'])); $('#operator_17').text(val['POLISHING-1_OPERATOR']);
+                $('#leadtime_1').val(ltformatm(val['DESIGN-1'])); $('#operator_1').val(val['DESIGN-1_OPERATOR']);
+                $('#leadtime_2').val(ltformatm(val['DESIGN-2'])); $('#operator_2').val(val['DESIGN-2_OPERATOR']);
+                $('#leadtime_3').val(ltformatm(val['DESIGN-3'])); $('#operator_3').val(val['DESIGN-3_OPERATOR']);
+                $('#leadtime_4').val(ltformatm(val['RADIAL-1'])); $('#operator_4').val(val['RADIAL-1_OPERATOR']);
+                $('#leadtime_5').val(ltformatm(val['LATHER-1'])); $('#operator_5').val(val['LATHER-1_OPERATOR']);
+                $('#leadtime_6').val(ltformatm(val['BANDSAW'])); $('#operator_6').val(val['BANDSAW_OPERATOR']);
+                $('#leadtime_7').val(ltformatm(val['ML'])); $('#operator_7').val(val['ML_OPERATOR']);
+                $('#leadtime_8').val(ltformatm(val['GS-1'])); $('#operator_8').val(val['GS-1_OPERATOR']);
+                $('#leadtime_9').val(ltformatm(val['GS-2'])); $('#operator_9').val(val['GS-2_OPERATOR']);
+                $('#leadtime_10').val(ltformatm(val['HSM'])); $('#operator_10').val(val['HSM_OPERATOR']);
+                $('#leadtime_11').val(ltformatm(val['HSM-1'])); $('#operator_11').val(val['HSM-1_OPERATOR']);
+                $('#leadtime_12').val(ltformatm(val['HSM-2'])); $('#operator_12').val(val['HSM-2_OPERATOR']);
+                $('#leadtime_13').val(ltformatm(val['WEDM'])); $('#operator_13').val(val['WEDM_OPERATOR']);
+                $('#leadtime_14').val(ltformatm(val['M-EDM'])); $('#operator_14').val(val['M-EDM_OPERATOR']);
+                $('#leadtime_15').val(ltformatm(val['EDM'])); $('#operator_15').val(val['EDM_OPERATOR']);
+                $('#leadtime_16').val(ltformatm(val['ASSEMBLE-1'])); $('#operator_16').val(val['ASSEMBLE-1_OPERATOR']);
+                $('#leadtime_17').val(ltformatm(val['POLISHING-1'])); $('#operator_17').val(val['POLISHING-1_OPERATOR']);
                              
                 $('#ccurrentprocess').val(val.CURRENT_PROCESS);
+                $('#cprocessoperator').val(val.OPERATOR);
                 $('#prevprocess').val(val.CURRENT_PROCESS);
                 $('#prevprocessdatetime').val(val[$('#ccurrentprocess').val()]);
     
@@ -2443,7 +2550,31 @@ $.fn.dataTable.ext.buttons.addfab1 = {
     
               }
             });               
-          } );    
+          } );
+
+          $('#min, #max').on('change',function(){
+            var sdate = $('#min').val();
+            var edate = $('#max').val();
+    
+            if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
+              /* alert('Good'); */
+              moment(sdate).format('YYYY-MM-DD HH:mm:ss');
+              moment(edate).format('YYYY-MM-DD HH:mm:ss');
+              if(sdate == edate){
+                edate = moment(edate,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+                
+              }
+              checkuserauthF(sdate,edate);          
+            }
+            else{
+              /* alert('No Good'); */
+            }
+            /* alert('test'); */        
+          });
+    
+          $('#refresh').on('click',function(){
+            checkuserauthF();
+          });
     
           /* ____________________________ FUNCTIONS _________________________ */
         }
