@@ -836,7 +836,6 @@ function RecoverySearchLot() {
   else if (search != "") {
     var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
   }
-  alert(z);
   $.ajax({
     method: 'post',
     url: "/1_mes/_php/QualityManagement/table/recovery_table.php",
@@ -863,6 +862,8 @@ function RecoveryClearSearchLot() {
     success: function (data) {
       document.getElementById("table_recovery").innerHTML = data;
       RecoverySearch.value = "";
+      recoveryDate1.value = "";
+      recoveryDate2.value = "";
     }
   });
  }

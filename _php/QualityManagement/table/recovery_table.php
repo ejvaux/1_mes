@@ -47,7 +47,7 @@
                   echo "</tbody></table>";
               } 
               else {
-                  echo "Error: " . $sql . "<br>" . $conn->error;
+                  //echo "Error: " . $sql . "<br>" . $conn->error;
                   echo "<table class='mt-3 table table-striped table-hover table-bordered table-sm tbl2' id='CreatedLotTable'><thead>    
                   <th>REJECTION TYPE</th>
                   <th>LOT JUDGEMENT</th>
