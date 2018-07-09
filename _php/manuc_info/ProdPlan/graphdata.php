@@ -654,6 +654,7 @@ if(isset($_POST['sortfrom']))
                                    $date1=date('Y-m-d', strtotime($year1."-".$month1."01"));
                                    $date2=date('Y-m-d', strtotime($year2."-".$month2."01"));
 <<<<<<< HEAD
+<<<<<<< HEAD
 				 $sqlitem="SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_prod_plan_dl.DATE_ 
 				 FROM mis_product 
 				 LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
@@ -661,6 +662,9 @@ if(isset($_POST['sortfrom']))
 				 (YEAR(mis_prod_plan_dl.DATE_)='$year1' OR YEAR(mis_prod_plan_dl.DATE_)='$year2' ) AND (mis_product.ITEM_NAME='$search') AND 
 				 ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')  OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
 =======
+=======
+
+>>>>>>> localJEFF
 				 $sqlitem="SELECT SUM(mis_summarize_results.PROD_RESULT)as sumresult, mis_prod_plan_dl.ITEM_NAME,
 				  SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY,mis_prod_plan_dl.DATE_ 
 				 FROM mis_prod_plan_dl 
@@ -670,11 +674,16 @@ if(isset($_POST['sortfrom']))
 				 AND (mis_prod_plan_dl.ITEM_NAME='$search') AND 
 				 ((SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> localJEFF
 				 GROUP BY `ITEM_NAME`, DATE_ ORDER BY DATE_ ASC";
 =======
+=======
+
+>>>>>>> localJEFF
 				 GROUP BY MONTH(mis_prod_plan_dl.DATE_) ORDER BY DATE_ ASC";
 >>>>>>> localJEFF
+
 
                   $between="YES";
                   $currentdate=date("Y-m-d",strtotime($strfrom));
