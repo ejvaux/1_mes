@@ -201,6 +201,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 
                 
                 filterTableSummary();
+                //alert(data);
                 var val = JSON.parse(data);
                 $('.sel2').select2({width: '200px'});
                 
