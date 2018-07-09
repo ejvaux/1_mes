@@ -47,7 +47,7 @@
                           <button type='button' class='btn btn-success bt lotApprove' id='". $row['LOT_NUMBER'] . "'>APPROVE</button>
                           <button type='button' class='btn btn-danger bt lotDisapprove' id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
                           if($reworkID > 0){
-                            echo "<td class='text-primary font-weight-bold'>".$row['LOT_JUDGEMENT']."-REWORK(".$reworkID.")</td>";
+                            echo "<td class='text-primary font-weight-bold'>WAITING-REWORK(".$reworkID.")</td>";
                           }
                           else{
                             echo "<td class='text-primary font-weight-bold'>WAITING</td>";

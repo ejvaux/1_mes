@@ -3,7 +3,7 @@
 
               if(!isset($_POST['sql'])){
                   
-                $sql = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY";
+                $sql = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC";
                 
                 }
                 else{
@@ -47,7 +47,8 @@
                   echo "</tbody></table>";
               } 
               else {
-                   echo "<table class='mt-3 table table-striped table-hover table-bordered table-sm tbl2' id='CreatedLotTable'><thead>    
+                  echo "Error: " . $sql . "<br>" . $conn->error;
+                  echo "<table class='mt-3 table table-striped table-hover table-bordered table-sm tbl2' id='CreatedLotTable'><thead>    
                   <th>REJECTION TYPE</th>
                   <th>LOT JUDGEMENT</th>
                   <th>PROD DATE</th>

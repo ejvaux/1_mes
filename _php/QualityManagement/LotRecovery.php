@@ -55,10 +55,24 @@
         <!-- <div class="col"></div> -->
         <div class="col-12">
         <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group" role="group" aria-label="First group">
+                <!-- <div class="btn-group" role="group" aria-label="First group">
                     
-                </div>
-                <div class="input-group">
+                </div> -->
+                <div class="p-2 input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text" id="btnGroupAddon2">FROM</div>
+                    </div>
+                      <input id="recoveryDate1" type="date" class="py-1 form-control dateText" onchange="RecoverySearchLot()">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text" id="btnGroupAddon2">TO</div>
+                    </div>
+                      <input id="recoveryDate2" type="date" class="py-1 form-control dateText" onchange="RecoverySearchLot()">
+                    <div class="input-group-append"> 
+                      <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="lotPending" onclick="notWorking()">EXPORT</button>
+                    </div>
+                  </div>
+
+                <div class="p-2 input-group">
                     <div class="input-group-prepend">
                             <div class="input-group-text" id="btnGroupAddon2">Search</div>
                         </div>
