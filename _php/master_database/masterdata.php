@@ -86,7 +86,7 @@
     <div id="mod">
     </div>
 
-    <div class="mdl" style=" z-index: 5000"><!-- Place at bottom of page --></div>
+    <div class="mdl" ><!-- Place at bottom of page --></div>
     
     <!-- Contents - END-->
     
