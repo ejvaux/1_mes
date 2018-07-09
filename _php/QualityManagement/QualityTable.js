@@ -190,7 +190,7 @@ function generateLot(){
 
 function AddLotBtnClick(newLot,joborder){
   var x = document.getElementById("DanplaTable").rows.length;
-  if (newLot==undefined){
+  if (newLot == undefined || newLot == "" ||newLot == null || newLot == " "){
     alert("No Lot Number Try Again");
     return;
   }
@@ -2092,7 +2092,7 @@ function updateWarehouseReceive(lotNumber){
         success: function (data) {
           swal(
             data,
-            'Lot ' + lotNumber + "is now transferred.",
+            'Lot ' + lotNumber + " is now transferred.",
             'success'
           )
           loadDoc('ItemReceiving');
