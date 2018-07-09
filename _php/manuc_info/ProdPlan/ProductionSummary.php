@@ -24,7 +24,8 @@
                                                                         <div class="input-group-text" id="btnGroupAddon2">SEARCH:</div>
                                                                     </div>
                                                                  
-                                                                  <select class="sel2 form-control mydrp" id='search' name='search1' style="height: 39px;" onchange="showTable('ProductionSummary','','production_summary','no')" >
+                                                                  <select class="sel2 form-control mydrp" id='search' name='search1' style="height: 39px;" 
+                                                                  onchange="showTable('ProductionSummary','','production_summary','no')" >
                                                                       <option value=''>--SELECT ITEM--</option>";
                                                                
                                                                         <?php
@@ -49,7 +50,8 @@
                                                                   <div class="input-group-prepend">
                                                                     <div class="input-group-text" id="btnGroupAddon2">SORT FROM:</div>
                                                                   </div>
-                                                                  <input type='date' id='sortfrom' name='sortingdatefrom' onchange="showTable('ProductionSummary','','production_summary','no')" class='form-control' style='font-size: 10px'>
+                                                                  <input type='date' id='sortfrom' name='sortingdatefrom' 
+                                                                  onchange="showTable('ProductionSummary','','production_summary','no')" class='form-control' style='font-size: 10px'>
                                                                 </div>
                                                                 
                                                                 <div class="input-group btn-sm" style="height: 40px;">
@@ -124,7 +126,8 @@
 
 <div id="cont_sum">
 <div id="chart_cont">
-<div id="chartContainer" style="height: 100%; width: 95%; margin: 0 auto; clear: both"></div>
+<div id="chartContainer" style="height: 100%; width: 95%; margin: 0 auto; clear: both">
+</div>
 </div>
 
 <div id="tablesummary" style="position: relative; top:400px">
@@ -132,6 +135,8 @@
 </div>
  
  </div>
+
+ 
      
 
 
