@@ -1,10 +1,9 @@
 <?php       
               include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
-
+              
               $sql = "SELECT * FROM qmd_danpla_tempstore";
               $result = $conn->query($sql);
-
-              if ($result->num_rows > 0) 
+              if ($result->num_rows > 0)
               {
                 $x=(false);
                   while($row = $result->fetch_assoc()) 

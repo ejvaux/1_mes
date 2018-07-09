@@ -9,44 +9,65 @@
         exit();
     }
     
-    
+    $lot_creator = $_SESSION['text'];
+    $joborder = $_POST['jo_num'];
+
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-
-
-    $sql = "SELECT qmd_danpla_tempstore.*,SUM(qmd_danpla_tempstore.QUANTITY) as SUMQ ,mis_prod_plan_dl.TO_WAREHOUSE as WAREHOUSE
+    $sql = "SELECT qmd_danpla_tempstore.TEMP_ID as TEMP,
+            qmd_danpla_tempstore.DANPLA_SERIAL as DANPLA,
+            qmd_danpla_tempstore.JO_NUM as JOBORDER,
+            qmd_danpla_tempstore.ITEM_CODE as ITEMCODE,
+            qmd_danpla_tempstore.ITEM_NAME as ITEMNAME,
+            qmd_danpla_tempstore.MACHINE_CODE as MACHINECODE,
+            qmd_danpla_tempstore.LOT_JUDGEMENT AS LOTJUDGEMENT,
+            qmd_danpla_tempstore.INSERT_USER AS USER,
+            qmd_danpla_tempstore.INSERT_DATETIME AS DATIME,
+            SUM(qmd_danpla_tempstore.QUANTITY) as SUMQ,
+            mis_prod_plan_dl.TO_WAREHOUSE as WAREHOUSE
             FROM qmd_danpla_tempstore
-            LEFT join mis_prod_plan_dl on qmd_danpla_tempstore.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO";
+            LEFT join mis_prod_plan_dl 
+            ON qmd_danpla_tempstore.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
+            WHERE qmd_danpla_tempstore.JO_NUM = '$joborder'
+            AND qmd_danpla_tempstore.INSERT_USER = '$lot_creator'";
+
 
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
 
-            $count = $_POST['row_count'];
-            $danpla = $row['DANPLA_SERIAL'];
-            $jo_num = $row['JO_NUM'];
-            $item_code = $row['ITEM_CODE'];
-            $item_name = $row['ITEM_NAME'];
-            $machine_code = $row['MACHINE_CODE'];
             $prod_date =  Date('Y-m-d H:i:s');
             $lot_num = $_POST['lot_number'];
+            $count = $_POST['row_count'];
+
+            $danpla = $row['DANPLA'];
+            $jo_num = $row['JOBORDER'];
+            $item_code = $row['ITEMCODE'];
+            $item_name = $row['ITEMNAME'];
+            $machine_code = $row['MACHINECODE'];
             $lot_quantity = $row['SUMQ'];
-            $lot_creator = $_SESSION['text'];
             $warehouse = $row['WAREHOUSE'];
     
     $conn->close();
 
+    /* echo "$prod_date, 
+          $lot_num, 
+          $jo_num,
+          $lot_quantity, 
+          $lot_creator,
+          $item_code, 
+          $item_name,
+          $machine_code,
+          $warehouse"; */
+
 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
     for ($x = 0; $x < $count-1; $x++){
-    $sql = "UPDATE mis_product SET LOT_NUM = '$lot_num',SHIP_STATUS='PENDING' WHERE PACKING_NUMBER IN (SELECT DANPLA_SERIAL FROM qmd_danpla_tempstore)";
+    
+    $sql = "UPDATE mis_product SET LOT_NUM = '$lot_num',SHIP_STATUS='PENDING' WHERE PACKING_NUMBER IN (SELECT DANPLA_SERIAL FROM qmd_danpla_tempstore WHERE INSERT_USER = '$lot_creator' AND JO_NUM = '$joborder')";
     }
     $conn->query($sql);
     $conn->close();
     
 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-    echo "$prod_date, $lot_num, $jo_num,
-            $lot_quantity, $lot_creator,
-            $item_code, $item_name,
-            $machine_code,$warehouse";
-
+    
     $sql = "INSERT INTO qmd_lot_create
     (   
         PROD_DATE,
@@ -76,14 +97,14 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         if ($stmt->execute() === TRUE) {
             echo "Record saved successfully"; 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";   
-                    $sql = "DELETE FROM qmd_danpla_tempstore";
+                    $sql = "DELETE FROM qmd_danpla_tempstore WHERE INSERT_USER = '$lot_creator' AND JO_NUM = '$joborder' ";
                     $conn->query($sql);
                     $stmt->close();
                     $conn->close();
                     exit;
-            } 
+            }
         else {
-            echo "Error: " . $stmt . "<br>" . $conn->error; 
+            //echo "Error: " . $stmt . "<br>" . $conn->error; 
             $stmt->close();
             $conn->close();
         }

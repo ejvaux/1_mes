@@ -1135,7 +1135,7 @@
         </button>
       </div>
       <form id="emoldlistform"  method="post">
-      <input type="hidden" id="idmoldlist" name="idmoldlist">
+      <input type="hidden" id="idmoldlist" name="id">
       <div class="modal-body" style="">
 
           <!-- ____________ FORM __________________ -->
@@ -1147,7 +1147,7 @@
                   <label for="emoldcode" class="col-form-label-sm">MOLD CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="emoldcode" type="text" class="form-control form-control-sm" name="emoldcode" placeholder="" required>                  
+                  <input id="emoldcode" type="text" class="form-control form-control-sm" name="moldcode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1157,7 +1157,7 @@
                   <label for="etoolnumber" class="col-form-label-sm">TOOL NUMBER:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="etoolnumber" type="text" class="form-control form-control-sm" name="etoolnumber" placeholder="">                  
+                  <input id="etoolnumber" type="text" class="form-control form-control-sm" name="toolnumber" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -1170,7 +1170,7 @@
                   <label for="eitemcode" class="col-form-label-sm">ITEM CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eitemcode" type="text" class="form-control form-control-sm sel" name="eitemcode" placeholder="" onchange="getitemname('eitemcode',eitemname);"  required>
+                  <select id="eitemcode" type="text" class="form-control form-control-sm sel" name="itemcode" placeholder="" onchange="getitemname('eitemcode',eitemname);"  required>
                   <option value="">-Please select-</option>
                     <?php
 
@@ -1202,7 +1202,7 @@
                   <label for="ecustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="ecustomercode" type="text" class="form-control form-control-sm sel" name="ecustomercode" placeholder="" onchange="getcustomername('ecustomercode',ecustomername)"  required>
+                  <select id="ecustomercode" type="text" class="form-control form-control-sm sel" name="customercode" placeholder="" onchange="getcustomername('ecustomercode',ecustomername)"  required>
                   <option value="">-Please select-</option>
                     <?php
 
@@ -1237,7 +1237,7 @@
                   <label for="eitemname" class="col-form-label-sm">ITEM NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <textarea id="eitemname" type="text" class="form-control form-control-sm" name="eitemname" placeholder="" rows="2" readonly></textarea>                
+                  <textarea id="eitemname" type="text" class="form-control form-control-sm" name="itemname" placeholder="" rows="2" readonly></textarea>                
                 </div>
               </div>
             </div>
@@ -1248,7 +1248,7 @@
                   <label for="ecustomername" class="col-form-label-sm">CUSTOMER NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <textarea id="ecustomername" type="text" class="form-control form-control-sm" name="ecustomername" placeholder="" rows="2" readonly></textarea>                
+                  <textarea id="ecustomername" type="text" class="form-control form-control-sm" name="customername" placeholder="" rows="2" readonly></textarea>                
                 </div>
               </div>
             </div>                    
@@ -1261,7 +1261,7 @@
                   <label for="eguaranteeshot" class="col-form-label-sm">GUARANTEE SHOT:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eguaranteeshot" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="eguaranteeshot" placeholder="">                  
+                  <input id="eguaranteeshot" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="guaranteeshot" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1271,7 +1271,7 @@
                   <label for="emoldshot" class="col-form-label-sm">MOLD SHOT:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="emoldshot" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="emoldshot" placeholder="">                  
+                  <input id="emoldshot" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="moldshot" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -1284,7 +1284,7 @@
                   <label for="ecavity" class="col-form-label-sm">CAVITY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="ecavity" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="ecavity" placeholder="">                  
+                  <input id="ecavity" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="cavity" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1294,7 +1294,7 @@
                   <label for="emoldremarks" class="col-form-label-sm">REMARKS:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="emoldremarks" type="text" class="form-control form-control-sm" name="emoldremarks" placeholder="">                  
+                  <input id="emoldremarks" type="text" class="form-control form-control-sm" name="moldremarks" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -1307,7 +1307,7 @@
                   <label for="eassetnumber" class="col-form-label-sm">ASSET NUMBER:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eassetnumber" type="text" class="form-control form-control-sm" name="eassetnumber" placeholder="">                  
+                  <input id="eassetnumber" type="text" class="form-control form-control-sm" name="assetnumber" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1317,7 +1317,7 @@
                   <label for="etransferdate" class="col-form-label-sm">TRANSFER DATE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="etransferdate" type="date" class="form-control form-control-sm" name="etransferdate" placeholder="">                  
+                  <input id="etransferdate" type="date" class="form-control form-control-sm" name="transferdate" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -1330,7 +1330,7 @@
                   <label for="eapprovaldate" class="col-form-label-sm">APPROVAL DATE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eapprovaldate" type="date" class="form-control form-control-sm" name="eapprovaldate" placeholder="">                  
+                  <input id="eapprovaldate" type="date" class="form-control form-control-sm" name="approvaldate" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1340,7 +1340,7 @@
                   <label for="edrawingrevision" class="col-form-label-sm">DRAWING REVISION:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="edrawingrevision" type="text" class="form-control form-control-sm" name="edrawingrevision" placeholder="">                  
+                  <input id="edrawingrevision" type="text" class="form-control form-control-sm" name="drawingrevision" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -1406,7 +1406,7 @@
         </button>
       </div>
       <form id="ecustomerform"  method="post">
-      <input type="hidden" id="idcustomer" name="idcustomer">
+      <input type="hidden" id="idcustomer" name="id">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
 
@@ -1417,7 +1417,7 @@
                   <label for="eccustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eccustomercode" type="text" class="form-control form-control-sm" name="eccustomercode" placeholder="" required>                  
+                  <input id="eccustomercode" type="text" class="form-control form-control-sm" name="customercode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1427,7 +1427,7 @@
                   <label for="eccustomerinitial" class="col-form-label-sm">CUSTOMER INITIAL:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eccustomerinitial" type="text" class="form-control form-control-sm" name="eccustomerinitial" placeholder="">                  
+                  <input id="eccustomerinitial" type="text" class="form-control form-control-sm" name="customerinitial" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -1440,7 +1440,7 @@
                   <label for="ecdivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="ecdivisioncode" type="text" class="form-control form-control-sm sel" name="ecdivisioncode" placeholder=""  required>
+                  <select id="ecdivisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder=""  required>
                   <option value="">-Please select-</option>
                   <?php
 
@@ -1472,7 +1472,7 @@
                   <label for="eccustomername" class="col-form-label-sm">CUSTOMER NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <textarea id="eccustomername" type="text" class="form-control form-control-sm" name="eccustomername" rows="2" placeholder=""></textarea>
+                  <textarea id="eccustomername" type="text" class="form-control form-control-sm" name="customername" rows="2" placeholder=""></textarea>
                 </div>
               </div>
             </div>                    
@@ -1485,7 +1485,7 @@
                   <label for="ecgroupcode" class="col-form-label-sm">GROUP CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="ecgroupcode" type="text" class="form-control form-control-sm" name="ecgroupcode" placeholder="">                  
+                  <input id="ecgroupcode" type="text" class="form-control form-control-sm" name="groupcode" placeholder="">                  
                 </div>
               </div>
             </div>                               
@@ -1516,7 +1516,7 @@
         </button>
       </div>
       <form id="eitemform"  method="post">
-      <input type="hidden" id="iditem" name="iditem">
+      <input type="hidden" id="iditem" name="id">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
 
@@ -1527,7 +1527,7 @@
                   <label for="eiitemcode" class="col-form-label-sm">ITEM CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eiitemcode" type="text" class="form-control form-control-sm" name="eiitemcode" placeholder="" required>                  
+                  <input id="eiitemcode" type="text" class="form-control form-control-sm" name="itemcode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1537,7 +1537,7 @@
                   <label for="eicustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eicustomercode" type="text" class="form-control form-control-sm sel" name="eicustomercode" onchange="getcustomername('eicustomercode',eicustomername)" placeholder=""  required>
+                  <select id="eicustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcustomername('eicustomercode',eicustomername)" placeholder=""  required>
                   <option value="">-Please select-</option>
                     <?php
 
@@ -1572,7 +1572,7 @@
                   <label for="eiitemname" class="col-form-label-sm">ITEM NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <textarea id="eiitemname" type="text" class="form-control form-control-sm" name="eiitemname" rows="2" placeholder=""></textarea>
+                  <textarea id="eiitemname" type="text" class="form-control form-control-sm" name="itemname" rows="2" placeholder=""></textarea>
                 </div>
               </div>
             </div>            
@@ -1582,7 +1582,7 @@
                   <label for="eicustomername" class="col-form-label-sm">CUSTOMER NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <textarea id="eicustomername" type="text" class="form-control form-control-sm" name="eicustomername" rows="2" placeholder="" readonly></textarea>                 
+                  <textarea id="eicustomername" type="text" class="form-control form-control-sm" name="customername" rows="2" placeholder="" readonly></textarea>                 
                 </div>
               </div>
             </div>                    
@@ -1595,7 +1595,7 @@
                   <label for="eibarcode" class="col-form-label-sm">BARCODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eibarcode" type="text" class="form-control form-control-sm" name="eibarcode" placeholder="">                  
+                  <input id="eibarcode" type="text" class="form-control form-control-sm" name="barcode" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1605,7 +1605,7 @@
                   <label for="eidivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eidivisioncode" type="text" class="form-control form-control-sm  sel" name="eidivisioncode" placeholder=""  required>
+                  <select id="eidivisioncode" type="text" class="form-control form-control-sm  sel" name="divisioncode" placeholder=""  required>
                   <option value="">-Please select-</option>
                   <?php
 
@@ -1640,7 +1640,7 @@
                   <label for="eimodel" class="col-form-label-sm">MODEL:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eimodel" type="text" class="form-control form-control-sm" name="eimodel" placeholder="">                  
+                  <input id="eimodel" type="text" class="form-control form-control-sm" name="model" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1650,7 +1650,7 @@
                   <label for="eiitemprintcode" class="col-form-label-sm">ITEM PRINTCODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eiitemprintcode" type="text" class="form-control form-control-sm" name="eiitemprintcode" placeholder="" required>                  
+                  <input id="eiitemprintcode" type="text" class="form-control form-control-sm" name="itemprintcode" placeholder="" required>                  
                 </div>
               </div>
             </div>                    
@@ -1663,7 +1663,7 @@
                   <label for="eigroupcode" class="col-form-label-sm">GROUP CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eigroupcode" type="text" class="form-control form-control-sm" name="eigroupcode" placeholder="">                  
+                  <input id="eigroupcode" type="text" class="form-control form-control-sm" name="groupcode" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1673,7 +1673,7 @@
                   <label for="eidescription" class="col-form-label-sm">DESCRIPTION:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eidescription" type="text" class="form-control form-control-sm" name="eidescription" placeholder="">                  
+                  <input id="eidescription" type="text" class="form-control form-control-sm" name="description" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -1686,7 +1686,7 @@
                   <label for="eipackqty" class="col-form-label-sm">PACK QTY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eipackqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="eipackqty" placeholder="">                  
+                  <input id="eipackqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="packqty" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1696,7 +1696,7 @@
                   <label for="eidanplaqty" class="col-form-label-sm">DANPLA QTY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eidanplaqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="eidanplaqty" placeholder="">                  
+                  <input id="eidanplaqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="danplaqty" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -1709,7 +1709,7 @@
                   <label for="eilabeltype" class="col-form-label-sm">LABEL TYPE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eilabeltype" type="text" class="form-control form-control-sm" name="eilabeltype" placeholder="">                  
+                  <input id="eilabeltype" type="text" class="form-control form-control-sm" name="labeltype" placeholder="">                  
                 </div>
               </div>
             </div>                                
@@ -1740,7 +1740,7 @@
         </button>
       </div>
       <form id="emachineform"  method="post">
-      <input type="hidden" id="idmachine" name="idmachine">
+      <input type="hidden" id="idmachine" name="id">
       <div class="modal-body" style="">
 
           <!-- ____________ FORM __________________ -->
@@ -1752,7 +1752,7 @@
                   <label for="emmachinecode" class="col-form-label-sm">MACHINE CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="emmachinecode" type="text" class="form-control form-control-sm" name="emmachinecode" placeholder="" required>                  
+                  <input id="emmachinecode" type="text" class="form-control form-control-sm" name="machinecode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1762,7 +1762,7 @@
                   <label for="emmachinemaker" class="col-form-label-sm">MACHINE MAKER:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="emmachinemaker" type="text" class="form-control form-control-sm" name="emmachinemaker" placeholder="">                  
+                  <input id="emmachinemaker" type="text" class="form-control form-control-sm" name="machinemaker" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -1775,7 +1775,7 @@
                   <label for="emtonnage" class="col-form-label-sm">TONNAGE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="emtonnage" type="text" class="form-control form-control-sm" name="emtonnage" placeholder="">                  
+                  <input id="emtonnage" type="text" class="form-control form-control-sm" name="tonnage" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1785,7 +1785,7 @@
                   <label for="emmachinegroup" class="col-form-label-sm">MACHINE GROUP:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="emmachinegroup" type="text" class="form-control form-control-sm" name="emmachinegroup" placeholder="">                  
+                  <input id="emmachinegroup" type="text" class="form-control form-control-sm" name="machinegroup" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -1798,7 +1798,7 @@
                   <label for="emassetnumber" class="col-form-label-sm">ASSET NUMBER:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="emassetnumber" type="text" class="form-control form-control-sm" name="emassetnumber" placeholder="">                  
+                  <input id="emassetnumber" type="text" class="form-control form-control-sm" name="assetnumber" placeholder="">                  
                 </div>
               </div>
             </div>                                
@@ -1829,7 +1829,7 @@
         </button>
       </div>
       <form id="edefectform"  method="post">
-      <input type="hidden" id="iddefect" name="iddefect">
+      <input type="hidden" id="iddefect" name="id">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
 
@@ -1840,7 +1840,7 @@
                   <label for="eddefectcode" class="col-form-label-sm">DEFECT CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eddefectcode" type="text" class="form-control form-control-sm" name="eddefectcode" placeholder="" required>                  
+                  <input id="eddefectcode" type="text" class="form-control form-control-sm" name="defectcode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1850,7 +1850,7 @@
                   <label for="eddivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eddivisioncode" type="text" class="form-control form-control-sm sel" name="eddivisioncode" placeholder=""  required>
+                  <select id="eddivisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder=""  required>
                   <option value="">-Please select-</option>
                   <?php
 
@@ -1885,7 +1885,7 @@
                   <label for="eddefectgroup" class="col-form-label-sm">DEFECT GROUP:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eddefectgroup" type="text" class="form-control form-control-sm" name="eddefectgroup" placeholder="">                  
+                  <input id="eddefectgroup" type="text" class="form-control form-control-sm" name="defectgroup" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1895,7 +1895,7 @@
                   <label for="eddefectname" class="col-form-label-sm">DEFECT NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eddefectname" type="text" class="form-control form-control-sm" name="eddefectname" placeholder="">                  
+                  <input id="eddefectname" type="text" class="form-control form-control-sm" name="defectname" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -1925,7 +1925,7 @@
         </button>
       </div>
       <form id="euserinfoform"  method="post">
-      <input type="hidden" id="iduserinfo" name="iduserinfo">
+      <input type="hidden" id="iduserinfo" name="id">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
 
@@ -1936,7 +1936,7 @@
                   <label for="euuserid" class="col-form-label-sm">USER ID:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="euuserid" type="text" class="form-control form-control-sm" name="euuserid" placeholder="" required>                  
+                  <input id="euuserid" type="text" class="form-control form-control-sm" name="userid" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1946,7 +1946,7 @@
                   <label for="euusername" class="col-form-label-sm">USER NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="euusername" type="text" class="form-control form-control-sm" name="euusername" placeholder="" required>                  
+                  <input id="euusername" type="text" class="form-control form-control-sm" name="username" placeholder="" required>                  
                 </div>
               </div>
             </div>                    
@@ -1959,7 +1959,7 @@
                   <label for="euemailaddress" class="col-form-label-sm">EMAIL ADDRESS:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="euemailaddress" type="email" class="form-control form-control-sm" name="euemailaddress" placeholder="">                  
+                  <input id="euemailaddress" type="email" class="form-control form-control-sm" name="emailaddress" placeholder="">                  
                 </div>
               </div>
             </div>
@@ -1969,7 +1969,7 @@
                   <label for="euuserauthority" class="col-form-label-sm">USER AUTHORITY:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="euuserauthority" type="text" class="form-control form-control-sm sel" name="euuserauthority" placeholder="" required>
+                  <select id="euuserauthority" type="text" class="form-control form-control-sm sel" name="userauthority" placeholder="" required>
                   <option value="">-Please select-</option>
                     <?php
 
@@ -2004,7 +2004,7 @@
                   <label for="euuserpassword" class="col-form-label-sm">USER PASSWORD:</label>                  
                 </div>
                 <div class="col-7">
-                  <select class="form-control form-control-sm sel" name="euuserpassword" placeholder="" id="euuserpassword">                  
+                  <select class="form-control form-control-sm sel" name="userpassword" placeholder="" id="euuserpassword">                  
                     <option value="exst">Existing</option>
                     <option value="def">Default</option>
                   </select>                 
@@ -2036,7 +2036,7 @@
         </button>
       </div>
       <form id="euserauthform"  method="post">
-      <input type="hidden" id="iduserauth" name="iduserauth">
+      <input type="hidden" id="iduserauth" name="id">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
 
@@ -2047,7 +2047,7 @@
                   <label for="eaauthoritycode" class="col-form-label-sm">AUTHORITY CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eaauthoritycode" type="text" class="form-control form-control-sm" name="eaauthoritycode" placeholder="" required>                  
+                  <input id="eaauthoritycode" type="text" class="form-control form-control-sm" name="authoritycode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -2057,7 +2057,7 @@
                   <label for="eauserauthority" class="col-form-label-sm">USER AUTHORITY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eauserauthority" type="text" class="form-control form-control-sm" name="eauserauthority" placeholder="" required>                  
+                  <input id="eauserauthority" type="text" class="form-control form-control-sm" name="userauthority" placeholder="" required>                  
                 </div>
               </div>
             </div>                    
@@ -2086,7 +2086,7 @@
         </button>
       </div>
       <form id="edivcodeform"  method="post">
-      <input type="hidden" id="iddivcode" name="iddivcode">
+      <input type="hidden" id="iddivcode" name="id">
       <div class="modal-body" style="">
       
           <!-- ____________ FORM __________________ -->
@@ -2098,7 +2098,7 @@
                   <label for="eddivisioncode1" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eddivisioncode1" type="text" class="form-control form-control-sm" name="eddivisioncode1" placeholder="" required>                  
+                  <input id="eddivisioncode1" type="text" class="form-control form-control-sm" name="divisioncode" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -2108,7 +2108,7 @@
                   <label for="eddivisionname" class="col-form-label-sm">DIVISION NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eddivisionname" type="text" class="form-control form-control-sm" name="eddivisionname" placeholder="">                  
+                  <input id="eddivisionname" type="text" class="form-control form-control-sm" name="divisionname" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -2120,7 +2120,7 @@
                   <label for="edsapcode" class="col-form-label-sm">SAP DIV CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="edsapcode" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="edsapcode" placeholder="" required>
+                  <input id="edsapcode" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="sapcode" placeholder="" required>
                 </div>
               </div>
             </div>                               
@@ -2148,7 +2148,7 @@
         </button>
       </div>
       <form id="eemployeeform"  method="post">
-      <input type="hidden" id="employeeid" name="employeeid">
+      <input type="hidden" id="employeeid" name="id">
       <div class="modal-body" style="">
       
           <!-- ____________ FORM __________________ -->

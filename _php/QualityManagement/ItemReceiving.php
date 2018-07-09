@@ -8,15 +8,13 @@
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 </style>
-<div style="width: 99%;">
+<div style="width: 100%;">
   <div class="row">      
-    <div class="col-md-5" id="first_table"> 
-    <!-- weasdsdasdasd
-    <script>DisplayTable1('DanplaTempStore','DanplaTempStoreSP','DanplaTemp')</script> -->
+    <div class="col-md-6" id="first_table"> 
+    <!-- <script>DisplayTable1('DanplaTempStore','DanplaTempStoreSP','DanplaTemp')</script> -->
       </div>
-    <div class="col-md-7" id="second_table">
-    <!-- weasdsdasdasd
-        <script>DisplayTable2('CreatedLot','CreatedLotSP','Created_Lot')</script> -->
+    <div class="col-md-6" id="second_table">
+    <!-- <script>DisplayTable2('CreatedLot','CreatedLotSP','Created_Lot')</script> -->
         </div>
     </div>
     <!-- <div class="row">

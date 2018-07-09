@@ -115,11 +115,11 @@
           $('#tb4').show();
         }
         else{
-          $('#tb3').show();
+          $('#tb3').hide();
           $('#tb4').hide();
-        }
-        
-        checkuserauth(); 
+        }        
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        checkuserauth(dtdt,dtdt); 
 
          /* Add JS functions below */
          
@@ -142,15 +142,20 @@
         }
            
         $('#tb1').click(function(){
-          checkuserauth();
+          var dtdt =moment(Date()).format('YYYY-MM-DD');
+          checkuserauth(dtdt,dtdt);
         });
         
         $('#tb2').click(function(){
-          checkuserauthH();
+          var dtdt =moment(Date()).format('YYYY-MM-DD');
+          var dtdt2 = moment(dtdt,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+          checkuserauthH(dtdt,dtdt2);
         });
 
         $('#tb3').click(function(){
-          checkuserauthF();
+          var dtdt =moment(Date()).format('YYYY-MM-DD');
+          var dtdt2 = moment(dtdt,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+          checkuserauthF(dtdt,dtdt2);
         });
 
         $('#tb4').click(function(){

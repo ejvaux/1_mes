@@ -20,6 +20,8 @@ class DBQUERY
         
         $where = (isset($args[1]) && isset($args[2]))? " WHERE ". $args[1] ."=".$args[2] : "";
 
+        $where .= (isset($args[3]) && isset($args[4]))? " AND ". $args[3] ."=".$args[4] : "";
+
         $sql = "SELECT * FROM " . $args[0] . $where;
 
         $result = $conn->query($sql);
@@ -62,11 +64,13 @@ class DBQUERY
         $conn->close();
     }
 
-    public function delete_row($table,$col,$id){      
+    public function delete_row($table,$col,$id){                    
         
         $conn = $this->connect; 
         
-        $whereSQL = (isset($col) && isset($id))? " WHERE ".$col."=".$id : "";
+        /* $whereSQL = (isset($col) && isset($id))? " WHERE ".$col."=".$id : ""; */
+
+        $whereSQL =" WHERE ".$col."=".$id;
 
         $sql = "DELETE FROM ".$table.$whereSQL;
 
@@ -81,11 +85,13 @@ class DBQUERY
         $conn->close();
     }
 
-    public function update_row($table,$form_data,$col,$id){      
+    public function update_row($table,$form_data,$col,$id){        
         
         $conn = $this->connect; 
         
-        $whereSQL = (isset($col) && isset($id))? " WHERE ".$col." = ".$id : "";
+        /* $whereSQL = (isset($col) && isset($id))? " WHERE ".$col." = ".$id : ""; */
+
+        $whereSQL = " WHERE ".$col." = ".$id ;
 
         $sql = "UPDATE ".$table." SET ";
         
@@ -101,10 +107,10 @@ class DBQUERY
         if ($conn->query($sql) === TRUE) {        
             return TRUE;
         } else {            
-            /* return "Error updating record: " . $conn->error; */
-            return $sql;       
+            return "Error updating record: " . $conn->error;
+            /* return $sql;  */      
         }                
-           
+        
         $conn->close();
     }
 

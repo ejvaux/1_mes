@@ -8,30 +8,29 @@
         header('Location: /1_mes/');
         exit();
     }
-   
+    
     
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-
+    
     $jo_barcode = $_POST['jo_barcode'];
     $jo_num = $_POST['jo_num'];
+    $lot_num = $_POST['lot_num'];
     $item_code = $_POST['item_code'];
     $item_name = $_POST['item_name'];
     $print_qty = $_POST['print_qty'];
-    $machine_code = $_POST['machine_code'];
     $insertUser = $_SESSION['text'];
     $insert_datetime = Date('Y-m-d H:i:s');
 
-    $sql = "INSERT INTO qmd_danpla_tempstore
+    $sql = "INSERT INTO qmd_item_tempstore
     (   
         DANPLA_SERIAL,
         JO_NUM,
+        LOT_NUM,
         ITEM_CODE,
         ITEM_NAME,
         QUANTITY,
-        MACHINE_CODE,
         INSERT_USER,
         INSERT_DATETIME
-
     )
 
         VALUES (?,?,?,?,?,?,?,?)";
@@ -40,13 +39,13 @@
 
         $stmt->bind_param(
 
-            'ssssisss',
+            'sssssiss',
             $jo_barcode,
             $jo_num,
+            $lot_num,
             $item_code,
             $item_name,
             $print_qty,
-            $machine_code,
             $insertUser,
             $insert_datetime
         );

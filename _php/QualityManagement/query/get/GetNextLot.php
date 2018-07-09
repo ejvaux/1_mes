@@ -1,11 +1,11 @@
 <?php       
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
-    $sql = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE) ORDER BY LOT_NUMBER DESC";
+    $sql = "SELECT JO_NUM,LOT_NUMBER,MACHINE_CODE FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE) ORDER BY LOT_NUMBER DESC";
     $result = $conn->query($sql);
 
             if ($result->num_rows > 0){
-
+                $lot = ('true');
                 while($row = $result->fetch_assoc()){
 
                     if(strlen($row['LOT_NUMBER']) < 14){
@@ -19,14 +19,14 @@
                             break;
                             }
                         elseif($row['JO_NUM'] != $_POST['jo_num'] && $row['MACHINE_CODE'] != $_POST['machine_code']){
-                            $lot = (false); 
+                            $lot = ('false'); 
                             }
                     }
                 }
             }
 
             else{
-                $lot = (true);
+                $lot = ('true');
                 }
             
     echo json_encode($lot,true);

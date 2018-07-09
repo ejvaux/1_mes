@@ -5,12 +5,12 @@
 <thead> 
         <th>NO</th>
         <th>DANPLA SERIAL</th>
-        <th>JOB ORDER</th>
+        <th>LOT NUMBER</th>
         <th>ITEM CODE</th>
         <th>ITEM NAME</th>
         <th>QUANTITY</th>
-        <th>MACHINE CODE</th>
         <th>RECEIVER</th>
+        
 </thead>
 </table>
       </div>
