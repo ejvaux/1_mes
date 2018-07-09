@@ -9790,3 +9790,4814 @@ BARCODE UPDATE SYNC STATUS: COMPLETE
 ## 2018-06-29 04:06:05 PM ##
 BARCODE INSERT SYNC STATUS: COMPLETE
 BARCODE UPDATE SYNC STATUS: COMPLETE
+
+## 2018-07-09 05:43:26 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002500 || ITEMCODE: 160594200L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002497 || ITEMCODE: 169150300L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002496 || ITEMCODE: 174177401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002520 || ITEMCODE: RC4-2891
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002530 || ITEMCODE: PMXF0016ZA-D
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002523 || ITEMCODE: 174615401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002513 || ITEMCODE: 149516001L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002546 || ITEMCODE: 173336000L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002548 || ITEMCODE: 173336000L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002551 || ITEMCODE: 171811902L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002549 || ITEMCODE: 174617401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002553 || ITEMCODE: 173335900L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002557 || ITEMCODE: 174618401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002561 || ITEMCODE: 174617500L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002494 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002552 || ITEMCODE: 173335900L3
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002570 || ITEMCODE: 870-1500B
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002567 || ITEMCODE: 876-1610
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002524 || ITEMCODE: 157438600L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002526 || ITEMCODE: 174977200L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002568 || ITEMCODE: 876-1609
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002550 || ITEMCODE: 155074800L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002558 || ITEMCODE: 876-1611
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002571 || ITEMCODE: 876-1499A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002569 || ITEMCODE: 870-12030-003
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002566 || ITEMCODE: 876-1616
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002565 || ITEMCODE: 64266285002
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002559 || ITEMCODE: PMYF0023ZA-A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002563 || ITEMCODE: 64626285002
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002555 || ITEMCODE: 20546-R1000049
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002544 || ITEMCODE: 876-1504A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002564 || ITEMCODE: QFYF0543ZZ
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002564 || ITEMCODE: QFYF0543ZZ
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002538 || ITEMCODE: PMYF0022ZB-B
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002540 || ITEMCODE: 173193900L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002541 || ITEMCODE: PMYF0022ZB-D
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002537 || ITEMCODE: F220190050
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002531 || ITEMCODE: QFXF0177ZZ-F
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002536 || ITEMCODE: PMYF0016ZB-H
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002535 || ITEMCODE: PMYF0016ZB-F
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002533 || ITEMCODE: PMXF0016ZA-E
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002534 || ITEMCODE: PMXF0012ZA-C
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002503 || ITEMCODE: 157234600L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002509 || ITEMCODE: 159120900L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002506 || ITEMCODE: 171791500L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002507 || ITEMCODE: 171810001L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002532 || ITEMCODE: PMXF0012ZA-F
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002511 || ITEMCODE: 174600501L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002512 || ITEMCODE: 174600501L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002518 || ITEMCODE: 174615800L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002516 || ITEMCODE: 171792600L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002527 || ITEMCODE: 171799202L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002529 || ITEMCODE: 50616285001P
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002539 || ITEMCODE: QFYF0550ZZ-D
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002505 || ITEMCODE: 171785800L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002508 || ITEMCODE: 174933000L3
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002528 || ITEMCODE: 157257400L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002525 || ITEMCODE: 171971001L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002510 || ITEMCODE: 171800301L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002554 || ITEMCODE: 171795702L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002504 || ITEMCODE: 171792700L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002560 || ITEMCODE: 876-1501A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002545 || ITEMCODE: PMXF0014ZA-A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002543 || ITEMCODE: 63466285001P
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002521 || ITEMCODE: 174933000L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002515 || ITEMCODE: 157211401L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002495 || ITEMCODE: 2483
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002556 || ITEMCODE: 174618401L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002547 || ITEMCODE: 174617401L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002519 || ITEMCODE: 171784701L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002522 || ITEMCODE: 169417100L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002501 || ITEMCODE: 174616400L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002499 || ITEMCODE: 2505
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002498 || ITEMCODE: 2157
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002562 || ITEMCODE: 174617500L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002517 || ITEMCODE: 169417000L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002502 || ITEMCODE: 2113
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002514 || ITEMCODE: 876-1502
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002542 || ITEMCODE: 163817701L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002572 || ITEMCODE: 876-0034A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+
+
+## 2018-07-09 05:43:31 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002500 || ITEMCODE: 160594200L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002497 || ITEMCODE: 169150300L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002496 || ITEMCODE: 174177401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002520 || ITEMCODE: RC4-2891
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002530 || ITEMCODE: PMXF0016ZA-D
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002523 || ITEMCODE: 174615401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002513 || ITEMCODE: 149516001L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002546 || ITEMCODE: 173336000L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002548 || ITEMCODE: 173336000L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002551 || ITEMCODE: 171811902L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002549 || ITEMCODE: 174617401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002553 || ITEMCODE: 173335900L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002557 || ITEMCODE: 174618401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002561 || ITEMCODE: 174617500L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002494 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002552 || ITEMCODE: 173335900L3
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002570 || ITEMCODE: 870-1500B
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002567 || ITEMCODE: 876-1610
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002524 || ITEMCODE: 157438600L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002526 || ITEMCODE: 174977200L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002568 || ITEMCODE: 876-1609
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002550 || ITEMCODE: 155074800L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002558 || ITEMCODE: 876-1611
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002571 || ITEMCODE: 876-1499A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002569 || ITEMCODE: 870-12030-003
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002566 || ITEMCODE: 876-1616
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002565 || ITEMCODE: 64266285002
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002559 || ITEMCODE: PMYF0023ZA-A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002563 || ITEMCODE: 64626285002
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002555 || ITEMCODE: 20546-R1000049
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002544 || ITEMCODE: 876-1504A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002564 || ITEMCODE: QFYF0543ZZ
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002564 || ITEMCODE: QFYF0543ZZ
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002538 || ITEMCODE: PMYF0022ZB-B
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002540 || ITEMCODE: 173193900L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002541 || ITEMCODE: PMYF0022ZB-D
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002537 || ITEMCODE: F220190050
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002531 || ITEMCODE: QFXF0177ZZ-F
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002536 || ITEMCODE: PMYF0016ZB-H
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002535 || ITEMCODE: PMYF0016ZB-F
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002533 || ITEMCODE: PMXF0016ZA-E
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002534 || ITEMCODE: PMXF0012ZA-C
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002503 || ITEMCODE: 157234600L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002509 || ITEMCODE: 159120900L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002506 || ITEMCODE: 171791500L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002507 || ITEMCODE: 171810001L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002532 || ITEMCODE: PMXF0012ZA-F
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002511 || ITEMCODE: 174600501L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002512 || ITEMCODE: 174600501L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002518 || ITEMCODE: 174615800L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002516 || ITEMCODE: 171792600L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002527 || ITEMCODE: 171799202L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002529 || ITEMCODE: 50616285001P
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002539 || ITEMCODE: QFYF0550ZZ-D
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002505 || ITEMCODE: 171785800L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002508 || ITEMCODE: 174933000L3
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002528 || ITEMCODE: 157257400L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002525 || ITEMCODE: 171971001L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002510 || ITEMCODE: 171800301L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002554 || ITEMCODE: 171795702L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002504 || ITEMCODE: 171792700L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002560 || ITEMCODE: 876-1501A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002545 || ITEMCODE: PMXF0014ZA-A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002543 || ITEMCODE: 63466285001P
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002521 || ITEMCODE: 174933000L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002515 || ITEMCODE: 157211401L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002495 || ITEMCODE: 2483
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002556 || ITEMCODE: 174618401L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002547 || ITEMCODE: 174617401L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002519 || ITEMCODE: 171784701L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002522 || ITEMCODE: 169417100L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002501 || ITEMCODE: 174616400L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002499 || ITEMCODE: 2505
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002498 || ITEMCODE: 2157
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002562 || ITEMCODE: 174617500L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002517 || ITEMCODE: 169417000L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002502 || ITEMCODE: 2113
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002514 || ITEMCODE: 876-1502
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002542 || ITEMCODE: 163817701L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002572 || ITEMCODE: 876-0034A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+
+
+## 2018-07-09 05:43:36 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002500 || ITEMCODE: 160594200L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002497 || ITEMCODE: 169150300L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002496 || ITEMCODE: 174177401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002520 || ITEMCODE: RC4-2891
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002530 || ITEMCODE: PMXF0016ZA-D
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002523 || ITEMCODE: 174615401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002513 || ITEMCODE: 149516001L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002546 || ITEMCODE: 173336000L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002548 || ITEMCODE: 173336000L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002551 || ITEMCODE: 171811902L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002549 || ITEMCODE: 174617401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002553 || ITEMCODE: 173335900L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002557 || ITEMCODE: 174618401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002561 || ITEMCODE: 174617500L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002494 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002552 || ITEMCODE: 173335900L3
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002570 || ITEMCODE: 870-1500B
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002567 || ITEMCODE: 876-1610
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002524 || ITEMCODE: 157438600L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002526 || ITEMCODE: 174977200L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002568 || ITEMCODE: 876-1609
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002550 || ITEMCODE: 155074800L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002558 || ITEMCODE: 876-1611
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002571 || ITEMCODE: 876-1499A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002569 || ITEMCODE: 870-12030-003
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002566 || ITEMCODE: 876-1616
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002565 || ITEMCODE: 64266285002
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002559 || ITEMCODE: PMYF0023ZA-A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002563 || ITEMCODE: 64626285002
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002555 || ITEMCODE: 20546-R1000049
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002544 || ITEMCODE: 876-1504A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002564 || ITEMCODE: QFYF0543ZZ
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002564 || ITEMCODE: QFYF0543ZZ
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002538 || ITEMCODE: PMYF0022ZB-B
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002540 || ITEMCODE: 173193900L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002541 || ITEMCODE: PMYF0022ZB-D
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002537 || ITEMCODE: F220190050
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002531 || ITEMCODE: QFXF0177ZZ-F
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002536 || ITEMCODE: PMYF0016ZB-H
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002535 || ITEMCODE: PMYF0016ZB-F
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002533 || ITEMCODE: PMXF0016ZA-E
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002534 || ITEMCODE: PMXF0012ZA-C
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002503 || ITEMCODE: 157234600L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002509 || ITEMCODE: 159120900L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002506 || ITEMCODE: 171791500L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002507 || ITEMCODE: 171810001L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002532 || ITEMCODE: PMXF0012ZA-F
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002511 || ITEMCODE: 174600501L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002512 || ITEMCODE: 174600501L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002518 || ITEMCODE: 174615800L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002516 || ITEMCODE: 171792600L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002527 || ITEMCODE: 171799202L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002529 || ITEMCODE: 50616285001P
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002539 || ITEMCODE: QFYF0550ZZ-D
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002505 || ITEMCODE: 171785800L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002508 || ITEMCODE: 174933000L3
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002528 || ITEMCODE: 157257400L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002525 || ITEMCODE: 171971001L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002510 || ITEMCODE: 171800301L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002554 || ITEMCODE: 171795702L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002504 || ITEMCODE: 171792700L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002560 || ITEMCODE: 876-1501A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002545 || ITEMCODE: PMXF0014ZA-A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002543 || ITEMCODE: 63466285001P
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002521 || ITEMCODE: 174933000L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002515 || ITEMCODE: 157211401L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002495 || ITEMCODE: 2483
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002556 || ITEMCODE: 174618401L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002547 || ITEMCODE: 174617401L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002519 || ITEMCODE: 171784701L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002522 || ITEMCODE: 169417100L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002501 || ITEMCODE: 174616400L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002499 || ITEMCODE: 2505
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002498 || ITEMCODE: 2157
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002562 || ITEMCODE: 174617500L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002517 || ITEMCODE: 169417000L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002502 || ITEMCODE: 2113
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002514 || ITEMCODE: 876-1502
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002542 || ITEMCODE: 163817701L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002572 || ITEMCODE: 876-0034A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+
+
+## 2018-07-09 05:43:42 PM ##
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002500 || ITEMCODE: 160594200L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002497 || ITEMCODE: 169150300L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002496 || ITEMCODE: 174177401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002520 || ITEMCODE: RC4-2891
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002530 || ITEMCODE: PMXF0016ZA-D
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002523 || ITEMCODE: 174615401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002513 || ITEMCODE: 149516001L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002546 || ITEMCODE: 173336000L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002548 || ITEMCODE: 173336000L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002551 || ITEMCODE: 171811902L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002549 || ITEMCODE: 174617401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002553 || ITEMCODE: 173335900L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002557 || ITEMCODE: 174618401L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002561 || ITEMCODE: 174617500L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002494 || ITEMCODE: 169424400L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002552 || ITEMCODE: 173335900L3
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002570 || ITEMCODE: 870-1500B
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002567 || ITEMCODE: 876-1610
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002524 || ITEMCODE: 157438600L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002526 || ITEMCODE: 174977200L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002568 || ITEMCODE: 876-1609
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002550 || ITEMCODE: 155074800L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002558 || ITEMCODE: 876-1611
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002571 || ITEMCODE: 876-1499A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002569 || ITEMCODE: 870-12030-003
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002566 || ITEMCODE: 876-1616
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002565 || ITEMCODE: 64266285002
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002559 || ITEMCODE: PMYF0023ZA-A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002563 || ITEMCODE: 64626285002
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002555 || ITEMCODE: 20546-R1000049
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002544 || ITEMCODE: 876-1504A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002564 || ITEMCODE: QFYF0543ZZ
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002564 || ITEMCODE: QFYF0543ZZ
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002538 || ITEMCODE: PMYF0022ZB-B
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002540 || ITEMCODE: 173193900L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002541 || ITEMCODE: PMYF0022ZB-D
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002537 || ITEMCODE: F220190050
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002531 || ITEMCODE: QFXF0177ZZ-F
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002536 || ITEMCODE: PMYF0016ZB-H
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002535 || ITEMCODE: PMYF0016ZB-F
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002533 || ITEMCODE: PMXF0016ZA-E
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002534 || ITEMCODE: PMXF0012ZA-C
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002503 || ITEMCODE: 157234600L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002509 || ITEMCODE: 159120900L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002506 || ITEMCODE: 171791500L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002507 || ITEMCODE: 171810001L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002532 || ITEMCODE: PMXF0012ZA-F
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002511 || ITEMCODE: 174600501L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002512 || ITEMCODE: 174600501L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002518 || ITEMCODE: 174615800L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002516 || ITEMCODE: 171792600L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002527 || ITEMCODE: 171799202L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002529 || ITEMCODE: 50616285001P
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002539 || ITEMCODE: QFYF0550ZZ-D
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002505 || ITEMCODE: 171785800L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002508 || ITEMCODE: 174933000L3
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002528 || ITEMCODE: 157257400L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002525 || ITEMCODE: 171971001L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002510 || ITEMCODE: 171800301L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002554 || ITEMCODE: 171795702L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002504 || ITEMCODE: 171792700L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002560 || ITEMCODE: 876-1501A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002545 || ITEMCODE: PMXF0014ZA-A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002543 || ITEMCODE: 63466285001P
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002521 || ITEMCODE: 174933000L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002515 || ITEMCODE: 157211401L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002495 || ITEMCODE: 2483
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002556 || ITEMCODE: 174618401L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002547 || ITEMCODE: 174617401L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002519 || ITEMCODE: 171784701L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002522 || ITEMCODE: 169417100L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002501 || ITEMCODE: 174616400L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002499 || ITEMCODE: 2505
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002498 || ITEMCODE: 2157
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002562 || ITEMCODE: 174617500L2
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002517 || ITEMCODE: 169417000L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002502 || ITEMCODE: 2113
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002514 || ITEMCODE: 876-1502
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002542 || ITEMCODE: 163817701L1
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
+BARCODE-INSERT-JO-ERROR: JO#: 1JO002572 || ITEMCODE: 876-0034A
+REASON: Array
+(
+    [0] => Array
+        (
+            [0] => IMSSP
+            [SQLSTATE] => IMSSP
+            [1] => -14
+            [code] => -14
+            [2] => An invalid parameter was passed to sqlsrv_query.
+            [message] => An invalid parameter was passed to sqlsrv_query.
+        )
+
+)
+
