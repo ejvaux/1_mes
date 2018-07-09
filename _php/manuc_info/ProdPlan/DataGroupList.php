@@ -11,8 +11,8 @@ if($search!="")
 }
 else
 {
-    $sql = "SELECT * FROM mis_dr_assigned WHERE dr_number = '' OR dr_number IS NULL  ORDER BY dr_assigned_id DESC";
-
+    $datenow=date("Y-m-d");
+    $sql = "SELECT * FROM mis_dr_assigned WHERE (dr_number = '' OR dr_number IS NULL) AND (Date_Inserted = '$datenow')   ORDER BY dr_assigned_id DESC";
 }
 
 $result = $conn->query($sql);

@@ -426,6 +426,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     {
         document.getElementById("search2").value="";   
     }
+
     showTable(moduleID,deptSec,SectionGroup);
  }
 
@@ -1682,3 +1683,15 @@ function prodexport()
 
 
 //modal
+
+
+function syncdatareload(modulename,deptname,typename)
+{
+
+    cancelfilter(modulename,deptname,typename);
+    swal(
+        'SUCCESS!',
+        'Data Synced Successfully!',
+        'success'
+    )
+}
