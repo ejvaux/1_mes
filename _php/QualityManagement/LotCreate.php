@@ -41,7 +41,7 @@
                     </div>
                       <input id="danplaDate2" type="date" class="py-1 form-control dateText" onchange="SearchDanplaCreate()">
                     <div class="input-group-append"> 
-                      <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="lotPending" onclick="notWorking()">EXPORT</button>
+                      <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="lotPending" onclick="exportExcel()">EXPORT</button>
                     </div>
                   </div>
 
