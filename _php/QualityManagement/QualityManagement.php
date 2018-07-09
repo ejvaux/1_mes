@@ -85,7 +85,7 @@
 
     <!-- Contents - END ==============================================          -->
 
-    <div class="mdl" style=" z-index: 5000"><!-- Place at bottom of page --></div>
+    <div class="mdl"><!-- Place at bottom of page --></div>
 
     <!-- Optional JavaScript -->
 
@@ -96,12 +96,12 @@
             $('.navbar-collapse').collapse('hide');
         });
                 
-        /* $(document).on({  
+        $(document).on({  
             ajaxStart: function() { $body.addClass("loading");   },
             ajaxStop: function() { $body.removeClass("loading"); }    
-        }); */
+        });
 
-        var timer;
+        /* var timer;
 
         $(document).ajaxStart(function () {
             timer = setTimeout(function() { $body.addClass("loading"); }, 1000);
@@ -109,7 +109,7 @@
         }).ajaxStop(function () {
             clearTimeout(timer);
             $body.removeClass("loading");
-        })       
+        })   */     
 
         $(document).ready(function () {
           /* totalQty(); */
