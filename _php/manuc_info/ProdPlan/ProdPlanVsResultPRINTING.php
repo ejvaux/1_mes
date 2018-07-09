@@ -73,7 +73,7 @@
                                                                 <div class="input-group btn-sm" style="height: 40px;">
                                                                     <div class="btn-group btn-group-sm">  
                                                                         <button type="button" onclick="cancelfilter('ProdPlanVsResultPRINTING','PRINTING','PlanWithResult')" class="btn btn-outline-secondary btn-export6"><i class="fas fa-ban"></i>&nbspCANCEL FILTER&nbsp&nbsp</button>  
-                                                                        <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();cancelfilter('ProdPlanVsResultPRINTING','PRINTING','PlanWithResult')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
+                                                                        <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();syncdatareload('ProdPlanVsResultPRINTING','PRINTING','PlanWithResult')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
                                                                         <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('ProdPlanVsResultPRINTING','PRINTING','PlanWithResult')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
                                                                     </div>
                                                                     &nbsp<span style="font-size: 15px; font-weight: bold">&nbsp&nbspProdPlan Vs Result PRINTING</span>
