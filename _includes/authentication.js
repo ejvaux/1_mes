@@ -15,22 +15,7 @@ $('#loginform').on('submit', function (e) {
             type: 'POST',
             url: '/1_mes/_query/inserttoken.php',
             success: function (data2) {
-              if(data2=="success"){
-                /* alert("Session Saved"); */
-                /* window.location.href="/1_MES/_php/portal.php"; */
-
-                /* $.notify({
-                  icon: 'fas fa-info-circle',
-                  title: 'System Notification: ',
-                  message: "Login Successful!",
-                },{
-                  type:'info',
-                  placement:{
-                    align: 'center'
-                  },
-                  onClose: redirect,            
-                  delay: 1500,                        
-                }); */
+              if(data2=="success"){                
 
                 redirect();
               }
@@ -61,36 +46,7 @@ $('#loginform').on('submit', function (e) {
    });
 
    $('#lgout').on('click', function (e) {           
-    /* if(confirm('Are you sure? You want to log-out?')){
-     $.ajax({
-       type: 'POST',
-       url: '/1_mes/_php/logout.php',
-       success: function (data) {
-
-        if(data=="success"){ */
-          /* alert("Logout Successful!"); */          
-         
-          /* $.notify({
-            icon: 'fas fa-info-circle',
-            title: 'System Notification: ',
-            message: "Logout Successful!",
-          },{
-            type:'info',
-            placement:{
-              align: 'center'
-            },
-            onClose: redirect,            
-            delay: 1500,                        
-          }); */
-          /* redirect();
-        }
-        else{
-          alert(data);
-        }                
-       }
-     });               
-    } */
-
+    
     swal({
       title: 'Are you sure?',
       text: "You want to logout?!",
@@ -109,20 +65,7 @@ $('#loginform').on('submit', function (e) {
           success: function (data) {
    
            if(data=="success"){
-             /* alert("Logout Successful!"); */          
-            
-             /* $.notify({
-               icon: 'fas fa-info-circle',
-               title: 'System Notification: ',
-               message: "Logout Successful!",
-             },{
-               type:'info',
-               placement:{
-                 align: 'center'
-               },
-               onClose: redirect,            
-               delay: 1500,                        
-             }); */
+             
              redirect();
            }
            else{

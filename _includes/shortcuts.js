@@ -22,6 +22,14 @@ $(document).bind('keyup', 'alt+ctrl+l', function(){
 
 });
 
+$(document).bind('keyup', 'alt+ctrl+r', function(){
+    /* alert('weeeeeeeeee'); */
+    if($('#reg').length){
+        $('#reg').trigger('click');
+      }
+
+});
+
 /* Portal */
 
 $(document).bind('keyup', 'alt+ctrl+p', function(){

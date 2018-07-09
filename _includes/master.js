@@ -207,40 +207,7 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
               className: 'btn btn-export6 btn-xs py-1',
               extend: 'selected', // Bind to Selected row
               action: function ( e, dt, node, config ) {
-                /* if (confirm('Are you sure you want to delete this?')) {
-                alert('test Delete button');                  
-                var data = dt.row( '.selected' ).data();
-                alert(data[0]);
-                
-                $.ajax(
-                  {
-                  method:'post',
-                  url:'/1_mes/_query/master_database/mold/delete.php',
-                  data:
-                  {
-                      'id': data[0],
-                      'ajax': true
-                  },
-                  success: function(data) {
-                    alert(data);
-                    DisplayTable1('mold_table','moldsp','Mold List');
-                    loadmodal('masterdatamodal');
-                    
-                    $.notify({
-                      icon: 'fas fa-info-circle',
-                      title: 'System Notification: ',
-                      message: data,
-                    },{
-                      type:'success',
-                      placement:{
-                        align: 'center'
-                      },           
-                      delay: 3000,                        
-                    });
-                  }
-                  });
-                } */
-                
+                                
                 swal({
                   title: 'Are you sure?',
                   text: "You won't be able to revert this!",
@@ -311,6 +278,7 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
               "targets": 0
             },              
         ],
+        "order": [[ 0, 'desc' ]]
                                            
         } );           
         tble.on( 'order.dt search.dt processing.dt page.dt', function () {
@@ -404,37 +372,7 @@ function DisplayTable2(Table_Name,Tablesp,tbltitle) {
             className: 'btn btn-export6 btn-xs py-1',
             extend: 'selected', // Bind to Selected row
             action: function ( e, dt, node, config ) {
-              /* if (confirm('Are you sure you want to delete this?')) {              
-              var data = dt.row( '.selected' ).data();
-
-              $.ajax(
-                {
-                method:'post',
-                url:'/1_mes/_query/master_database/customer/delete.php',
-                data:
-                {
-                    'id': data[0],
-                    'ajax': true
-                },
-                success: function(data) {
-                  DisplayTable2('customer_table','customersp','Customer List');
-                  loadmodal('masterdatamodal');
-
-                  $.notify({
-                    icon: 'fas fa-info-circle',
-                    title: 'System Notification: ',
-                    message: data,
-                  },{
-                    type:'success',
-                    placement:{
-                      align: 'center'
-                    },           
-                    delay: 3000,                        
-                  });
-                }
-                });           
-              } */
-
+              
               swal({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -504,6 +442,7 @@ function DisplayTable2(Table_Name,Tablesp,tbltitle) {
           "columnDefs": [ {              
             "targets": 0
         } ],
+        "order": [[ 0, 'desc' ]]
                                      
       } );         
       tble.on( 'order.dt search.dt processing.dt page.dt', function () {
@@ -605,36 +544,7 @@ function DisplayTable3(Table_Name,Tablesp,tbltitle) {
             className: 'btn btn-export6 btn-xs py-1',
             extend: 'selected', // Bind to Selected row
             action: function ( e, dt, node, config ) {
-              /* if (confirm('Are you sure you want to delete this?')) {                            
-              var data = dt.row( '.selected' ).data();                   
-              $.ajax(
-                {
-                method:'post',
-                url:'/1_mes/_query/master_database/item/delete.php',
-                data:
-                {
-                    'id': data[0],
-                    'ajax': true
-                },
-                success: function(data) {
-                  DisplayTable3('item_list_table','item_listsp','Item List');
-                  loadmodal('masterdatamodal');
-
-                  $.notify({
-                    icon: 'fas fa-info-circle',
-                    title: 'System Notification: ',
-                    message: data,
-                  },{
-                    type:'success',
-                    placement:{
-                      align: 'center'
-                    },           
-                    delay: 3000,                        
-                  });
-                }
-                });
-              } */
-
+              
               swal({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -704,6 +614,7 @@ function DisplayTable3(Table_Name,Tablesp,tbltitle) {
           "columnDefs": [ {              
             "targets": 0
         } ],
+        "order": [[ 0, 'desc' ]]
                                         
       } );           
       tble.on( 'order.dt search.dt processing.dt page.dt', function () {
@@ -797,39 +708,7 @@ function DisplayTable4(Table_Name,Tablesp,tbltitle) {
             className: 'btn btn-export6 btn-xs py-1',
             extend: 'selected', // Bind to Selected row
             action: function ( e, dt, node, config ) {
-              /* if (confirm('Are you sure you want to delete this?')) {
-                           
-              var data = dt.row( '.selected' ).data();
               
-              $.ajax(
-                {
-                method:'post',
-                url:'/1_mes/_query/master_database/machine/delete.php',
-                data:
-                {
-                    'id': data[0],
-                    'ajax': true
-                },
-                success: function(data) {
-                  alert(data);
-                  DisplayTable4('machine_list_table','machine_listsp','Machine List');
-                  loadmodal('masterdatamodal');
-
-                  $.notify({
-                    icon: 'fas fa-info-circle',
-                    title: 'System Notification: ',
-                    message: data,
-                  },{
-                    type:'success',
-                    placement:{
-                      align: 'center'
-                    },           
-                    delay: 3000,                        
-                  });
-                }
-                });
-              } */
-
               swal({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -900,6 +779,7 @@ function DisplayTable4(Table_Name,Tablesp,tbltitle) {
           "columnDefs": [ {              
             "targets": 0
         } ],
+        "order": [[ 0, 'desc' ]]
                                         
       } );           
       tble.on( 'order.dt search.dt processing.dt page.dt', function () {
@@ -991,38 +871,7 @@ function DisplayTable5(Table_Name,Tablesp,tbltitle) {
             className: 'btn btn-export6 btn-xs py-1',
             extend: 'selected', // Bind to Selected row
             action: function ( e, dt, node, config ) {
-              /* if (confirm('Are you sure you want to delete this?')) {         
-              var data = dt.row( '.selected' ).data();
               
-              $.ajax(
-                {
-                method:'post',
-                url:'/1_mes/_query/master_database/defect/delete.php',
-                data:
-                {
-                    'id': data[0],
-                    'ajax': true
-                },
-                success: function(data) {
-                  
-                  DisplayTable5('defect_code_table','defect_codesp','Defect Code');
-                  loadmodal('masterdatamodal');
-
-                  $.notify({
-                    icon: 'fas fa-info-circle',
-                    title: 'System Notification: ',
-                    message: data,
-                  },{
-                    type:'success',
-                    placement:{
-                      align: 'center'
-                    },           
-                    delay: 3000,                        
-                  });
-                }
-                });
-              } */
-
               swal({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -1093,6 +942,7 @@ function DisplayTable5(Table_Name,Tablesp,tbltitle) {
           "columnDefs": [ {              
             "targets": 0
         } ],
+        "order": [[ 0, 'desc' ]]
                                         
       } );           
       tble.on( 'order.dt search.dt processing.dt page.dt', function () {
@@ -1185,37 +1035,7 @@ function DisplayTable6(Table_Name,Tablesp,tbltitle) {
             className: 'btn btn-export6 btn-xs py-1',
             extend: 'selected', // Bind to Selected row
             action: function ( e, dt, node, config ) {
-              /* if (confirm('Are you sure you want to delete this?')) {           
-              var data = dt.row( '.selected' ).data();
               
-              $.ajax(
-                {
-                method:'post',
-                url:'/1_mes/_query/master_database/userinfo/delete.php',
-                data:
-                {
-                    'id': data[0],
-                    'ajax': true
-                },
-                success: function(data) {
-                  DisplayTable6('user_info_table','user_infosp','User Information');
-                  loadmodal('masterdatamodal');
-                  
-                  $.notify({
-                    icon: 'fas fa-info-circle',
-                    title: 'System Notification: ',
-                    message: data,
-                  },{
-                    type:'success',
-                    placement:{
-                      align: 'center'
-                    },           
-                    delay: 3000,                        
-                  });
-                }
-                });
-              } */
-
               swal({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -1285,6 +1105,7 @@ function DisplayTable6(Table_Name,Tablesp,tbltitle) {
           "columnDefs": [ {              
             "targets": 0
         } ],
+        "order": [[ 0, 'desc' ]]
                                         
       } );           
       tble.on( 'order.dt search.dt processing.dt page.dt', function () {
@@ -1373,37 +1194,7 @@ function DisplayTable7(Table_Name,Tablesp,tbltitle) {
             className: 'btn btn-export6 btn-xs py-1',
             extend: 'selected', // Bind to Selected row
             action: function ( e, dt, node, config ) {
-              /* if (confirm('Are you sure you want to delete this?')) {             
-              var data = dt.row( '.selected' ).data();
               
-              $.ajax(
-                {
-                method:'post',
-                url:'/1_mes/_query/master_database/userauth/delete.php',
-                data:
-                {
-                    'id': data[0],
-                    'ajax': true
-                },
-                success: function(data) {
-                  DisplayTable7('user_auth_table','user_authsp','User Authority');
-                  loadmodal('masterdatamodal');
-
-                  $.notify({
-                    icon: 'fas fa-info-circle',
-                    title: 'System Notification: ',
-                    message: data,
-                  },{
-                    type:'success',
-                    placement:{
-                      align: 'center'
-                    },           
-                    delay: 3000,                        
-                  });
-                }
-                });
-              } */
-
               swal({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -1563,37 +1354,7 @@ function DisplayTable8(Table_Name,Tablesp,tbltitle) {
             className: 'btn btn-export6 btn-xs py-1',
             extend: 'selected', // Bind to Selected row
             action: function ( e, dt, node, config ) {
-              /* if (confirm('Are you sure you want to delete this?')) {             
-              var data = dt.row( '.selected' ).data();
               
-              $.ajax(
-                {
-                method:'post',
-                url:'/1_mes/_query/master_database/divcode/delete.php',
-                data:
-                {
-                    'id': data[0],
-                    'ajax': true
-                },
-                success: function(data) {
-                  DisplayTable8('division_code_table','division_codesp','Division Code');
-                  loadmodal('masterdatamodal');
-
-                  $.notify({
-                    icon: 'fas fa-info-circle',
-                    title: 'System Notification: ',
-                    message: data,
-                  },{
-                    type:'success',
-                    placement:{
-                      align: 'center'
-                    },           
-                    delay: 3000,                        
-                  });
-                }
-                });
-              } */
-
               swal({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -1663,6 +1424,7 @@ function DisplayTable8(Table_Name,Tablesp,tbltitle) {
           "columnDefs": [ {              
             "targets": 0
         } ],
+        "order": [[ 0, 'desc' ]]
                                         
       } );           
       tble.on( 'order.dt search.dt processing.dt page.dt', function () {
@@ -1824,6 +1586,7 @@ function DisplayTable9(Table_Name,Tablesp,tbltitle) {
           "columnDefs": [ {              
             "targets": 0
         } ],
+        "order": [[ 0, 'desc' ]]
                                         
       } );           
       tble.on( 'order.dt search.dt processing.dt page.dt', function () {

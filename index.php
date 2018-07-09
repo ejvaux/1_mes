@@ -262,7 +262,9 @@
             <span class="navbar-text mr-2" id="clockdate" style="display:block"></span>            
             <span class="navbar-text mr-2" id="clocktime" style="display:block"></span>   
              
-            <button data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item btn btn-outline-secondary p-1 my-2 my-sm-0 hvr-icon-wobble-horizontal" onclick="document.getElementById('id01').style.display='block'" id="lgin" style="display:block;">Login <i class="fas fa-sign-in-alt hvr-icon"></i></button>
+            <button data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item btn btn-outline-secondary p-1 ml-sm-0 mr-1 hvr-icon-wobble-horizontal" onclick="document.getElementById('id01').style.display='block'" id="lgin" style="display:block;">Login <i class="fas fa-sign-in-alt hvr-icon"></i></button>
+            
+            <button data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item btn btn-outline-secondary p-1 my-2 my-sm-0 hvr-icon-wobble-horizontal" onclick="" id="reg" style="display:block;">Register <i class="fas fa-user hvr-icon"></i></i></button>
 
             <button class="nav-item btn btn-outline-secondary p-1 my-2 my-0 hvr-icon-wobble-horizontal" onclick="" id="lgout" style="display: none">Logout <i class="fas fa-sign-out-alt hvr-icon"></i></button> <!-- href='/1_mes/_php/logout.php' -->
             
@@ -277,6 +279,7 @@
               $('#usr').show();
               $('#lgout').show();
               $('#lgin').hide();
+              $('#reg').hide();
             }
             else{
               $('#hme').hide();
@@ -285,6 +288,7 @@
               $('#usr').hide();
               $('#lgout').hide();
               $('#lgin').show();
+              $('#reg').show();
             }
           </script>
           
@@ -504,6 +508,75 @@
       </div>
     </div>
 
+    <!-- register modal -->
+    <div class="modal fade in" tabindex="-1" role="dialog" id='regist' data-backdrop="false">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Register Account</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form id="registerform"  method="post">
+          <div class="modal-body">
+
+            <div class="form-group row">
+              <div class="col-4">
+                <label for="" class="col-form-label-sm">COMPLETE NAME: <small>(Input Letters Only)</small></label>                    
+              </div>
+              <div class="col-8">
+                <input id="username" type="text" class="form-control form-control-lg" name="username" pattern="^[a-zA-Z\s]*$" placeholder="" required>                
+              </div>                                
+            </div>
+
+            <div class="form-group row">
+              <div class="col-4">
+                <label for="" class="col-form-label-sm">USER ID:</label>                    
+              </div>
+              <div class="col-8">
+                <input id="userid" type="text" class="form-control form-control-lg" name="userid" placeholder="" required>                
+              </div>                                
+            </div>
+
+            <div class="form-group row">
+              <div class="col-4">
+                <label for="" class="col-form-label-sm">EMAIL:</label>                    
+              </div>
+              <div class="col-8">
+                <input id="useremail" type="email" class="form-control form-control-lg" name="emailaddress" placeholder="">                
+              </div>                                
+            </div>
+
+            <div class="form-group row">
+              <div class="col-4">
+                <label for="" class="col-form-label-sm">PASSWORD:</label>                    
+              </div>
+              <div class="col-8">
+                <input id="userpw" type="password" class="form-control form-control-lg" name="userpassword" placeholder="" required>                
+              </div>                                
+            </div>
+
+            <div class="form-group row">
+              <div class="col-4">
+                <label for="" class="col-form-label-sm">CONFIRM PASSWORD:</label>                    
+              </div>
+              <div class="col-8">
+                <input id="userpwcon" type="password" class="form-control form-control-lg" name="userpwcon" placeholder="" required>                
+              </div>                                
+            </div>
+
+          </div>
+                   
+          <div class="modal-footer">            
+            <button type="submit" class="btn btn-primary" name="submit">Register</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+          </form> 
+        </div>
+      </div>
+    </div> <!-- End register modal -->
+
     <!-- Optional JavaScript -->
     <script type="text/javascript">    
       
@@ -540,6 +613,10 @@
             $('#acct').modal('show');             
         });
 
+        $('#reg').on('click', function(){
+          $('#regist').modal('show');
+        });
+
         $('#bttn').on('click', function(){
             $('.navbar-collapse').collapse('hide');              
         });
@@ -556,7 +633,77 @@
                 return $('#popover-content').html();
             }
         });
-      });      
+      });
+
+      $('#regist').on('submit','#registerform', function (e) { 
+        e.preventDefault();
+        e.stopImmediatePropagation();       
+
+        if($('#userpw').val() == $('#userpwcon').val()){
+          
+          var formdata =  $('#registerform').serializeArray();
+          formdata.push({name: 'action', value: 'insert'});
+          $.ajax({
+            type: 'POST',
+            url: '/1_mes/database/table_handler/master/userinfoHandler.php',
+            data: $.param(formdata),
+            success: function (data) {      
+              if(data==true){
+                
+                $('#registerform').trigger('reset');
+                $('#regist').modal('hide');          
+                
+                swal(
+                  'Registered!',
+                  'Please wait for the system administrator to provide user authentication to your account to access services.',
+                  'success'
+                )
+              }
+              else{
+                alert(data);          
+              }
+            }
+          });
+          
+        }
+        else{
+          $.notify({
+            icon: 'fas fa-exclamation-triangle',
+            title: 'System Notification: ',
+            message: "Typed passwords are not identical. Please re-type passwords.",
+          },{
+            type:'danger',
+            placement:{
+              align: 'center'
+            },           
+            delay: 3000,                        
+          });
+        }
+        /* var formdata =  $('#registerform').serializeArray();
+        formdata.push({name: 'action', value: 'insert'});
+        $.ajax({
+          type: 'POST',
+          url: '/1_mes/database/table_handler/master/userinfoHandler.php',
+          data: $.param(formdata),
+          success: function (data) {         
+            if(data==true){
+              
+              $('#registerform').trigger('reset');
+              $('#regist').modal('hide');          
+              
+              swal(
+                'Success!',
+                'Please wait for the system administrator to provide user authentication to your account.',
+                'success'
+              )
+            }
+            else{
+              alert(data);          
+            }
+          }
+        });  */
+        
+      });
 
     </script>
 
