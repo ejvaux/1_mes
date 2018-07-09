@@ -67,7 +67,7 @@
                                                                 <div class="input-group btn-sm" style="height: 40px;">
                                                                     <div class="btn-group btn-group-sm">  
                                                                     <button type="button" onclick="cancelfilter('ProdResultSAMPLES','SAMPLES','Result')" class="btn btn-outline-secondary btn-export6"><i class="fas fa-ban"></i>&nbspCANCEL FILTER&nbsp&nbsp</button>  
-                                                                     <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();cancelfilter('ProdResultSAMPLES','SAMPLES','Result')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
+                                                                     <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();syncdatareload('ProdResultSAMPLES','SAMPLES','Result')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
                                                                     <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('ProdResultSAMPLES','SAMPLES','Result')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
                                                                 </div>
                                                                 &nbsp&nbsp&nbsp<span style="font-size: 16px; font-weight: bold"><h5>Prod Result SAMPLES</h5></span>

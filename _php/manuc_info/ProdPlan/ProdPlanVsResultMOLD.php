@@ -43,7 +43,7 @@
                                                                 <div class="input-group btn-sm" style="height: 40px;">
                                                                     <div class="btn-group btn-group-sm">  
                                                                      <button type="button" onclick="cancelfilter('ProdPlanVsResultMOLD','MOLD','PlanWithResult')" class="btn btn-outline-secondary btn-export6"><i class="fas fa-ban"></i>&nbspCANCEL FILTER&nbsp&nbsp</button>  
-                                                                     <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();cancelfilter('ProdPlanVsResultMOLD','MOLD','PlanWithResult')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
+                                                                     <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();syncdatareload('ProdPlanVsResultMOLD','MOLD','PlanWithResult')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
                                                                      <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('ProdPlanVsResultMOLD','MOLD','PlanWithResult')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
                                                                     </div>
                                                                     &nbsp<span style="font-size: 18px; font-weight: bold">Prod Plan Vs Result MOLD</span>

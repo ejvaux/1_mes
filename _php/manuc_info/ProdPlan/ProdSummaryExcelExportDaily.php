@@ -3,6 +3,7 @@
  include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 
 $output= '
+<br>
 <table class="table-hover table-bordered nowrap example-table" style="background-color: white;overflow: auto; width: 80%; text-align: center;margin: 0 auto" id="example-table">
     <thead style=" color:black;font-size: 14px;">
       <tr>
@@ -57,10 +58,10 @@ $output= '
 $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult,mis_prod_plan_dl.ITEM_NAME, 
             SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_ 
             FROM mis_prod_plan_dl 
-            LEFT JOIN mis_summarize_result ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_result.JOB_ORDER_NO 
+            LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
             WHERE ((mis_prod_plan_dl.ITEM_NAME = '$search')) AND 
-            ((SUBSTRING(mis_summarize_result.JOB_ORDER_NO,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')) 
-             GROUP BY JOB_ORDER_NO
+            ((SUBSTRING(mis_summarize_results.JOB_ORDER_NO,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')) 
+             GROUP BY mis_prod_plan_dl.JOB_ORDER_NO
             ORDER BY DISP_DATE_ ASC";
 
         $between = "NO";
@@ -334,6 +335,10 @@ if ($datenow == "NONE") {
     $output.= "</tr>";
 } else {
 
+    $prodplan1 = number_format($prodplan1);
+    $prodresult1 = number_format($prodresult1);
+    $gap = number_format($gap);
+
     $output.= "<tr style='font-size: 2em'>";
     $output.= "<td style='border: 1px solid #ddd; height: 100px;' colspan='2'> <b>TOTAL SUMMARY " . $datenow . "</b></td>";
     #$output.= "<td style='border: 1px solid #ddd;'>-</td>";
@@ -380,9 +385,12 @@ if ($datenow == "NONE") {
             $sqlresultbetween = "SELECT SUM(mis_product.PRINT_QTY) as prodresult2 
                                 FROM mis_product
                                 LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-                                 WHERE mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' ";
+                                 WHERE mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' AND
+                                 (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
             
-            $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE DATE_='" . $row3['DISP_DATE_'] . "'";
+            $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl
+                             WHERE DATE_='" . $row3['DISP_DATE_'] . "' AND
+                             (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
 
             $resultbet = $conn->query($sqlresultbetween);
             
@@ -408,13 +416,13 @@ if ($datenow == "NONE") {
                             } else {
                                 
                                 $prevdate = $currentdate;
-                                $output.=displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
+                                displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
                             }
 
                         } else {
                             $prevdate = $currentdate;
 
-                            $output.= displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
+                            displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
 
                         }
                         # code...
@@ -435,13 +443,17 @@ if ($datenow == "NONE") {
             $sqlresultbetween = "SELECT SUM(mis_product.PRINT_QTY) as prodresult2, mis_prod_plan_dl.DATE_ 
             FROM mis_product 
             LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-            WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME'] . "' AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' ";
+            WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME'] . "' AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' 
+            AND
+            (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
 
             $resultbet = $conn->query($sqlresultbetween);
             while ($row = $resultbet->fetch_assoc()) {
                 # code...
 
-                $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE ITEM_NAME='" . $row3['ITEM_NAME'] . "' AND DATE_='" . $row3['DISP_DATE_'] . "'";
+                $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE ITEM_NAME='" . $row3['ITEM_NAME'] . "' 
+                AND DATE_='" . $row3['DISP_DATE_'] . "'AND
+                (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
 
                 $planbet = $conn2->query($sqlplanbetween);
 
@@ -458,13 +470,13 @@ if ($datenow == "NONE") {
                                 # code... do nothing
                             } else {
                                 $prevdate = $currentdate;
-                                $output.= displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
+                                displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
                             }
 
                         } else {
                             $prevdate = $currentdate;
 
-                            $output.= displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
+                            displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
 
                         }
                         # code...
@@ -488,13 +500,18 @@ if ($datenow == "NONE") {
 $sqlresultbetween = "SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as prodresult2, mis_prod_plan_dl.DATE_ 
 FROM mis_product 
 LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME']."' AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' ";
+WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME']."' AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "'
+AND
+(SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType') ";
 
 $resultbet = $conn->query($sqlresultbetween);
 while ($row = $resultbet->fetch_assoc()) {
     # code...
 
-    $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE ITEM_NAME='" . $row3['ITEM_NAME']."' AND DATE_ ='" . $row3['DISP_DATE_'] . "' ";
+    $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE
+     ITEM_NAME='" . $row3['ITEM_NAME']."' AND DATE_ ='" . $row3['DISP_DATE_'] . "'
+     AND
+     (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType') ";
 
     $planbet = $conn2->query($sqlplanbetween);
 
@@ -511,13 +528,13 @@ while ($row = $resultbet->fetch_assoc()) {
                     # code... do nothing
                 } else {
                     $prevdate = $currentdate;
-                    $output.=displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
+                    displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
                 }
 
             } else {
                 $prevdate = $currentdate;
 
-                $output.= displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
+                displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
 
             }
             # code...
@@ -537,6 +554,10 @@ while ($row = $resultbet->fetch_assoc()) {
 #end of else braces
         }
 
+
+        $row3['PLAN_QTY'] = number_format($row3['PLAN_QTY']);
+        $row3['sumresult'] = number_format($row3['sumresult']);
+        $gap=number_format($gap);
         $output.= "<tr style='font-size:1.2em'>";
         $output.= "<td style='border: 1px solid #ddd;'>" . $row3['DISP_DATE_'] . "</td>";
         $output.= "<td style='border: 1px solid #ddd;'>" . $row3['ITEM_NAME'] . "</td>";
@@ -552,7 +573,7 @@ while ($row = $resultbet->fetch_assoc()) {
 
 function displaysummary($funcPlan, $funcResult, $funcDate)
 {
-$output="";
+
     if ($funcPlan < $funcResult) {
 
         $gapperday = "+";
@@ -578,6 +599,10 @@ $output="";
         $achievepercentperday = 0;
     }
 
+    $funcPlan=number_format($funcPlan);
+    $funcResult = number_format($funcResult);
+    $gapperday = number_format($gapperday);
+
     $output.= "<tr style='font-size:1.2em'>";
     $output.= "<td colspan='2'> <b>Total Prod Plan Vs Result of : " . $funcDate . "</b></td>";
 
@@ -587,19 +612,13 @@ $output="";
     $output.= "<td><b>" . $achievepercentperday . "% </b></td>";
     $output.= "</tr>";
 
-    return $output;
-
 }
 
 
 $output.= '</tbody></table><br><br>';
 
-
-
-
-
 $filename = "ProdSummaryDaily".date("Ymd").".xls";
-  header('Content-Type: application/xls');
-  header('Content-Disposition: attachment; filename='.$filename);
-  echo $output;
+header('Content-Type: application/xls');
+header('Content-Disposition: attachment; filename='.$filename);
+echo $output;
 

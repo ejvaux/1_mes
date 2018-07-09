@@ -335,6 +335,10 @@ if ($datenow == "NONE") {
     echo "</tr>";
 } else {
 
+    $prodplan1 = number_format($prodplan1);
+    $prodresult1 = number_format($prodresult1);
+    $gap = number_format($gap);
+
     echo "<tr style='font-size: 2em'>";
     echo "<td style='border: 1px solid #ddd; height: 100px;' colspan='2'> <b>TOTAL SUMMARY " . $datenow . "</b></td>";
     #echo "<td style='border: 1px solid #ddd;'>-</td>";
@@ -550,6 +554,10 @@ while ($row = $resultbet->fetch_assoc()) {
 #end of else braces
         }
 
+
+        $row3['PLAN_QTY'] = number_format($row3['PLAN_QTY']);
+        $row3['sumresult'] = number_format($row3['sumresult']);
+        $gap=number_format($gap);
         echo "<tr style='font-size:1.2em'>";
         echo "<td style='border: 1px solid #ddd;'>" . $row3['DISP_DATE_'] . "</td>";
         echo "<td style='border: 1px solid #ddd;'>" . $row3['ITEM_NAME'] . "</td>";
@@ -590,6 +598,10 @@ function displaysummary($funcPlan, $funcResult, $funcDate)
     } else {
         $achievepercentperday = 0;
     }
+
+    $funcPlan=number_format($funcPlan);
+    $funcResult = number_format($funcResult);
+    $gapperday = number_format($gapperday);
 
     echo "<tr style='font-size:1.2em'>";
     echo "<td colspan='2'> <b>Total Prod Plan Vs Result of : " . $funcDate . "</b></td>";

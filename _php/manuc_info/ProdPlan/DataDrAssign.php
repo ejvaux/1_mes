@@ -31,14 +31,15 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             }
                             else
                             {
-                             $sql="SELECT * FROM mis_dr_assigned ";
+                                $datetoday=date("Y-m-d");
+                             $sql="SELECT * FROM mis_dr_assigned WHERE (dr_date = '$datetoday')";
                                     if($drdatatype=="UNASSIGNED DR")
                                     {
-                                        $sql.=" WHERE dr_number IS NULL OR dr_number =''";
+                                        $sql.="  AND dr_number IS NULL OR dr_number =''";
                                     }
                                     else if ($drdatatype=="ASSIGNED DR")
                                     {
-                                        $sql.=" WHERE group_name IS NULL OR group_name ='' ";      
+                                        $sql.=" AND group_name IS NULL OR group_name ='' ";      
                                     }
                              $sql.="GROUP BY dr_number, group_name";
 
