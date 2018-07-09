@@ -23,8 +23,7 @@
         <title>Home | MES - Primatech</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="/1_MES/favicon.ico"/>
-
+        <link rel="icon" href="/1_MES/favicon.ico"/>        
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="/1_mes/node_modules/bootstrap/dist/css/bootstrap.min.css">
         
@@ -150,12 +149,35 @@
             height: 800px;
             width: 100%;
           }
+
+          .mdl {
+            display:    none;
+            position:   fixed;
+            z-index:    gray;
+            top:        0;
+            left:       0;
+            height:     100%;
+            width:      100%;
+            background: rgba( 255, 255, 255) 
+                        /* url('http://i.stack.imgur.com/FhHRx.gif') */
+                        url('/1_MES/_icons/103.gif')
+                        50% 50%                     
+                        no-repeat;
+            /* background-size: 50px 50px; */
+          }
     
-        </style>
+        </style>       
 
     </head>
     
     <body>
+    <div class="mdl" style=" z-index: 5000"><!-- Place at bottom of page --></div>
+
+    <script>
+      $body = $("body");
+      $body.addClass("loading"); 
+    </script>
+
       <?php
         if(isset($_SESSION['log_alert'])) {
           if($_SESSION['log_alert'] == "login"){
@@ -406,13 +428,84 @@
           </div>              
         </form>
         </div>
+    </div>    
+    
+    <div class="modal hide fade in" data-keyboard="false"  role="dialog" id="acct">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">USER INFO</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">                  
+            <div class="container-fluid">
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <label><b>Name</b>:</label>
+                </div>
+                <div class="col-sm-9">
+                  <span><?php echo $_SESSION['text']; ?></span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <label><b>Email:</b></labe>
+                </div>
+                <div class="col-sm-9">
+                  <span>
+                  <?php
+                    if(isset($_SESSION['email'])) {
+                    echo $_SESSION['email'];
+                  }
+                  ?>
+                  </span>
+                </div>                      
+              </div>
+
+              <div class="row">
+                <div class="col-sm-3">
+                  <label><b>Authority:</b></label>
+                </div>
+                <div class="col-sm-9">
+                <span>
+                <?php
+
+                  $auth = $_SESSION['auth'];
+                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                      $sql = "SELECT USER_AUTHORITY FROM dmc_user_authority WHERE AUTHORITY_CODE = '$auth'";
+                      $result = $conn->query($sql);
+                      
+                          while($row = $result->fetch_assoc()) {
+
+                              echo $row['USER_AUTHORITY'];                           
+                              
+                          }
+                      
+                      $conn->close();
+
+                ?>
+                </span>
+                </div>
+              </div>
+
+            </div>     
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-info" href="/1_MES/_php/change_pass.php">Change Password</a>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="mdl" style=" z-index: 5000"><!-- Place at bottom of page --></div>
     <!-- Optional JavaScript -->
-    <script type="text/javascript">
-      $body = $("body");
-      
+    <script type="text/javascript">    
       
       showclock();                 
 
@@ -426,7 +519,12 @@
           }
       }
 
-      var timer;
+      $(document).on({  
+          ajaxStart: function() { $body.addClass("loading");   },
+          ajaxStop: function() { $body.removeClass("loading"); }    
+      });
+
+      /* var timer;
 
       $(document).ajaxStart(function () {
           timer = setTimeout(function() { $body.addClass("loading"); }, 10);
@@ -434,7 +532,7 @@
       }).ajaxStop(function () {
           clearTimeout(timer);
           $body.removeClass("loading");
-      })
+      }) */
 
       $(document).ready(function(){
 
@@ -446,7 +544,7 @@
             $('.navbar-collapse').collapse('hide');              
         });
         $('[data-toggle="tooltip"]').tooltip();
-        
+         
       });
 
       $(function() {
@@ -462,83 +560,14 @@
 
     </script>
 
-          <div class="modal hide fade in" data-keyboard="false"  role="dialog" id="acct">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">USER INFO</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">                  
-                  <div class="container-fluid">
-
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <label><b>Name</b>:</label>
-                      </div>
-                      <div class="col-sm-9">
-                        <span><?php echo $_SESSION['text']; ?></span>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <label><b>Email:</b></labe>
-                      </div>
-                      <div class="col-sm-9">
-                        <span>
-                        <?php
-                         if(isset($_SESSION['email'])) {
-                          echo $_SESSION['email'];
-                        }
-                        ?>
-                        </span>
-                      </div>                      
-                    </div>
-
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <label><b>Authority:</b></label>
-                      </div>
-                      <div class="col-sm-9">
-                      <span>
-                      <?php
-
-                        $auth = $_SESSION['auth'];
-                        include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
-
-                            $sql = "SELECT USER_AUTHORITY FROM dmc_user_authority WHERE AUTHORITY_CODE = '$auth'";
-                            $result = $conn->query($sql);
-                            
-                                while($row = $result->fetch_assoc()) {
-
-                                    echo $row['USER_AUTHORITY'];                           
-                                    
-                                }
-                            
-                            $conn->close();
-
-                      ?>
-                      </span>
-                      </div>
-                    </div>
-
-                  </div>     
-                </div>
-                <div class="modal-footer">
-                  <a class="btn btn-info" href="/1_MES/_php/change_pass.php">Change Password</a>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-
       <!-- jQuery first, then Popper.js, then Bootstrap JS --> 
       <script src="/1_mes/_includes/shortcuts.js"></script>
       <script src="/1_mes/_includes/authentication.js"></script>
+      <script>
+      setTimeout(function() {
+        $body.removeClass("loading");
+      }, 1000);      
+      </script>
     </body>
     
 </html>    

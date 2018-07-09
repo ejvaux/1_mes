@@ -653,12 +653,23 @@ if(isset($_POST['sortfrom']))
                                    $year2=date('Y', strtotime($strto));
                                    $date1=date('Y-m-d', strtotime($year1."-".$month1."01"));
                                    $date2=date('Y-m-d', strtotime($year2."-".$month2."01"));
+<<<<<<< HEAD
 				 $sqlitem="SELECT SUM(mis_product.PRINT_QTY)as sumresult, mis_product.ITEM_NAME, mis_prod_plan_dl.PLAN_QTY,mis_prod_plan_dl.DATE_ 
 				 FROM mis_product 
 				 LEFT JOIN mis_prod_plan_dl ON mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
 				 WHERE (MONTH(mis_prod_plan_dl.DATE_) BETWEEN '$month1' AND '$month2') AND 
 				 (YEAR(mis_prod_plan_dl.DATE_)='$year1' OR YEAR(mis_prod_plan_dl.DATE_)='$year2' ) AND (mis_product.ITEM_NAME='$search') AND 
 				 ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')  OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
+=======
+				 $sqlitem="SELECT SUM(mis_summarize_results.PROD_RESULT)as sumresult, mis_prod_plan_dl.ITEM_NAME,
+				  mis_prod_plan_dl.PLAN_QTY,mis_prod_plan_dl.DATE_ 
+				 FROM mis_prod_plan_dl 
+				 LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+				 WHERE (MONTH(mis_prod_plan_dl.DATE_) BETWEEN '$month1' AND '$month2') AND 
+				 (YEAR(mis_prod_plan_dl.DATE_)='$year1' OR YEAR(mis_prod_plan_dl.DATE_)='$year2' ) 
+				 AND (mis_prod_plan_dl.ITEM_NAME='$search') AND 
+				 ((SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
+>>>>>>> localJEFF
 				 GROUP BY `ITEM_NAME`, DATE_ ORDER BY DATE_ ASC";
 
                   $between="YES-Search";
@@ -949,8 +960,20 @@ if(isset($_POST['sortfrom']))
                                                     $month1=date('m', strtotime($temp));
                                                     $year1=date('Y', strtotime($temp));
 
-										$sqlresultsum="SELECT SUM(PRINT_QTY) as prodresult2, DATE_ FROM mis_product WHERE (ITEM_NAME='".$row['ITEM_NAME']."') AND (MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."')";
-										$currentdate=$row['DATE_'];
+									/* 	$sqlresultsum="SELECT SUM(PRINT_QTY) as prodresult2, DATE_ 
+										FROM mis_product 
+										WHERE (ITEM_NAME='".$row['ITEM_NAME']."') AND (MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."')
+										AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
+										$currentdate=$row['DATE_']; */
+
+										$sqlresultsum="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as prodresult2, mis_prod_plan_dl.DATE_ 
+										FROM mis_prod_plan_dl
+										LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+										WHERE (mis_prod_plan_dl.ITEM_NAME='".$row['ITEM_NAME']."')
+										 AND
+										((MONTH(mis_prod_plan_dl.DATE_) ='".$month1."' AND YEAR(mis_prod_plan_dl.DATE_)='".$year1."')) 
+										AND (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')
+										ORDER BY DATE_ ASC";
 
 
 										$resultres=$conn->query($sqlresultsum);
@@ -958,7 +981,10 @@ if(isset($_POST['sortfrom']))
 											while ($row2=$resultres->fetch_assoc()) 
 											{
 												# code...
-												$sqlplansum="SELECT SUM(PLAN_QTY) as planqty2, DATE_ FROM mis_prod_plan_dl WHERE (ITEM_NAME='".$row['ITEM_NAME']."') AND (MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."')";
+												$sqlplansum="SELECT SUM(PLAN_QTY) as planqty2, DATE_ 
+												FROM mis_prod_plan_dl WHERE (ITEM_NAME='".$row['ITEM_NAME']."') AND 
+												(MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."') AND
+												(SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')";
 												$resultplan=$conn->query($sqlplansum);
 
 												while ($row3=$resultplan->fetch_assoc()) 
@@ -1051,7 +1077,19 @@ if(isset($_POST['sortfrom']))
                                         $month1=date('m', strtotime($temp));
                                         $year1=date('Y', strtotime($temp));
 
-										$sqlresultsum="SELECT SUM(PRINT_QTY) as prodresult2, DATE_ FROM mis_product WHERE MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."'";
+										$sqlresultsum="SELECT SUM(PRINT_QTY) as prodresult2, DATE_ 
+										FROM mis_product 
+										WHERE MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."'";
+
+										/* $sqlresultsum="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as prodresult2, mis_prod_plan_dl.DATE_ 
+										FROM mis_prod_plan_dl
+										LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+										WHERE 
+										((MONTH(mis_prod_plan_dl.DATE_) ='".$month1."' AND YEAR(mis_prod_plan_dl.DATE_)='".$year1."')) 
+										AND (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')
+										ORDER BY DATE_ ASC"; */
+
+
 
 
 										$resultres=$conn->query($sqlresultsum);
@@ -1059,7 +1097,14 @@ if(isset($_POST['sortfrom']))
 											while ($row2=$resultres->fetch_assoc()) 
 											{
 												# code...
-												$sqlplansum="SELECT SUM(PLAN_QTY) as planqty2, DATE_ FROM mis_prod_plan_dl WHERE MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."'";
+												/* $sqlplansum="SELECT SUM(PLAN_QTY) as planqty2, DATE_ FROM mis_prod_plan_dl WHERE MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."'";
+ */
+												$sqlplansum="SELECT SUM(PLAN_QTY) as planqty2, DATE_ 
+												FROM mis_prod_plan_dl WHERE 
+												(MONTH(DATE_) ='".$month1."' AND YEAR(DATE_)='".$year1."') AND
+												(SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')";
+
+												
 												$resultplan=$conn->query($sqlplansum);
 
 												while ($row3=$resultplan->fetch_assoc()) 
