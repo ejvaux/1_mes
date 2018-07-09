@@ -62,9 +62,7 @@
       
       <div class="row ml-1">
         <div class="col-12" id="noLotTable">
-          
-              <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/noLot_table.php"; ?>
-
+        
           </div>
         </div>
 

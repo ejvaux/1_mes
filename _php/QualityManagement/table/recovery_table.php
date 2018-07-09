@@ -14,13 +14,13 @@
               
               if ($result->num_rows > 0) 
               {
-                  echo "<table class='table-bordered table-sm table table-hover table-striped mt-3 fixtable' id='RecoveryTable'><thead>    
-                  <th>REJECTION TYPE</th>
+                  echo "<table class='table-bordered table-sm table table-hover table-striped mt-1 table-wrapper-1 id='RecoveryTable'><thead>    
+                  <th style='width:15%'>REJECTION TYPE</th>
                   <th>JUDGEMENT</th>
                   <th>PROD DATE</th>
                   <th>LOT NUMBER</th>
                   <th>LOT QTY</th>
-                  <th>DEFECT QTY</th>
+                  <th style='width:5%'>DEFECT QTY</th>
                   <th>LOT CREATOR</th>
                   <th>ITEM CODE</th>
                   <th>ITEM NAME</th>
@@ -48,7 +48,7 @@
               } 
               else {
                   //echo "Error: " . $sql . "<br>" . $conn->error;
-                  echo "<table class='mt-3 table table-striped table-hover table-bordered table-sm tbl2' id='CreatedLotTable'><thead>    
+                  echo "<table class='mt-1 table table-striped table-hover table-bordered table-sm tbl2' id='CreatedLotTable'><thead>    
                   <th>REJECTION TYPE</th>
                   <th>LOT JUDGEMENT</th>
                   <th>PROD DATE</th>

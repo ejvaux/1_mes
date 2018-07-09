@@ -56,10 +56,16 @@
                           
                         }
                     else if($decide == 'APPROVED' ){
-                          echo "<td class='text-center'>
+                          if($row['WAREHOUSE_RECEIVE'] == 'RECEIVED'){
+                            echo "<td class='text-info font-weight-bold text-center' colspan='2'>" . $row['LOT_JUDGEMENT'] . "/TRANSFERRED IN NEXT WAREHOUSE</td>";
+                          }
+                          else{
+                            echo "<td class='text-center'>
                           <button type='button' class='btn btn-info bt lotPending' enabled='true' id='". $row['LOT_NUMBER'] . "'>PENDING</button>
                           <button type='button' class='btn btn-danger bt lotDisapprove' enabled='true' id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
                           echo "<td class='text-success font-weight-bold'>" . $row['LOT_JUDGEMENT'] . "</td>";  
+                          }
+                          
                         
                         }
                     else if($decide == 'DISAPPROVED'){
