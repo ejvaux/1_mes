@@ -818,19 +818,19 @@ function RecoverySearchLot() {
   var d2 = recoveryDate2.value;
   if (d1 != "" && d2 != "") {
     if (search == "") {
-      var z = "SELECT * FROM qmd_lot_create WHERE (PROD_DATE BETWEEN '"+ d1 +"' AND '"+ (d2 + 1) +"') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER ORDER BY PROD_DATE ASC;";
+      var z = "SELECT * FROM qmd_lot_create WHERE (PROD_DATE BETWEEN '"+ d1 +"' AND '"+ (d2 + 1) +"') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
       //var z = "SELECT * FROM qmd_lot_create WHERE (PROD_DATE BETWEEN '"+ d1 +"' AND '"+ (d2 + 1) +"') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER;";
     }
     else {
-      var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) AND (PROD_DATE BETWEEN '%" + d1 + "' AND '%" + (d2 + 1) + "%') GROUP BY LOT_NUMBER;";
+      var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) AND (PROD_DATE BETWEEN '%" + d1 + "' AND '%" + (d2 + 1) + "%') GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
     }
   }
   else if (d1 != "" && d2 == "") {
     if (search == "") {
-      var z = "SELECT * FROM qmd_lot_create WHERE (PROD_DATE LIKE '%" + d1 + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER;";
+      var z = "SELECT * FROM qmd_lot_create WHERE (PROD_DATE LIKE '%" + d1 + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
     }
     else {
-      var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) AND (PROD_DATE LIKE '%" + d1 + "%') GROUP BY LOT_NUMBER;";
+      var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) AND (PROD_DATE LIKE '%" + d1 + "%') GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
     }
   }
   else if (search != "") {
@@ -862,8 +862,8 @@ function RecoveryClearSearchLot() {
     success: function (data) {
       document.getElementById("table_recovery").innerHTML = data;
       RecoverySearch.value = "";
-      //recoveryDate1.value = "";
-      //recoveryDate2.value = "";
+      recoveryDate1.value = "";
+      recoveryDate2.value = "";
     }
   });
  }
