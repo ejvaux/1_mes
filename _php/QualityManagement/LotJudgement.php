@@ -56,6 +56,8 @@ margin-left:-70%;
 
   <div class="row">
             <div class="col-12">
+
+            
               <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -80,10 +82,12 @@ margin-left:-70%;
                   </div>
                 </div>
               </div>
-    
-
-
     </div>
+<!--   <div class="row">
+    <div class="col-12">
+        
+    <div>
+  </div> -->
   
   <div class="row">
     <div class="col-12" id="table_judgement">

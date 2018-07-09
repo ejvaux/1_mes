@@ -10,6 +10,7 @@ function loadDoc(TableName, uname) {
       if (TableName == 'LotCreate'){
         DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp', uname);
         DisplayTable2('CreatedLot', 'CreatedLotSP', 'Created_Lot');
+        DisplayTable3();
         /* DisplayTable3('PendingLot', 'PendingLotSP', 'Pending_Lot') */
       }
       else if(TableName == 'ItemReceiving'){
@@ -170,7 +171,6 @@ function generateLot(){
       'ajax' : true
     },
     success: function(data){
-      alert(data);
       if (data == '"true"' || data== '"false"' ){
         buildLotNumber(newL);
         AddLotBtnClick(lotNO, joborder);
@@ -331,10 +331,10 @@ function filterJudgement(){
   var x = document.getElementById("filterText");
   var y = x.options[x.selectedIndex].value;
   if(y == "ALL"){
-    var z = 'SELECT * FROM qmd_lot_create ORDER BY PROD_DATE DESC;';
+    var z = 'SELECT * FROM qmd_lot_create GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;';
   }
   else{
-    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC;' ;
+    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;' ;
   }
   
   
@@ -1331,7 +1331,7 @@ function DisplayTable2(Table_Name, Tablesp, tbltitle) {
         "sScrollX": "100%",
         "processing": true,
         "serverSide": true,
-        "iDisplayLength": 100,
+        "iDisplayLength": 1000,
         "ajax": {
           url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
           type: 'POST'
@@ -1380,6 +1380,20 @@ function DisplayTable2(Table_Name, Tablesp, tbltitle) {
    }
     $.fn.dataTable.ext.buttons.add0 = {
   };
+
+function DisplayTable3() {
+
+  var xhttp;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("noLotTable").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/noLot_table.php", true);
+  xhttp.send();
+}
 /* function DisplayTable3(Table_Name, Tablesp, tbltitle) {
 
   var xhttp;
