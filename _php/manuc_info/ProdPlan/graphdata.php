@@ -653,6 +653,7 @@ if(isset($_POST['sortfrom']))
                                    $year2=date('Y', strtotime($strto));
                                    $date1=date('Y-m-d', strtotime($year1."-".$month1."01"));
                                    $date2=date('Y-m-d', strtotime($year2."-".$month2."01"));
+
 				 $sqlitem="SELECT SUM(mis_summarize_results.PROD_RESULT)as sumresult, mis_prod_plan_dl.ITEM_NAME,
 				  SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY,mis_prod_plan_dl.DATE_ 
 				 FROM mis_prod_plan_dl 
@@ -661,7 +662,9 @@ if(isset($_POST['sortfrom']))
 				 (YEAR(mis_prod_plan_dl.DATE_)='$year1' OR YEAR(mis_prod_plan_dl.DATE_)='$year2' ) 
 				 AND (mis_prod_plan_dl.ITEM_NAME='$search') AND 
 				 ((SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
+
 				 GROUP BY MONTH(mis_prod_plan_dl.DATE_) ORDER BY DATE_ ASC";
+
 
                   $between="YES";
                   $currentdate=date("Y-m-d",strtotime($strfrom));

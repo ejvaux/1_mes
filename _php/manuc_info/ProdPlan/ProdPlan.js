@@ -439,7 +439,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
            height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
            //layout:"fitColumns", //fit columns to width of table (optional)
            pagination:"local",
-           paginationSize:100,
+           paginationSize:1000,
            placeholder:"No Data to Display or Today's plan is not yet available.",
            movableColumns:true,
            selectable: 1,
@@ -495,7 +495,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
        //layout:"fitColumns", //fit columns to width of table (optional)
        pagination:"local",
-       paginationSize:100,
+       paginationSize:1000,
        movableColumns:true,
        groupBy:"JO DATE",
        selectable: 1,
@@ -529,7 +529,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
        //layout:"fitColumns", //fit columns to width of table (optional)
        pagination:"local",
-       paginationSize:100,
+       paginationSize:1000,
        placeholder:"No Data to Display or Today's Plan is not yet available",
        movableColumns:true,
        selectable: 1,
@@ -562,7 +562,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
        //layout:"fitColumns", //fit columns to width of table (optional)
        pagination:"local",
-       paginationSize:100,
+       paginationSize:1000,
        placeholder:"No Data to Display or Today's plan is not yet available.",
        movableColumns:true,
        selectable: 1,
@@ -600,7 +600,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     //layout:"fitColumns", //fit columns to width of table (optional)
     selectable: 1,
     pagination:"local",
-    paginationSize:50,
+    paginationSize:1000,
     //progressiveRender:"remote",
     placeholder:"No Data to Display or Today's shipment is not yet available",
     movableColumns:true,
@@ -811,7 +811,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     //layout:"fitColumns", //fit columns to width of table (optional)
     selectable: 1,
     pagination:"local",
-    paginationSize:50,
+    paginationSize:1000,
     //ajaxProgressiveLoad: true,
     placeholder:"No Data to Display or Today's shipment is not yet available",
     movableColumns:true,
@@ -886,7 +886,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     height: "60vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
     //layout:"fitColumns", //fit columns to width of table (optional)
     selectable: 1,
-    paginationSize:100,
+    paginationSize:1000,
     placeholder:"No Data to Display",
     movableColumns:true,
     columns:[
@@ -957,7 +957,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     height: "60vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
     layout:"fitColumns", //fit columns to width of table (optional)
     selectable: 1,
-    paginationSize:100,
+    paginationSize:1000,
     placeholder:"No Data to Display",
     movableColumns:true,
     groupBy: "GROUP_NAME",
@@ -1032,7 +1032,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
        layout:"fitColumns", //fit columns to width of table (optional)
        pagination:"local",
-       paginationSize:50,
+       paginationSize:1000,
        //progressiveRender:"remote",
        placeholder:"No Data to Display  or Today's DR is not yet available.",
        movableColumns:true,
@@ -1132,7 +1132,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
     //layout:"fitColumns", //fit columns to width of table (optional)
     pagination:"local",
-    paginationSize:100,
+    paginationSize:1000,
     placeholder:"No Data to Display",
     movableColumns:true,
     selectable: 1,
