@@ -175,7 +175,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
      {
         var sorttypeobj = document.getElementById("sorttype");
         var selectedOption = sorttypeobj.options[sorttypeobj.selectedIndex].value;
-        var data21,data22;
+     
         var charttypeobj = document.getElementById("charttype");
         var selectedChartType = charttypeobj.options[charttypeobj.selectedIndex].value;
         var plantypeobj = document.getElementById("PlanType");
