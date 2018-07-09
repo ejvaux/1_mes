@@ -65,9 +65,6 @@
                       <div class="input-group-text" id="btnGroupAddon2">TO</div>
                     </div>
                       <input id="recoveryDate2" type="date" class="py-1 form-control dateText" onchange="RecoverySearchLot()">
-                  <div class="input-group-append"> 
-                    <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="lotPending" onclick="notWorking()">EXPORT</button>
-                    </div>
                   </div>
                 
                 <div class="py-2 input-group">

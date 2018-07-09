@@ -190,7 +190,7 @@ function generateLot(){
 
 function AddLotBtnClick(newLot,joborder){
   var x = document.getElementById("DanplaTable").rows.length;
-  if (newLot==undefined){
+  if (newLot == undefined || newLot == "" ||newLot == null || newLot == " "){
     alert("No Lot Number Try Again");
     return;
   }
@@ -2092,7 +2092,7 @@ function updateWarehouseReceive(lotNumber){
         success: function (data) {
           swal(
             data,
-            'Lot ' + lotNumber + "is now transferred.",
+            'Lot ' + lotNumber + " is now transferred.",
             'success'
           )
           loadDoc('ItemReceiving');
@@ -2100,4 +2100,47 @@ function updateWarehouseReceive(lotNumber){
       });
     }
   });
+}
+
+function exportExcel(){
+  var search = SearchPendingDanpla.value;
+  var d1 = danplaDate1.value;
+  var d2 = danplaDate2.value;
+  if (d1 != "" && d2 != "") {
+    if (search == "") {
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PRINT_DATE BETWEEN '" + d1 + "' AND '" + d2 + "') AND LOT_NUM = ''  GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+    }
+    else {
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE ((PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PRINT_DATE BETWEEN '" + d1 + "' AND '" + d2 + "')) AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+    }
+  }
+  else if (d1 != "" && d2 == "") {
+    if (search == "") {
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PRINT_DATE LIKE '%" + d1 + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+    }
+    else {
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE ((PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PRINT_DATE = '" + d1 + "') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+    }
+  }
+  else if (search != "") {
+    var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+  }
+  alert(z);
+  $.ajax({
+    method: 'post',
+    url: '/1_mes/_php/QualityManagement/table/Export_NoLot.php',
+    data: {
+      'sql': z,
+      'ajax': true
+    },
+    success: function (data) {
+      alert(data);
+      window.location = '/1_mes/_php/QualityManagement/table/Export_NoLot.php';
+      /* document.getElementById("noLotTable").innerHTML = data; */
+      /* loadDoc('LotCreate',data); */
+    }
+  });
+
+
+
 }
