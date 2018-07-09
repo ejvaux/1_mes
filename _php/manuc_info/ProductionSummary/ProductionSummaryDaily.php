@@ -58,10 +58,10 @@ echo '
 $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult,mis_prod_plan_dl.ITEM_NAME, 
             SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY, mis_prod_plan_dl.DATE_ as DISP_DATE_ 
             FROM mis_prod_plan_dl 
-            LEFT JOIN mis_summarize_result ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_result.JOB_ORDER_NO 
+            LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
             WHERE ((mis_prod_plan_dl.ITEM_NAME = '$search')) AND 
-            ((SUBSTRING(mis_summarize_result.JOB_ORDER_NO,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')) 
-             GROUP BY JOB_ORDER_NO
+            ((SUBSTRING(mis_summarize_results.JOB_ORDER_NO,1,1)='$PlanType') OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType')) 
+             GROUP BY mis_prod_plan_dl.JOB_ORDER_NO
             ORDER BY DISP_DATE_ ASC";
 
         $between = "NO";
@@ -381,9 +381,12 @@ if ($datenow == "NONE") {
             $sqlresultbetween = "SELECT SUM(mis_product.PRINT_QTY) as prodresult2 
                                 FROM mis_product
                                 LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-                                 WHERE mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' ";
+                                 WHERE mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' AND
+                                 (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
             
-            $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE DATE_='" . $row3['DISP_DATE_'] . "'";
+            $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl
+                             WHERE DATE_='" . $row3['DISP_DATE_'] . "' AND
+                             (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
 
             $resultbet = $conn->query($sqlresultbetween);
             
@@ -436,13 +439,17 @@ if ($datenow == "NONE") {
             $sqlresultbetween = "SELECT SUM(mis_product.PRINT_QTY) as prodresult2, mis_prod_plan_dl.DATE_ 
             FROM mis_product 
             LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-            WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME'] . "' AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' ";
+            WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME'] . "' AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' 
+            AND
+            (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
 
             $resultbet = $conn->query($sqlresultbetween);
             while ($row = $resultbet->fetch_assoc()) {
                 # code...
 
-                $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE ITEM_NAME='" . $row3['ITEM_NAME'] . "' AND DATE_='" . $row3['DISP_DATE_'] . "'";
+                $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE ITEM_NAME='" . $row3['ITEM_NAME'] . "' 
+                AND DATE_='" . $row3['DISP_DATE_'] . "'AND
+                (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
 
                 $planbet = $conn2->query($sqlplanbetween);
 
@@ -489,13 +496,18 @@ if ($datenow == "NONE") {
 $sqlresultbetween = "SELECT COALESCE(SUM(mis_product.PRINT_QTY),0) as prodresult2, mis_prod_plan_dl.DATE_ 
 FROM mis_product 
 LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME']."' AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' ";
+WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME']."' AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "'
+AND
+(SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType') ";
 
 $resultbet = $conn->query($sqlresultbetween);
 while ($row = $resultbet->fetch_assoc()) {
     # code...
 
-    $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE ITEM_NAME='" . $row3['ITEM_NAME']."' AND DATE_ ='" . $row3['DISP_DATE_'] . "' ";
+    $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE
+     ITEM_NAME='" . $row3['ITEM_NAME']."' AND DATE_ ='" . $row3['DISP_DATE_'] . "'
+     AND
+     (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType') ";
 
     $planbet = $conn2->query($sqlplanbetween);
 
