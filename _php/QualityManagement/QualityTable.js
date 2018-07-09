@@ -862,8 +862,8 @@ function RecoveryClearSearchLot() {
     success: function (data) {
       document.getElementById("table_recovery").innerHTML = data;
       RecoverySearch.value = "";
-      recoveryDate1.value = "";
-      recoveryDate2.value = "";
+      //recoveryDate1.value = "";
+      //recoveryDate2.value = "";
     }
   });
  }
