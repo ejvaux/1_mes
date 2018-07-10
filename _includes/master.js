@@ -160,11 +160,12 @@ function DisplayTable1(Table_Name,Tablesp,tbltitle) {
                 $.ajax(
                   {
                   method:'post',
-                  url:'/1_mes/_query/master_database/get/getmoldlistrow.php',
+                  url:'/1_mes/database/table_handler/master/moldlistHandler.php',
                   data:
                   {
-                      'id': data[0],
-                      'ajax': true
+                    'action': 'select',
+                    'id': data[0],
+                    'ajax': true
                   },
                   success: function(data1) {
                     var val = JSON.parse(data1);
@@ -347,19 +348,33 @@ function DisplayTable2(Table_Name,Tablesp,tbltitle) {
             name: 'edit',        // do not change name
             className: 'btn btn-export6 btn-xs py-1',
             action: function ( e, dt, node, config ) {
-              /* alert('test Edit button'); */
-              var data = dt.row( '.selected' ).data();                                    
-              /* alert( data[0] +" is the ID. " ); */
+              var data = dt.row( '.selected' ).data();
               
-              $("#idcustomer").attr("value",data[0]);
-              $("#eccustomercode").attr("value",data[1]);
-              $("#eccustomerinitial").attr("value",data[2]);
-              $("#ecdivisioncode").val(data[3]);
-              $("#eccustomername").val(data[4]);
-              $("#ecgroupcode").attr("value",data[5]);
+              $.ajax(
+                {
+                method:'post',
+                url:'/1_mes/database/table_handler/master/customerHandler.php',
+                data:
+                {
+                  'action': 'select',
+                  'id': data[0],
+                  'ajax': true
+                },
+                success: function(data1) {
+                  var val = JSON.parse(data1);
 
-              $('.sel').select2({ width: '100%' });  
-              $('#ecustomermod').modal('show');
+                  $("#idcustomer").val(val['CUSTOMER_ID']);
+                  $("#eccustomercode").val(val['CUSTOMER_CODE']);
+                  $("#eccustomerinitial").val(val['CUSTOMER_INITIAL']);
+                  $("#ecdivisioncode").val(val['DIVISION_CODE']);
+                  $("#eccustomername").val(val['CUSTOMER_NAME']);
+                  $("#ecgroupcode").val(val['GROUP_CODE']);
+
+                  $('.sel').select2({ width: '100%' });  
+                  $('#ecustomermod').modal('show');                                   
+      
+                }
+              });                   
             }
           },
           {
@@ -510,28 +525,42 @@ function DisplayTable3(Table_Name,Tablesp,tbltitle) {
             name: 'edit',        // do not change name
             className: 'btn btn-export6 btn-xs py-1',
             action: function ( e, dt, node, config ) {
-              /* alert('test Edit button'); */
-              var data = dt.row( '.selected' ).data();                                    
-              /* alert( data[0] +" is the ID. " ); */ 
-              
-              $("#iditem").attr("value",data[0]);
-              $("#eiitemcode").attr("value",data[1]);
-              $("#eidivisioncode").val(data[2]);
-              $("#eicustomercode").val(data[3]);
-              $("#eicustomername").val('');
-              $("#eibarcode").attr("value",data[5]);
-              $("#eiitemname").val(data[6]);
-              $("#eimodel").attr("value",data[7]);
-              $("#eiitemprintcode").attr("value",data[8]);
-              $("#eigroupcode").attr("value",data[9]);
-              $("#eipackqty").val(data[10]);
-              $("#eidanplaqty").val(data[11]);
-              $("#eilabeltype").val(data[12]);
-              $("#eidescription").attr("value",data[13]);
-              
-              $('.sel').select2({ width: '100%' });
-              $('#eitemmod').modal('show');
-              getcustomername('eicustomercode',eicustomername);
+              var data = dt.row( '.selected' ).data();
+
+              $.ajax(
+                {
+                method:'post',
+                url:'/1_mes/database/table_handler/master/itemHandler.php',
+                data:
+                {
+                  'action': 'select',
+                  'id': data[0],
+                  'ajax': true
+                },
+                success: function(data1) {
+                  var val = JSON.parse(data1);
+
+                  $("#iditem").val(val['ITEM_ID']);
+                  $("#eiitemcode").val(val['ITEM_CODE']);
+                  $("#eidivisioncode").val(val['DIVISION_CODE']);
+                  $("#eicustomercode").val(val['CUSTOMER_CODE']);
+                  $("#eicustomername").val('');
+                  $("#eibarcode").val(val['BARCODE']);
+                  $("#eiitemname").val(val['ITEM_NAME']);
+                  $("#eimodel").val(val['MODEL']);
+                  $("#eiitemprintcode").val(val['ITEM_PRINTCODE']);
+                  $("#eigroupcode").val(val['GROUP_CODE']);
+                  $("#eipackqty").val(val['PACK_QTY']);
+                  $("#eidanplaqty").val(val['DANPLA_QTY']);
+                  $("#eilabeltype").val(val['LABEL_TYPE']);
+                  $("#eidescription").val(val['DESCRIPTION']);
+                  
+                  $('.sel').select2({ width: '100%' });
+                  $('#eitemmod').modal('show');
+                  getcustomername('eicustomercode',eicustomername);
+      
+                }
+              });                          
             }
           },
           {
@@ -683,19 +712,33 @@ function DisplayTable4(Table_Name,Tablesp,tbltitle) {
             name: 'edit',        // do not change name
             className: 'btn btn-export6 btn-xs py-1',
             action: function ( e, dt, node, config ) {
-              /* alert('test Edit button'); */
-              var data = dt.row( '.selected' ).data();                                    
-              /* alert( data[0] +" is the ID. " ); */
+              var data = dt.row( '.selected' ).data();      
               
-              $("#idmachine").attr("value",data[0]);
-              $("#emmachinecode").attr("value",data[1]);
-              $("#emmachinemaker").attr("value",data[2]);
-              $("#emtonnage").attr("value",data[3]);
-              $("#emmachinegroup").attr("value",data[4]);
-              $("#emassetnumber").attr("value",data[5]);
-              
-              $('.sel').select2({ width: '100%' });
-              $('#emachinemod').modal('show');
+              $.ajax(
+                {
+                method:'post',
+                url:'/1_mes/database/table_handler/master/machineHandler.php',
+                data:
+                {
+                  'action': 'select',
+                  'id': data[0],
+                  'ajax': true
+                },
+                success: function(data1) {
+                  var val = JSON.parse(data1);
+
+                  $("#idmachine").val(val['MACHINE_ID']);
+                  $("#emmachinecode").val(val['MACHINE_CODE']);
+                  $("#emmachinemaker").val(val['MACHINE_MAKER']);
+                  $("#emtonnage").val(val['TONNAGE']);
+                  $("#emmachinegroup").val(val['MACHINE_GROUP']);
+                  $("#emassetnumber").val(val['ASSET_NUMBER']);
+                  
+                  $('.sel').select2({ width: '100%' });
+                  $('#emachinemod').modal('show');
+      
+                }
+              });              
             }
           },
           {
@@ -741,7 +784,7 @@ function DisplayTable4(Table_Name,Tablesp,tbltitle) {
                       $.notify({
                         icon: 'fas fa-info-circle',
                         title: 'System Notification: ',
-                        message: data,
+                        message: 'Record deleted successfully!',
                       },{
                         type:'success',
                         placement:{
@@ -847,18 +890,32 @@ function DisplayTable5(Table_Name,Tablesp,tbltitle) {
             name: 'edit',        // do not change name
             className: 'btn btn-export6 btn-xs py-1',
             action: function ( e, dt, node, config ) {
-              /* alert('test Edit button'); */
-              var data = dt.row( '.selected' ).data();                                    
-              /* alert( data[0] +" is the ID. " ); */
+              var data = dt.row( '.selected' ).data();
               
-              $("#iddefect").attr("value",data[0]);
-              $("#eddefectcode").attr("value",data[1]);
-              $("#eddivisioncode").val(data[2]);
-              $("#eddefectgroup").attr("value",data[3]);
-              $("#eddefectname").attr("value",data[4]);
-              
-              $('.sel').select2({ width: '100%' });
-              $('#edefectmod').modal('show');
+                $.ajax(
+                {
+                method:'post',
+                url:'/1_mes/database/table_handler/master/defectHandler.php',
+                data:
+                {
+                  'action': 'select',
+                  'id': data[0],
+                  'ajax': true
+                },
+                success: function(data1) {
+                  var val = JSON.parse(data1);
+
+                  $("#iddefect").val(val['DEFECT_ID']);
+                  $("#eddefectcode").val(val['DEFECT_CODE']);
+                  $("#eddivisioncode").val(val['DIVISION_CODE']);
+                  $("#eddefectgroup").val(val['DEFECT_GROUP']);
+                  $("#eddefectname").val(val['DEFECT_NAME']);
+                  
+                  $('.sel').select2({ width: '100%' });
+                  $('#edefectmod').modal('show');
+      
+                }
+              });                          
             }
           },
           {
@@ -1010,19 +1067,32 @@ function DisplayTable6(Table_Name,Tablesp,tbltitle) {
             name: 'edit',        // do not change name
             className: 'btn btn-export6 btn-xs py-1',
             action: function ( e, dt, node, config ) {
-              /* alert('test Edit button'); */
-              var data = dt.row( '.selected' ).data();                                    
-              /* alert( data[0] +" is the ID. " ); */
-
-              $("#iduserinfo").attr("value",data[0]);
-              $("#euuserid").attr("value",data[1]);
-              $("#euusername").attr("value",data[2]);
-              $("#euemailaddress").attr("value",data[3]);
-              $("#euuserauthority").val(data[4]);
+              var data = dt.row( '.selected' ).data();
               
-              $('.sel').select2({ width: '100%' });
-              $('#euserinfomod').modal('show');
+              $.ajax(
+                {
+                method:'post',
+                url:'/1_mes/database/table_handler/master/userinfoHandler.php',
+                data:
+                {
+                  'action': 'select',
+                  'id': data[0],
+                  'ajax': true
+                },
+                success: function(data1) {
+                  var val = JSON.parse(data1);
 
+                  $("#iduserinfo").val(val['NO']);
+                  $("#euuserid").val(val['USER_ID']);
+                  $("#euusername").val(val['USER_NAME']);
+                  $("#euemailaddress").val(val['EMAIL_ADDRESS']);
+                  $("#euuserauthority").val(val['USER_AUTHORITY']);
+                  
+                  $('.sel').select2({ width: '100%' });
+                  $('#euserinfomod').modal('show');
+      
+                }
+              });
             }
           },
           {
@@ -1172,16 +1242,30 @@ function DisplayTable7(Table_Name,Tablesp,tbltitle) {
             name: 'edit',        // do not change name
             className: 'btn btn-export6 btn-xs py-1',
             action: function ( e, dt, node, config ) {
-              /* alert('test Edit button'); */
-              var data = dt.row( '.selected' ).data();                                    
-              /* alert( data[0] +" is the ID. " );  */
-              
-              $("#iduserauth").attr("value",data[0]);
-              $("#eaauthoritycode").attr("value",data[1]);
-              $("#eauserauthority").attr("value",data[2]);
-              
-              $('.sel').select2({ width: '100%' });
-              $('#euserauthmod').modal('show');
+              var data = dt.row( '.selected' ).data();
+
+              $.ajax(
+                {
+                method:'post',
+                url:'/1_mes/database/table_handler/master/userauthHandler.php',
+                data:
+                {
+                  'action': 'select',
+                  'id': data[0],
+                  'ajax': true
+                },
+                success: function(data1) {
+                  var val = JSON.parse(data1);
+
+                  $("#iduserauth").val(val['AUTHORITY_ID']);
+                  $("#eaauthoritycode").val(val['AUTHORITY_CODE']);
+                  $("#eauserauthority").val(val['USER_AUTHORITY']);
+                  
+                  $('.sel').select2({ width: '100%' });
+                  $('#euserauthmod').modal('show');                                 
+      
+                }
+              });                          
             }
           },
           {
@@ -1331,17 +1415,31 @@ function DisplayTable8(Table_Name,Tablesp,tbltitle) {
             name: 'edit',        // do not change name
             className: 'btn btn-export6 btn-xs py-1',
             action: function ( e, dt, node, config ) {
-              /* alert('test Edit button'); */
-              var data = dt.row( '.selected' ).data();                                    
-              /* alert( data[0] +" is the ID. " ); */
-
-              $("#iddivcode").attr("value",data[0]);
-              $("#eddivisioncode1").attr("value",data[1]);
-              $("#eddivisionname").attr("value",data[2]);
-              $('#edsapcode').val(data[3]);
+              var data = dt.row( '.selected' ).data();
               
-              $('.sel').select2({ width: '100%' });
-              $('#edivcodemod').modal('show');
+              $.ajax(
+                {
+                method:'post',
+                url:'/1_mes/database/table_handler/master/divisionHandler.php',
+                data:
+                {
+                  'action': 'select',
+                  'id': data[0],
+                  'ajax': true
+                },
+                success: function(data1) {
+                  var val = JSON.parse(data1);
+
+                  $("#iddivcode").val(val['DIVISION_ID']);
+                  $("#eddivisioncode1").val(val['DIVISION_CODE']);
+                  $("#eddivisionname").val(val['DIVISION_NAME']);
+                  $('#edsapcode').val(val['SAP_DIVISION_CODE']);
+                  
+                  $('.sel').select2({ width: '100%' });
+                  $('#edivcodemod').modal('show');                         
+      
+                }
+              });              
             }
           },
           {
@@ -1492,18 +1590,32 @@ function DisplayTable9(Table_Name,Tablesp,tbltitle) {
             name: 'edit',        // do not change name
             className: 'btn btn-export6 btn-xs py-1',
             action: function ( e, dt, node, config ) {
-              /* alert('test Edit button'); */
-              var data = dt.row( '.selected' ).data();                                    
-              /* alert( data[0] +" is the ID. " ); */
+              var data = dt.row( '.selected' ).data();     
 
-              $("#employeeid").val(data[0]);
-              $("#eemployeecode").val(data[1]);
-              $("#eemployeename").val(data[2]);
-              $('#eemployeestatus').val(data[3]);
-              $('#edatehired').val(data[4]);
-              $('#eemdivision').val(data[5]);
-              
-              $('#eemployeemod').modal('show');
+              $.ajax(
+                {
+                method:'post',
+                url:'/1_mes/database/table_handler/master/employeeHandler.php',
+                data:
+                {
+                  'action': 'select',
+                  'id': data[0],
+                  'ajax': true
+                },
+                success: function(data1) {
+                  var val = JSON.parse(data1);
+
+                  $("#employeeid").val(val['EMPLOYEE_ID']);
+                  $("#eemployeecode").val(val['EMPLOYEE_CODE']);
+                  $("#eemployeename").val(val['EMPLOYEE_NAME']);
+                  $('#eemployeestatus').val(val['EMPLOYEE_STATUS']);
+                  $('#edatehired').val(val['DATE_HIRED']);
+                  $('#eemdivision').val(val['DIVISION']);
+                  
+                  $('#eemployeemod').modal('show');                      
+      
+                }
+              });              
             }
           },
           {

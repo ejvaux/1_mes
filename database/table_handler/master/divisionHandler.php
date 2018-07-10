@@ -24,7 +24,7 @@
     function select(){
 
         $row = $GLOBALS['db']->get_rows($GLOBALS['tb'],$GLOBALS['col'],$_POST['id']);
-        echo json_encode($row,true);
+        echo $row;
     }
 
     function insert(){
