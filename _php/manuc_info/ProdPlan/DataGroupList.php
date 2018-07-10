@@ -1,6 +1,8 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 $search=$_POST['search'];
+$d1 = $_POST['daterange1'];
+$d2 = $_POST['daterange2'];
 
 
 if($search!="")
@@ -11,9 +13,26 @@ if($search!="")
 }
 else
 {
-    $datenow=date("Y-m-d");
-    $sql = "SELECT * FROM mis_dr_assigned WHERE (dr_number = '' OR dr_number IS NULL) AND (Date_Inserted = '$datenow')   ORDER BY dr_assigned_id DESC";
-}
+   
+    if($d1!="")
+    {
+        if($d2!=""){
+            $sql = "SELECT * FROM mis_dr_assigned WHERE (dr_number = '' OR dr_number IS NULL) AND (Date_Inserted BETWEEN '$d1' AND '$d2')   ORDER BY dr_assigned_id DESC";
+
+        }
+        else{
+            
+            $sql = "SELECT * FROM mis_dr_assigned WHERE (dr_number = '' OR dr_number IS NULL) AND (Date_Inserted = '$d1')   ORDER BY dr_assigned_id DESC";
+        }
+    }
+    else{
+        $datenow=date("Y-m-d");
+           $sql = "SELECT * FROM mis_dr_assigned WHERE (dr_number = '' OR dr_number IS NULL) AND (Date_Inserted = '$datenow')   ORDER BY dr_assigned_id DESC";
+
+    }
+
+
+ }
 
 $result = $conn->query($sql);
 $datavar=array();

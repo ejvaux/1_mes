@@ -322,6 +322,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         });     
         
         //example table 3
+      var d1 = document.getElementById("sortfrom").value;
+      var d2 = document.getElementById("sortto").value;
         var searchobj2 = document.getElementById("search2").value;
             $.ajax({
                 method:'POST',
@@ -329,10 +331,13 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 data:
                 {
                     'search': searchobj2,
+                    'daterange1': d1,
+                    'daterange2': d2,
                     'ajax':true
                 },
                 success: function(data) 
                 {
+                    alert(d1);
                     initTbl2("GroupList");
                     var val = JSON.parse(data);
                     //alert(data);
@@ -956,7 +961,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
  
    else if(TabName=="GroupList")
    {
-       
+   
     $("#example-table3").tabulator({
     height: "60vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
     layout:"fitColumns", //fit columns to width of table (optional)
@@ -994,6 +999,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                                 'lotno':cell.getRow().getData().LOT_NUMBER,
                                 'itemcode': cell.getRow().getData().ITEM_CODE,
                                 'groupname': cell.getRow().getData().GROUP_NAME,
+                                
                                 'ajax':true
                   
                             },
