@@ -148,13 +148,13 @@
         
         $('#tb2').click(function(){
           var dtdt =moment(Date()).format('YYYY-MM-DD');
-          var dtdt2 = moment(dtdt,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+          var dtdt2 = dtdt +" 23:59:59";
           checkuserauthH(dtdt,dtdt2);
         });
 
         $('#tb3').click(function(){
           var dtdt =moment(Date()).format('YYYY-MM-DD');
-          var dtdt2 = moment(dtdt,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+          var dtdt2 = dtdt +" 23:59:59";
           checkuserauthF(dtdt,dtdt2);
         });
 

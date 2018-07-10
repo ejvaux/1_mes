@@ -1896,33 +1896,40 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       dt.setMonth(dt.getMonth() - 1);
       dt.setDate(1);
       $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
-
+      var edt = enddate.substring(0,10);
+      if(startdate==edt){
+        edt = '';
+      }
       $('#min').val(startdate);
-      $('#max').val(enddate);
+      $('#max').val(edt);
 
       $('#min, #max').on('change',function(){
         var sdate = $('#min').val();
         var edate = $('#max').val();
 
         if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
-          /* alert('Good'); */
-          moment(sdate).format('YYYY-MM-DD HH:mm:ss');
-          moment(edate).format('YYYY-MM-DD HH:mm:ss');
+          
           if(sdate == edate){
-            edate = moment(edate,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
-            
+            edate = edate +" 23:59:59";             
           }
+          else{            
+            edate = edate +" 23:59:59";
+          }
+
           checkuserauthH(sdate,edate);          
         }
-        else{
-          /* alert('No Good'); */
+        else if(moment(sdate,'YYYY-MM-DD').isValid() && edate==''){
+
+          edate = sdate +" 23:59:59";          
+          
+          checkuserauthH(sdate,edate);          
         }
         /* alert('test'); */        
       });
 
       $('#refresh').on('click',function(){
         var dtdt =moment(Date()).format('YYYY-MM-DD');
-          var dtdt2 = moment(dtdt,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+        var dtdt2 = dtdt +" 23:59:59";
         checkuserauthH(dtdt,dtdt2);
       });
 
@@ -2014,33 +2021,40 @@ function DisplayTbleH(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       dt.setMonth(dt.getMonth() - 1);
       dt.setDate(1);
       $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
-
+      var edt = enddate.substring(0,10);
+      if(startdate==edt){
+        edt = '';
+      }
       $('#min').val(startdate);
-      $('#max').val(enddate);
+      $('#max').val(edt);
 
       $('#min, #max').on('change',function(){
         var sdate = $('#min').val();
         var edate = $('#max').val();
 
         if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
-          /* alert('Good'); */
-          moment(sdate).format('YYYY-MM-DD HH:mm:ss');
-          moment(edate).format('YYYY-MM-DD HH:mm:ss');
+          
           if(sdate == edate){
-            edate = moment(edate,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
-            
+            edate = edate +" 23:59:59";             
           }
+          else{            
+            edate = edate +" 23:59:59";
+          }
+
           checkuserauthH(sdate,edate);          
         }
-        else{
-          /* alert('No Good'); */
+        else if(moment(sdate,'YYYY-MM-DD').isValid() && edate==''){
+
+          edate = sdate +" 23:59:59";          
+          
+          checkuserauthH(sdate,edate);          
         }
         /* alert('test'); */        
       });
 
       $('#refresh').on('click',function(){
         var dtdt =moment(Date()).format('YYYY-MM-DD');
-        var dtdt2 = moment(dtdt,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+        var dtdt2 = dtdt +" 23:59:59";
         checkuserauthH(dtdt,dtdt2);
       });
 
@@ -2283,9 +2297,12 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       dt.setMonth(dt.getMonth() - 1);
       dt.setDate(1);
       $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
-
+      var edt = enddate.substring(0,10);
+      if(startdate==edt){
+        edt = '';
+      }
       $('#min').val(startdate);
-      $('#max').val(enddate);
+      $('#max').val(edt);
       
       $('#Dtable tbody').on( 'click', '#changea', function () {
         var data = tble.row( $(this).parents('tr') ).data();       
@@ -2349,24 +2366,28 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         var edate = $('#max').val();
 
         if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
-          /* alert('Good'); */
-          moment(sdate).format('YYYY-MM-DD HH:mm:ss');
-          moment(edate).format('YYYY-MM-DD HH:mm:ss');
+          
           if(sdate == edate){
-            edate = moment(edate,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
-            
+            edate = edate +" 23:59:59";             
           }
+          else{            
+            edate = edate +" 23:59:59";
+          }
+
           checkuserauthF(sdate,edate);          
         }
-        else{
-          /* alert('No Good'); */
+        else if(moment(sdate,'YYYY-MM-DD').isValid() && edate==''){
+
+          edate = sdate +" 23:59:59";          
+          
+          checkuserauthF(sdate,edate);          
         }
         /* alert('test'); */        
       });
 
       $('#refresh').on('click',function(){
         var dtdt =moment(Date()).format('YYYY-MM-DD');
-        var dtdt2 = moment(dtdt,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
+        var dtdt2 = dtdt +" 23:59:59";
         checkuserauthF(dtdt,dtdt2);
       });
 
@@ -2520,9 +2541,12 @@ $.fn.dataTable.ext.buttons.addfab1 = {
           dt.setMonth(dt.getMonth() - 1);
           dt.setDate(1);
           $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
-
+          var edt = enddate.substring(0,10);
+          if(startdate==edt){
+            edt = '';
+          }
           $('#min').val(startdate);
-          $('#max').val(enddate);
+          $('#max').val(edt);
           
           $('#Dtable tbody').on( 'click', '#change', function () {
             var data = tble.row( $(this).parents('tr') ).data();
@@ -2586,24 +2610,28 @@ $.fn.dataTable.ext.buttons.addfab1 = {
             var edate = $('#max').val();
     
             if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
-              /* alert('Good'); */
-              moment(sdate).format('YYYY-MM-DD HH:mm:ss');
-              moment(edate).format('YYYY-MM-DD HH:mm:ss');
-              if(sdate == edate){
-                edate = moment(edate,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();
-                
+              
+              if(sdate == edate){                
+                edate = edate +" 23:59:59";                
               }
+              else{            
+                edate = edate +" 23:59:59";
+              }
+    
               checkuserauthF(sdate,edate);          
             }
-            else{
-              /* alert('No Good'); */
+            else if(moment(sdate,'YYYY-MM-DD').isValid() && edate==''){
+    
+              edate = sdate +" 23:59:59";          
+              
+              checkuserauthF(sdate,edate);          
             }
             /* alert('test'); */        
           });
     
           $('#refresh').on('click',function(){
             var dtdt =moment(Date()).format('YYYY-MM-DD');
-            var dtdt2 = moment(dtdt,'YYYY-MM-DD HH:mm:ss').add(1,'days').calendar();            
+            var dtdt2 = dtdt +" 23:59:59";            
             checkuserauthF(dtdt,dtdt2);
           });
     
