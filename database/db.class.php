@@ -18,20 +18,25 @@ class DBQUERY
 
         $conn = $this->connect;
         
-        $where = (isset($args[1]) && isset($args[2]))? " WHERE ". $args[1] ."=".$args[2] : "";
+        $where = (isset($args[1]) && isset($args[2]))? " WHERE ". $args[1] ." = '".$args[2]."'" : "";
 
-        $where .= (isset($args[3]) && isset($args[4]))? " AND ". $args[3] ."=".$args[4] : "";
+        $where .= (isset($args[3]) && isset($args[4]))? " AND ". $args[3] ." = '".$args[4]."'" : "";
 
         $sql = "SELECT * FROM " . $args[0] . $where;
 
-        $result = $conn->query($sql);
+        if($result = $conn->query($sql)){
 
-        if($where){
-            $row = $result->fetch_assoc();
+            if($where){
+                $row = $result->fetch_assoc();
+            }
+            else{
+                $row = mysqli_fetch_all($result,MYSQLI_ASSOC);
+            }
+
         }
         else{
-            $row = mysqli_fetch_all($result,MYSQLI_ASSOC);
-        }              
+            return "Error retrieving record/s: " . $conn->error;
+        }                      
 
         if(isset($row)){
             return json_encode($row,true); 
@@ -43,6 +48,29 @@ class DBQUERY
 
         $conn->close();
 
+    }
+
+    public function get_rows2($table,$filter){
+        $conn = $this->connect;
+
+        $sql = "SELECT * FROM " . $table. " " . $filter;
+
+        if($result = $conn->query($sql)){           
+                $row = $result->fetch_assoc();      
+        }
+        else{
+            return "Error retrieving record/s: " . $conn->error;
+        }
+
+        if(isset($row)){
+            return json_encode($row,true); 
+            
+        }
+        else{
+            return "none";
+        }
+
+        $conn->close();
     }
 
     public function insert_row($table,$form_data){

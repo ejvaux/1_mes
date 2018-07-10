@@ -9,7 +9,7 @@
     include_once $_SERVER['DOCUMENT_ROOT']."/1_mes/database/db.class.php"; 
  
     $db = new DBQUERY;
-    $action = $_POST['action'];
+    $action = (isset($_POST['action']))?$_POST['action']:$_GET['action'];
     $col = "EMPLOYEE_ID";
     $tb = 'dmc_employee';
     $user = $_SESSION['text'];
@@ -24,8 +24,25 @@
     );
 
     function select(){
+        $id = (isset($_POST['id']))?$_POST['id']:$_GET['id'];
+        $row = $GLOBALS['db']->get_rows($GLOBALS['tb'],$GLOBALS['col'],$id);
+        echo $row;
+    }
 
-        $row = $GLOBALS['db']->get_rows($GLOBALS['tb'],$GLOBALS['col'],$_POST['id']);
+    function select2(){
+        $id = $_POST['id'];
+        $row = $GLOBALS['db']->get_rows($GLOBALS['tb'],$_POST['column'],$id);
+        echo $row;
+    }
+
+    function select3(){
+        $filter = $_GET['filter'];
+        $row = $GLOBALS['db']->get_rows2($GLOBALS['tb'],$filter);
+        echo $row;
+    }
+
+    function selectall(){
+        $row = $GLOBALS['db']->get_rows($GLOBALS['tb']);
         echo $row;
     }
 
@@ -64,6 +81,15 @@
             break;
         case "delete":
             del();
+            break;
+        case "select2":
+            select2();
+            break;
+        case "select3":
+            select3();
+            break;
+        case "selectall":
+            selectall();
             break;
     }
 

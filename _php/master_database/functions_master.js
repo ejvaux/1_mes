@@ -818,14 +818,15 @@ $('#mod').on('submit','#eemployeeform', function (e) {
       $.ajax({
         type:'POST',
         data:{
-          'mc': selectedOption
+          'action':'select2',
+          'column':'ITEM_CODE',
+          'id': selectedOption
         },
-        url:'/1_mes/_query/master_database/get/getitemname.php',
+        url:'/1_mes/database/table_handler/master/itemHandler.php',
         success:function(data){
-
           if(data != 'none'){    
             var val = JSON.parse(data);
-            $(tb1).val(val.ITEM_NAME);      
+            $(tb1).val(val['ITEM_NAME']);      
           }
           else{
             $(tb1).val('');
@@ -848,10 +849,13 @@ $('#mod').on('submit','#eemployeeform', function (e) {
       $.ajax({
         type:'POST',
         data:{
-          'mc': selectedOption
+          'action':'select2',
+          'column':'CUSTOMER_CODE',
+          'id': selectedOption
         },
-        url:'/1_mes/_query/master_database/get/getcustomername.php',
+        url:'/1_mes/database/table_handler/master/customerHandler.php',
         success:function(data){
+
             if(data != 'none'){    
               var val = JSON.parse(data);         
               $(tb1).val(val.CUSTOMER_NAME);
@@ -863,13 +867,7 @@ $('#mod').on('submit','#eemployeeform', function (e) {
         });
     }
     
-  } /* getitemname */
-
-  $('#mod').on('hide.bs.modal','.modal', function (e) {           
-    /* alert('TEST');  */  
-    $(this).find('form')[0].reset();
-    $("[type='checkbox']").trigger("change");
-  });
+  } /* getitemname */ 
 
 /* Display Data */
 
@@ -888,8 +886,13 @@ function isNumberNegative(evt){
 
 function getemployeecode(id){
   /* alert('TEST'); */
-  $.ajax({          
-    url:'/1_mes/_query/master_database/get/getemployeecode.php',
+  $.ajax({
+    type:'get',
+        data:{
+          'action':'select3',
+          'filter':'ORDER BY EMPLOYEE_CODE DESC LIMIT 1'
+        },         
+    url:'/1_mes/database/table_handler/master/employeeHandler.php',
     success:function(data){
       
       /* alert(data); */

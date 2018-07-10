@@ -37,6 +37,12 @@
         echo $row;
     }
 
+    function select2(){
+        $id = $_POST['id'];
+        $row = $GLOBALS['db']->get_rows($GLOBALS['tb'],$_POST['column'],$id);
+        echo $row;
+    }
+
     function insert(){
         
         global $form_data;
@@ -72,6 +78,9 @@
             break;
         case "delete":
             del();
+            break;
+        case "select2":
+            select2();
             break;
     }
 
