@@ -9,7 +9,7 @@
     include_once $_SERVER['DOCUMENT_ROOT']."/1_mes/database/db.class.php"; 
  
     $db = new DBQUERY;
-    $action = $_POST['action'];
+    $action = (isset($_POST['action']))?$_POST['action']:$_GET['action'];
     $col = "ITEM_ID";
     $tb = 'dmc_item_list';
     $user = $_SESSION['text'];
@@ -40,6 +40,11 @@
     function select2(){
         $id = $_POST['id'];
         $row = $GLOBALS['db']->get_rows($GLOBALS['tb'],$_POST['column'],$id);
+        echo $row;
+    }
+
+    function selectall(){
+        $row = $GLOBALS['db']->get_rows($GLOBALS['tb']);
         echo $row;
     }
 
@@ -81,6 +86,9 @@
             break;
         case "select2":
             select2();
+            break;
+        case "selectall":
+            selectall();
             break;
     }
 
