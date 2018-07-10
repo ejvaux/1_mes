@@ -49,7 +49,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
                             dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
                             dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
-                            dmc_item_list.ITEM_PRINTCODE
+                            dmc_item_list.ITEM_PRINTCODE,mis_prod_plan_dl.SALES_ORDER
 
                             FROM mis_prod_plan_dl
                              
@@ -80,7 +80,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
                             dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
                             dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
-                            dmc_item_list.ITEM_PRINTCODE 
+                            dmc_item_list.ITEM_PRINTCODE,mis_prod_plan_dl.SALES_ORDER 
 
                             FROM mis_prod_plan_dl
                             LEFT JOIN dmc_item_list on mis_prod_plan_dl.ITEM_CODE = dmc_item_list.ITEM_CODE 
@@ -116,7 +116,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                 mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
                                 dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
                                 dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
-                                dmc_item_list.ITEM_PRINTCODE
+                                dmc_item_list.ITEM_PRINTCODE,mis_prod_plan_dl.SALES_ORDER
 
                                 FROM mis_prod_plan_dl
                                 LEFT JOIN dmc_item_list on mis_prod_plan_dl.ITEM_CODE = dmc_item_list.ITEM_CODE
@@ -149,7 +149,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                 mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
                                 dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
                                 dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
-                                dmc_item_list.ITEM_PRINTCODE 
+                                dmc_item_list.ITEM_PRINTCODE ,mis_prod_plan_dl.SALES_ORDER
 
                                 FROM mis_prod_plan_dl
                                 LEFT JOIN dmc_item_list on mis_prod_plan_dl.ITEM_CODE = dmc_item_list.ITEM_CODE
@@ -180,7 +180,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                     mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
                                     dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
                                     dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
-                                    dmc_item_list.ITEM_PRINTCODE 
+                                    dmc_item_list.ITEM_PRINTCODE ,mis_prod_plan_dl.SALES_ORDER
 
                                     FROM mis_prod_plan_dl
                                     LEFT JOIN dmc_item_list on mis_prod_plan_dl.ITEM_CODE = dmc_item_list.ITEM_CODE
@@ -216,7 +216,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                     mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
                                     dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
                                     dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
-                                    dmc_item_list.ITEM_PRINTCODE 
+                                    dmc_item_list.ITEM_PRINTCODE ,mis_prod_plan_dl.SALES_ORDER
 
                                     FROM mis_prod_plan_dl
                                     LEFT JOIN dmc_item_list on mis_prod_plan_dl.ITEM_CODE = dmc_item_list.ITEM_CODE
@@ -337,7 +337,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
       "CUSTOMER CODE"=>$row['CUSTOMER_CODE'],"CUSTOMER NAME"=>$row['CUSTOMER_NAME'],"ITEM CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],
       "MACHINE CODE"=>$row['MACHINE_CODE'],"MACHINE MAKER"=>$row['MACHINE_MAKER'],"TONNAGE"=>$row['TONNAGE'],"MACHINE GROUP"=>$row['MACHINE_GROUP']
       ,"TOOL NO"=>$row['TOOL_NUMBER'],"PRIORITY"=>"","CYCLE TIME"=>"","PLAN QTY"=>$row['PLAN_QTY'],"PROD RESULT"=>$row['PROD_RESULT'],
-      "GAP"=>$gap,"ACHIEVE RATE"=>$achievepercent."% ","DEFECT RATE"=>$defectpercentage,"ITEM_MODEL"=>$row['ITEM_PRINTCODE']]);
+      "GAP"=>$gap,"ACHIEVE RATE"=>$achievepercent."% ","DEFECT RATE"=>$defectpercentage,"ITEM_MODEL"=>$row['ITEM_PRINTCODE'],"SO_NO"=>$row['SALES_ORDER']]);
     
     
       

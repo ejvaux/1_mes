@@ -447,7 +447,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
            groupBy:"DATE",    columns:[
                {title:"NO", field:"NO", width:60,align:"center"},
                {title:"DATE", field:"DATE"},
-               {title:"JO NO", field:"JO NO"},
+               {title:"J.O. NO", field:"JO NO"},
+               {title:"S.O. NO", field:"SO_NO",align: "center"},
                {title:"CUSTOMER CODE", field:"CUSTOMER CODE",},
                {title:"CUSTOMER NAME", field:"CUSTOMER NAME"},
                {title:"ITEM CODE", field:"ITEM CODE"},
@@ -482,7 +483,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                {title:"PROD RESULT", field:"PROD RESULT",align: "center"},
                {title:"GAP", field:"GAP",align: "center"},
                {title:"ACHIEVE RATE", field:"ACHIEVE RATE", align: "center"},
-               {title:"DEFECT RATE", field:"DEFECT RATE"}
+               {title:"DEFECT RATE", field:"DEFECT RATE", align: "center"}
            ],
        });
 
@@ -508,6 +509,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
            {title:"NO", field:"NO", width:60},
            {title:"JO DATE", field:"JO DATE"},
            {title:"JO NO", field:"JO NO"},
+           {title:"S.O. NO", field:"SO_NO",align: "center"},
            {title:"CUSTOMER CODE", field:"CUSTOMER CODE"},
            {title:"CUSTOMER NAME", field:"CUSTOMER NAME"},
            {title:"ITEM CODE", field:"ITEM CODE"},
@@ -518,7 +520,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
            {title:"CURRENT PROD RESULT", field:"CURRENT PROD RESULT"},
            {title:"GAP", field:"GAP"},
            {title:"ACHIEVE RATE", field:"ACHIEVE RATE"},
-           {title:"DEFECT RATE", field:"DEFECT RATE"}
+           {title:"DEFECT RATE", field:"DEFECT RATE", align: "center"}
        ]
      });
    
@@ -571,7 +573,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        columns:[
            {title:"NO", field:"NO", width:60,align:"center"},
            {title:"DATE", field:"DATE"},
-           {title:"JO NO", field:"JO NO"},
+           {title:"J.O. NO", field:"JO NO"},
+           {title:"S.O. NO", field:"SO_NO", align: "center"},
            {title:"CUSTOMER CODE", field:"CUSTOMER CODE"},
            {title:"CUSTOMER NAME", field:"CUSTOMER NAME"},
            {title:"ITEM CODE", field:"ITEM CODE"},
@@ -587,7 +590,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
            {title:"PROD RESULT", field:"PROD RESULT",align: "center"},
            {title:"GAP", field:"GAP",align: "center"},
            {title:"ACHIEVE RATE", field:"ACHIEVE RATE", align: "center"},
-           {title:"DEFECT RATE", field:"DEFECT RATE"}
+           {title:"DEFECT RATE", field:"DEFECT RATE", align: "center"}
        ],
    });
    
