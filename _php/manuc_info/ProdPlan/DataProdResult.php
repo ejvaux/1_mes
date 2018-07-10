@@ -44,7 +44,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                               $sql="SELECT DISTINCT(mis_summarize_results.NO), mis_product.JO_NUM, 
                               mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
                               mis_product.TOOL_NUM,mis_summarize_results.PROD_RESULT, mis_prod_plan_dl.DATE_,
-                              mis_prod_plan_dl.PLAN_QTY as misPlan,dmc_item_list.ITEM_PRINTCODE 
+                              mis_prod_plan_dl.PLAN_QTY as misPlan,dmc_item_list.ITEM_PRINTCODE,mis_prod_plan_dl.SALES_ORDER
                               FROM `mis_summarize_results`
                               LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM
                               LEFT JOIN mis_prod_plan_dl on mis_summarize_results.JOB_ORDER_NO = mis_prod_plan_dl.JOB_ORDER_NO
@@ -60,7 +60,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                               $sql="SELECT DISTINCT(mis_summarize_results.NO), mis_product.JO_NUM, 
                               mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
                               mis_product.TOOL_NUM,mis_summarize_results.PROD_RESULT, mis_prod_plan_dl.DATE_,
-                              mis_prod_plan_dl.PLAN_QTY as misPlan ,dmc_item_list.ITEM_PRINTCODE
+                              mis_prod_plan_dl.PLAN_QTY as misPlan ,dmc_item_list.ITEM_PRINTCODE,mis_prod_plan_dl.SALES_ORDER
                               FROM `mis_summarize_results`
                               LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM
                               LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE
@@ -84,7 +84,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 
                              $sql="SELECT DISTINCT(mis_summarize_results.NO), mis_product.JO_NUM, mis_product.CUST_CODE,
                              mis_product.CUST_NAME, mis_product.ITEM_CODE, mis_product.ITEM_NAME, mis_product.TOOL_NUM,
-                             mis_summarize_results.PROD_RESULT,mis_prod_plan_dl.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan ,dmc_item_list.ITEM_PRINTCODE
+                             mis_summarize_results.PROD_RESULT,mis_prod_plan_dl.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan ,
+                             dmc_item_list.ITEM_PRINTCODE,mis_prod_plan_dl.SALES_ORDER
                              FROM `mis_summarize_results`
                        LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM
                        LEFT JOIN mis_prod_plan_dl on mis_summarize_results.JOB_ORDER_NO = mis_prod_plan_dl.JOB_ORDER_NO 
@@ -100,7 +101,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                           {
                              $sql="SELECT DISTINCT(mis_summarize_results.NO), mis_product.JO_NUM, mis_product.CUST_CODE,
                              mis_product.CUST_NAME, mis_product.ITEM_CODE, mis_product.ITEM_NAME, mis_product.TOOL_NUM,
-                             mis_summarize_results.PROD_RESULT,mis_prod_plan_dl.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan ,dmc_item_list.ITEM_PRINTCODE
+                             mis_summarize_results.PROD_RESULT,mis_prod_plan_dl.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan ,
+                             dmc_item_list.ITEM_PRINTCODE,mis_prod_plan_dl.SALES_ORDER
                              FROM `mis_summarize_results` 
                              LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM 
                              LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE
@@ -120,6 +122,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.ITEM_CODE, 
                             mis_product.ITEM_NAME, mis_product.TOOL_NUM,mis_summarize_results.PROD_RESULT,
                             mis_prod_plan_dl.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan ,dmc_item_list.ITEM_PRINTCODE
+                            ,mis_prod_plan_dl.SALES_ORDER
                             FROM `mis_summarize_results`
                        LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM
                        LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE
@@ -135,7 +138,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                           {
                          $sql="SELECT DISTINCT(mis_summarize_results.NO),mis_product.JO_NUM, mis_product.CUST_CODE,
                          mis_product.CUST_NAME, mis_product.ITEM_CODE, mis_product.ITEM_NAME, mis_product.TOOL_NUM,
-                         mis_summarize_results.PROD_RESULT,mis_prod_plan_dl.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan ,dmc_item_list.ITEM_PRINTCODE
+                         mis_summarize_results.PROD_RESULT,mis_prod_plan_dl.DATE_,mis_prod_plan_dl.PLAN_QTY as misPlan ,
+                         dmc_item_list.ITEM_PRINTCODE,mis_prod_plan_dl.SALES_ORDER
                          FROM `mis_summarize_results`
                       LEFT JOIN mis_product ON mis_summarize_results.JOB_ORDER_NO=mis_product.JO_NUM
                       LEFT JOIN dmc_item_list on mis_product.ITEM_CODE = dmc_item_list.ITEM_CODE
@@ -239,7 +243,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
       array_push($datavar,["NO"=> $ctr ,"JO DATE"=>$temp_date, "JO NO"=> $row['JO_NUM'] ,
               "CUSTOMER CODE"=>$row['CUST_CODE'],"CUSTOMER NAME"=>$row['CUST_NAME'],"ITEM CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],
               "TOOL NO"=>$row['TOOL_NUM'],"PLAN QTY"=>$row['misPlan'],"CURRENT PROD RESULT"=>$row['PROD_RESULT'],"GAP"=>$gap
-              ,"ACHIEVE RATE"=>$achievepercent."% ","DEFECT RATE"=>$defectpercentage,"ITEM_MODEL"=>$row['ITEM_PRINTCODE']]);
+              ,"ACHIEVE RATE"=>$achievepercent."% ","DEFECT RATE"=>$defectpercentage,"ITEM_MODEL"=>$row['ITEM_PRINTCODE'],"SO_NO"=>$row['SALES_ORDER']]);
 
       
     
