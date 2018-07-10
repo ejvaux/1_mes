@@ -416,13 +416,13 @@ if ($datenow == "NONE") {
                             } else {
                                 
                                 $prevdate = $currentdate;
-                                displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
+                                $output.=displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
                             }
 
                         } else {
                             $prevdate = $currentdate;
 
-                            displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
+                            $output.=displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
 
                         }
                         # code...
@@ -470,13 +470,13 @@ if ($datenow == "NONE") {
                                 # code... do nothing
                             } else {
                                 $prevdate = $currentdate;
-                                displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
+                                $output.=displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
                             }
 
                         } else {
                             $prevdate = $currentdate;
 
-                            displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
+                            $output.=displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
 
                         }
                         # code...
@@ -528,13 +528,13 @@ while ($row = $resultbet->fetch_assoc()) {
                     # code... do nothing
                 } else {
                     $prevdate = $currentdate;
-                    displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
+                    $output.= displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
                 }
 
             } else {
                 $prevdate = $currentdate;
 
-                displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
+                $output.= displaysummary($row2['planqty2'], $row['prodresult2'], $row3['DISP_DATE_']);
 
             }
             # code...
@@ -603,7 +603,7 @@ function displaysummary($funcPlan, $funcResult, $funcDate)
     $funcResult = number_format($funcResult);
     $gapperday = number_format($gapperday);
 
-    $output.= "<tr style='font-size:1.2em'>";
+    $output= "<tr style='font-size:1.2em'>";
     $output.= "<td colspan='2'> <b>Total Prod Plan Vs Result of : " . $funcDate . "</b></td>";
 
     $output.= "<td><b>" . $funcPlan . "</b></td>";
@@ -611,6 +611,8 @@ function displaysummary($funcPlan, $funcResult, $funcDate)
     $output.= "<td><b>" . $gapperday . "</b></td>";
     $output.= "<td><b>" . $achievepercentperday . "% </b></td>";
     $output.= "</tr>";
+
+    return $output;
 
 }
 
