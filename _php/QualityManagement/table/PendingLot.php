@@ -6,12 +6,13 @@
 <thead> 
         <th>NO</th>
         <th>PACKAGING NUMBER</th>
+        <th>JOB ORDER DATE</th>
         <th>JOB ORDER NUMBER</th>
-        <th>PRINT DATE</th>
-        <th>ITEM CODE</th>
-        <th>ITEM NAME</th>
+        <th style="width:20%">PRINT DATE</th>
+        <th style="width:20%">ITEM CODE</th>
+        <th style="width:20%">ITEM NAME</th>
         <th>PRINT QUANTITY</th>
-        <th>PRINTED BY</th>
+        <th style="width:5%">PRINTED BY</th>
 </thead>
 </table>
       </div>

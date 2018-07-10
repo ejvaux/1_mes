@@ -1,15 +1,15 @@
 <?php       
                 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
-                if(!isset($_POST['sql'])){
+                //if(!isset($_POST['sql'])){
                     
                 
-                $sql = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC";
+                //$sql = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC";
                 
-                }
-                else{
+                //}
+                //else{
                     $sql = $_POST['sql'];
-                }
+                //}
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0)
