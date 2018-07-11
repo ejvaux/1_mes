@@ -10,10 +10,9 @@ function loadDoc(TableName, uname) {
         DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp', uname);
         DisplayTable2('CreatedLot', 'CreatedLotSP', 'Created_Lot');
         /* DisplayTable3(); */
-        var dtdt = new Date().toISOString().slice(0, 10);
-        alert(dtdt);
+        //var dtdt = new Date().toISOString().slice(0, 10);
         /* var dtdt1 = moment(dtdt, 'YYYY-MM-DD').add(1, 'days').calendar(); */
-        checkuserauthF(dtdt);
+        checkuserauthF();
       } else if (TableName == 'ItemReceiving') {
         DisplayTableItemReceiving('ItemReceivedTable', 'ItemReceivedTableSP', uname);
         //ReloadTableList()
@@ -1236,7 +1235,7 @@ function DisplayTable3(Table_Name, Tablesp, tbltitle,startdate,enddate) {
           }
         },
         /* "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5">><"row"<"col-12"<"dd">>>t', */
-        "dom": '<"row"<"col-6"<"dx">><"col-2 mt-1"B><"col-4 mt-1"f>>t<"row"<"col"p>>',
+        "dom": '<"row"<"col-6"<"dx">><"col-2 mt-2"B><"col-4 mt-3"f>>t<"row"<"col"p>>',
         'buttons': [{
           extend: 'copy',
           text: '<i class="far fa-copy"></i>',
@@ -1308,14 +1307,17 @@ function DisplayTable3(Table_Name, Tablesp, tbltitle,startdate,enddate) {
           }
           
         }
+        else{
+          alert('4');
+          checkuserauthF();
+        }
         
         /* alert('test'); */
       });
       
       $('#refresh').on('click', function () {
-        var dtdt = new Date().toISOString().slice(0, 10);
-        var dtdt1 = dtdt.setDate(dtdt.getDate() + 1);
-        checkuserauthF(/* dtdt, dtdt1 */);
+        alert('refresh');
+        checkuserauthF();
       });
 
     }
