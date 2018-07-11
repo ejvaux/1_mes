@@ -1081,7 +1081,6 @@ function DisplayTable6(Table_Name,Tablesp,tbltitle) {
                 },
                 success: function(data1) {
                   var val = JSON.parse(data1);
-
                   $("#iduserinfo").val(val['NO']);
                   $("#euuserid").val(val['USER_ID']);
                   $("#euusername").val(val['USER_NAME']);
@@ -1118,41 +1117,65 @@ function DisplayTable6(Table_Name,Tablesp,tbltitle) {
                 if (result.value) {
                   
                   var data = dt.row( '.selected' ).data();
-              
+
                   $.ajax(
                     {
                     method:'post',
                     url:'/1_mes/database/table_handler/master/userinfoHandler.php',
                     data:
                     {
-                      'action':'delete',
+                      'action':'select',
                         'id': data[0],
                         'ajax': true
                     },
-                    success: function(data) {
-                      if(data==true){
-                        DisplayTable6('user_info_table','user_infosp','User Information');
-                        loadmodal('masterdatamodal');
-                        
-                        $.notify({
-                          icon: 'fas fa-info-circle',
-                          title: 'System Notification: ',
-                          message: 'Record deleted successfully!',
-                        },{
-                          type:'success',
-                          placement:{
-                            align: 'center'
-                          },           
-                          delay: 3000,                        
-                        });
+                    success: function(data1) {
+                      var val = JSON.parse(data1);
+                      /* alert(usrname); */
+                      if(val['USER_ID']==usrname){
+                        swal(
+                          'WARNING!',
+                          'Deleting the logged account is prohibited',
+                          'warning'
+                        )
                       }
                       else{
-                        alert(data);
+                        $.ajax(
+                          {
+                          method:'post',
+                          url:'/1_mes/database/table_handler/master/userinfoHandler.php',
+                          data:
+                          {
+                            'action':'delete',
+                              'id': data[0],
+                              'ajax': true
+                          },
+                          success: function(data2) {
+                            if(data2==true){
+                              DisplayTable6('user_info_table','user_infosp','User Information');
+                              loadmodal('masterdatamodal');
+                              
+                              $.notify({
+                                icon: 'fas fa-info-circle',
+                                title: 'System Notification: ',
+                                message: 'Record deleted successfully!',
+                              },{
+                                type:'success',
+                                placement:{
+                                  align: 'center'
+                                },           
+                                delay: 3000,                        
+                              });
+                            }
+                            else{
+                              alert(data2);
+                            }
+                            
+                          }
+                          });
                       }
                       
                     }
-                    });
-
+                    });             
                 }
               })
 

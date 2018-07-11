@@ -16,7 +16,7 @@
     <script src="/1_mes/_includes/displaymodal.js"></script>
 
     <script>
-      
+      var usrname = "<?php echo $_SESSION['username']; ?>";
       /* var timer;
 
       $(document).ajaxStart(function () {
