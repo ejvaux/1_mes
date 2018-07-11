@@ -11,7 +11,7 @@
     $eday = $_POST['eday'];
  }
  else{
-     $eday = "none";
+     $eday = $_POST['eday'];
  }
 /*
  * DataTables example server-side processing script.
