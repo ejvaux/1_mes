@@ -7,12 +7,6 @@ $username = $_ENV['DB_USERNAME'];
 $password = $_ENV['DB_PASSWORD'];
 $dbname = $_ENV['DB_DATABASE'];
 
-
-/* $servername = "localhost";
-$username = "root";     
-$password = "";
-$dbname = "masterdatabase"; */
-
 // Create connection
 $conn = new mysqli($servername, $username, $password,$dbname);
 
