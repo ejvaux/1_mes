@@ -803,9 +803,6 @@ $('#mod').on('submit','#eemployeeform', function (e) {
 
 /* ______________________ EMPLOYEE LIST ______________________ */
 
-
-
-
 /* Display Data */
 
   function getitemname(id,tb1){
@@ -926,7 +923,6 @@ function getemployeecode(id){
   /* alert('TEST'); */   
   $(this).find('form')[0].reset();
   $("[type='checkbox']").trigger("change");
-  $('.sel').val('').trigger('change.select2');
 });
 
  /* ______ Modal Reset ______ */

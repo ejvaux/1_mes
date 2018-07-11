@@ -287,23 +287,7 @@ function listchange(){
           url: '/1_mes/database/table_handler/mold/moldrepairHandler.php',
           data: $.param(formdata),
           success: function (data) {    
-            if(data==true){
-              
-              /* $('#qcchcklist').modal('hide');
-              checkuserauth();
-              loadmodal('moldrepairmodal');
-    
-              $.notify({
-                icon: 'fas fa-info-circle',
-                title: 'System Notification: ',
-                message: "Repair Approved!",
-              },{
-                type:'success',
-                placement:{
-                  align: 'center'
-                },           
-                delay: 3000,                        
-              }); */
+            if(data==true){             
               var formdata =  $('#qcchecklistform').serializeArray();
               formdata.push({name: 'action', value: 'insert'});
               $.ajax({
@@ -528,7 +512,6 @@ function checkFluency(chckbox,sel,text)
     /* alert('TEST');  */  
     $(this).find('form')[0].reset();
     $("[type='checkbox']").trigger("change");    
-    $('.sel').val('').trigger('change.select2');
   });
 
   /* ________________ Modal reset ____________________ */
@@ -822,7 +805,7 @@ function getcus_name(dd,input){
           },
           url:'/1_mes/_query/mold_repair/getcustomername.php',
           success:function(data){
-
+            
             if(data!='none'){
               var val = JSON.parse(data);              
               $(input).val(val.CUSTOMER_NAME);  
