@@ -9,10 +9,12 @@ function checksession(){
         success: function (data) {
           if(data=="success"){
             /* alert("Token correct"); */
+            $('#con').css('color', 'green');
             return;
           }
           else if(data=="nothing"){
               /* alert('No Session token'); */
+              $('#con').css('color', 'green');
               return;
           }
           else if(data=="failed"){
@@ -24,7 +26,8 @@ function checksession(){
           }
           else{
               /* alert(data); */
-              window.location.href='/1_mes/';
+              /* window.location.href='/1_mes/'; */
+              $('#con').css('color', 'red');
           }        
         }
       });

@@ -60,7 +60,7 @@
 
         <script src="/1_mes/node_modules/jquery-parallax.js/parallax.js"></script>
 
-        <script src="/1_mes/_includes/sessioncheck.js"></script>
+        
         <script src="/1_mes/_includes/clock.js"></script>            
 
         <style>
@@ -260,7 +260,8 @@
                ?></b>.</span>
             <!-- Clock -->            
             <span class="navbar-text mr-2" id="clockdate" style="display:block"></span>            
-            <span class="navbar-text mr-2" id="clocktime" style="display:block"></span>   
+            <span class="navbar-text mr-2" id="clocktime" style="display:block"></span>
+            <span class="navbar-text mr-2" id="con" style="display:block;color:orange;"><i class="fas fa-plug"></i></span>  
              
             <button data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item btn btn-outline-secondary p-1 ml-sm-0 mr-1 hvr-icon-wobble-horizontal" onclick="document.getElementById('id01').style.display='block'" id="lgin" style="display:block;">Login <i class="fas fa-sign-in-alt hvr-icon"></i></button>
             
@@ -478,19 +479,24 @@
                 <span>
                 <?php
 
-                  $auth = $_SESSION['auth'];
-                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
-
-                      $sql = "SELECT USER_AUTHORITY FROM dmc_user_authority WHERE AUTHORITY_CODE = '$auth'";
-                      $result = $conn->query($sql);
-                      
-                          while($row = $result->fetch_assoc()) {
-
-                              echo $row['USER_AUTHORITY'];                           
-                              
-                          }
-                      
-                      $conn->close();
+                  try{
+                    $auth = $_SESSION['auth'];
+                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+  
+                        $sql = "SELECT USER_AUTHORITY FROM dmc_user_authority WHERE AUTHORITY_CODE = '$auth'";
+                        $result = $conn->query($sql);
+                        
+                            while($row = $result->fetch_assoc()) {
+  
+                                echo $row['USER_AUTHORITY'];                           
+                                
+                            }
+                        
+                        $conn->close();
+                  }
+                  catch(Exception $e){
+                    echo $e->getMessage();
+                  }                  
 
                 ?>
                 </span>
@@ -715,6 +721,7 @@
         $body.removeClass("loading");
       }, 1000);      
       </script>
+    <script src="/1_mes/_includes/sessioncheck.js"></script>
     </body>
     
 </html>    

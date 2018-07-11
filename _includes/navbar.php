@@ -36,7 +36,8 @@
     
     <!-- Clock -->
     <span class="navbar-text mr-2" id="clockdate" style="display:block"></span>            
-    <span class="navbar-text mr-2" id="clocktime" style="display:block"></span>         
+    <span class="navbar-text mr-2" id="clocktime" style="display:block"></span> 
+    <span class="navbar-text mr-2" id="con" style="display:block;color:orange;"><i class="fas fa-plug"></i></span>      
   
   <button type="button" class="nav-item btn btn-outline-secondary p-1 my-2 my-0 hvr-icon-wobble-horizontal" onclick="" id="lgout" >Logout <i class="fas fa-sign-out-alt hvr-icon"></i></a>
   </div>            
@@ -118,19 +119,24 @@
             <span>
             <?php
 
-              $auth = $_SESSION['auth'];
-              include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                try{
+                  $auth = $_SESSION['auth'];
+                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
-                  $sql = "SELECT USER_AUTHORITY FROM dmc_user_authority WHERE AUTHORITY_CODE = '$auth'";
-                  $result = $conn->query($sql);
-                  
-                      while($row = $result->fetch_assoc()) {
+                      $sql = "SELECT USER_AUTHORITY FROM dmc_user_authority WHERE AUTHORITY_CODE = '$auth'";
+                      $result = $conn->query($sql);
+                      
+                          while($row = $result->fetch_assoc()) {
 
-                          echo $row['USER_AUTHORITY'];                           
-                          
-                      }
-                  
-                  $conn->close();
+                              echo $row['USER_AUTHORITY'];                           
+                              
+                          }
+                      
+                      $conn->close();
+                }
+                catch(Exception $e){
+                  echo $e->getMessage();
+                }                  
 
             ?>
             </span>
