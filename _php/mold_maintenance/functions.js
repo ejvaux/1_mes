@@ -17,7 +17,7 @@ function alistchange(){
     },
     url:'/1_mes/_query/mold_repair/moldcode_ddl.php',
     success:function(data){
-
+      
       if(data != 'none'){
         var val = JSON.parse(data);                   
         
