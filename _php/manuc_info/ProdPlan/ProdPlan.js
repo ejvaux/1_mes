@@ -28,7 +28,7 @@ function loadtbl2(TableName,deptSec,SectionGroup)
 function updateTable(TableName,deptSec,SectionGroup)
 {
     
-    alert(TableName);
+    //alert(TableName);
     showTable(TableName,deptSec,SectionGroup);
     setTimeout(updateTable,50000);
 }
@@ -337,7 +337,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                 },
                 success: function(data) 
                 {
-                    alert(d1);
+                    //alert(d1);
                     initTbl2("GroupList");
                     var val = JSON.parse(data);
                     //alert(data);
