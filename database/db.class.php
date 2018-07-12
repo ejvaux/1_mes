@@ -58,6 +58,39 @@ class DBQUERY
         $conn->close();
     }
 
+    public function get_rows3($table,$filter,$distinct = false, $cols= ''){
+        $conn = $this->connect;
+        if($distinct == true){
+            $sql = "SELECT DISTINCT ";
+        }
+        else{
+            $sql = "SELECT ";
+        }
+        if(!$cols == ""){
+            $sql .= $cols . " FROM " . $table . " " . $filter;
+        }
+        else{
+            $sql .= "* FROM " . $table . " " . $filter;
+        }
+        
+        if($result = $conn->query($sql)){
+            while($row = $result->fetch_assoc()){
+                $rows[] = $row;
+            }
+        }
+        else{
+            return "Error retrieving record/s: ". $sql . $conn->error;
+        }
+        if(isset($rows)){
+            $rows = json_encode($rows,true);
+            return json_decode($rows);           
+        }
+        else{
+            return "none";
+        }
+        $conn->close();
+    }
+
     public function insert_row($table,$form_data){        
         $fields = array_keys($form_data);
         $conn = $this->connect;         
