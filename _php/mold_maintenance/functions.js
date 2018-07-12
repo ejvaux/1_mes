@@ -396,10 +396,48 @@ function listchange(){
       url: '/1_mes/database/table_handler/mold/moldrepairHandler.php',
       data: $.param(formdata),
       success: function (data) {
-        /* alert(data);  */  
+        /* alert(data); */   
         if(data==true){
-          /* alert("Record saved successfully!"); */
-          $('#addformA').trigger('reset');
+          var ddl = document.getElementById("mcl");
+          // find the selected option
+          var selectedOption = ddl.options[ddl.selectedIndex].text;
+          /* alert(selectedOption); */
+          $.ajax({
+            type: 'POST',
+            url: '/1_mes/database/table_handler/master/moldlistHandler.php',
+            data: 
+            {
+              'action': 'update_onrepair',                        
+              'mc': selectedOption
+            },
+            success: function (data1) {
+              /* alert(data1); */
+              if(data1==true){
+                $('#addformA').trigger('reset');
+                $('#addmoldrepairA').modal('hide');
+                var dtdt =moment(Date()).format('YYYY-MM-DD');
+                checkuserauth(dtdt,dtdt);    
+                loadmodal('moldrepairmodal');
+
+                $.notify({
+                  icon: 'fas fa-info-circle',
+                  title: 'System Notification: ',
+                  message: "Record saved successfully!",
+                },{
+                  type:'success',
+                  placement:{
+                    align: 'center'
+                  },           
+                  delay: 3000,                        
+                });
+              }
+              else{
+                alert(data1); 
+              }
+            }
+          });        
+          
+          /* $('#addformA').trigger('reset');
           $('#addmoldrepairA').modal('hide');          
           checkuserauth();
           loadmodal('moldrepairmodal');
@@ -414,7 +452,7 @@ function listchange(){
               align: 'center'
             },           
             delay: 3000,                        
-          });
+          }); */
         }
         else{
           alert(data);          
@@ -445,8 +483,46 @@ function listchange(){
       success: function (data) {
         /* alert(data); */   
         if(data==true){
-          /* alert("Record saved successfully!"); */
-          $('#addform').trigger('reset');
+
+          var ddl = document.getElementById("amcl");
+          // find the selected option
+          var selectedOption = ddl.options[ddl.selectedIndex].text;
+          /* alert(selectedOption); */
+          $.ajax({
+            type: 'POST',
+            url: '/1_mes/database/table_handler/master/moldlistHandler.php',
+            data: 
+            {
+              'action': 'update_onrepair',                        
+              'mc': selectedOption
+            },
+            success: function (data1) {
+              /* alert(data1); */
+              if(data1==true){
+                $('#addform').trigger('reset');
+                $('#addmoldrepair').modal('hide');
+                var dtdt =moment(Date()).format('YYYY-MM-DD');
+                checkuserauth(dtdt,dtdt);    
+                loadmodal('moldrepairmodal');
+
+                $.notify({
+                  icon: 'fas fa-info-circle',
+                  title: 'System Notification: ',
+                  message: "Record saved successfully!",
+                },{
+                  type:'success',
+                  placement:{
+                    align: 'center'
+                  },           
+                  delay: 3000,                        
+                });
+              }
+              else{
+                alert(data1); 
+              }
+            }
+          });
+          /* $('#addform').trigger('reset');
           $('#addmoldrepair').modal('hide');          
           checkuserauth();
           loadmodal('moldrepairmodal');
@@ -461,7 +537,7 @@ function listchange(){
               align: 'center'
             },           
             delay: 3000,                        
-          });
+          }); */
         }
         else{
           alert(data);          
