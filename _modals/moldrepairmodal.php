@@ -1,4 +1,7 @@
-
+<?php 
+include_once $_SERVER['DOCUMENT_ROOT']."/1_mes/database/db.class.php";
+$db = new DBQUERY;
+?>
 <div class="modal hide fade in" role="dialog" id="addmoldrepairA" data-keyboard="false" data-backdrop="static" >
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -28,21 +31,30 @@
                         <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('dmc_mold_list' ,'ORDER BY MOLD_CODE ASC',false,'MOLD_CODE');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->MOLD_CODE;
+                        echo "'>";
+                        echo $rows->MOLD_CODE;
+                        echo "</option>";
+                        }
 
-                                $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
-                                $result = $conn->query($sql);
-                                
-                                    while($row = $result->fetch_assoc()) {
-                   
-                                        echo "<option value='";
-                                        echo $row['MOLD_CODE'];
-                                        echo "'>";
-                                        echo $row['MOLD_CODE'];
-                                        echo "</option>";
-                                    }
-                                
-                                $conn->close();
+                        /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                            $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
+                            $result = $conn->query($sql);
+                            
+                                while($row = $result->fetch_assoc()) {
+                
+                                    echo "<option value='";
+                                    echo $row['MOLD_CODE'];
+                                    echo "'>";
+                                    echo $row['MOLD_CODE'];
+                                    echo "</option>";
+                                }
+                            
+                            $conn->close(); */
 
                         ?>
                         
@@ -143,7 +155,16 @@
                         <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('dmc_defect_code' ,'ORDER BY DEFECT_NAME ASC',false,'DEFECT_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->DEFECT_NAME;
+                        echo "'>";
+                        echo $rows->DEFECT_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                             $sql = "SELECT DEFECT_NAME FROM dmc_defect_code ORDER BY DEFECT_NAME ASC";
                             $result = $conn->query($sql);
@@ -157,7 +178,7 @@
                                     echo "</option>";
                                 }
                             
-                            $conn->close();
+                            $conn->close(); */
 
                         ?>
 
@@ -239,7 +260,16 @@
                         <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('dmc_mold_list' ,'ORDER BY MOLD_CODE ASC',false,'MOLD_CODE');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->MOLD_CODE;
+                        echo "'>";
+                        echo $rows->MOLD_CODE;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
                                 $result = $conn->query($sql);
@@ -253,7 +283,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
                         
@@ -353,7 +383,16 @@
                         <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('dmc_defect_code' ,'ORDER BY DEFECT_NAME ASC',false,'DEFECT_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->DEFECT_NAME;
+                        echo "'>";
+                        echo $rows->DEFECT_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                             $sql = "SELECT DEFECT_NAME FROM dmc_defect_code ORDER BY DEFECT_NAME ASC";
                             $result = $conn->query($sql);
@@ -367,7 +406,7 @@
                                     echo "</option>";
                                 }
                             
-                            $conn->close();
+                            $conn->close(); */
 
                         ?>
 
@@ -465,7 +504,17 @@
                         <select class="form-control form-control-sm sel" name="moldcode" placeholder="" onchange="elistchange()" id="emcl" required>
                         <option value="">Please select</option>
                         <?php
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+
+                        $row = $db->get_rows3('dmc_mold_list' ,'ORDER BY MOLD_CODE ASC',false,'MOLD_CODE');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->MOLD_CODE;
+                        echo "'>";
+                        echo $rows->MOLD_CODE;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
                                 $result = $conn->query($sql);
@@ -479,7 +528,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
                         
@@ -579,7 +628,16 @@
                         <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('dmc_defect_code' ,'ORDER BY DEFECT_NAME ASC',false,'DEFECT_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->DEFECT_NAME;
+                        echo "'>";
+                        echo $rows->DEFECT_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                             $sql = "SELECT DEFECT_NAME FROM dmc_defect_code ORDER BY DEFECT_NAME ASC";
                             $result = $conn->query($sql);
@@ -593,7 +651,7 @@
                                     echo "</option>";
                                 }
                             
-                            $conn->close();
+                            $conn->close(); */
 
                         ?>
 
@@ -1650,7 +1708,16 @@
                         <option value="">Please select</option>
                             <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                            $row = $db->get_rows3('dmc_mold_list' ,'ORDER BY MOLD_CODE ASC',false,'MOLD_CODE');                   
+                            foreach($row as $rows){
+                            echo "<option value='";
+                            echo $rows->MOLD_CODE;
+                            echo "'>";
+                            echo $rows->MOLD_CODE;
+                            echo "</option>";
+                            }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
                                 $result = $conn->query($sql);
@@ -1664,7 +1731,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
                             
@@ -1727,7 +1794,16 @@
                         <option value="">Please select</option>
                             <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                            $row = $db->get_rows3('dmc_mold_list' ,'ORDER BY MOLD_CODE ASC',false,'MOLD_CODE');                   
+                            foreach($row as $rows){
+                            echo "<option value='";
+                            echo $rows->MOLD_CODE;
+                            echo "'>";
+                            echo $rows->MOLD_CODE;
+                            echo "</option>";
+                            }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
                                 $result = $conn->query($sql);
@@ -1741,7 +1817,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
                             
@@ -1813,7 +1889,16 @@
                         <option value="">Please select</option>
                             <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                            $row = $db->get_rows3('dmc_mold_list' ,'ORDER BY MOLD_CODE ASC',false,'MOLD_CODE');                   
+                            foreach($row as $rows){
+                            echo "<option value='";
+                            echo $rows->MOLD_CODE;
+                            echo "'>";
+                            echo $rows->MOLD_CODE;
+                            echo "</option>";
+                            }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
                                 $result = $conn->query($sql);
@@ -1827,7 +1912,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
                             
@@ -1840,7 +1925,16 @@
                         <option value="">Please select</option>
                             <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                            $row = $db->get_rows3('dmc_customer' ,'ORDER BY CUSTOMER_CODE ASC',false,'CUSTOMER_CODE');                   
+                            foreach($row as $rows){
+                            echo "<option value='";
+                            echo $rows->CUSTOMER_CODE;
+                            echo "'>";
+                            echo $rows->CUSTOMER_CODE;
+                            echo "</option>";
+                            }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT CUSTOMER_CODE FROM dmc_customer ORDER BY CUSTOMER_CODE ASC";
                                 $result = $conn->query($sql);
@@ -1854,7 +1948,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
 
@@ -1872,7 +1966,16 @@
                         <option value="">Please select</option>
                             <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                            $row = $db->get_rows3('mmc_mold_fabrication_process' ,'',false,'PROCESS_NAME');                   
+                            foreach($row as $rows){
+                            echo "<option value='";
+                            echo $rows->PROCESS_NAME;
+                            echo "'>";
+                            echo $rows->PROCESS_NAME;
+                            echo "</option>";
+                            }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT PROCESS_NAME FROM mmc_mold_fabrication_process";
                                 $result = $conn->query($sql);
@@ -1886,7 +1989,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
 
@@ -1904,7 +2007,16 @@
                         <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -1918,7 +2030,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -1977,7 +2089,16 @@
                         <option value="">Please select</option>
                             <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                            $row = $db->get_rows3('dmc_mold_list' ,'ORDER BY MOLD_CODE ASC',false,'MOLD_CODE');                   
+                            foreach($row as $rows){
+                            echo "<option value='";
+                            echo $rows->MOLD_CODE;
+                            echo "'>";
+                            echo $rows->MOLD_CODE;
+                            echo "</option>";
+                            }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT MOLD_CODE FROM dmc_mold_list ORDER BY MOLD_CODE ASC";
                                 $result = $conn->query($sql);
@@ -1991,7 +2112,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
                             
@@ -2004,7 +2125,16 @@
                         <option value="">Please select</option>
                             <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                            $row = $db->get_rows3('dmc_customer' ,'ORDER BY CUSTOMER_CODE ASC',false,'CUSTOMER_CODE');                   
+                            foreach($row as $rows){
+                            echo "<option value='";
+                            echo $rows->CUSTOMER_CODE;
+                            echo "'>";
+                            echo $rows->CUSTOMER_CODE;
+                            echo "</option>";
+                            }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT CUSTOMER_CODE FROM dmc_customer ORDER BY CUSTOMER_CODE ASC";
                                 $result = $conn->query($sql);
@@ -2018,7 +2148,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
 
@@ -2036,7 +2166,16 @@
                         <option value="">Please select</option>
                             <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                            $row = $db->get_rows3('mmc_mold_fabrication_process' ,'',false,'PROCESS_NAME');                   
+                            foreach($row as $rows){
+                            echo "<option value='";
+                            echo $rows->PROCESS_NAME;
+                            echo "'>";
+                            echo $rows->PROCESS_NAME;
+                            echo "</option>";
+                            }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT PROCESS_NAME FROM mmc_mold_fabrication_process";
                                 $result = $conn->query($sql);
@@ -2050,7 +2189,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
 
@@ -2068,7 +2207,16 @@
                         <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2082,7 +2230,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
                         
@@ -2374,7 +2522,16 @@
                         <option value="">Please select</option>
                             <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                            $row = $db->get_rows3('mmc_mold_fabrication_process' ,'',false,'PROCESS_NAME');                   
+                            foreach($row as $rows){
+                            echo "<option value='";
+                            echo $rows->PROCESS_NAME;
+                            echo "'>";
+                            echo $rows->PROCESS_NAME;
+                            echo "</option>";
+                            }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT PROCESS_NAME FROM mmc_mold_fabrication_process";
                                 $result = $conn->query($sql);
@@ -2388,7 +2545,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                             ?>
 
@@ -2411,7 +2568,16 @@
                         <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2425,7 +2591,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2497,7 +2663,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2511,7 +2686,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2532,7 +2707,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2546,7 +2730,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2567,7 +2751,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2581,7 +2774,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2602,7 +2795,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2616,7 +2818,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2637,7 +2839,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2651,7 +2862,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2672,7 +2883,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2686,7 +2906,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2707,7 +2927,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2721,7 +2950,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2742,7 +2971,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2756,7 +2994,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2777,7 +3015,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2791,7 +3038,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2812,7 +3059,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2826,7 +3082,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2847,7 +3103,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2861,7 +3126,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2882,7 +3147,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2896,7 +3170,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2917,7 +3191,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2931,7 +3214,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2952,7 +3235,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -2966,7 +3258,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -2987,7 +3279,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -3001,7 +3302,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -3022,7 +3323,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -3036,7 +3346,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
@@ -3057,7 +3367,16 @@
                     <option value="">Please select</option>
                         <?php
 
-                            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                        $row = $db->get_rows3('mmc_mold_operator' ,'ORDER BY OPERATOR_NAME ASC',false,'OPERATOR_NAME');                   
+                        foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->OPERATOR_NAME;
+                        echo "'>";
+                        echo $rows->OPERATOR_NAME;
+                        echo "</option>";
+                        }
+
+                            /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                                 $sql = "SELECT OPERATOR_NAME FROM mmc_mold_operator ORDER BY OPERATOR_NAME ASC";
                                 $result = $conn->query($sql);
@@ -3071,7 +3390,7 @@
                                         echo "</option>";
                                     }
                                 
-                                $conn->close();
+                                $conn->close(); */
 
                         ?>
 
