@@ -147,7 +147,8 @@ function listchange(){
           /* alert("Checklist Saved Successfully!"); */
           $('#checklistform').trigger('reset');
           $('#chcklist').modal('hide');
-          checkuserauth();
+          var dtdt =moment(Date()).format('YYYY-MM-DD');
+          checkuserauth(dtdt,dtdt);
           loadmodal('moldrepairmodal');
 
           $.notify({
@@ -201,7 +202,8 @@ function listchange(){
             if(data==true){
 
               $('#chcklist').modal('hide');
-                    checkuserauth();
+                    var dtdt =moment(Date()).format('YYYY-MM-DD');
+                    checkuserauth(dtdt,dtdt);
                     loadmodal('moldrepairmodal');
           
                     $.notify({
@@ -298,7 +300,8 @@ function listchange(){
                 if(data==true){
 
                   $('#qcchcklist').modal('hide');
-                  checkuserauth();
+                  var dtdt =moment(Date()).format('YYYY-MM-DD');
+                  checkuserauth(dtdt,dtdt);
                   loadmodal('moldrepairmodal');
         
                   $.notify({
@@ -354,7 +357,8 @@ function listchange(){
           /* alert("Record Updated Successfully!"); */
           $('#editform').trigger('reset');
           $('#editmoldrepair').modal('hide');
-          checkuserauth();          
+          var dtdt =moment(Date()).format('YYYY-MM-DD');
+          checkuserauth(dtdt,dtdt);          
           loadmodal('moldrepairmodal');
 
           $.notify({
@@ -697,7 +701,9 @@ $('#mod').on('submit','#addmoldhistoryform', function (e) {
         /* alert("Record saved successfully!"); */
         $('#addmoldhistoryform').trigger('reset');
         $('#addmoldhistory').modal('hide');          
-        checkuserauthH();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        var dtdt2 = dtdt +" 23:59:59";
+        checkuserauthH(dtdt,dtdt2);
         loadmodal('moldrepairmodal');
 
         $.notify({
@@ -743,7 +749,9 @@ $('#mod').on('submit','#editmoldhistoryform', function (e) {
         /* alert("Record saved successfully!"); */
         $('#editmoldhistoryform').trigger('reset');
         $('#editmoldhistory').modal('hide');          
-        checkuserauthH();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        var dtdt2 = dtdt +" 23:59:59";
+        checkuserauthH(dtdt,dtdt2);
         loadmodal('moldrepairmodal');
 
         $.notify({
@@ -789,7 +797,9 @@ $('#mod').on('submit','#addmoldfabricationform', function (e) {
         /* alert("Record saved successfully!"); */
         $('#addmoldfabricationform').trigger('reset');
         $('#addmoldfabrication').modal('hide');          
-        checkuserauthF();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        var dtdt2 = dtdt +" 23:59:59";
+        checkuserauthF(dtdt,dtdt2);
         loadmodal('moldrepairmodal');
 
         $.notify({
@@ -834,7 +844,9 @@ $('#mod').on('submit','#emoldfabricationform', function (e) {
         /* alert("Record saved successfully!"); */
         $('#emoldfabricationform').trigger('reset');
         $('#emoldfabrication').modal('hide');          
-        checkuserauthF();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        var dtdt2 = dtdt +" 23:59:59";
+        checkuserauthF(dtdt,dtdt2);
         loadmodal('moldrepairmodal');
 
         $.notify({
@@ -941,7 +953,9 @@ $('#mod').on('submit','#changeprocessform', function (e) {
                 if(data=="success"){
                   $('#changeprocessform').trigger('reset');
                   $('#changeprocess').modal('hide');          
-                  checkuserauthF();
+                  var dtdt =moment(Date()).format('YYYY-MM-DD');
+                  var dtdt2 = dtdt +" 23:59:59";
+                  checkuserauthF(dtdt,dtdt2);
                   loadmodal('moldrepairmodal');
           
                   $.notify({
@@ -1159,7 +1173,9 @@ $('#mod').on('submit','#editchangeprocessform', function (e) {
         
         $('#editchangeprocessform').trigger('reset');
         $('#editchangeprocess').modal('hide');          
-        checkuserauthF();
+        var dtdt =moment(Date()).format('YYYY-MM-DD');
+        var dtdt2 = dtdt +" 23:59:59";
+        checkuserauthF(dtdt,dtdt2);
         loadmodal('moldrepairmodal');
 
         $.notify({

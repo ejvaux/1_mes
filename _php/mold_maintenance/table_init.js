@@ -202,7 +202,8 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
                       success: function(data) {
 
                         if(data==true){
-                          checkuserauth();
+                          var dtdt =moment(Date()).format('YYYY-MM-DD');
+                          checkuserauth(dtdt,dtdt);
                           $.notify({
                             icon: 'fas fa-info-circle',
                             title: 'System Notification: ',
@@ -1784,7 +1785,9 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
                     success: function(data) {
 
                       if(data==true){
-                        checkuserauthH();
+                        var dtdt =moment(Date()).format('YYYY-MM-DD');
+                        var dtdt2 = dtdt +" 23:59:59";
+                        checkuserauthH(dtdt,dtdt2);
 
                         $.notify({
                           icon: 'fas fa-info-circle',
@@ -2141,7 +2144,9 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
                         'ajax': true
                     },
                     success: function(data) {
-                      checkuserauthF();
+                      var dtdt =moment(Date()).format('YYYY-MM-DD');
+                      var dtdt2 = dtdt +" 23:59:59";
+                      checkuserauthF(dtdt,dtdt2);
 
                       $.notify({
                         icon: 'fas fa-info-circle',
