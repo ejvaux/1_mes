@@ -296,10 +296,43 @@ function listchange(){
               type: 'POST',
               url: '/1_mes/database/table_handler/mold/historyHandler.php',
               data: $.param(formdata),
-              success: function (data) {    
-                if(data==true){
+              success: function (data1) {    
+                if(data1==true){
+                  var mol = $("#qcchkmoldcode").val();
+                  $.ajax({
+                    type: 'POST',
+                    url: '/1_mes/database/table_handler/master/moldlistHandler.php',
+                    data: 
+                    {
+                      'action': 'update_onrepair2',                        
+                      'mc': mol
+                    },
+                    success: function (data2) {    
+                      if(data2==true){
+                        $('#qcchcklist').modal('hide');
+                        var dtdt =moment(Date()).format('YYYY-MM-DD');
+                        checkuserauth(dtdt,dtdt);
+                        loadmodal('moldrepairmodal');
+              
+                        $.notify({
+                          icon: 'fas fa-info-circle',
+                          title: 'System Notification: ',
+                          message: "Repair Approved!",
+                        },{
+                          type:'success',
+                          placement:{
+                            align: 'center'
+                          },           
+                          delay: 3000,                        
+                        });
+                      }
+                      else{
+                        alert(data2);          
+                      }
+                    }
+                  });
 
-                  $('#qcchcklist').modal('hide');
+                  /* $('#qcchcklist').modal('hide');
                   var dtdt =moment(Date()).format('YYYY-MM-DD');
                   checkuserauth(dtdt,dtdt);
                   loadmodal('moldrepairmodal');
@@ -314,11 +347,11 @@ function listchange(){
                       align: 'center'
                     },           
                     delay: 3000,                        
-                  });                 
+                  }); */                 
                   
                 }
                 else{
-                  alert(data);          
+                  alert(data1);          
                 }
               }
               });
