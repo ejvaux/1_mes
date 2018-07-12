@@ -107,7 +107,7 @@ class DBQUERY
 
     public function delete_row($table,$col,$id){                
         $conn = $this->connect;         
-        $whereSQL =" WHERE ".$col."=".$id;
+        $whereSQL =" WHERE ".$col." = '".$id."'";
         $sql = "DELETE FROM ".$table.$whereSQL;
         if ($conn->query($sql) === TRUE) {        
             /* return "Record deleted successfully!"; */
@@ -121,7 +121,7 @@ class DBQUERY
     
     public function update_row($table,$form_data,$col,$id){              
         $conn = $this->connect;         
-        $whereSQL = " WHERE ".$col." = ".$id ;
+        $whereSQL = " WHERE ".$col." = '".$id."'" ;
         $sql = "UPDATE ".$table." SET ";        
         $sets = array();
         foreach($form_data as $column => $value)
