@@ -1,6 +1,9 @@
 
 <!--  _________________________________ INSERT MODALS ________________________________  -->
-
+<?php 
+include_once $_SERVER['DOCUMENT_ROOT']."/1_mes/database/db.class.php";
+$db = new DBQUERY;
+?>
 <div class="modal hide fade in" role="dialog" id="moldlistmod" data-keyboard="false" data-backdrop="static" >
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -50,7 +53,15 @@
                   <option value="">-Please select-</option>
                   <?php
 
-                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                    $row = $db->get_rows3('dmc_item_list' ,'ORDER BY ITEM_CODE ASC' ,true,'ITEM_CODE');          
+                    foreach($row as $rows){
+                      echo "<option value='";
+                      echo $rows->ITEM_CODE;
+                      echo "'>";
+                      echo $rows->ITEM_CODE;
+                      echo "</option>";
+                    }
+                  /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                       $sql = "SELECT DISTINCT ITEM_CODE FROM dmc_item_list ORDER BY ITEM_CODE ASC";
                       $result = $conn->query($sql);
@@ -64,11 +75,10 @@
                               echo "</option>";
                           }
                       
-                      $conn->close();
+                      $conn->close(); */
 
-                  ?>
-
-                  </select>
+                  ?>         
+                  </select>                  
                 </div>
               </div>
             </div>
@@ -82,7 +92,15 @@
                   <option value="">-Please select-</option>
                     <?php
 
-                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                    $row = $db->get_rows3('dmc_customer' ,'ORDER BY CUSTOMER_CODE ASC',false,'CUSTOMER_CODE');                   
+                    foreach($row as $rows){
+                      echo "<option value='";
+                      echo $rows->CUSTOMER_CODE;
+                      echo "'>";
+                      echo $rows->CUSTOMER_CODE;
+                      echo "</option>";
+                    }
+                    /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                         $sql = "SELECT CUSTOMER_CODE FROM dmc_customer ORDER BY CUSTOMER_CODE ASC";
                         $result = $conn->query($sql);
@@ -96,10 +114,9 @@
                                 echo "</option>";
                             }
                         
-                        $conn->close();
+                        $conn->close(); */
 
                     ?>
-
                   </select>
                 </div>
               </div>
@@ -323,7 +340,15 @@
                   <option value="">-Please select-</option>
                   <?php
 
-                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                  $row = $db->get_rows3('dmc_division_code' ,'ORDER BY DIVISION_CODE ASC',false,'DIVISION_CODE');                   
+                  foreach($row as $rows){
+                    echo "<option value='";
+                    echo $rows->DIVISION_CODE;
+                    echo "'>";
+                    echo $rows->DIVISION_CODE;
+                    echo "</option>";
+                  }
+                  /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                       $sql = "SELECT DIVISION_CODE FROM dmc_division_code ORDER BY DIVISION_CODE ASC";
                       $result = $conn->query($sql);
@@ -337,7 +362,7 @@
                               echo "</option>";
                           }
                       
-                      $conn->close();
+                      $conn->close(); */
 
                   ?>
 
@@ -418,7 +443,16 @@
                   <option value="">-Please select-</option>
                   <?php
 
-                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                  $row = $db->get_rows3('dmc_customer' ,'ORDER BY CUSTOMER_CODE ASC',false,'CUSTOMER_CODE');                   
+                  foreach($row as $rows){
+                    echo "<option value='";
+                    echo $rows->CUSTOMER_CODE;
+                    echo "'>";
+                    echo $rows->CUSTOMER_CODE;
+                    echo "</option>";
+                  }
+
+                  /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                       $sql = "SELECT CUSTOMER_CODE FROM dmc_customer ORDER BY CUSTOMER_CODE ASC";
                       $result = $conn->query($sql);
@@ -432,7 +466,7 @@
                               echo "</option>";
                           }
                       
-                      $conn->close();
+                      $conn->close(); */
 
                   ?>
 
@@ -486,7 +520,16 @@
                   <option value="">-Please select-</option>
                   <?php
 
-                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                  $row = $db->get_rows3('dmc_division_code' ,'ORDER BY DIVISION_CODE ASC',false,'DIVISION_CODE');                   
+                  foreach($row as $rows){
+                    echo "<option value='";
+                    echo $rows->DIVISION_CODE;
+                    echo "'>";
+                    echo $rows->DIVISION_CODE;
+                    echo "</option>";
+                  }
+
+                 /*  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                       $sql = "SELECT DIVISION_CODE FROM dmc_division_code ORDER BY DIVISION_CODE ASC";
                       $result = $conn->query($sql);
@@ -500,7 +543,7 @@
                               echo "</option>";
                           }
                       
-                      $conn->close();
+                      $conn->close(); */
 
                   ?>
 
@@ -729,7 +772,16 @@
                   <option value="">-Please select-</option>
                   <?php
 
-                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                  $row = $db->get_rows3('dmc_division_code' ,'ORDER BY DIVISION_CODE ASC',false,'DIVISION_CODE');                   
+                  foreach($row as $rows){
+                    echo "<option value='";
+                    echo $rows->DIVISION_CODE;
+                    echo "'>";
+                    echo $rows->DIVISION_CODE;
+                    echo "</option>";
+                  }
+
+                  /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                       $sql = "SELECT DIVISION_CODE FROM dmc_division_code ORDER BY DIVISION_CODE ASC";
                       $result = $conn->query($sql);
@@ -743,7 +795,7 @@
                               echo "</option>";
                           }
                       
-                      $conn->close();
+                      $conn->close(); */
 
                   ?>
 
@@ -847,7 +899,16 @@
                   <option value="">-Please select-</option>
                   <?php
 
-                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                  $row = $db->get_rows3('dmc_user_authority' ,'ORDER BY AUTHORITY_CODE ASC',false,'AUTHORITY_CODE');                   
+                  foreach($row as $rows){
+                    echo "<option value='";
+                    echo $rows->AUTHORITY_CODE;
+                    echo "'>";
+                    echo $rows->AUTHORITY_CODE;
+                    echo "</option>";
+                  }
+
+                  /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                       $sql = "SELECT AUTHORITY_CODE FROM dmc_user_authority ORDER BY AUTHORITY_CODE ASC";
                       $result = $conn->query($sql);
@@ -861,7 +922,7 @@
                               echo "</option>";
                           }
                       
-                      $conn->close();
+                      $conn->close(); */
 
                   ?>
                   
@@ -1080,7 +1141,16 @@
                   <option value="">-Please select-</option>
                     <?php
 
-                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                    $row = $db->get_rows3('dmc_division_code' ,'ORDER BY DIVISION_NAME ASC',false,'DIVISION_NAME');                   
+                    foreach($row as $rows){
+                      echo "<option value='";
+                      echo $rows->DIVISION_NAME;
+                      echo "'>";
+                      echo $rows->DIVISION_NAME;
+                      echo "</option>";
+                    }
+
+                    /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                         $sql = "SELECT DIVISION_NAME FROM dmc_division_code ORDER BY DIVISION_NAME ASC";
                         $result = $conn->query($sql);
@@ -1094,7 +1164,7 @@
                                 echo "</option>";
                             }
                         
-                        $conn->close();
+                        $conn->close(); */
 
                     ?>
 
@@ -1174,7 +1244,16 @@
                   <option value="">-Please select-</option>
                     <?php
 
-                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                    $row = $db->get_rows3('dmc_item_list' ,'ORDER BY ITEM_CODE ASC' ,true,'ITEM_CODE');          
+                    foreach($row as $rows){
+                      echo "<option value='";
+                      echo $rows->ITEM_CODE;
+                      echo "'>";
+                      echo $rows->ITEM_CODE;
+                      echo "</option>";
+                    }
+
+                    /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                         $sql = "SELECT DISTINCT ITEM_CODE FROM dmc_item_list ORDER BY ITEM_CODE ASC";
                         $result = $conn->query($sql);
@@ -1188,7 +1267,7 @@
                                 echo "</option>";
                             }
                         
-                        $conn->close();
+                        $conn->close(); */
 
                     ?>
 
@@ -1206,7 +1285,16 @@
                   <option value="">-Please select-</option>
                     <?php
 
-                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                    $row = $db->get_rows3('dmc_customer' ,'ORDER BY CUSTOMER_CODE ASC',false,'CUSTOMER_CODE');                   
+                    foreach($row as $rows){
+                      echo "<option value='";
+                      echo $rows->CUSTOMER_CODE;
+                      echo "'>";
+                      echo $rows->CUSTOMER_CODE;
+                      echo "</option>";
+                    }
+
+                    /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                         $sql = "SELECT CUSTOMER_CODE FROM dmc_customer ORDER BY CUSTOMER_CODE ASC";
                         $result = $conn->query($sql);
@@ -1220,7 +1308,7 @@
                                 echo "</option>";
                             }
                         
-                        $conn->close();
+                        $conn->close(); */
 
                     ?>
 
@@ -1444,7 +1532,16 @@
                   <option value="">-Please select-</option>
                   <?php
 
-                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                  $row = $db->get_rows3('dmc_division_code' ,'ORDER BY DIVISION_CODE ASC',false,'DIVISION_CODE');                   
+                  foreach($row as $rows){
+                    echo "<option value='";
+                    echo $rows->DIVISION_CODE;
+                    echo "'>";
+                    echo $rows->DIVISION_CODE;
+                    echo "</option>";
+                  }
+
+                  /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                       $sql = "SELECT DIVISION_CODE FROM dmc_division_code ORDER BY DIVISION_CODE ASC";
                       $result = $conn->query($sql);
@@ -1458,7 +1555,7 @@
                               echo "</option>";
                           }
                       
-                      $conn->close();
+                      $conn->close(); */
 
                   ?>
 
@@ -1541,7 +1638,16 @@
                   <option value="">-Please select-</option>
                     <?php
 
-                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                    $row = $db->get_rows3('dmc_customer' ,'ORDER BY CUSTOMER_CODE ASC',false,'CUSTOMER_CODE');                   
+                    foreach($row as $rows){
+                      echo "<option value='";
+                      echo $rows->CUSTOMER_CODE;
+                      echo "'>";
+                      echo $rows->CUSTOMER_CODE;
+                      echo "</option>";
+                    }
+
+                    /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                         $sql = "SELECT CUSTOMER_CODE FROM dmc_customer ORDER BY CUSTOMER_CODE ASC";
                         $result = $conn->query($sql);
@@ -1555,7 +1661,7 @@
                                 echo "</option>";
                             }
                         
-                        $conn->close();
+                        $conn->close(); */
 
                     ?>
 
@@ -1609,7 +1715,16 @@
                   <option value="">-Please select-</option>
                   <?php
 
-                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                  $row = $db->get_rows3('dmc_division_code' ,'ORDER BY DIVISION_CODE ASC',false,'DIVISION_CODE');                   
+                  foreach($row as $rows){
+                    echo "<option value='";
+                    echo $rows->DIVISION_CODE;
+                    echo "'>";
+                    echo $rows->DIVISION_CODE;
+                    echo "</option>";
+                  }
+
+                  /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                       $sql = "SELECT DIVISION_CODE FROM dmc_division_code ORDER BY DIVISION_CODE ASC";
                       $result = $conn->query($sql);
@@ -1623,7 +1738,7 @@
                               echo "</option>";
                           }
                       
-                      $conn->close();
+                      $conn->close(); */
 
                   ?>
 
@@ -1854,7 +1969,16 @@
                   <option value="">-Please select-</option>
                   <?php
 
-                  include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                  $row = $db->get_rows3('dmc_division_code' ,'ORDER BY DIVISION_CODE ASC',false,'DIVISION_CODE');                   
+                  foreach($row as $rows){
+                    echo "<option value='";
+                    echo $rows->DIVISION_CODE;
+                    echo "'>";
+                    echo $rows->DIVISION_CODE;
+                    echo "</option>";
+                  }
+
+                  /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                       $sql = "SELECT DIVISION_CODE FROM dmc_division_code ORDER BY DIVISION_CODE ASC";
                       $result = $conn->query($sql);
@@ -1868,7 +1992,7 @@
                               echo "</option>";
                           }
                       
-                      $conn->close();
+                      $conn->close(); */
 
                   ?>                 
 
@@ -1973,7 +2097,16 @@
                   <option value="">-Please select-</option>
                     <?php
 
-                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                    $row = $db->get_rows3('dmc_user_authority' ,'ORDER BY AUTHORITY_CODE ASC',false,'AUTHORITY_CODE');                   
+                    foreach($row as $rows){
+                    echo "<option value='";
+                    echo $rows->AUTHORITY_CODE;
+                    echo "'>";
+                    echo $rows->AUTHORITY_CODE;
+                    echo "</option>";
+                    }
+
+                    /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                         $sql = "SELECT AUTHORITY_CODE FROM dmc_user_authority ORDER BY AUTHORITY_CODE ASC";
                         $result = $conn->query($sql);
@@ -1987,7 +2120,7 @@
                                 echo "</option>";
                             }
                         
-                        $conn->close();
+                        $conn->close(); */
 
                     ?>
 
@@ -2217,7 +2350,16 @@
                   <option value="">-Please select-</option>
                     <?php
 
-                    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+                    $row = $db->get_rows3('dmc_division_code' ,'ORDER BY DIVISION_NAME ASC',false,'DIVISION_NAME');                   
+                    foreach($row as $rows){
+                      echo "<option value='";
+                      echo $rows->DIVISION_NAME;
+                      echo "'>";
+                      echo $rows->DIVISION_NAME;
+                      echo "</option>";
+                    }
+
+                    /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
                         $sql = "SELECT DIVISION_NAME FROM dmc_division_code ORDER BY DIVISION_NAME ASC";
                         $result = $conn->query($sql);
@@ -2231,7 +2373,7 @@
                                 echo "</option>";
                             }
                         
-                        $conn->close();
+                        $conn->close(); */
 
                     ?>
 
