@@ -42,7 +42,7 @@ while ($row = $result->fetch_assoc()){
         $json[] = $row;
     } 
     
-    $msg = "Checking " . $obj->MOLD_CODE . "...";
+    $msg = "Checking " . $row['MOLD_CODE'] . "...";
     echo str_pad($msg, 60) . "\r";
 }
 
