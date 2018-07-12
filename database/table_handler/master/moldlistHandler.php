@@ -59,6 +59,16 @@
         echo $GLOBALS['db']->update_row($GLOBALS['tb'],$form_data,$GLOBALS['col'],$_POST['id']);
     }
 
+    function update_onrepair(){
+        
+        $form_data = array(
+            'ON_REPAIR'=>1,
+            'REPAIR_MOLD_SHOT'=>0,
+            'DAYS_USED'=>0
+        );
+        echo $GLOBALS['db']->update_row($GLOBALS['tb'],$form_data,'MOLD_CODE',$_POST['mc']);
+    }
+
     function del(){
         
         echo $GLOBALS['db']->delete_row($GLOBALS['tb'],$GLOBALS['col'],$_POST['id']);
@@ -76,6 +86,9 @@
             break;
         case "delete":
             del();
+            break;
+        case "update_onrepair":
+            update_onrepair();
             break;
     }
 
