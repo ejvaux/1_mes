@@ -1248,57 +1248,6 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
     } );
 
 
-    /* $('#Dtable tbody').on( 'click', '#approve', function () {
-        var data = tble.row( $(this).parents('tr') ).data();
-                
-        $.ajax(
-          {
-          method:'post',
-          url:'/1_mes/database/table_handler/mold/moldrepairHandler.php',
-          data:
-          {
-            'action': 'select',
-            'id': data[1],
-            'ajax': true
-          },
-          success: function(data1) {
-            var val = JSON.parse(data1);
-
-            $('#achkmoldrepairid').val(val.MOLD_REPAIR_ID);
-            $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
-
-            $("#aMRI001").val(val.MRI001);
-            $("#aMRI002").val(val.MRI002); 
-            $("#aMRI003").val(val.MRI003); 
-            $("#aMRI004").val(val.MRI004); 
-            $("#aMRI005").val(val.MRI005); 
-            $("#aMRI006").val(val.MRI006); 
-            $("#aMRI007").val(val.MRI007); 
-            $("#aMRI008").val(val.MRI008);
-            
-            if(val.MRI009=='YES'){document.getElementById("aMRI009").checked = true; };
-            if(val.MRI010=='YES'){document.getElementById("aMRI010").checked = true; };
-            if(val.MRI011=='YES'){document.getElementById("aMRI011").checked = true; };
-            if(val.MRI012=='YES'){document.getElementById("aMRI012").checked = true; };
-            if(val.MRI013=='YES'){document.getElementById("aMRI013").checked = true; };
-
-            if(val.MRI014=='YES'){document.getElementById("aMRI014").checked = true; };
-            if(val.MRI015=='YES'){document.getElementById("aMRI015").checked = true; };
-            if(val.MRI016=='YES'){document.getElementById("aMRI016").checked = true; };
-            if(val.MRI017=='YES'){document.getElementById("aMRI017").checked = true; };
-            if(val.MRI018=='YES'){document.getElementById("aMRI018").checked = true; };
-            if(val.MRI019=='YES'){document.getElementById("aMRI019").checked = true; };
-            if(val.MRI020=='YES'){document.getElementById("aMRI020").checked = true; };
-           
-            $("#aactiontaken").val(val.ACTION_TAKEN);
-
-            $('.sel').select2({ width: '100%' });
-            $('#achcklist').modal('show');
-          }
-        });
-        
-    } ); */
-
     $('#Dtable tbody').on( 'click', '#forpm', function () {
       var data = tble.row( $(this).parents('tr') ).data();
               
@@ -2737,7 +2686,6 @@ $.fn.dataTable.ext.buttons.addfab1 = {
                       $.ajax(
                         {
                         method:'post',
-                        /* url:'/1_mes/_query/mold_repair/operator/delete.php', */
                         url:'/1_mes/database/table_handler/mold/operatorHandler.php',
                         data:
                         {

@@ -434,10 +434,8 @@ function DisplayTable2(Table_Name,Tablesp,tbltitle) {
                       
                     }
                     });
-
                 }
               })
-
             }                
           },
           { extend: 'copy', text: '<i class="far fa-copy"></i>', 
