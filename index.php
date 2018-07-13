@@ -266,9 +266,9 @@
             <!-- Clock -->            
             <span class="navbar-text mr-2" id="clockdate" style="display:block"></span>            
             <span class="navbar-text mr-2" id="clocktime" style="display:block"></span>
-            <span class="navbar-text mr-2" id="con" style="display:block;color:orange;"><i class="fas fa-plug"></i></span>
+            <span class="navbar-text mr-2" id="con" style="display:block;color:orange;" title='Database Connection'><i class="fas fa-plug"></i></span>
             <span class="navbar-text mr-2" id="" style="display:block">
-            <a data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-link p-1 ml-sm-0 mr-1 hvr-icon-wobble-horizontal" href='#' onclick="" id="" style="display:block;" title="Report Bug"><small class='text-muted'><i class="fas fa-bug"></i></small></a>
+            <a data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-link p-1 ml-sm-0 mr-1 hvr-icon-wobble-horizontal" href='#' onclick="" id="b_report" style="display:block;" title="Report Bug"><small class='text-muted'><i class="fas fa-bug"></i></small></a>
             </span>  
              
             <button data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item btn btn-outline-secondary p-1 ml-sm-0 mr-1 hvr-icon-wobble-horizontal" onclick="document.getElementById('id01').style.display='block'" id="lgin" style="display:block;">Login <i class="fas fa-sign-in-alt hvr-icon"></i></button>
@@ -591,6 +591,53 @@
       </div>
     </div> <!-- End register modal -->
 
+
+    <!-- Bug Report Modal -->
+
+    <div class="modal fade in" tabindex="-1" role="dialog" id='bugreportmod' data-backdrop="false">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Bug Report</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form id='bugreportform'>
+          <div class="modal-body">
+            <div class='container-fluid'>
+                  <div class='row'>
+                    <div class='col'>
+                      <h5>Name: <small><?php echo $_SESSION['text'] ?></small></h5>
+                    </div>
+                  </div>
+                  <div class='row'>
+                    <div class='col'>
+                      <h5>Message:</h5>
+                    </div>
+                  </div>
+                  <div class='row'>
+                    <div class='col'>
+                      <textarea name='r_message' id='r_message' rows="4" cols="50" maxlength="1000" placeholder="Enter message here......"></textarea>
+                    </div>
+                  </div>
+                  <div class='row'>
+                    <div class='col mt-0 pt-0'>
+                      <small class='text-muted' id='char_length'>1000 character/s left.</small>
+                    </div>
+                  </div>
+            </div>
+            
+          </div>
+          <div class="modal-footer">            
+            <button type="submit" class="btn btn-primary">Send Report</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div> <!-- END Bug Report Modal -->
+
     <!-- Optional JavaScript -->
     <script type="text/javascript">    
       
@@ -624,7 +671,7 @@
       $(document).ready(function(){
 
         $('#acct_btn').on('click', function(){
-            $('#acct').modal('show');             
+          $('#acct').modal('show');             
         });
 
         $('#reg').on('click', function(){
@@ -632,9 +679,53 @@
         });
 
         $('#bttn').on('click', function(){
-            $('.navbar-collapse').collapse('hide');              
+          $('.navbar-collapse').collapse('hide');              
         });
-        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#b_report').on('click', function(){
+          $('#bugreportmod').modal('show');             
+        });
+
+        $('[data-toggle="tooltip"]').tooltip();        
+
+        $('#r_message').on('keyup', function(){
+          $('#char_length').html(1000 - $('#r_message').val().length + ' character/s left.');
+        });
+
+        $('#bugreportmod').on('submit','#bugreportform', function (e) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          /* alert($('#r_message').val()); */
+          var formdata =  $('#bugreportform').serializeArray();
+          formdata.push({name: 'action', value: 'insert'});
+          $.ajax({
+            type: 'POST',
+            url: '/1_mes/database/table_handler/bugreportsHandler.php',
+            global:false,
+            data: $.param(formdata),
+            success: function (data) {      
+              if(data==true){
+                
+                $('#bugreportform').trigger('reset');
+                $('#bugreportmod').modal('hide');          
+                
+                iziToast.show({
+                  title: 'SENT:',
+                  message: 'Thank you for your feedback. Have a nice day!',
+                  position: 'topCenter',
+                  titleSize: '20px',
+                  messageSize: '18px',
+                  transitionIn: 'fadeInDown',
+                  transitionOut:	'fadeOutUp',
+                  timeout: 5000
+                });
+              }
+              else{
+                alert(data);          
+              }
+            }
+          });
+        });
          
       });
 
