@@ -35,6 +35,9 @@
 
         <!-- Hover.css -->
         <link rel="stylesheet" type="text/css" href="/1_mes/node_modules/hover.css/css/hover-min.css">
+
+        <!-- IZITOAST Notification -->
+        <link rel="stylesheet" href="/1_mes/node_modules/izitoast/dist/css/iziToast.min.css">
         
         <link rel="stylesheet" href="/1_mes/node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/1_mes/_css/page.css">
@@ -52,7 +55,9 @@
         <!-- Bootstrap Notify -->
         <script src="/1_mes/node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
 
-        <!-- Jquery Hotkeys -->
+        <!-- IZITOAST Notification -->
+        <script src="/1_mes/node_modules/izitoast/dist/js/iziToast.min.js" type="text/javascript"></script>
+
         <!-- Jquery Hotkeys -->
         <script src="/1_mes/node_modules/jquery.hotkeys/jquery.hotkeys.js"></script>
 
@@ -261,7 +266,10 @@
             <!-- Clock -->            
             <span class="navbar-text mr-2" id="clockdate" style="display:block"></span>            
             <span class="navbar-text mr-2" id="clocktime" style="display:block"></span>
-            <span class="navbar-text mr-2" id="con" style="display:block;color:orange;"><i class="fas fa-plug"></i></span>  
+            <span class="navbar-text mr-2" id="con" style="display:block;color:orange;"><i class="fas fa-plug"></i></span>
+            <span class="navbar-text mr-2" id="" style="display:block">
+            <a data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-link p-1 ml-sm-0 mr-1 hvr-icon-wobble-horizontal" href='#' onclick="" id="" style="display:block;" title="Report Bug"><small class='text-muted'><i class="fas fa-bug"></i></small></a>
+            </span>  
              
             <button data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item btn btn-outline-secondary p-1 ml-sm-0 mr-1 hvr-icon-wobble-horizontal" onclick="document.getElementById('id01').style.display='block'" id="lgin" style="display:block;">Login <i class="fas fa-sign-in-alt hvr-icon"></i></button>
             
@@ -721,7 +729,8 @@
         $body.removeClass("loading");
       }, 1000);      
       </script>
-    <script src="/1_mes/_includes/sessioncheck.js"></script>
+    <script src="/1_mes/_includes/sessioncheck.js"></script>    
+    <script src="/1_mes/_includes/notif/rtnotif.js"></script>
     </body>
     
 </html>    

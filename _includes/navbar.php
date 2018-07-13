@@ -37,7 +37,10 @@
     <!-- Clock -->
     <span class="navbar-text mr-2" id="clockdate" style="display:block"></span>            
     <span class="navbar-text mr-2" id="clocktime" style="display:block"></span> 
-    <span class="navbar-text mr-2" id="con" style="display:block;color:orange;"><i class="fas fa-plug"></i></span>      
+    <span class="navbar-text mr-2" id="con" style="display:block;color:orange;"><i class="fas fa-plug"></i></span>
+    <span class="navbar-text mr-2" id="" style="display:block">
+      <a data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-link p-1 ml-sm-0 mr-1 hvr-icon-wobble-horizontal" href='#' onclick="" id="" style="display:block;" title="Report Bug"><small class='text-muted'><i class="fas fa-bug"></i></small></a>
+    </span>      
   
   <button type="button" class="nav-item btn btn-outline-secondary p-1 my-2 my-0 hvr-icon-wobble-horizontal" onclick="" id="lgout" >Logout <i class="fas fa-sign-out-alt hvr-icon"></i></a>
   </div>            

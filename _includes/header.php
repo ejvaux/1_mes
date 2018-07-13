@@ -36,6 +36,9 @@
 <!-- Animate.css -->
 <link rel="stylesheet" type="text/css" href="/1_mes/node_modules/animate.css/animate.min.css">
 
+<!-- IZITOAST Notification -->
+<link rel="stylesheet" href="/1_mes/node_modules/izitoast/dist/css/iziToast.min.css">
+
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <!-- JQuery CSS -->
 <link rel="stylesheet" href="/1_mes/node_modules/select2/dist/css/select2.min.css">
@@ -83,11 +86,15 @@
 <!-- Moment.js -->
 <script src="/1_mes/node_modules/moment/min/moment.min.js"></script>
 
+<!-- IZITOAST Notification -->
+<script src="/1_mes/node_modules/izitoast/dist/js/iziToast.min.js" type="text/javascript"></script>
+
 <!-- Custom CSS link -->
 <link rel="stylesheet" href="/1_mes/_css/page.css">
 <link rel="icon" href="/1_MES/favicon.ico"/>
 
 <script src="/1_mes/_includes/sessioncheck.js"></script>
+<script src="/1_mes/_includes/notif/rtnotif.js"></script>
 
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
