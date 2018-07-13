@@ -22,6 +22,7 @@ function checknotif(){
                     titleSize: '20px',
                     messageSize: '18px',
                     transitionIn: 'fadeInLeft',
+                    transitionOut:	'fadeOutRight',
                     timeout: false
                 });
 
