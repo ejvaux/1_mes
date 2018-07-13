@@ -23,7 +23,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                             LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO 
                                             WHERE (mis_product.MACHINE_CODE LIKE '%$search%' or mis_prod_plan_dl.DATE_ LIKE '%$search%' 
                                             or mis_product.ITEM_CODE LIKE '%$search%' or mis_product.ITEM_NAME LIKE '%$search%' or mis_product.JO_NUM LIKE '%$search%'
-                                            or mis_product.TOOL_NUM LIKE '%$search%' or dmc_item_list.MODEL LIKE '%$search%') 
+                                            or mis_product.TOOL_NUM LIKE '%$search%' or dmc_item_list.MODEL LIKE '%$search%'
+                                            or mis_product.PACKING_NUMBER LIKE '$search' or mis_product.JO_BARCODE) 
                                             AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') 
                                             ORDER BY mis_prod_plan_dl.DATE_ DESC";
                             
@@ -59,7 +60,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                           WHERE (mis_product.MACHINE_CODE LIKE '%$search%' or mis_prod_plan_dl.DATE_ LIKE '%$search%' 
                           or mis_product.ITEM_CODE LIKE '%$search%' or mis_product.JO_NUM LIKE '%$search%' 
                           or mis_product.ITEM_NAME LIKE '%$search%' or mis_product.TOOL_NUM LIKE '%$search%' 
-                          or dmc_item_list.MODEL LIKE '%$search%') 
+                          or dmc_item_list.MODEL LIKE '%$search%'
+                            or mis_product.PACKING_NUMBER LIKE '$search' or mis_product.JO_BARCODE) 
                           AND (mis_prod_plan_dl.DATE_ = '$strfrom') AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')
                           ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
@@ -92,7 +94,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                          WHERE ( mis_product.MACHINE_CODE LIKE '%$search%' or 
                                          mis_prod_plan_dl.DATE_ LIKE '%$search%' or mis_product.ITEM_CODE LIKE '%$search%' 
                                          or mis_product.ITEM_NAME LIKE '%$search%' or mis_product.JO_NUM LIKE '%$search%' 
-                                         or mis_product.TOOL_NUM LIKE '%$search%' or dmc_item_list.MODEL LIKE '%$search%') 
+                                         or mis_product.TOOL_NUM LIKE '%$search%' or dmc_item_list.MODEL LIKE '%$search%'
+                                            or mis_product.PACKING_NUMBER LIKE '$search' or mis_product.JO_BARCODE) 
                                          AND (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') 
                                          AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')
                                          ORDER BY mis_prod_plan_dl.DATE_ DESC";
