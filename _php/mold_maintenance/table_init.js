@@ -118,10 +118,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
               className: 'btn btn-export6 btn-xs py-1 editbt',
               action: function ( e, dt, node, config ) {
                 /* alert('test Edit button'); */
-                var data = dt.row( '.selected' ).data();                                    
-                /* alert( data[0] +" is the ID. " ); */
-                /* alert("||"+data[3]+"||"); */
-                /* document.getElementById("emcl").value = data[3]; */
+                var data = dt.row( '.selected' ).data();                     
                 $.ajax(
                   {
                   method:'post',
@@ -134,10 +131,6 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
                   },
                   success: function(data1) {
                     var val = JSON.parse(data1);
-                    /* alert(data1);
-                    alert(val.MOLD_REPAIR_CONTROL_NO); */
-                    /* alert("||"+val.MACHINE_CODE+"||");
-                    alert("||"+data[3]+"||"); */
 
                     $("#emoldrepairid").val(val.MOLD_REPAIR_ID);
                     $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
@@ -150,9 +143,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
                     $("#edefectname").val(val.DEFECT_NAME);
                     $("#erepairremarks").val(val.REPAIR_REMARKS);
                     $("#emoldstatus").val(val.MOLD_STATUS);
-                    /* alert($("#edefectname").val()); */
                     if($("#edefectname").val()==null){
-                      /* alert('test'); */
                       $("#eothers").prop('checked', true);
                       $("#eothers").trigger("change");
                       $("#edno").val(val.DEFECT_NAME);
@@ -291,9 +282,6 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
 
         $('#Dtable tbody').on( 'click', '#checking', function () {
           var data = tble.row( $(this).parents('tr') ).data();
-          /* var tt =JSON.stringify(data); */
-          /* alert(data[5]); */
-          /* document.getElementById("chkrepaircontrol").value = data[5]; */
   
           $.ajax(
             {
@@ -307,10 +295,6 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
             },
             success: function(data1) {
               var val = JSON.parse(data1);
-              /* alert(data1);
-              alert(val.MOLD_REPAIR_CONTROL_NO); */
-              /* alert("||"+val.MACHINE_CODE+"||");
-              alert("||"+data[3]+"||"); */
               $('#chkmoldrepairid').val(val.MOLD_REPAIR_ID);
               $("#chkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
   
@@ -362,10 +346,6 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           },
           success: function(data1) {
             var val = JSON.parse(data1);
-            /* alert(data1);
-            alert(val.MOLD_REPAIR_CONTROL_NO); */
-            /* alert("||"+val.MACHINE_CODE+"||");
-            alert("||"+data[3]+"||"); */
 
             $("#emoldrepairid").val(val.MOLD_REPAIR_ID);
             $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
@@ -380,9 +360,7 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
             $("#emoldstatus").attr('disabled','disabled');
             $("#hemoldstatus").removeAttr('disabled');
             $("#hemoldstatus").val('WAITING');
-            /* alert($("#edefectname").val()); */
             if($("#edefectname").val()==null){
-              /* alert('test'); */
               $("#eothers").prop('checked', true);
               $("#eothers").trigger("change");
               $("#edno").val(val.DEFECT_NAME);
@@ -442,9 +420,6 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         checkuserauth(dtdt,dtdt);
       });
 
-      /* $('#min, #max').keyup( function() {
-        tble.draw();
-    } ); */   
         /* ____________________________ FUNCTIONS _________________________ */
       }
       
@@ -458,7 +433,6 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
     action: 
     function () {
       
-      /* listchange(); */
       getctrlnumber();
       $("#addmoldrepairA").modal('show');        
       
@@ -639,10 +613,6 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           },
           success: function(data1) {
             var val = JSON.parse(data1);
-            /* alert(data1);
-            alert(val.MOLD_REPAIR_CONTROL_NO); */
-            /* alert("||"+val.MACHINE_CODE+"||");
-            alert("||"+data[3]+"||"); */
             $("#emoldrepairid").val(val.MOLD_REPAIR_ID);
             $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
             $("#emcl").val(val.MOLD_CODE);   
@@ -656,9 +626,7 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
             $("#emoldstatus").attr('disabled','disabled');
             $("#hemoldstatus").removeAttr('disabled');
             $("#hemoldstatus").val('WAITING');
-            /* alert($("#edefectname").val()); */
             if($("#edefectname").val()==null){
-              /* alert('test'); */
               $("#eothers").prop('checked', true);
               $("#eothers").trigger("change");
               $("#edno").val(val.DEFECT_NAME);
@@ -682,7 +650,6 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
         var selectedValue = $(this).val();
-        /* alert(selectedValue); */
         if(selectedValue!="ALL"){
           tble
           .columns( 3 )
@@ -703,14 +670,9 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         var edate = $('#max').val();
 
         if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
-          /* alert('Good'); */
           
           checkuserauth(sdate,edate);          
-        }
-        else{
-          /* alert('No Good'); */
-        }
-        /* alert('test'); */        
+        }           
       });
 
       $('#refresh').on('click',function(){
@@ -765,7 +727,6 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         fixedColumns: {
             heightMatch: 'semiauto'
         },
-        /* "ajax": "/1_mes/_includes/"+Tablesp+".php", */
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST',
@@ -853,9 +814,6 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
 
       $('#Dtable tbody').on( 'click', '#checking', function () {
         var data = tble.row( $(this).parents('tr') ).data();
-        /* var tt =JSON.stringify(data); */
-        /* alert(data[5]); */
-        /* document.getElementById("chkrepaircontrol").value = data[5]; */
 
         if(data[3]=='FOR MOLD TRIAL' || data[3]=='QC APPROVED'){
 
@@ -871,11 +829,6 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
             },
             success: function(data1) {
               var val = JSON.parse(data1);
-              /* alert(data1);
-              alert(val.MOLD_REPAIR_CONTROL_NO); */
-              /* alert("||"+val.MACHINE_CODE+"||");
-              alert("||"+data[3]+"||"); */
-              /* alert(val.MOLD_REPAIR_CONTROL_NO); */
 
               $('#achkmoldrepairid').val(val.MOLD_REPAIR_ID);
               $("#achkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
@@ -927,11 +880,6 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           },
           success: function(data1) {
             var val = JSON.parse(data1);
-            /* alert(data1);
-            alert(val.MOLD_REPAIR_CONTROL_NO); */
-            /* alert("||"+val.MACHINE_CODE+"||");
-            alert("||"+data[3]+"||"); */
-           /* alert(val.MOLD_REPAIR_CONTROL_NO); */
             $("#chkmoldrepairid").val(val.MOLD_REPAIR_ID);
             $("#chkrepaircontrol").val(val.MOLD_REPAIR_CONTROL_NO);
 
@@ -983,10 +931,6 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         },
         success: function(data1) {
           var val = JSON.parse(data1);
-          /* alert(data1);
-          alert(val.MOLD_REPAIR_CONTROL_NO); */
-          /* alert("||"+val.MACHINE_CODE+"||");
-          alert("||"+data[3]+"||"); */
           $("#emoldrepairid").val(val.MOLD_REPAIR_ID);
           $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
           $("#emcl").val(val.MOLD_CODE);   
@@ -1000,9 +944,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           $("#emoldstatus").attr('disabled','disabled');
           $("#hemoldstatus").removeAttr('disabled');
           $("#hemoldstatus").val('WAITING');
-          /* alert($("#edefectname").val()); */
           if($("#edefectname").val()==null){
-            /* alert('test'); */
             $("#eothers").prop('checked', true);
             $("#eothers").trigger("change");
             $("#edno").val(val.DEFECT_NAME);
@@ -1024,9 +966,7 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
     $('#max').val(enddate);
 
       $('#sortstatus').on('change',function(){
-        /* alert('test'); */
         var selectedValue = $(this).val();
-        /* alert(selectedValue); */
         if(selectedValue!="ALL"){
           tble
           .columns( 3 )
@@ -1047,14 +987,9 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         var edate = $('#max').val();
 
         if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
-          /* alert('Good'); */
           
           checkuserauth(sdate,edate);          
-        }
-        else{
-          /* alert('No Good'); */
-        }
-        /* alert('test'); */        
+        } 
       });
 
       $('#refresh').on('click',function(){
@@ -1077,7 +1012,6 @@ $.fn.dataTable.ext.buttons.add3 = {
       alistchange();
       getctrlnumber();    
     $("#addmoldrepair").modal('show');
-    /* alert('TEST');  */       
   }
 };   
 
@@ -1106,7 +1040,6 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         fixedColumns: {
             heightMatch: 'semiauto'
         },
-        /* "ajax": "/1_mes/_includes/"+Tablesp+".php", */
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST',
@@ -1264,10 +1197,6 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         },
         success: function(data1) {
           var val = JSON.parse(data1);
-          /* alert(data1);
-          alert(val.MOLD_REPAIR_CONTROL_NO); */
-          /* alert("||"+val.MACHINE_CODE+"||");
-          alert("||"+data[3]+"||"); */
           $("#emoldrepairid").val(val.MOLD_REPAIR_ID);
           $("#epmcontrol").val(val.MOLD_REPAIR_CONTROL_NO);               
           $("#emcl").val(val.MOLD_CODE);   
@@ -1281,9 +1210,7 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           $("#emoldstatus").attr('disabled','disabled');
           $("#hemoldstatus").removeAttr('disabled');
           $("#hemoldstatus").val('WAITING');
-          /* alert($("#edefectname").val()); */
           if($("#edefectname").val()==null){
-            /* alert('test'); */
             $("#eothers").prop('checked', true);
             $("#eothers").trigger("change");
             $("#edno").val(val.DEFECT_NAME);
@@ -1380,14 +1307,10 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         var edate = $('#max').val();
 
         if(moment(sdate,'YYYY-MM-DD').isValid() && moment(edate,'YYYY-MM-DD').isValid()){
-          /* alert('Good'); */
           
           checkuserauth(sdate,edate);          
         }
-        else{
-          /* alert('No Good'); */
-        }
-        /* alert('test'); */        
+             
       });
 
       $('#refresh').on('click',function(){
@@ -1411,7 +1334,6 @@ $.fn.dataTable.ext.buttons.add4 = {
       alistchange();
       getctrlnumber();    
     $("#addmoldrepair").modal('show');
-    /* alert('TEST');  */    
     
   }
 };   
@@ -1442,7 +1364,6 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         fixedColumns: {
             heightMatch: 'semiauto'
         },
-        /* "ajax": "/1_mes/_includes/"+Tablesp+".php", */
         "ajax": {
           url: "/1_mes/_includes/"+Tablesp+".php",
           type: 'POST',
@@ -1466,10 +1387,6 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
         },
          filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
           ],
-        /* fixedHeader: {
-          header: true,
-          headerOffset: 122            
-          }, */
           /* select: 'single', */
           "columnDefs": [
               {
@@ -1485,10 +1402,7 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
 
                   if ( data[3] != 'FOR MOLD TRIAL') {
                     return "<div class='text-center'><button id='check' class='btn btn-export6 py-0 px-1 m-0'><span style='font-size:.8em;'>Checklist</span></button></div>";
-                  }
-                  /* else if(data[3] == 'ON-GOING'){
-                    return "<div class='text-center'><button id='inspect' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Inspect</span></button></div><div class='text-center'><button id='approve' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Approve</span></button></div>";
-                  } */
+                  }                  
                   else {
                     return "<div class='text-center'><button id='approve' class='btn btn-export5 py-0 px-1 m-0'><span style='font-size:.8em;'>Approve</span></button></div>";
                   }
@@ -1637,7 +1551,6 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       $('#sortstatus').on('change',function(){
         /* alert('test'); */
         var selectedValue = $(this).val();
-        /* alert(selectedValue); */
         if(selectedValue!="ALL"){
           tble
           .columns( 3 )
@@ -1661,11 +1574,7 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           /* alert('Good'); */
           
           checkuserauth(sdate,edate);          
-        }
-        else{
-          /* alert('No Good'); */
-        }
-        /* alert('test'); */        
+        }              
       });
 
       $('#refresh').on('click',function(){
@@ -1833,10 +1742,7 @@ function DisplayTbleHA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
           } ],
           "order": [[ 0, 'desc' ]],        
                                
-      } );
-      
-      
-      
+      } );          
       /* ____________________ FUNCTIONS ___________________ */
 
       tble.on( 'order.dt search.dt processing.dt page.dt', function () {
@@ -1903,9 +1809,7 @@ $.fn.dataTable.ext.buttons.addh = {
   }
 };
 
-
-
-    /* ------------------------------- TH - A ------------------------------------------------  */
+/* ------------------------------- TH - A ------------------------------------------------  */
 
 
 
@@ -2076,9 +1980,7 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
             className: 'btn btn-export6 btn-xs py-1 editbt',
             action: function ( e, dt, node, config ) {
               /* alert('UNAVAILABLE'); */
-              var data = dt.row( '.selected' ).data();                                    
-              /* alert( data[1] +" is the ID. " ); */
-              /* alert("||"+data[3]+"||"); */              
+              var data = dt.row( '.selected' ).data();          
 
               $.ajax(
                 {
@@ -2091,7 +1993,6 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
                 },
                 success: function(data1) {
                   var val = JSON.parse(data1);
-                  /* alert(val.MANUFACTURE_DATE); */
                   $("#emoldfabricationid").val(val.MOLD_FABRICATION_ID);
                   $("#eordernumber").val(val.ORDER_NO);
                   $("#emanufacturedate").val(val.MANUFACTURE_DATE);
@@ -2121,7 +2022,6 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
             
             action: function ( e, dt, node, config ) {               
               
-              /* alert('UNAVAILABLE'); */
               swal({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -2188,12 +2088,7 @@ function DisplayTbleFA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       }
           ],        
           select: 'single',
-            "columnDefs": [
-              /*  {
-              "searchable": false,
-              "orderable": false,
-              "targets": 1
-              }, */
+            "columnDefs": [              
               {
                 "data": null,
                 "searchable": false,
@@ -2433,11 +2328,6 @@ $.fn.dataTable.ext.buttons.addfab1 = {
               ],        
               select: 'single',
                 "columnDefs": [
-                  /*  {
-                  "searchable": false,
-                  "orderable": false,
-                  "targets": 1
-                  }, */
                   {
                     "data": null,
                     "searchable": false,
@@ -2654,9 +2544,7 @@ $.fn.dataTable.ext.buttons.addfab1 = {
                 name: 'edit',        // do not change name
                 className: 'btn btn-export6 btn-xs py-1',
                 action: function ( e, dt, node, config ) {
-                  /* alert('test Edit button'); */
-                  var data = dt.row( '.selected' ).data();                                    
-                  /* alert( data[0] +" is the ID. " ); */
+                  var data = dt.row( '.selected' ).data();  
     
                   $("#operatorid").attr("value",data[0]);
                   $("#eoperatorname").attr("value",data[1]);
