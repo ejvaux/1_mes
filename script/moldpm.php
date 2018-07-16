@@ -42,7 +42,7 @@ while ($row = $result->fetch_assoc()){
         $json[] = $row;
     } 
     
-    $msg = "Checking " . $row['MOLD_CODE'] . "...";
+    $msg = "Checking " . $row['MOLD_CODE'] . " ...";
     echo str_pad($msg, 60) . "\r";
 }
 
@@ -121,8 +121,7 @@ $json = json_decode($json);
             fwrite($myfile, $msg);
             $count2 = $count2 + $counter;
             sleep(1);
-        }        
-        /* sleep(1); */        
+        }          
     }
     if(round($count2)!=100){
         $count2 = 100 - round($count2);
@@ -174,7 +173,6 @@ $json = json_decode($json);
             sleep(1);
         }
         
-        /* sleep(1); */        
     }
 
     if(round($count2)!=100){
@@ -197,7 +195,6 @@ $json = json_decode($json);
     $pm = 0;
 
     foreach($moldshot as $obj){
-        /* echo $obj->MOLD_CODE . " " . $obj->ITEM_CODE . " " . $obj->MOLD_SHOT . "\n"; */
 
         $count = $count + $counter;
         if($count>100){
@@ -221,9 +218,7 @@ $json = json_decode($json);
             fwrite($myfile, $msg);              
             $pm++;
             sleep(1);   
-        }        
-            
-        /* sleep(1); */        
+        }                    
     }
 
     echo $txt = "\r\n" . $pm . " mold/s PM initialized.\r\n\r\n";
