@@ -22,6 +22,10 @@
     <script src="/1_mes/_includes/displaymodal.js"></script>
     <script src="../mis_admin/admintables.js"></script>
     <script src="../mis_admin/adminFunctions.js"></script>
+    <script>
+    var dtdt =moment(Date()).format('YYYY-MM-DD');
+    var dtdt2 = dtdt +" 23:59:59";
+    </script>
   </head>
 
   <body>
@@ -39,7 +43,7 @@
         <div class="col-md-2 border">            
             <ul class="nav flex-column mt-3">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="DisplayTable_brep('bugreport_table','bugreportsp','Bug Reports')">Bug Reports</a>
+                    <a class="nav-link" href="#" onclick="DisplayTable_brep('bugreport_table','bugreportsp','Bug Reports',dtdt,dtdt2)">Bug Reports</a>
                 </li> 
                 <li class="nav-item">
                     <a class="nav-link" href="#" id="anncmnt">Announcement</a>
@@ -75,10 +79,8 @@
       $(document).ready(function(){
          /* Add JS functions below */
          
-         loadmodal('adminmodal');
+        loadmodal('adminmodal');
 
-        var dtdt =moment(Date()).format('YYYY-MM-DD');
-        var dtdt2 = dtdt +" 23:59:59";
         DisplayTable_brep('bugreport_table','bugreportsp','Bug Reports',dtdt,dtdt2);
 
          $('[data-toggle="tooltip"]').tooltip();
