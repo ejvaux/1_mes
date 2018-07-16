@@ -4,13 +4,11 @@ function checknotif(){
     
     $.ajax({
         type: 'POST',
-        url: '/1_mes/database/table_handler/admin/notifHandler.php',
+        url: '/1_mes/_includes/notif/checknotif.php',
         global:false,
-        data:{
-          action: 'select'
-        },
         success: function (data) {
             var val = JSON.parse(data);
+
             if(localStorage.getItem("notif_message") === null){
               localStorage.setItem("notif_message",val['notif_message']);
             }
@@ -18,13 +16,14 @@ function checknotif(){
               if(localStorage.getItem("notif_message") != val['notif_message']){                
 
                 iziToast.show({
-                  class: 'notifi',
-                  title: 'Notice:',
-                  message: val['notif_message'],
-                  image: '/1_mes/_icons/favicon.ico',
-                  transitionIn: 'fadeInLeft',
-                  transitionOut:	'fadeOutRight',
-                  timeout: 20000
+                    title: 'ANNOUNCEMENT:',
+                    message: val['notif_message'],
+                    image: '/1_mes/_icons/favicon.ico',
+                    titleSize: '20px',
+                    messageSize: '18px',
+                    transitionIn: 'fadeInLeft',
+                    transitionOut:	'fadeOutRight',
+                    timeout: false
                 });
 
                 localStorage.setItem("notif_message",val['notif_message']);
