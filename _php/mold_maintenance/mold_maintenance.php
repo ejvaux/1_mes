@@ -23,18 +23,8 @@
     <!-- Custom CSS - END -->
 
     <script>
-
-      $(document).ready(function(){      
-        
-        
-        
-        /* $(document.body).on('change','#mcl',function(){
-            alert('Change Happened');
-            alert('booooooooom');
-          var package = $(this).val();
-          listchange();
-          
-        });   */                         
+      $(document).ready(function(){           
+                                
       });        
     
     </script>              
@@ -122,11 +112,9 @@
 
          /* Add JS functions below */
          
-         /* DisplayTble('mold_repair_table','mold_repairsp','Mold Repair'); */
          loadmodal('moldrepairmodal');
          $('[data-toggle="tooltip"]').tooltip();
          $body.removeClass("loading");
-         /* alert(document.getElementById("clock").innerText); */
                           
       });
       // Add active class to the current button (highlight it)
