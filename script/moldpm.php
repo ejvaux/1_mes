@@ -218,8 +218,7 @@ $json = json_decode($json);
             fwrite($myfile, $msg);              
             $pm++;
             sleep(1);   
-        }        
-            
+        }                    
     }
 
     echo $txt = "\r\n" . $pm . " mold/s PM initialized.\r\n\r\n";
