@@ -73,7 +73,7 @@
           formdata.push({name: 'action', value: 'insert'});
           $.ajax({
             type: 'POST',
-            url: '/1_mes/database/table_handler/bugreportsHandler.php',
+            url: '/1_mes/database/table_handler/admin/bugreportsHandler.php',
             global:false,
             data: $.param(formdata),
             success: function (data) {      
@@ -90,7 +90,8 @@
                   messageSize: '18px',
                   transitionIn: 'fadeInDown',
                   transitionOut:	'fadeOutUp',
-                  timeout: 5000
+                  timeout: 5000,
+                  pauseOnHover: false
                 });
               }
               else{
