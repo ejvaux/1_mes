@@ -611,7 +611,11 @@
             <div class='container-fluid'>
                   <div class='row'>
                     <div class='col'>
-                      <h5>Name: <small><?php echo $_SESSION['text'] ?></small></h5>
+                      <h5>Name: <small><?php
+                      if(isset($_SESSION['text'])){
+                        echo $_SESSION['text'];
+                      }                       
+                        ?></small></h5>
                     </div>
                   </div>
                   <div class='row'>

@@ -1,18 +1,13 @@
 <?php
     session_start();
-    if(!isset($_SESSION['username'])){
-                
-        // not logged in
-        header('Location: /1_mes/');
-        exit();
-    }
+    
     include_once $_SERVER['DOCUMENT_ROOT']."/1_mes/database/db.class.php"; 
  
     $db = new DBQUERY;
     $action = $_POST['action'];
     $col = "notif_id";
     $tb = 'r_notification';
-    $user = $_SESSION['text'];
+    $user =(isset( $_SESSION['text']))? $_SESSION['text']:'';
     $datetime = date('Y-m-d H:i:s');    
 
     $form_data = array(
