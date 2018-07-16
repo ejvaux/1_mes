@@ -29,6 +29,10 @@
           Account
         </a>
       </li>
+
+      <li class="nav-item">
+        <a id="adm" class="nav-link bar hvr-underline-from-center" style="display:none" href="/1_MES/mis_admin/">Admin</a>
+      </li> 
            
     </ul>         
             
@@ -101,7 +105,11 @@
           });
         });
       });
-      
+
+      var auth = '<?php echo $auth;?>';
+      if(auth == 'A'){
+        $('#adm').show();
+      }
       /* if(<?php /* echo $log; */?>){
         $('#hme').show();
         $('#prtl').show();

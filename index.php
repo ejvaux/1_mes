@@ -17,6 +17,11 @@
         else{                
           $log = "true";
             }
+
+        if(isset($_SESSION['auth'])) {
+          $auth = $_SESSION['auth'];
+          $auth = stripslashes($auth);
+        }
                                 
       ?>
            
@@ -256,7 +261,11 @@
                 <a class="nav-link bar hvr-underline-from-center" id="acct_btn" href="#" style="display: none">
                   Account
                 </a>
-              </li>              
+              </li>
+
+              <li class="nav-item">
+                <a id="adm" class="nav-link bar hvr-underline-from-center" style="display:none" href="/1_MES/mis_admin/">Admin</a>
+              </li>           
                 
             </ul>        
                      
@@ -284,6 +293,7 @@
           </nav>
 
           <script>
+          var auth = '<?php echo $auth; ?>';
             if(<?php echo $log;?>){
               $('#hme').show();
               $('#prtl').show();
@@ -292,6 +302,9 @@
               $('#lgout').show();
               $('#lgin').hide();
               $('#reg').hide();
+              if(auth == 'A'){
+                $('#adm').show();
+              }
             }
             else{
               $('#hme').hide();
@@ -301,6 +314,7 @@
               $('#lgout').hide();
               $('#lgin').show();
               $('#reg').show();
+              
             }
           </script>
           

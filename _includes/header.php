@@ -1,8 +1,10 @@
-<?php session_start(); ?>
 
 <!--  Session Check - START --> 
 <?php
+    session_start();
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/logcheck.php";
+    $auth = $_SESSION['auth'];
+    $auth = stripslashes($auth); 
 ?>
 <!--  Session Check - END -->
 
