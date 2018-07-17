@@ -293,7 +293,11 @@
           </nav>
 
           <script>
-          var auth = '<?php echo $auth; ?>';
+          var auth = '<?php
+           if(isset($auth)){
+            echo $auth; 
+           }           
+           ?>';
             if(<?php echo $log;?>){
               $('#hme').show();
               $('#prtl').show();

@@ -6,7 +6,9 @@
     <!-- Header start -->
     <?php
       include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php"; 
-                 
+      if(!($auth == 'A' || $auth == 'C' || $auth == 'DA' || $auth == 'DC' || $auth == 'DG')) {          
+        echo "<script type='text/javascript'>alert('Access Denied!');window.location.href='/1_mes/_php/portal.php';</script>";        
+      }
     ?>  
   <script src="/1_mes/_includes/displaymodal.js"></script>
     <script src="/1_mes/_php/mold_maintenance/table_init.js"></script>
