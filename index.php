@@ -188,7 +188,7 @@
 
     <script>
       $body = $("body");
-      $body.addClass("loading"); 
+      /* $body.addClass("loading");  */
     </script>
 
       <?php
@@ -837,11 +837,11 @@
       <!-- jQuery first, then Popper.js, then Bootstrap JS --> 
       <script src="/1_mes/_includes/shortcuts.js"></script>
       <script src="/1_mes/_includes/authentication.js"></script>
-      <script>
+      <!-- <script>
       setTimeout(function() {
         $body.removeClass("loading");
       }, 1000);      
-      </script>
+      </script> -->
     <script src="/1_mes/_includes/sessioncheck.js"></script>    
     <script src="/1_mes/_includes/notif/rtnotif.js"></script>
     </body>
