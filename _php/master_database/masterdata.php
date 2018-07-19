@@ -4,8 +4,11 @@
     <!-- Required meta tags -->
     
     <!-- Header start -->
-    <?php
-            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php";            
+    <?php           
+      include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php";
+      if(!($auth == 'A' || $auth == 'B')) {          
+        echo "<script type='text/javascript'>alert('Access Denied!');window.location.href='/1_mes/_php/portal.php';</script>";        
+      }
     ?>
     <!-- Header end -->
     
@@ -16,7 +19,11 @@
     <script src="/1_mes/_includes/displaymodal.js"></script>
 
     <script>
-      var usrname = "<?php echo $_SESSION['username']; ?>";
+      var usrname = "<?php
+      if(isset($_SESSION['username'])){
+        echo $_SESSION['username'];
+      }        
+       ?>";
       /* var timer;
 
       $(document).ajaxStart(function () {

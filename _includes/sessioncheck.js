@@ -9,11 +9,42 @@ function checksession(){
         success: function (data) {
           if(data=="success"){
             /* alert("Token correct"); */
+            if(localStorage.getItem("disconnect_message") == 1){                
+  
+              iziToast.info({
+                title: 'NOTICE:',
+                message: 'Reconnected to Database Server',
+                titleSize: '20px',
+                messageSize: '18px',
+                transitionIn: 'fadeInLeft',
+                transitionOut:	'fadeOutRight',
+                timeout: 10000
+            });
+
+              localStorage.setItem("disconnect_message",0);
+            }
+            localStorage.setItem("disconnect_message",0);
             $('#con').css('color', 'green');
             return;
           }
           else if(data=="nothing"){
               /* alert('No Session token'); */
+
+              if(localStorage.getItem("disconnect_message") == 1){                
+  
+                iziToast.info({
+                  title: 'NOTICE:',
+                  message: 'Reconnected to Database Server',
+                  titleSize: '20px',
+                  messageSize: '18px',
+                  transitionIn: 'fadeInLeft',
+                  transitionOut:	'fadeOutRight',
+                  timeout: 10000
+              });
+
+                localStorage.setItem("disconnect_message",0);
+              }
+
               $('#con').css('color', 'green');
               return;
           }
@@ -27,7 +58,28 @@ function checksession(){
           else{
               /* alert(data); */
               /* window.location.href='/1_mes/'; */
+
+              if(localStorage.getItem("disconnect_message") === null){
+                localStorage.setItem("disconnect_message",0);
+              }
+              else{
+                if(localStorage.getItem("disconnect_message") == 0){                
+  
+                  iziToast.error({
+                    title: 'WARNING:',
+                    message: 'Disconnected from Database Server',
+                    titleSize: '20px',
+                    messageSize: '18px',
+                    transitionIn: 'fadeInLeft',
+                    transitionOut:	'fadeOutRight',
+                    timeout: 10000
+                });
+  
+                  localStorage.setItem("disconnect_message",1);
+                }
+              }              
               $('#con').css('color', 'red');
+              
           }        
         }
       });

@@ -17,7 +17,7 @@
                                                 <tr>
                                                   <td><b>SEARCH: &nbsp</b></td>
                                                   <td> 
-                                                    <input onkeypress='showTable("ProdPlanVsResultSMT","SMT","PlanWithResult")' id='search' type='text' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
+                                                    <input onchange='showTable("ProdPlanVsResultSMT","SMT","PlanWithResult")' id='search' type='text' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
                                                     </td>
                                                     <td>&nbsp
                                                     <button type="button" onclick="showTable('ProdPlanVsResultSMT','SMT','PlanWithResult')" class="btn btn-outline-secondary btn-export6 p-0 my-2 my-sm-0">&nbsp<i class="fa fa-search"></i>&nbsp</button>  
@@ -44,7 +44,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <div class="input-group-text" id="btnGroupAddon2">SEARCH:</div>
                                                                     </div>
-                                                                    <input onkeypress='showTable("ProdPlanVsResultSMT","SMT","PlanWithResult")' id='search' type='text' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
+                                                                    <input onchange='showTable("ProdPlanVsResultSMT","SMT","PlanWithResult")' id='search' type='text' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
                                                                     <div class="input-group-append" id="btnGroupAddon3">
                                                                     <button type="button" onclick='showTable("ProdPlanVsResultSMT","SMT","PlanWithResult")' class="btn btn-outline-secondary btn-export6 btn-sm" style="z-index:0">&nbsp<i class="fa fa-search"></i>&nbsp</button>    </div>
                                                                 </div>

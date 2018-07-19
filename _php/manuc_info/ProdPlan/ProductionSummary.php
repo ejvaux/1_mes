@@ -19,12 +19,12 @@
                                                           <div class="col-12">                                                          
                                                             <div class="btn-toolbar mb-1" role="toolbar" aria-label="Toolbar with button groups">
                                                           
-                                                                <div class="input-group btn-sm" style="height: 39px;">
+                                                                <div class="input-group btn-sm" style="height: 43px;">
                                                                     <div class="input-group-prepend">
                                                                         <div class="input-group-text" id="btnGroupAddon2">SEARCH:</div>
                                                                     </div>
                                                                  
-                                                                  <select class="sel2 form-control mydrp" id='search' name='search1' style="height: 39px;" 
+                                                                  <select class="sel2 form-control mydrp" id='search' name='search1'
                                                                   onchange="showTable('ProductionSummary','','production_summary','no')" >
                                                                       <option value=''>--SELECT ITEM--</option>";
                                                                
@@ -46,7 +46,7 @@
                                                                   </select>
                                                                 </div>
 
-                                                                <div class="input-group btn-sm" style="height: 40px;">
+                                                                <div class="input-group btn-sm" style="height: 43px;">
                                                                   <div class="input-group-prepend">
                                                                     <div class="input-group-text" id="btnGroupAddon2">SORT FROM:</div>
                                                                   </div>
@@ -54,14 +54,14 @@
                                                                   onchange="showTable('ProductionSummary','','production_summary','no')" class='form-control' style='font-size: 10px'>
                                                                 </div>
                                                                 
-                                                                <div class="input-group btn-sm" style="height: 40px;">
+                                                                <div class="input-group btn-sm" style="height: 43px;">
                                                                   <div class="input-group-prepend">
                                                                     <div class="input-group-text" id="btnGroupAddon2">SORT TO:</div>
                                                                   </div>
                                                                   <input type='date' id='sortto' name='sortingdateto' onchange="showTable('ProductionSummary','','production_summary','no')" class='form-control' style='font-size: 10px'>
                                                                 </div>
                                                                 
-                                                                <div class="input-group btn-sm" style="height: 40px;">
+                                                                <div class="input-group btn-sm" style="height: 43px;">
 
                                                                  <div class="btn-group btn-group-sm">
                                                                 <button type="button" onclick="loadtbl2('ProductionSummary','','production_summary')" class="btn btn-outline-secondary btn-export6 btn-sm"><i class="fas fa-ban"></i>&nbspCANCEL FILTER</button>    
@@ -69,12 +69,12 @@
                                                                 </div>
 
                                                                      &nbsp&nbsp 
-                                                                     <select class="form-control btn-sm" id="sorttype" style="width: 80px;font-size: 10px;height:33px" onchange="showTable('ProductionSummary','','production_summary','no');filterTableSummary()">
+                                                                     <select class="form-control btn-sm" id="sorttype" style="width: 80px;font-size: 10px;height:36px" onchange="showTable('ProductionSummary','','production_summary','no');filterTableSummary()">
                                                                         <option>DAILY</option>
                                                                         <option>MONTHLY</option>
                                                                       </select>
                                                                       &nbsp
-                                                                      <select id="charttype" class="form-control" onchange="showTable('ProductionSummary','','production_summary','no')" style="width: 100px;font-size: 10px; height:33px" name="chartType">
+                                                                      <select id="charttype" class="form-control" onchange="showTable('ProductionSummary','','production_summary','no')" style="width: 100px;font-size: 10px; height:36px" name="chartType">
                                                                           <option value='bar'>BAR CHART</option>
                                                                           <option value='column'>COLUMN CHART</option>
                                                                           <option value='line' >LINE CHART</option>
@@ -88,7 +88,7 @@
                                                                           $sqlPlanType = " SELECT SAP_DIVISION_CODE, DIVISION_NAME from dmc_division_code";
                                                                           $resultSqlPlanType = $conn->query($sqlPlanType);
                                                                       ?>
-                                                                          <select id="PlanType" class="form-control" onchange="showTable('ProductionSummary','','production_summary','no')" style="width: 100px;font-size: 10px; height:33px" name="PlanType">';
+                                                                          <select id="PlanType" class="form-control" onchange="showTable('ProductionSummary','','production_summary','no')" style="width: 100px;font-size: 10px; height:36px" name="PlanType">';
                                                                       <?php
                                                                           while ($row = $resultSqlPlanType->fetch_assoc()) {
                                                                               # code...
@@ -135,14 +135,3 @@
 </div>
  
  </div>
-
- 
-     
-
-
-
-
-
-
-
-

@@ -6,8 +6,9 @@
     <!-- Header start -->
     <?php
       include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php"; 
-      $auth = $_SESSION['auth'];
-      $auth = stripslashes($auth);            
+      if(!($auth == 'A' || $auth == 'C' || $auth == 'DA' || $auth == 'DC' || $auth == 'DG')) {          
+        echo "<script type='text/javascript'>alert('Access Denied!');window.location.href='/1_mes/_php/portal.php';</script>";        
+      }
     ?>  
   <script src="/1_mes/_includes/displaymodal.js"></script>
     <script src="/1_mes/_php/mold_maintenance/table_init.js"></script>
@@ -24,18 +25,8 @@
     <!-- Custom CSS - END -->
 
     <script>
-
-      $(document).ready(function(){      
-        
-        
-        
-        /* $(document.body).on('change','#mcl',function(){
-            alert('Change Happened');
-            alert('booooooooom');
-          var package = $(this).val();
-          listchange();
-          
-        });   */                         
+      $(document).ready(function(){           
+                                
       });        
     
     </script>              
@@ -123,11 +114,9 @@
 
          /* Add JS functions below */
          
-         /* DisplayTble('mold_repair_table','mold_repairsp','Mold Repair'); */
          loadmodal('moldrepairmodal');
          $('[data-toggle="tooltip"]').tooltip();
          $body.removeClass("loading");
-         /* alert(document.getElementById("clock").innerText); */
                           
       });
       // Add active class to the current button (highlight it)

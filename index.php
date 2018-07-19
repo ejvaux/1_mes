@@ -17,6 +17,11 @@
         else{                
           $log = "true";
             }
+
+        if(isset($_SESSION['auth'])) {
+          $auth = $_SESSION['auth'];
+          $auth = stripslashes($auth);
+        }
                                 
       ?>
            
@@ -35,6 +40,9 @@
 
         <!-- Hover.css -->
         <link rel="stylesheet" type="text/css" href="/1_mes/node_modules/hover.css/css/hover-min.css">
+
+        <!-- IZITOAST Notification -->
+        <link rel="stylesheet" href="/1_mes/node_modules/izitoast/dist/css/iziToast.min.css">
         
         <link rel="stylesheet" href="/1_mes/node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/1_mes/_css/page.css">
@@ -52,7 +60,9 @@
         <!-- Bootstrap Notify -->
         <script src="/1_mes/node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
 
-        <!-- Jquery Hotkeys -->
+        <!-- IZITOAST Notification -->
+        <script src="/1_mes/node_modules/izitoast/dist/js/iziToast.min.js" type="text/javascript"></script>
+
         <!-- Jquery Hotkeys -->
         <script src="/1_mes/node_modules/jquery.hotkeys/jquery.hotkeys.js"></script>
 
@@ -67,7 +77,10 @@
 
           body{
             padding-top: 63px;
-          }                           
+          }
+          .notifi{
+            width: 500px;
+          }                        
           
           /* Full-width input fields */
           /* input[type=text], input[type=password] {
@@ -175,7 +188,7 @@
 
     <script>
       $body = $("body");
-      $body.addClass("loading"); 
+      /* $body.addClass("loading");  */
     </script>
 
       <?php
@@ -211,14 +224,7 @@
         }
       ?>
 
-        <!-- <div class="page-bg"></div> -->        
-        
-        <!-- <div class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="100" data-image-src='http://primatechcorporation.com/wp-content/uploads/2015/02/home_parallax1.jpg' data-natural-width="1400" data-natural-height="900"></div>
-
-        <div class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="100" data-image-src='http://primatechcorporation.com/wp-content/uploads/2016/08/home_parallax2.jpg' data-natural-width="1400" data-natural-height="900"></div>
-
-        <div class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="100" data-image-src='http://primatechcorporation.com/wp-content/uploads/2015/02/home_parallax5-1024x594.jpg' data-natural-width="1400" data-natural-height="900"></div> -->
-
+        <!-- <div class="page-bg"></div> -->                      
         
           <!-- Navbar -->
           <nav class="navbar navbar-brdr navbar-expand-xl navbar-light bg-white fixed-top m-0 px-2 pb-1 pt-0">
@@ -248,7 +254,11 @@
                 <a class="nav-link bar hvr-underline-from-center" id="acct_btn" href="#" style="display: none">
                   Account
                 </a>
-              </li>              
+              </li>
+
+              <li class="nav-item">
+                <a id="adm" class="nav-link bar hvr-underline-from-center" style="display:none" href="/1_MES/mis_admin/">Admin</a>
+              </li>           
                 
             </ul>        
                      
@@ -261,7 +271,10 @@
             <!-- Clock -->            
             <span class="navbar-text mr-2" id="clockdate" style="display:block"></span>            
             <span class="navbar-text mr-2" id="clocktime" style="display:block"></span>
-            <span class="navbar-text mr-2" id="con" style="display:block;color:orange;"><i class="fas fa-plug"></i></span>  
+            <span class="navbar-text mr-2" id="con" style="display:block;color:orange;" title='Database Connection'><i class="fas fa-plug"></i></span>
+            <span class="navbar-text mr-2" id="" style="display:block">
+            <a data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-link p-1 ml-sm-0 mr-1 hvr-icon-wobble-horizontal" href='#' onclick="" id="b_report" style="display:block;" title="Report Bug"><small class='text-muted'><i class="fas fa-bug"></i></small></a>
+            </span>  
              
             <button data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-item btn btn-outline-secondary p-1 ml-sm-0 mr-1 hvr-icon-wobble-horizontal" onclick="document.getElementById('id01').style.display='block'" id="lgin" style="display:block;">Login <i class="fas fa-sign-in-alt hvr-icon"></i></button>
             
@@ -273,6 +286,11 @@
           </nav>
 
           <script>
+          var auth = '<?php
+           if(isset($auth)){
+            echo $auth; 
+           }           
+           ?>';
             if(<?php echo $log;?>){
               $('#hme').show();
               $('#prtl').show();
@@ -281,6 +299,9 @@
               $('#lgout').show();
               $('#lgin').hide();
               $('#reg').hide();
+              if(auth == 'A'){
+                $('#adm').show();
+              }
             }
             else{
               $('#hme').hide();
@@ -290,6 +311,7 @@
               $('#lgout').hide();
               $('#lgin').show();
               $('#reg').show();
+              
             }
           </script>
           
@@ -583,6 +605,57 @@
       </div>
     </div> <!-- End register modal -->
 
+
+    <!-- Bug Report Modal -->
+
+    <div class="modal fade in" tabindex="-1" role="dialog" id='bugreportmod' data-backdrop="false">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Bug Report</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form id='bugreportform'>
+          <div class="modal-body">
+            <div class='container-fluid'>
+                  <div class='row'>
+                    <div class='col'>
+                      <h5>Name: <small><?php
+                      if(isset($_SESSION['text'])){
+                        echo $_SESSION['text'];
+                      }                       
+                        ?></small></h5>
+                    </div>
+                  </div>
+                  <div class='row'>
+                    <div class='col'>
+                      <h5>Message:</h5>
+                    </div>
+                  </div>
+                  <div class='row'>
+                    <div class='col'>
+                      <textarea name='r_message' id='r_message' rows="4" cols="50" maxlength="1000" placeholder="Enter message here......"></textarea>
+                    </div>
+                  </div>
+                  <div class='row'>
+                    <div class='col mt-0 pt-0'>
+                      <small class='text-muted' id='char_length'>1000 character/s left.</small>
+                    </div>
+                  </div>
+            </div>
+            
+          </div>
+          <div class="modal-footer">            
+            <button type="submit" class="btn btn-primary">Send Report</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div> <!-- END Bug Report Modal -->
+
     <!-- Optional JavaScript -->
     <script type="text/javascript">    
       
@@ -616,7 +689,7 @@
       $(document).ready(function(){
 
         $('#acct_btn').on('click', function(){
-            $('#acct').modal('show');             
+          $('#acct').modal('show');             
         });
 
         $('#reg').on('click', function(){
@@ -624,9 +697,54 @@
         });
 
         $('#bttn').on('click', function(){
-            $('.navbar-collapse').collapse('hide');              
+          $('.navbar-collapse').collapse('hide');              
         });
-        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#b_report').on('click', function(){
+          $('#bugreportmod').modal('show');             
+        });
+
+        $('[data-toggle="tooltip"]').tooltip();        
+
+        $('#r_message').on('keyup', function(){
+          $('#char_length').html(1000 - $('#r_message').val().length + ' character/s left.');
+        });
+
+        $('#bugreportmod').on('submit','#bugreportform', function (e) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          /* alert($('#r_message').val()); */
+          var formdata =  $('#bugreportform').serializeArray();
+          formdata.push({name: 'action', value: 'insert'});
+          $.ajax({
+            type: 'POST',
+            url: '/1_mes/database/table_handler/admin/bugreportsHandler.php',
+            global:false,
+            data: $.param(formdata),
+            success: function (data) {      
+              if(data==true){
+                
+                $('#bugreportform').trigger('reset');
+                $('#bugreportmod').modal('hide');          
+                
+                iziToast.show({
+                  title: 'SENT:',
+                  message: 'Thank you for your feedback. Have a nice day!',
+                  position: 'topCenter',
+                  titleSize: '20px',
+                  messageSize: '18px',
+                  transitionIn: 'fadeInDown',
+                  transitionOut:	'fadeOutUp',
+                  timeout: 5000,
+                  pauseOnHover: false
+                });
+              }
+              else{
+                alert(data);          
+              }
+            }
+          });
+        });
          
       });
 
@@ -716,12 +834,13 @@
       <!-- jQuery first, then Popper.js, then Bootstrap JS --> 
       <script src="/1_mes/_includes/shortcuts.js"></script>
       <script src="/1_mes/_includes/authentication.js"></script>
-      <script>
+      <!-- <script>
       setTimeout(function() {
         $body.removeClass("loading");
       }, 1000);      
-      </script>
-    <script src="/1_mes/_includes/sessioncheck.js"></script>
+      </script> -->
+    <script src="/1_mes/_includes/sessioncheck.js"></script>    
+    <script src="/1_mes/_includes/notif/rtnotif.js"></script>
     </body>
     
 </html>    

@@ -45,7 +45,7 @@
                                                                     <div class="input-group-prepend">
                                                                         <div class="input-group-text" id="btnGroupAddon2">SEARCH:</div>
                                                                     </div>
-                                                                    <input onkeypress='showTable("ProdResultMOLD","MOLD","Result")' id='search' type='text' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
+                                                                    <input onchange='showTable("ProdResultMOLD","MOLD","Result")' id='search' type='text' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
                                                                     <div class="input-group-append" id="btnGroupAddon3">
                                                                     <button type="button" onclick='showTable("ProdResultMOLD","MOLD","Result")' class="btn btn-outline-secondary btn-export6 btn-sm" style="z-index:0">&nbsp<i class="fa fa-search"></i>&nbsp</button>    </div>
                                                                 </div>

@@ -3,6 +3,13 @@ function hide(val){
         
     }
 
+    else if(val=="B"){
+        $('#2').addClass("disabled");
+        $('#3').addClass("disabled");
+        $('#4').addClass("disabled");
+        $('#5').addClass("disabled");
+        $('#6').addClass("disabled");
+    }
 
     else if(val=="DA"|| val=="DC" || val=="DG"){
 
@@ -37,23 +44,13 @@ function hide(val){
         $('#6').addClass("disabled"); */
 
     }
-    else if(val==""){
-        
+    else{        
         $('#1').addClass("disabled");
         $('#2').addClass("disabled");
         $('#3').addClass("disabled");
         $('#4').addClass("disabled");
         $('#5').addClass("disabled");
         $('#6').addClass("disabled");
-
-    }
-    else{
-        /* alert('Authorization Error! Please contact the system admin.'); */
-        $('#1').addClass("disabled");
-        $('#4').addClass("disabled");
-        /* $('#3').addClass("disabled");
-        $('#5').addClass("disabled");
-        $('#6').addClass("disabled"); */
-    }
+    }    
 
 }
