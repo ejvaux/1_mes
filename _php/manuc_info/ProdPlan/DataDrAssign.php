@@ -16,7 +16,10 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                   /*        $sql="SELECT * from MIS_PROD_PLAN_DL WHERE JOB_ORDER_NO LIKE '%$str%' or CUSTOMER_CODE LIKE '%$str%' or CUSTOMER_NAME LIKE '%$str%' or ITEM_CODE LIKE '%$str%' or ITEM_NAME LIKE '%$str%' or TOOL_NUMBER LIKE '%$str%' or MACHINE_CODE LIKE '%$str%' or mACHINE_MAKER LIKE '%$str%' or TONNAGE LIKE '%$str%' or MACHINE_GROUP LIKE '%$str%' or PRIORITY LIKE '%$str%' order by DATE_ DESC"; */
                             if($search!="")
                             {
-                                $sql="SELECT * FROM mis_dr_assigned WHERE (dr_number LIKE '%$search%' OR group_name LIKE '%$search%')";
+                                $sql="SELECT * FROM mis_dr_assigned WHERE 
+                                (dr_number LIKE '%$search%' OR group_name LIKE '%$search%' OR packing_number LIKE '%$search%'
+                                OR lot_number LIKE '%$search%' OR jo_number LIKE '%$search%' OR item_code LIKE '%$search%'
+                                OR item_name LIKE '%$search%')";
                                 if($drdatatype=="UNASSIGNED DR")
                                 {
                                     $sql.=" AND (dr_number IS NULL OR dr_number ='') ";
@@ -32,16 +35,17 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             else
                             {
                                 $datetoday=date("Y-m-d");
-                             $sql="SELECT * FROM mis_dr_assigned WHERE (dr_date = '$datetoday')";
+                                #(dr_date = '$datetoday')
+                             $sql="SELECT * FROM mis_dr_assigned ";
                                     if($drdatatype=="UNASSIGNED DR")
                                     {
-                                        $sql.="  AND dr_number IS NULL OR dr_number =''";
+                                        $sql.="  WHERE  dr_number IS NULL OR dr_number =''";
                                     }
                                     else if ($drdatatype=="ASSIGNED DR")
                                     {
-                                        $sql.=" AND group_name IS NULL OR group_name ='' ";      
+                                        $sql.=" WHERE  group_name IS NULL OR group_name ='' ";      
                                     }
-                             $sql.="GROUP BY dr_number, group_name";
+                             $sql.="GROUP BY dr_number, group_name ORDER BY Date_Inserted DESC  LIMIT 1000";
 
                             }
                   
@@ -55,7 +59,10 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                         {
 
                             # code...
-                            $sql="SELECT * FROM mis_dr_assigned WHERE (dr_number LIKE '%$search%' OR group_name LIKE '%$search%')
+                            $sql="SELECT * FROM mis_dr_assigned WHERE (dr_number LIKE '%$search%' OR group_name LIKE '%$search%'
+                            OR packing_number LIKE '%$search%'
+                                OR lot_number LIKE '%$search%' OR jo_number LIKE '%$search%' OR item_code LIKE '%$search%'
+                                OR item_name LIKE '%$search%')
                             AND (dr_date = '$strfrom')";
                             if($drdatatype=="UNASSIGNED DR")
                             {
@@ -91,7 +98,10 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                         {
                             # code...
 
-                            $sql="SELECT * FROM mis_dr_assigned WHERE (dr_number LIKE '%$search%' OR group_name LIKE '%$search%')
+                            $sql="SELECT * FROM mis_dr_assigned WHERE (dr_number LIKE '%$search%' OR group_name LIKE '%$search%'
+                            OR packing_number LIKE '%$search%'
+                                OR lot_number LIKE '%$search%' OR jo_number LIKE '%$search%' OR item_code LIKE '%$search%'
+                                OR item_name LIKE '%$search%')
                             AND (dr_date BETWEEN '$strfrom' AND '$strto')";
                             if($drdatatype=="UNASSIGNED DR")
                             {
