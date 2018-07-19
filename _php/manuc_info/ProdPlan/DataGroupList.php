@@ -7,14 +7,15 @@ $d2 = $_POST['daterange2'];
 
 if($search!="")
 {
-    $sql = "SELECT * FROM mis_dr_assigned WHERE (dr_number = '') AND (group_name LIKE '%$search%' OR packing_number LIKE '%$search%'
+    $sql = "SELECT * FROM mis_dr_assigned WHERE (dr_number IS null) AND (group_name LIKE '%$search%' OR packing_number LIKE '%$search%'
     OR lot_number LIKE '%$search%' OR jo_number LIKE '%$search%' OR item_code LIKE '%$search%' OR machine_code LIKE '%$search%') ORDER BY dr_assigned_id DESC";
 
 }
 else
 {
-   
-    if($d1!="")
+    $sql = "SELECT * FROM mis_dr_assigned WHERE (dr_number = '' OR dr_number IS NULL)  ORDER BY dr_assigned_id DESC";
+
+   /*  if($d1!="")
     {
         if($d2!=""){
             $sql = "SELECT * FROM mis_dr_assigned WHERE (dr_number = '' OR dr_number IS NULL) AND (Date_Inserted BETWEEN '$d1' AND '$d2')   ORDER BY dr_assigned_id DESC";
@@ -29,7 +30,7 @@ else
         $datenow=date("Y-m-d");
            $sql = "SELECT * FROM mis_dr_assigned WHERE (dr_number = '' OR dr_number IS NULL) AND (Date_Inserted = '$datenow')   ORDER BY dr_assigned_id DESC";
 
-    }
+    } */
 
 
  }
