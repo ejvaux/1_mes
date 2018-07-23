@@ -24,7 +24,7 @@ function checknotif(){
                   image: '/1_mes/_icons/favicon.ico',
                   transitionIn: 'fadeInLeft',
                   transitionOut:	'fadeOutRight',
-                  timeout: 20000
+                  timeout: false
                 });
 
                 localStorage.setItem("notif_message",val['notif_message']);

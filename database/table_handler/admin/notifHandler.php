@@ -11,7 +11,7 @@
     $datetime = date('Y-m-d H:i:s');    
 
     $form_data = array(
-        'notif_message'=>(isset($_POST['notif_message']))?$_POST['notif_message']:''
+        'notif_message'=>(isset($_POST['notif_message']))?$_POST['notif_message'].'<br><br>~ '.$user:''
     );
 
     function select(){
