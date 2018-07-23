@@ -278,7 +278,7 @@ $(document).on('change','#ICode', function() {
 
     <!-- Contents - END ==============================================          -->
 
-    <div class="mdl" style=" z-index: 5000"><!-- Place at bottom of page --></div>
+    <div class="mdl"><!-- Place at bottom of page --></div>
 
 <!-- Optional JavaScript -->
 
