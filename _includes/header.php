@@ -41,6 +41,9 @@
 <!-- IZITOAST Notification -->
 <link rel="stylesheet" href="/1_mes/node_modules/izitoast/dist/css/iziToast.min.css">
 
+<!-- Nprogress -->
+<link rel='stylesheet' href='/1_mes/node_modules/nprogress/nprogress.css'/>
+
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <!-- JQuery CSS -->
 <link rel="stylesheet" href="/1_mes/node_modules/select2/dist/css/select2.min.css">
@@ -91,13 +94,15 @@
 <!-- IZITOAST Notification -->
 <script src="/1_mes/node_modules/izitoast/dist/js/iziToast.min.js" type="text/javascript"></script>
 
+<!-- Nprogress -->
+<script src='/1_mes/node_modules/nprogress/nprogress.js'></script>
+
 <!-- Custom CSS link -->
 <link rel="stylesheet" href="/1_mes/_css/page.css">
 <link rel="icon" href="/1_MES/favicon.ico"/>
 
 <script src="/1_mes/_includes/sessioncheck.js"></script>
 <script src="/1_mes/_includes/notif/rtnotif.js"></script>
-
 
 <!-- Always put this on the last line - BY: JEFF -->
 

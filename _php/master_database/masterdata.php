@@ -46,6 +46,11 @@
   </head>
 
   <body>
+  <script>
+    NProgress.configure({  showSpinner: false });    
+    NProgress.start();          
+    NProgress.inc();
+  </script>
     
     <!-- Navbar - START -->
         <?php
@@ -107,7 +112,7 @@
          DisplayTable1('mold_table','moldsp','Mold Management');
          loadmodal('masterdatamodal');       
          $body.removeClass("loading");         
-
+         NProgress.done();
          // Add active class to the current button (highlight it)
         var header = document.getElementById("tb");
         var btns = header.getElementsByClassName("tbl");

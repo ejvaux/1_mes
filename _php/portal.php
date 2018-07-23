@@ -125,45 +125,15 @@
         
         </style>
 
-        <script>
-/* 
-            function chargebattery() {
-            
-            setTimeout(function () {
-                $('#1').show();
-                $('#1').addClass('animated rubberBand');
-                }, 500);
-            setTimeout(function () {
-                $('#2').show();
-                $('#2').addClass('animated rubberBand');
-                }, 750);
-            setTimeout(function () {
-                $('#3').show();
-                $('#3').addClass('animated rubberBand');
-                }, 1000);
-            setTimeout(function () {
-                $('#4').show();
-                $('#4').addClass('animated rubberBand');
-                }, 1250);
-            setTimeout(function () {
-                $('#5').show();
-                $('#5').addClass('animated rubberBand');
-                }, 1500);
-            setTimeout(function () {
-                $('#6').show();
-                $('#6').addClass('animated rubberBand');
-                }, 1750);
-            }
-            chargebattery(); */
-        
-        
-        
-        </script>
-                       
-    </head>
-    
+    </head>    
         
     <body>
+
+    <script>
+        NProgress.configure({  showSpinner: false });    
+        NProgress.start();          
+        NProgress.inc();
+    </script>
             
     <div class="page-bg"></div>
         
@@ -313,7 +283,7 @@
         clearTimeout(timer);
         $body.removeClass("loading");
     })
-
+    NProgress.done();
     </script>
     </body>
 

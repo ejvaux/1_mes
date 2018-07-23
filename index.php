@@ -43,6 +43,9 @@
 
         <!-- IZITOAST Notification -->
         <link rel="stylesheet" href="/1_mes/node_modules/izitoast/dist/css/iziToast.min.css">
+
+        <!-- Nprogress -->
+        <link rel='stylesheet' href='/1_mes/node_modules/nprogress/nprogress.css'/>
         
         <link rel="stylesheet" href="/1_mes/node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/1_mes/_css/page.css">
@@ -65,13 +68,16 @@
 
         <!-- Jquery Hotkeys -->
         <script src="/1_mes/node_modules/jquery.hotkeys/jquery.hotkeys.js"></script>
+        
+        <!-- Nprogress -->
+        <script src='/1_mes/node_modules/nprogress/nprogress.js'></script>
 
         <script src="/1_mes/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
         <script src="/1_mes/node_modules/jquery-parallax.js/parallax.js"></script>
 
         
-        <script src="/1_mes/_includes/clock.js"></script>            
+        <script src="/1_mes/_includes/clock.js"></script>                 
 
         <style>
 
@@ -184,11 +190,17 @@
     </head>
     
     <body>
+    <script>
+      NProgress.configure({  showSpinner: false });    
+      NProgress.start();          
+      NProgress.inc();
+    </script>
     <div class="mdl" style=" z-index: 5000"><!-- Place at bottom of page --></div>
 
     <script>
       $body = $("body");
       /* $body.addClass("loading");  */
+
     </script>
 
       <?php
@@ -332,7 +344,7 @@
         <div class="row">
             
             <div class="col"></div>
-            <div class="col-md-5 text-center">
+            <div class="col-md-10 text-center">
 
               <div class="card-deck mb-3 text-center">
                 <!-- <div class="card mb-4 box-shadow">
@@ -363,6 +375,21 @@
                       <li>Help center access</li>
                     </ul>  -->
                     <a type="button" class="btn btn-lg btn-block btn-primary" href="/1_ams/public/">Go to</a>                 
+                  </div>
+                </div>
+                <div class="card mb-4 box-shadow">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">TMS</h4>
+                  </div>
+                  <div class="card-body">
+                    <h1 class="card-title pricing-card-title">TICKET MANAGEMENT SYSTEM</h1>
+                    <!-- <ul class="list-unstyled mt-3 mb-4">
+                      <li>20 users included</li>
+                      <li>10 GB of storage</li>
+                      <li>Priority email support</li>
+                      <li>Help center access</li>
+                    </ul>  -->
+                    <a type="button" class="btn btn-lg btn-block btn-primary" href="/1_tms/">Go to</a>                 
                   </div>
                 </div>
                 <!-- <div class="card mb-4 box-shadow">
@@ -686,7 +713,7 @@
           $body.removeClass("loading");
       }) */
 
-      $(document).ready(function(){
+      $(document).ready(function(){        
 
         $('#acct_btn').on('click', function(){
           $('#acct').modal('show');             
@@ -834,11 +861,9 @@
       <!-- jQuery first, then Popper.js, then Bootstrap JS --> 
       <script src="/1_mes/_includes/shortcuts.js"></script>
       <script src="/1_mes/_includes/authentication.js"></script>
-      <!-- <script>
-      setTimeout(function() {
-        $body.removeClass("loading");
-      }, 1000);      
-      </script> -->
+      <script>
+        NProgress.done();            
+      </script>
     <script src="/1_mes/_includes/sessioncheck.js"></script>    
     <script src="/1_mes/_includes/notif/rtnotif.js"></script>
     </body>

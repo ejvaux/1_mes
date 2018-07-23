@@ -35,6 +35,9 @@
     <!-- Navbar - END -->
     <script>
     var username = '<?php echo $_SESSION["text"];?>';
+    NProgress.configure({  showSpinner: false });    
+    NProgress.start();          
+    NProgress.inc();
     </script>
     <!-- Page specific Navbar START-->
 

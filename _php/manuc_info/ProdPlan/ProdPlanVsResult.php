@@ -102,6 +102,11 @@ $(document).on('change','#ICode', function() {
 </head>
 
 <body style="margin-top: -24px; overflow-x: hidden; overflow-y: visible">
+<script>
+  NProgress.configure({  showSpinner: false });    
+  NProgress.start();          
+  NProgress.inc();
+</script>
 
 
    <?php

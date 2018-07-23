@@ -35,6 +35,11 @@
   </head>
 
   <body>
+  <script>
+    NProgress.configure({  showSpinner: false });    
+    NProgress.start();          
+    NProgress.inc();
+  </script>
     
     <!-- Navbar - START -->
         <?php
@@ -117,7 +122,7 @@
          loadmodal('moldrepairmodal');
          $('[data-toggle="tooltip"]').tooltip();
          $body.removeClass("loading");
-                          
+         NProgress.done();
       });
       // Add active class to the current button (highlight it)
       var header = document.getElementById("tb");
