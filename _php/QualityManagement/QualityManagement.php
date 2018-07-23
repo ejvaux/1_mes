@@ -128,5 +128,8 @@
         });
 
       </script>
+      <script>
+        NProgress.done();            
+      </script>
     </body>
   </html>
