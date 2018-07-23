@@ -86,7 +86,7 @@
           }
           .notifi{
             width: 500px;
-          }                        
+          }                            
           
           /* Full-width input fields */
           /* input[type=text], input[type=password] {
@@ -189,19 +189,13 @@
 
     </head>
     
-    <body>
-    <script>
-      NProgress.configure({  showSpinner: false });    
-      NProgress.start();          
-      NProgress.inc();
-    </script>
-    <div class="mdl" style=" z-index: 5000"><!-- Place at bottom of page --></div>
-
-    <script>
+    <body>    
+    <script>      
       $body = $("body");
-      /* $body.addClass("loading");  */
-
+      $body.addClass("loading"); 
     </script>
+    
+    <div class="mdl" style="z-index:5000"><!-- Place at bottom of page --></div>
 
       <?php
         if(isset($_SESSION['log_alert'])) {
@@ -699,8 +693,8 @@
       }
 
       $(document).on({  
-          ajaxStart: function() { $body.addClass("loading");   },
-          ajaxStop: function() { $body.removeClass("loading"); }    
+          ajaxStart: function() { /* $body.addClass("loading"); */ $('.mdl').show();  },   
+          ajaxStop: function() { /* $body.removeClass("loading"); */$('.mdl').fadeOut(700); }     
       });
 
       /* var timer;
@@ -862,7 +856,7 @@
       <script src="/1_mes/_includes/shortcuts.js"></script>
       <script src="/1_mes/_includes/authentication.js"></script>
       <script>
-        NProgress.done();            
+        $('.mdl').fadeOut(1000);
       </script>
     <script src="/1_mes/_includes/sessioncheck.js"></script>    
     <script src="/1_mes/_includes/notif/rtnotif.js"></script>
