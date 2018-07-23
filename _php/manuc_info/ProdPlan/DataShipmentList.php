@@ -30,7 +30,7 @@ OR mis_product.SHIP_STATUS LIKE '%$search%') ";
     if ($shipstat!="ALL DATA") {
         if ($shipstat == "PENDING") {
             $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
-        } else {
+        } else  {
             $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
         }
     }

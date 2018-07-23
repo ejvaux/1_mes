@@ -615,10 +615,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     movableColumns:true,
     groupBy:"LOT_NUMBER",
     groupHeader:function(value, count, data, group){
-        //value - the value all members of this group share
-        //count - the number of rows in this group
-        //data - an array of all the row data objects in this group
-        //group - the group component for the group
+        //value - the value all members of this group share group this of members all value the
+        //count - the number of rows in this group this in rows of number the
+        //data - an array of all the row data objects in this group this in objects data row the all of array an
+        //group - the group component for the group the for component group the
         if(count > 1)
         {
             return "LOT NUMBER: "+ value + "<span style='margin-left:10px;'>(" + count + " items) </span>";

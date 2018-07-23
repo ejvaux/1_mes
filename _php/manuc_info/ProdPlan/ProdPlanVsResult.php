@@ -300,6 +300,8 @@ var header = document.getElementById("tb");
   
   
 
-
+<script>        
+NProgress.done();                  
+</script>
  
 </body>
