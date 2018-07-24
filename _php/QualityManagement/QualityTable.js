@@ -277,9 +277,9 @@ function filterJudgement() {
   var x = document.getElementById("filterText");
   var y = x.options[x.selectedIndex].value;
   if (y == "ALL") {
-    var z = 'SELECT * FROM qmd_lot_create GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100;';
+    var z = 'SELECT * FROM qmd_lot_create GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;';
   } else {
-    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100;';
+    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;';
   }
   /* var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + ' AND DATE(NOW()) = DATE(PROD_DATE)";'; */
   $.ajax({
@@ -299,9 +299,9 @@ function filterText() {
   var x = document.getElementById("filterText");
   var y = x.options[x.selectedIndex].value;
   if (y == "ALL") {
-    var z = 'SELECT * FROM qmd_lot_create ORDER BY PROD_DATE DESC LIMIT 100;';
+    var z = 'SELECT * FROM qmd_lot_create ORDER BY PROD_DATE DESC;';
   } else {
-    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC LIMIT 100;';
+    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC;';
   }
   /* var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + x + ' AND DATE(NOW()) = DATE(PROD_DATE)";'; */
   $.ajax({
@@ -323,9 +323,9 @@ function searchLot() {
   var search = searchText.value;
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
   if (y == "ALL") {
-    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100;";
+    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
   } else {
-    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND LOT_JUDGEMENT = '" + y + "' GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100;";
+    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND LOT_JUDGEMENT = '" + y + "' GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
   }
   $.ajax({
     method: 'post',
@@ -344,9 +344,9 @@ function ClearSearchLot() {
   var x = document.getElementById("filterText");
   var y = x.options[x.selectedIndex].value;
   if (y == "ALL") {
-    var z = 'SELECT * FROM qmd_lot_create GROUP BY LOT_NUMBER ORDER BY LOT_JUDGEMENT DESC LIMIT 100;';
+    var z = 'SELECT * FROM qmd_lot_create GROUP BY LOT_NUMBER ORDER BY LOT_JUDGEMENT DESC;';
   } else {
-    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100;';
+    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;';
   }
   /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
   $.ajax({
