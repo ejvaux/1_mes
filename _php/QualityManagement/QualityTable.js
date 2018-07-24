@@ -299,9 +299,9 @@ function filterText() {
   var x = document.getElementById("filterText");
   var y = x.options[x.selectedIndex].value;
   if (y == "ALL") {
-    var z = 'SELECT * FROM qmd_lot_create ORDER BY PROD_DATE DESC LIMIT 100;';
+    var z = 'SELECT * FROM qmd_lot_create GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100;';
   } else {
-    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC LIMIT 100;';
+    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100;';
   }
   /* var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + x + ' AND DATE(NOW()) = DATE(PROD_DATE)";'; */
   $.ajax({
