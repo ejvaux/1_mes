@@ -338,7 +338,7 @@
         <div class="row">
             
             <div class="col"></div>
-            <div class="col-md-10 text-center">
+            <div class="col-md-5 text-center">
 
               <div class="card-deck mb-3 text-center">
                 <!-- <div class="card mb-4 box-shadow">
@@ -356,34 +356,28 @@
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
                   </div>
                 </div> -->
-                <div class="card mb-4 box-shadow">
+                <!-- <div class="card mb-4 box-shadow">
                   <div class="card-header">
                     <h4 class="my-0 font-weight-normal">AMS</h4>
                   </div>
                   <div class="card-body">
                     <h1 class="card-title pricing-card-title">APPROVAL MANAGEMENT SYSTEM</h1>
-                    <!-- <ul class="list-unstyled mt-3 mb-4">
+                    <ul class="list-unstyled mt-3 mb-4">
                       <li>20 users included</li>
                       <li>10 GB of storage</li>
                       <li>Priority email support</li>
                       <li>Help center access</li>
-                    </ul>  -->
+                    </ul> 
                     <a type="button" class="btn btn-lg btn-block btn-primary" href="/1_ams/public/">Go to</a>                 
                   </div>
-                </div>
+                </div> -->
                 <div class="card mb-4 box-shadow">
                   <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">TMS</h4>
+                    <h4 class="my-0">ATMS</h4>
                   </div>
                   <div class="card-body">
-                    <h1 class="card-title pricing-card-title">TICKET MANAGEMENT SYSTEM</h1>
-                    <!-- <ul class="list-unstyled mt-3 mb-4">
-                      <li>20 users included</li>
-                      <li>10 GB of storage</li>
-                      <li>Priority email support</li>
-                      <li>Help center access</li>
-                    </ul>  -->
-                    <a type="button" class="btn btn-lg btn-block btn-primary" href="/1_tms/">Go to</a>                 
+                    <h1 class="card-title">Approval and Ticket Management System</h1>                    
+                    <a type="button" class="btn btn-lg btn-block btn-primary" href="/1_atms/">Go to</a>                 
                   </div>
                 </div>
                 <!-- <div class="card mb-4 box-shadow">
