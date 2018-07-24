@@ -4,7 +4,7 @@
 
                 if(!isset($_POST['sql'])){
                   
-                $sql = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ='PENDING' GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC";
+                $sql = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ='PENDING' GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100";
                 
                 }
                 else{
