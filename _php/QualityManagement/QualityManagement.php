@@ -35,6 +35,9 @@
     <!-- Navbar - END -->
     <script>
     var username = '<?php echo $_SESSION["text"];?>';
+    NProgress.configure({  showSpinner: false });    
+    NProgress.start();          
+    NProgress.inc();
     </script>
     <!-- Page specific Navbar START-->
 
@@ -85,7 +88,7 @@
 
     <!-- Contents - END ==============================================          -->
 
-    <div class="mdl"><!-- Place at bottom of page --></div>
+    <div class="mdl" style='z-index: 1'><!-- Place at bottom of page --></div>
 
     <!-- Optional JavaScript -->
 
@@ -97,8 +100,8 @@
         });
                 
         $(document).on({  
-            ajaxStart: function() { $body.addClass("loading");   },
-            ajaxStop: function() { $body.removeClass("loading"); }    
+          ajaxStart: function() { /* $body.addClass("loading"); */ $('.mdl').show();  },   
+          ajaxStop: function() { /* $body.removeClass("loading"); */$('.mdl').fadeOut(700); }     
         });
 
         /* var timer;
@@ -127,6 +130,9 @@
           $body.removeClass("loading");
         });
 
+      </script>
+      <script>
+        NProgress.done();            
       </script>
     </body>
   </html>

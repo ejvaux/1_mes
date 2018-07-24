@@ -68,7 +68,7 @@
 
     <!-- Contents - END ==============================================          -->
 
-    <div class="mdl" style=" z-index: 5000"><!-- Place at bottom of page --></div>
+    <div class="mdl" style=" z-index: 1"><!-- Place at bottom of page --></div>
 
     <!-- Optional JavaScript -->
 
@@ -80,8 +80,8 @@
       });     
       
       $(document).on({
-          ajaxStart: function() { $body.addClass("loading");   },   
-          ajaxStop: function() { $body.removeClass("loading"); }    
+          ajaxStart: function() { /* $body.addClass("loading"); */ $('.mdl').show();  },   
+          ajaxStop: function() { /* $body.removeClass("loading"); */$('.mdl').fadeOut(700); }    
       }); 
     
       $(document).ready(function(){

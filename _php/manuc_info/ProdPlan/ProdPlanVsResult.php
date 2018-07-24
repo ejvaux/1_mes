@@ -102,6 +102,11 @@ $(document).on('change','#ICode', function() {
 </head>
 
 <body style="margin-top: -24px; overflow-x: hidden; overflow-y: visible">
+<script>
+  NProgress.configure({  showSpinner: false });    
+  NProgress.start();          
+  NProgress.inc();
+</script>
 
 
    <?php
@@ -273,7 +278,7 @@ $(document).on('change','#ICode', function() {
 
     <!-- Contents - END ==============================================          -->
 
-    <div class="mdl" style=" z-index: 5000"><!-- Place at bottom of page --></div>
+    <div class="mdl" style='z-index: 1'><!-- Place at bottom of page --></div>
 
 <!-- Optional JavaScript -->
 
@@ -293,8 +298,8 @@ var header = document.getElementById("tb");
 
       $body = $("body");
       $(document).on({
-          ajaxStart: function() { $body.addClass("loading");   },   
-          ajaxStop: function() { $body.removeClass("loading"); }    
+          ajaxStart: function() { /* $body.addClass("loading"); */ $('.mdl').show();  },   
+          ajaxStop: function() { /* $body.removeClass("loading"); */$('.mdl').fadeOut(700); }     
       });    
   </script>
   

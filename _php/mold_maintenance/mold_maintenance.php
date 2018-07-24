@@ -35,6 +35,11 @@
   </head>
 
   <body>
+  <script>
+    NProgress.configure({  showSpinner: false });    
+    NProgress.start();          
+    NProgress.inc();
+  </script>
     
     <!-- Navbar - START -->
         <?php
@@ -83,7 +88,7 @@
 
     <!-- Contents - END ==============================================          -->
 
-    <div class="mdl"><!-- Place at bottom of page --></div>
+    <div class="mdl" style='z-index: 1'><!-- Place at bottom of page --></div>
 
     <!-- Optional JavaScript -->
 
@@ -95,8 +100,8 @@
       });
               
       $(document).on({  
-          ajaxStart: function() { $body.addClass("loading");   },
-          ajaxStop: function() { $body.removeClass("loading"); }    
+          ajaxStart: function() { /* $body.addClass("loading"); */ $('.mdl').show();  },   
+          ajaxStop: function() { /* $body.removeClass("loading"); */$('.mdl').fadeOut(700); }    
       });      
 
       $(document).ready(function(){
@@ -117,7 +122,7 @@
          loadmodal('moldrepairmodal');
          $('[data-toggle="tooltip"]').tooltip();
          $body.removeClass("loading");
-                          
+         NProgress.done();
       });
       // Add active class to the current button (highlight it)
       var header = document.getElementById("tb");
