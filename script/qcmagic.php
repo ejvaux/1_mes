@@ -10,19 +10,21 @@ $dbname = "masterdatabase";
 // Check connection
 
 
-for($x = 100001870; $x <= 100001895; $x++){
+for($x = 100001870; $x <= 100001885; $x++){
     $jo[] = $x;
     
 }
 foreach($jo as $joborder){
-    //echo $joborder;
+    $totalJO = 0;
+    $totalPerJO = 0;
+    echo "\n---------------------------------------$joborder--------------------------------\n";
     $conn = new mysqli($servername, $username, $password,$dbname);   
     
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-
-    $sql = "SELECT PACKING_NUMBER,SUM(PRINT_QTY) AS SUMQ FROM mis_product WHERE JO_NUM = '$joborder' GROUP BY PACKING_NUMBER";
+    
+    $sql = "SELECT COUNT(PACKING_NUMBER) as coID,PACKING_NUMBER,SUM(PRINT_QTY) AS SUMQ FROM mis_product WHERE JO_NUM = '$joborder' GROUP BY PACKING_NUMBER";
     $result = $conn->query($sql);
     if($result = $conn->query($sql)){
             }
@@ -31,15 +33,18 @@ foreach($jo as $joborder){
               {
                   while($row = $result->fetch_assoc()) 
                   {
-                    echo $row['PACKING_NUMBER']."\t";
-                    echo $row['SUMQ']."\n";
+                    echo "\t".$row['PACKING_NUMBER']."\t";
+                    echo $row['SUMQ']."\t";
+                    echo $row['coID']." POLYBAG(s)\n";
+                    $totalJO = $totalJO + $row['coID'];
+                    $totalPerJO = $totalPerJO + $row['SUMQ'];
                   }
                 }
             else{
                  echo "\t No Results found.\n";
             }
     $conn->close();
-    echo "--------------------------------------------------------------------------------\n";
+    echo "\n--------------------------------$totalJO----$totalPerJO---------------------------------------\n";
 }
 
     //echo $joborder = 'DISAPPROVED';
