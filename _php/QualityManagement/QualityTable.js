@@ -175,33 +175,35 @@ function AddLotBtnClick(newLot, joborder) {
     alert("No Lot Number Try Again");
     return;
   }
-  swal({
-    title: 'Create Lot ' + newLot + ' ? Confirm?',
-    text: "You won't be able to revert this anymore!",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Create Lot'
-  }).then((result) => {
-    if (result.value) {
-      $.ajax({
-        method: 'post',
-        url: '/1_mes/_php/QualityManagement/query/insert/InsertLotTable.php',
-        data: {
-          'jo_num': joborder,
-          'row_count': x,
-          'lot_number': newLot,
-          'ajax': true
-        },
-        success: function (data) {
-          loadDoc('LotCreate', username);
-          lotNO = "";
-          swal('Lot ' + newLot + ' Created!', 'Your items is now allocated!! Please note the lot number!!', 'success')
-        }
-      });
-    }
-  });
+  else{
+    swal({
+      title: 'Create Lot ' + newLot + ' ? Confirm?',
+      text: "You won't be able to revert this anymore!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Create Lot'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          method: 'post',
+          url: '/1_mes/_php/QualityManagement/query/insert/InsertLotTable.php',
+          data: {
+            'jo_num': joborder,
+            'row_count': x,
+            'lot_number': newLot,
+            'ajax': true
+          },
+          success: function (data) {
+            loadDoc('LotCreate', username);
+            lotNO = "";
+            swal('Lot ' + newLot + ' Created!', 'Your items is now allocated!! Please note the lot number!!', 'success')
+          }
+        });
+      }
+    });
+  }
 }
 
 function isNumberKey(evt) {
