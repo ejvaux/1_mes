@@ -13,7 +13,7 @@
     $joborder = $_POST['jo_num'];
 
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-    $sql = "SELECT qmd_danpla_tempstore.TEMP_ID as TEMP,
+    $sql1 = "SELECT qmd_danpla_tempstore.TEMP_ID as TEMP,
             qmd_danpla_tempstore.DANPLA_SERIAL as DANPLA,
             qmd_danpla_tempstore.JO_NUM as JOBORDER,
             qmd_danpla_tempstore.ITEM_CODE as ITEMCODE,
@@ -31,7 +31,7 @@
             AND qmd_danpla_tempstore.INSERT_USER = '$lot_creator'";
 
 
-    $result = $conn->query($sql);
+    $result = $conn->query($sql1);
     $row = $result->fetch_assoc();
 
             $prod_date =  Date('Y-m-d H:i:s');
@@ -58,17 +58,11 @@
           $machine_code,
           $warehouse"; */
 
-include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-    for ($x = 0; $x < $count-1; $x++){
-    
-    $sql = "UPDATE mis_product SET LOT_NUM = '$lot_num',SHIP_STATUS='PENDING' WHERE PACKING_NUMBER IN (SELECT DANPLA_SERIAL FROM qmd_danpla_tempstore WHERE INSERT_USER = '$lot_creator' AND JO_NUM = '$joborder')";
-    }
-    $conn->query($sql);
-    $conn->close();
+
     
 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
     
-    $sql = "INSERT INTO qmd_lot_create
+    $sql2 = "INSERT INTO qmd_lot_create
     (   
         PROD_DATE,
         LOT_NUMBER,
@@ -77,34 +71,38 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         LOT_CREATOR,
         ITEM_CODE,
         ITEM_NAME,
-        MACHINE_CODE,
-        TO_WAREHOUSE
+        MACHINE_CODE
     )
-        VALUES (?,?,?,?,?,?,?,?,?)";    
-        $stmt = $conn->prepare($sql);
+        VALUES (?,?,?,?,?,?,?,?)";    
+        $stmt = $conn->prepare($sql2);
         $stmt->bind_param(
-            'sssisssss',
+            'sssissss',
             $prod_date,
             $lot_num,
-            $jo_num,
+            $joborder,
             $lot_quantity,
             $lot_creator,
             $item_code,
             $item_name,
-            $machine_code,
-            $warehouse
+            $machine_code
             );
         if ($stmt->execute() === TRUE) {
             echo "Record saved successfully"; 
                     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";   
-                    $sql = "DELETE FROM qmd_danpla_tempstore WHERE INSERT_USER = '$lot_creator' AND JO_NUM = '$joborder' ";
-                    $conn->query($sql);
+
+                    for ($x = 0; $x < $count-1; $x++){
+                    $sql3 = "UPDATE mis_product SET LOT_NUM = '$lot_num',SHIP_STATUS='PENDING' WHERE PACKING_NUMBER IN (SELECT DANPLA_SERIAL FROM qmd_danpla_tempstore WHERE INSERT_USER = '$lot_creator' AND JO_NUM = '$joborder')";
+                    }
+                    $conn->query($sql3);
+
+                    $sql4 = "DELETE FROM qmd_danpla_tempstore WHERE INSERT_USER = '$lot_creator' AND JO_NUM = '$joborder' ";
+                    $conn->query($sql4);
                     $stmt->close();
                     $conn->close();
                     exit;
             }
         else {
-            //echo "Error: " . $stmt . "<br>" . $conn->error; 
+            echo "Error: " . $stmt . "<br>" . $conn->error; 
             $stmt->close();
             $conn->close();
         }

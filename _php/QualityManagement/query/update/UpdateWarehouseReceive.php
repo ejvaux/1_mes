@@ -10,10 +10,10 @@
     }
 $lot_num = $_POST['lot_num'];
 $lot_creator = $_SESSION['text'];
-
+$warehouse = $_POST['warehouse'];
 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
 
-    $sql = "UPDATE qmd_lot_create SET WAREHOUSE_RECEIVE = 'RECEIVED' WHERE LOT_NUMBER ='$lot_num'";
+    $sql = "UPDATE qmd_lot_create SET TO_WAREHOUSE = '$warehouse', WAREHOUSE_RECEIVE = 'RECEIVED' WHERE LOT_NUMBER ='$lot_num'";
     if($conn->query($sql) === TRUE) {
         include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
                 $sql1 = "DELETE FROM qmd_item_tempstore WHERE INSERT_USER = '$lot_creator'";

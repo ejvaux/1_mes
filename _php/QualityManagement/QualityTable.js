@@ -1849,31 +1849,55 @@ function ApproveTransfer() {
 }
 
 function updateWarehouseReceive(lotNumber) {
-  swal({
-    title: 'Confirm Transfer?',
-    text: "You won't able to revert this.",
-    type: 'warning',
+  (async function getCountry() {
+  const { value: warehouse } = await swal({
+    title: 'LOT NUMBER:' + lotNumber,
+    text: 'Select next warehouse transfer.',
+    input: 'select',
+    inputOptions: {
+      'FG01': 'FG01 - FINISHED GOOD WAREHOUSE',
+      'PR01': 'PR01 - PRINTING WAREHOUSE',
+      'PD01': 'PD01 - PRODUCTION WAREHOUSE'
+    },
+    inputPlaceholder: 'Select Warehouse',
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Transfer'
-  }).then((result) => {
-    if (result.value) {
-      $.ajax({
-        method: 'post',
-        url: '/1_mes/_php/QualityManagement/query/update/UpdateWarehouseReceive.php',
-        data: {
-          'lot_num': lotNumber,
-          'ajax': true
-        },
-        success: function (data) {
-          swal(data, 'Lot ' + lotNumber + " is now transferred.", 'success')
-          loadDoc('ItemReceiving');
-        }
-      });
+    inputValidator: (value) => {
+      return new Promise((resolve) => {
+          resolve()
+      })
     }
-  });
+  })
+
+  if (warehouse) {
+    swal({
+      title: 'Confirm Transfer?',
+      text: "You won't able to revert this.",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Transfer'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          method: 'post',
+          url: '/1_mes/_php/QualityManagement/query/update/UpdateWarehouseReceive.php',
+          data: {
+            'warehouse': warehouse,
+            'lot_num': lotNumber,
+            'ajax': true
+          },
+          success: function (data) {
+            swal(data, 'Lot ' + lotNumber + " is now transferred.", 'success')
+            loadDoc('ItemReceiving');
+          }
+        });
+      }
+    });
+  }
+  })();
 }
+
 
 function exportExcel() {
   var search = SearchPendingDanpla.value;
