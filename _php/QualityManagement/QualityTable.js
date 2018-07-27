@@ -1286,31 +1286,31 @@ function DisplayTable3(Table_Name, Tablesp, tbltitle,startdate,enddate) {
         var edate = max.value;
 
         if (sdate != '' && edate == '') {
-          alert('1');
-          alert(sdate);
+          //alert('1');
+          //alert(sdate);
           checkuserauthF(sdate);
         }
         else if (sdate == '' && edate != '') {
-          alert('3');
-          alert(sdate);
+         // alert('3');
+          //alert(sdate);
           checkuserauthF(sdate,edate);
 
         }
         else if (sdate != '' && edate != '') {
           /* alert('Good'); */
-          alert(sdate + " + + +" + edate);
+         //alert(sdate + " + + +" + edate);
           if (sdate == edate) {
-            alert('2.1');
+            //alert('2.1');
             checkuserauthF(sdate);
           }
           else{
-            alert('2.2');
+            //alert('2.2');
             checkuserauthF(sdate, edate);
           }
           
         }
         else{
-          alert('4');
+          //alert('4');
           checkuserauthF();
         }
         
@@ -1318,7 +1318,7 @@ function DisplayTable3(Table_Name, Tablesp, tbltitle,startdate,enddate) {
       });
       
       $('#refresh').on('click', function () {
-        alert('refresh');
+        //alert('refresh');
         checkuserauthF();
       });
 
@@ -1918,7 +1918,7 @@ function exportExcel() {
   } else if (search != "") {
     var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
   }
-  alert(z);
+  //alert(z);
   $.ajax({
     method: 'post',
     url: '/1_mes/_php/QualityManagement/table/Export_NoLot.php',
@@ -1927,7 +1927,7 @@ function exportExcel() {
       'ajax': true
     },
     success: function (data) {
-      alert(data);
+      //alert(data);
       //window.location = '/1_mes/_php/QualityManagement/table/Export_NoLot.php';
       /* document.getElementById("noLotTable").innerHTML = data; */
       /* loadDoc('LotCreate',data); */
