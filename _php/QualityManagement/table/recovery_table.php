@@ -61,7 +61,7 @@
                   <th>REMARKS</th>
                   </thead>
                   <tbody>
-                    <td colspan='11' style='text-align:center'><h4>NO LOT TO BE RECOVERED</h4></td>
+                    <td colspan='11' style='text-align:center'><p class='pt-3'>No matching records found</p></td>
                     </tbody>
                   </table>";
                     
