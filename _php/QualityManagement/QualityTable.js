@@ -1529,39 +1529,27 @@ function updateWarehouseReceive(lotNumber) {
           var edate = max.value;
 
           if (sdate != '' && edate == '') {
-            //alert('1');
-            //alert(sdate);
             checkuserauthF(sdate);
           }
           else if (sdate == '' && edate != '') {
-            // alert('3');
-            //alert(sdate);
             checkuserauthF(sdate, edate);
 
           }
           else if (sdate != '' && edate != '') {
-            /* alert('Good'); */
-            //alert(sdate + " + + +" + edate);
             if (sdate == edate) {
-              //alert('2.1');
               checkuserauthF(sdate);
             }
             else {
-              //alert('2.2');
               checkuserauthF(sdate, edate);
             }
 
           }
           else {
-            //alert('4');
             checkuserauthF();
           }
-
-          /* alert('test'); */
         });
 
         $('#refresh').on('click', function () {
-          //alert('refresh');
           checkuserauthF();
         });
 
@@ -1591,7 +1579,6 @@ function updateWarehouseReceive(lotNumber) {
     } else if (search != "") {
       var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
     }
-    //alert(z);
     $.ajax({
       method: 'post',
       url: '/1_mes/_php/QualityManagement/table/Export_NoLot.php',
@@ -1600,7 +1587,6 @@ function updateWarehouseReceive(lotNumber) {
         'ajax': true
       },
       success: function (data) {
-        //alert(data);
         //window.location = '/1_mes/_php/QualityManagement/table/Export_NoLot.php';
         /* document.getElementById("noLotTable").innerHTML = data; */
         /* loadDoc('LotCreate',data); */
@@ -1609,7 +1595,6 @@ function updateWarehouseReceive(lotNumber) {
   } //end export excel
 
   function deleteDanpla(danpla_ID) {
-    //$('#dataModal').modal();
     var danpla = danpla_ID;
     swal({
       title: 'Are you sure you want to delete?',
