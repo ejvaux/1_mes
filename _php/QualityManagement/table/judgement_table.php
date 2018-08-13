@@ -5,7 +5,14 @@
                 $userAuth = $_SESSION['auth'];
                 if(!isset($_POST['sql'])){
                 
-                $sql = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ='PENDING' GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100";
+                  /* SELECT SUM(mis_product.PRINT_QTY) as LOTQTY, qmd_lot_create.*
+                        FROM qmd_lot_create 
+                        LEFT JOIN mis_product ON qmd_lot_create.LOT_NUMBER = mis_product.LOT_NUM
+                        WHERE qmd_lot_create.LOT_JUDGEMENT ='PENDING' GROUP BY qmd_lot_create.LOT_NUMBER 
+                        ORDER BY qmd_lot_create.PROD_DATE DESC LIMIT 100 */
+
+                $sql = "SELECT * FROM qmd_lot_create 
+                        WHERE LOT_JUDGEMENT ='PENDING' GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100";
                 
                 }
                 else{

@@ -1264,7 +1264,7 @@ function updateWarehouseReceive(lotNumber) {
   })();
 } // end updateWarehouse Receive
 
-//--------------------------------------------------------- LOT CREATE FUNCTIONS -------------------------------------------
+//--------------------------------------------------no lot danpla list------- LOT CREATE FUNCTIONS -------------------------------------------
 
   function DisplayTable1(Table_Name, Tablesp, tbltitle, tbluser) {
     var xhttp;
