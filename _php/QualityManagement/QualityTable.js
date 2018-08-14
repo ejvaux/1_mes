@@ -63,7 +63,7 @@ $(document).on('click', '.lotApprove', function () {
 $(document).on('click', '.epsonApprove', function () {
   var lotNumber = $(this).attr("id");
   swal({
-    title: 'EPSON Lot Approval',
+    title: 'BQICS Lot Approval',
     text: 'Are you sure you will approve lot ' + lotNumber + ' ?',
     type: 'warning',
     showCancelButton: true,

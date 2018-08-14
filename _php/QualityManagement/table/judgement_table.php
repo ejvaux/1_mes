@@ -61,10 +61,10 @@
                                 $reworkID = $row2['REWORK_ID'];
 
                                 if($reworkID > 0){
-                                  echo "<td class='text-success font-weight-bold'>WAITING-REWORK(".$reworkID."):EPSON APPROVAL</td>";
+                                  echo "<td class='text-success font-weight-bold'>WAITING-REWORK(".$reworkID."):BQICS APPROVAL</td>";
                                   }
                                 else{
-                                  echo "<td class='text-success font-weight-bold'>WAITING:EPSON APPROVAL</td>";
+                                  echo "<td class='text-success font-weight-bold'>WAITING:BQICS APPROVAL</td>";
                                   }
                               }
                             else{
