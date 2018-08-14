@@ -8,7 +8,7 @@
 
 ## SDLC - Methodology
 
-### Hyper Rapid Application Development (HRAD)
+### Super Duper Hyper Rapid Application Development (SDHRAD)
 Newly invented methodology by the developers to meet the client's ever changing request/requirements.
 ## Acknowledgments
 
