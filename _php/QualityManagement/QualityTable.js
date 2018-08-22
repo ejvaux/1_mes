@@ -1698,7 +1698,7 @@ function updateWarehouseReceive(lotNumber) {
         var val = JSON.parse(data);
         if (val != undefined) {
           if (val.LOT_NUM == null || val.LOT_NUM == "" || val.LOT_NUM == undefined) {
-            CheckDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
+            CheckDanpla(val.PACKING_NUMBER, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
           } else {
             swal('Items already allocated into other lot.', 'Please insert new danpla be allocated.', 'warning')
           }

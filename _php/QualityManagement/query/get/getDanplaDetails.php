@@ -18,7 +18,7 @@
     $bcode = $_POST['jo_barcode'];
     $sql = "SELECT `PACKING_NUMBER`,`ITEM_CODE`,`ITEM_NAME`, SUM(PRINT_QTY) AS SUM_QTY,`JO_NUM`,`MACHINE_CODE`,`LOT_NUM` 
             FROM `mis_product`
-            WHERE `PACKING_NUMBER` = '$bcode'
+            WHERE `PACKING_NUMBER` = '$bcode' OR `danpla_reference` = '$bcode'
             GROUP BY `PACKING_NUMBER`";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
