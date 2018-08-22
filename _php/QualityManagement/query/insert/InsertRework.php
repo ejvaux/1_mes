@@ -76,10 +76,10 @@ include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
       
         if ($stmt->execute() === TRUE) {
            
-            
+            echo "SUCCESS";
         }
         else{
-            
+            echo "Error updating record: " . $sql . "<br>" . $conn->error;    
         }
         $stmt->close();
         $conn->close();

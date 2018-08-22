@@ -22,259 +22,100 @@ function loadDoc(TableName, uname) {
   };
   xhttp.open("GET", TableName + ".php", true);
   xhttp.send();
-}
+} //end loads table in different tabs
 
-function AddBtnClick() {
-  var bcode = Barcode_text.value;
-  if (bcode == "") {
-    swal('Input Barcode!', 'Please insert danpla to be allocated.', 'warning')
-    return;
-  }
-  $.ajax({
-    method: 'post',
-    url: '/1_mes/_php/QualityManagement/query/get/getDanplaDetails.php',
-    data: {
-      'jo_barcode': bcode,
-      'ajax': true
-    },
-    success: function (data) {
-      var val = JSON.parse(data);
-      if (val != undefined) {
-        if (val.LOT_NUM == null || val.LOT_NUM == "" || val.LOT_NUM == undefined) {
-          CheckDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
-        } else {
-          swal('Items already allocated into other lot.', 'Please insert new danpla be allocated.', 'warning')
-        }
-      } else {
-        swal('Items does not exist!', 'Please insert existing danpla be allocated.', 'warning')
-      }
-    }
-  });
-}
 
-function InsertDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertMachine) {
-  $.ajax({
-    method: 'post',
-    url: '/1_mes/_php/QualityManagement/query/insert/InsertDanplaTable.php',
-    data: {
-      'jo_barcode': insertBarcode,
-      'jo_num': insertJO,
-      'item_code': insertItemCode,
-      'item_name': insertItemName,
-      'print_qty': insertQuantity,
-      'machine_code': insertMachine,
-      'ajax': true
-    },
-    success: function (data) {
-      swal({
-        text: data,
-        type: 'success'
-      });
-      DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp', username);
-    }
-  });
-}
+//-------------------------------------------- LOT JUDGEMENT FUNCTIONS -------------------------
+function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+    return true;
+  } //end data validation in where number keys is only needed
 
-function CheckDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertMachine) {
-  $.ajax({
-    method: 'post',
-    url: '/1_mes/_php/QualityManagement/query/get/getDanplaJO.php',
-    data: {
-      'jo_barcode': insertBarcode,
-      'jo_num': insertJO,
-      'ajax': true
-    },
-    success: function (data) {
-      if (data == "false") {
-        InsertDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertMachine);
-      } else if (data == '"true1"') {
-        swal({
-          text: 'DANPLA EXIST',
-          type: 'error'
-        });
-        document.getElementById('Barcode_text').value = "";
-      } else if (data == '"true2"') {
-        swal({
-          text: 'DANPLA IS FROM DIFFERENT JO',
-          type: 'error'
-        });
-      }
-    }
-  });
-}
-var lotNO;
-
-function buildLotNumber() {
-  var d = new Date();
-  var month = d.getUTCMonth() + 1; //months from 1-12
-  var day = d.getUTCDate();
-  var year = d.getUTCFullYear().toString().substr(2, 2);
-  // first 4 chars in LOT NUMBER
-  if (month < 10) {
-    month = '0' + month
-  }
-  if (day < 10) {
-    day = '0' + day
-  }
-  // 2nd 2 chars in LOT NUMBER
-  var shift = "01"; //DayShift
-  var today = new Date().getHours();
-  if (today <= 6 && today >= 18) {
-    shift = "02"
-  }
-  $.ajax({
-    method: 'post',
-    url: '/1_mes/_php/QualityManagement/query/get/GetMachine.php',
-    success: function (data) {
-      var val = JSON.parse(data);
-      var machine = val.MACHINE_CODE;
-      var lotNumber = year + "" + month + "" + day + "" + shift + machine + "01";
-      lotNO = lotNumber;
-      return lotNO;
-    }
-  });
-}
-
-function generateLot() {
-  var lotNew, newL;
-  var x = document.getElementById("DanplaTable").rows[1].cells[0].innerHTML;
-  if (x == "No data available in table") {
-    swal('No items allocated.', 'Please insert danpla to create lot.', 'warning')
-    return;
-  } else {
-    var joborder = document.getElementById("DanplaTable").rows[1].cells[2].innerHTML;
-    var y = document.getElementById("DanplaTable").rows[1].cells[6].innerHTML;
-  }
-  $.ajax({
-    method: 'post',
-    url: '/1_mes/_php/QualityManagement/query/get/GetNextLot.php',
-    data: {
-      'jo_num': joborder,
-      'machine_code': y,
-      'ajax': true
-    },
-    success: function (data) {
-      if (data == '"true"' || data == '"false"') {
-        buildLotNumber(newL);
-        AddLotBtnClick(lotNO, joborder);
-      } else if (data != '"false"' || data != '"true"') {
-        var val = JSON.parse(data);
-        var lotPrev = val.slice(0, 12);
-        var series = val.slice(-1);
-        var i = parseInt(series) + 1;
-        lotNew = lotPrev + i;
-        AddLotBtnClick(lotNew, joborder);
-      }
-    }
-  });
-}
-
-function AddLotBtnClick(newLot, joborder) {
-  var x = document.getElementById("DanplaTable").rows.length;
-  if (newLot == undefined || newLot == "" || newLot == null || newLot == " ") {
-    alert("No Lot Number Try Again");
-    return;
-  }
-  else{
+$(document).on('click', '.lotApprove', function () {
+    var lotNumber = $(this).attr("id");
     swal({
-      title: 'Create Lot ' + newLot + ' ? Confirm?',
-      text: "You won't be able to revert this anymore!",
+      title: 'Are you sure you will approve lot ' + lotNumber + ' ?',
+      text: "REVERT this in Lot Judgement > FILTER TABLE:APPROVED > Click:PENDING",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Create Lot'
+      confirmButtonText: 'APPROVE'
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          method: 'post',
-          url: '/1_mes/_php/QualityManagement/query/insert/InsertLotTable.php',
+          url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
+          method: "POST",
           data: {
-            'jo_num': joborder,
-            'row_count': x,
-            'lot_number': newLot,
-            'ajax': true
+            'lot_number': lotNumber,
+            'decision': "APPROVE"
           },
           success: function (data) {
-            loadDoc('LotCreate', username);
-            lotNO = "";
-            swal('Lot ' + newLot + ' Created!', 'Your items is now allocated!! Please note the lot number!!', 'success')
+            filterText();
           }
         });
+        swal('LOT APPROVED!', 'Your items has been approved.', 'success')
       }
-    });
-  }
-}
+    })
+  }); // end approves a lot
 
-function isNumberKey(evt) {
-  var charCode = (evt.which) ? evt.which : event.keyCode
-  if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
-  return true;
-}
-$(document).on('click', '.lotApprove', function () {
-  //$('#dataModal').modal();
+$(document).on('click', '.epsonApprove', function () {
   var lotNumber = $(this).attr("id");
   swal({
-    title: 'Are you sure you will approve lot ' + lotNumber + ' ?',
-    text: "REVERT this in Lot Judgement > FILTER TABLE:APPROVED > Click:PENDING",
+    title: 'BQICS Lot Approval',
+    text: 'Are you sure you will approve lot ' + lotNumber + ' ?',
     type: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
     confirmButtonText: 'APPROVE'
-  }).then((result) => {
+    }).then((result) => {
     if (result.value) {
-      $.ajax({
-        url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
-        method: "POST",
-        data: {
-          'lot_number': lotNumber,
-          'decision': "APPROVE"
-        },
-        success: function (data) {
-          filterText();
-        }
-      });
-      swal('LOT APPROVED!', 'Your items has been approved.', 'success')
-    }
-  })
-});
+        $.ajax({
+          url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
+          method: "POST",
+          data: {
+            'lot_number': lotNumber,
+            'decision': "EPSON_APPROVED"
+            },
+          success: function (data) {
+            filterText();
+            }
+          });
+        swal('EPSON LOT APPROVED!', 'Your items has been approved.', 'success')
+      }
+      })
+  }); // end approves a lot
+
 $(document).on('click', '.lotPending', function () {
-  //$('#dataModal').modal();
   var lotNumber = $(this).attr("id");
   swal({
-    title: 'Change Status to PENDING?',
-    text: "Revert this in LotJudgement > FILTER TABLE:PENDING > Find " + lotNumber + " > Click:APPROVE/DISAPPROVE",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'PENDING'
-  }).then((result) => {
-    if (result.value) {
-      $.ajax({
-        url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
-        method: "POST",
-        data: {
-          'lot_number': lotNumber,
-          'decision': "PENDING"
-        },
-        success: function (data) {
-          filterText();
+      title: 'Change Status to PENDING?',
+      text: "Revert this in LotJudgement > FILTER TABLE:PENDING > Find " + lotNumber + " > Click:APPROVE/DISAPPROVE",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'PENDING'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
+          method: "POST",
+          data: {
+            'lot_number': lotNumber,
+            'decision': "PENDING"
+            },
+          success: function (data) {
+            filterText();
+            }
+          });
+        swal('Status changed to PENDING!', 'Your item has been moved to pending.', 'success')
         }
-      });
-      swal('Status changed to PENDING!', 'Your item has been moved to pending.', 'success')
-    }
-  })
-});
-/* function filterText() {
-  var rex = new RegExp($('#filterText').val());
+        })
+  }); // end sets an approved or disapproved lot into pending status again
 
-  $('.content').hide();
-  $('.content').filter(function () {
-    return rex.test($(this).text());
-  }).show();
- } */
 function filterJudgement() {
   var x = document.getElementById("filterText");
   var y = x.options[x.selectedIndex].value;
@@ -290,21 +131,22 @@ function filterJudgement() {
     data: {
       'sql': z,
       'ajax': true
-    },
-    success: function (data) {
-      document.getElementById("table_judgement").innerHTML = data;
-    }
-  });
-}
+      },
+      success: function (data) {
+        document.getElementById("table_judgement").innerHTML = data;
+      }
+    });
+  } //end sets filter for judgement table whether approved, disapproved, pending or all
 
 function filterText() {
   var x = document.getElementById("filterText");
   var y = x.options[x.selectedIndex].value;
   if (y == "ALL") {
     var z = 'SELECT * FROM qmd_lot_create GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100;';
-  } else {
+    }
+  else {
     var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100;';
-  }
+    }
   /* var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + x + ' AND DATE(NOW()) = DATE(PROD_DATE)";'; */
   $.ajax({
     method: 'post',
@@ -312,12 +154,12 @@ function filterText() {
     data: {
       'sql': z,
       'ajax': true
-    },
+      },
     success: function (data) {
       document.getElementById("table_judgement").innerHTML = data;
-    }
-  });
-}
+      }
+    });
+  } //end maintains the filter in judgement table whether approved, disapproved, pending or all
 
 function searchLot() {
   var x = document.getElementById("filterText");
@@ -326,30 +168,32 @@ function searchLot() {
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
   if (y == "ALL") {
     var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100;";
-  } else {
+    } 
+  else {
     var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND LOT_JUDGEMENT = '" + y + "' GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100;";
-  }
+    }
   $.ajax({
     method: 'post',
     url: '/1_mes/_php/QualityManagement/table/judgement_table.php',
     data: {
       'sql': z,
       'ajax': true
-    },
+      },
     success: function (data) {
       document.getElementById("table_judgement").innerHTML = data;
-    }
-  });
-}
+      }
+    });
+  } //end search in lot judgement
 
 function ClearSearchLot() {
   var x = document.getElementById("filterText");
   var y = x.options[x.selectedIndex].value;
   if (y == "ALL") {
     var z = 'SELECT * FROM qmd_lot_create GROUP BY LOT_NUMBER ORDER BY LOT_JUDGEMENT DESC LIMIT 100;';
-  } else {
+    } 
+  else {
     var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100;';
-  }
+    }
   /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
   $.ajax({
     method: 'post',
@@ -357,25 +201,24 @@ function ClearSearchLot() {
     data: {
       'sql': z,
       'ajax': true
-    },
+      },
     success: function (data) {
       document.getElementById("table_judgement").innerHTML = data;
       searchText.value = "";
-    }
-  });
-}
+      }
+    });
+  } //end clear search in lot judgement
+
 $(document).on('click', '.lotDisapprove', function () {
-  //$('#dataModal').modal();
   var lotNumber = $(this).attr("id");
-  /* DisplayLotDetails(lotNumber); */
   document.getElementById('lot_num').value = lotNumber;
-});
+}); //modal that appears when item is judged as disapproved
+
 $(document).on('click', '.lotDanpla', function () {
-  //$('#dataModal').modal();
   var lotNumber = $(this).attr("id");
   DisplayLotDetails(lotNumber);
   document.getElementById('LOT_NUMBER').value = lotNumber;
-});
+}); //end opens modal that displays lot details
 
 function DisplayLotDetails(lotNum) {
   var x = lotNum;
@@ -387,200 +230,21 @@ function DisplayLotDetails(lotNum) {
       'sql1': z,
       'lot_number': x,
       'ajax': true
-    },
+      },
     success: function (data) {
       document.getElementById("tblModal").innerHTML = data;
-    }
-  });
-}
-/* $(document).on('click', '.checkBoxDefect', function () {
-  //$('#dataModal').modal();
-  var danpla = $(this).attr("id");
-  var defectqty = "DEFECT_QUANTITY" + danpla;
-  var checkBox = document.getElementById(danpla);
-  var def = document.getElementById(defectqty);
-
-  if (checkBox.checked == true) {
-    def.className = "showText";
-    def.value = "";
-  } else {
-    def.className = "hiddenText";
-    def.value = "";
-  }
-  
- }); */
-/* $(document).on('click', '#ConfirmDefect', function () {
-  //$('#dataModal').modal();
-  var x = document.getElementById("LotDetails").rows.length;
-  var lotNumber = document.getElementById("lot_num").value;
-  var remarks = document.getElementById("defectInputID").value;
-  var totalDefect = parseInt(0);
-  var switchCount = 0;
-
- swal({
-  title: "Are you sure you want to record lot:" + " " + lotNumber + " " + "as Defect?",
-  text: "Revert this in Lot Reject Recovery > Find " + lotNumber + " > Click:REWORK > Lot Judgement > FILTER TABLE:APPROVED > Find " + lotNumber + " > Click:PENDING/DISAPPROVE",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'DEFECT'
-  }).then((result) => {
-    if (result.value) {
-      for(a=1;a<x;a++){
-        var y = document.getElementById("LotDetails").rows[a].cells[2].innerHTML;
-        var actualQty = document.getElementById("LotDetails").rows[a].cells[3].innerHTML;
-        var switchID = document.getElementById(y).checked;
-    
-        
-        if(switchID == true){
-          switchCount = switchCount + 1;
-          
-          var defectQTY = document.getElementById("DEFECT_QUANTITY"+y).value;
-          if (defectQTY == undefined || defectQTY == ""){
-            defectQTY = parseInt(actualQty);
-           }
-          totalDefect = parseInt(totalDefect) + parseInt(defectQTY);
-          AddLotDefect(y, actualQty, defectQTY, lotNumber, remarks);
-        }
-        else{
-          defectQTY = "";
-          }
-        
-        }
-      var decision = "DISAPPROVE";
-      if(switchCount == 0){
-        if (confirm("Lot will be APPROVED due to no danpla were assigned as defect. CONFIRM?")){
-        decision = "APPROVE";
-        }
-        else{
-        return;
-        }
       }
-        
-    
-      $.ajax({
-        url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
-        method: "POST",
-        data: { 'lot_number': lotNumber,
-                'defect_qty': totalDefect,
-                'remarks': remarks,
-                'decision' : decision,
-                'ajax' : true
-        },
-        success: function (data) {
-          filterText();
-          $('#modalID').trigger('reset');
-        }
-      });
+    });
+  } // end table inside modal that displays lot details
 
-      swal(
-        'REJECTED!',
-        'Your item has been rejected.',
-        'error'
-      )
-    }
-  });
-
- }); */
-/* function a(){
-  var rowCount = document.getElementById("LotDetails").rows.length;
-  for (var ctr = 1; ctr < rowCount; ctr++){
-    var y = document.getElementById("LotDetails").rows[ctr].cells[2].innerHTML;
-    var actualQty = parseInt(document.getElementById("LotDetails").rows[ctr].cells[3].innerHTML);
-    var defectQtyID = "DEFECT_QUANTITY" + y;
-    var defectQTY = parseInt(document.getElementById(defectQtyID).value);
-    var def1 = document.getElementById(defectQtyID);
-      if(defectQTY>actualQty){
-        swal({
-          text: 'DEFECT QUANTITY IS HIGHER THAN ITS ACTUAL QUANTITY. PLEASE CHECK',
-          type: 'error'
-        });
-        document.getElementById("DEFECT_QUANTITY" + y).value = "";
-        var switchID1 = document.getElementById(y).checked = false;
-        def1.className = "hiddenText";
-        exit();
-      }
-    }
-  } */
-$(document).on('click', '.reworkbtn', function () {
-  //$('#dataModal').modal();
-  var lotNumber = $(this).attr("id");
-  swal({
-    title: "Will proceed to record lot " + " " + lotNumber + " " + "as REWORK?",
-    text: "Revert this in Lot Judgement > FILTER TABLE:PENDING > Find LOT " + lotNumber + " > Click:PENDING/DISAPPROVE",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'REWORK'
-  }).then((result) => {
-    if (result.value) {
-      $.ajax({
-        url: "/1_mes/_php/QualityManagement/query/update/ApproveRework.php",
-        method: "POST",
-        data: {
-          'lot_number': lotNumber,
-          'ajax': true
-        },
-        success: function (data) {
-          loadDoc("LotRecovery");
-        }
-      });
-      swal('REWORK!', 'Your file has been recorded as rework.', 'success')
-    }
-  })
-});
-$(document).on('click', '.scrapbtn', function () {
-  //$('#dataModal').modal();
-  var lotNumber = $(this).attr("id");
-	/* if (confirm()) {
-      
-        }
-      else {
-        return;
-        } */
-  swal({
-    title: "Are you sure you want to record lot " + " " + lotNumber + " " + " as SCRAP?",
-    text: "If no, Click:CANCEL > Click:REWORK to approve lot.",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'SCRAP'
-  }).then((result) => {
-    if (result.value) {
-      if (confirm("Recording lot:" + " " + lotNumber + " " + "as SCRAP.\nPROCEED?\nIf no, click 'CANCEL' and click 'REWORK' to approve lot.")) {
-        if (confirm("Will proceed to record lot:" + " " + lotNumber + " " + "as SCRAP.\nCONFIRM?\nIf no, click 'CANCEL' and click 'REWORK' to approve lot.")) { } else {
-          return;
-        }
-      } else {
-        return;
-      }
-      $.ajax({
-        url: "/1_mes/_php/QualityManagement/query/update/ApproveScrap.php",
-        method: "POST",
-        data: {
-          'lot_number': lotNumber,
-          'ajax': true
-        },
-        success: function (data) {
-          loadDoc("LotRecovery");
-        }
-      });
-      swal('Deleted!', 'Your lot has been recorded as SCRAP', 'success')
-    }
-  })
-});
 $(document).on('click', '#ConfirmDefect', function () {
-  //$('#dataModal').modal();
   var lotNumber = document.getElementById("lot_num").value;
   var Quantity_Defect = document.getElementById('defect_QTY').value;
   var remarks = document.getElementById('defectInput').value;
   if (Quantity_Defect == 0) {
     swal('No defect quantity.', 'Please input defect quantity to proceed.', 'warning')
     return;
-  }
+    }
   swal({
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
@@ -591,7 +255,7 @@ $(document).on('click', '#ConfirmDefect', function () {
     confirmButtonText: 'REWORK',
     cancelButtonText: 'REJECT',
     reverseButtons: true
-  }).then((result) => {
+    }).then((result) => {
     if (result.value) {
       var decision = 'PENDING-REWORK';
       $.ajax({
@@ -603,15 +267,16 @@ $(document).on('click', '#ConfirmDefect', function () {
           'remarks': remarks,
           'decision': decision,
           'ajax': true
-        },
+          },
         success: function (data) {
           insertRework(lotNumber, Quantity_Defect, remarks);
           filterText();
           $('#modalID').trigger('reset');
-        }
-      });
+          }
+        });
       swal('REWORK!', 'Your file has been recorded as rework.', 'success')
-    } else if (result.dismiss === swal.DismissReason.cancel) {
+      } 
+    else if (result.dismiss === swal.DismissReason.cancel) {
       var decision = 'DISAPPROVE';
       $.ajax({
         url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
@@ -622,17 +287,17 @@ $(document).on('click', '#ConfirmDefect', function () {
           'remarks': remarks,
           'decision': decision,
           'ajax': true
-        },
+          },
         success: function (data) {
           InsertReject(Quantity_Defect, lotNumber, remarks);
           filterText();
           $('#modalID').trigger('reset');
-        }
-      });
+          }
+        });
       swal('REJECT', 'You rejected lot number ' + lotNumber + ' !', 'error')
-    }
-  });
-});
+      }
+    });
+  }); //confirmation message if rework or reject
 
 function InsertReject(defect, lotNum, rmks) {
   $.ajax({
@@ -643,10 +308,10 @@ function InsertReject(defect, lotNum, rmks) {
       'lotNumber': lotNum,
       'remarks': rmks,
       'ajax': true
-    },
+      },
     success: function (data) { }
-  });
-}
+    });
+  } //end insert reject info into DB table
 
 function insertRework(lotNum, Quantity, reworkRemarks) {
   $.ajax({
@@ -657,37 +322,13 @@ function insertRework(lotNum, Quantity, reworkRemarks) {
       'defect_qty': Quantity,
       'remarks': reworkRemarks,
       'ajax': true
-    },
-    success: function (data) { }
-  });
-}
+      },
+    success: function (data) {}
+    });
+  } //end insert rework information into DB table
 
-function a() {
-  var lotNumber = document.getElementById("lot_num").value;
-  var defect = parseInt(document.getElementById('defect_QTY').value);
-  $.ajax({
-    url: "/1_mes/_php/QualityManagement/query/get/GetQty.php",
-    method: "POST",
-    data: {
-      'lot_number': lotNumber,
-      'ajax': true
-    },
-    success: function (data) {
-      var actualQty = parseInt(data);
-      if (defect > actualQty) {
-        document.getElementById('defect_QTY').value = "";
-        swal({
-          text: 'DEFECT QUANTITY IS HIGHER THAN ITS ACTUAL QUANTITY. PLEASE CHECK',
-          type: 'error'
-        });
-        return;
-      } else {
-        return;
-      }
-    }
-  });
-}
 
+//------------------------------------------------ LOT RECOVERY TAB FUNCTIONS
 function RecoverySearchLot() {
   var search = RecoverySearch.value;
   var d1 = recoveryDate1.value;
@@ -696,30 +337,34 @@ function RecoverySearchLot() {
     if (search == "") {
       var z = "SELECT * FROM qmd_lot_create WHERE (PROD_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
       //var z = "SELECT * FROM qmd_lot_create WHERE (PROD_DATE BETWEEN '"+ d1 +"' AND '"+ (d2 + 1) +"') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER;";
-    } else {
+      }
+    else {
       var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) AND (PROD_DATE BETWEEN '%" + d1 + "' AND '%" + (d2 + 1) + "%') GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
+      }
     }
-  } else if (d1 != "" && d2 == "") {
+  else if (d1 != "" && d2 == "") {
     if (search == "") {
       var z = "SELECT * FROM qmd_lot_create WHERE (PROD_DATE LIKE '%" + d1 + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
-    } else {
+      }
+    else {
       var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) AND (PROD_DATE LIKE '%" + d1 + "%') GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
+      }
     }
-  } else if (search != "") {
+  else if (search != "") {
     var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
-  }
+    }
   $.ajax({
     method: 'post',
     url: "/1_mes/_php/QualityManagement/table/recovery_table.php",
     data: {
       'sql': z,
       'ajax': true
-    },
+      },
     success: function (data) {
       document.getElementById("table_recovery").innerHTML = data;
-    }
-  });
-}
+      }
+    });
+  } //search in lot recovery table
 
 function RecoveryClearSearchLot() {
   var z = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
@@ -730,77 +375,93 @@ function RecoveryClearSearchLot() {
     data: {
       'sql': z,
       'ajax': true
-    },
+      },
     success: function (data) {
       document.getElementById("table_recovery").innerHTML = data;
       RecoverySearch.value = "";
       recoveryDate1.value = "";
       recoveryDate2.value = "";
-    }
-  });
-}
+      }
+    });
+  } // clear search in lot recovery table
 
+$(document).on('click', '.scrapbtn', function () {
+  var lotNumber = $(this).attr("id");
+  swal({
+    title: "Are you sure you want to record lot " + " " + lotNumber + " " + " as SCRAP?",
+    text: "If no, Click:CANCEL > Click:REWORK to approve lot.",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'SCRAP'
+  }).then((result) => {
+    if (result.value) {
+      if (confirm("Recording lot:" + " " + lotNumber + " " + "as SCRAP.\nPROCEED?\nIf no, click 'CANCEL' and click 'REWORK' to approve lot.")) {
+        if (confirm("Will proceed to record lot:" + " " + lotNumber + " " + "as SCRAP.\nCONFIRM?\nIf no, click 'CANCEL' and click 'REWORK' to approve lot.")) { } 
+        else {
+          return;
+          }
+        }
+      else {
+        return;
+        }
+      $.ajax({
+        url: "/1_mes/_php/QualityManagement/query/update/ApproveScrap.php",
+        method: "POST",
+        data: {
+          'lot_number': lotNumber,
+          'ajax': true
+          },
+        success: function (data) {
+          loadDoc("LotRecovery");
+          }
+        });
+      swal('Deleted!', 'Your lot has been recorded as SCRAP', 'success')
+      }
+    })
+  }); //end confirm scrap button
+
+$(document).on('click', '.reworkbtn', function () {
+  var lotNumber = $(this).attr("id");
+  swal({
+    title: "Will proceed to record lot " + " " + lotNumber + " " + "as REWORK?",
+    text: "Revert this in Lot Judgement > FILTER TABLE:PENDING > Find LOT " + lotNumber + " > Click:PENDING/DISAPPROVE",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'REWORK'
+    }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        url: "/1_mes/_php/QualityManagement/query/update/ApproveRework.php",
+        method: "POST",
+        data: {
+          'lot_number': lotNumber,
+          'ajax': true
+          },
+        success: function (data) {
+          loadDoc("LotRecovery");
+          }
+        });
+      swal('REWORK!', 'Your file has been recorded as rework.', 'success')
+      }
+      })
+  }); //end confirm rework button
+
+//------------------------------------------------- UNIVERSAL FUNCTION ---------------------------
 function notWorking() {
   swal('Stop!', 'Under construction.', 'error');
-}
+} //prevent function from performing when function is not yet done
 
-function SearchDanplaCreate() {
-  var search = SearchPendingDanpla.value;
-  var d1 = danplaDate1.value;
-  var d2 = danplaDate2.value;
-  if (d1 != "" && d2 != "") {
-    if (search == "") {
-      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "') AND LOT_NUM = ''  GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
-    } else {
-      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE ((PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "')) AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
-    }
-  } else if (d1 != "" && d2 == "") {
-    if (search == "") {
-      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PRINT_DATE LIKE '%" + d1 + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
-    } else {
-      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE ((PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PRINT_DATE = '" + d1 + "') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
-    }
-  } else if (search != "") {
-    var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
-  }
-  /* var z = "SELECT * FROM mis_product WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PRINT_DATE);"; */
-  $.ajax({
-    method: 'post',
-    url: "/1_mes/_php/QualityManagement/table/noLot_table.php",
-    data: {
-      'sql': z,
-      'ajax': true
-    },
-    success: function (data) {
-      document.getElementById("noLotTable").innerHTML = data;
-    }
-  });
-}
-
-function ClearSearchDanplaCreate() {
-  var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
-  /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PRINT_DATE);"; */
-  $.ajax({
-    method: 'post',
-    url: "/1_mes/_php/QualityManagement/table/noLot_table.php",
-    data: {
-      'sql': z,
-      'ajax': true
-    },
-    success: function (data) {
-      document.getElementById("noLotTable").innerHTML = data;
-      SearchPendingDanpla.value = "";
-      danplaDate1.value = "";
-      danplaDate2.value = "";
-    }
-  });
-}
+//-------------------------------------------------- DEFECT MANAGEMENT TAB FUNCTIONS ---------------------
 $(document).on('change', '#JobOrderNo', function () {
   var jobOrderNumber = $(this).val();
   if (jobOrderNumber == " " || jobOrderNumber == null || jobOrderNumber == undefined) {
     document.getElementById("JobOrderNo").value = "";
     return;
-  }
+    }
   $.ajax({
     url: "/1_mes/_php/QualityManagement/list/getLotNumbers.php",
     type: 'post',
@@ -811,9 +472,9 @@ $(document).on('change', '#JobOrderNo', function () {
     success: function (data) {
       document.getElementById("datalistLotNumber").innerHTML = data;
       getDefectDetails(jobOrderNumber);
-    }
-  })
-});
+      }
+    })
+  }); //select jobOrder in ddown
 
 function getDefectDetails(jobOrder) {
   $.ajax({
@@ -822,7 +483,7 @@ function getDefectDetails(jobOrder) {
     data: {
       'jobOrder': jobOrder,
       'ajax': true
-    },
+      },
     success: function (data) {
       var val = JSON.parse(data);
       document.getElementById("LotQuantityID").value = "";
@@ -842,7 +503,8 @@ function getDefectDetails(jobOrder) {
         document.getElementById("JobOrderNo").value = "";
         swal('Job Order does not exist!', 'Please search existing Job Order', 'error');
         return;
-      } else {
+        } 
+      else {
         document.getElementById("DivCodeID").value = val.DIVI_CODE;
         document.getElementById("DivNameID").value = val.DIVI_NAME;
         document.getElementById("itemCodeID").value = val.ITEMCODE;
@@ -853,44 +515,46 @@ function getDefectDetails(jobOrder) {
         prodTimeID.value = "";
         DefQty.value = "";
         remarks.value = "";
+        }
       }
-    }
-  });
-}
+    });
+  } //display joborder details after selecting Joborder
+
 $(document).on('change', '#defectInputID', function () {
   var defectName = $(this).val();
   if (defectName == " ") {
     document.getElementById("DefectCodeID").value = "";
     return;
-  }
+    }
   $.ajax({
     url: "/1_mes/_php/QualityManagement/list/getDefectCode.php",
     type: 'post',
     data: {
       'defectName': defectName,
       'ajax': true
-    },
+      },
     success: function (data) {
       var val = JSON.parse(data);
       document.getElementById("DefectCodeID").value = val.DEFECT_CODE;
-    }
-  });
-});
+      }
+    });
+  }); //select defect name in ddown
+
 $(document).on('change', '#datalistLotNumber', function () {
   var defectMgmt_LotNum = $(this).val();
-  if (defectMgmt_LotNum == " ") {
+  if (defectMgmt_LotNum == " "){
     document.getElementById("LotQuantityID").value = "";
     document.getElementById("prodDateID").value = "";
     document.getElementById("prodTimeID").value = "";
     return;
-  }
+    }
   $.ajax({
     url: "/1_mes/_php/QualityManagement/list/getLotQuantity.php",
     type: 'post',
     data: {
       'lotNumber': defectMgmt_LotNum,
       'ajax': true
-    },
+      },
     success: function (data) {
       var val = JSON.parse(data);
       prodDate = val.PROD_DATE.slice(0, 10);
@@ -898,9 +562,10 @@ $(document).on('change', '#datalistLotNumber', function () {
       document.getElementById("prodDateID").value = prodDate;
       document.getElementById("prodTimeID").value = prodTime;
       document.getElementById("LotQuantityID").value = val.LOT_QTY;
-    }
-  });
-});
+      }
+    });
+  }); //insert lotNumber in ddown
+
 $(document).on('click', '#defectConfirm', function () {
   var DefectInputID = document.getElementById("defectInputID").value;
   var date = document.getElementById("prodDateID").value;
@@ -942,17 +607,14 @@ $(document).on('click', '#defectConfirm', function () {
       DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
     }
   });
-});
-/* $(document).ready(function () {
-  $('#example').DataTable();
- });
- */
+}); //insert defective item
+
 function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
   var xhttp;
   if (Table_Name.length == 0) {
     document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
     return;
-  }
+    }
   xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -967,7 +629,7 @@ function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
         "ajax": {
           url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
           type: 'POST'
-        },
+          },
         "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [{
           text: '<i class="fas fa-plus"></i>',
@@ -977,14 +639,14 @@ function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
           action: function (e, dt, node, config) {
             $('#insertDefect').modal('show');
             $('#insertDefect').focus();
-          }
-        }, {
+            }
+          }, {
           extend: 'selected', // Bind to Selected row
           text: '<i class="fas fa-edit"></i>',
           attr: {
             title: 'Edit Data',
             id: 'editButton'
-          },
+            },
           name: 'edit', // do not change name
           className: 'btn btn-export6 btn-xs py-1',
           action: function (e, dt, node, config) {
@@ -992,8 +654,8 @@ function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
             getDefectDtls(data[0]);
             $('#editDefect').modal('show');
             $('#editDefect').focus();
-          }
-        }, {
+            }
+          }, {
           name: 'delete', // do not change name
           text: '<i class="fas fa-trash"></i>',
           className: 'btn btn-export6 btn-xs py-1',
@@ -1014,327 +676,80 @@ function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
                 deleteDefect(data[0]);
                 /* delete function */
                 swal('Deleted!', 'Your file has been deleted.', 'success');
-              }
+                }
+              });
+            }
+          }, {
+          extend: 'copy',
+          text: '<i class="far fa-copy"></i>',
+          attr: {
+            title: 'Copy to Clipboard',
+            id: 'copyButton'
+            },
+          className: 'btn btn-export6 btn-xs py-1'
+            }, {
+          extend: 'excel',
+          text: '<i class="fas fa-table"></i>',
+          attr: {
+            title: 'Export to Excel',
+            id: 'exportButton'
+          },
+          filename: tbltitle,
+          className: 'btn btn-export6 btn-xs py-1'
+          }],
+        select: 'single',
+        "columnDefs": [{
+          /* sortable: false,
+          "class": "index",
+          "searchable": false,
+          "orderable": false, */
+          "targets": 0
+          }],
+        "order": [
+          [0, 'desc']
+          ]
+        });
+      tble.on('order.dt search.dt processing.dt page.dt', function () {
+        tble.column(0, {
+          search: 'applied',
+          order: 'applied'
+          }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
             });
-          }
-        }, {
-          extend: 'copy',
-          text: '<i class="far fa-copy"></i>',
-          attr: {
-            title: 'Copy to Clipboard',
-            id: 'copyButton'
-          },
-          className: 'btn btn-export6 btn-xs py-1'
-        }, {
-          extend: 'excel',
-          text: '<i class="fas fa-table"></i>',
-          attr: {
-            title: 'Export to Excel',
-            id: 'exportButton'
-          },
-          filename: tbltitle,
-          className: 'btn btn-export6 btn-xs py-1'
-        }],
-        select: 'single',
-        "columnDefs": [{
-					/* sortable: false,
-          "class": "index",
-          "searchable": false,
-          "orderable": false, */
-          "targets": 0
-        }],
-        "order": [
-          [0, 'desc']
-        ]
-      });
-      tble.on('order.dt search.dt processing.dt page.dt', function () {
-        tble.column(0, {
-          search: 'applied',
-          order: 'applied'
-        }).nodes().each(function (cell, i) {
-          cell.innerHTML = i + 1;
-        });
-      }).draw();
-    }
-  };
-  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
-  xhttp.send();
-}
-$.fn.dataTable.ext.buttons.add0 = {};
-
-function DisplayTable1(Table_Name, Tablesp, tbltitle, tbluser) {
-  var xhttp;
-  if (Table_Name.length == 0) {
-    document.getElementById("first_table").innerHTML = "<h1>No table to display.</h1>";
-    return;
+        }).draw();
+      }
+    };
+    xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
+    xhttp.send();
   }
-  xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("first_table").innerHTML = this.responseText;
-      var tble = $('#DanplaTable').DataTable({
-        deferRender: true,
-        scrollY: '54.2vh',
-        "oSearch": {
-          "sSearch": tbluser
-        },
-        "sScrollX": "100%",
-        "processing": true,
-        "serverSide": true,
-        "iDisplayLength": 100,
-        "ajax": {
-          url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
-          type: 'POST'
-        },
-        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5">><"row"<"col-12"<"dd">>>t',
-        'buttons': [{
-          name: 'delete', // do not change name
-          text: '<i class="fas fa-trash"></i>',
-          className: 'btn btn-export6 btn-xs py-1',
-          extend: 'selected', // Bind to Selected row
-          action: function (e, dt, node, config) {
-            var data = dt.row('.selected').data();
-            deleteDanpla(data[0]);
-          }
-        }, {
-          extend: 'copy',
-          text: '<i class="far fa-copy"></i>',
-          attr: {
-            title: 'Copy to Clipboard',
-            id: 'copyButton'
-          },
-          className: 'btn btn-export6 btn-xs py-1'
-        },],
-        select: 'single',
-        "columnDefs": [{
-          "targets": 0
-        }, {
-          "targets": 7,
-          "visible": false,
-        }],
-        "order": [
-          [0, 'desc']
-        ]
-      });
-      $("div.dd").html('<div class="py-1 input-group"><input type="textarea" class="form-control form-control-sm" id="Barcode_text" placeholder="SCAN DANPLA SERIAL NUMBER"><div class="input-group-append"><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddBtn" onclick="AddBtnClick()">ADD</button><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="LotCreateBtn" onclick="generateLot()">LOT CREATE</button></div></div>');
-      tble.on('order.dt search.dt processing.dt page.dt', function () {
-        tble.column(0, {
-          search: 'applied',
-          order: 'applied'
-        }).nodes().each(function (cell, i) {
-          cell.innerHTML = i + 1;
-        });
-      }).draw();
-    }
-  };
-  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
-  xhttp.send();
-}
-$.fn.dataTable.ext.buttons.add0 = {};
+  $.fn.dataTable.ext.buttons.add0 = {}; //end defect management table
 
-function DisplayTable2(Table_Name, Tablesp, tbltitle) {
-  var xhttp;
-  if (Table_Name.length == 0) {
-    document.getElementById("second_table").innerHTML = "<h1>No table to display.</h1>";
-    return;
-  }
-  xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("second_table").innerHTML = this.responseText;
-      var tble = $('#LotTable').DataTable({
-        deferRender: true,
-        scrollY: '60vh',
-        "sScrollX": "100%",
-        "processing": true,
-        "serverSide": true,
-        "iDisplayLength": 1000,
-        "ajax": {
-          url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
-          type: 'POST'
-        },
-        "dom": '<"row"<"col-3"B><"col"f>><"row"<"col"t>><"row"<"col">><"row"<"col"><"col"><"col"p>>',
-        'buttons': [{
-          extend: 'copy',
-          text: '<i class="far fa-copy"></i>',
-          attr: {
-            title: 'Copy to Clipboard',
-            id: 'copyButton'
-          },
-          className: 'btn btn-export6 btn-xs py-1'
-        }, {
-          extend: 'excel',
-          text: '<i class="fas fa-table"></i>',
-          attr: {
-            title: 'Export to Excel',
-            id: 'exportButton'
-          },
-          filename: tbltitle,
-          className: 'btn btn-export6 btn-xs py-1'
-        }],
-        select: 'single',
-        "columnDefs": [{
-					/* sortable: false,
-          "class": "index",
-          "searchable": false,
-          "orderable": false, */
-          "targets": 0
-        }],
-        "order": [
-          [0, 'desc']
-        ]
-      });
-      tble.on('order.dt search.dt processing.dt page.dt', function () {
-        tble.column(0, {
-          search: 'applied',
-          order: 'applied'
-        }).nodes().each(function (cell, i) {
-          cell.innerHTML = i + 1;
-        });
-      }).draw();
-    }
-  };
-  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
-  xhttp.send();
-}
-$.fn.dataTable.ext.buttons.add0 = {};
-/* function DisplayTable3() {
-
-  var xhttp;
-  xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("noLotTable").innerHTML = this.responseText;
-    }
-  };
-  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/noLot_table.php", true);
-  xhttp.send();
-} */
-function DisplayTable3(Table_Name, Tablesp, tbltitle,startdate,enddate) {
-  var xhttp;
-  if (Table_Name.length == 0) {
-    document.getElementById("third_table").innerHTML = "<h1>No table to display.</h1>";
-    return;
-  }
-  xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("third_table").innerHTML = this.responseText;
-      var tble = $('#pendingLotTable').DataTable({
-        deferRender: true,
-        scrollY: '59vh',
-        "sScrollX": "100%",
-        "processing": true,
-        "serverSide": true,
-        "iDisplayLength": 1000,
-        "ajax": {
-          url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
-          type: 'POST',
-          data: {
-            "sday": startdate,
-            "eday": enddate
-          }
-        },
-        /* "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5">><"row"<"col-12"<"dd">>>t', */
-        "dom": '<"row"<"col-6"<"dx">><"col-2 mt-2"B><"col-4 mt-3"f>>t<"row"<"col"p>>',
-        'buttons': [{
-          extend: 'copy',
-          text: '<i class="far fa-copy"></i>',
-          attr: {
-            title: 'Copy to Clipboard',
-            id: 'copyButton'
-          },
-          className: 'btn-outline-secondary btn pt-2'
-        }, {
-          extend: 'excel',
-          text: 'Export',
-          attr: {
-            title: 'Export to Excel',
-            id: 'exportButton'
-          },
-          filename: tbltitle,
-            className: 'btn-outline-secondary btn pt-2'
-        }],
-        select: 'single',
-        "columnDefs": [{
-          "targets": 0
-        }],
-        "order": [
-          [0, 'asc']
-        ]
-      });
-      tble.on('order.dt search.dt processing.dt page.dt', function () {
-        tble.column(0, {
-          search: 'applied',
-          order: 'applied'
-        }).nodes().each(function (cell, i) {
-          cell.innerHTML = i + 1;
-        });
-      }).draw();
-      
-      var dt = new Date();
-      dt.setMonth(dt.getMonth() - 1);
-      dt.setDate(1);
-      //$("div.dx").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0 form-control">Date</div></div> <input class="form-control" type="date" id="min" min="' + moment(dt).format('YYYY-MM-DD') + '"><div class="input-group-prepend"><div class="input-group-text m-0 form-control">to</div></div> <input class="form-control" type="date" id="max" min="' + moment(dt).format('YYYY-MM-DD') + '"> <button class="btn btn-outline-secondary" type="button" id="refresh"><i class="fas fa-sync-alt"></i> </button></div>');
-      $("div.dx").html('<div class="p-2 input-group"><div class="input-group-prepend"><div class="input-group-text" id="btnGroupAddon2">FROM</div></div><input id="min" min="' + moment(dt).format('YYYY-MM-DD') + '" type="date" class="py-1 form-control dateText"><div class="input-group-prepend"><div class="input-group-text" id="btnGroupAddon2">TO</div></div> <input id="max" min="' + moment(dt).format('YYYY-MM-DD') + '" type="date" class="py-1 form-control dateText" onchange="SearchDanplaCreate()"><div class="input-group-append"><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="refresh">REFRESH</button></div></div>');
-      min.value = startdate;
-      max.value = enddate;
-
-      $('#min, #max').on('change', function () {
-        var sdate = min.value;
-        var edate = max.value;
-
-        if (sdate != '' && edate == '') {
-          //alert('1');
-          //alert(sdate);
-          checkuserauthF(sdate);
+function a() {
+  var lotNumber = document.getElementById("lot_num").value;
+  var defect = parseInt(document.getElementById('defect_QTY').value);
+  $.ajax({
+    url: "/1_mes/_php/QualityManagement/query/get/GetQty.php",
+    method: "POST",
+    data: {
+      'lot_number': lotNumber,
+      'ajax': true
+    },
+    success: function (data) {
+      var actualQty = parseInt(data);
+      if (defect > actualQty) {
+        document.getElementById('defect_QTY').value = "";
+        swal({
+          text: 'DEFECT QUANTITY IS HIGHER THAN ITS ACTUAL QUANTITY. PLEASE CHECK',
+          type: 'error'
+          });
+        return;
+       } 
+      else {
+        return;
         }
-        else if (sdate == '' && edate != '') {
-         // alert('3');
-          //alert(sdate);
-          checkuserauthF(sdate,edate);
-
-        }
-        else if (sdate != '' && edate != '') {
-          /* alert('Good'); */
-         //alert(sdate + " + + +" + edate);
-          if (sdate == edate) {
-            //alert('2.1');
-            checkuserauthF(sdate);
-          }
-          else{
-            //alert('2.2');
-            checkuserauthF(sdate, edate);
-          }
-          
-        }
-        else{
-          //alert('4');
-          checkuserauthF();
-        }
-        
-        /* alert('test'); */
-      });
-      
-      $('#refresh').on('click', function () {
-        //alert('refresh');
-        checkuserauthF();
-      });
-
-    }
-  };
-  xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
-  xhttp.send();
-}
-$.fn.dataTable.ext.buttons.add0 = {};
-
-
-function checkuserauthF(sdate, edate) {
-
-  DisplayTable3('PendingLot', 'PendingLotSP', 'Pending_Lot', sdate, edate);
-
-}   
+      }
+    });
+  } // insert defect qty in defect management tab
 
 function getDefectDtls(defect_id) {
   $.ajax({
@@ -1370,7 +785,8 @@ function getDefectDtls(defect_id) {
       document.getElementById("eDefQty").value = val.DEF_QUANTITY;
     }
   });
-}
+} //displays defect details for editing
+
 $(document).on('change', '#eJobOrderNo', function () {
   document.getElementById("edatalistLotNumber").value = "";
   var jobOrderNumber = $(this).val();
@@ -1415,7 +831,8 @@ $(document).on('change', '#eJobOrderNo', function () {
         }
       }
     });
-});
+  }); //display defect details when JO is selected
+
 $(document).on('change', '#edatalistLotNumber', function () {
   var defectMgmt_LotNum = $(this).val();
   if (defectMgmt_LotNum == "" || defectMgmt_LotNum == " " || defectMgmt_LotNum == null || defectMgmt_LotNum == undefined) {
@@ -1441,7 +858,8 @@ $(document).on('change', '#edatalistLotNumber', function () {
       document.getElementById("eLotQuantityID").value = val.LOT_QTY;
     }
   });
-});
+}); //edit lotNumber in ddown
+
 $(document).on('change', '#edefectInputID', function () {
   var defectName = $(this).val();
   if (defectName == " ") {
@@ -1460,7 +878,7 @@ $(document).on('change', '#edefectInputID', function () {
       document.getElementById("eDefectCodeID").value = val.DEFECT_CODE;
     }
   });
-});
+}); //edit defect name in ddown
 
 function deleteDefect(def_ID) {
   var x = def_ID;
@@ -1475,7 +893,8 @@ function deleteDefect(def_ID) {
       DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
     }
   });
-}
+} //deletes defective item 
+
 $(document).on('click', '#updateDefect', function () {
   var def_ID = document.getElementById("defectID").value;
   var DefectInputID = document.getElementById("edefectInputID").value;
@@ -1519,38 +938,9 @@ $(document).on('click', '#updateDefect', function () {
       DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
     }
   });
-});
+}); // edits defective item
 
-function deleteDanpla(danpla_ID) {
-  //$('#dataModal').modal();
-  var danpla = danpla_ID;
-  swal({
-    title: 'Are you sure you want to delete?',
-    text: "You won't able to revert this.",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Delete Danpla'
-  }).then((result) => {
-    if (result.value) {
-      $.ajax({
-        method: 'post',
-        url: '/1_mes/_php/QualityManagement/query/delete/delete_danpla.php',
-        data: {
-          'danpla': danpla,
-          'ajax': true
-        },
-        success: function (data) {
-          swal('Success!', 'Danpla deleted!!', 'success')
-          DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp');
-          return;
-        }
-      });
-    }
-  });
-}
-
+//----------------------------------------- ITEM RECEIVING FUNCTIONS------------------------------------------------
 function clearReceive() {
   //$('#dataModal').modal();
   swal({
@@ -1577,7 +967,7 @@ function clearReceive() {
       });
     }
   });
-}
+} //clear items in danpla Received table
 
 function DisplayTableItemReceiving(Table_Name, Tablesp, tbluser) {
   var xhttp;
@@ -1629,39 +1019,7 @@ function DisplayTableItemReceiving(Table_Name, Tablesp, tbluser) {
   xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
   xhttp.send();
 }
-$.fn.dataTable.ext.buttons.add0 = {};
-
-function AddReceive() {
-  var bcode = ReceivingBarcode_text.value;
-  if (bcode == "") {
-    swal('Input Barcode!', 'Please insert danpla to receive.', 'warning')
-    return;
-  }
-  $.ajax({
-    method: 'post',
-    url: '/1_mes/_php/QualityManagement/query/get/getDanplaDetails.php',
-    data: {
-      'jo_barcode': bcode,
-      'ajax': true
-    },
-    success: function (data) {
-      var val = JSON.parse(data);
-      if (val != undefined) {
-        checkReceive(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.LOT_NUM);
-      } else {
-        swal('Serial does not exist in database!', 'Please insert existing danpla be allocated.', 'warning')
-      }
-    }
-  });
-}
-
-function ReloadTableList() {
-  var x = document.getElementById('ItemReceivedTable').rows[1].cells[0].innerHTML;
-  if (x != "No data available in table") {
-    var vblLot = document.getElementById('ItemReceivedTable').rows[1].cells[2].innerHTML;
-    DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', vblLot);
-  }
-}
+$.fn.dataTable.ext.buttons.add0 = {}; //Item Receiving first table
 
 function DisplayTableDanplaList(Table_Name, Tablesp, tbltitle, tblLot) {
   var xhttp;
@@ -1735,7 +1093,15 @@ function DisplayTableDanplaList(Table_Name, Tablesp, tbltitle, tblLot) {
   xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
   xhttp.send();
 }
-$.fn.dataTable.ext.buttons.add0 = {};
+$.fn.dataTable.ext.buttons.add0 = {}; //end list of DANPLA needed
+
+function ReloadTableList() {
+  var x = document.getElementById('ItemReceivedTable').rows[1].cells[0].innerHTML;
+  if (x != "No data available in table") {
+    var vblLot = document.getElementById('ItemReceivedTable').rows[1].cells[2].innerHTML;
+    DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', vblLot);
+  }
+} // end reload remaining fg table
 
 function AddReceive() {
   var bcode = ReceivingBarcode_text.value;
@@ -1759,7 +1125,7 @@ function AddReceive() {
       }
     }
   });
-}
+} //end receive item in fg Item Receiving tab
 
 function checkReceive(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertLot) {
   $.ajax({
@@ -1801,7 +1167,7 @@ function checkReceive(insertBarcode, insertJO, insertItemCode, insertItemName, i
       }
     }
   });
-}
+} //end danplaChecking before receiving
 
 function insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertLot) {
   $.ajax({
@@ -1825,7 +1191,7 @@ function insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, 
       DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', insertLot);
     }
   });
-}
+} // end InsertIntoQueueingTable
 
 function ApproveTransfer() {
   var gathered = document.getElementById("ItemReceivedTable").rows.length;
@@ -1846,7 +1212,7 @@ function ApproveTransfer() {
   } else if (gathered == list) {
     updateWarehouseReceive(vblLot);
   }
-}
+} // end approveTransfer
 
 function updateWarehouseReceive(lotNumber) {
   (async function getCountry() {
@@ -1896,41 +1262,567 @@ function updateWarehouseReceive(lotNumber) {
     });
   }
   })();
-}
+} // end updateWarehouse Receive
 
+//--------------------------------------------------no lot danpla list------- LOT CREATE FUNCTIONS -------------------------------------------
 
-function exportExcel() {
-  var search = SearchPendingDanpla.value;
-  var d1 = danplaDate1.value;
-  var d2 = danplaDate2.value;
-  if (d1 != "" && d2 != "") {
-    if (search == "") {
-      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PRINT_DATE BETWEEN '" + d1 + "' AND '" + d2 + "') AND LOT_NUM = ''  GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
-    } else {
-      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE ((PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PRINT_DATE BETWEEN '" + d1 + "' AND '" + d2 + "')) AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+  function DisplayTable1(Table_Name, Tablesp, tbltitle, tbluser) {
+    var xhttp;
+    if (Table_Name.length == 0) {
+      document.getElementById("first_table").innerHTML = "<h1>No table to display.</h1>";
+      return;
     }
-  } else if (d1 != "" && d2 == "") {
-    if (search == "") {
-      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PRINT_DATE LIKE '%" + d1 + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
-    } else {
-      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE ((PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PRINT_DATE = '" + d1 + "') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
-    }
-  } else if (search != "") {
-    var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("first_table").innerHTML = this.responseText;
+        var tble = $('#DanplaTable').DataTable({
+          deferRender: true,
+          scrollY: '54.2vh',
+          "oSearch": {
+            "sSearch": tbluser
+          },
+          "sScrollX": "100%",
+          "processing": true,
+          "serverSide": true,
+          "iDisplayLength": 100,
+          "ajax": {
+            url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
+            type: 'POST'
+          },
+          "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5">><"row"<"col-12"<"dd">>>t',
+          'buttons': [{
+            name: 'delete', // do not change name
+            text: '<i class="fas fa-trash"></i>',
+            className: 'btn btn-export6 btn-xs py-1',
+            extend: 'selected', // Bind to Selected row
+            action: function (e, dt, node, config) {
+              var data = dt.row('.selected').data();
+              deleteDanpla(data[0]);
+            }
+          }, {
+            extend: 'copy',
+            text: '<i class="far fa-copy"></i>',
+            attr: {
+              title: 'Copy to Clipboard',
+              id: 'copyButton'
+            },
+            className: 'btn btn-export6 btn-xs py-1'
+          },],
+          select: 'single',
+          "columnDefs": [{
+            "targets": 0
+          }, {
+            "targets": 7,
+            "visible": false,
+          }],
+          "order": [
+            [0, 'desc']
+          ]
+        });
+        $("div.dd").html('<div class="py-1 input-group"><input type="textarea" class="form-control form-control-sm" id="Barcode_text" placeholder="SCAN DANPLA SERIAL NUMBER"><div class="input-group-append"><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddBtn" onclick="AddBtnClick()">ADD</button><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="LotCreateBtn" onclick="generateLot()">LOT CREATE</button></div></div>');
+        tble.on('order.dt search.dt processing.dt page.dt', function () {
+          tble.column(0, {
+            search: 'applied',
+            order: 'applied'
+          }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+          });
+        }).draw();
+      }
+    };
+    xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
+    xhttp.send();
   }
-  //alert(z);
-  $.ajax({
-    method: 'post',
-    url: '/1_mes/_php/QualityManagement/table/Export_NoLot.php',
-    data: {
-      'sql': z,
-      'ajax': true
-    },
-    success: function (data) {
-      //alert(data);
-      //window.location = '/1_mes/_php/QualityManagement/table/Export_NoLot.php';
-      /* document.getElementById("noLotTable").innerHTML = data; */
-      /* loadDoc('LotCreate',data); */
+  $.fn.dataTable.ext.buttons.add0 = {}; //end danpla inserted for lot creation
+
+  function AddLotBtnClick(newLot, joborder) {
+    var x = document.getElementById("DanplaTable").rows.length;
+    if (newLot == undefined || newLot == "" || newLot == null || newLot == " ") {
+      alert("No Lot Number Try Again");
+      return;
     }
-  });
-}
+    else {
+      swal({
+        title: 'Create Lot ' + newLot + ' ? Confirm?',
+        text: "You won't be able to revert this anymore!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Create Lot'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            method: 'post',
+            url: '/1_mes/_php/QualityManagement/query/insert/InsertLotTable.php',
+            data: {
+              'jo_num': joborder,
+              'row_count': x,
+              'lot_number': newLot,
+              'ajax': true
+            },
+            success: function (data) {
+              loadDoc('LotCreate', username);
+              lotNO = "";
+              swal('Lot ' + newLot + ' Created!', 'Your items is now allocated!! Please note the lot number!!', 'success')
+            }
+          });
+        }
+      });
+    }
+  } //function that inserts the created lot into DB
+
+  function DisplayTable2(Table_Name, Tablesp, tbltitle) {
+    var xhttp;
+    if (Table_Name.length == 0) {
+      document.getElementById("second_table").innerHTML = "<h1>No table to display.</h1>";
+      return;
+    }
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("second_table").innerHTML = this.responseText;
+        var tble = $('#LotTable').DataTable({
+          deferRender: true,
+          scrollY: '60vh',
+          "sScrollX": "100%",
+          "processing": true,
+          "serverSide": true,
+          "iDisplayLength": 1000,
+          "ajax": {
+            url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
+            type: 'POST'
+          },
+          "dom": '<"row"<"col-3"B><"col"f>><"row"<"col"t>><"row"<"col">><"row"<"col"><"col"><"col"p>>',
+          'buttons': [{
+            extend: 'copy',
+            text: '<i class="far fa-copy"></i>',
+            attr: {
+              title: 'Copy to Clipboard',
+              id: 'copyButton'
+            },
+            className: 'btn btn-export6 btn-xs py-1'
+          }, {
+            extend: 'excel',
+            text: '<i class="fas fa-table"></i>',
+            attr: {
+              title: 'Export to Excel',
+              id: 'exportButton'
+            },
+            filename: tbltitle,
+            className: 'btn btn-export6 btn-xs py-1'
+          }],
+          select: 'single',
+          "columnDefs": [{
+            /* sortable: false,
+            "class": "index",
+            "searchable": false,
+            "orderable": false, */
+            "targets": 0
+          }],
+          "order": [
+            [0, 'desc']
+          ]
+        });
+        tble.on('order.dt search.dt processing.dt page.dt', function () {
+          tble.column(0, {
+            search: 'applied',
+            order: 'applied'
+          }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+          });
+        }).draw();
+      }
+    };
+    xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
+    xhttp.send();
+  }
+  $.fn.dataTable.ext.buttons.add0 = {}; // list of lot created
+
+  /* function DisplayTable3() {
+
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("noLotTable").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("POST", "/1_mes/_php/QualityManagement/table/noLot_table.php", true);
+    xhttp.send();
+  } */
+
+  function DisplayTable3(Table_Name, Tablesp, tbltitle, startdate, enddate) {
+    var xhttp;
+    if (Table_Name.length == 0) {
+      document.getElementById("third_table").innerHTML = "<h1>No table to display.</h1>";
+      return;
+    }
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("third_table").innerHTML = this.responseText;
+        var tble = $('#pendingLotTable').DataTable({
+          deferRender: true,
+          scrollY: '59vh',
+          "sScrollX": "100%",
+          "processing": true,
+          "serverSide": true,
+          "iDisplayLength": 1000,
+          "ajax": {
+            url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
+            type: 'POST',
+            data: {
+              "sday": startdate,
+              "eday": enddate
+            }
+          },
+          /* "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 mr-5">><"row"<"col-12"<"dd">>>t', */
+          "dom": '<"row"<"col-6"<"dx">><"col-2 mt-2"B><"col-4 mt-3"f>>t<"row"<"col"p>>',
+          'buttons': [{
+            extend: 'copy',
+            text: '<i class="far fa-copy"></i>',
+            attr: {
+              title: 'Copy to Clipboard',
+              id: 'copyButton'
+            },
+            className: 'btn-outline-secondary btn pt-2'
+          }, {
+            extend: 'excel',
+            text: 'Export',
+            attr: {
+              title: 'Export to Excel',
+              id: 'exportButton'
+            },
+            filename: tbltitle,
+            className: 'btn-outline-secondary btn pt-2'
+          }],
+          select: 'single',
+          "columnDefs": [{
+            "targets": 0
+          }],
+          "order": [
+            [0, 'asc']
+          ]
+        });
+        tble.on('order.dt search.dt processing.dt page.dt', function () {
+          tble.column(0, {
+            search: 'applied',
+            order: 'applied'
+          }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+          });
+        }).draw();
+
+        var dt = new Date();
+        dt.setMonth(dt.getMonth() - 1);
+        dt.setDate(1);
+        //$("div.dx").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0 form-control">Date</div></div> <input class="form-control" type="date" id="min" min="' + moment(dt).format('YYYY-MM-DD') + '"><div class="input-group-prepend"><div class="input-group-text m-0 form-control">to</div></div> <input class="form-control" type="date" id="max" min="' + moment(dt).format('YYYY-MM-DD') + '"> <button class="btn btn-outline-secondary" type="button" id="refresh"><i class="fas fa-sync-alt"></i> </button></div>');
+        $("div.dx").html('<div class="p-2 input-group"><div class="input-group-prepend"><div class="input-group-text" id="btnGroupAddon2">FROM</div></div><input id="min" min="' + moment(dt).format('YYYY-MM-DD') + '" type="date" class="py-1 form-control dateText"><div class="input-group-prepend"><div class="input-group-text" id="btnGroupAddon2">TO</div></div> <input id="max" min="' + moment(dt).format('YYYY-MM-DD') + '" type="date" class="py-1 form-control dateText" onchange="SearchDanplaCreate()"><div class="input-group-append"><button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="refresh">REFRESH</button></div></div>');
+        min.value = startdate;
+        max.value = enddate;
+
+        $('#min, #max').on('change', function () {
+          var sdate = min.value;
+          var edate = max.value;
+
+          if (sdate != '' && edate == '') {
+            checkuserauthF(sdate);
+          }
+          else if (sdate == '' && edate != '') {
+            checkuserauthF(sdate, edate);
+
+          }
+          else if (sdate != '' && edate != '') {
+            if (sdate == edate) {
+              checkuserauthF(sdate);
+            }
+            else {
+              checkuserauthF(sdate, edate);
+            }
+
+          }
+          else {
+            checkuserauthF();
+          }
+        });
+
+        $('#refresh').on('click', function () {
+          checkuserauthF();
+        });
+
+      }
+    };
+    xhttp.open("POST", "/1_mes/_php/QualityManagement/table/" + Table_Name + ".php", true);
+    xhttp.send();
+  }
+  $.fn.dataTable.ext.buttons.add0 = {}; //end pending danpla for lot creation
+
+  function exportExcel() {
+    var search = SearchPendingDanpla.value;
+    var d1 = danplaDate1.value;
+    var d2 = danplaDate2.value;
+    if (d1 != "" && d2 != "") {
+      if (search == "") {
+        var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PRINT_DATE BETWEEN '" + d1 + "' AND '" + d2 + "') AND LOT_NUM = ''  GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      } else {
+        var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE ((PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PRINT_DATE BETWEEN '" + d1 + "' AND '" + d2 + "')) AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      }
+    } else if (d1 != "" && d2 == "") {
+      if (search == "") {
+        var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PRINT_DATE LIKE '%" + d1 + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      } else {
+        var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE ((PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PRINT_DATE = '" + d1 + "') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      }
+    } else if (search != "") {
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+    }
+    $.ajax({
+      method: 'post',
+      url: '/1_mes/_php/QualityManagement/table/Export_NoLot.php',
+      data: {
+        'sql': z,
+        'ajax': true
+      },
+      success: function (data) {
+        //window.location = '/1_mes/_php/QualityManagement/table/Export_NoLot.php';
+        /* document.getElementById("noLotTable").innerHTML = data; */
+        /* loadDoc('LotCreate',data); */
+      }
+    });
+  } //end export excel
+
+  function deleteDanpla(danpla_ID) {
+    var danpla = danpla_ID;
+    swal({
+      title: 'Are you sure you want to delete?',
+      text: "You won't able to revert this.",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Delete Danpla'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          method: 'post',
+          url: '/1_mes/_php/QualityManagement/query/delete/delete_danpla.php',
+          data: {
+            'danpla': danpla,
+            'ajax': true
+          },
+          success: function (data) {
+            swal('Success!', 'Danpla deleted!!', 'success')
+            DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp');
+            return;
+          }
+        });
+      }
+    });
+  } //remove danpla via button(datatables)
+
+  function checkuserauthF(sdate, edate) {
+
+    DisplayTable3('PendingLot', 'PendingLotSP', 'Pending_Lot', sdate, edate);
+
+  }   //end display table 3
+
+  function ClearSearchDanplaCreate() {
+    var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+    /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PRINT_DATE);"; */
+    $.ajax({
+      method: 'post',
+      url: "/1_mes/_php/QualityManagement/table/noLot_table.php",
+      data: {
+        'sql': z,
+        'ajax': true
+      },
+      success: function (data) {
+        document.getElementById("noLotTable").innerHTML = data;
+        SearchPendingDanpla.value = "";
+        danplaDate1.value = "";
+        danplaDate2.value = "";
+      }
+    });
+  } //clear search in pending danpla for lot creation
+
+  function SearchDanplaCreate() {
+    var search = SearchPendingDanpla.value;
+    var d1 = danplaDate1.value;
+    var d2 = danplaDate2.value;
+    if (d1 != "" && d2 != "") {
+      if (search == "") {
+        var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "') AND LOT_NUM = ''  GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      } else {
+        var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE ((PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND (PRINT_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "')) AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      }
+    } else if (d1 != "" && d2 == "") {
+      if (search == "") {
+        var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PRINT_DATE LIKE '%" + d1 + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      } else {
+        var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE ((PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND PRINT_DATE = '" + d1 + "') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+      }
+    } else if (search != "") {
+      var z = "SELECT *,SUM(PRINT_QTY) as SUMQTY FROM mis_product WHERE (PACKING_NUMBER LIKE '%" + search + "%' OR JO_NUM LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%') AND LOT_NUM = '' GROUP BY PACKING_NUMBER ORDER BY PRINT_DATE ASC;";
+    }
+    /* var z = "SELECT * FROM mis_product WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PRINT_DATE);"; */
+    $.ajax({
+      method: 'post',
+      url: "/1_mes/_php/QualityManagement/table/noLot_table.php",
+      data: {
+        'sql': z,
+        'ajax': true
+      },
+      success: function (data) {
+        document.getElementById("noLotTable").innerHTML = data;
+      }
+    });
+  } //search in pending danpla for lot creation
+
+  function AddBtnClick() {
+    var bcode = Barcode_text.value;
+    if (bcode == "") {
+      swal('Input Barcode!', 'Please insert danpla to be allocated.', 'warning')
+      return;
+    }
+    $.ajax({
+      method: 'post',
+      url: '/1_mes/_php/QualityManagement/query/get/getDanplaDetails.php',
+      data: {
+        'jo_barcode': bcode,
+        'ajax': true
+      },
+      success: function (data) {
+        var val = JSON.parse(data);
+        if (val != undefined) {
+          if (val.LOT_NUM == null || val.LOT_NUM == "" || val.LOT_NUM == undefined) {
+            CheckDanpla(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
+          } else {
+            swal('Items already allocated into other lot.', 'Please insert new danpla be allocated.', 'warning')
+          }
+        } else {
+          swal('Items does not exist!', 'Please insert existing danpla be allocated.', 'warning')
+        }
+      }
+    });
+  } //end function for button that adds in the collection of danpla
+
+  function InsertDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertMachine) {
+    $.ajax({
+      method: 'post',
+      url: '/1_mes/_php/QualityManagement/query/insert/InsertDanplaTable.php',
+      data: {
+        'jo_barcode': insertBarcode,
+        'jo_num': insertJO,
+        'item_code': insertItemCode,
+        'item_name': insertItemName,
+        'print_qty': insertQuantity,
+        'machine_code': insertMachine,
+        'ajax': true
+      },
+      success: function (data) {
+        swal({
+          text: data,
+          type: 'success'
+        });
+        DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp', username);
+      }
+    });
+  } //end inserts validated danpla into DB table
+
+  function CheckDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertMachine) {
+    $.ajax({
+      method: 'post',
+      url: '/1_mes/_php/QualityManagement/query/get/getDanplaJO.php',
+      data: {
+        'jo_barcode': insertBarcode,
+        'jo_num': insertJO,
+        'ajax': true
+      },
+      success: function (data) {
+        if (data == "false") {
+          InsertDanpla(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertMachine);
+        } else if (data == '"true1"') {
+          swal({
+            text: 'DANPLA EXIST',
+            type: 'error'
+          });
+          document.getElementById('Barcode_text').value = "";
+        } else if (data == '"true2"') {
+          swal({
+            text: 'DANPLA IS FROM DIFFERENT JO',
+            type: 'error'
+          });
+        }
+      }
+    });
+  } //end checks if danpla is valid in the collection of danpla for lot creation
+  var lotNO;
+
+  function buildLotNumber() {
+    var d = new Date();
+    var month = d.getUTCMonth() + 1; //months from 1-12
+    var day = d.getUTCDate();
+    var year = d.getUTCFullYear().toString().substr(2, 2);
+    // first 4 chars in LOT NUMBER
+    if (month < 10) {
+      month = '0' + month
+    }
+    if (day < 10) {
+      day = '0' + day
+    }
+    // 2nd 2 chars in LOT NUMBER
+    var shift = "01"; //DayShift
+    var today = new Date().getHours();
+    if (today <= 6 && today >= 18) {
+      shift = "02"
+    }
+    $.ajax({
+      method: 'post',
+      url: '/1_mes/_php/QualityManagement/query/get/GetMachine.php',
+      success: function (data) {
+        var val = JSON.parse(data);
+        var machine = val.MACHINE_CODE;
+        var lotNumber = year + "" + month + "" + day + "" + shift + machine + "01";
+        lotNO = lotNumber;
+        return lotNO;
+      }
+    });
+  } //end algo that creates a new lot Number
+
+  function generateLot() {
+    var lotNew, newL;
+    var x = document.getElementById("DanplaTable").rows[1].cells[0].innerHTML;
+    if (x == "No data available in table") {
+      swal('No items allocated.', 'Please insert danpla to create lot.', 'warning')
+      return;
+    } else {
+      var joborder = document.getElementById("DanplaTable").rows[1].cells[2].innerHTML;
+      var y = document.getElementById("DanplaTable").rows[1].cells[6].innerHTML;
+    }
+    $.ajax({
+      method: 'post',
+      url: '/1_mes/_php/QualityManagement/query/get/GetNextLot.php',
+      data: {
+        'jo_num': joborder,
+        'machine_code': y,
+        'ajax': true
+      },
+      success: function (data) {
+        if (data == '"true"' || data == '"false"') {
+          buildLotNumber(newL);
+          AddLotBtnClick(lotNO, joborder);
+        } else if (data != '"false"' || data != '"true"') {
+          var val = JSON.parse(data);
+          var lotPrev = val.slice(0, 12);
+          var series = val.slice(-1);
+          var i = parseInt(series) + 1;
+          lotNew = lotPrev + i;
+          AddLotBtnClick(lotNew, joborder);
+        }
+      }
+    });
+  } //end check if lot will be generating as new or will be generating the next lot
+

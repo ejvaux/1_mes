@@ -39,7 +39,7 @@
                 <th>PRINT QTY</th>
                 </thead>
                 <tbody>
-                    <td colspan='3' style='text-align:center'><h4>DANPLA</h4></td>
+                    <td colspan='3' style='text-align:center'><p>Please sync data from ProOut Barcode System</p></td>
                 </tbody>
                 </table>";
             }
