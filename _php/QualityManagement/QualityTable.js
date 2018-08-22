@@ -1119,7 +1119,7 @@ function AddReceive() {
     success: function (data) {
       var val = JSON.parse(data);
       if (val != undefined) {
-        checkReceive(bcode, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.LOT_NUM);
+        checkReceive(val.PACKING_NUMBER, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.LOT_NUM);
       } else {
         swal('Serial does not exist in database!', 'Please insert existing danpla be allocated.', 'warning')
       }
