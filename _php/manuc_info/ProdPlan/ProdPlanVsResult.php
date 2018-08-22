@@ -220,28 +220,79 @@ $(document).on('change','#ICode', function() {
          
        </div>
    </li>      
+   <li class="nav-item dropdown" style="overflow:visible;">
+     <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     Production
+     </a>
+      <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">                  
+         <div class="container dropdown-header text-left">
+                  <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <a style="color: black"  href="#" onclick="loadtbl2('ProductionSummary','','production_summary')">PRODUCTION SUMMARY</a>
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <a style="color: black"  href="#" onclick="loadtbl2('PrintStatus','','print_status')">PRINT STATUS</a>                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <a style="color: black" href="#" onclick="loadtbl2('PendingProduction','','pending_production')">PENDING PRODUCTION</a>                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <a style="color: black" href="#" onclick="underConstruct()">PROD STOP</a>                        
+                        </h6>
+                      </div>                      
+                    </div>
+         </div>
+      </div>
+    </li>
+
+     <li class="nav-item dropdown" style="overflow:visible;">
+     <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     Shipment
+     </a>
+      <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">                  
+         <div class="container dropdown-header text-left">
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <a style="color: black" href="#" onclick="loadtbl2('ShipmentList1','','shipment_management1')">SHIPMENT LIST</a>                      
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <a style="color: black" href="#" onclick="loadtbl2('ShipmentList','','shipment_management')">GROUP MANAGEMENT</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <a style="color: black" href="#" onclick="loadtbl2('Dr-Assign','','dr_assign')">DR-ASSIGN</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
+
+         </div>
+      </div>
+      </li>
+      <!-- loadtbl2('CreatePlan','','create_plan') -->
+       
        <li>
-         <a class="nav-link tbl" id="menuhover"  href="#" onclick="loadtbl2('ProductionSummary','','production_summary')">Production Summary</a>
+         <a class="nav-link tbl" id="menuhover" href="#" onclick="underConstruct()">Create Plan</a>
        </li>
-       <li>
-         <a class="nav-link tbl" id="menuhover"  href="#" onclick="loadtbl2('PrintStatus','','print_status')">Print Status</a>
-       </li>
-       <li>
-         <a class="nav-link tbl" id="menuhover" href="#" onclick="loadtbl2('PendingProduction','','pending_production')">Pending Production</a>
-       </li>
-       <li>
-         <a class="nav-link tbl" id="menuhover" href="#" onclick="underConstruct()">Production Stop</a>
-       </li>
-       <li>
-         <a class="nav-link tbl" id="menuhover" href="#" onclick="loadtbl2('ShipmentList1','','shipment_management1')">Shipment List</a>
-       </li>
-       <li>
-         <a class="nav-link tbl" id="menuhover" href="#" onclick="loadtbl2('ShipmentList','','shipment_management')">Group Mngmt</a>
-       </li>
-       <li>
-         <a class="nav-link tbl" id="menuhover" href="#" onclick="loadtbl2('Dr-Assign','','dr_assign')">DR-Assign</a>
-       </li>
-     
+ 
 
 
      </ul>

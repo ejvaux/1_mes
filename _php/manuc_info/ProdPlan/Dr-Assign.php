@@ -126,8 +126,9 @@
 
 
                 </div>   
-                </div>
+                
         </div>
+        <br>
         <div class="card">
                     <div class="card-header" style="font-weight: bold">Changes in Information</div>
                     <div class="card-body">   
@@ -136,7 +137,7 @@
                                         <span class="input-group-text">DR #: </span>
                                     </div>
                                         <select class="sel2 form-control" id="drtextchange">
-                                        <option>--SELECT A DR#--</option>
+                                          <option>--SELECT A DR#--</option>
                                             <?php
                                             $datenow = date("Y-m-d");
                                             include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
@@ -152,7 +153,10 @@
                                         
                                         </select>
                                 </div>
-                    </div>   
+                    </div> 
+          
+                  
+        </div>     
         </div>
 
       <div class="modal-footer">

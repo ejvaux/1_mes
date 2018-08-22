@@ -13,17 +13,12 @@ function loadtbl2(TableName,deptSec,SectionGroup)
         showTable(TableName,deptSec,SectionGroup,"no");
         $('[data-toggle="tooltip"]').tooltip();
 
-        
-
-        
-
       }
     };
       xhttp.open("GET", TableName+".php", true);
       xhttp.send();
 }
  
-
   
 function updateTable(TableName,deptSec,SectionGroup)
 {
@@ -33,28 +28,22 @@ function updateTable(TableName,deptSec,SectionGroup)
     setTimeout(updateTable,50000);
 }
 
-
-
-
 function showTable(moduleID,deptSec,SectionGroup,param1)
 {
     //updateTable(moduleID,deptSec,SectionGroup);
 
     if(param1!="no")
     {
-        $("#example-table").tabulator("destroy");
-        
+        $("#example-table").tabulator("destroy");    
     }
     /*  alert(strfromobj+" "+searchobj+" "+strtoobj); */
- 
+    
+    if(SectionGroup=="PlanWithResult")
+    {
     var strfromobj = document.getElementById("sortfrom").value;
     var searchobj = document.getElementById("search").value;
     var strtoobj = document.getElementById("sortto").value;
     var department= deptSec;
-  
-    
-    if(SectionGroup=="PlanWithResult")
-    {
      $.ajax({
            method:'POST',
            url:'/1_mes/_php/manuc_info/Prodplan/DataProdPlanVsResult.php',
@@ -82,6 +71,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     }
     else if(SectionGroup=="Result")
      {
+        var strfromobj = document.getElementById("sortfrom").value;
+        var searchobj = document.getElementById("search").value;
+        var strtoobj = document.getElementById("sortto").value;
+        var department= deptSec;
         $.ajax({
             method:'POST',
             url:'/1_mes/_php/manuc_info/Prodplan/DataProdResult.php',
@@ -113,7 +106,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
      {
         var plantypeobj = document.getElementById("PlanType");
         var selectedOption = plantypeobj.options[plantypeobj.selectedIndex].value;
-        
+        var strfromobj = document.getElementById("sortfrom").value;
+        var searchobj = document.getElementById("search").value;
+        var strtoobj = document.getElementById("sortto").value;
+        var department= deptSec;
         
         $.ajax({
             method:'POST',
@@ -128,7 +124,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
   
             },
         
-            
+        
             success: function(data) 
             {
                 //alert(data);
@@ -145,7 +141,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
      {
         var plantypeobj = document.getElementById("PlanType");
         var selectedOption2 = plantypeobj.options[plantypeobj.selectedIndex].value;
-       
+        var strfromobj = document.getElementById("sortfrom").value;
+        var searchobj = document.getElementById("search").value;
+        var strtoobj = document.getElementById("sortto").value;
+        var department= deptSec;
         $.ajax({
             method:'POST',
             url:'/1_mes/_php/manuc_info/ProdPlan/DataPendingProduction.php',
@@ -180,7 +179,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         var selectedChartType = charttypeobj.options[charttypeobj.selectedIndex].value;
         var plantypeobj = document.getElementById("PlanType");
         var selectedOption2 = plantypeobj.options[plantypeobj.selectedIndex].value;
-       
+        var strfromobj = document.getElementById("sortfrom").value;
+        var searchobj = document.getElementById("search").value;
+        var strtoobj = document.getElementById("sortto").value;
+        var department= deptSec;
         $.ajax({
             method:'POST',
             url:'/1_mes/_php/manuc_info/ProdPlan/graphdata.php',
@@ -278,6 +280,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         }
         var ShipStat = document.getElementById("StatusSort");
         var selectedOption = ShipStat.options[ShipStat.selectedIndex].value;
+        var strfromobj = document.getElementById("sortfrom").value;
+        var searchobj = document.getElementById("search").value;
+        var strtoobj = document.getElementById("sortto").value;
+        var department= deptSec;
         //example table
         $.ajax({
             method:'POST',
@@ -354,6 +360,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
      {
         var ShipStat = document.getElementById("StatusSort");
         var selectedOption = ShipStat.options[ShipStat.selectedIndex].value;
+        var strfromobj = document.getElementById("sortfrom").value;
+        var searchobj = document.getElementById("search").value;
+        var strtoobj = document.getElementById("sortto").value;
+        var department= deptSec;
         //example table
       $.ajax({
             method:'POST',
@@ -384,6 +394,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
       
         var DrDataTypeobj = document.getElementById("DrDataType");
         var selectedOption2 = DrDataTypeobj.options[DrDataTypeobj.selectedIndex].value;
+        var strfromobj = document.getElementById("sortfrom").value;
+        var searchobj = document.getElementById("search").value;
+        var strtoobj = document.getElementById("sortto").value;
+        var department= deptSec;
        
         $.ajax({
             method:'POST',
@@ -414,10 +428,79 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
 
 
      }
-     
+
+
+     else if(SectionGroup=="create_plan")
+     {
+        if(param1!="no")
+        {
+            $("#example-table1").tabulator("destroy");
+            
+        }
+        $('.sel2').select2({width: '200px'});
+         left_create_plan();
+        /* right_create_plan(); */ 
+
+     }
+}
+
+function right_create_plan()
+{
+   
+   
+    $.ajax({
+        method:'POST',
+        url:'/1_mes/_php/manuc_info/ProdPlan/DataRightCreatePlan.php',
+        data:
+        {
+            
+            'ajax':true
+
+        },
     
+        
+        success: function(data) 
+        {
+            
+            initTbl2("right_create_tbl");
+            var val = JSON.parse(data);
+           /* alert(val); */
+           $("#example-table2").tabulator("setData",val); 
+         
+        }
+
+         });
+
+
+}
+
+function left_create_plan()
+{
+    var filename = document.getElementById("sales_demands").value;
+  
+   
+    $.ajax({
+        method:'POST',
+        url:'/1_mes/_php/manuc_info/ProdPlan/Data_CP_left.php',
+        data:
+        {
+            'xlsx': filename,
+            'ajax':true
+
+        },
     
-     
+        
+        success: function(data) 
+        {
+           
+            initTbl2("left_create_tbl");
+            var val = JSON.parse(data);
+           /*  alert(val); */
+           $("#example-table1").tabulator("setData",val); 
+         
+        }
+
+         });
 
 
 }
@@ -615,10 +698,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
     movableColumns:true,
     groupBy:"LOT_NUMBER",
     groupHeader:function(value, count, data, group){
-        //value - the value all members of this group share group this of members all value the
-        //count - the number of rows in this group this in rows of number the
-        //data - an array of all the row data objects in this group this in objects data row the all of array an
-        //group - the group component for the group the for component group the
+        //value - the value all members of this group share
+        //count - the number of rows in this group
+        //data - an array of all the row data objects in this group
+        //group - the group component for the group
         if(count > 1)
         {
             return "LOT NUMBER: "+ value + "<span style='margin-left:10px;'>(" + count + " items) </span>";
@@ -783,7 +866,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             {
                 return "<span style='color:green; font-weight:bold;'>" + datacell + "</span>";
             }
-            else if(datacell=="ALREADY SHIPPED")
+            else if(datacell=="ALREADY SHIPPED") 
             {
                 return "<span style='color:Blue; font-weight:bold;'>" + datacell + "</span>";
             }
@@ -848,8 +931,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
        
  
         {title:"SHIPMENT STATUS", field:"SHIPMENT_STATUS",formatter:function(cell, formatterParams){
-            //cell - the cell component
-            //formatterParams - parameters set for the column
+            //cell - the cell component cell the - cell
+            //formatterParams - parameters set for the column the column the for set parameters - formatterParams
             var datacell = cell.getValue();
             if(datacell=="REJECT/WAITING FOR REWORKS")
             {
@@ -892,7 +975,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
    {
        
     $("#example-table2").tabulator({
-    height: "60vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+    height: "60vh", // set height of table (in CSS or here)
     //layout:"fitColumns", //fit columns to width of table (optional)
     selectable: 1,
     paginationSize:1000,
@@ -999,7 +1082,6 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                                 'lotno':cell.getRow().getData().LOT_NUMBER,
                                 'itemcode': cell.getRow().getData().ITEM_CODE,
                                 'groupname': cell.getRow().getData().GROUP_NAME,
-                                
                                 'ajax':true
                   
                             },
@@ -1179,7 +1261,7 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
                             {
                                 'packingno': cell.getRow().getData().PACKING_NO,
                                 'lotno':cell.getRow().getData().LOT_NUMBER,
-/*                                 'jono': cell.getRow().getData().JO_NO,
+/*                               'jono': cell.getRow().getData().JO_NO,
                                 'itemcode':cell.getRow().getData().ITEM_CODE,
                                 'machinecode': cell.getRow().getData().MACHINE_CODE,
                                 'itemname': cell.getRow().getData().ITEM_NAME,
@@ -1234,8 +1316,57 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
 
    }
    
- 
+   else if(TabName=="right_create_tbl")
+   {
+       
+    $("#example-table2").tabulator({
+    height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+    //layout:"fitColumns", //fit columns to width of table (optional)
+    pagination:"local",
+    paginationSize:1000,
+    placeholder:"No Data to Display",
+    movableColumns:true,
+    selectable: 1,
+    groupBy:"DR_DATE",    
+    columns:[
+        {title:"NO", field:"NO", width:60,align:"center"},
+        {title:"DR DATE", field:"DR_DATE"},
+        {title:"DR NO", field:"DR_NO"},
+        {title:"GROUP NAME", field:"GROUP_NAME"},
+        {title:"PACKING NO", field:"PACKING_NO"},
+        {title:"LOT NUMBER", field:"LOT_NUMBER"},
+        {title:"JOB ORDER NO", field:"JOB_ORDER_NO"},
+        {title:"ITEM CODE", field:"ITEM_CODE"},
+        {title:"ITEM NAME", field:"ITEM_NAME"},
+        {title:"MACHINE CODE", field:"MACHINE_CODE"},
+        {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
+        {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}  
+    ],
+    });
+
+   }
    
+   else if(TabName=="left_create_tbl")
+   {
+       
+    $("#example-table1").tabulator({
+    height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+    layout:"fitColumns", //fit columns to width of table (optional)
+    pagination:"local",
+    paginationSize:1000,
+    placeholder:"No Data to Display",
+    movableColumns:true,
+    selectable: 1,  
+    columns:[
+        {title:"NO", field:"NO", width:60,align:"center"},
+        {title:"ITEM CODE", field:"ITEMCODE"},
+        {title:"DEMAND QTY", field:"DEMANDS"}
+       
+    ],
+    });
+
+
+   }
  
      
  }
@@ -1277,12 +1408,10 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
             success: function(data) 
             {
 
-    
                 document.getElementById("tablesummary").innerHTML = data;
                 var sumDiv = document.getElementById("cont_sum");
                 var screenheight=Number(screen.height-250);
                 sumDiv.setAttribute("style", "height: 70vh;overflow: auto;");
-
                 
             }
         });
@@ -1305,7 +1434,8 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
         
             
             success: function(data) 
-            {                document.getElementById("tablesummary").innerHTML = data;
+            {                
+            document.getElementById("tablesummary").innerHTML = data;
             var sumDiv = document.getElementById("cont_sum");
             var screenheight=Number(screen.height-250);
       
@@ -1331,7 +1461,6 @@ function showTable(moduleID,deptSec,SectionGroup,param1)
 
  function CheckCreationType(typename)
  {
-
 
     if(typename=="group")
     {
@@ -1703,4 +1832,142 @@ function syncdatareload(modulename,deptname,typename)
         'Data Synced Successfully!',
         'success'
     )
+}
+
+function ShowModal_Upload()
+{
+    $('#exampleModal1').modal('show');
+}
+
+function ShowModal_Template()
+{
+    $('#exampleModal2').modal('show');
+}
+
+function UseUploadFile()
+{
+    var filename = document.getElementById("file_upload").value;
+  
+    $.ajax({
+        method:'POST',
+        url:'/1_mes/_php/manuc_info/ProdPlan/UploadExcelFile.php',
+        data:
+        {
+            'filename': filename,
+            'ajax':true
+        },
+    
+        
+        success: function(data) 
+        {
+            alert(data);
+            /* swal(
+                'SUCCESS!',
+                'Data Synced Successfully!',
+                'success'
+            )
+            $('#exampleModal1').modal('hide'); */
+        }
+    });
+  
+}
+
+
+function InsertTemplate(){
+
+    var tempname = document.getElementById("temp_name1").value;
+   
+    if(tempname=="")
+    {
+        swal(
+            'ERROR!',
+            'Please fill out all the required information.',
+            'error'
+        )
+    }
+    else
+    {
+        $.ajax({
+            method:'POST',
+            url:'/1_mes/_php/manuc_info/ProdPlan/CP_InsertTemplate.php',
+            data:
+            {
+                'tempname': tempname,
+                'ajax':true
+            },
+        
+            
+            success: function(data) 
+            {
+                if(data=='"true"')
+                {
+                swal(   
+                        'SUCCESS!',
+                        'New Template Added Successfully!',
+                        'success'
+                    )
+                    $('#exampleModal2').modal('hide');
+                    loadtbl2('CreatePlan','','create_plan');
+              
+                }
+                else
+                {
+                    swal(
+                        'ERROR!',
+                        'There is an error while saving the data. Check your connection and try again.',
+                        'error'
+                    )
+                }
+                
+            }
+        });
+    }
+   
+
+}
+
+function CP_reset()
+{
+   
+
+    swal({
+        title: 'Are you sure you want to reset the data?',
+        text: "All allocated item will not save.",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Reset data!'
+      }).then((result) => {
+        if (result.value) {
+            loadtbl2('CreatePlan','','create_plan')
+          swal(
+            'Success!',
+            'Your draft or data has been reset.',
+            'success'
+          )
+        }
+      })
+}
+
+function allocate()
+{
+    var filename = document.getElementById("sales_demands").value;
+    var tempname = document.getElementById("template_name").value;
+    
+    $.ajax({
+        method:'POST',
+        url:'/1_mes/_php/manuc_info/ProdPlan/CP_Allocate.php',
+        data:
+        {
+            'tempname': tempname,
+            'xlsx': filename,
+            'ajax':true
+        },
+        success: function(data) 
+        {
+            //alert(filename);
+        }
+    });
+
 }

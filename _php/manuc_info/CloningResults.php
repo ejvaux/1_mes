@@ -61,11 +61,13 @@ elseif ($classify=="T") {
 		$printedby=$row['printed_by'];
 		$lotnum=$row['lot_num'];
 		$machinecode=$row['machine_num'];
+		$ref = $row['reference_num'];
+		$danplaref=$row['danpla_reference'];
 
 
 	   	$date1=date("Y-m-d",strtotime($row['date']));
-	   	$sql3="INSERT INTO mis_product(NO, JO_BARCODE,JO_NUM,PRINT_DATE,ITEM_CODE,ITEM_NAME,CUST_NAME,PRINT_QTY,DANPLA,ACTUAL_QTY,TOOL_NUM,PACKING_NUMBER,PRINTED_BY,CUST_CODE,DATE_,LOT_NUM,MACHINE_CODE)
-	   	VALUES('$no2','$jo_barcode','$jo_no','$print_date','$itemcode','$itemname','$custname','$printqty','$danpla','$actualqty','$toolnum','$packingNo','$printedby','$custcode', '$date1','$lotnum','$machinecode')";
+	   	$sql3="INSERT INTO mis_product(NO, JO_BARCODE,JO_NUM,PRINT_DATE,ITEM_CODE,ITEM_NAME,CUST_NAME,PRINT_QTY,DANPLA,ACTUAL_QTY,TOOL_NUM,PACKING_NUMBER,PRINTED_BY,CUST_CODE,DATE_,LOT_NUM,MACHINE_CODE,reference_num,danpla_reference)
+	   	VALUES('$no2','$jo_barcode','$jo_no','$print_date','$itemcode','$itemname','$custname','$printqty','$danpla','$actualqty','$toolnum','$packingNo','$printedby','$custcode', '$date1','$lotnum','$machinecode','$ref','$danplaref')";
 
 		   if ($conn->query($sql3)=== TRUE)
 		   {
@@ -141,7 +143,7 @@ $sql7="UPDATE mis_summarize_results set JOB_ORDER_NO='$jonum',PROD_RESULT='$sum'
 	else
 	{
 	 $errorsummary.="SUMMARIZATION-UPDATE-ERROR: JO#: ".$jonum." || RESULT: ".$sum."\nREASON: ".$conn->error."\n";
-	}
+	}	
 
 
 }

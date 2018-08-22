@@ -25,7 +25,7 @@ mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_
 LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
 WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
 OR mis_product.ITEM_CODE LIKE '%$search%' OR     mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
-OR mis_product.SHIP_STATUS LIKE '%$search%') ";
+OR mis_product.SHIP_STATUS LIKE '%$search%' or mis_product.reference_num LIKE '$search' or mis_product.danpla_reference LIKE '$search') ";
 
     if ($shipstat!="ALL DATA") {
         if ($shipstat == "PENDING") {
@@ -42,7 +42,8 @@ mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_
 LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
 WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
 OR mis_product.ITEM_CODE LIKE '%$search%' OR  mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
-OR mis_product.SHIP_STATUS LIKE '%$search%') AND (qmd_lot_create.PROD_DATE LIKE '$datetoday%')";
+OR mis_product.SHIP_STATUS LIKE '%$search%' or mis_product.reference_num LIKE '$search' or mis_product.danpla_reference LIKE '$search') 
+AND (qmd_lot_create.PROD_DATE LIKE '$datetoday%')";
 
         if ($shipstat!="ALL DATA") {
             if ($shipstat == "PENDING") {
@@ -69,7 +70,8 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
             OR mis_product.ITEM_CODE LIKE '%$search%' OR mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
-            OR mis_product.SHIP_STATUS LIKE '%$search%') AND (DATE(qmd_lot_create.PROD_DATE) = '$strfrom') ";
+            OR mis_product.SHIP_STATUS LIKE '%$search%' or mis_product.reference_num LIKE '$search' or mis_product.danpla_reference LIKE '$search')
+             AND (DATE(qmd_lot_create.PROD_DATE) = '$strfrom') ";
             if($shipstat!="ALL DATA")
             {
                 if($shipstat == "PENDING")
@@ -112,7 +114,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
             OR mis_product.ITEM_CODE LIKE '%$search%' OR mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
-            OR mis_product.SHIP_STATUS LIKE '%$search%') AND (qmd_lot_create.PROD_DATE BETWEEN '$strfrom' AND '$strto') ";
+            OR mis_product.SHIP_STATUS LIKE '%$search%' or mis_product.reference_num LIKE '$search' or mis_product.danpla_reference LIKE '$search') AND (qmd_lot_create.PROD_DATE BETWEEN '$strfrom' AND '$strto') ";
 
             if($shipstat!="ALL DATA")
             {
