@@ -1695,7 +1695,9 @@ function updateWarehouseReceive(lotNumber) {
         'ajax': true
       },
       success: function (data) {
+        //alert(data);
         var val = JSON.parse(data);
+        //alert(val);
         if (val != undefined) {
           if (val.LOT_NUM == null || val.LOT_NUM == "" || val.LOT_NUM == undefined) {
             CheckDanpla(val.PACKING_NUMBER, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.MACHINE_CODE);
@@ -1728,6 +1730,7 @@ function updateWarehouseReceive(lotNumber) {
           type: 'success'
         });
         DisplayTable1('DanplaTempStore', 'DanplaTempStoreSP', 'DanplaTemp', username);
+        //Barcode_text.focus();
       }
     });
   } //end inserts validated danpla into DB table
@@ -1811,11 +1814,12 @@ function updateWarehouseReceive(lotNumber) {
         'ajax': true
       },
       success: function (data) {
+        var val = JSON.parse(data);
+        
         if (data == '"true"' || data == '"false"') {
           buildLotNumber(newL);
           AddLotBtnClick(lotNO, joborder);
         } else if (data != '"false"' || data != '"true"') {
-          var val = JSON.parse(data);
           var lotPrev = val.slice(0, 12);
           var series = val.slice(-1);
           var i = parseInt(series) + 1;
