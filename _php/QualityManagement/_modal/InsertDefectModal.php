@@ -64,7 +64,7 @@
                   <div class="col-4">
                         <select id="datalistLotNumber" class="form-control text-center"  placeholder="Lot Number"/>
                           <option>--SELECT HERE--</option>
-                          <?php /* include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/list/getLotNumbers.php"; */ ?>
+                          
                         </select>
                   </div>    
                 </div> <!-- end row 1 -->
