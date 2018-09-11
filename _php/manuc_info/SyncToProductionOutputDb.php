@@ -42,7 +42,9 @@ $sql="SELECT mis_prod_plan_dl.*, dmc_item_mold_matching.MODEL as mod1, dmc_item_
           ProductionQty,RemainQty,MachineNo,MoldNo) VALUES ('$jono','$customercode',
           '$customername','$itemcode','$itemname','$model','$planqty','$prodqty','$remqty','$machinecode',
           '$toolnumber') ";
-          $resultms=sqlsrv_query($conn,$sqlms); */
+          $resultms=sqlsrv_query($conn,$sqlms); 
+          http://www.alankithealthcare.com/FISImage/Rich%20Dad%20Poor%20Dad.pdf
+          */
 
           $sqlcheck="SELECT TOP(1) Id from jo_table WHERE Date=? AND JobOrderNo = ?";
           $params = array($jodate,$jono);

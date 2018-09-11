@@ -165,7 +165,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
       array_push($datavar,["NO"=> $ctr ,"JO NO"=>$row['JO_NUM'], "SERIAL PRINT"=> $row['JO_BARCODE'] ,
       "JO_DATE"=>$row['DATE_'],"ITEM CODE"=>$row['ITEM_CODE'],"ITEM NAME"=>$row['ITEM_NAME'],"MODEL"=>$row['MODEL'],
       "PRINT QTY"=>$row['PRINT_QTY'],"MACHINE CODE"=>$row['MACHINE_CODE'],"TOOL NO"=>$row['TOOL_NUM'],"PACKING NUMBER"=>$row['PACKING_NUMBER']
-      ,"PRINT TIME"=>$temp_date,"PRINTED BY"=>$row['PRINTED_BY']]);
+      ,"PRINT TIME"=>$temp_date,"PRINTED BY"=>$row['PRINTED_BY'],"REF_NUM"=>$row['reference_num']]);
     
       
     
