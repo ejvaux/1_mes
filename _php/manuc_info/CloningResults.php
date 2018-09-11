@@ -86,6 +86,7 @@ elseif ($classify=="T") {
 	   
 
 	   }
+	   $res2->close();
 
 }
 

@@ -19,7 +19,7 @@ if($excelfile!="")
     for ($row = 2; $row <= $lastRow; $row++)
     {
     $ctr+=1;
-    array_push($datavar,["NO"=>$ctr,"ITEMCODE"=> $worksheet->getCell('A'.$row)->getValue() ,"DEMANDS"=>$worksheet->getCell('B'.$row)->getValue()]);
+    array_push($datavar,["NO"=>$ctr,"ITEMCODE"=> $worksheet->getCell('A'.$row)->getValue() ,"DEMANDS"=>number_format($worksheet->getCell('B'.$row)->getValue())]);
     }
 }
 
