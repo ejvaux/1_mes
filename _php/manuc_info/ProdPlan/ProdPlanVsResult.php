@@ -292,7 +292,7 @@ $(document).on('change','#ICode', function() {
        <li>
          <a class="nav-link tbl" id="menuhover" href="#" onclick="underConstruct()">Create Plan</a>
        </li>
- 
+
 
 
      </ul>
