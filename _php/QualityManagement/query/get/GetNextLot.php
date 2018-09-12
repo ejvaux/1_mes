@@ -8,7 +8,7 @@
                 $lot = ('true');
                 while($row = $result->fetch_assoc()){
 
-                    if(strlen($row['LOT_NUMBER']) < 14){
+                    if(strlen($row['LOT_NUMBER']) == 13 || strlen($row['LOT_NUMBER'] == 14)){
                         
                         if($row['JO_NUM'] == $_POST['jo_num']){
                             $lot = $row['LOT_NUMBER'];

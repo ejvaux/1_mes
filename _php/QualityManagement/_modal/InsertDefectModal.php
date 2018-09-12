@@ -43,7 +43,7 @@
         <div class="modal-header">
             <h4 class="modal-title">Insert Reject Item</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
+        </div>
 
         <!-- Modal body -->
       <div class="modal-body py-1" id='lotmodal'>
@@ -51,127 +51,148 @@
           <div class="form-group row">
             <div class="col-12">
 
-                <div class="form-group row">
+                <div class="row">
                   <div class="col-2">
-                        <label class="col-form-label-sm">Job Order Number:</label></div>
+                        <label class="col-form-label-sm">Job Order Number:</label>
+                  </div>
                   <div class="col-4">
                         <input id="JobOrderNo"  required="true" list="jobOrder" class="form-control text-center" placeholder="Job Order Number"/>         
-                    </div>
+                  </div>
                   <div class="col-2">
-                        <label class="col-form-label-sm">Lot Number:</label></div>
+                        <label class="col-form-label-sm">Lot Number:</label>
+                  </div>
                   <div class="col-4">
                         <select id="datalistLotNumber" class="form-control text-center"  placeholder="Lot Number"/>
-                          <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/list/getLotNumbers.php"; ?>
+                          <option>--SELECT HERE--</option>
+                          
                         </select>
-                    </div>    
-                  </div>
-                  
-                <div class="form-group row">
+                  </div>    
+                </div> <!-- end row 1 -->
+                
+<!--                 <div class="row">
                   <div class="col-2">
-                        <label class="col-form-label-sm">Division Code:</label></div>
+                        <label class="col-form-label-sm">Job Order Number:</label>
+                  </div>
+                  <div class="col-4">
+                        <input id="JobOrderNo"  required="true" list="jobOrder" class="form-control text-center" placeholder="Job Order Number"/>         
+                  </div>
+                  <div class="col-2">
+                        <label class="col-form-label-sm">Lot Number:</label>
+                  </div>
+                  <div class="col-4">
+                        <select id="datalistLotNumber" class="form-control text-center"  placeholder="Lot Number"/>
+                          
+                        </select>
+                  </div>    
+                </div> -->
+                
+                <div class="row">
+                  <div class="col-2">
+                        <label class="col-form-label-sm">Division Code:</label>
+                  </div>
                   <div class="col-4">
                         <input id="DivCodeID" class="form-control text-center" placeholder="Division Code" readonly/>          
-                    </div>
+                  </div>
                   <div class="col-2">
-                        <label class="col-form-label-sm">Division Name:</label></div>
+                        <label class="col-form-label-sm">Division Name:</label>
+                  </div>
                   <div class="col-4">
                         <input id="DivNameID" class="form-control text-center" placeholder="Division Name" readonly/>    
-                    </div>    
-                  </div>
+                  </div>    
+                </div> <!-- end row 2  -->
 
-                
-                <div class="form-group row">
-                        <div class="col-2">
-                              <label class="col-form-label-sm">Item Code:</label>
-                          </div>
-                        <div class="col-4">
-                              <input id="itemCodeID" class="form-control text-center" placeholder="Item Code" readonly/>         
-                          </div>
-                        <div class="col-2">
-                              <label class="col-form-label-sm">Item Name:</label>
-                          </div>
-                        <div class="col-4">
-                            <input id="itemNameID" class="form-control text-center" placeholder="Item Name" readonly/>    
-                          </div>    
+                <div class="row">
+                  <div class="col-2">
+                      <label class="col-form-label-sm">Item Code:</label>
                   </div>
-                <div class ="form-group row">
+                  <div class="col-4">
+                    <input id="itemCodeID" class="form-control text-center" placeholder="Item Code" readonly/>         
+                  </div>
+                  <div class="col-2">
+                    <label class="col-form-label-sm">Item Name:</label>
+                  </div>
+                  <div class="col-4">
+                    <input id="itemNameID" class="form-control text-center" placeholder="Item Name" readonly/>    
+                  </div>    
+                </div> <!-- end row 3 -->
+
+                <div class ="row">
                   <div class="col-2">
                       <label class="col-form-label-sm">Lot Quantity:</label>   
-                    </div>
+                  </div>
                   <div class="col-4">
                         <input id="LotQuantityID" class="form-control text-center" placeholder="Lot Quantity" readonly/>         
-                    </div>
                   </div>
+                </div> <!-- end row 4 -->
 
-                <div class="form-group row">
+                <div class="row">
                   <div class="col-2">
-                        <label class="col-form-label-sm">Defect Code:</label>
-                    </div>
+                    <label class="col-form-label-sm">Defect Code:</label>
+                  </div>
                   <div class="col-4">
-                        <input id="DefectCodeID" class="form-control text-center" placeholder="Defect Code" readonly/>         
-                    </div>
-
-                  <div class="col-2">
-                      <label class="col-form-label-sm">DEFECT NAME:</label>   
-                    </div>
-                  <div class="col-4"> 
-                      <select id="defectInputID" class="form-control text-center"  placeholder=""/>
-                          <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/list/getDefectNames.php"; ?>
-                        </select>
-                    </div>
+                    <input id="DefectCodeID" class="form-control text-center" placeholder="Defect Code" readonly/>         
                   </div>
-                <div class="form-group row">
-                    <div class="col-2">
-                          <label class="col-form-label-sm">Prod Date:</label>  
-                      </div>
-                      <div class="col-4">
-                            <input id="prodDateID" required="true" type="date" class="form-control text-center" placeholder=""/>    
-                        </div>
-                        <div class="col-2">
-                            <label class="col-form-label-sm">Prod Time:</label>  
-                        </div>
-                        <div class="col-4">
-                            <input id="prodTimeID" required="true" type="time" class="form-control text-center" placeholder=""/>    
-                        </div>
-                    </div>
+                  <div class="col-2">
+                    <label class="col-form-label-sm">DEFECT NAME:</label>   
+                  </div>
+                  <div class="col-4"> 
+                    <select id="defectInputID" class="form-control text-center"  placeholder=""/>
+                      <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/list/getDefectNames.php"; ?>
+                    </select>
+                  </div>
+                </div> <!-- end row 5 -->
 
+                <div class="row">
+                  <div class="col-2">
+                    <label class="col-form-label-sm">Prod Date:</label>  
+                  </div>
+                  <div class="col-4">
+                    <input id="prodDateID" required="true" type="date" class="form-control text-center" placeholder=""/>    
+                  </div>
+                  <div class="col-2">
+                    <label class="col-form-label-sm">Prod Time:</label>  
+                  </div>
+                  <div class="col-4">
+                    <input id="prodTimeID" required="true" type="time" class="form-control text-center" placeholder=""/>    
+                  </div>
+                </div> <!-- end row 6 -->
 
-                <div class="form-group row">
+                <div class="row">
                   <div class="col-3">
                         <label class="col-form-label-sm">DEFECT QUANTITY:</label>                  
-                    </div>
+                  </div>
                   <div class="col-9">
                         <input id="DefQty" type="number" required="true" class="form-control form-control-sm" placeholder="INPUT DEFECT QTY"></input>              
-                    </div>
                   </div>
+                </div> <!-- end row 7 -->
 
-                <div class="form-group row">
+                <div class="row">
                   <div class="col-3">
-                        <label class="col-form-label-sm">REMARKS:</label>                  
-                    </div>
+                    <label class="col-form-label-sm">REMARKS:</label>                  
+                  </div>
                   <div class="col-9">
                         <textarea id="remarks" type="textarea" class="form-control form-control-sm" name="remarks" placeholder="INPUT REMARKS"></textarea>              
-                    </div>
                   </div>
+                </div> <!-- end row 8 -->
 
-                <div class="form-group row">
+                <div class="row">
                   <div class="col-7">
                                   
-                    </div>
-                  <div class="col-5" style="text-align:right; padding-top:7px">
-                      <button type='button' class='btn btn-danger close' data-dismiss="modal" id='defectConfirm'>CONFIRM DEFECT</button></div>
-                    </div>
                   </div>
+                  <div class="col-5" style="text-align:right; padding-top:7px">
+                    <button type='button' class='btn btn-danger close' data-dismiss="modal" id='defectConfirm'>CONFIRM DEFECT</button></div>
+                  </div>
+                </div> <!-- end row 9 -->
 
-              </div>
             </div>
-            </form>
           </div>
+        </form>
+      </div>
+      <!-- close modal body -->
 
-
-        </div>
       </div>
     </div>
+  </div>
   <!-- ________________________________________________END_InsertDefectModalDetailsT__________________________________________ -->
   <datalist style="width:50px" id="lotNumber">
       <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/list/getLotNumbers.php"; ?>
