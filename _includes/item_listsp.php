@@ -42,11 +42,12 @@ $columns = array(
     array( 'db' => 'PACK_QTY', 'dt' => 10 ),
     array( 'db' => 'DANPLA_QTY', 'dt' => 11 ),
     array( 'db' => 'LABEL_TYPE', 'dt' => 12 ),
-    array( 'db' => 'DESCRIPTION', 'dt' => 13 ),
-    array( 'db' => 'INSERT_DATETIME', 'dt' => 14 ),
-    array( 'db' => 'INSERT_USER', 'dt' => 15 ),
-    array( 'db' => 'UPDATE_DATETIME', 'dt' => 16 ),
-    array( 'db' => 'UPDATE_USER', 'dt' => 17 )      
+    array( 'db' => 'RESIN', 'dt' => 13 ),
+    array( 'db' => 'DESCRIPTION', 'dt' => 14 ),
+    array( 'db' => 'INSERT_DATETIME', 'dt' => 15 ),
+    array( 'db' => 'INSERT_USER', 'dt' => 16 ),
+    array( 'db' => 'UPDATE_DATETIME', 'dt' => 17 ),
+    array( 'db' => 'UPDATE_USER', 'dt' => 18 )      
 );
  
 // SQL server connection information
