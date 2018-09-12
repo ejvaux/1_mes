@@ -418,7 +418,8 @@ $db = new DBQUERY;
         </button>
       </div>
       <form id="itemform" method="post">
-      <input type="hidden" id="" name="">
+      <input type="hidden" id="initial_ci" name="" value=''>
+      <input type="hidden" id="initial_bi" name="" value=''>
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
 
@@ -499,24 +500,14 @@ $db = new DBQUERY;
             </div>                    
           </div>
 
-          <div class="form-group row">
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="barcode" class="col-form-label-sm">BARCODE:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="barcode" type="text" class="form-control form-control-sm" name="barcode" placeholder="">                  
-                </div>
-              </div>
-            </div>
+          <div class="form-group row">            
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
                   <label for="idivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="idivisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder=""  required>
+                  <select id="idivisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" onchange="getgroupcode('idivisioncode',groupcode)" placeholder=""  required>
                   <option value="">-Please select-</option>
                   <?php
 
@@ -550,7 +541,40 @@ $db = new DBQUERY;
                   </select>
                 </div>
               </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="groupcode" class="col-form-label-sm">GROUP CODE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="groupcode" type="text" class="form-control form-control-sm" name="groupcode" placeholder="" readonly>                  
+                </div>
+              </div>
             </div>                                
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="barcode" class="col-form-label-sm">BARCODE:</label>                  
+                </div>
+                <div class="col-7 btn-group">
+                  <input id="barcode" type="text" class="form-control form-control-sm" name="barcode" placeholder="" required><button type='button' class='btn btn-primary py-0' onclick="insertbc(aicustomercode,idivisioncode,barcode)">Generate</button>                 
+                </div>
+              </div>
+            </div>            
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="itemprintcode" class="col-form-label-sm">ITEM PRINTCODE:</label>                  
+                </div>
+                <div class="col-7">                  
+                  <input id="itemprintcode" type="text" class="form-control form-control-sm" name="itemprintcode" placeholder="" required>                  
+                </div>
+              </div>
+            </div>                    
           </div>
 
           <div class="form-group row">
@@ -563,30 +587,7 @@ $db = new DBQUERY;
                   <input id="model" type="text" class="form-control form-control-sm" name="model" placeholder="">                  
                 </div>
               </div>
-            </div>
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="itemprintcode" class="col-form-label-sm">ITEM PRINTCODE:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="itemprintcode" type="text" class="form-control form-control-sm" name="itemprintcode" placeholder="" required>                  
-                </div>
-              </div>
-            </div>                    
-          </div>
-
-          <div class="form-group row">
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="groupcode" class="col-form-label-sm">GROUP CODE:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="groupcode" type="text" class="form-control form-control-sm" name="groupcode" placeholder="">                  
-                </div>
-              </div>
-            </div>
+            </div>                        
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
@@ -632,7 +633,17 @@ $db = new DBQUERY;
                   <input id="labeltype" type="text" class="form-control form-control-sm" name="labeltype" placeholder="">                  
                 </div>
               </div>
-            </div>                                           
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="resin" class="col-form-label-sm">RESIN:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="resin" type="text" class="form-control form-control-sm" name="resin" placeholder="">                  
+                </div>
+              </div>
+            </div>                                          
           </div>
   
 
@@ -1634,7 +1645,7 @@ $db = new DBQUERY;
                   <label for="eicustomercode" class="col-form-label-sm">CUSTOMER CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eicustomercode" type="text" class="form-control form-control-sm sel" name="customercode" onchange="getcustomername('eicustomercode',eicustomername)" placeholder=""  required>
+                  <select id="eicustomercode" type="text" class="form-control form-control-sm sel ebc" name="customercode" onchange="getcustomername('eicustomercode',eicustomername)" placeholder=""  required>
                   <option value="">-Please select-</option>
                     <?php
 
@@ -1694,24 +1705,14 @@ $db = new DBQUERY;
             </div>                    
           </div>
 
-          <div class="form-group row">
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="eibarcode" class="col-form-label-sm">BARCODE:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="eibarcode" type="text" class="form-control form-control-sm" name="barcode" placeholder="">                  
-                </div>
-              </div>
-            </div>
+          <div class="form-group row">            
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
                   <label for="eidivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eidivisioncode" type="text" class="form-control form-control-sm  sel" name="divisioncode" placeholder=""  required>
+                  <select id="eidivisioncode" type="text" class="form-control form-control-sm sel ebc" name="divisioncode" onchange="getgroupcode('eidivisioncode',eigroupcode)" placeholder=""  required>
                   <option value="">-Please select-</option>
                   <?php
 
@@ -1745,20 +1746,30 @@ $db = new DBQUERY;
                   </select>
                 </div>
               </div>
-            </div>                    
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eigroupcode" class="col-form-label-sm">GROUP CODE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eigroupcode" type="text" class="form-control form-control-sm" name="groupcode" placeholder="" readonly>                  
+                </div>
+              </div>
+            </div>                   
           </div>
 
           <div class="form-group row">
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="eimodel" class="col-form-label-sm">MODEL:</label>                  
+                  <label for="eibarcode" class="col-form-label-sm">BARCODE:</label>                  
                 </div>
-                <div class="col-7">
-                  <input id="eimodel" type="text" class="form-control form-control-sm" name="model" placeholder="">                  
+                <div class="col-7 btn-group">
+                  <input id="eibarcode" type="text" class="form-control form-control-sm" name="barcode" placeholder="" required><button type='button' class='btn btn-primary py-0' onclick="insertbc(eicustomercode,eidivisioncode,eibarcode)">Generate</button>                  
                 </div>
               </div>
-            </div>
+            </div>            
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
@@ -1775,13 +1786,13 @@ $db = new DBQUERY;
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="eigroupcode" class="col-form-label-sm">GROUP CODE:</label>                  
+                  <label for="eimodel" class="col-form-label-sm">MODEL:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eigroupcode" type="text" class="form-control form-control-sm" name="groupcode" placeholder="">                  
+                  <input id="eimodel" type="text" class="form-control form-control-sm" name="model" placeholder="">                  
                 </div>
               </div>
-            </div>
+            </div>                         
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
@@ -1827,7 +1838,17 @@ $db = new DBQUERY;
                   <input id="eilabeltype" type="text" class="form-control form-control-sm" name="labeltype" placeholder="">                  
                 </div>
               </div>
-            </div>                                
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eiresin" class="col-form-label-sm">RESIN:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eiresin" type="text" class="form-control form-control-sm" name="resin" placeholder="">                  
+                </div>
+              </div>
+            </div>                            
           </div>
   
 
