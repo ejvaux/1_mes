@@ -768,7 +768,6 @@
                                     'itemname': cell.getRow().getData().ITEM_NAME,
                                     'customercode': cell.getRow().getData().CUSTOMER_CODE,
                                     'customername': cell.getRow().getData().CUSTOMER_NAME,
-                                    
                                     'ajax':true
                     
                                 },

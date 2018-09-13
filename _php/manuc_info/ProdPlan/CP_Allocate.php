@@ -47,6 +47,7 @@ if($excelfile!="")
                     
                     $datares = InsertIntoAllocate($row2['ct_machine'],$row2['ct_cycletime'],$itemcode,$sd);
                     //array_push($datavar,["NO"=>$row2['ct_machine'], "ct"=>$row2['ct_cycletime']]);
+                   
                     break;
                     
                 }
@@ -88,6 +89,7 @@ function InsertIntoAllocate($machine,$cycletime,$itemcode,$demands)
         if ($conn->query($sql7)=== TRUE)
         {   
         //array_push($datavar,["NO"=>  $itemcode1." ".$cycletime." ".$cavity." ".round($machinecapacity)." ".$runqty]);
+        //array_push($datavar, ["NO"=> $itemcode1])
         $datavar = true;
         }
         else
@@ -95,7 +97,7 @@ function InsertIntoAllocate($machine,$cycletime,$itemcode,$demands)
         //array_push($datavar,["NO"=>  $conn->error]);
         $datavar=false;
         }
-    } //end of for loop
+    } //end of for loop//
        
 
     //$datavar =  $itemcode1." ".$ccode." ".$cavity." ".$machinecapacity." ".$runqty;
