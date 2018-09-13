@@ -1,4 +1,6 @@
 <?php
+//Delete duplicates
+//DELETE n1 FROM qmd_lot_create n1, qmd_lot_create n2 WHERE n1.LOT_ID > n2.LOT_ID AND n1.LOT_NUMBER = n2.LOT_NUMBER
 include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 $sql="";
 $strfrom=$_POST['sortfrom'];
@@ -18,10 +20,10 @@ else
 
         
 if ($strto == "" && $strfrom=="") {
-    # code... condition above is whenever both date range are null
+    # code... condition above is whenever both date range are null are date
 if ($search!="") {
     $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.PRINT_QTY as Out_Qty FROM mis_product
+mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty FROM mis_product
 LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
 WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
 OR mis_product.ITEM_CODE LIKE '%$search%' OR  mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
@@ -38,7 +40,7 @@ OR mis_product.SHIP_STATUS LIKE '%$search%' or mis_product.danpla_reference LIKE
      else{                                
         $datetoday=date("Y-m-d");
         $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.PRINT_QTY as Out_Qty FROM mis_product
+mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty FROM mis_product
 LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
 WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
 OR mis_product.ITEM_CODE LIKE '%$search%' OR  mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
@@ -53,7 +55,7 @@ AND (qmd_lot_create.PROD_DATE LIKE '$datetoday%')";
             }
         }
     }
- 
+
 
 
 $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
@@ -66,7 +68,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
           # code...
 
         $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.PRINT_QTY as Out_Qty FROM mis_product
+            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
             OR mis_product.ITEM_CODE LIKE '%$search%' OR mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
@@ -87,7 +89,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
     }
     else {
         $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.PRINT_QTY as Out_Qty FROM mis_product
+            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE  (DATE(qmd_lot_create.PROD_DATE) = '$strfrom') ";
             
@@ -110,7 +112,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
         # code...
 
         $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.PRINT_QTY as Out_Qty FROM mis_product
+            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
             OR mis_product.ITEM_CODE LIKE '%$search%' OR mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
@@ -130,7 +132,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
             $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
     } else {
         $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE, mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, mis_product.PRINT_QTY as Out_Qty FROM mis_product
+            mis_product.MACHINE_CODE, mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty FROM mis_product
             LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
             WHERE (qmd_lot_create.PROD_DATE BETWEEN '$strfrom' AND '$strto') ";
                        if($shipstat!="ALL DATA")
