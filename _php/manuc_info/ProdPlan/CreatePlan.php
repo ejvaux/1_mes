@@ -16,9 +16,8 @@
                                 <div class="input-group-text" id="btnGroupAddon2">TEMPLATE:</div>
                             </div>
                         
-                            <select class="sel2 form-control mydrp" id='template_name' name='template_name'
-                               >
-                                <option value=''>--SELECT TEMPLATE--</option>";
+                            <select class="sel2 form-control mydrp" id='template_name' name='template_name' >
+                                <option value=''>--SELECT TEMPLATE--</option>
                                     <?php
                                     
                                     include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
@@ -47,26 +46,24 @@
                     
                                 <select class="sel2 form-control mydrp" id='sales_demands' name='sales_demands'
                                 onchange='showTable("CreatePlan","","create_plan")' >
-                                    <option value=''>--SELECT--</option>";
-                                
+                                    <option value=''>--SELECT--</option>
+                                     
                                         <?php
                                         
                                         /* include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
-
+                                        
                                         $sql="SELECT DISTINCT(TemplateName) FROM cp_templatelist ORDER BY TemplateID ASC";
                                         $result=$conn->query($sql);
-
+                                        
+                                        
                                         while ( $row=$result->fetch_assoc()) 
                                         {
                                                 echo " <option value='".$row['TemplateName']."'>".$row['TemplateName']."</option>"; 
                                                 echo " <option value ='".$row['TemplateName']."'>".$row[]
                                         } 
-                                        today i end my life. 08 13 2018
-                                        as i woke up. my inspiration are slowly fading.
-                                        We are the three horsemen. We do magics. You must search software development life cycle
-                                        today was nothing. 08 17 2018
-                                        I do nothing today. I dont feel9i132 like doing anything today. because its friday.
-                                        */
+
+                                        
+                                         */
 
                                         foreach(glob($_SERVER['DOCUMENT_ROOT'].'/1_mes/uploaded/*.*') as $filename){
                                             $str=ltrim($filename,$_SERVER['DOCUMENT_ROOT'].'/1_mes/uploaded/');
