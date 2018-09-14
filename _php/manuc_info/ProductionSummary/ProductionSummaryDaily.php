@@ -282,7 +282,7 @@ $sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0) as sumresult
                 WHERE (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')
                 GROUP BY `ITEM_NAME` ";
 
-                
+
 
     $datenow = "NONE";
     $between = "NO";
