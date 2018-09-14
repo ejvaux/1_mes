@@ -566,7 +566,10 @@ $(document).on('change', '#datalistLotNumber', function () {
     });
   }); //insert lotNumber in ddown
 
-$(document).on('click', '#defectConfirm', function () {
+$(document).on('submit', '#modalID', function (e) {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+
   var DefectInputID = document.getElementById("defectInputID").value;
   var date = document.getElementById("prodDateID").value;
   var time = document.getElementById("prodTimeID").value;
@@ -603,6 +606,11 @@ $(document).on('click', '#defectConfirm', function () {
       'ajax': true
     },
     success: function (data) {
+      $('#insertDefect').delay(1000).fadeOut(450);
+      setTimeout(function () {
+        $('#insertDefect').modal("hide");
+        $('.modal-backdrop').remove();
+      }, 1500);
       swal(data, 'Job Order Number ' + JobOrderNo + ' defect quantity already saved!', 'success');
       DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
     }
@@ -651,9 +659,9 @@ function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
           className: 'btn btn-export6 btn-xs py-1',
           action: function (e, dt, node, config) {
             var data = dt.row('.selected').data();
-            getDefectDtls(data[0]);
             $('#editDefect').modal('show');
             $('#editDefect').focus();
+            getDefectDtls(data[0]);
             }
           }, {
           name: 'delete', // do not change name
@@ -763,7 +771,7 @@ function getDefectDtls(defect_id) {
       var val = JSON.parse(data);
       var prodDate = val.PROD_DATE.slice(0, 10);
       var prodTime = val.PROD_DATE.slice(11, 19);
-      if (val.LOT_NUMBER == " ") {
+      if (val.LOT_NUMBER == " " || val.LOT_NUMBER == "" || val.LOT_NUMBER == null || val.LOT_NUMBER == undefined) {
         document.getElementById("edatalistLotNumber").value = "";
         document.getElementById("eLotQuantityID").value = "";
         document.getElementById("eprodDateID").value = "";
@@ -895,7 +903,9 @@ function deleteDefect(def_ID) {
   });
 } //deletes defective item 
 
-$(document).on('click', '#updateDefect', function () {
+$(document).on('submit', '#emodalID', function (e) {
+  e.preventDefault();
+  e.stopImmediatePropagation();
   var def_ID = document.getElementById("defectID").value;
   var DefectInputID = document.getElementById("edefectInputID").value;
   var date = document.getElementById("eprodDateID").value;
@@ -934,6 +944,11 @@ $(document).on('click', '#updateDefect', function () {
       'ajax': true
     },
     success: function (data) {
+      $('#updateDefect').delay(1000).fadeOut(450);
+      setTimeout(function () {
+        $('#updateDefect').modal("hide");
+        $('.modal-backdrop').remove();
+      }, 1500);
       swal(data, 'Job Order Number ' + JobOrderNo + ' defect quantity already edited!', 'success');
       DisplayTableDefect('DefectTable', 'DefectTableSP', 'Defective_List');
     }
