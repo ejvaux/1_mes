@@ -79,7 +79,7 @@ class DBQUERY
             }
         }
         else{
-            return "Error retrieving record/s: ". $sql . $conn->error;
+            return "Error retrieving record/s: ". $sql ." ". $conn->error;
         }
         if(isset($rows)){
             $rows = json_encode($rows,true);

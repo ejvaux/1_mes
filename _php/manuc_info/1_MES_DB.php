@@ -2,8 +2,6 @@
 
 
 $conn = mysqli_connect("localhost","root","","masterdatabase");
-
-
 if(!$conn)
 {
 

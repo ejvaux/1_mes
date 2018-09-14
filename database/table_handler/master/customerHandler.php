@@ -13,7 +13,9 @@
     $col = "CUSTOMER_ID";
     $tb = 'dmc_customer';
     $user = $_SESSION['text'];
-    $datetime = date('Y-m-d H:i:s');    
+    $datetime = date('Y-m-d H:i:s');
+    $filter = (isset($_POST['filter']))?$_POST['filter']:'';
+    $searchcol = (isset($_POST['searchcol']))?$_POST['searchcol']:'';    
 
     $form_data = array(       
         'CUSTOMER_CODE'=>(isset($_POST['customercode']))?$_POST['customercode']:'',
@@ -33,6 +35,11 @@
         $id = $_POST['id'];
         $row = $GLOBALS['db']->get_rows($GLOBALS['tb'],$_POST['column'],$id);
         echo $row;
+    }
+
+    function select3(){
+        $rows = $GLOBALS['db']->get_rows3($GLOBALS['tb'],$GLOBALS['filter'],false,$GLOBALS['searchcol']);
+        echo json_encode($rows,true);
     }
 
     function insert(){
@@ -73,6 +80,9 @@
             break;
         case "select2":
             select2();
+            break;
+        case "select3":
+            select3();
             break;
     }
 

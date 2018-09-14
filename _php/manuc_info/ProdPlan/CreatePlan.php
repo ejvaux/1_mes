@@ -16,9 +16,8 @@
                                 <div class="input-group-text" id="btnGroupAddon2">TEMPLATE:</div>
                             </div>
                         
-                            <select class="sel2 form-control mydrp" id='template_name' name='template_name'
-                                onchange="#" >
-                                <option value=''>--SELECT TEMPLATE--</option>";
+                            <select class="sel2 form-control mydrp" id='template_name' name='template_name' >
+                                <option value=''>--SELECT TEMPLATE--</option>
                                     <?php
                                     
                                     include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
@@ -47,26 +46,24 @@
                     
                                 <select class="sel2 form-control mydrp" id='sales_demands' name='sales_demands'
                                 onchange='showTable("CreatePlan","","create_plan")' >
-                                    <option value=''>--SELECT--</option>";
-                                
+                                    <option value=''>--SELECT--</option>
+                                     
                                         <?php
                                         
                                         /* include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
-
+                                        
                                         $sql="SELECT DISTINCT(TemplateName) FROM cp_templatelist ORDER BY TemplateID ASC";
                                         $result=$conn->query($sql);
-
+                                        
+                                        
                                         while ( $row=$result->fetch_assoc()) 
                                         {
                                                 echo " <option value='".$row['TemplateName']."'>".$row['TemplateName']."</option>"; 
                                                 echo " <option value ='".$row['TemplateName']."'>".$row[]
                                         } 
-                                        today i end my life. 08 13 2018
-                                        as i woke up. my inspiration are slowly fading.
-                                        We are the three horsemen. We do magics. You must search software development life cycle
-                                        today was nothing. 08 17 2018
-                                        I do nothing today. I dont feel like doing anything today. because its friday.
-                                        */
+
+                                        
+                                         */
 
                                         foreach(glob($_SERVER['DOCUMENT_ROOT'].'/1_mes/uploaded/*.*') as $filename){
                                             $str=ltrim($filename,$_SERVER['DOCUMENT_ROOT'].'/1_mes/uploaded/');
@@ -86,18 +83,18 @@
 
                         <div class="input-group btn-sm" style="height: 43px">
                             <select class="sel2 form-control mydrp" id='sel_month' name='selected_month' height="80px">
-                                <option>January</option>
-                                <option>February</option>
-                                <option>March</option>
-                                <option>April</option>
-                                <option>May</option>
-                                <option>June</option>
-                                <option>July</option>
-                                <option>August</option>
-                                <option>September</option>
-                                <option>October</option>
-                                <option>November</option>
-                                <option>December</option>
+                                <option value='01'>January</option>
+                                <option value='02'>February</option>
+                                <option value='03'>March</option>
+                                <option value='04'>April</option>
+                                <option value='05'>May</option>
+                                <option value='06'>June</option>
+                                <option value='07'>July</option>
+                                <option value='08'>August</option>
+                                <option value='09'>September</option>
+                                <option value='10'>October</option>
+                                <option value='11'>November</option>
+                                <option value='12'>December</option>
                             </select>
                         </div>
 

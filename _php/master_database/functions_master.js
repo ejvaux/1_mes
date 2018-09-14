@@ -844,7 +844,8 @@ $('#mod').on('submit','#eemployeeform', function (e) {
       var selectedOption = ddl.options[ddl.selectedIndex].text;
       
       $.ajax({
-        type:'POST',
+        type:'POST',       
+        async: true,
         data:{
           'action':'select2',
           'column':'CUSTOMER_CODE',
@@ -855,7 +856,7 @@ $('#mod').on('submit','#eemployeeform', function (e) {
 
             if(data != 'none'){    
               var val = JSON.parse(data);         
-              $(tb1).val(val.CUSTOMER_NAME);
+              $(tb1).val(val.CUSTOMER_NAME);              
             }
             else{
               $(tb1).val('');
@@ -864,7 +865,39 @@ $('#mod').on('submit','#eemployeeform', function (e) {
         });
     }
     
-  } /* getitemname */ 
+  } /* getcustomername */
+
+  function getgroupcode(id,tb1,tb2){
+
+    // find the dropdown
+    var ddl = document.getElementById(id);
+    if(ddl.selectedIndex>=0){
+      // find the selected option
+      var selectedOption = ddl.options[ddl.selectedIndex].text;
+      
+      $.ajax({
+        type:'POST',        
+        async: true,
+        data:{
+          'action':'select2',
+          'column':'DIVISION_CODE',
+          'id': selectedOption
+        },
+        url:'/1_mes/database/table_handler/master/divisionHandler.php',
+        success:function(data){
+
+            if(data != 'none'){    
+              var val = JSON.parse(data);         
+              $(tb1).val(val.SAP_DIVISION_CODE+'000');
+            }
+            else{
+              $(tb1).val('');
+            }
+        } 
+        });
+    }
+    
+  } /* getgroupcode */
 
 /* Display Data */
 
@@ -926,3 +959,128 @@ function getemployeecode(id){
 });
 
  /* ______ Modal Reset ______ */
+
+ /* ______ GENERATING BARCODE ______ */
+
+function generateBarCode(text){
+  var srl = ['0','1','2','3','4','5','6','7','8','9',
+          'A','B','C','D','E','F','G','H','I','J','K','L','M',
+          'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
+  ];
+  var code;
+  var bc;
+  $.ajax({
+      type:'POST',      
+      async: false,
+      data:{
+      'action':'barcode',
+      'searchcol':'BARCODE',
+      'filter':"WHERE `BARCODE` LIKE '" + text + "%' ORDER BY `ITEM_ID` DESC Limit 1"
+
+      },
+      url:'/1_mes/database/table_handler/master/itemHandler.php',
+      success:function(data){
+          var val = JSON.parse(data);
+          /* alert("||"+data+"||"); */
+          /* alert(val); */
+          if(data != '"none"'){
+            code = val[0]['BARCODE'].substring(2,4);
+            var fc = code[0];
+            var lc = code[1];
+            var ilc = srl.indexOf(lc);
+            if(ilc<35){
+                bc = text + fc + srl[ilc+1]
+            }
+            else{
+                ifc = srl.indexOf(fc);
+                bc =  text + srl[ifc+1] + '0';
+            }
+          }
+          else{
+            bc =  text + "01";
+          }          
+      } 
+      });
+      return bc;
+}
+
+ /* ______ GENERATING BARCODE ______ */ 
+
+/* ______ GET DIVISION INITIAL ______ */
+
+function getdivisioninitial(dc){
+  var x;
+  $.ajax({
+    type:'POST',
+    async: false,
+    data:{
+    'action':'select3',
+    'searchcol':'BARCODE_INITIAL',
+    'filter':"WHERE `DIVISION_CODE` = '" + dc + "'"
+    },
+    url:'/1_mes/database/table_handler/master/divisionHandler.php',
+    success:function(data){
+      var val = JSON.parse(data);
+      var dd = val[0]['BARCODE_INITIAL'];
+      x = dd;
+    } 
+    });
+  return x;
+}
+
+/* ______ GET DIVISION INITIAL ______ */
+
+/* ______ GET CUSTOMER INITIAL ______ */
+
+function getcustomerinitial(cc){
+  var x;
+  $.ajax({
+    type:'POST',
+    async: false,
+    data:{
+    'action':'select3',
+    'searchcol':'CUSTOMER_INITIAL',
+    'filter':"WHERE `CUSTOMER_CODE` = '" + cc + "'"
+    },
+    url:'/1_mes/database/table_handler/master/customerHandler.php',
+    success:function(data){
+      var val = JSON.parse(data);
+      var dd = val[0]['CUSTOMER_INITIAL'];
+      x = dd;        
+    } 
+    });
+    return x;
+}
+
+/* ______ GET CUSTOMER INITIAL ______ */
+
+/* ______ INSERTING BARCODE ______ */
+
+function insertbc(tb1,tb2,tb3){    
+  if($(tb1).val() != '' && $(tb2).val() != ''){
+    var cc = getcustomerinitial($(tb1).val());
+    var dc = getdivisioninitial($(tb2).val());
+    /* alert(dc+cc); */
+    var dccc = dc+cc;
+    var bc = generateBarCode(dccc);
+    /* alert(bc); */
+    $(tb3).val(bc);
+  }
+}
+
+/* ______ INSERTING BARCODE ______ */
+
+/* ______ EDIT MODAL BARCODE REGEN ______ */
+
+$('#mod').on('change','.ebc', function (e) {           
+alert('TEST');   
+$('#eibarcode').val('');
+});
+
+/* ______ EDIT MODAL BARCODE REGEN ______ */
+
+/* ______ EDIT MODAL BARCODE REGEN ______ */
+$('#mod').on('keydown','.readonly', function (e) {           
+  e.preventDefault();
+});
+/* ______ EDIT MODAL BARCODE REGEN ______ */

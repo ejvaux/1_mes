@@ -11,7 +11,10 @@
     $col = "ITEM_ID";
     $tb = 'dmc_item_list';
     $user = $_SESSION['text'];
-    $datetime = date('Y-m-d H:i:s');  
+    $datetime = date('Y-m-d H:i:s');
+    $filter = (isset($_POST['filter']))?$_POST['filter']:'';
+    $searchcol = (isset($_POST['searchcol']))?$_POST['searchcol']:'';
+
     $form_data = array(            
         'ITEM_CODE'=>(isset($_POST['itemcode']))?$_POST['itemcode']:'',
         'DIVISION_CODE'=>(isset($_POST['divisioncode']))?$_POST['divisioncode']:'',
@@ -25,7 +28,8 @@
         'DESCRIPTION'=>(isset($_POST['description']))?$_POST['description']:'',        
         'PACK_QTY'=>(isset($_POST['packqty']))?$_POST['packqty']:'',
         'DANPLA_QTY'=>(isset($_POST['danplaqty']))?$_POST['danplaqty']:'',
-        'LABEL_TYPE'=>(isset($_POST['labeltype']))?$_POST['labeltype']:''
+        'LABEL_TYPE'=>(isset($_POST['labeltype']))?$_POST['labeltype']:'',
+        'RESIN'=>(isset($_POST['resin']))?$_POST['resin']:'',
     );
 
     function select(){
@@ -61,6 +65,11 @@
     function del(){
         echo $GLOBALS['db']->delete_row($GLOBALS['tb'],$GLOBALS['col'],$_POST['id']);
     }
+
+    function barcode(){
+        $rows = $GLOBALS['db']->get_rows3($GLOBALS['tb'],$GLOBALS['filter'],true,$GLOBALS['searchcol']);
+        echo json_encode($rows,true);
+    }
     
     switch($action){
         case "select":
@@ -80,6 +89,9 @@
             break;
         case "selectall":
             selectall();
+            break;
+        case "barcode":
+            barcode();
             break;
     }
 ?>

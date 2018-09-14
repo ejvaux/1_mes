@@ -13,6 +13,7 @@
         <th>PACK QTY</th>
         <th>DANPLA QTY</th>
         <th>LABEL TYPE</th>
+        <th>RESIN</th>
         <th>DESCRIPTION</th>
         <th>INSERT DATETIME</th>
         <th>INSERT USER</th> 
