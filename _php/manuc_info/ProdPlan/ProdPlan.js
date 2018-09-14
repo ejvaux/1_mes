@@ -698,14 +698,18 @@
         placeholder:"No Data to Display or Today's shipment is not yet available",
         movableColumns:true,
         groupBy:"LOT_NUMBER",
+  
         groupHeader:function(value, count, data, group){
             //value - the value all members of this group share
             //count - the number of rows in this group
             //data - an array of all the row data objects in this group
             //group - the group component for the group
+
+        
+
             if(count > 1)
             {
-                return "LOT NUMBER: "+ value + "<span style='margin-left:10px;'>(" + count + " items) </span>";
+                return "LOT NUMBER: "+ value + "<span style='margin-left:10px;'>(" + count + " items)asd </span>";
             }
             else
             {
@@ -888,7 +892,7 @@
             {title:"JO NO", field:"JO_NO"},
             {title:"ITEM CODE", field:"ITEM_CODE"},
             {title:"ITEM NAME", field:"ITEM_NAME"},
-            {title:"QTY", field:"QTY"},
+            {title:"QTY", field:"QTY",bottomCalc:"sum"},
             {title:"MACHINE CODE", field:"MACHINE_CODE"},
             {title:"LOT JUDGEMENT", field:"LOT JUDGEMENT"},
             {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
@@ -915,6 +919,9 @@
             //count - the number of rows in this group
             //data - an array of all the row data objects in this group
             //group - the group component for the group
+
+          
+            
             if(count > 1)
             {
                 return "LOT NUMBER: "+ value + "<span style='margin-left:10px;'>(" + count + " items) </span>";
@@ -966,7 +973,7 @@
             {title:"JO NO", field:"JO_NO"},
             {title:"ITEM CODE", field:"ITEM_CODE"},
             {title:"ITEM NAME", field:"ITEM_NAME"},
-            {title:"QTY", field:"QTY"},
+            {title:"QTY", field:"QTY",bottomCalc:"sum",formatter:"money", formatterParams:{precision:0},bottomCalcParams:{thousand:","}},
             {title:"MACHINE CODE", field:"MACHINE_CODE"},
             {title:"LOT JUDGEMENT", field:"LOT JUDGEMENT"},
             {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
