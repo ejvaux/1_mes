@@ -290,7 +290,7 @@ $(document).on('change','#ICode', function() {
       <!-- loadtbl2('CreatePlan','','create_plan')    underConstruct() -->
        
        <li>
-         <a class="nav-link tbl" id="menuhover" href="#" onclick="loadtbl2('CreatePlan','','create_plan')">Create Plan</a>
+         <a class="nav-link tbl" id="menuhover" href="#" onclick="underConstruct()">Create Plan</a>
        </li>
 
 

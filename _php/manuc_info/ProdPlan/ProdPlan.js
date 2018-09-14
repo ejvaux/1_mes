@@ -1017,7 +1017,7 @@
                                 method:'POST',
                                 url:'/1_mes/_php/manuc_info/Prodplan/DeleteFromTempShip.php',
                                 data:
-                                {
+                                {   
                                     'packingno': cell.getRow().getData().PACKING_NUMBER,
                                     'lotno':cell.getRow().getData().LOT_NUMBER,
                                     'itemcode': cell.getRow().getData().ITEM_CODE,
@@ -1051,7 +1051,7 @@
             {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}
         ]
         });
-    }
+    }   
     
     else if(TabName=="GroupList")
     {
