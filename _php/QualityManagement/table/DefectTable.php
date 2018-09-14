@@ -17,3 +17,4 @@
       </div>
 </div>
 <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/InsertDefectModal.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/_modal/EditDefectModal.php"; ?>
