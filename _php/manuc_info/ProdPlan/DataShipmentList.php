@@ -45,7 +45,7 @@ LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
 WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
 OR mis_product.ITEM_CODE LIKE '%$search%' OR  mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
 OR mis_product.SHIP_STATUS LIKE '%$search%' or mis_product.danpla_reference LIKE '$search') 
-AND (qmd_lot_create.PROD_DATE LIKE '$datetoday%')";
+AND (mis_product.DATE_ LIKE '$datetoday%')";
 
         if ($shipstat!="ALL DATA") {
             if ($shipstat == "PENDING") {
@@ -236,3 +236,15 @@ while (($row = mysqli_fetch_array($result))) {
             "CUSTOMER_CODE"=>$row['CUST_CODE'],"CUSTOMER_NAME"=>$row['CUST_NAME'],"DANPLA_REF_NUM"=>$row['danpla_reference'], "QTY"=>$row['Out_Qty']]);
 }
 echo json_encode($datavar, true);
+/* 
+<html>
+
+<head>
+</head>
+
+<body>
+                
+</body>
+
+</html>
+*/
