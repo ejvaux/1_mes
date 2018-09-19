@@ -1,6 +1,8 @@
 <?php       
               include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
-
+              session_start();
+              $userAuth = $_SESSION['auth'];
+              
               if(!isset($_POST['sql'])){
                   
                 $sql = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC";
@@ -14,6 +16,7 @@
               
               if ($result->num_rows > 0) 
               {
+                if($userAuth == 'CQ' || $userAuth =='C' || $userAuth =='A' || $userAuth == 'CG'){ //if user is authorized
                   echo "<table class='table-bordered table-sm table table-hover table-striped mt-1 table-wrapper-1 id='RecoveryTable'><thead>    
                   <th style='width:15%'>REJECTION TYPE</th>
                   <th>JUDGEMENT</th>
@@ -45,8 +48,39 @@
                   echo "<td>" . $row['REMARKS'] . "</td>";
                   }
                   echo "</tbody></table>";
-              } 
-              else {
+              }
+              else { //user not authorized
+                echo "<table class='table-bordered table-sm table table-hover table-striped mt-1 table-wrapper-1 id='RecoveryTable'><thead>
+                  <th>JUDGEMENT</th>
+                  <th>PROD DATE</th>
+                  <th>LOT NUMBER</th>
+                  <th>LOT QTY</th>
+                  <th style='width:5%'>DEFECT QTY</th>
+                  <th>LOT CREATOR</th>
+                  <th>ITEM CODE</th>
+                  <th>ITEM NAME</th>
+                  <th>JUDGE BY</th>
+                  <th>REMARKS</th>
+                  </thead><tbody>";
+                  // output data of each row
+                  while($row = $result->fetch_assoc()) 
+                  {
+                  echo " <tbody class='content'>";
+                  echo "<td class='text-danger font-weight-bold text-center'>" . $row['LOT_JUDGEMENT'] . "</td>";
+                echo "<td>" . $row['PROD_DATE'] . "</td>";
+                  echo "<td>" . $row['LOT_NUMBER'] . "</td>";
+                  echo "<td>" . $row['LOT_QTY'] . "</td>";
+                  echo "<td class='text-danger'>" . $row['DEFECT_QTY'] . "</td>";
+                  echo "<td>" . $row['LOT_CREATOR'] . "</td>";
+                  echo "<td>" . $row['ITEM_CODE'] . "</td>";
+                  echo "<td>" . $row['ITEM_NAME'] . "</td>";
+                  echo "<td>" . $row['JUDGE_BY'] . "</td>";
+                  echo "<td>" . $row['REMARKS'] . "</td>";
+                  }
+                  echo "</tbody></table>";
+              }
+            }
+              else { //no DATA found
                   //echo "Error: " . $sql . "<br>" . $conn->error;
                   echo "<table class='mt-1 table table-striped table-hover table-bordered table-sm tbl2' id='CreatedLotTable'><thead>    
                   <th>REJECTION TYPE</th>

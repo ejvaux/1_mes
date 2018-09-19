@@ -23,6 +23,7 @@
 
                 if ($result->num_rows > 0) 
                 {
+                     if($userAuth == 'CQ' || $userAuth =='C' || $userAuth =='A' || $userAuth == 'CG'){
                     echo "<thead>    
                     
                     <th>INSPECT</th>
@@ -36,7 +37,7 @@
                     <th>JUDGE BY</th>
                     <th>DEFECT QTY</th>
                     <th>REMARKS</th>
-                    </thead><tbody>";
+                    </thead>";
                     // output data of each row
                     while($row = $result->fetch_assoc()) 
                     {
@@ -48,7 +49,7 @@
 
                     echo " <tbody class='content'>";
                     if($decide == 'PENDING'){
-                        if($userAuth == 'QS' || $userAuth =='C' || $userAuth =='A'){//authority allowed
+                        if($userAuth == 'CQ' || $userAuth =='C' || $userAuth =='A'){//authority allowed
 
                             if($epsonjudge == 'PENDING'){
 
@@ -160,7 +161,39 @@
                     echo "<td>" . $row['REMARKS'] . "</td>";
                     }
                     echo "</tbody></table>";
-                } 
+                }
+                else { //if auth is not qc
+                  echo "<thead>    
+                    <th>JUDGEMENT</th>
+                    <th>LOT CREATED</th>
+                    <th style='width:30%'>LOT NUMBER</th>
+                    <th>LOT QTY</th>
+                    <th>LOT CREATOR</th>
+                    <th>ITEM CODE</th>
+                    <th style='width:30%'>ITEM NAME</th>
+                    <th>JUDGE BY</th>
+                    <th>DEFECT QTY</th>
+                    <th>REMARKS</th>
+                    </thead>";
+                    // output data of each row
+                    while($row = $result->fetch_assoc()) 
+                    {
+                    echo " <tbody class='content'>";
+                    echo "<td>" . $row['LOT_JUDGEMENT'] . "</td>";
+                    echo "<td>" . $row['PROD_DATE'] . "</td>";
+                    echo "<td class='text-left'><button type='button' class='btn btn-outline-secondary bt lotDanpla' id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModalDanpla'>VIEW</button>          <strong>". $row['LOT_NUMBER'] . "</strong></td>";
+                    echo "<td>" . $row['LOT_QTY'] . "</td>";
+                    echo "<td>" . $row['LOT_CREATOR'] . "</td>";
+                    echo "<td>" . $row['ITEM_CODE'] . "</td>";
+                    echo "<td>" . $row['ITEM_NAME'] . "</td>";
+                    echo "<td>" . $row['JUDGE_BY'] . "</td>";
+                    echo "<td class='text-danger font-weight-bold'>" . $row['DEFECT_QTY'] . "</td>";
+                    echo "<td>" . $row['REMARKS'] . "</td>";
+                    }
+                    echo "</tbody></table>";
+                }
+              }
+
                 else {
                       echo "<thead>    
                   
