@@ -1,6 +1,7 @@
 <?php
 
 #include 'datavarProdplanVsResult.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +12,7 @@
 
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
-  <meta charset="utf-8">
+  <meta charset="utf-8"> ok if that's what you want. Sorry for troubling you. thanks
   <meta name="viewport" content="width=device-width, initial-scale=1"> -->
  
 <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php";?>
@@ -293,7 +294,7 @@ $(document).on('change','#ICode', function() {
          <a class="nav-link tbl" id="menuhover" href="#" onclick="underConstruct()">Create Plan</a>
        </li>
 
-
+      <li><a class="nav-link tbl" id='tb6' href="#" onclick="loadDoc('ItemReceiving','<?php echo $_SESSION['text'];?>')">Item Receiving</a></li>
 
      </ul>
       <!-- ICONS ON LEFT -->
