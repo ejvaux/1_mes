@@ -634,6 +634,7 @@
             {title:"JO NO", field:"JO NO"},
             {title:"SERIAL PRINT", field:"SERIAL PRINT"},
             {title:"REFERENCE #", field:"REF_NUM"},
+            {title:"LOT NUMBER", field:"LOT_NO"},
             {title:"ITEM CODE", field:"ITEM CODE"},
             {title:"ITEM NAME", field:"ITEM NAME"},
             {title:"MODEL", field:"MODEL"},

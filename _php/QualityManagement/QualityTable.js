@@ -1061,7 +1061,7 @@ function DisplayTableDanplaList(Table_Name, Tablesp, tbltitle, tblLot) {
           },
           type: 'POST'
         },
-        "dom": '<"row py-1"<"col-3"B><"col"f>><"row"<"col"t>><"row"<"col"><"dd">>',
+        "dom": '<"row py-1"<"col-3 py-2"B><"col"f>><"row"<"col"t>><"row"<"col"><"dd">>',
         'buttons': [{
           extend: 'copy',
           text: '<i class="far fa-copy"></i>',
