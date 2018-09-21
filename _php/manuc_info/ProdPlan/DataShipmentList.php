@@ -45,7 +45,7 @@ LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
 WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
 OR mis_product.ITEM_CODE LIKE '%$search%' OR  mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
 OR mis_product.SHIP_STATUS LIKE '%$search%' or mis_product.danpla_reference LIKE '$search') 
-AND (mis_product.DATE_ LIKE '$datetoday%')";
+AND (qmd_lot_create.PROD_DATE LIKE '$datetoday%')";
 
         if ($shipstat!="ALL DATA") {
             if ($shipstat == "PENDING") {
@@ -125,7 +125,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
                     $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
                 }
                 else
-                {
+                {   
                     $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
                 }
             }
@@ -243,7 +243,7 @@ echo json_encode($datavar, true);
 </head>
 
 <body>
-                
+      <div style="padding-top: 20px; margin: 0 auto; x-overflow: hidden; display: inline-block">  </div>          
 </body>
 
 </html>

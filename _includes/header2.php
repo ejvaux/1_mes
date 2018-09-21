@@ -12,6 +12,6 @@
 <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
 
 <script type="text/javascript" src="/1_mes/_php/manuc_info/AutoSync.js"></script>
-
+<script type="text/javascript" src="/1_mes/_php/QualityManagement/QualityTable.js"></script>   
 
 <!-- -->
