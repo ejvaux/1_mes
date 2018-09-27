@@ -435,25 +435,26 @@
             if(param1!="no")
             {
                 $("#example-table1").tabulator("destroy");
+                $("#example-table2").tabulator("destroy");
                 
             }
             $('.sel2').select2({width: '200px'});
             left_create_plan();
-            /* right_create_plan(); */ 
+            right_create_plan();
 
         }
     }
 
     function right_create_plan()
     {
-    
+        var tempname = document.getElementById("template_name").value;
     
         $.ajax({
             method:'POST',
-            url:'/1_mes/_php/manuc_info/ProdPlan/DataRightCreatePlan.php',
+            url:'/1_mes/_php/manuc_info/ProdPlan/Data_CP_right.php',
             data:
             {
-                
+                'tempname': tempname,
                 'ajax':true
 
             },
@@ -1330,7 +1331,8 @@
     
     else if(TabName=="right_create_tbl")
     {
-        
+          var tempname = document.getElementById("template_name").value;
+
         $("#example-table2").tabulator({
         height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
         //layout:"fitColumns", //fit columns to width of table (optional)
@@ -1342,17 +1344,23 @@
         groupBy:"DR_DATE",    
         columns:[
             {title:"NO", field:"NO", width:60,align:"center"},
-            {title:"DR DATE", field:"DR_DATE"},
-            {title:"DR NO", field:"DR_NO"},
-            {title:"GROUP NAME", field:"GROUP_NAME"},
-            {title:"PACKING NO", field:"PACKING_NO"},
-            {title:"LOT NUMBER", field:"LOT_NUMBER"},
-            {title:"JOB ORDER NO", field:"JOB_ORDER_NO"},
             {title:"ITEM CODE", field:"ITEM_CODE"},
             {title:"ITEM NAME", field:"ITEM_NAME"},
-            {title:"MACHINE CODE", field:"MACHINE_CODE"},
+            {title:"TOOL #", field:"TOOL_NUM"},
             {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
-            {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}  
+            {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"},
+            {title:"MACHINE CODE", field:"MACHINE_CODE"},
+            {title:"CYCLE TIME", field:"CYCLE_TIME"},
+            {title:"CAVITY", field:"CAVITY"},
+            {title:"RUN QTY", field:"RUN_QTY"},
+            {title:"QTY", field:"QTY"},
+            {title:tempname, align: "center",
+                columns:[
+                        {title:"1", field:"progress", align:"center"},
+                        {title:"2", field:"rating", align:"center"},
+                        {title:"3", field:"car", align:"center"},
+                        ],
+            }
         ],
         });
 

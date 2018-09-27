@@ -16,7 +16,8 @@
                                 <div class="input-group-text" id="btnGroupAddon2">TEMPLATE:</div>
                             </div>
                         
-                            <select class="sel2 form-control mydrp" id='template_name' name='template_name' >
+                            <select class="sel2 form-control mydrp" id='template_name' name='template_name' 
+                            onchange='showTable("CreatePlan","","create_plan")'  >
                                 <option value=''>--SELECT TEMPLATE--</option>
                                     <?php
                                     
@@ -29,7 +30,7 @@
                                     {
                                             echo " <option value='".$row['TemplateName']."'>".$row['TemplateName']."</option>"; 
                                     
-                                     }
+                                    }
                                     
                                     ?>
 
@@ -122,6 +123,7 @@
     </div>
 
     <div class="col-lg-7" >
+    <b>Allocated Data</b> 
         <div id="example-table2"></div>
     </div>
 
