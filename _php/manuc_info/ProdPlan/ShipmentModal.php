@@ -59,7 +59,7 @@
                     <?php
                         $datenow = date("Y-m-d");
                         include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
-                        $sql="SELECT DISTINCT(dr_number) FROM sap_dr LIMIT 200";
+                        $sql="SELECT DISTINCT(dr_number) FROM sap_dr ORDER BY dr_number DESC LIMIT 500";
 
                         $result = $conn->query($sql);
                         while($row=$result->fetch_assoc())
