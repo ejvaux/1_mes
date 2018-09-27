@@ -291,7 +291,7 @@ $(document).on('change','#ICode', function() {
       <!-- loadtbl2('CreatePlan','','create_plan')    underConstruct() -->
        
        <li>
-         <a class="nav-link tbl" id="menuhover" href="#" onclick="underConstruct()">Create Plan</a>
+         <a class="nav-link tbl" id="menuhover" href="#" onclick="underConstruct() ">Create Plan</a>
        </li>
 
       <li><a class="nav-link tbl" id='tb6' href="#" onclick="loadDoc('ItemReceiving','<?php echo $_SESSION['text'];?>')">Item Receiving</a></li>
