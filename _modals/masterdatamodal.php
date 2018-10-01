@@ -910,12 +910,12 @@ $db = new DBQUERY;
                   <option value="">-Please select-</option>
                   <?php
 
-                  $row = $db->get_rows3('dmc_user_authority' ,'ORDER BY AUTHORITY_CODE ASC',false,'AUTHORITY_CODE');                   
+                  $row = $db->get_rows3('dmc_user_authority' ,'ORDER BY AUTHORITY_CODE ASC',false,'AUTHORITY_CODE, USER_AUTHORITY');                   
                   foreach($row as $rows){
                     echo "<option value='";
                     echo $rows->AUTHORITY_CODE;
                     echo "'>";
-                    echo $rows->AUTHORITY_CODE;
+                    echo $rows->AUTHORITY_CODE . " - " .$rows->USER_AUTHORITY;
                     echo "</option>";
                   }
 
