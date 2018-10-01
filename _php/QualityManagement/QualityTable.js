@@ -222,7 +222,7 @@ $(document).on('click', '.lotDanpla', function () {
 
 function DisplayLotDetails(lotNum) {
   var x = lotNum;
-  var z = "SELECT PACKING_NUMBER, SUM(PRINT_QTY) as SUMQ FROM mis_product WHERE LOT_NUM ='" + x + "' GROUP BY PACKING_NUMBER";
+  var z = "SELECT PACKING_NUMBER, SUM(PRINT_QTY) as SUMQ,danpla_reference FROM mis_product WHERE LOT_NUM ='" + x + "' GROUP BY PACKING_NUMBER";
   $.ajax({
     url: "/1_mes/_php/QualityManagement/table/LotDanplaList.php",
     method: "POST",
