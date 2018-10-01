@@ -975,7 +975,7 @@ function generateBarCode(text){
       data:{
       'action':'barcode',
       'searchcol':'BARCODE',
-      'filter':"WHERE `BARCODE` LIKE '" + text + "%' ORDER BY `ITEM_ID` DESC Limit 1"
+      'filter':"WHERE `BARCODE` LIKE '" + text + "%' ORDER BY `BARCODE` DESC Limit 1"
 
       },
       url:'/1_mes/database/table_handler/master/itemHandler.php',
@@ -1073,7 +1073,7 @@ function insertbc(tb1,tb2,tb3){
 /* ______ EDIT MODAL BARCODE REGEN ______ */
 
 $('#mod').on('change','.ebc', function (e) {           
-alert('TEST');   
+/* alert('TEST'); */   
 $('#eibarcode').val('');
 });
 
