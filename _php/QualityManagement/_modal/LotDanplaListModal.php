@@ -44,14 +44,14 @@
                   </div>
                 </div>
                 <div class="row">
-                <div class="col-4"></div>
-                <div class="col-6" id="tblModal">
+                <div class="col-1"></div>
+                <div class="col-8" id="tblModal">
                 
                   <!-- <button type='button' class='btn btn-outline-secondary lotView1' id='LotView'>VIEW LOT DETAILS</button> -->
                   <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/LotDanplaList.php"; ?>
 
                   </div>
-                <div class="col-1"></div>
+                <div class="col-2"></div>
                 </div>
 
               <div class="row">
