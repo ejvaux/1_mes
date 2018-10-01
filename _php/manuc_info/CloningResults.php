@@ -18,6 +18,7 @@ $errorProducts="";
 $conn2 = sqlsrv_connect($serverName,$connectionInfo);
 if(!$conn2){echo "Connection failure</br>";}
 $sql="SELECT TOP(500) * from LogTable  ORDER BY print_date DESC";
+//$sql="SELECT  * from LogTable WHERE Date = '2018-08-30' ORDER BY print_date DESC";
 $result=sqlsrv_query($conn2,$sql);
 
 while($row=sqlsrv_fetch_array($result))
@@ -42,7 +43,7 @@ elseif ($classify=="T") {
 	$res2 = $conn->query($sql2);
 
 //below codes is for avoid inserting of already saved data
-	   if(!$row2=$res2->fetch_assoc())
+	   if($res2->num_rows<1)
 	   {
 	   ///no data fetch
 	   	$no2 = $row['Id'];
@@ -206,7 +207,7 @@ fwrite($myfile, $errorProducts.$errorinsert.$errorsummary);
 
 #$address=$_GET['address'];
 #header("Location: ".$address);
-
+$conn->close();
 include 'SyncToProductionOutputDb.php';
 
 ?>
