@@ -15,6 +15,7 @@
         <th>LABEL TYPE</th>
         <th>RESIN</th>
         <th>DESCRIPTION</th>
+        <th>EPSON PROD.NAME</th>
         <th>INSERT DATETIME</th>
         <th>INSERT USER</th> 
         <th>UPDATE DATETIME</th>

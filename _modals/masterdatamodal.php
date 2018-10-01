@@ -645,6 +645,35 @@ $db = new DBQUERY;
               </div>
             </div>                                          
           </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="epsonprodname" class="col-form-label-sm">EPSON PROD.NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="epsonprodname" type="text" class="form-control form-control-sm sel" name="epson_productname" placeholder="">
+                          
+                    <option value="">-Please select-</option>
+                    <?php
+
+                      $row = $db->get_rows3('epson_product_name' ,'ORDER BY PRODUCT_ID ASC',false,'PRODUCT_NAME');                   
+                      foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->PRODUCT_NAME;
+                        echo "'>";
+                        echo $rows->PRODUCT_NAME;
+                        echo "</option>";
+                      }
+
+                    ?>
+
+                  </select>                  
+                </div>
+              </div>
+            </div>                                          
+          </div>
   
 
           <!-- ____________ FORM END __________________ -->
@@ -1849,6 +1878,33 @@ $db = new DBQUERY;
                 </div>
               </div>
             </div>                            
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eepsonprodname" class="col-form-label-sm">EPSON PROD.NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="eepsonprodname" type="text" class="form-control form-control-sm sel" name="epson_productname" placeholder="">                  
+                  <option value="">-Please select-</option>
+                    <?php
+
+                      $row = $db->get_rows3('epson_product_name' ,'ORDER BY PRODUCT_ID ASC',false,'PRODUCT_NAME');                   
+                      foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->PRODUCT_NAME;
+                        echo "'>";
+                        echo $rows->PRODUCT_NAME;
+                        echo "</option>";
+                      }
+
+                    ?>
+                  </select>
+                </div>
+              </div>
+            </div>                                          
           </div>
   
 

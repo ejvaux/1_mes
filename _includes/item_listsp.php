@@ -44,10 +44,11 @@ $columns = array(
     array( 'db' => 'LABEL_TYPE', 'dt' => 12 ),
     array( 'db' => 'RESIN', 'dt' => 13 ),
     array( 'db' => 'DESCRIPTION', 'dt' => 14 ),
-    array( 'db' => 'INSERT_DATETIME', 'dt' => 15 ),
-    array( 'db' => 'INSERT_USER', 'dt' => 16 ),
-    array( 'db' => 'UPDATE_DATETIME', 'dt' => 17 ),
-    array( 'db' => 'UPDATE_USER', 'dt' => 18 )      
+    array( 'db' => 'EPSON_PRODUCTNAME', 'dt' => 15 ),
+    array( 'db' => 'INSERT_DATETIME', 'dt' => 16 ),
+    array( 'db' => 'INSERT_USER', 'dt' => 17 ),
+    array( 'db' => 'UPDATE_DATETIME', 'dt' => 18 ),
+    array( 'db' => 'UPDATE_USER', 'dt' => 19 )      
 );
  
 // SQL server connection information

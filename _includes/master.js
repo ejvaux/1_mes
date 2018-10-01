@@ -553,6 +553,7 @@ function DisplayTable3(Table_Name,Tablesp,tbltitle) {
                   $("#eilabeltype").val(val['LABEL_TYPE']);
                   $("#eidescription").val(val['DESCRIPTION']);
                   $("#eiresin").val(val['RESIN']);
+                  $("#eepsonprodname").val(val['EPSON_PRODUCTNAME']);
                   
                   $('.sel').select2({ width: '100%' });
                   $('#eitemmod').modal('show');

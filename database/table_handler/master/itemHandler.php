@@ -30,6 +30,7 @@
         'DANPLA_QTY'=>(isset($_POST['danplaqty']))?$_POST['danplaqty']:'',
         'LABEL_TYPE'=>(isset($_POST['labeltype']))?$_POST['labeltype']:'',
         'RESIN'=>(isset($_POST['resin']))?$_POST['resin']:'',
+        'EPSON_PRODUCTNAME'=>(isset($_POST['epson_productname']))?$_POST['epson_productname']:'',
     );
 
     function select(){
