@@ -1394,7 +1394,19 @@
 
     function exportxlsx(moduleID,deptSec,SectionGroup)
     {
-        $("#example-table").tabulator("download", "xlsx", moduleID+".xlsx", {sheetName:moduleID});
+       
+        if(SectionGroup=="dr_assign")
+        {
+            $("#example-table2").tabulator("download", "xlsx", moduleID+".xlsx", {sheetName:moduleID});
+        }
+        else if(SectionGroup=="group_management")
+        {
+            $("#example-table3").tabulator("download", "xlsx", moduleID+".xlsx", {sheetName:moduleID});
+        }
+        else
+        {
+            $("#example-table").tabulator("download", "xlsx", moduleID+".xlsx", {sheetName:moduleID});
+        }
         
         
     }
