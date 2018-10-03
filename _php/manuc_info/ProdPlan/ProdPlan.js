@@ -712,7 +712,7 @@
 
             if(count > 1)
             {
-                return "LOT NUMBER: "+ value + "<span style='margin-left:10px;'>(" + count + " items)asd </span>";
+                return "LOT NUMBER: "+ value + "<span style='margin-left:10px;'>(" + count + " items) </span>";
             }
             else
             {
@@ -1157,7 +1157,7 @@
                 LoadTableOfDrDetails(row.getData().DR_NO,"assignedDr");
             }
             },
-    
+            
         
         columns:[
             {title:"NO", field:"NO", width:60,align:"center"},
