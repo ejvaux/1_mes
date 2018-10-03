@@ -31,7 +31,7 @@ OR mis_product.SHIP_STATUS LIKE '%$search%' or mis_product.danpla_reference LIKE
 
     if ($shipstat!="ALL DATA") {
         if ($shipstat == "PENDING") {
-            $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
+            $sql.=" AND ((mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat')) ";
         } else  {
             $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
         }

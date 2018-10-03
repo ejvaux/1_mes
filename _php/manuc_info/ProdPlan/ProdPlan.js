@@ -274,7 +274,7 @@
             $('.sel2').select2({width: '80%'});
             if(param1!="no")
             {   
-                $("#example-table").tabulator("destroy");
+                //$("#example-table").tabulator("destroy");
                 $("#example-table2").tabulator("destroy");
                 $("#example-table3").tabulator("destroy");
                 

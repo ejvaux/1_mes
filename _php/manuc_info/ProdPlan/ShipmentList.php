@@ -41,7 +41,7 @@
                                             <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('ShipmentList','','shipment_management')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
                                         </div>
                                         &nbsp                      
-                                        <select id="StatusSort" class='form-control ' style="font-size: 10px; height: 33px" onchange='showTable(" ","no","shipment_management")'>
+                                        <select id="StatusSort" class='form-control ' style="font-size: 10px; height: 33px" onchange='showTable("ShipmentList","","shipment_management")'>
                                             <option value=''>ALL DATA</option>
                                             <option value='SHIPPED'>SHIPPED</option>
                                             <option value='APPROVED'>APPROVED</option>
