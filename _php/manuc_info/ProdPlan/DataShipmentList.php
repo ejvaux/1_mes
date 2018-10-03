@@ -78,7 +78,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
             {
                 if($shipstat == "PENDING")
                 {
-                    $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
+                    $sql.=" AND ((mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat')) ";
                 }
                 else
                 {
@@ -97,7 +97,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
             {
                 if($shipstat == "PENDING")
                 {
-                    $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
+                    $sql.=" AND ((mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat')) ";
                 }
                 else
                 {
@@ -122,7 +122,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
             {
                 if($shipstat == "PENDING")
                 {
-                    $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
+                    $sql.=" AND ((mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat')) ";
                 }
                 else
                 {   
@@ -139,7 +139,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
                        {
                         if($shipstat == "PENDING")
                         {
-                            $sql.=" AND (mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat') ";
+                            $sql.=" AND ((mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat')) ";
                         }
                         else
                         {
@@ -175,7 +175,7 @@ while (($row = mysqli_fetch_array($result))) {
             
         $packno = $row['PACKING_NUMBER'];
         $lotnumber = $row['LOT_NUM'];
-
+        
         
         
         $sql2="SELECT ship_group_id FROM mis_temp_ship_group WHERE packing_number = '$packno' AND lot_number='$lotnumber'";
