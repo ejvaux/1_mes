@@ -1061,7 +1061,7 @@
     
         $("#example-table3").tabulator({
         height: "60vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
-        layout:"fitColumns", //fit columns to width of table (optional)
+        //layout:"fitColumns", //fit columns to width of table (optional)
         selectable: 1,
         paginationSize:1000,
         placeholder:"No Data to Display",
@@ -1118,6 +1118,7 @@
                     })
                     } 
             },
+            {title:"DATE ASSIGNED", field:"DATE_ASSIGNED"},
             {title:"GROUP NAME", field:"GROUP_NAME"},
             {title:"PACKING_NUMBER", field:"PACKING_NUMBER"},
             {title:"LOT_NUMBER", field:"LOT_NUMBER"},
