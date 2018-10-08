@@ -38,6 +38,14 @@
                       <input type="text" class="form-control form-control-sm text-center" id="lot_num" readonly />         
                   </div>
                 </div>
+              <div class="row">
+                <div class="col-3">
+                      <label class="col-form-label-sm">ITEM CODE:</label></div>
+                <div class="col-9">
+                   
+                      <input type="text" class="form-control form-control-sm text-center" id="item_code" readonly />         
+                  </div>
+                </div>
               
              <div class="row">
                 <div class="col-5">
