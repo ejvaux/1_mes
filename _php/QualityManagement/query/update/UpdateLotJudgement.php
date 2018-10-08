@@ -4,6 +4,7 @@ session_start();
     $decision = $_POST['decision'];
     $user = $_SESSION['text'];
     $lot = $_POST['lot_number'];
+    $item = $_POST['item_code'];
     $update_dateTime =  Date('Y-m-d H:i:s');
 
     if(!isset($_SESSION['username'])){
@@ -31,7 +32,7 @@ else{
             
             $qty = "0";
             $remarks = "";
-            $sql = "UPDATE qmd_lot_create SET LOT_JUDGEMENT = 'APPROVED', JUDGE_BY = '$user', DEFECT_QTY = '$qty', REMARKS='$remarks', JUDGEMENT_DATE = '$update_dateTime' WHERE LOT_NUMBER = '$lot'";
+            $sql = "UPDATE qmd_lot_create SET LOT_JUDGEMENT = 'APPROVED', JUDGE_BY = '$user', DEFECT_QTY = '$qty', REMARKS='$remarks', JUDGEMENT_DATE = '$update_dateTime' WHERE LOT_NUMBER = '$lot' AND ITEM_CODE = '$item'";
             if($conn->query($sql) === TRUE) {
                 echo "SUCCESS";
                 } 
@@ -42,11 +43,9 @@ else{
                 $decision = 'APPROVED';
             }
         else if($decision == "DISAPPROVE"){
-            $user = $_SESSION['text'];
-            $lot = $_POST['lot_number'];
             $qty = $_POST['defect_qty'];
             $remarks = $_POST['remarks'];
-            $sql = "UPDATE qmd_lot_create SET LOT_JUDGEMENT = 'DISAPPROVED', JUDGE_BY = '$user',DEFECT_QTY = '$qty', REMARKS = '$remarks', JUDGEMENT_DATE = '$update_dateTime' WHERE LOT_NUMBER = '$lot'";
+            $sql = "UPDATE qmd_lot_create SET LOT_JUDGEMENT = 'DISAPPROVED', JUDGE_BY = '$user',DEFECT_QTY = '$qty', REMARKS = '$remarks', JUDGEMENT_DATE = '$update_dateTime' WHERE LOT_NUMBER = '$lot' AND ITEM_CODE = '$item'";
             if($conn->query($sql) === TRUE) {
                 echo "SUCCESS";
                 } 
@@ -58,12 +57,10 @@ else{
             }
             
         else if($decision == "PENDING-REWORK"){
-            $user = $_SESSION['text'];
-            $lot = $_POST['lot_number'];
             $qty = $_POST['defect_qty'];
             $remarks = $_POST['remarks'];
 
-            $sql = "UPDATE qmd_lot_create SET LOT_JUDGEMENT = 'PENDING', JUDGE_BY = '$user',DEFECT_QTY = '$qty', REMARKS = '$remarks', JUDGEMENT_DATE = '$update_dateTime' WHERE LOT_NUMBER = '$lot'";
+            $sql = "UPDATE qmd_lot_create SET LOT_JUDGEMENT = 'PENDING', JUDGE_BY = '$user',DEFECT_QTY = '$qty', REMARKS = '$remarks', JUDGEMENT_DATE = '$update_dateTime' WHERE LOT_NUMBER = '$lot' AND ITEM_CODE = '$item'";
             if($conn->query($sql) === TRUE) {
                 echo "SUCCESS";
                 } 
@@ -79,7 +76,7 @@ else{
             $lot = $_POST['lot_number'];
             $qty = "0";
             $remarks = "";
-            $sql = "UPDATE qmd_lot_create SET LOT_JUDGEMENT = 'PENDING', JUDGE_BY = '$user',DEFECT_QTY = '$qty', REMARKS = '$remarks', JUDGEMENT_DATE = '$update_dateTime' WHERE LOT_NUMBER = '$lot'";
+            $sql = "UPDATE qmd_lot_create SET LOT_JUDGEMENT = 'PENDING', JUDGE_BY = '$user',DEFECT_QTY = '$qty', REMARKS = '$remarks', JUDGEMENT_DATE = '$update_dateTime' WHERE LOT_NUMBER = '$lot' AND ITEM_CODE = '$item'";
             if($conn->query($sql) === TRUE) {
                 echo "SUCCESS";
                 } 
@@ -90,7 +87,7 @@ else{
             }
             $conn->close();   
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-        $sql = "UPDATE mis_product SET SHIP_STATUS='$decision' WHERE LOT_NUM ='$lot'";
+        $sql = "UPDATE mis_product SET SHIP_STATUS='$decision' WHERE LOT_NUM ='$lot' AND ITEM_CODE = '$item'";
         if($conn->query($sql) === TRUE) {
                 echo "SUCCESS";
                 } 

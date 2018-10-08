@@ -12,7 +12,7 @@
                         ORDER BY qmd_lot_create.PROD_DATE DESC LIMIT 100 */
 
                 $sql = "SELECT * FROM qmd_lot_create 
-                        WHERE LOT_JUDGEMENT ='PENDING' GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC LIMIT 100";
+                        WHERE LOT_JUDGEMENT ='PENDING' ORDER BY PROD_DATE DESC LIMIT 100";
                 
                 }
                 else{
@@ -54,8 +54,8 @@
                             if($epsonjudge == 'PENDING'){
 
                               echo "<td class='text-center'>
-                                <button type='button' class='btn btn-outline-primary bt epsonApprove' id='". $row['LOT_NUMBER'] . "'>APPROVE</button>
-                                <button type='button' class='btn btn-outline-danger bt lotDisapprove' id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
+                                <button type='button' class='btn btn-outline-primary bt epsonApprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."'>APPROVE</button>
+                                <button type='button' class='btn btn-outline-danger bt lotDisapprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
                               $sqlQuery = "SELECT REWORK_ID FROM qmd_lot_rework WHERE LOT_NUMBER = '". $row['LOT_NUMBER'] ."' ORDER BY REWORK_ID DESC LIMIT 1";
                                 $res123 = $conn->query($sqlQuery);
                                 $row2 = $res123->fetch_assoc();
@@ -70,8 +70,8 @@
                               }
                             else{
                               echo "<td class='text-center'>
-                                <button type='button' class='btn btn-success bt lotApprove' id='". $row['LOT_NUMBER'] . "'>APPROVE</button>
-                                <button type='button' class='btn btn-danger bt lotDisapprove' id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
+                                <button type='button' class='btn btn-success bt lotApprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."'>APPROVE</button>
+                                <button type='button' class='btn btn-danger bt lotDisapprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
                               $sqlQuery = "SELECT REWORK_ID FROM qmd_lot_rework WHERE LOT_NUMBER = '". $row['LOT_NUMBER'] ."' ORDER BY REWORK_ID DESC LIMIT 1";
                                 $res123 = $conn->query($sqlQuery);
                                 $row2 = $res123->fetch_assoc();
@@ -87,9 +87,9 @@
                         else{ //authority not allowed
                           if($epsonjudge == 'PENDING'){
                               echo "<td class='text-center'>
-                                <button type='button' disabled class='btn btn-outline-secondary bt epsonApprove' id='". $row['LOT_NUMBER'] . "'>APPROVE</button>
-                                <button type='button' disabled class='btn btn-outline-secondary bt lotDisapprove' id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
-                              $sqlQuery = "SELECT REWORK_ID FROM qmd_lot_rework WHERE LOT_NUMBER = '". $row['LOT_NUMBER'] ."' ORDER BY REWORK_ID DESC LIMIT 1";
+                                <button type='button' disabled class='btn btn-outline-secondary bt epsonApprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."'>APPROVE</button>
+                                <button type='button' disabled class='btn btn-outline-secondary bt lotDisapprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
+                              $sqlQuery = "SELECT REWORK_ID FROM qmd_lot_rework WHERE LOT_NUMBER = '". $row['LOT_NUMBER'] ."' AND ITEM_CODE = '".$row['ITEM_CODE']."' ORDER BY REWORK_ID DESC LIMIT 1";
                                 $res123 = $conn->query($sqlQuery);
                                 $row2 = $res123->fetch_assoc();
                                 $reworkID = $row2['REWORK_ID'];
@@ -106,9 +106,9 @@
                             }
                           else{
                             echo "<td class='text-center'>
-                              <button type='button' class='btn btn-success bt lotApprove' id='". $row['LOT_NUMBER'] . "'>APPROVE</button>
-                              <button type='button' class='btn btn-danger bt lotDisapprove' id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
-                            $sqlQuery = "SELECT REWORK_ID FROM qmd_lot_rework WHERE LOT_NUMBER = '". $row['LOT_NUMBER'] ."' ORDER BY REWORK_ID DESC LIMIT 1";
+                              <button type='button' class='btn btn-success bt lotApprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."'>APPROVE</button>
+                              <button type='button' class='btn btn-danger bt lotDisapprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
+                            $sqlQuery = "SELECT REWORK_ID FROM qmd_lot_rework WHERE LOT_NUMBER = '". $row['LOT_NUMBER'] ."' AND ITEM_CODE = '".$row['ITEM_CODE']."' ORDER BY REWORK_ID DESC LIMIT 1";
                               $res123 = $conn->query($sqlQuery);
                               $row2 = $res123->fetch_assoc();
                               $reworkID = $row2['REWORK_ID'];
@@ -128,8 +128,8 @@
                           }
                           else{
                             echo "<td class='text-center'>
-                          <button type='button' class='btn btn-info bt lotPending' enabled='true' id='". $row['LOT_NUMBER'] . "'>PENDING</button>
-                          <button type='button' class='btn btn-danger bt lotDisapprove' enabled='true' id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
+                          <button type='button' class='btn btn-info bt lotPending' enabled='true' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."'>PENDING</button>
+                          <button type='button' class='btn btn-danger bt lotDisapprove' enabled='true' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
                           echo "<td class='text-success font-weight-bold'>" . $row['LOT_JUDGEMENT'] . "</td>";  
                           }
                           
@@ -151,7 +151,7 @@
                      /* echo "<td>" . $row['LOT_ID'] . "</td>";
                     echo "<td>" . $row['LOT_JUDGEMENT'] . "</td>"; */
                     echo "<td>" . $row['PROD_DATE'] . "</td>";
-                    echo "<td class='text-left'><button type='button' class='btn btn-outline-secondary bt lotDanpla' id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModalDanpla'>VIEW</button>          <strong>". $row['LOT_NUMBER'] . "</strong></td>";
+                    echo "<td class='text-left'><button type='button' class='btn btn-outline-secondary bt lotDanpla' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModalDanpla'>VIEW</button>          <strong>". $row['LOT_NUMBER'] . "</strong></td>";
                     echo "<td>" . $row['LOT_QTY'] . "</td>";
                     echo "<td>" . $row['LOT_CREATOR'] . "</td>";
                     echo "<td>" . $row['ITEM_CODE'] . "</td>";
