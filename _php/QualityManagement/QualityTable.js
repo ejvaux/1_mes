@@ -36,7 +36,7 @@ $(document).on('click', '.lotApprove', function () {
   var id = $(this).attr("id");
   var item_code = id.substr(id.indexOf('@') + 1)
   var lotNumber = id.substr(0, id.indexOf('@'));
-  alert(lotNumber + ' xxxxxx ' + item_code);
+  /* alert(lotNumber + ' xxxxxx ' + item_code); */
    swal({
       title: 'Are you sure you will approve lot ' + lotNumber + ' ?',
       text: "REVERT this in Lot Judgement > FILTER TABLE:APPROVED > Click:PENDING",
@@ -67,7 +67,7 @@ $(document).on('click', '.epsonApprove', function () {
   var id = $(this).attr("id");
   var item_code = id.substr(id.indexOf('@') + 1)
   var lotNumber = id.substr(0, id.indexOf('@'));
-  alert(lotNumber + ' xxxxxx ' + item_code);
+  /* alert(lotNumber + ' xxxxxx ' + item_code); */
   swal({
     title: 'BQICS Lot Approval',
     text: 'Are you sure you will approve lot ' + lotNumber + ' ?',
@@ -98,7 +98,7 @@ $(document).on('click', '.lotPending', function () {
   var id = $(this).attr("id");
   var item_code = id.substr(id.indexOf('@') + 1)
   var lotNumber = id.substr(0, id.indexOf('@'));
-  alert(lotNumber + ' xxxxxx ' + item_code);
+  /* alert(lotNumber + ' xxxxxx ' + item_code); */
   swal({
       title: 'Change Status to PENDING?',
       text: "Revert this in LotJudgement > FILTER TABLE:PENDING > Find " + lotNumber + " > Click:APPROVE/DISAPPROVE",
@@ -222,7 +222,7 @@ $(document).on('click', '.lotDisapprove', function () {
   var id = $(this).attr("id");
   var item_code = id.substr(id.indexOf('@') + 1)
   var lotNumber = id.substr(0, id.indexOf('@'));
-  alert(lotNumber + ' xxxxxx ' + item_code);  
+  /* alert(lotNumber + ' xxxxxx ' + item_code);   */
   document.getElementById('lot_num').value = lotNumber;
   document.getElementById('item_code').value = item_code;
 }); //modal that appears when item is judged as disapproved
@@ -231,7 +231,7 @@ $(document).on('click', '.lotDanpla', function () {
   var id = $(this).attr("id");
   var item_code = id.substr(id.indexOf('@') + 1)
   var lotNumber = id.substr(0, id.indexOf('@'));
-  alert(lotNumber + ' xxxxxx ' + item_code);
+  /* alert(lotNumber + ' xxxxxx ' + item_code); */
 
   DisplayLotDetails(lotNumber, item_code);
   document.getElementById('LOT_NUMBER').value = lotNumber;
@@ -242,7 +242,7 @@ function DisplayLotDetails(lotNum, item_code) {
   var y = item_code;
   /* var z = "SELECT PACKING_NUMBER, SUM(PRINT_QTY) as SUMQ,danpla_reference FROM mis_product WHERE LOT_NUM ='" + x + "' GROUP BY PACKING_NUMBER"; */
   var z = "SELECT PACKING_NUMBER, SUM(PRINT_QTY) as SUMQ,danpla_reference FROM mis_product WHERE LOT_NUM ='" + x + "' AND ITEM_CODE ='"+ y + "' GROUP BY PACKING_NUMBER";
-  alert(z);
+  
   $.ajax({
     url: "/1_mes/_php/QualityManagement/table/LotDanplaList.php",
     method: "POST",
