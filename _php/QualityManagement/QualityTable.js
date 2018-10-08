@@ -52,6 +52,7 @@ $(document).on('click', '.lotApprove', function () {
           method: "POST",
           data: {
             'lot_number': lotNumber,
+            'item_code': item_code,
             'decision': "APPROVE"
           },
           success: function (data) {
@@ -83,6 +84,7 @@ $(document).on('click', '.epsonApprove', function () {
           method: "POST",
           data: {
             'lot_number': lotNumber,
+            'item_code': item_code,
             'decision': "EPSON_APPROVED"
             },
           success: function (data) {
@@ -114,6 +116,7 @@ $(document).on('click', '.lotPending', function () {
           method: "POST",
           data: {
             'lot_number': lotNumber,
+            'item_code': item_code,
             'decision': "PENDING"
             },
           success: function (data) {
@@ -306,6 +309,7 @@ $(document).on('click', '#ConfirmDefect', function () {
         method: "POST",
         data: {
           'lot_number': lotNumber,
+          'item_code': item_code,
           'defect_qty': Quantity_Defect,
           'remarks': remarks,
           'decision': decision,

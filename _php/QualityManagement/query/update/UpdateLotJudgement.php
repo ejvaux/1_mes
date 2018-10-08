@@ -16,7 +16,7 @@ session_start();
 
 if($decision == "EPSON_APPROVED"){
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-        $sql = "UPDATE qmd_lot_create SET EPSON_QC_APPROVED = 'APPROVED' WHERE LOT_NUMBER ='$lot'";
+        $sql = "UPDATE qmd_lot_create SET EPSON_QC_APPROVED = 'APPROVED' WHERE LOT_NUMBER ='$lot' AND ITEM_CODE = '$item'";
         if($conn->query($sql) === TRUE) {
                 echo "SUCCESS";
                 } 
