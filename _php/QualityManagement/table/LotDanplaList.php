@@ -12,7 +12,7 @@
 <?php       
             include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
 
-            
+
 
             $sql1 = $_POST['sql1'];
             $result = $conn->query($sql1);
