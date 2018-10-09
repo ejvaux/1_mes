@@ -1,5 +1,6 @@
 <?php
  $lot = $_POST['lot_number'];
+ $item = $_POST['item_code'];
 // DB table to use
 $table = <<<EOT
  (
@@ -13,7 +14,7 @@ $table = <<<EOT
         JO_NUM,
         LOT_NUM
     FROM mis_product
-    WHERE LOT_NUM = '$lot'
+    WHERE LOT_NUM = '$lot' and ITEM_CODE = '$item'
     GROUP BY PACKING_NUMBER
  ) temp
 EOT;

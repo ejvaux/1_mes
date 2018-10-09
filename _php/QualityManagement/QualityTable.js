@@ -16,7 +16,7 @@ function loadDoc(TableName, uname) {
       } else if (TableName == 'ItemReceiving') {
         DisplayTableItemReceiving('ItemReceivedTable', 'ItemReceivedTableSP', uname);
         //ReloadTableList()
-        DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', '123');
+        DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', '123','123');
       }
     }
   };
@@ -244,7 +244,7 @@ function DisplayLotDetails(lotNum, item_code) {
   var x = lotNum;
   var y = item_code;
   /* var z = "SELECT PACKING_NUMBER, SUM(PRINT_QTY) as SUMQ,danpla_reference FROM mis_product WHERE LOT_NUM ='" + x + "' GROUP BY PACKING_NUMBER"; */
-  var z = "SELECT PACKING_NUMBER, SUM(PRINT_QTY) as SUMQ,danpla_reference FROM mis_product WHERE LOT_NUM ='" + x + "' AND ITEM_CODE ='"+ y + "' GROUP BY PACKING_NUMBER";
+  var z = "SELECT danpla_reference, PACKING_NUMBER, SUM(PRINT_QTY) as SUMQ FROM mis_product WHERE LOT_NUM ='" + x + "' AND ITEM_CODE ='"+ y + "' GROUP BY PACKING_NUMBER";
   
   $.ajax({
     url: "/1_mes/_php/QualityManagement/table/LotDanplaList.php",
@@ -1064,7 +1064,7 @@ function DisplayTableItemReceiving(Table_Name, Tablesp, tbluser) {
 }
 $.fn.dataTable.ext.buttons.add0 = {}; //Item Receiving first table
 
-function DisplayTableDanplaList(Table_Name, Tablesp, tbltitle, tblLot) {
+function DisplayTableDanplaList(Table_Name, Tablesp, tbltitle, tblLot,tblItem) {
   var xhttp;
   if (Table_Name.length == 0) {
     document.getElementById("second_table").innerHTML = "<h1>No table to display.</h1>";
@@ -1084,6 +1084,7 @@ function DisplayTableDanplaList(Table_Name, Tablesp, tbltitle, tblLot) {
         "ajax": {
           url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
           data: {
+            'item_code' : tblItem,
             'lot_number': tblLot,
             'ajax': true
           },
@@ -1142,7 +1143,8 @@ function ReloadTableList() {
   var x = document.getElementById('ItemReceivedTable').rows[1].cells[0].innerHTML;
   if (x != "No data available in table") {
     var vblLot = document.getElementById('ItemReceivedTable').rows[1].cells[2].innerHTML;
-    DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', vblLot);
+    var vblItemCode = document.getElementById('ItemReceivedTable').rows[1].cells[3].innerHTML;
+    DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', vblLot, vblItemCode);
   }
 } // end reload remaining fg table
 
@@ -1231,7 +1233,7 @@ function insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, 
         type: 'success'
       });
       DisplayTableItemReceiving('ItemReceivedTable', 'ItemReceivedTableSP', username);
-      DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', insertLot);
+      DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', insertLot, insertItemCode);
     }
   });
 } // end InsertIntoQueueingTable
@@ -1242,6 +1244,7 @@ function ApproveTransfer() {
   var x = document.getElementById('ItemReceivedTable').rows[1].cells[0].innerHTML;
   var y = document.getElementById('ItemReceiveDanplaTable').rows[1].cells[0].innerHTML;
   var vblLot = document.getElementById('ItemReceivedTable').rows[1].cells[2].innerHTML;
+  var vblItemCode = document.getElementById('ItemReceivedTable').rows[1].cells[3].innerHTML;
   if (x != "No data available in table" && y == "No data available in table") {
     ReloadTableList();
     swal('Try again', 'Table is now reloaded.', 'error');
@@ -1253,14 +1256,14 @@ function ApproveTransfer() {
     swal('WAIT!', 'Please scan all danpla before receiving!', 'warning')
     return;
   } else if (gathered == list) {
-    updateWarehouseReceive(vblLot);
+    updateWarehouseReceive(vblLot,vblItemCode);
   }
 } // end approveTransfer
 
-function updateWarehouseReceive(lotNumber) {
+function updateWarehouseReceive(lotNumber,item_code) {
   (async function getCountry() {
   const { value: warehouse } = await swal({
-    title: 'LOT NUMBER:' + lotNumber,
+    title: 'LOT NUMBER:' + lotNumber + "-" + item_code,
     text: 'Select next warehouse transfer.',
     input: 'select',
     inputOptions: {
@@ -1292,12 +1295,13 @@ function updateWarehouseReceive(lotNumber) {
           method: 'post',
           url: '/1_mes/_php/QualityManagement/query/update/UpdateWarehouseReceive.php',
           data: {
+            'item_code': item_code,
             'warehouse': warehouse,
             'lot_num': lotNumber,
             'ajax': true
           },
           success: function (data) {
-            swal(data, 'Lot ' + lotNumber + " is now transferred.", 'success')
+            swal(data, 'Lot ' + lotNumber + "-" + item_code + " is now transferred.", 'success')
             loadDoc('ItemReceiving');
           }
         });
