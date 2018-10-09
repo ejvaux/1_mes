@@ -179,10 +179,10 @@ function searchLot() {
   var search = searchText.value;
   /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
   if (y == "ALL") {
-    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') ORDER BY PROD_DATE DESC LIMIT 100;";
+    var z = "SELECT * FROM qmd_lot_create WHERE  (LOT_NUMBER IN (SELECT lot_num from mis_product WHERE danpla_reference LIKE  '%" + search + "%' )) OR (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') ORDER BY PROD_DATE DESC LIMIT 100;";
     } 
   else {
-    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND LOT_JUDGEMENT = '" + y + "' ORDER BY PROD_DATE DESC LIMIT 100;";
+    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER IN (SELECT lot_num from mis_product WHERE danpla_reference LIKE  '%" + search + "%' )) OR ((LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = '" + y + "')) ORDER BY PROD_DATE DESC LIMIT 100;";
     }
   $.ajax({
     method: 'post',

@@ -20,8 +20,8 @@
                 }
 
                 $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) 
+                if (!empty($result)) 
+                /* if ($result->num_rows > 0 || $result->num_rows <> '' || $result->num_rows <> null)  */
                 {
                      if($userAuth == 'CQ' || $userAuth =='C' || $userAuth =='A' || $userAuth == 'CG'){
                     echo "<thead>    
