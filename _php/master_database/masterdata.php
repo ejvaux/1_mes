@@ -67,7 +67,7 @@
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
           <ul class="navbar-nav nav-tabs mr-auto mt-1" id="tb">           
-            <li><a id="tb1" class="nav-link tbl active " href="#" onclick="DisplayTable1('mold_table','moldsp','Mold List')">Mold Management</a></li>
+            <li><a id="tb1" class="nav-link tbl active " href="#" onclick="DisplayTable1('mold_table','moldsp','Mold List')">Mold</a></li>
             <li><a id="tb2" class="nav-link tbl " href="#" onclick="DisplayTable2('customer_table','customersp','Customer List')">Customer</a></li>
             <li><a id="tb3" class="nav-link tbl " href="#" onclick="DisplayTable3('item_list_table','item_listsp','Item List')">Item</a></li>
             <li><a id="tb4" class="nav-link tbl " href="#" onclick="DisplayTable4('machine_list_table','machine_listsp','Machine List')">Machine</a></li>

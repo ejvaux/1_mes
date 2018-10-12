@@ -484,7 +484,7 @@ $db = new DBQUERY;
                   <label for="itemname" class="col-form-label-sm">ITEM NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <textarea id="itemname" type="text" class="form-control form-control-sm" name="itemname" rows="2" placeholder=""></textarea>                 
+                  <textarea id="itemname" type="text" class="form-control form-control-sm" name="itemname" rows="2" placeholder="" required></textarea>                 
                 </div>
               </div>
             </div>
@@ -594,7 +594,7 @@ $db = new DBQUERY;
                   <label for="description" class="col-form-label-sm">DESCRIPTION:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="description" type="text" class="form-control form-control-sm" name="description" placeholder="">                  
+                  <input id="description" type="text" class="form-control form-control-sm" name="description" placeholder=""  required>                  
                 </div>
               </div>
             </div>                    
@@ -607,7 +607,7 @@ $db = new DBQUERY;
                   <label for="packqty" class="col-form-label-sm">PACK QTY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="packqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="packqty" placeholder="">                  
+                  <input id="packqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="packqty" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -617,7 +617,7 @@ $db = new DBQUERY;
                   <label for="danplaqty" class="col-form-label-sm">DANPLA QTY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="danplaqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="danplaqty" placeholder="">                  
+                  <input id="danplaqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="danplaqty" placeholder="" required>                  
                 </div>
               </div>
             </div>                    
@@ -630,7 +630,7 @@ $db = new DBQUERY;
                   <label for="labeltype" class="col-form-label-sm">LABEL TYPE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="labeltype" type="text" class="form-control form-control-sm" name="labeltype" placeholder="">                  
+                  <input id="labeltype" type="text" class="form-control form-control-sm" name="labeltype" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -653,7 +653,7 @@ $db = new DBQUERY;
                   <label for="epsonprodname" class="col-form-label-sm">EPSON PROD.NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="epsonprodname" type="text" class="form-control form-control-sm sel" name="epson_productname" placeholder="">
+                  <select id="epsonprodname" type="text" class="form-control form-control-sm sel" name="epson_productname" placeholder=""  required>
                           
                     <option value="">-Please select-</option>
                     <?php
@@ -1718,7 +1718,7 @@ $db = new DBQUERY;
                   <label for="eiitemname" class="col-form-label-sm">ITEM NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <textarea id="eiitemname" type="text" class="form-control form-control-sm" name="itemname" rows="2" placeholder=""></textarea>
+                  <textarea id="eiitemname" type="text" class="form-control form-control-sm" name="itemname" rows="2" placeholder="" required></textarea>
                 </div>
               </div>
             </div>            
@@ -1828,7 +1828,7 @@ $db = new DBQUERY;
                   <label for="eidescription" class="col-form-label-sm">DESCRIPTION:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eidescription" type="text" class="form-control form-control-sm" name="description" placeholder="">                  
+                  <input id="eidescription" type="text" class="form-control form-control-sm" name="description" placeholder=""  required>                  
                 </div>
               </div>
             </div>                    
@@ -1841,7 +1841,7 @@ $db = new DBQUERY;
                   <label for="eipackqty" class="col-form-label-sm">PACK QTY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eipackqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="packqty" placeholder="">                  
+                  <input id="eipackqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="packqty" placeholder=""  required>                  
                 </div>
               </div>
             </div>
@@ -1851,7 +1851,7 @@ $db = new DBQUERY;
                   <label for="eidanplaqty" class="col-form-label-sm">DANPLA QTY:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eidanplaqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="danplaqty" placeholder="">                  
+                  <input id="eidanplaqty" type="number" min="0" onkeypress="return isNumberNegative(event)" class="form-control form-control-sm" name="danplaqty" placeholder="" required>                  
                 </div>
               </div>
             </div>                    
@@ -1864,7 +1864,7 @@ $db = new DBQUERY;
                   <label for="eilabeltype" class="col-form-label-sm">LABEL TYPE:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eilabeltype" type="text" class="form-control form-control-sm" name="labeltype" placeholder="">                  
+                  <input id="eilabeltype" type="text" class="form-control form-control-sm" name="labeltype" placeholder="" required>                  
                 </div>
               </div>
             </div>
@@ -1887,7 +1887,7 @@ $db = new DBQUERY;
                   <label for="eepsonprodname" class="col-form-label-sm">EPSON PROD.NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eepsonprodname" type="text" class="form-control form-control-sm sel" name="epson_productname" placeholder="">                  
+                  <select id="eepsonprodname" type="text" class="form-control form-control-sm sel" name="epson_productname" placeholder="" required>                  
                   <option value="">-Please select-</option>
                     <?php
 
