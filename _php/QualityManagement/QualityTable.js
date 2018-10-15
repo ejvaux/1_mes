@@ -238,6 +238,7 @@ $(document).on('click', '.lotDanpla', function () {
 
   DisplayLotDetails(lotNumber, item_code);
   document.getElementById('LOT_NUMBER').value = lotNumber;
+  document.getElementById('ITEM_CODE').value = item_code;
 }); //end opens modal that displays lot details
 
 function DisplayLotDetails(lotNum, item_code) {
@@ -1015,7 +1016,7 @@ function clearReceive() {
 function DisplayTableItemReceiving(Table_Name, Tablesp, tbluser) {
   var xhttp;
   if (Table_Name.length == 0) {
-    document.getElementById("first_table").innerHTML = "<h1>No table to display.</h1>";
+    document.getElementById("first_table").innerHTML = "<h1>No data to display.</h1>";
     return;
   }
   xhttp = new XMLHttpRequest();
