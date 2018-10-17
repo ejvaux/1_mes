@@ -18,9 +18,9 @@
           <div class="py-1 input-group">
             <input type="text" class="form-control form-control-sm" id="ReceivingBarcode_text" placeholder="SCAN DANPLA SERIAL NUMBER">
             <div class="input-group-append">
-              <button style="z-index:0" class="btn btn-outline-secondary py-1" id="AddReceiveBtn" onclick="AddReceive()">ADD</button>
-              <button style="z-index:0" class="btn btn-outline-secondary py-1" id="ConfirmReceiveBtn" onclick="ApproveTransfer()">TRANSFER</button>
-              <button style="z-index:0" class="btn btn-outline-secondary py-1" id="clearReceive" onclick="clearReceive()">CANCEL TRANSFER</button>
+              <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddReceiveBtn" onclick="AddReceive()">ADD</button>
+              <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="ConfirmReceiveBtn" onclick="ApproveTransfer()">TRANSFER</button>
+              <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="clearReceive" onclick="clearReceive()">CANCEL TRANSFER</button>
             </div>
           </div>
         </div>
