@@ -1007,7 +1007,7 @@ function clearReceive() {
         },
         success: function (data) {
           
-          loadDoc("ItemReceiving");
+          loadDoc("ItemReceiving", username);
           return;
         }
       });
@@ -1358,7 +1358,7 @@ function updateWarehouseReceive(lotNumber,item_code) {
           },
           success: function (data) {
             swal(data, 'Lot ' + lotNumber + "-" + item_code + " is now transferred in "+ warehouse +" warehouse.", 'success')
-            loadDoc('ItemReceiving');
+            loadDoc('ItemReceiving', username);
           }
         });
       }
