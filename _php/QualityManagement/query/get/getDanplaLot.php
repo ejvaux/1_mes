@@ -1,13 +1,14 @@
 <?php       
               include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
               $danpla = $_POST['jo_barcode'];
-              $sql1 = "SELECT LOT_JUDGEMENT,WAREHOUSE_RECEIVE FROM qmd_lot_create 
-                      WHERE LOT_NUMBER = (SELECT LOT_NUM FROM mis_product WHERE PACKING_NUMBER = '$danpla' GROUP BY PACKING_NUMBER)";
+              $item = $_POST['item_code'];
+              $sql1 = "SELECT LOT_JUDGEMENT,EPSON_QC_APPROVED,WAREHOUSE_RECEIVE FROM qmd_lot_create 
+                      WHERE LOT_NUMBER = (SELECT LOT_NUM FROM mis_product WHERE PACKING_NUMBER = '$danpla' GROUP BY PACKING_NUMBER) AND ITEM_CODE = '$item'";
               $result1 = $conn->query($sql1);
               if ($result1->num_rows > 0) 
               {
                   while($row1 = $result1->fetch_assoc()){
-                        if($row1['LOT_JUDGEMENT'] == 'APPROVED' && $row1['WAREHOUSE_RECEIVE'] != 'RECEIVED'){
+                        if($row1['LOT_JUDGEMENT'] == 'APPROVED' && $row1['EPSON_QC_APPROVED'] != 'PENDING' && $row1['WAREHOUSE_RECEIVE'] != 'RECEIVED'){
                             
                             $sql = "SELECT DANPLA_SERIAL,JO_NUM,LOT_NUM FROM qmd_item_tempstore";
                             $result = $conn->query($sql);
@@ -34,6 +35,9 @@
 
                         else if($row1['WAREHOUSE_RECEIVE'] == 'RECEIVED'){
                             $x = ('true5');
+                        }
+                        else if($row1['EPSON_QC_APPROVED'] == 'PENDING'){
+                            $x = ('true6');
                         }
                         else{
                         $x = ('true4');
