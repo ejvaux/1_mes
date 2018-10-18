@@ -274,6 +274,12 @@
         </script>
   </div>
 
+   <div id="modal_display2" style="width: 100%;">
+        <script>       
+          loadmodal2('scanmodal');
+        </script>
+  </div>
+
 
 
 

@@ -1852,31 +1852,55 @@
         xhttp.open("GET", TableName+".php", true);
         xhttp.send();
     }
-    
+    function loadmodal2(TableName)
+    {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            /* totalQty(); */
+            document.getElementById("modal_display2").innerHTML = "";
+        document.getElementById("modal_display2").innerHTML = this.responseText;
+        var tablename = TableName;
+            
+
+            showmodal1(TableName);
+            
+        }
+        };
+        xhttp.open("GET", TableName+".php", true);
+        xhttp.send();
+    }
     function showmodal1(TableName)
     {
 
-        $.ajax({
-            method:'POST',
-            url:'/1_mes/_php/manuc_info/Prodplan/'+TableName+'.php',
-            data:
-            {
-                
-                'ajax':true
-
-            },
-        
+        if(TableName=="ShipmentModal"){
+            $.ajax({
+                method:'POST',
+                url:'/1_mes/_php/manuc_info/Prodplan/'+TableName+'.php',
+                data:
+                {
+                    
+                    'ajax':true
+    
+                },
             
-            success: function(data) 
-            {
-                //var val2 = JSON.parse(data);
-            /* alert(val); */
-            //alert(data);
-            CheckCreationType("group");
-            }
-
-        });
-
+                
+                success: function(data) 
+                {
+                    //var val2 = JSON.parse(data);
+                /* alert(val); */
+                //alert(data);
+                CheckCreationType("group");
+                }
+    
+            });
+        }
+        else{
+          
+         
+        }
+       
+       
     }
 
     function prodexport()
@@ -2099,3 +2123,112 @@
         });
 
     }
+
+    
+$(document).on('keypress', '#ref_num', function (e) {
+    / alert('test'); /
+    
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13') {
+            if(ref_num.value=="")
+            {
+                iziToast.error({
+                    message: 'Input barcode!',
+                    position: 'topCenter',
+                }); 
+
+            }
+            else
+            {
+
+                checkstatus();
+            }
+        
+            ref_num.value="";
+            ref_num.focus();
+    }
+
+});
+
+
+  function checkstatus()
+  {
+    var ref_number = document.getElementById("ref_num").value;
+    //alert(ref_number);
+    $.ajax({
+        method:'POST',
+        url:'/1_mes/_php/manuc_info/ProdPlan/ScanCheckStatus.php',
+        data:
+        {
+            'ref_num': ref_number,
+            'searchtype': 'danpla',
+            'ajax':true
+        },
+        success: function(data) 
+        {
+            if(data=='"exist"')
+            {
+                scaninsert(ref_number);
+            }
+            else if(data=='"do not exist"')
+            {
+                iziToast.error({
+                    message: 'Barcode does not exist! Check barcode',
+                    position: 'topCenter',
+                  }); 
+            }
+            else if(data=='"pending"')
+            {
+                iziToast.error({
+                    message: 'Waiting for Inspection',
+                    position: 'topCenter',
+                  }); 
+            }
+            else if(data=='"already group"')
+            {
+                iziToast.error({
+                    message: 'This is already in group!',
+                    position: 'topCenter',
+                    displayMode: 2,
+                  });
+            }
+            else if(data=='"shipped"')
+            {
+                iziToast.error({
+                    message: 'Already Shipped!',
+                    position: 'topCenter',
+                  }); 
+            }
+           // alert(data);
+          
+        }
+    });
+      
+  
+
+  }
+
+
+  function scaninsert(ref_number)
+  {
+
+    $.ajax({
+        method:'POST',
+        url:'/1_mes/_php/manuc_info/ProdPlan/ScanAddtoTempGroup.php',
+        data:
+        {
+            'ref_num': ref_number,
+            'ajax':true
+        },
+        success: function(data) 
+        {
+            iziToast.success({
+                message: 'Ref # Successfully Added!',
+                position: 'topCenter',
+                displayMode: 2,
+              });
+              //alert(data);
+        }
+    });
+
+  }

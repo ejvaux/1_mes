@@ -46,6 +46,10 @@
                                             <option value='DISAPPROVED'>DISAPPROVED</option>
                                             <option value='PENDING'>PENDING</option>
                                         </select>
+                                        &nbsp
+                                        <button type="button" data-toggle="modal" data-target="#exampleModal2" onclick="showmodal1('scanmodal');" class="btn btn-outline-secondary btn-export6 btn-sm"><i class="fas fa-barcode"></i>&nbspSCAN&nbsp</button>
+
+
                                         </div>
                                       
 
