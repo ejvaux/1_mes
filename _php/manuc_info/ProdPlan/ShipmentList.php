@@ -1,8 +1,6 @@
 
 
-<div class="mod_options" style="z-index: 0;padding-top: 70px; padding-left: 10px" >
-                
-                
+<div class="mod_options" style="z-index: 0;padding-top: 70px; padding-left: 10px" > 
                   <div class="row">
                   
                       <div class="col">
@@ -15,7 +13,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text" id="btnGroupAddon2">SEARCH:</div>
                                             </div>
-                                            <input onchange='showTable("ShipmentList","","shipment_management")' id='search' type='text' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;'>
+                                            <input onchange='showTable("ShipmentList","","shipment_management")' id='search' type='text' name='search1' placeholder='Type anything..' class='form-control' style='font-size: 10px;' onfocus="this.value=''">
                                             <div class="input-group-append" id="btnGroupAddon3">
                                             <button type="button" onclick='showTable("ShipmentList","","shipment_management")' class="btn btn-outline-secondary btn-export6 btn-sm" style="z-index:0">&nbsp<i class="fa fa-search"></i>&nbsp</button>    </div>
                                         </div>
@@ -63,11 +61,6 @@
                     </div><!-- end div of col -->
                     
                     </div><!-- end of row-->
-            
-             
-             
-            
-            
 </div>
             
             
@@ -80,7 +73,7 @@
 
 
 
-<div class="row" style="box-shadow: 0 0 3px gray; padding-top: 10px">
+<div class="row" style="box-shadow: 0 0 3px gray; padding-top: 10px; margin-top: 15px">
   <div class="col-lg-8" style="padding-left:20px;">
   PACKING LIST
   <div id="example-table" style="margin-top: 13px"></div>

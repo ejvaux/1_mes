@@ -21,83 +21,6 @@
 
 
 
-<script>
-
-$(document).ready(function() {
-
-
-  //Change in continent dropdown list will trigger this function and
-  //generate dropdown options for county dropdown
-  $(document).on('change','#CName', function() {
-    var CUSTOMER_CODE = $(this).val();
-    if(CUSTOMER_CODE != "") {
-      $.ajax({
-        url:"find.php",
-        type:'POST',
-        data:{CUSTOMER_CODE:CUSTOMER_CODE},
-        success:function(response) {
-          //var resp = $.trim(response);
-          if(response != '') {
-            $("#CCode").removeAttr('disabled','disabled').html(response);
-            } else {
-            $("#CCode").attr('disabled','disabled').html("<option value=''>------- Select --------</option>");
-          }
-        }
-      });
-    } else {
-      $("#CCode").attr('disabled','disabled').html("<option value=''>------- Select --------</option>");
-    }
-  });
-
-  $(document).on('change','#CCode', function() {
-    var CUSTOMER_CODE1 = $(this).val();
-    if(CUSTOMER_CODE1 != "") {
-      $.ajax({
-        url:"find.php",
-        type:'POST',
-        data:{CUSTOMER_CODE1:CUSTOMER_CODE1},
-        success:function(response) {
-          //var resp = $.trim(response);
-          if(response != '') {
-            $("#ICode").removeAttr('disabled','disabled').html(response);
-            } else {
-            $("#ICode").attr('disabled','disabled').html("<option value=''>------- Select --------</option>");
-          }
-        }
-      });
-    } else {
-      $("#ICode").attr('disabled','disabled').html("<option value=''>------- Select --------</option>");
-    }
-  });
-
-
-  //Change in coutry dropdown list will trigger this function and
-  //generate dropdown options for state dropdown
-
-$(document).on('change','#ICode', function() {
-    var ITEM_CODE = $(this).val();
-    if(ITEM_CODE != "") {
-      $.ajax({
-        url:"find.php",
-        type:'POST',
-        data:{ITEM_CODE:ITEM_CODE},
-        success:function(response) {
-          //var resp = $.trim(response);
-          if(response != '') {
-            $("#IName").removeAttr('disabled','disabled').html(response);
-            } else {
-            $("#IName").attr('disabled','disabled').html("<option value=''></option>");
-          }
-        }
-      });
-    } else {
-      $("#IName").attr('disabled','disabled').html("<option value=''></option>");
-    }
-  });
-
-});
-
-</script>
 
 
 </head>
@@ -294,8 +217,34 @@ $(document).on('change','#ICode', function() {
          <a class="nav-link tbl" id="menuhover" href="#" onclick="underConstruct() ">Create Plan</a>
        </li>
 
-      <li><a class="nav-link tbl" id='tb6' href="#" onclick="loadDoc('ItemReceiving','<?php echo $_SESSION['text'];?>')">Item Receiving</a></li>
+     <!--  <li><a class="nav-link tbl" id='tb6' href="#" onclick="loadDoc('ItemReceiving','<?php echo $_SESSION['text'];?>')">Item Receiving</a></li> -->
+     
+      <li class="nav-item dropdown" style="overflow:visible;">
+     <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     Item Receiving
+     </a>
+      <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">                  
+         <div class="container dropdown-header text-left">
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <a style="color: black" href="#" onclick="loadDoc('ItemReceiving','<?php echo $_SESSION['text'];?>')">SCAN RECEIVED</a>                      
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
+                        <a style="color: black" href="#" onclick="underConstruct()">RECEIVED LIST</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
+                    
 
+         </div>
+      </div>
+      </li>
      </ul>
       <!-- ICONS ON LEFT -->
    <?php
