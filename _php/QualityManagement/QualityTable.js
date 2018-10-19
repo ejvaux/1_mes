@@ -1243,7 +1243,7 @@ function checkReceive(insertBarcode, insertJO, insertItemCode, insertItemName, i
         ReceivingBarcode_text.focus();
       } else if (data == '"true5"') {
         iziToast.error({
-          message: 'LOT ALREADY APPROVED!',
+          message: 'LOT ALREADY RECEIVED!',
           position: 'topCenter',
         });
         ReceivingBarcode_text.value = "";
