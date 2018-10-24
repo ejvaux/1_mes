@@ -444,6 +444,43 @@
             right_create_plan();
 
         }
+
+
+        else if(SectionGroup=="view_received")
+        {
+            /* var plantypeobj = document.getElementById("PlanType");
+            var selectedOption = plantypeobj.options[plantypeobj.selectedIndex].value;
+            var strfromobj = document.getElementById("sortfrom").value;
+            var searchobj = document.getElementById("search").value;
+            var strtoobj = document.getElementById("sortto").value;
+            var department= deptSec; */
+            
+            $.ajax({
+                method:'POST',
+                url:'/1_mes/_php/manuc_info/ProdPlan/DataPrintStatus.php',
+                data:
+                {
+                    /* 'sortfrom': strfromobj,
+                    'sortto': strtoobj,
+                    'search': searchobj,
+                    'PlanType': selectedOption, */
+                    'ajax':true
+    
+                },
+            
+            
+                success: function(data) 
+                {
+                    //alert(data);
+                    initTbl2("ViewReceived");
+                    var val = JSON.parse(data);
+                /* alert(val); */
+                $("#example-table").tabulator("setData",val); 
+                
+                }
+    
+                });
+        }
     }
 
     function right_create_plan()
@@ -775,6 +812,7 @@
                                     'itemname': cell.getRow().getData().ITEM_NAME,
                                     'customercode': cell.getRow().getData().CUSTOMER_CODE,
                                     'customername': cell.getRow().getData().CUSTOMER_NAME,
+                                    'qty':cell.getRow().getData().QTY,
                                     'ajax':true
                     
                                 },
@@ -995,6 +1033,7 @@
         paginationSize:1000,
         placeholder:"No Data to Display",
         movableColumns:true,
+        groupBy:"ITEM_CODE",
         columns:[
             {title:"NO", field:"NO", width:60,align:"center"},
             {title:"CTRLS", field:"CTRLS",
@@ -1050,6 +1089,7 @@
             {title:"LOT_NUMBER", field:"LOT_NUMBER"},
             {title:"ITEM_CODE", field:"ITEM_CODE"},
             {title:"ITEM_NAME", field:"ITEM_NAME"},
+            {title:"QUANTITY", field:"QTY",bottomCalc:"sum"},
             {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
             {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}
         ]
@@ -1125,6 +1165,7 @@
             {title:"JOB ORDER NO", field:"JOB_ORDER_NO"},
             {title:"ITEM_CODE", field:"ITEM_CODE"},
             {title:"ITEM_NAME", field:"ITEM_NAME"},
+            {title:"QUANTITY", field:"QTY",bottomCalc:"sum"},
             {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
             {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}
         ]
@@ -1318,6 +1359,7 @@
             {title:"JOB ORDER NO", field:"JOB_ORDER_NO"},
             {title:"ITEM CODE", field:"ITEM_CODE"},
             {title:"ITEM NAME", field:"ITEM_NAME"},
+            {title:"QUANTITY", field:"QTY",bottomCalc:"sum"},
             {title:"MACHINE CODE", field:"MACHINE_CODE"},
             {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
             {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}
@@ -1390,7 +1432,41 @@
 
     }
     
-        
+    else if(TabName=="ViewReceived")
+    {
+        var screenheight=Number(screen.height-350);
+        $("#example-table").tabulator({
+        height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+        //layout:"fitColumns", //fit columns to width of table (optional)
+        pagination:"local",
+        paginationSize:1000,
+        placeholder:"No Data to Display",
+        movableColumns:true,
+        selectable: 1,
+        //groupBy:"PROD DATE",
+        // responsiveLayout:"collapse",
+        columns:[ //Define Table Columns
+            //{formatter:"responsiveCollapse", width:30, minWidth:30, align:"center", resizable:false, headerSort:false},
+    
+            {title:"NO", field:"NO", width:60},
+          
+            {title:"JO NO", field:"JO NO"},
+            {title:"SERIAL PRINT", field:"SERIAL PRINT"},
+            {title:"REFERENCE #", field:"REF_NUM"},
+            {title:"LOT NUMBER", field:"LOT_NO"},
+            {title:"ITEM CODE", field:"ITEM CODE"},
+            {title:"ITEM NAME", field:"ITEM NAME"},
+            {title:"MODEL", field:"MODEL"},
+            {title:"PRINT QTY", field:"PRINT QTY"},
+            {title:"MACHINE CODE", field:"MACHINE CODE"},
+            {title:"TOOL NO", field:"TOOL NO"},
+            {title:"PACKING NUMBER", field:"PACKING NUMBER"},
+            {title:"PRINT TIME", field:"PRINT TIME"},
+            {title:"PRINTED BY", field:"PRINTED BY"}
+        ],
+        });
+    
+    }
     }
 
 
@@ -1776,31 +1852,55 @@
         xhttp.open("GET", TableName+".php", true);
         xhttp.send();
     }
-    
+    function loadmodal2(TableName)
+    {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            /* totalQty(); */
+            document.getElementById("modal_display2").innerHTML = "";
+        document.getElementById("modal_display2").innerHTML = this.responseText;
+        var tablename = TableName;
+            
+
+            showmodal1(TableName);
+            
+        }
+        };
+        xhttp.open("GET", TableName+".php", true);
+        xhttp.send();
+    }
     function showmodal1(TableName)
     {
 
-        $.ajax({
-            method:'POST',
-            url:'/1_mes/_php/manuc_info/Prodplan/'+TableName+'.php',
-            data:
-            {
-                
-                'ajax':true
-
-            },
-        
+        if(TableName=="ShipmentModal"){
+            $.ajax({
+                method:'POST',
+                url:'/1_mes/_php/manuc_info/Prodplan/'+TableName+'.php',
+                data:
+                {
+                    
+                    'ajax':true
+    
+                },
             
-            success: function(data) 
-            {
-                //var val2 = JSON.parse(data);
-            /* alert(val); */
-            //alert(data);
-            CheckCreationType("group");
-            }
-
-        });
-
+                
+                success: function(data) 
+                {
+                    //var val2 = JSON.parse(data);
+                /* alert(val); */
+                //alert(data);
+                CheckCreationType("group");
+                }
+    
+            });
+        }
+        else{
+          
+         
+        }
+       
+       
     }
 
     function prodexport()
@@ -2023,3 +2123,112 @@
         });
 
     }
+
+    
+$(document).on('keypress', '#ref_num', function (e) {
+    / alert('test'); /
+    
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13') {
+            if(ref_num.value=="")
+            {
+                iziToast.error({
+                    message: 'Input barcode!',
+                    position: 'topCenter',
+                }); 
+
+            }
+            else
+            {
+
+                checkstatus();
+            }
+        
+            ref_num.value="";
+            ref_num.focus();
+    }
+
+});
+
+
+  function checkstatus()
+  {
+    var ref_number = document.getElementById("ref_num").value;
+    //alert(ref_number);
+    $.ajax({
+        method:'POST',
+        url:'/1_mes/_php/manuc_info/ProdPlan/ScanCheckStatus.php',
+        data:
+        {
+            'ref_num': ref_number,
+            'searchtype': 'danpla',
+            'ajax':true
+        },
+        success: function(data) 
+        {
+            if(data=='"exist"')
+            {
+                scaninsert(ref_number);
+            }
+            else if(data=='"do not exist"')
+            {
+                iziToast.error({
+                    message: 'Barcode does not exist! Check barcode',
+                    position: 'topCenter',
+                  }); 
+            }
+            else if(data=='"pending"')
+            {
+                iziToast.error({
+                    message: 'Waiting for Inspection',
+                    position: 'topCenter',
+                  }); 
+            }
+            else if(data=='"already group"')
+            {
+                iziToast.error({
+                    message: 'This is already in group!',
+                    position: 'topCenter',
+                    displayMode: 2,
+                  });
+            }
+            else if(data=='"shipped"')
+            {
+                iziToast.error({
+                    message: 'Already Shipped!',
+                    position: 'topCenter',
+                  }); 
+            }
+           // alert(data);
+          
+        }
+    });
+      
+  
+
+  }
+
+
+  function scaninsert(ref_number)
+  {
+
+    $.ajax({
+        method:'POST',
+        url:'/1_mes/_php/manuc_info/ProdPlan/ScanAddtoTempGroup.php',
+        data:
+        {
+            'ref_num': ref_number,
+            'ajax':true
+        },
+        success: function(data) 
+        {
+            iziToast.success({
+                message: 'Ref # Successfully Added!',
+                position: 'topCenter',
+                displayMode: 2,
+              });
+              //alert(data);
+        }
+    });
+
+  }

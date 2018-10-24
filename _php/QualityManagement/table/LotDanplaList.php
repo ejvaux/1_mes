@@ -16,7 +16,8 @@
 
             $sql1 = $_POST['sql1'];
             $result = $conn->query($sql1);
-            if (!empty($result)) 
+            /* if (!empty($result)) */
+            if ($result->num_rows > 0)
             {
                 echo "<table class='table-hover table-bordered table-sm wrap lotTable' id='LotDetails'><thead>    
                 <th>REFERENCE NUMBER</th>
