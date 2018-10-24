@@ -803,6 +803,95 @@ $('#mod').on('submit','#eemployeeform', function (e) {
 
 /* ______________________ EMPLOYEE LIST ______________________ */
 
+/* ______________________ ITEM MOLD MATCHING ______________________ */
+
+/* Insert */
+
+$('#mod').on('submit','#itemmoldform', function (e) {           
+  /* alert('TEST'); */
+  e.preventDefault();
+    e.stopImmediatePropagation();
+    var formdata =  $(this).serializeArray();
+    formdata.push({name: 'action', value: 'insert'});
+  $.ajax({
+    type: 'POST',
+    url: '/1_mes/database/table_handler/master/itemmoldHandler.php',
+    data: $.param(formdata),
+    success: function (data) {         
+      if(data==true){
+        /* alert("Record saved successfully!"); */
+        $(this).trigger('reset');
+        $('#itemmoldmod').modal('hide');          
+        DisplayTable10('itemmoldmatching_table','itemmoldmatchingsp','Item Mold Matching');
+        loadmodal('masterdatamodal');
+        
+        $.notify({
+          icon: 'fas fa-info-circle',
+          title: 'System Notification: ',
+          message: "Record saved successfully!",
+        },{
+          type:'success',
+          placement:{
+            align: 'center'
+          },           
+          delay: 3000,                        
+        });
+      }
+      else{
+        alert(data);          
+      }
+    }
+  }); 
+  
+});
+
+/* Insert */
+
+/* Update */
+
+$('#mod').on('submit','#eitemmoldform', function (e) {           
+  /* alert('TEST');  */
+  e.preventDefault();
+    e.stopImmediatePropagation();
+    var formdata =  $(this).serializeArray();
+    formdata.push({name: 'action', value: 'update'});
+  $.ajax({
+    type: 'POST',
+    url: '/1_mes/database/table_handler/master/itemmoldHandler.php',
+    data: $.param(formdata),
+    success: function (data) {    
+      if(data==true){
+        /* alert("Record Updated Successfully!"); */
+        $(this).trigger('reset');
+        $('#eitemmoldmod').modal('hide');
+        DisplayTable10('itemmoldmatching_table','itemmoldmatchingsp','Item Mold Matching');
+        loadmodal('masterdatamodal');
+
+        $.notify({
+          icon: 'fas fa-info-circle',
+          title: 'System Notification: ',
+          message: "Record updated successfully!",
+        },{
+          type:'success',
+          placement:{
+            align: 'center'
+          },           
+          delay: 3000,                        
+        });
+      }
+      else{
+        alert(data);          
+      }
+    }
+  }); 
+  
+});
+
+/* Update */
+
+/* ______________________ ITEM MOLD MATCHING ______________________ */
+
+
 /* Display Data */
 
   function getitemname(id,tb1){
@@ -1084,3 +1173,45 @@ $('#mod').on('keydown','.readonly', function (e) {
   e.preventDefault();
 });
 /* ______ EDIT MODAL BARCODE REGEN ______ */
+
+/* GET ITEM DETAILS - ITEM MOLD MATCHING */
+
+function getitemdetails(id){
+
+  // find the dropdown
+  var ddl = document.getElementById(id);
+  // find the selected option
+  if(ddl.selectedIndex>=0){
+    var selectedOption = ddl.options[ddl.selectedIndex].value;      
+    $.ajax({
+      type:'POST',
+      data:{
+        'action':'select2',
+        'column':'ITEM_CODE',
+        'id': selectedOption
+      },
+      url:'/1_mes/database/table_handler/master/itemHandler.php',
+      success:function(data){
+        if(data != 'none'){    
+          var val = JSON.parse(data);
+          $('#BARCODE').val(val['BARCODE']);
+          $('#ITEM_NAME').val(val['ITEM_NAME']);
+          $('#MODEL').val(val['MODEL']);
+          $('#ITEM_PRINTCODE').val(val['ITEM_PRINTCODE']);
+          $('#CUSTOMER_CODE').val(val['CUSTOMER_CODE']);
+          $('#CUSTOMER_NAME').val(val['CUSTOMER_NAME']);
+        }
+        else{
+          $('#BARCODE').val('');
+          $('#ITEM_NAME').val('');
+          $('#MODEL').val('');
+          $('#ITEM_PRINTCODE').val('');
+          $('#CUSTOMER_CODE').val('');
+          $('#CUSTOMER_NAME').val('');
+        } 
+      } 
+      });  
+  }  
+}
+
+/* GET ITEM DETAILS - ITEM MOLD MATCHING */

@@ -1226,6 +1226,162 @@ $db = new DBQUERY;
   </div>
 </div>
 
+<div class="modal hide fade in" role="dialog" id="itemmoldmod" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Insert Item-Mold Matching</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="itemmoldform"  method="post">
+      <input type="hidden" id="" name="">
+      <div class="modal-body" style="">
+      
+          <!-- ____________ FORM __________________ -->
+  
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="ITEM_CODE" class="col-form-label-sm">ITEM CODE:</label>                  
+                </div>
+                <div class="col-7">
+                <select id="ITEM_CODE" class="form-control form-control-sm sel" name="ITEM_CODE" placeholder="" onchange="getitemdetails('ITEM_CODE');" required>
+                  <option value="">-Please select-</option>
+                  <?php
+
+                    $row = $db->get_rows3('dmc_item_list' ,'ORDER BY ITEM_CODE ASC' ,true,'ITEM_CODE');          
+                    foreach($row as $rows){
+                      echo "<option value='";
+                      echo $rows->ITEM_CODE;
+                      echo "'>";
+                      echo $rows->ITEM_CODE;
+                      echo "</option>";
+                    }                  
+
+                  ?>         
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="BARCODE" class="col-form-label-sm">BARCODE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="BARCODE" type="text" class="form-control form-control-sm" name="BARCODE" placeholder="" readonly>                  
+                </div>
+              </div>
+            </div>                                            
+          </div>
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="ITEM_NAME" class="col-form-label-sm">ITEM NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="ITEM_NAME" type="text" class="form-control form-control-sm" name="ITEM_NAME" placeholder="" readonly> 
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="MODEL" class="col-form-label-sm">MODEL:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="MODEL" type="text" class="form-control form-control-sm" name="MODEL" placeholder="" readonly>
+                </div>
+              </div>
+            </div>                               
+          </div>
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="ITEM_PRINTCODE" class="col-form-label-sm">ITEM PRINTCODE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="ITEM_PRINTCODE" type="text" class="form-control form-control-sm" name="ITEM_PRINTCODE" placeholder="" readonly>           
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="CUSTOMER_CODE" class="col-form-label-sm">CUSTOMER CODE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="CUSTOMER_CODE" type="text" class="form-control form-control-sm" name="CUSTOMER_CODE" placeholder="" readonly>                  
+                </div>
+              </div>
+            </div>                                                        
+          </div>
+          <div class="form-group row">            
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="CUSTOMER_NAME" class="col-form-label-sm">CUSTOMER NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="CUSTOMER_NAME" type="text" class="form-control form-control-sm" name="CUSTOMER_NAME" placeholder="" readonly>           
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="TOOL_NUMBER" class="col-form-label-sm">TOOL NUMBER:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="TOOL_NUMBER" type="text" class="form-control form-control-sm" name="TOOL_NUMBER" placeholder="" required>
+                </div>
+              </div>
+            </div>                                        
+          </div>
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="MACHINE_CODE" class="col-form-label-sm">MACHINE CODE:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="MACHINE_CODE" class="form-control form-control-sm sel" name="MACHINE_CODE" placeholder="" onchange="getitemdetails('ITEM_CODE');" required>
+                    <option value="">-Please select-</option>
+                    <?php
+
+                      $row = $db->get_rows3('dmc_machine_list' ,'ORDER BY MACHINE_CODE ASC' ,true,'MACHINE_CODE');          
+                      foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->MACHINE_CODE;
+                        echo "'>";
+                        echo $rows->MACHINE_CODE;
+                        echo "</option>";
+                      }                  
+
+                    ?>         
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ____________ FORM END __________________ -->
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" name="submit" id="itemmoldsubmit"><i class="far fa-save"></i> Save</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 <!--  _________________________________ INSERT MODALS ________________________________  -->
 
@@ -2465,6 +2621,162 @@ $db = new DBQUERY;
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary" name="submit" id="employeesubmit"><i class="far fa-save"></i> Save</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal hide fade in" role="dialog" id="eitemmoldmod" data-keyboard="false" data-backdrop="static" >
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Item-Mold Matching</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="eitemmoldform"  method="post">
+      <input type="hidden" id="itemmold_id" name="id">
+      <div class="modal-body" style="">
+      
+          <!-- ____________ FORM __________________ -->
+  
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eITEM_CODE" class="col-form-label-sm">ITEM CODE:</label>                  
+                </div>
+                <div class="col-7">
+                <select id="eITEM_CODE" class="form-control form-control-sm sel" name="ITEM_CODE" placeholder="" onchange="getitemdetails('ITEM_CODE');" required>
+                  <option value="">-Please select-</option>
+                  <?php
+
+                    $row = $db->get_rows3('dmc_item_list' ,'ORDER BY ITEM_CODE ASC' ,true,'ITEM_CODE');          
+                    foreach($row as $rows){
+                      echo "<option value='";
+                      echo $rows->ITEM_CODE;
+                      echo "'>";
+                      echo $rows->ITEM_CODE;
+                      echo "</option>";
+                    }                  
+
+                  ?>         
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eBARCODE" class="col-form-label-sm">BARCODE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eBARCODE" type="text" class="form-control form-control-sm" name="BARCODE" placeholder="" readonly>                  
+                </div>
+              </div>
+            </div>                                            
+          </div>
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eITEM_NAME" class="col-form-label-sm">ITEM NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eITEM_NAME" type="text" class="form-control form-control-sm" name="ITEM_NAME" placeholder="" readonly> 
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eMODEL" class="col-form-label-sm">MODEL:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eMODEL" type="text" class="form-control form-control-sm" name="MODEL" placeholder="" readonly>
+                </div>
+              </div>
+            </div>                               
+          </div>
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eITEM_PRINTCODE" class="col-form-label-sm">ITEM PRINTCODE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eITEM_PRINTCODE" type="text" class="form-control form-control-sm" name="ITEM_PRINTCODE" placeholder="" readonly>           
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eCUSTOMER_CODE" class="col-form-label-sm">CUSTOMER CODE:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eCUSTOMER_CODE" type="text" class="form-control form-control-sm" name="CUSTOMER_CODE" placeholder="" readonly>                  
+                </div>
+              </div>
+            </div>                                                        
+          </div>
+          <div class="form-group row">            
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eCUSTOMER_NAME" class="col-form-label-sm">CUSTOMER NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eCUSTOMER_NAME" type="text" class="form-control form-control-sm" name="CUSTOMER_NAME" placeholder="" readonly>           
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eTOOL_NUMBER" class="col-form-label-sm">TOOL NUMBER:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eTOOL_NUMBER" type="text" class="form-control form-control-sm" name="TOOL_NUMBER" placeholder="" required>
+                </div>
+              </div>
+            </div>                                        
+          </div>
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eMACHINE_CODE" class="col-form-label-sm">MACHINE CODE:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="eMACHINE_CODE" class="form-control form-control-sm sel" name="MACHINE_CODE" placeholder="" onchange="getitemdetails('ITEM_CODE');" required>
+                    <option value="">-Please select-</option>
+                    <?php
+
+                      $row = $db->get_rows3('dmc_machine_list' ,'ORDER BY MACHINE_CODE ASC' ,true,'MACHINE_CODE');          
+                      foreach($row as $rows){
+                        echo "<option value='";
+                        echo $rows->MACHINE_CODE;
+                        echo "'>";
+                        echo $rows->MACHINE_CODE;
+                        echo "</option>";
+                      }                  
+
+                    ?>         
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ____________ FORM END __________________ -->
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" name="submit" id="itemmoldsubmit"><i class="far fa-save"></i> Save</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
       </div>
       </form>

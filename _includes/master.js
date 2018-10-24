@@ -1743,3 +1743,183 @@ $.fn.dataTable.ext.buttons.add9 = {
 };
 
 /* ______________ EMPLOYEE LIST _____________________ */
+
+
+/* ______________ ITEM MOLD MATCHING _____________________ */
+
+function DisplayTable10(Table_Name,Tablesp,tbltitle) {
+  var xhttp;
+  if (Table_Name.length == 0) { 
+    document.getElementById("table_display").innerHTML = "<h1>No table to display.</h1>";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("table_display").innerHTML = this.responseText;
+      var tble = $('#Dtable').DataTable( { 
+        deferRender:    true,
+        scrollY:        '61vh',
+        "sScrollX": "100%",          
+        "processing": true,
+        "serverSide": true,
+        "iDisplayLength": 1000,        
+        "ajax": {
+          url: "/1_mes/_includes/"+Tablesp+".php",
+          type: 'POST'
+        },            
+        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        'buttons': [            
+          { text: '<i class="fas fa-plus"></i>',
+            attr:  {
+                  title: 'Insert Data',
+                  id: 'addButton'
+              }, 
+            name: 'add', // do not change name 
+            className: 'btn btn-export6 btn-xs py-1',
+            extend: 'add10'                 
+          },
+          { extend: 'selected', // Bind to Selected row
+            text: '<i class="fas fa-edit"></i>',              
+            attr:  {
+                  title: 'Edit Data',
+                  id: 'editButton'
+              },
+            name: 'edit',        // do not change name
+            className: 'btn btn-export6 btn-xs py-1',
+            action: function ( e, dt, node, config ) {
+              var data = dt.row( '.selected' ).data();     
+
+              $.ajax(
+                {
+                method:'post',
+                url:'/1_mes/database/table_handler/master/itemmoldHandler.php',
+                data:
+                {
+                  'action': 'select',
+                  'id': data[0],
+                  'ajax': true
+                },
+                success: function(data1) {
+                  var val = JSON.parse(data1);
+
+                  $('#itemmold_id').val(val['NO']);
+                  $('#eITEM_CODE').val(val['ITEM_CODE']);
+                  $('#eBARCODE').val(val['BARCODE']);
+                  $('#eITEM_NAME').val(val['ITEM_NAME']);
+                  $('#eMODEL').val(val['MODEL']);
+                  $('#eITEM_PRINTCODE').val(val['ITEM_PRINTCODE']);
+                  $('#eCUSTOMER_CODE').val(val['CUSTOMER_CODE']);
+                  $('#eCUSTOMER_NAME').val(val['CUSTOMER_NAME']);
+                  $('#eTOOL_NUMBER').val(val['TOOL_NUMBER']);
+                  $('#eMACHINE_CODE').val(val['MACHINE_CODE']);
+                  
+                  $('.sel').select2({ width: '100%' });
+                  $('#eitemmoldmod').modal('show');                      
+      
+                }
+              });              
+            }
+          },
+          {
+            text: '<i class="fas fa-trash"></i>',              
+            attr:  {
+                  title: 'Delete Data',
+                  id: 'deleteButton'
+              },
+            name: 'delete',      // do not change name
+            className: 'btn btn-export6 btn-xs py-1',
+            extend: 'selected', // Bind to Selected row
+            action: function ( e, dt, node, config ) {             
+              
+              swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.value) {
+                  
+                  var data = dt.row( '.selected' ).data();
+              
+                  $.ajax(
+                    {
+                    method:'post',
+                    url:'/1_mes/database/table_handler/master/employeeHandler.php',
+                    data:
+                    {
+                      'action':'delete',
+                        'id': data[0],
+                        'ajax': true
+                    },
+                    success: function(data) {
+                      if(data==true){
+                        DisplayTable9('employee_table','employeesp','Employee List');
+                        loadmodal('masterdatamodal');
+
+                        $.notify({
+                          icon: 'fas fa-info-circle',
+                          title: 'System Notification: ',
+                          message: 'Record deleted successfully!',
+                        },{
+                          type:'success',
+                          placement:{
+                            align: 'center'
+                          },           
+                          delay: 3000,                        
+                        });
+                      }
+                      else{
+                        alert(alert);
+                      }
+                      
+                    }
+                    });
+
+                }
+              })
+
+            }                
+          },
+          { extend: 'copy', text: '<i class="far fa-copy"></i>', 
+          attr:  {
+                title: 'Copy to Clipboard',
+                id: 'copyButton'
+            },
+             className: 'btn btn-export6 btn-xs py-1'},
+          { extend: 'excel', text: '<i class="fas fa-table"></i>',
+          attr:  {
+                title: 'Export to Excel',
+                id: 'exportButton'
+            },
+            filename: tbltitle, className: 'btn btn-export6 btn-xs py-1'}
+          ],          
+          select: 'single',
+          "columnDefs": [ {              
+            "targets": 0
+        } ],
+        "order": [[ 0, 'desc' ]]
+                                        
+      } );           
+      tble.on( 'order.dt search.dt processing.dt page.dt', function () {
+        tble.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+    }
+  };
+  xhttp.open("POST", "/1_mes/_tables/"+Table_Name+".php", true);
+  xhttp.send();       
+}  
+
+$.fn.dataTable.ext.buttons.add10 = {
+  action: function () {  
+    $("#itemmoldmod").modal('show');
+  }
+};
+
+/* ______________ ITEM MOLD MATCHING _____________________ */
