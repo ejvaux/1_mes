@@ -1849,7 +1849,7 @@ function DisplayTable10(Table_Name,Tablesp,tbltitle) {
                   $.ajax(
                     {
                     method:'post',
-                    url:'/1_mes/database/table_handler/master/employeeHandler.php',
+                    url:'/1_mes/database/table_handler/master/itemmoldHandler.php',
                     data:
                     {
                       'action':'delete',
@@ -1858,7 +1858,7 @@ function DisplayTable10(Table_Name,Tablesp,tbltitle) {
                     },
                     success: function(data) {
                       if(data==true){
-                        DisplayTable9('employee_table','employeesp','Employee List');
+                        DisplayTable10('itemmoldmatching_table','itemmoldmatchingsp','Item Mold Matching')
                         loadmodal('masterdatamodal');
 
                         $.notify({
