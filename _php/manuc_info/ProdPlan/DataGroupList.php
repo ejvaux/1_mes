@@ -43,7 +43,8 @@ while($row = $result->fetch_assoc())
 $ctr+=1;
 array_push($datavar,["NO"=> $ctr,"GROUP_NAME"=>$row['group_name'],"PACKING_NUMBER"=>$row['packing_number'],
 "LOT_NUMBER"=>$row['lot_number'],"JOB_ORDER_NO"=>$row['jo_number'],"ITEM_CODE"=>$row['item_code'],"ITEM_NAME"=>$row['item_name'],
-"CUSTOMER_CODE"=>$row['customer_code'],"CUSTOMER_NAME"=>$row['customer_name'], "DATE_ASSIGNED"=>$row['Date_Inserted'],"QTY"=>$row['quantity']]);
+"CUSTOMER_CODE"=>$row['customer_code'],"CUSTOMER_NAME"=>$row['customer_name'], "DATE_ASSIGNED"=>$row['Date_Inserted'],"QTY"=>$row['quantity'],
+"REFERENCE_NUMBER"=>$row['danpla_reference']]);
 }
 echo json_encode($datavar, true);
 ?>

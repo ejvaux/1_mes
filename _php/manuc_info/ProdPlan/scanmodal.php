@@ -3,21 +3,39 @@
         
 </script>
 <!-- Modal -->
-<div class="modal" id="exampleModal2" role="dialog" aria-hidden="true" data-backdrop="static"> 
-  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+<div class="modal" id="exampleModal2" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard = "false"> 
+  <div class="modal-dialog vertical-align-center" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-list-alt"></i>SCAN AN ITEM</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-list-alt"></i>&nbsp SCAN AN ITEM</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="loadmodal2('scanmodal');">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         
+          <div class="card">
+              <div class="card-header">Scan Type</div>
+                  <div class="card-body">
+                      <div class="input-group mb-3">
+                      <div class="form-check-inline">
+                        <label class="form-check-label">
+                          <input id="radiodanpla"  type="radio" class="form-check-input" name="optradio" checked="checked">Danpla
+                        </label>
+                      </div>
+                      <div class="form-check-inline">
+                        <label class="form-check-label">
+                          <input id="radiopoly"  type="radio" class="form-check-input" name="optradio">PolyBag
+                        </label>
+                      </div>
+                      </div>
+
+                  </div>
+          </div>     
+          <br>
             <div class="card">
               <div class="card-header">Scan Reference Number</div>
               <div class="card-body">
-           
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text">REF #: </span>
@@ -28,16 +46,7 @@
               </div>
             </div>
 <br>
-            <div class="card">
-              <div class="card-header">Details</div>
-              <div class="card-body">
-           
-                  <div class="input-group mb-3">
-                   
-                  </div>
-
-              </div>
-            </div>            
+                 
 
 
       </div>
