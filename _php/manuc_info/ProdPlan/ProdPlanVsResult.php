@@ -56,28 +56,28 @@
            <div class="row">
              <div class="col">
                <h6 class="text-left">
-               <a href="#" onclick="loadtbl2('ProdPlanVsResultINJ','INJ','PlanWithResult');" style="color: black">PROD PLAN VS RESULT - <b>INJ</b></a>
+               <a href="#" class="linkcollapse" onclick="loadtbl2('ProdPlanVsResultINJ','INJ','PlanWithResult');" style="color: black">PROD PLAN VS RESULT - <b>INJ</b></a>
                </h6>
              </div>                      
            </div>
            <div class="row">
              <div class="col">
                <h6 class="text-left">
-               <a href="#" onclick="loadtbl2('ProdResultINJ','INJ','Result');" style="color: black">PROD RESULT - <b>INJ</b></a>
+               <a href="#" class="linkcollapse" onclick="loadtbl2('ProdResultINJ','INJ','Result');" style="color: black">PROD RESULT - <b>INJ</b></a>
                </h6>
              </div>                      
            </div>
            <div class="row">
              <div class="col">
                <h6 class="text-left">
-               <a href="#" onclick="loadtbl2('ProdPlanVsResultSMT','SMT','PlanWithResult');" style="color: black">PROD PLAN VS RESULT - <b>SMT</b></a>
+               <a href="#" class="linkcollapse" onclick="loadtbl2('ProdPlanVsResultSMT','SMT','PlanWithResult');" style="color: black">PROD PLAN VS RESULT - <b>SMT</b></a>
                </h6>
              </div>                      
            </div>
            <div class="row">
              <div class="col">
                <h6 class="text-left">
-               <a href="#" onclick="loadtbl2('ProdResultSMT','SMT','Result');" style="color: black">PROD RESULT - <b>SMT</b></a>
+               <a href="#" class="linkcollapse" onclick="loadtbl2('ProdResultSMT','SMT','Result');" style="color: black">PROD RESULT - <b>SMT</b></a>
              </h6>
              </div>                      
            </div>
@@ -85,28 +85,28 @@
            <div class="row">
              <div class="col">
                <h6 class="text-left">
-               <a href="#" onclick="loadtbl2('ProdPlanVsResultMOLD','MOLD','PlanWithResult');" style="color: black">PROD PLAN VS RESULT - <b>MOLD </b></a>
+               <a href="#" class="linkcollapse" onclick="loadtbl2('ProdPlanVsResultMOLD','MOLD','PlanWithResult');" style="color: black">PROD PLAN VS RESULT - <b>MOLD </b></a>
                </h6>
              </div>                      
            </div>
            <div class="row">
              <div class="col">
                <h6 class="text-left">
-               <a href="#" onclick="loadtbl2('ProdResultMOLD','MOLD','Result');" style="color: black">PROD RESULT - <b>MOLD</b></a>
+               <a href="#" class="linkcollapse" onclick="loadtbl2('ProdResultMOLD','MOLD','Result');" style="color: black">PROD RESULT - <b>MOLD</b></a>
                </h6>
              </div>                      
            </div>
            <div class="row">
              <div class="col">
                <h6 class="text-left">
-               <a href="#" onclick="loadtbl2('ProdPlanVsResultASSY','ASSY','PlanWithResult');" style="color: black">PROD PLAN VS RESULT - <b>ASSY</b></a>
+               <a href="#" class="linkcollapse" onclick="loadtbl2('ProdPlanVsResultASSY','ASSY','PlanWithResult');" style="color: black">PROD PLAN VS RESULT - <b>ASSY</b></a>
                </h6>
              </div>                      
            </div>
            <div class="row">
              <div class="col">
                <h6 class="text-left">
-               <a href="#" onclick="loadtbl2('ProdResultASSY','ASSY','Result');" style="color: black">PROD RESULT - <b>ASSY</b></a>
+               <a href="#" class="linkcollapse" onclick="loadtbl2('ProdResultASSY','ASSY','Result');" style="color: black">PROD RESULT - <b>ASSY</b></a>
                </h6>
              </div>                      
            </div>
@@ -114,28 +114,28 @@
            <div class="row">
              <div class="col">
                <h6 class="text-left">
-               <a href="#" onclick="loadtbl2('ProdPlanVsResultPRINTING','PRINTING','PlanWithResult');" style="color: black">PROD PLAN VS RESULT - <b>PRINTING</b></a>
+               <a href="#" class="linkcollapse" onclick="loadtbl2('ProdPlanVsResultPRINTING','PRINTING','PlanWithResult');" style="color: black">PROD PLAN VS RESULT - <b>PRINTING</b></a>
                </h6>
              </div>                      
            </div>
            <div class="row">
              <div class="col">
                <h6 class="text-left">
-               <a href="#" onclick="loadtbl2('ProdResultPRINTING','PRINTING','Result');" style="color: black">PROD RESULT - <b>PRINTING</b></a>
+               <a href="#" class="linkcollapse" onclick="loadtbl2('ProdResultPRINTING','PRINTING','Result');" style="color: black">PROD RESULT - <b>PRINTING</b></a>
                </h6>
              </div>                      
            </div>
            <div class="row">
              <div class="col">
                <h6 class="text-left">
-               <a href="#" onclick="loadtbl2('ProdPlanVsResultSAMPLES','SAMPLES','PlanWithResult');" style="color: black">PROD PLAN VS RESULT - <b>SAMPLES</b></a>
+               <a href="#" class="linkcollapse" onclick="loadtbl2('ProdPlanVsResultSAMPLES','SAMPLES','PlanWithResult');" style="color: black">PROD PLAN VS RESULT - <b>SAMPLES</b></a>
                </h6>
              </div>                      
            </div>
            <div class="row">
              <div class="col">
                <h6 class="text-left">
-               <a href="#" onclick="loadtbl2('ProdResultSAMPLES','SAMPLES','Result');" style="color: black">PROD RESULT - <b>SAMPLES</b></a>
+               <a href="#" class="linkcollapse" onclick="loadtbl2('ProdResultSAMPLES','SAMPLES','Result');" style="color: black">PROD RESULT - <b>SAMPLES</b></a>
                </h6>
              </div>                      
            </div>
@@ -153,26 +153,26 @@
                   <div class="row">
                       <div class="col">
                         <h6 class="text-left">
-                        <a style="color: black"  href="#" onclick="loadtbl2('ProductionSummary','','production_summary')">PRODUCTION SUMMARY</a>
+                        <a style="color: black" class="linkcollapse"  href="#" onclick="loadtbl2('ProductionSummary','','production_summary')">PRODUCTION SUMMARY</a>
                         </h6>
                       </div>                      
                     </div>
                     <div class="row">
                       <div class="col">
                         <h6 class="text-left">
-                        <a style="color: black"  href="#" onclick="loadtbl2('PrintStatus','','print_status')">PRINT STATUS</a>                        </h6>
+                        <a style="color: black" class="linkcollapse"  href="#" onclick="loadtbl2('PrintStatus','','print_status')">PRINT STATUS</a>                        </h6>
                       </div>                      
                     </div>
                     <div class="row">
                       <div class="col">
                         <h6 class="text-left">
-                        <a style="color: black" href="#" onclick="loadtbl2('PendingProduction','','pending_production')">PENDING PRODUCTION</a>                        </h6>
+                        <a style="color: black" class="linkcollapse" href="#" onclick="loadtbl2('PendingProduction','','pending_production')">PENDING PRODUCTION</a>                        </h6>
                       </div>                      
                     </div>
                     <div class="row">
                       <div class="col">
                         <h6 class="text-left">
-                        <a style="color: black" href="#" onclick="underConstruct()">PROD STOP</a>                        
+                        <a style="color: black" class="linkcollapse" href="#" onclick="underConstruct()">PROD STOP</a>                        
                         </h6>
                       </div>                      
                     </div>
@@ -189,21 +189,21 @@
                     <div class="row">
                       <div class="col">
                         <h6 class="text-left">
-                        <a style="color: black" href="#" onclick="loadtbl2('ShipmentList1','','shipment_management1')">SHIPMENT LIST</a>                      
+                        <a style="color: black" class="linkcollapse" href="#" onclick="loadtbl2('ShipmentList1','','shipment_management1')">SHIPMENT LIST</a>                      
                         </h6>
                       </div>                      
                     </div>
                     <div class="row">
                       <div class="col">
                         <h6 class="text-left">
-                        <a style="color: black" href="#" onclick="loadtbl2('ShipmentList','','shipment_management')">GROUP MANAGEMENT</a>                     
+                        <a style="color: black" class="linkcollapse" href="#" onclick="loadtbl2('ShipmentList','','shipment_management')">GROUP MANAGEMENT</a>                     
                         </h6>
                       </div>                      
                     </div>
                     <div class="row">
                       <div class="col">
                         <h6 class="text-left">
-                        <a style="color: black" href="#" onclick="loadtbl2('Dr-Assign','','dr_assign')">DR-ASSIGN</a>                     
+                        <a style="color: black" class="linkcollapse" href="#" onclick="loadtbl2('Dr-Assign','','dr_assign')">DR-ASSIGN</a>                     
                         </h6>
                       </div>                      
                     </div>
@@ -228,7 +228,7 @@
                     <div class="row">
                       <div class="col">
                         <h6 class="text-left">
-                        <a style="color: black" href="#" onclick="loadDoc('ItemReceiving','<?php echo $_SESSION['text'];?>')">SCAN RECEIVED</a>                      
+                        <a style="color: black" class="linkcollapse" href="#" onclick="loadDoc('ItemReceiving','<?php echo $_SESSION['text'];?>')">SCAN RECEIVED</a>                      
                         </h6>
                       </div>                      
                     </div>
@@ -236,7 +236,7 @@
                       <div class="col">
                         <h6 class="text-left">
                         <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
-                        <a style="color: black" href="#" onclick="underConstruct()">RECEIVED LIST</a>                     
+                        <a style="color: black" class="linkcollapse" href="#" onclick="underConstruct()">RECEIVED LIST</a>                     
                         </h6>
                       </div>                      
                     </div>
@@ -302,6 +302,10 @@ var header = document.getElementById("tb");
             this.className += " active";
           });
         }
+
+         $('.linkcollapse').on('click', function(){
+            $('.navbar-collapse').collapse('hide');
+        });
 
       $body = $("body");
       $(document).on({

@@ -15,11 +15,12 @@ $machinecode=$_POST['machinecode'];
 $customercode=$_POST['customercode'];
 $customername=$_POST['customername'];
 $qty=$_POST['qty'];
+$refno=$_POST['danpla_reference'];
 $user = $_SESSION['text'];
 
 
-$sql = "INSERT INTO mis_temp_ship_group(packing_number,lot_number,jo_number,item_code,machine_code,item_name,customer_code,customer_name,user_insert,quantity)
-VALUES('$packingNo','$lotnumber','$joborderno','$itemcode','$machinecode','$itemname','$customercode','$customername','$user','$qty')";
+$sql = "INSERT INTO mis_temp_ship_group(packing_number,lot_number,jo_number,item_code,machine_code,item_name,customer_code,customer_name,user_insert,quantity,danpla_reference)
+VALUES('$packingNo','$lotnumber','$joborderno','$itemcode','$machinecode','$itemname','$customercode','$customername','$user','$qty','$refno')";
 
 $result = $conn->query($sql);
 

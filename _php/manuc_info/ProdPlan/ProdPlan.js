@@ -813,6 +813,7 @@
                                     'customercode': cell.getRow().getData().CUSTOMER_CODE,
                                     'customername': cell.getRow().getData().CUSTOMER_NAME,
                                     'qty':cell.getRow().getData().QTY,
+                                    'danpla_reference':cell.getRow().getData().DANPLA_REF_NUM,
                                     'ajax':true
                     
                                 },
@@ -927,8 +928,8 @@
             }},
             
             {title:"LOT CREATE DATE", field:"LOT CREATE DATE"},
-            {title:"PACKING NUMBER", field:"PACKING_NUMBER"},
             {title:"DANPLA REF #", field:"DANPLA_REF_NUM"},
+            {title:"PACKING NUMBER", field:"PACKING_NUMBER"},
             {title:"LOT NUMBER", field:"LOT_NUMBER"},
             {title:"JO NO", field:"JO_NO"},
             {title:"ITEM CODE", field:"ITEM_CODE"},
@@ -1085,6 +1086,7 @@
                     })
                     } 
             },
+            {title:"REFERENCE NUMBER", field:"REFERENCE_NUMBER"},
             {title:"PACKING_NUMBER", field:"PACKING_NUMBER"},
             {title:"LOT_NUMBER", field:"LOT_NUMBER"},
             {title:"ITEM_CODE", field:"ITEM_CODE"},
@@ -1160,6 +1162,7 @@
             },
             {title:"DATE ASSIGNED", field:"DATE_ASSIGNED"},
             {title:"GROUP NAME", field:"GROUP_NAME"},
+            {title:"REFERENCE NUMBER", field:"REFERENCE_NUMBER"},
             {title:"PACKING_NUMBER", field:"PACKING_NUMBER"},
             {title:"LOT_NUMBER", field:"LOT_NUMBER"},
             {title:"JOB ORDER NO", field:"JOB_ORDER_NO"},
@@ -2140,8 +2143,21 @@ $(document).on('keypress', '#ref_num', function (e) {
             }
             else
             {
+                optiontype = checkCategory();
+                if(optiontype!="none")
+                {
+                    checkstatus(optiontype);
+                }
+                else
+                {
+                    iziToast.error({
+                        title: 'Error:',
+                        message: 'Please select SCAN type (danpla/polybag)',
+                        position: 'topCenter',
+                    }); 
+                }
 
-                checkstatus();
+
             }
         
             ref_num.value="";
@@ -2151,9 +2167,11 @@ $(document).on('keypress', '#ref_num', function (e) {
 });
 
 
-  function checkstatus()
+  function checkstatus(optiontype)
   {
     var ref_number = document.getElementById("ref_num").value;
+
+    
     //alert(ref_number);
     $.ajax({
         method:'POST',
@@ -2161,7 +2179,7 @@ $(document).on('keypress', '#ref_num', function (e) {
         data:
         {
             'ref_num': ref_number,
-            'searchtype': 'danpla',
+            'searchtype': optiontype,
             'ajax':true
         },
         success: function(data) 
@@ -2173,13 +2191,15 @@ $(document).on('keypress', '#ref_num', function (e) {
             else if(data=='"do not exist"')
             {
                 iziToast.error({
-                    message: 'Barcode does not exist! Check barcode',
+                    title: 'Error:',
+                    message: 'Barcode does not exist! Check barcode if it is POLYBAG or DANPLA',
                     position: 'topCenter',
                   }); 
             }
             else if(data=='"pending"')
             {
                 iziToast.error({
+                    title: 'Error:',
                     message: 'Waiting for Inspection',
                     position: 'topCenter',
                   }); 
@@ -2187,6 +2207,7 @@ $(document).on('keypress', '#ref_num', function (e) {
             else if(data=='"already group"')
             {
                 iziToast.error({
+                    title: 'Error:',
                     message: 'This is already in group!',
                     position: 'topCenter',
                     displayMode: 2,
@@ -2195,11 +2216,28 @@ $(document).on('keypress', '#ref_num', function (e) {
             else if(data=='"shipped"')
             {
                 iziToast.error({
+                    title: 'Error:',
                     message: 'Already Shipped!',
                     position: 'topCenter',
                   }); 
             }
-           // alert(data);
+            else if(data=='"polygood"')
+            {
+                iziToast.success({
+                    title: 'Success:',
+                    message: 'Polybag Barcode is unique',
+                    position: 'topCenter',
+                  }); 
+            }
+            else if(data=='"polyexists"')
+            {
+                iziToast.error({
+                    title: 'Error:',
+                    message: 'This barcode is already in group/shipped.',
+                    position: 'topCenter',
+                  }); 
+            }
+           //alert(data);
           
         }
     });
@@ -2207,7 +2245,6 @@ $(document).on('keypress', '#ref_num', function (e) {
   
 
   }
-
 
   function scaninsert(ref_number)
   {
@@ -2223,6 +2260,7 @@ $(document).on('keypress', '#ref_num', function (e) {
         success: function(data) 
         {
             iziToast.success({
+                title: 'Success:',
                 message: 'Ref # Successfully Added!',
                 position: 'topCenter',
                 displayMode: 2,
@@ -2231,4 +2269,23 @@ $(document).on('keypress', '#ref_num', function (e) {
         }
     });
 
+  }
+
+  function checkCategory()
+  {
+      var result = "";
+    if(document.getElementById('radiodanpla').checked)
+    {
+        result = "danpla";
+    }
+    else if(document.getElementById('radiopoly').checked)
+    {
+        result = "polybag";
+    }
+    else
+    {
+        result = "none";
+    }
+    //alert(result);
+return result;
   }
