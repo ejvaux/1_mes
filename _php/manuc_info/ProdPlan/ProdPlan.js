@@ -448,22 +448,20 @@
 
         else if(SectionGroup=="view_received")
         {
-            /* var plantypeobj = document.getElementById("PlanType");
-            var selectedOption = plantypeobj.options[plantypeobj.selectedIndex].value;
+           
             var strfromobj = document.getElementById("sortfrom").value;
             var searchobj = document.getElementById("search").value;
             var strtoobj = document.getElementById("sortto").value;
-            var department= deptSec; */
+           
             
             $.ajax({
                 method:'POST',
-                url:'/1_mes/_php/manuc_info/ProdPlan/DataPrintStatus.php',
+                url:'/1_mes/_php/manuc_info/ProdPlan/DataViewReceived.php',
                 data:
                 {
-                    /* 'sortfrom': strfromobj,
+                    'sortfrom': strfromobj,
                     'sortto': strtoobj,
                     'search': searchobj,
-                    'PlanType': selectedOption, */
                     'ajax':true
     
                 },
@@ -471,7 +469,7 @@
             
                 success: function(data) 
                 {
-                    //alert(data);
+                   // alert(data);
                     initTbl2("ViewReceived");
                     var val = JSON.parse(data);
                 /* alert(val); */
@@ -1446,26 +1444,24 @@
         placeholder:"No Data to Display",
         movableColumns:true,
         selectable: 1,
-        //groupBy:"PROD DATE",
+        groupBy:"LOT_NO",
         // responsiveLayout:"collapse",
         columns:[ //Define Table Columns
             //{formatter:"responsiveCollapse", width:30, minWidth:30, align:"center", resizable:false, headerSort:false},
     
             {title:"NO", field:"NO", width:60},
-          
-            {title:"JO NO", field:"JO NO"},
-            {title:"SERIAL PRINT", field:"SERIAL PRINT"},
+            {title:"JO NO", field:"JO_NO"},
+            {title:"SERIAL PRINT", field:"SERIAL_PRINT"},
+            {title:"PACKING NUMBER", field:"PACKING_NUMBER"},
             {title:"REFERENCE #", field:"REF_NUM"},
+            {title:"DANPLA REFERENCE #", field:"DANPLA_REF_NUM"},
             {title:"LOT NUMBER", field:"LOT_NO"},
-            {title:"ITEM CODE", field:"ITEM CODE"},
-            {title:"ITEM NAME", field:"ITEM NAME"},
-            {title:"MODEL", field:"MODEL"},
-            {title:"PRINT QTY", field:"PRINT QTY"},
-            {title:"MACHINE CODE", field:"MACHINE CODE"},
-            {title:"TOOL NO", field:"TOOL NO"},
-            {title:"PACKING NUMBER", field:"PACKING NUMBER"},
-            {title:"PRINT TIME", field:"PRINT TIME"},
-            {title:"PRINTED BY", field:"PRINTED BY"}
+            {title:"ITEM CODE", field:"ITEM_CODE"},
+            {title:"ITEM NAME", field:"ITEM_NAME"},
+            {title:"QUANTITY", field:"QUANTITY",bottomCalc:"sum"},
+            {title:"MACHINE CODE", field:"MACHINE_CODE"},
+            {title:"RECEIVED DATE", field:"RECEIVED_TIME"},
+            {title:"RECEIVED BY", field:"RECEIVED_BY"}
         ],
         });
     

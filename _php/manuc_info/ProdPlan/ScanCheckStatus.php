@@ -88,6 +88,8 @@ function checkInMisPolybag($prodid)
             $polyres = "polygood";
         }
 return $polyres;
+
+
 }
 
 
@@ -113,7 +115,7 @@ $result2 = $conn->query($sql2);
 
         if($result3->num_rows>0)
         {
-            $res="already group";
+            $res="already group";   
         }
         else
         {

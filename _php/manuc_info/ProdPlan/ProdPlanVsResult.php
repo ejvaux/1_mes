@@ -236,7 +236,7 @@
                       <div class="col">
                         <h6 class="text-left">
                         <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
-                        <a style="color: black" class="linkcollapse" href="#" onclick="underConstruct()">RECEIVED LIST</a>                     
+                        <a style="color: black" class="linkcollapse" href="#" onclick="loadtbl2('ViewReceived','','view_received')">RECEIVED LIST</a>                     
                         </h6>
                       </div>                      
                     </div>
