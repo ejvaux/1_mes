@@ -11,7 +11,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if($searchtype == "danpla")
 {
-    $sql="SELECT SHIP_STATUS FROM mis_product WHERE danpla_reference LIKE'%$ref_num%' or packing_number LIKE '%$ref_num%' LIMIT 50";
+    $sql="SELECT SHIP_STATUS FROM mis_product WHERE danpla_reference ='$ref_num' or packing_number ='$ref_num' LIMIT 50";
 
     $result = $conn->query($sql);
 
@@ -48,7 +48,7 @@ else
 {
 /* scan polybag here */
 
-    $sql="SELECT ID from mis_product WHERE jo_barcode LIKE '%$ref_num%' OR reference_num LIKE '%$ref_num%'";
+    $sql="SELECT ID from mis_product WHERE jo_barcode ='$ref_num' OR reference_num ='$ref_num' LIMIT 1";
     $result = $conn->query($sql);
         if($result->num_rows > 0 )
         {
@@ -69,7 +69,7 @@ else
 
 
 function checkInMisPolybag($prodid)
-{
+{ 
     $user = $_SESSION['text'];
     include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
     $sql2="SELECT id FROM mis_polybag WHERE mis_product_id='$prodid'";

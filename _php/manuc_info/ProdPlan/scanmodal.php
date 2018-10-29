@@ -1,6 +1,5 @@
 <script>
       $('.sel2').select2({width: '80%'});
-        
 </script>
 <!-- Modal -->
 <div class="modal" id="exampleModal2" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard = "false"> 
@@ -8,7 +7,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-list-alt"></i>&nbsp SCAN AN ITEM</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="loadmodal2('scanmodal');">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="loadmodal2('scanmodal');cancelfilter('ShipmentList','','shipment_management')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -22,7 +21,7 @@
                         <label class="form-check-label">
                           <input id="radiodanpla"  type="radio" class="form-check-input" name="optradio" checked="checked">Danpla
                         </label>
-                      </div>
+                      </div>  
                       <div class="form-check-inline">
                         <label class="form-check-label">
                           <input id="radiopoly"  type="radio" class="form-check-input" name="optradio">PolyBag

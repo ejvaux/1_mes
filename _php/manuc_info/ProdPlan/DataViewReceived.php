@@ -3,7 +3,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 
 $datavar=[];
 
-                    /* 'sortfrom': strfromobj,
+                    /* 'sortfrom': strfromobj,3000
                     'sortto': strtoobj,
                     'search': searchobj, */
 
@@ -31,7 +31,6 @@ WHERE (qmd_lot_create.WAREHOUSE_RECEIVE = 'RECEIVED') ";
         else
         {
             $datetoday=date("Y-m-d");
-           
             $sql.="AND (qmd_lot_create.RECEIVED_DATE LIKE '$datetoday%')";
         }
     }
@@ -64,7 +63,7 @@ WHERE (qmd_lot_create.WAREHOUSE_RECEIVE = 'RECEIVED') ";
             mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%' OR 
             qmd_lot_create.RECEIVED_BY LIKE '%$search%') 
             AND (cast(qmd_lot_create.RECEIVED_DATE as date) BETWEEN '$datefrom' AND '$dateto')";
-
+            
         }
         else
         {
@@ -82,8 +81,8 @@ while($row = $result->fetch_assoc())
     array_push($datavar,["NO"=> $ctr ,"JO_NO"=> $row['JO_NUM'] , "SERIAL_PRINT"=>$row['JO_BARCODE'],
     "PACKING_NUMBER"=>$row['PACKING_NUMBER'],"REF_NUM"=>$row['reference_num'],"DANPLA_REF_NUM"=>$row['danpla_reference'],
     "LOT_NO"=>$row['LOT_NUM'],"ITEM_CODE"=>$row['ITEM_CODE'],"ITEM_NAME"=>$row['ITEM_NAME'],
-    "QUANTITY"=>$row['PRINT_QTY'],"MACHINE_CODE"=>$row['MACHINE_CODE']
-    ,"RECEIVED_TIME"=>$row['RECEIVED_DATE'],"RECEIVED_BY"=>$row['RECEIVED_BY']]);
+    "QUANTITY"=>$row['PRINT_QTY'],"MACHINE_CODE"=>$row['MACHINE_CODE'],
+    "RECEIVED_TIME"=>$row['RECEIVED_DATE'],"RECEIVED_BY"=>$row['RECEIVED_BY']]);
   
 }
 
