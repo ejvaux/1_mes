@@ -1248,14 +1248,14 @@ function checkReceive(insertBarcode, insertJO, insertItemCode, insertItemName, i
         });
         ReceivingBarcode_text.value = "";
         ReceivingBarcode_text.focus();
-      } else if (data == '"true6"') {
+      } /* else if (data == '"true6"') {
         iziToast.error({
           message: 'BQICS APPROVAL NOT INCLUDED!',
           position: 'topCenter',
         });
         ReceivingBarcode_text.value = "";
         ReceivingBarcode_text.focus();
-      } else if (data == '"false"') {
+      } */ else if (data == '"false"') {
         insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertLot);
         
       }
