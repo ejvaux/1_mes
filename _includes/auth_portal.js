@@ -13,11 +13,11 @@ function hide(val) {
 
     else if (val == "DA" || val == "DC" || val == "DG") {
 
-        / alert('GOOOOOOD!'); /
+        // alert('GOOOOOOD!'); 
         $('#1').addClass("disabled");
         $('#2').addClass("disabled");
         $('#3').addClass("disabled");
-        / $('#4').addClass("disabled"); /
+        // $('#4').addClass("disabled"); 
         $('#5').addClass("disabled");
         $('#6').addClass("disabled");
 
@@ -26,29 +26,29 @@ function hide(val) {
     else if (val == "G") {
 
         $('#1').addClass("disabled");
-        /* $('#2').addClass("disabled");
-        $('#3').addClass("disabled"); */
-        / $('#4').addClass("disabled"); /
-        /* $('#5').addClass("disabled");
-        $('#6').addClass("disabled"); */
+        // $('#2').addClass("disabled");
+        // $('#3').addClass("disabled");
+        // $('#4').addClass("disabled"); 
+        // $('#5').addClass("disabled");
+        // $('#6').addClass("disabled");
 
     }
 
     else if (val == "C") {
 
         $('#1').addClass("disabled");
-        /* $('#2').addClass("disabled");
-        $('#3').addClass("disabled");
-        $('#4').addClass("disabled"); */
-        /* $('#5').addClass("disabled");
-        $('#6').addClass("disabled"); */
+        // $('#2').addClass("disabled");
+        // $('#3').addClass("disabled");
+        // $('#4').addClass("disabled");
+        // $('#5').addClass("disabled");
+        // $('#6').addClass("disabled");
 
     }
     else if (val == "CQ" || val == "CG") {
 
         $('#1').addClass("disabled");
-        $('#2').addClass("disabled");
-        / $('#3').addClass("disabled"); /
+        // $('#2').addClass("disabled");
+        // $('#3').addClass("disabled"); 
         $('#4').addClass("disabled");
         $('#5').addClass("disabled");
         $('#6').addClass("disabled");
@@ -57,7 +57,7 @@ function hide(val) {
     else if (val == "KG" || val == "SG" || val == "PG") {
 
         $('#1').addClass("disabled");
-        / $('#2').addClass("disabled"); /
+        // $('#2').addClass("disabled"); 
         $('#3').addClass("disabled");
         $('#4').addClass("disabled");
         $('#5').addClass("disabled");
@@ -67,19 +67,8 @@ function hide(val) {
     else if (val == "MG") {
 
         $('#1').addClass("disabled");
-        /* $('#2').addClass("disabled"); */
+        // $('#2').addClass("disabled");
         $('#3').addClass("disabled");
-        $('#4').addClass("disabled");
-        $('#5').addClass("disabled");
-        $('#6').addClass("disabled");
-
-    }
-
-    else if (val == "MQ") {
-
-        $('#1').addClass("disabled");
-        /* $('#2').addClass("disabled");
-        $('#3').addClass("disabled"); */
         $('#4').addClass("disabled");
         $('#5').addClass("disabled");
         $('#6').addClass("disabled");
