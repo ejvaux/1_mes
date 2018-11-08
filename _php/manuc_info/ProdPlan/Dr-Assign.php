@@ -166,7 +166,18 @@
     </div>
   </div>
 </div>
+
+
+
             
             
+            <script>
+                $body = $("body");
+                $(document).on({
+                    ajaxStart: function() { /* $body.addClass("loading"); */ $('.mdl').show();  },   
+                    ajaxStop: function() { /* $body.removeClass("loading"); */$('.mdl').fadeOut(700); }     
+                });    
+
+            </script>
             
             

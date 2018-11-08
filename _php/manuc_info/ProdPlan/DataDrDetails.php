@@ -5,11 +5,11 @@ $drno=$_POST['drno'];
 $datasorttype=$_POST['datasorttype'];
 if($datasorttype=="UnassignedDr")
 {
-    $sql="SELECT * FROM mis_dr_assigned WHERE group_name='$drno'";
+    $sql="SELECT dr_date,dr_number,Date_Inserted,group_name,item_code,item_name,SUM(quantity) as qty FROM mis_dr_assigned WHERE group_name='$drno' GROUP BY item_code";
 }
 else
 {
-    $sql="SELECT * FROM mis_dr_assigned WHERE dr_number='$drno'";
+    $sql="SELECT dr_date,dr_number,Date_Inserted,group_name,item_code,item_name,SUM(quantity) as qty  FROM mis_dr_assigned WHERE dr_number='$drno' GROUP BY item_code";
 }
 
 $result = $conn->query($sql);
@@ -39,9 +39,9 @@ while (($row = mysqli_fetch_array($result)))
           $tempgr = $row['group_name'];
       }
         array_push($datavar,["NO"=> $ctr ,"DR_DATE"=>$tempdate, "DR_NO"=> $tempdr,
-        "GROUP_NAME"=>$tempgr,"PACKING_NO"=>$row['packing_number'],"LOT_NUMBER"=>$row['lot_number'],
-        "JOB_ORDER_NO"=>$row['jo_number'],"ITEM_CODE"=>$row['item_code'],"ITEM_NAME"=>$row['item_name'],
-        "MACHINE_CODE"=>$row['machine_code'],"CUSTOMER_CODE"=>$row['customer_code'],"CUSTOMER_NAME"=>$row['customer_name'],"QTY"=>$row['quantity']]);
+        "GROUP_DATE"=>$row['Date_Inserted'], "GROUP_NAME"=>$tempgr,
+        "ITEM_CODE"=>$row['item_code'],"ITEM_NAME"=>$row['item_name'],
+        "QTY"=>$row['qty']]);
 }
 echo json_encode($datavar,true);  
 

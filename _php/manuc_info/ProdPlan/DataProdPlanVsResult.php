@@ -5,6 +5,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
     $strto=$_POST['sortto'];
     $search=$_POST['search'];
     $department = $_POST['dept'];
+    $ads = $_POST['ads'];
+    //$ads= "";
     
     
     if($department=="INJ")
@@ -33,72 +35,54 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
     }
   /*   if(strpos($url, 'sortfrom=')!==false)
     { */
-        
+      $sql="SELECT DISTINCT(mis_prod_plan_dl.ID), mis_prod_plan_dl.DATE_,mis_prod_plan_dl.JOB_ORDER_NO, 
+      mis_prod_plan_dl.ITEM_CODE, mis_prod_plan_dl.ITEM_NAME, mis_prod_plan_dl.CUSTOMER_CODE, 
+      mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
+      dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
+      dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
+      dmc_item_list.ITEM_PRINTCODE,mis_prod_plan_dl.SALES_ORDER
+
+      FROM mis_prod_plan_dl
+       
+      LEFT JOIN dmc_item_mold_matching
+         ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
+        /* AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE)  */
+        AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
+      LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
+      LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
+      LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
+      LEFT JOIN dmc_item_list on mis_prod_plan_dl.ITEM_CODE = dmc_item_list.ITEM_CODE ";
       
 
+      if($ads!="ads")
+      {
                       if ($strto == "" && $strfrom=="") 
                       {
                          # code... condition above is whenever both date range are null
-                  /*        $sql="SELECT * from MIS_PROD_PLAN_DL WHERE JOB_ORDER_NO LIKE '%$str%' or CUSTOMER_CODE LIKE '%$str%' or CUSTOMER_NAME LIKE '%$str%' or ITEM_CODE LIKE '%$str%' or ITEM_NAME LIKE '%$str%' or TOOL_NUMBER LIKE '%$str%' or MACHINE_CODE LIKE '%$str%' or mACHINE_MAKER LIKE '%$str%' or TONNAGE LIKE '%$str%' or MACHINE_GROUP LIKE '%$str%' or PRIORITY LIKE '%$str%' order by DATE_ DESC"; */
+
+                              if ($search!="")
+                              {
 
 
-                          if ($search!="")
-                          {
-                            $sql="SELECT DISTINCT(mis_prod_plan_dl.ID), mis_prod_plan_dl.DATE_,mis_prod_plan_dl.JOB_ORDER_NO, 
-                            mis_prod_plan_dl.ITEM_CODE, mis_prod_plan_dl.ITEM_NAME, mis_prod_plan_dl.CUSTOMER_CODE, 
-                            mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
-                            dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
-                            dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
-                            dmc_item_list.ITEM_PRINTCODE,mis_prod_plan_dl.SALES_ORDER
+                              $sql.=" WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND
+                                (mis_prod_plan_dl.JOB_ORDER_NO LIKE '%$search%' or mis_prod_plan_dl.CUSTOMER_CODE LIKE '%$search%' 
+                                or mis_prod_plan_dl.CUSTOMER_NAME LIKE '%$search%' or mis_prod_plan_dl.ITEM_CODE LIKE '%$search%' 
+                                or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
+                                or mis_prod_plan_dl.MACHINE_CODE LIKE '%$search%' or dmc_machine_list.MACHINE_MAKER LIKE '%$search%' 
+                                or dmc_machine_list.TONNAGE LIKE '%$search%' or dmc_machine_list.MACHINE_GROUP LIKE '%$search%' 
+                                or mis_prod_plan_dl.PRIORITY LIKE '%$search%') ORDER BY mis_prod_plan_dl.DATE_ DESC LIMIT 1000";
 
-                            FROM mis_prod_plan_dl
-                             
-                            LEFT JOIN dmc_item_mold_matching
-                               ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
-                              /* AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE)  */
-                              AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
-                            LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
-                            LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
-                            LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
-                            LEFT JOIN dmc_item_list on mis_prod_plan_dl.ITEM_CODE = dmc_item_list.ITEM_CODE
+                              }
 
-                            WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND
-                            (mis_prod_plan_dl.JOB_ORDER_NO LIKE '%$search%' or mis_prod_plan_dl.CUSTOMER_CODE LIKE '%$search%' 
-                            or mis_prod_plan_dl.CUSTOMER_NAME LIKE '%$search%' or mis_prod_plan_dl.ITEM_CODE LIKE '%$search%' 
-                            or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
-                            or mis_prod_plan_dl.MACHINE_CODE LIKE '%$search%' or dmc_machine_list.MACHINE_MAKER LIKE '%$search%' 
-                            or dmc_machine_list.TONNAGE LIKE '%$search%' or dmc_machine_list.MACHINE_GROUP LIKE '%$search%' 
-                            or mis_prod_plan_dl.PRIORITY LIKE '%$search%') ORDER BY mis_prod_plan_dl.DATE_ DESC";
+                              else
+                              {
+                                $datetoday=date("Y-m-d");
+                                $sql.=" WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND
+                                (mis_prod_plan_dl.DATE_='$datetoday')
+                                
+                                ORDER BY mis_prod_plan_dl.DATE_ DESC LIMIT 300";
 
-                          }
-
-                          else
-                          {
-                            $datetoday=date("Y-m-d");
-                            $sql="SELECT DISTINCT(mis_prod_plan_dl.ID), mis_prod_plan_dl.DATE_,mis_prod_plan_dl.JOB_ORDER_NO, 
-                            mis_prod_plan_dl.ITEM_CODE, mis_prod_plan_dl.ITEM_NAME, mis_prod_plan_dl.CUSTOMER_CODE, 
-                            mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
-                            dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
-                            dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
-                            dmc_item_list.ITEM_PRINTCODE,mis_prod_plan_dl.SALES_ORDER 
-
-                            FROM mis_prod_plan_dl
-                            LEFT JOIN dmc_item_list on mis_prod_plan_dl.ITEM_CODE = dmc_item_list.ITEM_CODE 
-                            LEFT JOIN dmc_item_mold_matching
-                               ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
-                              /* AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE)  */
-                              AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
-                            LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
-                            LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
-                            LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
-
-
-                            WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND
-                            (mis_prod_plan_dl.DATE_='$datetoday')
-                            
-                             ORDER BY mis_prod_plan_dl.DATE_ DESC";
-
-                          }
+                              }
 
                           
 
@@ -111,31 +95,13 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                               if ($search!="") {
 
                                 # code...
-                                 $sql="SELECT DISTINCT(mis_prod_plan_dl.ID), mis_prod_plan_dl.DATE_,mis_prod_plan_dl.JOB_ORDER_NO, 
-                                mis_prod_plan_dl.ITEM_CODE, mis_prod_plan_dl.ITEM_NAME, mis_prod_plan_dl.CUSTOMER_CODE, 
-                                mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
-                                dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
-                                dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
-                                dmc_item_list.ITEM_PRINTCODE,mis_prod_plan_dl.SALES_ORDER
-
-                                FROM mis_prod_plan_dl
-                                LEFT JOIN dmc_item_list on mis_prod_plan_dl.ITEM_CODE = dmc_item_list.ITEM_CODE
-                                LEFT JOIN dmc_item_mold_matching
-                                   ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
-                                 /*  AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE)  */
-                                 AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
-                                LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
-                                LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
-                                LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
-
-
-                                WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND (mis_prod_plan_dl.DATE_ = '$strfrom') AND
+                                $sql.="  WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND (mis_prod_plan_dl.DATE_ = '$strfrom') AND
                                 (mis_prod_plan_dl.JOB_ORDER_NO LIKE '%$search%' or mis_prod_plan_dl.CUSTOMER_CODE LIKE '%$search%' 
                                 or mis_prod_plan_dl.CUSTOMER_NAME LIKE '%$search%' or mis_prod_plan_dl.ITEM_CODE LIKE '%$search%' 
                                 or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
                                 or mis_prod_plan_dl.MACHINE_CODE LIKE '%$search%' or dmc_machine_list.MACHINE_MAKER LIKE '%$search%' 
                                 or dmc_machine_list.TONNAGE LIKE '%$search%' or dmc_machine_list.MACHINE_GROUP LIKE '%$search%' 
-                                or mis_prod_plan_dl.PRIORITY LIKE '%$search%')  ORDER BY mis_prod_plan_dl.DATE_ DESC";
+                                or mis_prod_plan_dl.PRIORITY LIKE '%$search%')  ORDER BY mis_prod_plan_dl.DATE_ DESC LIMIT 500";
 
                                 
 
@@ -144,26 +110,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                               else
                               {
 
-                                 $sql="SELECT DISTINCT(mis_prod_plan_dl.ID), mis_prod_plan_dl.DATE_,mis_prod_plan_dl.JOB_ORDER_NO, 
-                                mis_prod_plan_dl.ITEM_CODE, mis_prod_plan_dl.ITEM_NAME, mis_prod_plan_dl.CUSTOMER_CODE, 
-                                mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
-                                dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
-                                dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
-                                dmc_item_list.ITEM_PRINTCODE ,mis_prod_plan_dl.SALES_ORDER
-
-                                FROM mis_prod_plan_dl
-                                LEFT JOIN dmc_item_list on mis_prod_plan_dl.ITEM_CODE = dmc_item_list.ITEM_CODE
-                                LEFT JOIN dmc_item_mold_matching
-                                   ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
-                                  /* AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE)  */
-                                  AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
-                                LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
-                                LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
-                                LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
-
-
-                                WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND (mis_prod_plan_dl.DATE_ ='$strfrom') 
-                                ORDER BY mis_prod_plan_dl.DATE_ DESC";
+                                $sql.=" WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND (mis_prod_plan_dl.DATE_ ='$strfrom') 
+                                ORDER BY mis_prod_plan_dl.DATE_ DESC LIMIT 1000";
 
                                 
                               }
@@ -175,28 +123,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                   if ($search!="") {
                                     # code...
 
-                                    $sql="SELECT DISTINCT(mis_prod_plan_dl.ID), mis_prod_plan_dl.DATE_,mis_prod_plan_dl.JOB_ORDER_NO, 
-                                    mis_prod_plan_dl.ITEM_CODE, mis_prod_plan_dl.ITEM_NAME, mis_prod_plan_dl.CUSTOMER_CODE, 
-                                    mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
-                                    dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
-                                    dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
-                                    dmc_item_list.ITEM_PRINTCODE ,mis_prod_plan_dl.SALES_ORDER
-
-                                    FROM mis_prod_plan_dl
-                                    LEFT JOIN dmc_item_list on mis_prod_plan_dl.ITEM_CODE = dmc_item_list.ITEM_CODE
-                                    LEFT JOIN dmc_item_mold_matching
-                                       ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
-                                     /*  AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE)  */
-                                     AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
-                                    LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
-                                    LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
-                                    LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
-
-
-                                    WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum')
-                                    AND (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') AND
-                                    
-                                    
+                                $sql.=" WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum')
+                                AND (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto') AND    
                                 (mis_prod_plan_dl.JOB_ORDER_NO LIKE '%$search%' or mis_prod_plan_dl.CUSTOMER_CODE LIKE '%$search%' 
                                 or mis_prod_plan_dl.CUSTOMER_NAME LIKE '%$search%' or mis_prod_plan_dl.ITEM_CODE LIKE '%$search%' 
                                 or mis_prod_plan_dl.ITEM_NAME LIKE '%$search%' or dmc_item_mold_matching.TOOL_NUMBER LIKE '%$search%' 
@@ -204,32 +132,11 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                 or dmc_machine_list.TONNAGE LIKE '%$search%' or dmc_machine_list.MACHINE_GROUP LIKE '%$search%' 
                                 or mis_prod_plan_dl.PRIORITY LIKE '%$search%')  ORDER BY mis_prod_plan_dl.DATE_ DESC";
 
-
-                                     
-
                                   }
                                   else
                                   {
 
-                                   $sql="SELECT DISTINCT(mis_prod_plan_dl.ID), mis_prod_plan_dl.DATE_,mis_prod_plan_dl.JOB_ORDER_NO, 
-                                    mis_prod_plan_dl.ITEM_CODE, mis_prod_plan_dl.ITEM_NAME, mis_prod_plan_dl.CUSTOMER_CODE, 
-                                    mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
-                                    dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
-                                    dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT,
-                                    dmc_item_list.ITEM_PRINTCODE ,mis_prod_plan_dl.SALES_ORDER
-
-                                    FROM mis_prod_plan_dl
-                                    LEFT JOIN dmc_item_list on mis_prod_plan_dl.ITEM_CODE = dmc_item_list.ITEM_CODE
-                                    LEFT JOIN dmc_item_mold_matching
-                                       ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
-                                     /*  AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE)  */
-                                     AND (mis_prod_plan_dl.MACHINE_CODE=dmc_item_mold_matching.MACHINE_CODE) 
-                                    LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
-                                    LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
-                                    LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
-
-
-                                     WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND
+                                    $sql.=" WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND
                                      (mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto')  ORDER BY mis_prod_plan_dl.DATE_ DESC";
                           
                                   }
@@ -237,30 +144,34 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 
 
                       }
+        
+      }
+      else
+      {
+        $ads_sortfrom = $_POST['ads_sortfrom'];
+        $ads_sortto= $_POST['ads_sortto'];
+        $ads_custcode= $_POST['ads_custcode'];
+        $ads_custname= $_POST['ads_custname'];
+        $ads_itemcode= $_POST['ads_itemcode'];
+        $ads_itemname= $_POST['ads_itemname'];
+        $ads_mccode= $_POST['ads_mccode'];
+        $ads_jo_no= $_POST['ads_jo_no'];
 
-/*     }
-    else
-    {
-            $sql="SELECT DISTINCT(mis_prod_plan_dl.ID), mis_prod_plan_dl.DATE_,mis_prod_plan_dl.JOB_ORDER_NO, 
-                  mis_prod_plan_dl.ITEM_CODE, mis_prod_plan_dl.ITEM_NAME, mis_prod_plan_dl.CUSTOMER_CODE, 
-                  mis_prod_plan_dl.CUSTOMER_NAME,mis_prod_plan_dl.PLAN_QTY, mis_prod_plan_dl.MACHINE_CODE, 
-                  dmc_item_mold_matching.TOOL_NUMBER,dmc_item_mold_matching.CAVITY, dmc_machine_list.MACHINE_GROUP, 
-                  dmc_machine_list.MACHINE_MAKER, dmc_machine_list.TONNAGE,mis_summarize_results.PROD_RESULT 
+        if ($strto == "" && $strfrom=="") 
+        {
+        }
+        elseif ($strto=="" && $strfrom!="") 
+        {
+        }
+        elseif($strfrom!="" && $strto!="")
+        {
+        }
 
-                  FROM mis_prod_plan_dl
-                   
-                  LEFT JOIN dmc_item_mold_matching
-                     ON (mis_prod_plan_dl.ITEM_CODE = dmc_item_mold_matching.ITEM_CODE) 
-                    AND (mis_prod_plan_dl.CUSTOMER_CODE=dmc_item_mold_matching.CUSTOMER_CODE) 
-                  LEFT JOIN dmc_machine_list ON mis_prod_plan_dl.MACHINE_CODE = dmc_machine_list.MACHINE_CODE 
-                  LEFT JOIN dmc_customer ON mis_prod_plan_dl.CUSTOMER_CODE = dmc_customer.CUSTOMER_CODE
-                  LEFT JOIN mis_summarize_results on mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
-
-
-                  WHERE dmc_customer.DIVISION_CODE = 'PTPI001'";
-
-    } */
-
+      }
+              
+    
+    
+    
     $result = $conn->query($sql);
     $datavar=[];
     $ctr=0;
