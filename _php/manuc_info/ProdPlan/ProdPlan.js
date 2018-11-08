@@ -10,7 +10,7 @@
         document.getElementById("table_display").innerHTML = this.responseText;
         var tablename = TableName;
 
-            showTable(TableName,deptSec,SectionGroup,"no");
+            showTable(TableName,deptSec,SectionGroup,"no","");
             $('[data-toggle="tooltip"]').tooltip();
 
         }
@@ -28,7 +28,7 @@
         setTimeout(updateTable,50000);
     }
 
-    function showTable(moduleID,deptSec,SectionGroup,param1)
+    function showTable(moduleID,deptSec,SectionGroup,param1,ads)
     {
         //updateTable(moduleID,deptSec,SectionGroup);
 
@@ -40,9 +40,17 @@
         
         if(SectionGroup=="PlanWithResult")
         {
+            var adv = "abcd";
+            if (ads!="") 
+            {
+                adv="ads";
+            }
+           
+           
         var strfromobj = document.getElementById("sortfrom").value;
         var searchobj = document.getElementById("search").value;
         var strtoobj = document.getElementById("sortto").value;
+
         var department= deptSec;
         $.ajax({
             method:'POST',
@@ -53,14 +61,16 @@
                 'sortto': strtoobj,
                 'search': searchobj,
                 'dept': department,
+                'ads':adv,
+               
                 'ajax':true
             },
             success: function(data) 
             {
-                
+                //alert(data);
                 initTbl2("ProdPlanVsResult");
                 var val = JSON.parse(data);
-                /* alert(val); */
+              
                 $("#example-table").tabulator("setData",val);
             }
             
@@ -552,7 +562,7 @@
             document.getElementById("search2").value="";   
         }
 
-        showTable(moduleID,deptSec,SectionGroup);
+        showTable(moduleID,deptSec,SectionGroup,"","");
     }
 
 
@@ -560,6 +570,7 @@
     {
         if(TabName=="ProdPlanVsResult")
         {
+            
             var screenheight=Number(screen.height-350);
             $("#example-table").tabulator({
             height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
@@ -569,7 +580,8 @@
             placeholder:"No Data to Display or Today's plan is not yet available.",
             movableColumns:true,
             selectable: 1,
-            groupBy:"DATE",    columns:[
+            groupBy:"DATE",   
+             columns:[
                 {title:"NO", field:"NO", width:60,align:"center"},
                 {title:"DATE", field:"DATE"},
                 {title:"J.O. NO", field:"JO NO"},
@@ -830,11 +842,11 @@
                                 //alert(data);
                                 }
                     
-                            });
+                            });//end ajax
                     
 
 
-                        }
+                        } // end result if
                     
                     })
 
@@ -1032,6 +1044,7 @@
         paginationSize:1000,
         placeholder:"No Data to Display",
         movableColumns:true,
+        groupStartOpen:false,
         groupBy:"ITEM_CODE",
         columns:[
             {title:"NO", field:"NO", width:60,align:"center"},
@@ -1106,6 +1119,7 @@
         paginationSize:1000,
         placeholder:"No Data to Display",
         movableColumns:true,
+        groupStartOpen:false,
         groupBy: "GROUP_NAME",
         columns:[
             {title:"NO", field:"NO", width:60,align:"center"},
@@ -1300,7 +1314,7 @@
                 
                                         ///alert("Printing row data for: " + cell.getRow().getData().PACKING_NUMBER);
                     swal({
-                        title: 'Are you sure you want to remove '+ cell.getRow().getData().PACKING_NO+" to this group or DR#?  ",
+                        title: 'Are you sure you want to remove '+ cell.getRow().getData().ITEM_CODE+" to this group or DR#?  ",
                         text: "All remove items status will be set to 'UNASSIGNED DR' automatically.",
                         type: 'warning',
                         showCancelButton: true,
@@ -1352,18 +1366,15 @@
 
                 }
             },
+          
             {title:"DR DATE", field:"DR_DATE"},
             {title:"DR NO", field:"DR_NO"},
+            {title:"GROUP DATE", field:"GROUP_DATE"},
             {title:"GROUP NAME", field:"GROUP_NAME"},
-            {title:"PACKING NO", field:"PACKING_NO"},
-            {title:"LOT NUMBER", field:"LOT_NUMBER"},
-            {title:"JOB ORDER NO", field:"JOB_ORDER_NO"},
             {title:"ITEM CODE", field:"ITEM_CODE"},
             {title:"ITEM NAME", field:"ITEM_NAME"},
-            {title:"QUANTITY", field:"QTY",bottomCalc:"sum"},
-            {title:"MACHINE CODE", field:"MACHINE_CODE"},
-            {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
-            {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}
+            {title:"QUANTITY", field:"QTY"}
+          
 
         
         
@@ -1821,6 +1832,7 @@
             
             success: function(data) 
             {
+                //alert(data);
                 initTbl2("dr-details");
                 var val2 = JSON.parse(data);
             /* alert(val); */
@@ -1843,7 +1855,11 @@
         document.getElementById("modal_display1").innerHTML = this.responseText;
         var tablename = TableName;
             
-
+     
+  
+           
+        
+     
             showmodal1(TableName);
             
         }
@@ -1868,6 +1884,32 @@
         };
         xhttp.open("GET", TableName+".php", true);
         xhttp.send();
+    }
+
+    function loadmodal3(TableName)
+    {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            /* totalQty(); */
+            document.getElementById("modal_display3").innerHTML = "";
+        document.getElementById("modal_display3").innerHTML = this.responseText;
+        var tablename = TableName;
+            
+             $('.select3').select2({width: '200px'}); 
+             $('.select4').select2({width: '200px'}); 
+             $('.select5').select2({width: '200px'}); 
+             $('.select6').select2({width: '200px'}); 
+             $('.select7').select2({width: '200px'}); 
+            showmodal1(TableName);
+           
+            
+        }
+        };
+        xhttp.open("GET", TableName+".php", true);
+        xhttp.send();
+
+       
     }
     function showmodal1(TableName)
     {
@@ -1901,6 +1943,60 @@
        
        
     }
+
+
+    function ads_func(objsrc,objdest)
+    {
+        
+        var drpsource = document.getElementById(objsrc);
+        var result = drpsource.options[drpsource.selectedIndex].value;
+   
+        var element = document.getElementById(objdest);
+        element.value = result;
+
+        $('#'+objdest).select2({width: '200px'}); 
+       document.getElementById('ads_sortfrom').validity.valid
+        
+    }
+
+    function ads_gosearch(ads_section)
+    {
+        
+        var ads_sortfrom = document.getElementById("ads_sortfrom").value;
+        var ads_sortto = document.getElementById("ads_sortto").value;
+        var ads_custcode = document.getElementById("ads_custcode").value;
+        var ads_custname = document.getElementById("ads_custname").value;   
+        var ads_itemcode = document.getElementById("ads_itemcode").value;
+        var ads_itemname = document.getElementById("ads_itemname").value;
+        var ads_mccode = document.getElementById("ads_mccode").value;
+        var ads_jo_no = document.getElementById("ads_jo_no").value;
+        
+        if(ads_sortfrom=="")
+        {
+            swal(
+                'ERROR!',
+                'Date is required. Please set the DATE FROM to continue the search.',
+                'error'
+            )
+        }
+        else
+        {
+            if(ads_section=="ProdPlan")
+            {
+                /* 'ads_sortfrom':ads_sortfrom,
+                'ads_sortto':ads_sortto,
+                'ads_custcode': ads_custcode,
+                'ads_custname':ads_custname,
+                'ads_itemcode':ads_itemcode,
+                'ads_itemname':ads_itemname,
+                'ads_mccode':ads_mccode,
+                'ads_jo_no':ads_jo_no, */
+            }
+        }
+       
+    }
+
+   
 
     function prodexport()
     {
@@ -2284,4 +2380,12 @@ $(document).on('keypress', '#ref_num', function (e) {
     }
     //alert(result);
 return result;
+  }
+
+
+  function CheckDrRow()
+  {
+
+
+
   }

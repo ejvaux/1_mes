@@ -268,7 +268,7 @@
         </script>
   </div>
 
-     <div id="modal_display1" style="width: 100%;">
+  <div id="modal_display1" style="width: 100%;">
         <script>       
           loadmodal1('ShipmentModal');
         </script>
@@ -279,6 +279,8 @@
           loadmodal2('scanmodal');
         </script>
   </div>
+
+  
 
 
 

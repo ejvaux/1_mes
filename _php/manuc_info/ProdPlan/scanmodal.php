@@ -2,7 +2,7 @@
       $('.sel2').select2({width: '80%'});
 </script>
 <!-- Modal -->
-<div class="modal" id="exampleModal2" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard = "false"> 
+<div class="modal fade" id="exampleModal2" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard = "false"> 
   <div class="modal-dialog vertical-align-center" role="document">
     <div class="modal-content">
       <div class="modal-header">

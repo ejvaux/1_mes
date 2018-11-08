@@ -19,7 +19,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                 $sql="SELECT * FROM mis_dr_assigned WHERE 
                                 (dr_number LIKE '%$search%' OR group_name LIKE '%$search%' OR packing_number LIKE '%$search%'
                                 OR lot_number LIKE '%$search%' OR jo_number LIKE '%$search%' OR item_code LIKE '%$search%'
-                                OR item_name LIKE '%$search%')";
+                                OR item_name LIKE '%$search%' OR danpla_reference LIKE '%$search%')";
                                 if($drdatatype=="UNASSIGNED DR")
                                 {
                                     $sql.=" AND (dr_number IS NULL OR dr_number ='') ";
@@ -62,7 +62,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             $sql="SELECT * FROM mis_dr_assigned WHERE (dr_number LIKE '%$search%' OR group_name LIKE '%$search%'
                             OR packing_number LIKE '%$search%'
                                 OR lot_number LIKE '%$search%' OR jo_number LIKE '%$search%' OR item_code LIKE '%$search%'
-                                OR item_name LIKE '%$search%')
+                                OR item_name LIKE '%$search%' OR danpla_reference LIKE '%$search%')
                             AND (dr_date = '$strfrom')";
                             if($drdatatype=="UNASSIGNED DR")
                             {
@@ -101,7 +101,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             $sql="SELECT * FROM mis_dr_assigned WHERE (dr_number LIKE '%$search%' OR group_name LIKE '%$search%'
                             OR packing_number LIKE '%$search%'
                                 OR lot_number LIKE '%$search%' OR jo_number LIKE '%$search%' OR item_code LIKE '%$search%'
-                                OR item_name LIKE '%$search%')
+                                OR item_name LIKE '%$search%' OR danpla_reference LIKE '%$search%')
                             AND (dr_date BETWEEN '$strfrom' AND '$strto')";
                             if($drdatatype=="UNASSIGNED DR")
                             {

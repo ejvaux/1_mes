@@ -1,6 +1,9 @@
 <?php
 //Delete duplicates
 //DELETE n1 FROM qmd_lot_create n1, qmd_lot_create n2 WHERE n1.LOT_ID > n2.LOT_ID AND n1.LOT_NUMBER = n2.LOT_NUMBER
+//UPDATE`mis_product`
+//SET SHIP_STATUS = 'SHIPPED'
+//WHERE (`ITEM_CODE` LIKE 'PMXF0019ZA-B') AND (CAST(PRINT_DATE as DATE) BETWEEN '2018-10-01' AND '2018-10-28') AND SHIP_STATUS = 'APPROVED'
 include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 $sql="";
 $strfrom=$_POST['sortfrom'];
