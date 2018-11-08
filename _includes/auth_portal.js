@@ -75,6 +75,17 @@ function hide(val) {
 
     }
 
+    else if (val == "MQ") {
+
+        $('#1').addClass("disabled");
+        /* $('#2').addClass("disabled");
+        $('#3').addClass("disabled"); */
+        $('#4').addClass("disabled");
+        $('#5').addClass("disabled");
+        $('#6').addClass("disabled");
+
+    }
+
     else {
         $('#1').addClass("disabled");
         $('#2').addClass("disabled");
