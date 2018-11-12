@@ -236,7 +236,7 @@ $(document).on('click', '.lotDanpla', function () {
   var id = $(this).attr("id");
   var item_code = id.substr(id.indexOf('@') + 1)
   var lotNumber = id.substr(0, id.indexOf('@'));
-  alert(lotNumber + ' xxxxxx ' + item_code);
+  //alert(lotNumber + ' xxxxxx ' + item_code);
 
   DisplayLotDetails(lotNumber, item_code);
   document.getElementById('LOT_NUMBER').value = lotNumber;
