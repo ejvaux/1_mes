@@ -14,9 +14,9 @@ function loadDoc(TableName, uname) {
         /* var dtdt1 = moment(dtdt, 'YYYY-MM-DD').add(1, 'days').calendar(); */
         checkuserauthF();
       } else if (TableName == 'ItemReceiving') {
-        DisplayTableItemReceiving('ItemReceivedTable', 'ItemReceivedTableSP', uname);
+        //DisplayTableItemReceiving('ItemReceivedTable', 'ItemReceivedTableSP', uname);
         //ReloadTableList()
-        DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', '123','123');
+        //DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', '123','123');
         ReceivingBarcode_text.value = "";
         ReceivingBarcode_text.focus();
       }
@@ -236,7 +236,7 @@ $(document).on('click', '.lotDanpla', function () {
   var id = $(this).attr("id");
   var item_code = id.substr(id.indexOf('@') + 1)
   var lotNumber = id.substr(0, id.indexOf('@'));
-  /* alert(lotNumber + ' xxxxxx ' + item_code); */
+  //alert(lotNumber + ' xxxxxx ' + item_code);
 
   DisplayLotDetails(lotNumber, item_code);
   document.getElementById('LOT_NUMBER').value = lotNumber;
@@ -1149,12 +1149,11 @@ function ReloadTableList() {
   if (x != "No data available in table") {
     var vblLot = document.getElementById('ItemReceivedTable').rows[1].cells[2].innerHTML;
     var vblItemCode = document.getElementById('ItemReceivedTable').rows[1].cells[3].innerHTML;
-    DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', vblLot, vblItemCode);
+    //DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', vblLot, vblItemCode);
   }
 } // end reload remaining fg table
 
 $(document).on('keypress', '#ReceivingBarcode_text', function (e) {
-  / alert('test'); /
   
   var keycode = (e.keyCode ? e.keyCode : e.which);
   if (keycode == '13') {
@@ -1171,40 +1170,46 @@ function AddReceive() {
     iziToast.error({
       message: 'Input barcode!',
       position: 'topCenter',
-    }); 
+    });
+    $("input").removeAttr('disabled');
+    $("button").removeAttr('disabled');
+    ReceivingBarcode_text.value = "";
+    ReceivingBarcode_text.focus();
   }
-  $("input").removeAttr('disabled');
-  $("button").removeAttr('disabled');
-  ReceivingBarcode_text.value = "";
-  ReceivingBarcode_text.focus();
-  $.ajax({
-    method: 'post',
-    url: '/1_mes/_php/QualityManagement/query/get/getDanplaDetails.php',
-    data: {
-      'jo_barcode': bcode,
-      'ajax': true
-    },
-    success: function (data) {
-      var val = JSON.parse(data);
-      if (val != undefined) {
-        checkReceive(val.PACKING_NUMBER, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.LOT_NUM);
-      } else {
-        //swal('Serial does not exist in database!', 'Please insert existing danpla be allocated.', 'warning')
-        iziToast.error({
-          message: 'Serial does not exist in database! Please try again.',
-          position: 'topCenter',
-        });
-        ReceivingBarcode_text.value = "";
-        ReceivingBarcode_text.focus();
+  else{
+    $("input").removeAttr('disabled');
+    $("button").removeAttr('disabled');
+    ReceivingBarcode_text.value = "";
+    ReceivingBarcode_text.focus();
+    $.ajax({
+      method: 'post',
+      url: '/1_mes/_php/QualityManagement/query/get/getDanplaDetails.php',
+      data: {
+        'jo_barcode': bcode,
+        'ajax': true
+      },
+      success: function (data) {
+        var val = JSON.parse(data);
+        if (val != undefined) {
+          checkReceive(val.PACKING_NUMBER, val.JO_NUM, val.ITEM_CODE, val.ITEM_NAME, val.SUM_QTY, val.LOT_NUM);
+        } else {
+          //swal('Serial does not exist in database!', 'Please insert existing danpla be allocated.', 'warning')
+          iziToast.error({
+            message: 'Serial is either Polybag Tag or does not exist in DB! Please try again.',
+            position: 'topCenter',
+          });
+          ReceivingBarcode_text.value = "";
+          ReceivingBarcode_text.focus();
+        }
       }
-    }
-  });
+    });
+  }
 } //end receive item in fg Item Receiving tab
 
 function checkReceive(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertLot) {
   $.ajax({
     method: 'post',
-    url: '/1_mes/_php/QualityManagement/query/get/getDanplaLot.php',
+    url: '/1_mes/_php/QualityManagement/query/get/getDanplaCheck.php',
     data: {
       'item_code': insertItemCode,
       'jo_barcode': insertBarcode,
@@ -1257,13 +1262,13 @@ function checkReceive(insertBarcode, insertJO, insertItemCode, insertItemName, i
         ReceivingBarcode_text.focus();
       } */ else if (data == '"false"') {
         insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertLot);
-        
       }
     }
   });
 } //end danplaChecking before receiving
 
 function insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertLot) {
+
   $.ajax({
     method: 'post',
     url: '/1_mes/_php/QualityManagement/query/insert/InsertReceiveItem.php',
@@ -1277,6 +1282,7 @@ function insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, 
       'ajax': true
     },
     success: function (data) {
+      //alert(data, username);
       iziToast.success({
         message: 'Danpla Successfully Added!',
         position: 'topCenter',
@@ -1286,8 +1292,10 @@ function insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, 
         text: data,
         type: 'success'
       }); */
-      DisplayTableItemReceiving('ItemReceivedTable', 'ItemReceivedTableSP', username);
-      DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', insertLot, insertItemCode);
+      /* DisplayTableItemReceiving('ItemReceivedTable', 'ItemReceivedTableSP', username);
+      DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', insertLot, insertItemCode); */
+
+      loadDoc('ItemReceiving');
       ReceivingBarcode_text.value = "";
       ReceivingBarcode_text.focus();
     }
@@ -1296,12 +1304,12 @@ function insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, 
 
 function ApproveTransfer() {
   var gathered = document.getElementById("ItemReceivedTable").rows.length;
-  var list = document.getElementById("ItemReceiveDanplaTable").rows.length;
+  //var list = document.getElementById("ItemReceiveDanplaTable").rows.length;
   var x = document.getElementById('ItemReceivedTable').rows[1].cells[0].innerHTML;
-  var y = document.getElementById('ItemReceiveDanplaTable').rows[1].cells[0].innerHTML;
+  //var y = document.getElementById('ItemReceiveDanplaTable').rows[1].cells[0].innerHTML;
   var vblLot = document.getElementById('ItemReceivedTable').rows[1].cells[2].innerHTML;
   var vblItemCode = document.getElementById('ItemReceivedTable').rows[1].cells[3].innerHTML;
-  if (x != "No data available in table" && y == "No data available in table") {
+  /* if (x != "No data available in table" && y == "No data available in table") {
     ReloadTableList();
     swal('Try again', 'Table is now reloaded.', 'error');
     return;
@@ -1311,12 +1319,12 @@ function ApproveTransfer() {
   } else if (gathered != list) {
     swal('WAIT!', 'Please scan all danpla before receiving!', 'warning')
     return;
-  } else if (gathered == list) {
-    updateWarehouseReceive(vblLot,vblItemCode);
-  }
+  } else if (gathered == list) { */
+    updateWarehouseReceive(vblLot,vblItemCode,gathered);
+  /* } */
 } // end approveTransfer
 
-function updateWarehouseReceive(lotNumber,item_code) {
+function updateWarehouseReceive(lotNumber,item_code,table_length) {
   (async function getCountry() {
   const { value: warehouse } = await swal({
     title: 'LOT NUMBER:' + lotNumber + "-" + item_code,
@@ -1349,16 +1357,14 @@ function updateWarehouseReceive(lotNumber,item_code) {
       if (result.value) {
         $.ajax({
           method: 'post',
-          url: '/1_mes/_php/QualityManagement/query/update/UpdateWarehouseReceive.php',
+          url: '/1_mes/_php/QualityManagement/query/update/UpdateDanplaWarehouseReceive.php',
           data: {
-            'item_code': item_code,
             'warehouse': warehouse,
-            'lot_num': lotNumber,
             'ajax': true
           },
           success: function (data) {
-            swal(data, 'Lot ' + lotNumber + "-" + item_code + " is now transferred in "+ warehouse +" warehouse.", 'success')
-            loadDoc('ItemReceiving', username);
+            swal(data, "Items now transferred in warehouse.", 'success')
+            loadDoc('ItemReceiving');
           }
         });
       }

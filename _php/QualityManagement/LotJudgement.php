@@ -90,7 +90,7 @@ margin-left:-70%;
   </div> -->
   
   <div class="row">
-    <div class="col-12" id="table_judgement">
+    <div class="col-12 table-wrapper-1" id="table_judgement">
       <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/judgement_table.php"; ?>
     </div>
     <div class="col">

@@ -1,4 +1,4 @@
-<table class=' text-center mt-3 table-wrapper-1 table table-striped table-hover table-bordered table-sm nowrap' id='lot_judgement'>
+<table class=' text-center mt-3 table table-striped table-hover table-bordered table-sm nowrap' id='lot_judgement'>
           <?php       
                 include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
                 session_start();
@@ -145,24 +145,24 @@
                 }
                 else { //if auth is not qc
                   echo "<thead>    
-                    <th>JUDGEMENT</th>
-                    <th>LOT CREATED</th>
-                    <th style='width:30%'>LOT NUMBER</th>
-                    <th>LOT QTY</th>
-                    <th>LOT CREATOR</th>
-                    <th>ITEM CODE</th>
-                    <th style='width:30%'>ITEM NAME</th>
-                    <th>JUDGE BY</th>
-                    <th>DEFECT QTY</th>
-                    <th>REMARKS</th>
-                    </thead>";
+                          <th>JUDGEMENT</th>
+                          <th>LOT CREATED</th>
+                          <th style='width:30%'>LOT NUMBER</th>
+                          <th>LOT QTY</th>
+                          <th>LOT CREATOR</th>
+                          <th>ITEM CODE</th>
+                          <th style='width:30%'>ITEM NAME</th>
+                          <th>JUDGE BY</th>
+                          <th>DEFECT QTY</th>
+                          <th>REMARKS</th>
+                        </thead>";
                     // output data of each row
                     while($row = $result->fetch_assoc()) 
                     {
                     echo " <tbody class='content'>";
                     echo "<td>" . $row['LOT_JUDGEMENT'] . "</td>";
                     echo "<td>" . $row['PROD_DATE'] . "</td>";
-                    echo "<td class='text-left'><button type='button' class='btn btn-outline-secondary bt lotDanpla' id='". $row['LOT_NUMBER'] . "' data-toggle='modal' data-target='#myModalDanpla'>VIEW</button>          <strong>". $row['LOT_NUMBER'] . "</strong></td>";
+                    echo "<td class='text-left'><button type='button' class='btn btn-outline-secondary bt lotDanpla' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModalDanpla'>VIEW</button>          <strong>". $row['LOT_NUMBER'] . "</strong></td>";
                     echo "<td>" . $row['LOT_QTY'] . "</td>";
                     echo "<td>" . $row['LOT_CREATOR'] . "</td>";
                     echo "<td>" . $row['ITEM_CODE'] . "</td>";
