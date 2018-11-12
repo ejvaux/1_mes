@@ -403,6 +403,8 @@
         else if(SectionGroup=="dr_assign")
         {
         
+           
+          
             var DrDataTypeobj = document.getElementById("DrDataType");
             var selectedOption2 = DrDataTypeobj.options[DrDataTypeobj.selectedIndex].value;
             var strfromobj = document.getElementById("sortfrom").value;
@@ -426,7 +428,17 @@
                 
                 success: function(data) 
                 {
-                    LoadTableOfDrDetails("testing","UnassignedDr","no");
+                    if(param1!="no")
+                    {
+                       // $("#example-table1").tabulator("destroy");
+                        //$("#example-table2").tabulator("destroy");
+                        LoadTableOfDrDetails("testing","UnassignedDr");
+                        
+                    }
+                    else{
+                        LoadTableOfDrDetails("testing","UnassignedDr","no");
+                    }
+                    
                     initTbl2("Dr-Assign");
                     var val = JSON.parse(data);
                 /* alert(val); */
@@ -479,7 +491,7 @@
             
                 success: function(data) 
                 {
-                   // alert(data);
+                  // alert(data);
                     initTbl2("ViewReceived");
                     var val = JSON.parse(data);
                 /* alert(val); */
@@ -828,17 +840,19 @@
                     
                                 },
                             
-                                
+                                   
                                 success: function(data) 
                                 {
-                                
-                                    showTable("ShipmentList","","shipment_management");
-                                    loadmodal1('ShipmentModal');
-                                swal(
-                                    'SUCCESS!',
-                                    cell.getRow().getData().PACKING_NUMBER+' is added to the group table.',
-                                    'success'
-                                )
+                                   
+                                        showTable("ShipmentList","","shipment_management");
+                                        loadmodal1('ShipmentModal');
+                                    swal(
+                                        'SUCCESS!',
+                                        cell.getRow().getData().PACKING_NUMBER+' is added to the group table.',
+                                        'success'
+                                    )
+                                    
+                                   
                                 //alert(data);
                                 }
                     
@@ -871,6 +885,7 @@
                                 {
                                     'packingno': cell.getRow().getData().PACKING_NUMBER,
                                     'lotno':cell.getRow().getData().LOT_NUMBER,
+                                    'rem_type':'WITHPACKINGNO',
                                     'ajax':true
                     
                                 },
@@ -1189,7 +1204,8 @@
     else if(TabName=="Dr-Assign")
     {
         
-                        
+
+        $('.sel3dr').select2({width: '84%'});
         var screenheight=Number(screen.height-350);
         $("#example-table").tabulator({
         height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
@@ -1290,7 +1306,7 @@
 
     else if(TabName=="dr-details")
     {
-        
+        $('.sel2dr').select2({width: '84%'});
         $("#example-table2").tabulator({
         height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
         //layout:"fitColumns", //fit columns to width of table (optional)
@@ -1302,77 +1318,144 @@
         groupBy:"DR_DATE",    
         columns:[
             {title:"NO", field:"NO", width:60,align:"center"},
-            { title:"CTRLS ",align:"center", align:"center",
+            { title:"CONTROLS",align:"center",columns:[
+                {title:'<i class="fas fa-trash-alt" style="font-size: 1.5em"></i>',align:"center",
+                    formatter:function(cell, formatterParams)
+                    {
+                        
+                    return '<div class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> REMOVE</div>';
+                                        
+                    },
+                    cellClick:function(e, cell)
+                        {
+                        
+                            //alert(cell.getRow().getData().DR_NO + "---"+cell.getRow().getData().GROUP_NAME);
+                            swal({
+                                title: 'Are you sure you want to remove '+ cell.getRow().getData().ITEM_CODE+" to this group or DR#?  ",
+                                text: "All remove items status will be set to 'UNASSIGNED DR' automatically.",
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes,Remove this item!'
+                            }).then((result) => {
+
+                                if (result.value) {
+
+                                    $.ajax({
+                                        method:'POST',
+                                        url:'/1_mes/_php/manuc_info/Prodplan/RevertMarkAsShipped.php',
+                                        data:
+                                        {
+                                            'drno': cell.getRow().getData().DR_NO,
+                                            'grno': cell.getRow().getData().GROUP_NAME,
+                                            'itemcode':cell.getRow().getData().ITEM_CODE,
+                                            'rem_type':'WITHOUTPACKINGNO',
+            /*                               'jono': cell.getRow().getData().JO_NO,
+                                            'itemcode':cell.getRow().getData().ITEM_CODE,
+                                            'machinecode': cell.getRow().getData().MACHINE_CODE,
+                                            'itemname': cell.getRow().getData().ITEM_NAME,
+                                            'customercode': cell.getRow().getData().CUSTOMER_CODE,
+                                            'customername': cell.getRow().getData().CUSTOMER_NAME, */
+                                            'ajax':true
+                            
+                                        },
+                                    
+                                        
+                                        success: function(data) 
+                                        {
+                                            loadtbl2('Dr-Assign','','dr_assign')
+                                          /*   DataToSort=cell.getRow().getData().DR_NO;
+                                            if(DataToSort=="UNASSIGNED DR")
+                                            {
+                                                LoadTableOfDrDetails(cell.getRow().getData().GROUP_NAME,"UnassignedDr");
+                                            }
+                                            else
+                                            {
+                                                LoadTableOfDrDetails(cell.getRow().getData().DR_NO,"assignedDr");
+                                            } */
+
+                                            
+                                        swal(
+                                            'SUCCESS!',
+                                            cell.getRow().getData().ITEM_CODE+' removed from the list.',
+                                            'success'
+                                        )
+                                        //alert(data);
+                                        }
+                            
+                                    });
+                            
+
+
+                                }
+                            
+                            })
+
+
+                        }
+            },
+
+            { title:'<i class="fas fa-check-circle" style="font-size: 1.5em"></i>',align:"center", align:"center",
             formatter:function(cell, formatterParams)
                 {
                     
-                return '<div class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> REMOVE</div>';
+                return '<div class="btn btn-success btn-sm"><i class="fas fa-check-circle"></i> SET DR</div>';
                                     
                 },
             cellClick:function(e, cell)
                 {
                 
-                                        ///alert("Printing row data for: " + cell.getRow().getData().PACKING_NUMBER);
+                    ///alert("Printing row data for: " + cell.getRow().getData().PACKING_NUMBER);
+                 
+                    document.getElementById("new_dr_ic").value = cell.getRow().getData().ITEM_CODE;
+                    document.getElementById("new_dr_gn").value = cell.getRow().getData().GROUP_NAME;
+                    document.getElementById("new_dr_dr").value = cell.getRow().getData().DR_NO;
+                    $('#exampleModal22').modal('show');
+
+                }
+            },
+            { title:'<i class="fas fa-plus-square"  style="font-size: 1.5em"></i>',align:"center", align:"center",
+            formatter:function(cell, formatterParams)
+                {
+                    
+                return '<div class="btn btn-warning btn-sm"><i class="fas fa-plus-square"></i> QUEUE</div>';
+                                    
+                },
+            cellClick:function(e, cell)
+                {
+                
                     swal({
-                        title: 'Are you sure you want to remove '+ cell.getRow().getData().ITEM_CODE+" to this group or DR#?  ",
-                        text: "All remove items status will be set to 'UNASSIGNED DR' automatically.",
+                        title: 'Add this item to queue ? ',
+                        text: "All the items in the queue must be on the same DR # only.",
                         type: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes,Remove this item!'
+                        confirmButtonText: 'Yes,Add this to queue!'
                     }).then((result) => {
 
-                        if (result.value) {
-
-                            $.ajax({
-                                method:'POST',
-                                url:'/1_mes/_php/manuc_info/Prodplan/RevertMarkAsShipped.php',
-                                data:
-                                {
-                                    'packingno': cell.getRow().getData().PACKING_NO,
-                                    'lotno':cell.getRow().getData().LOT_NUMBER,
-    /*                               'jono': cell.getRow().getData().JO_NO,
-                                    'itemcode':cell.getRow().getData().ITEM_CODE,
-                                    'machinecode': cell.getRow().getData().MACHINE_CODE,
-                                    'itemname': cell.getRow().getData().ITEM_NAME,
-                                    'customercode': cell.getRow().getData().CUSTOMER_CODE,
-                                    'customername': cell.getRow().getData().CUSTOMER_NAME, */
-                                    'ajax':true
-                    
-                                },
-                            
-                                
-                                success: function(data) 
-                                {
-                                
-                                    showTable("Dr-Assign","","dr_assign");
-                                swal(
-                                    'SUCCESS!',
-                                    cell.getRow().getData().PACKING_NUMBER+' removed from the list.',
-                                    'success'
-                                )
-                                //alert(data);
-                                }
-                    
-                            });
-                    
-
-
+                        if (result.value) 
+                        {
+                        underConstruct()
                         }
-                    
+                            
                     })
-
+                   /*  document.getElementById("new_dr_ic").value = cell.getRow().getData().ITEM_CODE;
+                    document.getElementById("new_dr_gn").value = cell.getRow().getData().GROUP_NAME;
+                    document.getElementById("new_dr_dr").value = cell.getRow().getData().DR_NO;
+                    $('#exampleModal22').modal('show'); */
 
                 }
-            },
+            }
+            ]},
           
+            {title:"ITEM CODE", field:"ITEM_CODE",headerFilter:true},
             {title:"DR DATE", field:"DR_DATE"},
-            {title:"DR NO", field:"DR_NO"},
-            {title:"GROUP DATE", field:"GROUP_DATE"},
-            {title:"GROUP NAME", field:"GROUP_NAME"},
-            {title:"ITEM CODE", field:"ITEM_CODE"},
-            {title:"ITEM NAME", field:"ITEM_NAME"},
+            {title:"DR NO", field:"DR_NO",headerFilter:true},
+            {title:"GROUP DATE", field:"GROUP_DATE",headerFilter:true},
+            {title:"GROUP NAME", field:"GROUP_NAME",headerFilter:true},
+            {title:"ITEM NAME", field:"ITEM_NAME",headerFilter:true},
             {title:"QUANTITY", field:"QTY"}
           
 
@@ -1664,7 +1747,7 @@
                         {
                             document.getElementById('radioGroup').checked = true;
                             CheckCreationType("group");
-                            $('#exampleModal').modal('hide');
+                           
                             loadmodal1('ShipmentModal');
 
                             showTable("ShipmentList","","shipment_management");
@@ -1732,11 +1815,54 @@
 
     }
 
+    function setnewdr()
+    {
+
+        var itemcode = document.getElementById('new_dr_ic').value;
+        var groupname = document.getElementById('new_dr_gn').value;
+        var cur_dr = document.getElementById('new_dr_dr').value;
+        var new_dr = document.getElementById('new_dr_drop').value;
+        
+        $.ajax({
+            method:'POST',
+            url:'/1_mes/_php/manuc_info/Prodplan/DataNewDr.php',
+            data:
+            {
+                'itemcode': itemcode,
+                'groupname': groupname,
+                'cur_dr': cur_dr,
+                'new_dr': new_dr,
+                'ajax':true
+            },
+        
+            
+            success: function(data) 
+            {
+                //showTable("Dr-Assign","","dr_assign");
+               //alert(data);
+               if(data=="true")
+               {
+                
+                $('#exampleModal22').modal('hide');
+                swal(
+                    'SUCCESS!',
+                    'New Delivery Receipt # assigned.',
+                    'success'
+                )
+                loadtbl2('Dr-Assign','','dr_assign')
+               }
+               
+            }
+
+        });
+
+    }
+
     function setdr()
     {
 
         
-        var newdr = document.getElementById("drtextchange").value;
+        var newdr = document.getElementById("drtextchange1").value;
         var olddr = document.getElementById("drtext").value;
         var grname = document.getElementById("grouptext").value;
         var updatetype;
@@ -1789,8 +1915,10 @@
                     success: function(data) 
                     {
                         //showTable("Dr-Assign","","dr_assign");
+                        //alert(data);                 
+                       // $('#exampleModal').modal('hide');       
                         loadtbl2('Dr-Assign','','dr_assign')
-                        $('#exampleModal').modal('hide');
+                       
 
                     swal(
                         'SUCCESS!',
@@ -2386,6 +2514,6 @@ return result;
   function CheckDrRow()
   {
 
-
+    
 
   }

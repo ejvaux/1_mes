@@ -13,25 +13,24 @@ $search=$_POST['search'];
 $datefrom = date("Y-m-d",strtotime($sortfrom));
 $dateto = date("Y-m-d",strtotime($sortto));
 
-$sql="SELECT mis_product.*,qmd_lot_create.RECEIVED_BY,qmd_lot_create.RECEIVED_DATE,mis_product.PRINT_QTY  FROM mis_product 
-LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
-WHERE (qmd_lot_create.WAREHOUSE_RECEIVE = 'RECEIVED') ";
+$sql="SELECT * FROM mis_product 
+WHERE (WAREHOUSE_RECEIVE = 'RECEIVED') ";
 
     if($sortfrom==""&& $sortto=="")
     {
         if($search!="")
         {   
-            $sql.="AND (mis_product.JO_NUM LIKE '%$search%' OR mis_product.JO_BARCODE LIKE '%$search%' OR 
-             mis_product.JO_BARCODE LIKE '%$search%' OR mis_product.PACKING_NUMBER LIKE '%$search%' OR 
-             mis_product.reference_num LIKE '%$search%' OR  mis_product.danpla_reference LIKE '%$search%' OR 
-             mis_product.LOT_NUM LIKE '%$search%' OR mis_product.ITEM_CODE LIKE '%$search%' OR 
-             mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%' OR 
-             qmd_lot_create.RECEIVED_BY LIKE '%$search%')";
+            $sql.="AND (JO_NUM LIKE '%$search%' OR JO_BARCODE LIKE '%$search%' OR 
+             JO_BARCODE LIKE '%$search%' OR PACKING_NUMBER LIKE '%$search%' OR 
+             LOT_NUM LIKE '%$search%' OR ITEM_CODE LIKE '%$search%' OR 
+             reference_num LIKE '%$search%' OR  danpla_reference LIKE '%$search%' OR 
+             ITEM_NAME LIKE '%$search%' OR MACHINE_CODE LIKE '%$search%' OR 
+             RECEIVED_BY LIKE '%$search%')";
         }
         else
         {
             $datetoday=date("Y-m-d");
-            $sql.="AND (qmd_lot_create.RECEIVED_DATE LIKE '$datetoday%')";
+            $sql.="AND (RECEIVED_DATE LIKE '$datetoday%')";
         }
     }
     elseif($sortfrom!="" && $sortto=="")
@@ -40,34 +39,34 @@ WHERE (qmd_lot_create.WAREHOUSE_RECEIVE = 'RECEIVED') ";
 
         if($search!="")
         {
-            $sql.="AND (mis_product.JO_NUM LIKE '%$search%' OR mis_product.JO_BARCODE LIKE '%$search%' OR 
-             mis_product.JO_BARCODE LIKE '%$search%' OR mis_product.PACKING_NUMBER LIKE '%$search%' OR 
-             mis_product.reference_num LIKE '%$search%' OR  mis_product.danpla_reference LIKE '%$search%' OR 
-             mis_product.LOT_NUM LIKE '%$search%' OR mis_product.ITEM_CODE LIKE '%$search%' OR 
-             mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%' OR 
-             qmd_lot_create.RECEIVED_BY LIKE '%$search%') AND (qmd_lot_create.RECEIVED_DATE LIKE '$datefrom%')";
+            $sql.="AND (JO_NUM LIKE '%$search%' OR JO_BARCODE LIKE '%$search%' OR 
+             JO_BARCODE LIKE '%$search%' OR PACKING_NUMBER LIKE '%$search%' OR 
+             reference_num LIKE '%$search%' OR  danpla_reference LIKE '%$search%' OR 
+             LOT_NUM LIKE '%$search%' OR ITEM_CODE LIKE '%$search%' OR 
+             ITEM_NAME LIKE '%$search%' OR MACHINE_CODE LIKE '%$search%' OR 
+             RECEIVED_BY LIKE '%$search%') AND (RECEIVED_DATE LIKE '$datefrom%')";
         }
         else
         {
-            $sql.="AND (qmd_lot_create.RECEIVED_DATE LIKE '$datefrom%')";
+            $sql.="AND (RECEIVED_DATE LIKE '$datefrom%')";
         }
     }
     elseif($sortfrom!="" && $sortto!="")
     {
         if($search!="")
         {
-            $sql.="AND (mis_product.JO_NUM LIKE '%$search%' OR mis_product.JO_BARCODE LIKE '%$search%' OR 
-            mis_product.JO_BARCODE LIKE '%$search%' OR mis_product.PACKING_NUMBER LIKE '%$search%' OR 
-            mis_product.reference_num LIKE '%$search%' OR  mis_product.danpla_reference LIKE '%$search%' OR 
-            mis_product.LOT_NUM LIKE '%$search%' OR mis_product.ITEM_CODE LIKE '%$search%' OR 
-            mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%' OR 
-            qmd_lot_create.RECEIVED_BY LIKE '%$search%') 
-            AND (cast(qmd_lot_create.RECEIVED_DATE as date) BETWEEN '$datefrom' AND '$dateto')";
+            $sql.="AND (JO_NUM LIKE '%$search%' OR JO_BARCODE LIKE '%$search%' OR 
+            JO_BARCODE LIKE '%$search%' OR PACKING_NUMBER LIKE '%$search%' OR 
+            reference_num LIKE '%$search%' OR  danpla_reference LIKE '%$search%' OR 
+            LOT_NUM LIKE '%$search%' OR ITEM_CODE LIKE '%$search%' OR 
+            ITEM_NAME LIKE '%$search%' OR MACHINE_CODE LIKE '%$search%' OR 
+            RECEIVED_BY LIKE '%$search%') 
+            AND (cast(RECEIVED_DATE as date) BETWEEN '$datefrom' AND '$dateto')";
             
         }
         else
         {
-            $sql.=" AND (cast(qmd_lot_create.RECEIVED_DATE as date) BETWEEN '$datefrom' AND '$dateto')";
+            $sql.=" AND (cast(RECEIVED_DATE as date) BETWEEN '$datefrom' AND '$dateto')";
         }
     }
 

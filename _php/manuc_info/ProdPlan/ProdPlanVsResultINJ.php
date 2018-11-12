@@ -86,6 +86,8 @@
   </div>
 
   &nbsp<span style="font-size: 18px; font-weight: bold">Production Plan Vs Result INJECTION</span>
-<div id="example-table"></div>
+    <div class="cont1 p-1">
+        <div id="example-table"></div>
+    </div>
 
  
