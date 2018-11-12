@@ -78,6 +78,8 @@
 <!-- div of container-fluid in the Shipment (main Page) -->
 
 
+<div class="shiplist p-2">
 
 <div id="example-table" style="margin-top: 13px"></div>
+</div>
 

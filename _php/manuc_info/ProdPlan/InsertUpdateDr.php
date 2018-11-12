@@ -34,8 +34,8 @@ if($optiontype=="group")
         $refno = $row['danpla_reference'];
         $datenow=date("Y-m-d");
 
-        $sql2="INSERT INTO mis_dr_assigned(group_name,packing_number,lot_number,jo_number,item_code,machine_code,item_name,customer_code,customer_name,Date_Inserted,quantity,danpla_reference)
-        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$customercode','$customername','$datenow','$qty','$refno')";
+        $sql2="INSERT INTO mis_dr_assigned(group_name,packing_number,lot_number,jo_number,item_code,machine_code,item_name,customer_code,customer_name,Date_Inserted,quantity,danpla_reference,user_ins)
+        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$customercode','$customername','$datenow','$qty','$refno','$user')";
         $result2=$conn->query($sql2);
 
     }
@@ -63,8 +63,8 @@ else
         $customername=$row['customer_name'];
         $qty = $row['quantity'];
         $refno = $row['danpla_reference'];
-        $sql2="INSERT INTO mis_dr_assigned(dr_number,packing_number,lot_number,jo_number,item_code,machine_code,item_name,dr_date,customer_code,customer_name,Date_Inserted,quantity,danpla_reference)
-        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$datenow','$customercode','$customername','$datenow','$qty','$refno')";
+        $sql2="INSERT INTO mis_dr_assigned(dr_number,packing_number,lot_number,jo_number,item_code,machine_code,item_name,dr_date,customer_code,customer_name,Date_Inserted,quantity,danpla_reference,user_ins)
+        VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$datenow','$customercode','$customername','$datenow','$qty','$refno','$user')";
         $result2=$conn->query($sql2);
 
         $sql4="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' WHERE PACKING_NUMBER IN (SELECT packing_number from mis_dr_assigned WHERE dr_number='$groupname')";
@@ -87,5 +87,8 @@ else
 {
     echo "nodata";
 }
+
+
+
 
 ?>

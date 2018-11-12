@@ -233,3 +233,7 @@ margin: 0 auto;
 .select2-selection {
   height: 36px !important;
 }
+
+.tabulator .tabulator-col-title{
+  text-align:center;
+}

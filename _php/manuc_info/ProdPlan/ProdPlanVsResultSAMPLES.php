@@ -46,7 +46,7 @@
                                                                         <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();syncdatareload('ProdPlanVsResultSAMPLES','SAMPLES','PlanWithResult')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
                                                                         <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('ProdPlanVsResultSAMPLES','SAMPLES','PlanWithResult')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
                                                                     </div>
-                                                                    &nbsp<span style="font-size: 15px; font-weight: bold">&nbsp&nbspProdPlan Vs Result SAMPLES</span>
+                                                                  
                                                                 </div>
                                                              
 
@@ -75,86 +75,7 @@
 
       
   </div>
-
- <!--
-{      <div id="example-table"></div>
-            <script type="text/javascript">
-            //trigger AJAX load on "Load Data via AJAX" button click
-            var screenheight=Number(screen.height-350);
-            $("#example-table").tabulator({
-                height: screenheight, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
-                //layout:"fitColumns", //fit columns to width of table (optional)
-                pagination:"local",
-                paginationSize:100,
-                movableColumns:true,
-                groupBy:"DATE",
-                
-            // responsiveLayout:"collapse",
-                columns:[ //Define Table Columns
-                //{formatter:"responsiveCollapse", width:30, minWidth:30, align:"center", resizable:false, headerSort:false},
-                
-                    {title:"NO", field:"NO", width:60,frozen:true,align:"center"},
-                    {title:"DATE", field:"DATE",frozen:true},
-                    {title:"JO NO", field:"JO NO",frozen:true},
-                    {title:"CUSTOMER CODE", field:"CUSTOMER CODE",},
-                    {title:"CUSTOMER NAME", field:"CUSTOMER NAME"},
-                    {title:"ITEM CODE", field:"ITEM CODE"},
-                    {title:"ITEM NAME", field:"ITEM NAME"},
-                    {title:"MACHINE CODE", field:"MACHINE CODE"},
-                    {title:"MACHINE MAKER", field:"MACHINE MAKER"},
-                    {title:"TONNAGE", field:"TONNAGE"},
-                    {title:"MACHINE GROUP", field:"MACHINE GROUP"},
-                    {title:"TOOL NO", field:"TOOL NO"},
-                    {title:"PRIORITY", field:"PRIORITY"},
-                    {title:"CYCLE TIME", field:"CYCLE TIME"},
-                    {title:"PLAN QTY", field:"PLAN QTY",align: "center"},
-                    {title:"PROD RESULT", field:"PROD RESULT",align: "center"},
-                    {title:"GAP", field:"GAP",align: "center"},
-                    {title:"ACHIEVE RATE", field:"ACHIEVE RATE", align: "center"},
-                    {title:"DEFECT RATE", field:"DEFECT RATE"}
-                ],
-                //rowClick:function(e, row){ //trigger an alert message when the row is clicked
-                //  alert("Row " + row.getData().id + " Clicked!!!!");
-                //},
-            });
-
-
-            var tabledata = <?php #echo json_encode($datavar, JSON_PRETTY_PRINT) ?> ;
-
-
-            //load sample data into the table
-            $("#example-table").tabulator("setData", tabledata);
-
-            $("#download-csv").click(function(){
-                $("#example-table").tabulator("download", "csv", "ProdplanVsResult.csv");
-            });
-
-
-            //trigger download of data.xlsx file
-            $("#download-xlsx").click(function(){
-                $("#example-table").tabulator("download", "xlsx", "ProdplanVsResult.xlsx", {sheetName:"ProdPlanVsResult"+<?php #echo date("Y-m-d")?>});
-
-            });
-
-            //trigger download of data.pdf file
-            $("#download-pdf").click(function(){
-                $("#example-table").tabulator("download", "pdf", "ProdplanVsResult.pdf", {
-                    orientation:"landscape", //set page orientation to portrait
-                    title:"Production Plan Vs Result", //add title to report
-                });
-            });
-
-            //trigger download of data.pdf file
-
-
-            function cancelfilter()
-            {
-            
-            }
-
-
-            </script> 
-}-->
-
-
-<div id="example-table"></div>
+  &nbsp<span style="font-size: 18px; font-weight: bold">Production Plan Vs Result SAMPLES</span>
+<div class="cont1 p-1">
+        <div id="example-table"></div>
+    </div>

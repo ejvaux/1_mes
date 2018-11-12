@@ -11,7 +11,7 @@ $reference = $_POST['ref_num'];
 
 $sql3 = "SELECT packing_number,lot_num,jo_num,item_code,item_name,
 machine_code,cust_code,cust_name,SUM(PRINT_QTY) as qty,danpla_reference FROM mis_product 
-WHERE danpla_reference = '$reference' or packing_number ='$reference'";
+WHERE danpla_reference = '$reference' or packing_number ='$reference' ";
 
 $result3 = $conn->query($sql3);
 

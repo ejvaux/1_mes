@@ -57,7 +57,7 @@
                     <option>--SELECT A DR#--</option>
                        
                     <?php
-                        $datenow = date("Y-m-d");
+                        /* $datenow = date("Y-m-d");
                         include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                         $sql="SELECT DISTINCT(dr_number) FROM sap_dr ORDER BY dr_number DESC LIMIT 500";
 
@@ -65,8 +65,17 @@
                         while($row=$result->fetch_assoc())
                         {
                           echo '<option>'.$row['dr_number'].'</option>';
-                        }
-                        
+                        } */
+                        $datenow = date("Y-m-d",strtotime('-7 days'));
+                      
+                         include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/SAPDbCon.php';
+                         $sql="SELECT DISTINCT(U_u_PORefNum),DocEntry FROM ODLN WHERE DocDate >= ? OR UpdateDate >= ? ORDER BY DocEntry DESC";
+                         $params = array($datenow,$datenow);
+                         $result =sqlsrv_query($SAPconn, $sql, $params);
+                         while($row=sqlsrv_fetch_array($result))
+                         {
+                         echo '<option value="'.$row['U_u_PORefNum'].'">'.$row['U_u_PORefNum'].'</option>';
+                         }
                         ?>
 
                     </select>
@@ -78,7 +87,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="InsertDrGroup();" >Save changes</button>
+        <button type="button" class="btn btn-primary" onclick="InsertDrGroup(); $('#exampleModal').modal('hide');" >Save changes</button>
         <button id="btnclose" type="button" class="btn btn-secondary" data-dismiss="modal" onclick="loadmodal1('ShipmentModal');">Close</button>
       </div>
     </div>
