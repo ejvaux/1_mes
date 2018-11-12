@@ -17,7 +17,7 @@
               if ($result->num_rows > 0) 
               {
                 if($userAuth == 'CQ' || $userAuth =='C' || $userAuth =='A' || $userAuth == 'CG'){ //if user is authorized
-                  echo "<table class='table-bordered table-sm table table-hover table-striped mt-1 table-wrapper-1 id='RecoveryTable'><thead>    
+                  echo "<table class='table-bordered table-sm table table-hover table-striped mt-1 id='RecoveryTable'><thead>    
                   <th style='width:15%'>REJECTION TYPE</th>
                   <th>JUDGEMENT</th>
                   <th>PROD DATE</th>
@@ -50,7 +50,7 @@
                   echo "</tbody></table>";
               }
               else { //user not authorized
-                echo "<table class='table-bordered table-sm table table-hover table-striped mt-1 table-wrapper-1 id='RecoveryTable'><thead>
+                echo "<table class='table-bordered table-sm table table-hover table-striped mt-1 id='RecoveryTable'><thead>
                   <th>JUDGEMENT</th>
                   <th>PROD DATE</th>
                   <th>LOT NUMBER</th>

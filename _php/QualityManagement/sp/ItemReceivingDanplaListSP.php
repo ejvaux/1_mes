@@ -14,7 +14,7 @@ $table = <<<EOT
         JO_NUM,
         LOT_NUM
     FROM mis_product
-    WHERE LOT_NUM = '$lot' and ITEM_CODE = '$item'
+    WHERE LOT_NUM = '$lot' and ITEM_CODE = '$item' AND WAREHOUSE_RECEIVE != 'RECEIVED'
     GROUP BY PACKING_NUMBER
  ) temp
 EOT;

@@ -7,35 +7,32 @@
   overflow-x: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+
 </style>
-<div class="pt-5" style="width: 100%;">
-  <div class="row pt-5">   
-    <!-- ------------------------------------------------------------------------------------- -->
-    <div class="col-md-6"> <!-- 1st Column -->
-      
-      <div class="row"> <!-- Buttons Row -->
-        <div class="col-md-10 ml-4">
-          <div class="py-1 input-group">
-            <input type="text" class="form-control form-control-sm" id="ReceivingBarcode_text" placeholder="SCAN DANPLA SERIAL NUMBER">
-            <div class="input-group-append">
-              <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddReceiveBtn" onclick="AddReceive()">ADD</button>
-              <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="ConfirmReceiveBtn" onclick="ApproveTransfer()">TRANSFER</button>
-              <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="clearReceive" onclick="clearReceive()">CANCEL TRANSFER</button>
-            </div>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">      
+                  <div class="py-2 input-group">
+                    <input type="text" class="form-control form-control-sm py-2" id="ReceivingBarcode_text" placeholder="SCAN DANPLA SERIAL NUMBER">
+                  </div>
+      </div>
+      <div class="col-md-8 py-1">
+        <div class="py-1 input-group">      
+          <div class="input-group-prepend">
+            <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="AddReceiveBtn" onclick="AddReceive()">ADD</button>
+          </div>
+          <div class="input-group-append">
+            <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="ConfirmReceiveBtn" onclick="ApproveTransfer()">TRANSFER</button>
+            <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="clearReceive" onclick="clearReceive()">CLEAR TRANSFER</button> 
           </div>
         </div>
-      </div> 
-
-      <div class="row" > <!-- 1st table Row -->
-        <div class="col-md-12 ml-3" id="first_table">
-        </div>
       </div>
+    </div>
 
+    <div class="row" >
+      <div class="col-12 table-wrapper-LotCreate-3" id="table_recovery">
+        <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/ItemReceivedTable.php"; ?>
+      </div>
     </div>
-    <!-- ------------------------------------------------------------------------------------- -->
-    <div class="col-md-6" id="second_table"> <!-- 2nd Column -->
-    
-    </div>
-    <!-- ------------------------------------------------------------------------------------- -->
-  </div>
+
 </div>
