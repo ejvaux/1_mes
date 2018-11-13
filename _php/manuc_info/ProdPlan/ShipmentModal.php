@@ -20,12 +20,12 @@
                     
                       <div class="form-check-inline">
                         <label class="form-check-label">
-                          <input id="radioGroup" onclick="CheckCreationType('group')" type="radio" class="form-check-input" name="optradio" checked="checked">Create Group
+                          <input id="radioGroup" onclick="CheckCreationType('group')" type="radio" class="form-check-input" name="optradio11" checked="checked">Create Group
                         </label>
                       </div>
                       <div class="form-check-inline">
                         <label class="form-check-label">
-                          <input id="radioDr" onclick="CheckCreationType('dr')" type="radio" class="form-check-input" name="optradio">Assign DR
+                          <input id="radioDr" onclick="CheckCreationType('dr')" type="radio" class="form-check-input" name="optradio22">Assign DR
                         </label>
                       </div>
               </div>   

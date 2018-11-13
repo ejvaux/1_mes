@@ -19,12 +19,12 @@
                       <div class="input-group mb-3">
                       <div class="form-check-inline">
                         <label class="form-check-label">
-                          <input id="radiodanpla"  type="radio" class="form-check-input" name="optradio" checked="checked">Danpla
+                          <input id="radiodanpla"  type="radio" class="form-check-input" name="optradio1" checked="checked">Danpla
                         </label>
                       </div>  
                       <div class="form-check-inline">
                         <label class="form-check-label">
-                          <input id="radiopoly"  type="radio" class="form-check-input" name="optradio">PolyBag
+                          <input id="radiopoly"  type="radio" class="form-check-input" name="optradio2">PolyBag
                         </label>
                       </div>
                       </div>
