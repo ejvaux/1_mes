@@ -7,7 +7,8 @@
                 $danpla = $_POST['jo_barcode'];
                 $item = $_POST['item_code'];
                 $lc_sql = "SELECT LOT_JUDGEMENT,EPSON_QC_APPROVED FROM qmd_lot_create 
-                        WHERE LOT_NUMBER = (SELECT LOT_NUM FROM mis_product WHERE PACKING_NUMBER = '$danpla' GROUP BY PACKING_NUMBER) AND ITEM_CODE = '$item'";
+                        WHERE LOT_NUMBER = (SELECT LOT_NUM FROM mis_product WHERE PACKING_NUMBER = '$danpla' AND ITEM_CODE = '$item' GROUP BY PACKING_NUMBER) 
+                        AND ITEM_CODE = '$item'";
                 $lc_result = $conn->query($lc_sql);
                 if ($lc_result->num_rows > 0) 
                 {

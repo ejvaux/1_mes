@@ -6,8 +6,8 @@
 <thead> 
         <th>NO</th>
         <th>PACKAGING NUMBER</th>
-        <th>JOB ORDER DATE</th>
-        <th>JOB ORDER NUMBER</th>
+        <th>JO DATE</th>
+        <th>JOB NUMBER</th>
         <th style="width:20%">PRINT DATE</th>
         <th style="width:20%">ITEM CODE</th>
         <th style="width:20%">ITEM NAME</th>

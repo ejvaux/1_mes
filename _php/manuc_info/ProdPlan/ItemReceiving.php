@@ -9,7 +9,7 @@
 }
 
 </style>
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top:11vh">
     <div class="row">
       <div class="col-md-3">      
                   <div class="py-2 input-group">
@@ -30,7 +30,7 @@
     </div>
 
     <div class="row" >
-      <div class="col-12 table-wrapper-LotCreate-3" id="table_recovery">
+      <div class="col-12 table-wrapper-LotCreate-3" id="table_receive">
         <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/ItemReceivedTable.php"; ?>
       </div>
     </div>

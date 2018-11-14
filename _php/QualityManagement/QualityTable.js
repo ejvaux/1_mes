@@ -1007,7 +1007,7 @@ function clearReceive() {
         },
         success: function (data) {
           
-          loadDoc("ItemReceiving", username);
+          loadDoc("ItemReceiving");
           return;
         }
       });
@@ -1179,8 +1179,6 @@ function AddReceive() {
   else{
     $("input").removeAttr('disabled');
     $("button").removeAttr('disabled');
-    ReceivingBarcode_text.value = "";
-    ReceivingBarcode_text.focus();
     $.ajax({
       method: 'post',
       url: '/1_mes/_php/QualityManagement/query/get/getDanplaDetails.php',
@@ -1195,7 +1193,7 @@ function AddReceive() {
         } else {
           //swal('Serial does not exist in database!', 'Please insert existing danpla be allocated.', 'warning')
           iziToast.error({
-            message: 'Serial is either Polybag Tag or does not exist in DB! Please try again.',
+            message: 'Serial is either Polybag Tag or does not exist in the DB! Please try again.',
             position: 'topCenter',
           });
           ReceivingBarcode_text.value = "";
@@ -1207,6 +1205,8 @@ function AddReceive() {
 } //end receive item in fg Item Receiving tab
 
 function checkReceive(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertLot) {
+  /* $("input").removeAttr('disabled');
+  $("button").removeAttr('disabled'); */
   $.ajax({
     method: 'post',
     url: '/1_mes/_php/QualityManagement/query/get/getDanplaCheck.php',
@@ -1268,7 +1268,7 @@ function checkReceive(insertBarcode, insertJO, insertItemCode, insertItemName, i
 } //end danplaChecking before receiving
 
 function insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, insertQuantity, insertLot) {
-
+  
   $.ajax({
     method: 'post',
     url: '/1_mes/_php/QualityManagement/query/insert/InsertReceiveItem.php',
@@ -1295,12 +1295,27 @@ function insertReceive(insertBarcode, insertJO, insertItemCode, insertItemName, 
       /* DisplayTableItemReceiving('ItemReceivedTable', 'ItemReceivedTableSP', username);
       DisplayTableDanplaList('ItemReceivingDanplaList', 'ItemReceivingDanplaListSP', 'DanplaList', insertLot, insertItemCode); */
 
-      loadDoc('ItemReceiving');
+      //loadDoc('ItemReceiving');
+      loadReceivingtbl();
       ReceivingBarcode_text.value = "";
       ReceivingBarcode_text.focus();
     }
   });
 } // end InsertIntoQueueingTable
+
+function loadReceivingtbl(){
+  $.ajax({
+    method: 'post',
+    url: '/1_mes/_php/QualityManagement/table/ItemReceivedTable.php',
+    data: {
+      'ajax': true
+    },
+    success: function (data) {
+      //alert(data);
+      document.getElementById("table_receive").innerHTML = data;
+    }
+  });
+}
 
 function ApproveTransfer() {
   var gathered = document.getElementById("ItemReceivedTable").rows.length;
