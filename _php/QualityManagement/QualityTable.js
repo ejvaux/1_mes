@@ -1312,7 +1312,7 @@ function loadReceivingtbl(){
     },
     success: function (data) {
       //alert(data);
-      document.getElementById("table_receive").innerHTML = data;
+      document.getElementById("table_received").innerHTML = data;
     }
   });
 }
