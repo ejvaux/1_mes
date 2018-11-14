@@ -28,10 +28,12 @@
                         <th>INSERT USER</th>
                     </thead>";
                     // output data of each row
+                    $ctr = 0;
                     while($row = $result->fetch_assoc()) 
                     {
+                      $ctr += 1;
                     echo " <tbody class='content'>";
-                    echo "<td>" . $row['TEMP_ID'] . "</td>";
+                    echo "<td>" . $ctr . "</td>";
                     echo "<td>" . $row['DANPLA_SERIAL'] . "</td>";
                     echo "<td>" . $row['LOT_NUM'] . "</td>";
                     echo "<td>" . $row['ITEM_CODE'] . "</td>";
