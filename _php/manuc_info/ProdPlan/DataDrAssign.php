@@ -26,7 +26,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                 }
                                 else if ($drdatatype=="ASSIGNED DR")
                                 {
-                                    $sql.=" AND (group_name IS NULL OR group_name ='') ";      
+                                    $sql.=" AND (dr_number IS NOT NULL OR dr_number !='') ";      
                                 }
                                 $sql.="GROUP BY dr_number, group_name";
 
@@ -43,7 +43,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                     }
                                     else if ($drdatatype=="ASSIGNED DR")
                                     {
-                                        $sql.=" WHERE  group_name IS NULL OR group_name ='' ";      
+                                        $sql.=" WHERE  dr_number IS NOT NULL OR dr_number !='' ";      
                                     }
                              $sql.="GROUP BY dr_number, group_name ORDER BY Date_Inserted DESC  LIMIT 1000";
 
@@ -70,7 +70,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             }
                             else if ($drdatatype=="ASSIGNED DR")
                             {
-                                $sql.=" AND (group_name IS NULL OR group_name ='') ";      
+                                $sql.=" AND (dr_number IS NOT NULL OR dr_number !='') ";      
                             }
                             $sql.="GROUP BY dr_number, group_name";
                             
@@ -84,7 +84,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             }
                             else if ($drdatatype=="ASSIGNED DR")
                             {
-                                $sql.=" AND (group_name IS NULL OR group_name ='') ";      
+                                $sql.=" AND (dr_number IS NOT NULL OR dr_number !='') ";      
                             }
                             $sql.="GROUP BY dr_number, group_name";
                             
@@ -109,7 +109,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             }
                             else if ($drdatatype=="ASSIGNED DR")
                             {
-                                $sql.=" AND (group_name IS NULL OR group_name ='') ";      
+                                $sql.=" AND (dr_number IS NOT NULL OR dr_number !='') ";      
                             }
                             $sql.="GROUP BY dr_number, group_name";
                         
@@ -124,7 +124,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                             }
                             else if ($drdatatype=="ASSIGNED DR")
                             {
-                                $sql.=" AND (group_name IS NULL OR group_name ='') ";      
+                                $sql.=" AND (dr_number IS NOT NULL OR dr_number !='') ";      
                             }
                             $sql.="GROUP BY dr_number, group_name";
                         

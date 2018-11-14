@@ -404,7 +404,7 @@
         {
         
            
-          
+            loadqueue("no");
             var DrDataTypeobj = document.getElementById("DrDataType");
             var selectedOption2 = DrDataTypeobj.options[DrDataTypeobj.selectedIndex].value;
             var strfromobj = document.getElementById("sortfrom").value;
@@ -1132,7 +1132,7 @@
         //layout:"fitColumns", //fit columns to width of table (optional)
         selectable: 1,
         paginationSize:1000,
-        placeholder:"No Data to Display",
+        placeholder:"No Data to Display. Please search the groupname.",
         movableColumns:true,
         groupStartOpen:false,
         groupBy: "GROUP_NAME",
@@ -1303,7 +1303,53 @@
     ///example2
     
     }
+    else if(TabName=="dr_queue")
+    {
+        $("#example-table3").tabulator({
+            height: "70vh", // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+            layout:"fitColumns", //fit columns to width of table (optional)
+            pagination:"local",
+            paginationSize:1000,
+            placeholder:"No Data in the queue list",
+            movableColumns:true,
+            selectable: 1,
+            groupBy:"DR_DATE",      
+            columns:[
+                {title:"NO", field:"NO", width:60,align:"center"},
+                { title:"CTRLS ",align:"center",
+            formatter:function(cell, formatterParams)
+                    {
+                    
+                        return '<div class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> REMOVE</div>';
+                       
+                    },
+            cellClick:function(e, cell)
+                {
+                    swal({
+                        title: 'Are you sure you want to remove this data?',
+                        text: "All remove items will revert to its previous DR# or Group.",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, Remove this data!'
+                    }).then((result) => {
+                        if (result.value) {
+                            removetoqueue(cell.getRow().getData().ITEM_CODE,cell.getRow().getData().GR_NAME,cell.getRow().getData().DR_NO)
+                        }
+                    })
+                 
+                }
+                },
+                {title:"ITEM CODE", field:"ITEM_CODE"},
+                {title:"ITEM NAME", field:"ITEM_NAME"},
+                {title:"QTY", field:"QTY"},
+                {title:"GROUP NAME", field:"GR_NAME"},
+                {title:"DR #", field:"DR_NO"},
 
+            ],
+            });
+    }
     else if(TabName=="dr-details")
     {
         $('.sel2dr').select2({width: '84%'});
@@ -1437,7 +1483,46 @@
 
                         if (result.value) 
                         {
-                        underConstruct()
+                        //underConstruct()
+                        $.ajax({
+                            method:'POST',
+                            url:'/1_mes/_php/manuc_info/Prodplan/DataAddtoQueue.php',
+                            data:
+                            {
+                                'drno': cell.getRow().getData().DR_NO,
+                                'grno': cell.getRow().getData().GROUP_NAME,
+                                'itemcode':cell.getRow().getData().ITEM_CODE,
+                                'ajax': true
+                            },
+                            success: function(data) 
+                            {
+                                //alert(data);
+                                if(data =='"Inserted"')
+                                {
+                                    swal(
+                                        'SUCCESS!',
+                                        cell.getRow().getData().ITEM_CODE+' added on queue list.',
+                                        'success'
+                                    )
+                                }
+                                else if(data=='"already exists"')
+                                {
+                                    swal(
+                                        'SUCCESS!',
+                                        cell.getRow().getData().ITEM_CODE+' already on queue list.',
+                                        'success'
+                                    )
+                                }
+                                else{
+                                    swal(
+                                        'Oops! Something went wrong. ',
+                                        'Please try again.',
+                                        'error'
+                                    )
+                                }
+                            }
+                        });
+
                         }
                             
                     })
@@ -1936,7 +2021,37 @@
         }
     }
     
+    function loadqueue(param1)
+    {
+        if(param1!="no")
+        {
+            $("#example-table3").tabulator("destroy");
+            
+        }
 
+        $.ajax({
+            method:'POST',
+            url:'/1_mes/_php/manuc_info/Prodplan/DataQueueList.php',
+            data:
+            {
+               
+                'ajax':true
+
+            },
+        
+            
+            success: function(data) 
+            {
+                //alert(data);
+                initTbl2("dr_queue");
+                var val2 = JSON.parse(data);
+            /* alert(val); */
+            $("#example-table3").tabulator("setData",val2); 
+            
+            }
+
+        });
+    }
     function LoadTableOfDrDetails(Drno,datasorttype,param1)
     {
 
@@ -2511,9 +2626,70 @@ return result;
   }
 
 
-  function CheckDrRow()
+  function removetoqueue(itemcode,grno,drno)
   {
 
+    $.ajax({
+        method:'POST',
+        url:'/1_mes/_php/manuc_info/ProdPlan/Deletefromqueue.php',
+        data:
+        {
+            'itemcode': itemcode,
+            'drno': drno,
+            'grno': grno,
+            'ajax':true
+        },
+        success: function(data) 
+        {
+           
+              //alert(data);
+              swal(
+                'SUCCESS!',
+                'Item removed from queue list.',
+                'success'
+            )
+              loadqueue();
+        }
+    });
+  }
+
+  function QueueNewDR()
+  {
+      
+    var new_dr = document.getElementById('queue_dr_drop').value;
     
+    if(new_dr=="")
+    {
+        swal('Oops! Something went wrong',  
+            'Please select a new DR# for this queue list before clicking the assign dr button.',
+            'error')
+    }
+
+    else
+    {
+        $.ajax({
+            method:'POST',
+            url:'/1_mes/_php/manuc_info/ProdPlan/DataQueueNewDr.php',
+            data:
+            {   
+                'new_dr': new_dr,
+                'ajax':true
+            },
+            success: function(data) 
+            {
+               
+                  //alert(data);
+                  swal(
+                    'SUCCESS!',
+                    'All items in the queue have been assigned a new DR #',
+                    'success'
+                )
+                $('#exampleModal33').modal('hide');
+                loadtbl2('Dr-Assign','','dr_assign');
+                //showTable("Dr-Assign","","dr_assign");
+
+            }
+        });
+    }
 
   }
