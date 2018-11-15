@@ -1396,6 +1396,7 @@
                                             'drno': cell.getRow().getData().DR_NO,
                                             'grno': cell.getRow().getData().GROUP_NAME,
                                             'itemcode':cell.getRow().getData().ITEM_CODE,
+                                            'lotnumber':cell.getRow().getData().LOT_NUMBER,
                                             'rem_type':'WITHOUTPACKINGNO',
             /*                               'jono': cell.getRow().getData().JO_NO,
                                             'itemcode':cell.getRow().getData().ITEM_CODE,
