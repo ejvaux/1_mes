@@ -14,6 +14,26 @@ session_start();
         exit();
     }
 
+function updateShipStatus($decision, $item, $lot){
+    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
+
+    if($decision == 'APPROVE')
+    {
+        $decision="APPROVED";
+    }
+
+        $sql = "UPDATE mis_product SET SHIP_STATUS='$decision' WHERE LOT_NUM ='$lot' AND ITEM_CODE = '$item'";
+        if($conn->query($sql) === TRUE) {
+                echo "SUCCESS";
+                } 
+            else{
+                echo "Error updating record: " . $sql . "<br>" . $conn->error;        
+                }
+        $conn->close();
+}
+
+updateShipStatus($decision, $item, $lot);
+
 if($decision == "EPSON_APPROVED"){
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         $sql = "UPDATE qmd_lot_create SET EPSON_QC_APPROVED = 'APPROVED' WHERE LOT_NUMBER ='$lot' AND ITEM_CODE = '$item'";
@@ -26,9 +46,6 @@ if($decision == "EPSON_APPROVED"){
     
             }
 else{
-
-    updateShipStatus($decision, $item, $lot);
-
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         
         if($decision=="APPROVE"){
@@ -88,27 +105,5 @@ else{
                 }
 
             }
-            $conn->close();   
-            
-            
+            $conn->close();       
     }
-
-
-
-function updateShipStatus($decision, $item, $lot){
-    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-
-    if($decision == 'APPROVE')
-    {
-        $decision="APPROVED";
-    }
-
-        $sql = "UPDATE mis_product SET SHIP_STATUS='$decision' WHERE LOT_NUM ='$lot' AND ITEM_CODE = '$item'";
-        if($conn->query($sql) === TRUE) {
-                echo "SUCCESS";
-                } 
-            else{
-                echo "Error updating record: " . $sql . "<br>" . $conn->error;        
-                }
-        $conn->close();
-}
