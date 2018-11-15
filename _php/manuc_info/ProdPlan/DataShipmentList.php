@@ -4,6 +4,19 @@
 //UPDATE`mis_product`
 //SET SHIP_STATUS = 'SHIPPED'
 //WHERE (`ITEM_CODE` LIKE 'PMXF0019ZA-B') AND (CAST(PRINT_DATE as DATE) BETWEEN '2018-10-01' AND '2018-10-28') AND SHIP_STATUS = 'APPROVED'
+
+/* SELECT mis_product.* FROM mis_product 
+LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
+WHERE (mis_product.SHIP_STATUS IS NULL or mis_product.SHIP_STATUS = "")
+AND (qmd_lot_create.LOT_JUDGEMENT = 'APPROVED') AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-15') */
+
+/* UPDATE mis_product 
+LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
+SET mis_product.SHIP_STATUS = 'APPROVED'
+WHERE (mis_product.SHIP_STATUS IS NULL or mis_product.SHIP_STATUS = "")
+AND (qmd_lot_create.LOT_JUDGEMENT = 'APPROVED') AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-15') */
+
+
 include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 $sql="";
 $strfrom=$_POST['sortfrom'];
