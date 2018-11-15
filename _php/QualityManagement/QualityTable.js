@@ -59,6 +59,7 @@ $(document).on('click', '.lotApprove', function () {
           },
           success: function (data) {
             filterText();
+            //alert(data);
           }
         });
         swal('LOT APPROVED!', 'Your items has been approved.', 'success')
