@@ -67,41 +67,41 @@
 
 
                     else if($decide == 'APPROVED' ){ //decide:approved
-                      if($epsonjudge == 'PENDING'){ //epson:bqics pending
-                        if($userAuth == 'CQ' || $userAuth =='C' || $userAuth =='A'){ //authority allowed
-                          echo "<td class='text-center'>
-                                <button type='button' class='btn btn-outline-primary bt epsonApprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."'>APPROVE</button>
-                                <button type='button' class='btn btn-outline-danger bt lotDisapprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
-                                $sqlQuery = "SELECT REWORK_ID FROM qmd_lot_rework WHERE LOT_NUMBER = '". $row['LOT_NUMBER'] ."' ORDER BY REWORK_ID DESC LIMIT 1";
-                                $res123 = $conn->query($sqlQuery);
-                                $row2 = $res123->fetch_assoc();
-                                $reworkID = $row2['REWORK_ID'];
+                      // if($epsonjudge == 'PENDING'){ //epson:bqics pending
+                      //   if($userAuth == 'CQ' || $userAuth =='C' || $userAuth =='A'){ //authority allowed
+                      //     echo "<td class='text-center'>
+                      //           <button type='button' class='btn btn-outline-primary bt epsonApprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."'>APPROVE</button>
+                      //           <button type='button' class='btn btn-outline-danger bt lotDisapprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
+                      //           $sqlQuery = "SELECT REWORK_ID FROM qmd_lot_rework WHERE LOT_NUMBER = '". $row['LOT_NUMBER'] ."' ORDER BY REWORK_ID DESC LIMIT 1";
+                      //           $res123 = $conn->query($sqlQuery);
+                      //           $row2 = $res123->fetch_assoc();
+                      //           $reworkID = $row2['REWORK_ID'];
 
-                                if($reworkID > 0){
-                                  echo "<td class='text-success font-weight-bold'>WAITING-REWORK(".$reworkID."):BQICS APPROVAL</td>";
-                                }
-                                else{
-                                  echo "<td class='text-success font-weight-bold'>WAITING:BQICS APPROVAL</td>";
-                                }
-                        }//authority allowed
-                        else{ //authority not allowed
-                          echo "<td class='text-center'>
-                                <button type='button' disabled class='btn btn-outline-secondary bt epsonApprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."'>APPROVE</button>
-                                <button type='button' disabled class='btn btn-outline-secondary bt lotDisapprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
-                                $sqlQuery = "SELECT REWORK_ID FROM qmd_lot_rework WHERE LOT_NUMBER = '". $row['LOT_NUMBER'] ."' ORDER BY REWORK_ID DESC LIMIT 1";
-                                $res123 = $conn->query($sqlQuery);
-                                $row2 = $res123->fetch_assoc();
-                                $reworkID = $row2['REWORK_ID'];
+                      //           if($reworkID > 0){
+                      //             echo "<td class='text-success font-weight-bold'>WAITING-REWORK(".$reworkID."):BQICS APPROVAL</td>";
+                      //           }
+                      //           else{
+                      //             echo "<td class='text-success font-weight-bold'>WAITING:BQICS APPROVAL</td>";
+                      //           }
+                      //   }//authority allowed
+                      //   else{ //authority not allowed
+                      //     echo "<td class='text-center'>
+                      //           <button type='button' disabled class='btn btn-outline-secondary bt epsonApprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."'>APPROVE</button>
+                      //           <button type='button' disabled class='btn btn-outline-secondary bt lotDisapprove' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
+                      //           $sqlQuery = "SELECT REWORK_ID FROM qmd_lot_rework WHERE LOT_NUMBER = '". $row['LOT_NUMBER'] ."' ORDER BY REWORK_ID DESC LIMIT 1";
+                      //           $res123 = $conn->query($sqlQuery);
+                      //           $row2 = $res123->fetch_assoc();
+                      //           $reworkID = $row2['REWORK_ID'];
 
-                                if($reworkID > 0){
-                                  echo "<td class='text-success font-weight-bold'>WAITING-REWORK(".$reworkID."):BQICS APPROVAL</td>";
-                                }
-                                else{
-                                  echo "<td class='text-success font-weight-bold'>WAITING:BQICS APPROVAL</td>";
-                                }
-                        } //authority not allowed
-                      } //epson:bqics pending
-                      else{ //all process approved
+                      //           if($reworkID > 0){
+                      //             echo "<td class='text-success font-weight-bold'>WAITING-REWORK(".$reworkID."):BQICS APPROVAL</td>";
+                      //           }
+                      //           else{
+                      //             echo "<td class='text-success font-weight-bold'>WAITING:BQICS APPROVAL</td>";
+                      //           }
+                      //   } //authority not allowed
+                      // } //epson:bqics pending
+                      //else{ //all process approved
                         if($row['WAREHOUSE_RECEIVE'] == 'RECEIVED'){
                           echo "<td class='text-info font-weight-bold text-center' colspan='2'>" . $row['LOT_JUDGEMENT'] . "/TRANSFERRED IN NEXT WAREHOUSE</td>";
                         }
@@ -111,7 +111,7 @@
                           <button type='button' class='btn btn-danger bt lotDisapprove' enabled='true' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModal'>DISAPPROVE</button></td>";
                           echo "<td class='text-success font-weight-bold'>WAITING FOR WAREHOUSE TRANSFER/" . $row['LOT_JUDGEMENT'] . "</td>";  
                         }
-                      } //all process approved
+                      //} //all process approved
                     } //decide: approved
 
 

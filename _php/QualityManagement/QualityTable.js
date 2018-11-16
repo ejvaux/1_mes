@@ -55,7 +55,7 @@ $(document).on('click', '.lotApprove', function () {
           data: {
             'lot_number': lotNumber,
             'item_code': item_code,
-            'decision': "APPROVE"
+            'decision': "APPROVED"
           },
           success: function (data) {
             filterText();
@@ -286,7 +286,6 @@ $(document).on('click', '#ConfirmDefect', function () {
     reverseButtons: true
     }).then((result) => {
     if (result.value) {
-      var decision = 'PENDING-REWORK';
       $.ajax({
         url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
         method: "POST",
@@ -295,7 +294,7 @@ $(document).on('click', '#ConfirmDefect', function () {
           'item_code': item_code,
           'defect_qty': Quantity_Defect,
           'remarks': remarks,
-          'decision': decision,
+          'decision': 'PENDING-REWORK',
           'ajax': true
           },
         success: function (data) {
@@ -307,7 +306,6 @@ $(document).on('click', '#ConfirmDefect', function () {
       swal('REWORK!', 'Your file has been recorded as rework.', 'success')
       } 
     else if (result.dismiss === swal.DismissReason.cancel) {
-      var decision = 'DISAPPROVE';
       $.ajax({
         url: "/1_mes/_php/QualityManagement/query/update/UpdateLotJudgement.php",
         method: "POST",
@@ -316,7 +314,7 @@ $(document).on('click', '#ConfirmDefect', function () {
           'item_code': item_code,
           'defect_qty': Quantity_Defect,
           'remarks': remarks,
-          'decision': decision,
+          'decision': 'DISAPPROVED',
           'ajax': true
           },
         success: function (data) {
