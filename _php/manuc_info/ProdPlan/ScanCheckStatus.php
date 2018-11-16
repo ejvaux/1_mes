@@ -11,7 +11,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if($searchtype == "danpla")
 {
-    $sql="SELECT SHIP_STATUS FROM mis_product WHERE danpla_reference ='$ref_num' or packing_number ='$ref_num' LIMIT 50";
+    $sql="SELECT SHIP_STATUS FROM mis_product WHERE (danpla_reference ='$ref_num' or packing_number ='$ref_num') AND (WAREHOUSE_RECEIVE = 'RECEIVED')  LIMIT 50";
 
     $result = $conn->query($sql);
 

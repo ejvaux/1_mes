@@ -792,6 +792,10 @@
                 {
                     return '<div class="btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> ADD TO GROUP</div>';
                 }
+                else if(shipStat=="NOT RECEIVED")
+                {
+                    return '<button type="button" class="btn btn-danger btn-sm" disabled ><strike><i class="fas fa-plus-circle"></i> ADD TO GROUP</strike></button>';
+                }
                 else if(shipStat=="ALREADY SHIPPED")
                 {
                     return '<button type="button" class="btn btn-primary btn-sm"><i class="fas fa-undo-alt"></i> UNDO SHIPMENT</button>';
@@ -2528,7 +2532,7 @@ $(document).on('keypress', '#ref_num', function (e) {
             {
                 iziToast.error({
                     title: 'Error:',
-                    message: 'Barcode does not exist! Check barcode if it is POLYBAG or DANPLA',
+                    message: 'Barcode does not exist! Check barcode if it is POLYBAG or DANPLA or the item is not yet receive.',
                     position: 'topCenter',
                   }); 
             }
