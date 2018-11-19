@@ -8,14 +8,19 @@
 /* SELECT mis_product.* FROM mis_product 
 LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
 WHERE (mis_product.SHIP_STATUS IS NULL or mis_product.SHIP_STATUS = "")
-AND (qmd_lot_create.LOT_JUDGEMENT = 'APPROVED') AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-15') */
+AND (qmd_lot_create.LOT_JUDGEMENT = 'APPROVED') AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-19') */
 
 /* UPDATE mis_product 
 LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
 SET mis_product.SHIP_STATUS = 'APPROVED'
 WHERE (mis_product.SHIP_STATUS IS NULL or mis_product.SHIP_STATUS = "")
-AND (qmd_lot_create.LOT_JUDGEMENT = 'APPROVED') AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-15') */
+AND (qmd_lot_create.LOT_JUDGEMENT = 'APPROVED') AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-19') */
 
+/* UPDATE mis_product
+LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
+SET mis_product.WAREHOUSE_RECEIVE = 'RECEIVED',mis_product.TO_WAREHOUSE = 'FG01',mis_product.QC_SAP_TRANSFER_STATUS = 'TRANSFERED'
+WHERE (mis_product.WAREHOUSE_RECEIVE = 'NOT YET') AND (qmd_lot_create.WAREHOUSE_RECEIVE = 'RECEIVED')
+AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-14') */
 
 include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
 $sql="";
