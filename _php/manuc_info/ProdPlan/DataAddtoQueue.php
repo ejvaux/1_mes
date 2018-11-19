@@ -12,8 +12,25 @@ $drno = $_POST['drno'];
 $grno = $_POST['grno'];
 $itemcode = $_POST['itemcode'];
 
-$sql = "SELECT dr_assigned_id FROM mis_dr_assigned WHERE (item_code = '$itemcode') AND
- (dr_number = '$drno') AND (group_name = '$grno')";
+
+
+$sql = "SELECT dr_assigned_id FROM mis_dr_assigned WHERE (item_code = '$itemcode') ";
+
+if($drno=="UNASSIGNED DR")
+{
+   $sql .="  AND (dr_number IS NULL AND group_name = '$grno')";
+}
+else
+{
+    if($grno=="No group name")
+    {
+        $sql .="  AND (dr_number ='$drno' AND group_name IS NULL)";
+    
+    }
+    else{
+        $sql .="  AND (dr_number ='$drno' AND group_name = '$grno')";
+    }
+}
 
  $result = $conn->query($sql);
 $check="";

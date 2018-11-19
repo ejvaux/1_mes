@@ -65,5 +65,3 @@ $sql2="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' WHERE PACKING_NUMBER IN (S
 $result2=$conn->query($sql2);
 
 
-
-?>

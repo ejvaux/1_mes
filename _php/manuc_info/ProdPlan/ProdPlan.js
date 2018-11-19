@@ -1521,7 +1521,7 @@
                                 else{
                                     swal(
                                         'Oops! Something went wrong. ',
-                                        'Please try again.',
+                                        'Please try again.'+data,
                                         'error'
                                     )
                                 }
