@@ -134,7 +134,7 @@ $(document).on('click', '.lotPending', function () {
         })
   }); // end sets an approved or disapproved lot into pending status again
 
-function filterJudgement() {
+function setJudgementQuery(){
   var d1 = judgementDate1.value;
   var d2 = judgementDate2.value;
   var ddFilter = document.getElementById("filterText");
@@ -146,27 +146,18 @@ function filterJudgement() {
     "%' OR danpla_reference LIKE  '%" + search + "%' )) OR (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search +
     "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search +
     "%' OR REMARKS LIKE '%" + search + "%'))";
-
-  
-  if (d1 != "" && d2 != "") {
-    sql += " AND (PROD_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "')";
-  }
-  else if (d1 != "" && d2 == "") {
-    sql += " AND (PROD_DATE LIKE '%" + d1 + "%')";
-  }
-
-  if(ddFilterValue != "ALL"){
-    sql += " AND (LOT_JUDGEMENT = '"+ ddFilterValue +"')";
-  }
-  
+  if (d1 != "" && d2 != "") {sql += " AND (PROD_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "')";}
+  else if (d1 != "" && d2 == "") {sql += " AND (PROD_DATE LIKE '%" + d1 + "%')";}
+  if (ddFilterValue != "ALL") {sql += " AND (LOT_JUDGEMENT = '" + ddFilterValue + "')";}
   sql += " ORDER BY PROD_DATE DESC";
-
-  if(rowLimitValue !="ALL"){
-    sql += " LIMIT "+ rowLimitValue;
-  }
-  
+  if (rowLimitValue != "ALL") {sql += " LIMIT " + rowLimitValue;}
   sql += ";";
-  
+
+  return sql;
+}
+
+function filterJudgement() {
+  sql = setJudgementQuery();
   $.ajax({
     method: 'post',
     url: '/1_mes/_php/QualityManagement/table/judgement_table.php',
@@ -182,38 +173,7 @@ function filterJudgement() {
 
 
 $(document).on('click', '.btnExportJudgement', function () { //export judgement table
-  var d1 = judgementDate1.value;
-  var d2 = judgementDate2.value;
-  var ddFilter = document.getElementById("filterText");
-  var ddFilterValue = ddFilter.options[ddFilter.selectedIndex].value;
-  var rowLimit = document.getElementById("showlimit");
-  var rowLimitValue = rowLimit.options[rowLimit.selectedIndex].value;
-  var search = searchText.value;
-  var sql = "SELECT * FROM qmd_lot_create WHERE ((LOT_NUMBER IN (SELECT lot_num from mis_product WHERE danpla LIKE '%" + search +
-    "%' OR danpla_reference LIKE  '%" + search + "%' )) OR (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search +
-    "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search +
-    "%' OR REMARKS LIKE '%" + search + "%'))";
-
-
-  if (d1 != "" && d2 != "") {
-    sql += " AND (PROD_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "')";
-  }
-  else if (d1 != "" && d2 == "") {
-    sql += " AND (PROD_DATE LIKE '%" + d1 + "%')";
-  }
-
-  if (ddFilterValue != "ALL") {
-    sql += " AND (LOT_JUDGEMENT = '" + ddFilterValue + "')";
-  }
-
-  sql += " ORDER BY PROD_DATE DESC";
-
-  if (rowLimitValue != "ALL") {
-    sql += " LIMIT " + rowLimitValue;
-  }
-
-  sql += ";";
-  
+  sql = setJudgementQuery();
   window.open('/1_mes/_php/QualityManagement/query/export/exportJudgement.php?sql='+sql);
 }); //export judgement table
 
