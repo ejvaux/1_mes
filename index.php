@@ -371,7 +371,7 @@
                     <a type="button" class="btn btn-lg btn-block btn-primary" href="/1_ams/public/">Go to</a>                 
                   </div>
                 </div> -->
-                <div class="card mb-4 box-shadow">
+                <!-- <div class="card mb-4 box-shadow">
                   <div class="card-header">
                     <h4 class="my-0">ATMS</h4>
                   </div>
@@ -379,7 +379,7 @@
                     <h1 class="card-title">Approval and Ticket Management System</h1>                    
                     <a type="button" class="btn btn-lg btn-block btn-primary" href="/1_atms/">Go to</a>                 
                   </div>
-                </div>
+                </div> -->
                 <!-- <div class="card mb-4 box-shadow">
                   <div class="card-header">
                     <h4 class="my-0 font-weight-normal">Enterprise</h4>
