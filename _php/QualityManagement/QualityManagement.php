@@ -77,8 +77,8 @@
   <div class="row text-left">      
     <div class="col-11" > 
       <script>       
-        //loadDoc('LotCreate', '<?php echo $_SESSION["text"];?>')
-        loadDoc('LotJudgement');
+        loadDoc('LotCreate', '<?php echo $_SESSION["text"];?>')
+        /* loadDoc('LotJudgement'); */
         </script>
       </div>
     </div>
