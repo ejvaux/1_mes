@@ -38,7 +38,7 @@ $(document).on('click', '.lotApprove', function () {
   var id = $(this).attr("id");
   var item_code = id.substr(id.indexOf('@') + 1)
   var lotNumber = id.substr(0, id.indexOf('@'));
-  /* alert(lotNumber + ' xxxxxx ' + item_code); */
+  
    swal({
       title: 'Are you sure you will approve lot ' + lotNumber + ' ?',
       text: "REVERT this in Lot Judgement > FILTER TABLE:APPROVED > Click:PENDING",
@@ -58,7 +58,8 @@ $(document).on('click', '.lotApprove', function () {
             'decision': "APPROVED"
           },
           success: function (data) {
-            filterText();
+            updateShipStatus("APPROVED", lotNumber, item_code);
+            loadDoc('LotJudgement');
             //alert(data);
           }
         });
@@ -67,11 +68,11 @@ $(document).on('click', '.lotApprove', function () {
     })
   }); // end approves a lot
 
-$(document).on('click', '.epsonApprove', function () {
+/* $(document).on('click', '.epsonApprove', function () {
   var id = $(this).attr("id");
   var item_code = id.substr(id.indexOf('@') + 1)
   var lotNumber = id.substr(0, id.indexOf('@'));
-  /* alert(lotNumber + ' xxxxxx ' + item_code); */
+  
   swal({
     title: 'BQICS Lot Approval',
     text: 'Are you sure you will approve lot ' + lotNumber + ' ?',
@@ -91,19 +92,20 @@ $(document).on('click', '.epsonApprove', function () {
             'decision': "EPSON_APPROVED"
             },
           success: function (data) {
-            filterText();
+            
+            loadDoc('LotJudgement');
             }
           });
         swal('EPSON LOT APPROVED!', 'Your items has been approved.', 'success')
       }
       })
-  }); // end approves a lot
+  }); */
 
 $(document).on('click', '.lotPending', function () {
   var id = $(this).attr("id");
   var item_code = id.substr(id.indexOf('@') + 1)
   var lotNumber = id.substr(0, id.indexOf('@'));
-  /* alert(lotNumber + ' xxxxxx ' + item_code); */
+  
   swal({
       title: 'Change Status to PENDING?',
       text: "Revert this in LotJudgement > FILTER TABLE:PENDING > Find " + lotNumber + " > Click:APPROVE/DISAPPROVE",
@@ -123,7 +125,8 @@ $(document).on('click', '.lotPending', function () {
             'decision': "PENDING"
             },
           success: function (data) {
-            filterText();
+            updateShipStatus("PENDING", lotNumber, item_code);
+            loadDoc('LotJudgement');
             }
           });
         swal('Status changed to PENDING!', 'Your item has been moved to pending.', 'success')
@@ -132,19 +135,43 @@ $(document).on('click', '.lotPending', function () {
   }); // end sets an approved or disapproved lot into pending status again
 
 function filterJudgement() {
-  var x = document.getElementById("filterText");
-  var y = x.options[x.selectedIndex].value;
-  if (y == "ALL") {
-    var z = 'SELECT * FROM qmd_lot_create ORDER BY PROD_DATE DESC LIMIT 100;';
-  } else {
-    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC LIMIT 100;';
+  var d1 = judgementDate1.value;
+  var d2 = judgementDate2.value;
+  var ddFilter = document.getElementById("filterText");
+  var ddFilterValue = ddFilter.options[ddFilter.selectedIndex].value;
+  var rowLimit = document.getElementById("showlimit");
+  var rowLimitValue = rowLimit.options[rowLimit.selectedIndex].value;
+  var search = searchText.value;
+  var sql = "SELECT * FROM qmd_lot_create WHERE ((LOT_NUMBER IN (SELECT lot_num from mis_product WHERE danpla LIKE '%" + search +
+    "%' OR danpla_reference LIKE  '%" + search + "%' )) OR (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search +
+    "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search +
+    "%' OR REMARKS LIKE '%" + search + "%'))";
+
+  
+  if (d1 != "" && d2 != "") {
+    sql += " AND (PROD_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "')";
   }
-  /* var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + ' AND DATE(NOW()) = DATE(PROD_DATE)";'; */
+  else if (d1 != "" && d2 == "") {
+    sql += " AND (PROD_DATE LIKE '%" + d1 + "%')";
+  }
+
+  if(ddFilterValue != "ALL"){
+    sql += " AND (LOT_JUDGEMENT = '"+ ddFilterValue +"')";
+  }
+  
+  sql += " ORDER BY PROD_DATE DESC";
+
+  if(rowLimitValue !="ALL"){
+    sql += " LIMIT "+ rowLimitValue;
+  }
+  
+  sql += ";";
+  
   $.ajax({
     method: 'post',
     url: '/1_mes/_php/QualityManagement/table/judgement_table.php',
     data: {
-      'sql': z,
+      'sql': sql,
       'ajax': true
       },
       success: function (data) {
@@ -153,75 +180,61 @@ function filterJudgement() {
     });
   } //end sets filter for judgement table whether approved, disapproved, pending or all
 
-function filterText() {
-  var x = document.getElementById("filterText");
-  var y = x.options[x.selectedIndex].value;
-  if (y == "ALL") {
-    var z = 'SELECT * FROM qmd_lot_create ORDER BY PROD_DATE DESC LIMIT 100;';
-    }
-  else {
-    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC LIMIT 100;';
-    }
-  /* var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + x + ' AND DATE(NOW()) = DATE(PROD_DATE)";'; */
-  $.ajax({
-    method: 'post',
-    url: '/1_mes/_php/QualityManagement/table/judgement_table.php',
-    data: {
-      'sql': z,
-      'ajax': true
-      },
-    success: function (data) {
-      document.getElementById("table_judgement").innerHTML = data;
-      }
-    });
-  } //end maintains the filter in judgement table whether approved, disapproved, pending or all
 
-function searchLot() {
-  var x = document.getElementById("filterText");
-  var y = x.options[x.selectedIndex].value;
+$(document).on('click', '.btnExportJudgement', function () { //export judgement table
+  var d1 = judgementDate1.value;
+  var d2 = judgementDate2.value;
+  var ddFilter = document.getElementById("filterText");
+  var ddFilterValue = ddFilter.options[ddFilter.selectedIndex].value;
+  var rowLimit = document.getElementById("showlimit");
+  var rowLimitValue = rowLimit.options[rowLimit.selectedIndex].value;
   var search = searchText.value;
-  /* var z = "SELECT * FROM qmd_lot_create WHERE LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%' OR LOT_JUDGEMENT LIKE '%" + search + "%' AND DATE(NOW()) = DATE(PROD_DATE);"; */
-  if (y == "ALL") {
-    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER IN (SELECT lot_num from mis_product WHERE danpla LIKE '%" + search + "%' OR danpla_reference LIKE  '%" + search + "%' )) OR (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') ORDER BY PROD_DATE DESC LIMIT 100;";
-    } 
-  else {
-    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER IN (SELECT lot_num from mis_product WHERE danpla LIKE '%" + search + "%' OR danpla_reference LIKE  '%" + search + "%' )) OR ((LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = '" + y + "')) ORDER BY PROD_DATE DESC LIMIT 100;";
-    }
+  var sql = "SELECT * FROM qmd_lot_create WHERE ((LOT_NUMBER IN (SELECT lot_num from mis_product WHERE danpla LIKE '%" + search +
+    "%' OR danpla_reference LIKE  '%" + search + "%' )) OR (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search +
+    "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search +
+    "%' OR REMARKS LIKE '%" + search + "%'))";
+
+
+  if (d1 != "" && d2 != "") {
+    sql += " AND (PROD_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "')";
+  }
+  else if (d1 != "" && d2 == "") {
+    sql += " AND (PROD_DATE LIKE '%" + d1 + "%')";
+  }
+
+  if (ddFilterValue != "ALL") {
+    sql += " AND (LOT_JUDGEMENT = '" + ddFilterValue + "')";
+  }
+
+  sql += " ORDER BY PROD_DATE DESC";
+
+  if (rowLimitValue != "ALL") {
+    sql += " LIMIT " + rowLimitValue;
+  }
+
+  sql += ";";
+  
+  window.open('/1_mes/_php/QualityManagement/query/export/exportJudgement.php?sql='+sql);
+}); //export judgement table
+
+function updateShipStatus(decision,lot,item){
   $.ajax({
     method: 'post',
-    url: '/1_mes/_php/QualityManagement/table/judgement_table.php',
+    url: '/1_mes/_php/QualityManagement/query/update/UpdateShipStatus.php',
     data: {
-      'sql': z,
+      'decision': decision,
+      'lot' : lot,
+      'item' : item,
       'ajax': true
-      },
+    },
     success: function (data) {
-      document.getElementById("table_judgement").innerHTML = data;
-      }
-    });
-  } //end search in lot judgement
+      
+    }
+  });
+}
 
 function ClearSearchLot() {
-  var x = document.getElementById("filterText");
-  var y = x.options[x.selectedIndex].value;
-  if (y == "ALL") {
-    var z = 'SELECT * FROM qmd_lot_create ORDER BY LOT_JUDGEMENT DESC LIMIT 100;';
-    } 
-  else {
-    var z = 'SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT ="' + y + '" ORDER BY PROD_DATE DESC LIMIT 100;';
-    }
-  /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
-  $.ajax({
-    method: 'post',
-    url: '/1_mes/_php/QualityManagement/table/judgement_table.php',
-    data: {
-      'sql': z,
-      'ajax': true
-      },
-    success: function (data) {
-      document.getElementById("table_judgement").innerHTML = data;
-      searchText.value = "";
-      }
-    });
+  loadDoc('LotJudgement');
   } //end clear search in lot judgement
 
 $(document).on('click', '.lotDisapprove', function () {
@@ -298,8 +311,9 @@ $(document).on('click', '#ConfirmDefect', function () {
           'ajax': true
           },
         success: function (data) {
+          updateShipStatus("PENDING", lotNumber, item_code);
           insertRework(lotNumber,item_code, Quantity_Defect, remarks);
-          filterText();
+          loadDoc('LotJudgement');
           $('#modalID').trigger('reset');
           }
         });
@@ -318,8 +332,9 @@ $(document).on('click', '#ConfirmDefect', function () {
           'ajax': true
           },
         success: function (data) {
+          updateShipStatus("DISAPPROVED", lotNumber, item_code);
           InsertReject(Quantity_Defect, lotNumber, remarks);
-          filterText();
+          loadDoc('LotJudgement');
           $('#modalID').trigger('reset');
           }
         });
@@ -668,7 +683,7 @@ function DisplayTableDefect(Table_Name, Tablesp, tbltitle) {
           url: "/1_mes/_php/QualityManagement/sp/" + Tablesp + ".php",
           type: 'POST'
           },
-        "dom": '<"row"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
+        "dom": '<"row pt-1"<"col-4"B><"col"><"col-sm-3 pl-0 ml-0"f>>t<"row"<"col"i><"col"p>>',
         'buttons': [{
           text: '<i class="fas fa-plus"></i>',
           name: 'add', // do not change name 
@@ -1747,8 +1762,8 @@ function updateWarehouseReceive(lotNumber,item_code,table_length) {
   } //remove danpla via button(datatables)
 
   function checkuserauthF(sdate, edate) {
-
-    DisplayTable3('PendingLot', 'PendingLotSP', 'Pending_Lot', sdate, edate);
+    var datenow = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+    DisplayTable3('PendingLot', 'PendingLotSP', 'QC-PendingNoLot' + datenow, sdate, edate);
 
   }   //end display table 3
 
