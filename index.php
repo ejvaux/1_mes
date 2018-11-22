@@ -235,7 +235,7 @@
           <!-- Navbar -->
           <nav class="navbar navbar-brdr navbar-expand-xl navbar-light bg-white fixed-top m-0 px-2 pb-1 pt-0">
 
-            <a class="navbar-brand animated flipInX" href="http://primatechcorporation.com/">
+            <a class="navbar-brand animated flipInX" href="http://172.16.1.13:8000">
               <div class="navbar">            
                 <img class="img-fluid animated flipInX" style="width: 146px; height: 28px" src="/1_MES/_images/primatech-logo.png" alt="Primatech Logo"  >                        
               </div>
