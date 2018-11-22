@@ -1,8 +1,14 @@
-<table class=' text-center mt-3 table table-striped table-hover table-bordered table-sm nowrap' id='lot_judgement'>
-          <?php       
-                include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
+ <?php      
+          echo "<table class=' text-center mt-3 table table-striped table-hover table-bordered table-sm nowrap' id='lot_judgement'>";
+                
+                if(!isset($_SESSION))
+                {
                 session_start();
+                }
+
                 $userAuth = $_SESSION['auth'];
+
+                include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
                 if(!isset($_POST['sql'])){
                 
                   /* SELECT SUM(mis_product.PRINT_QTY) as LOTQTY, qmd_lot_create.*
@@ -20,6 +26,7 @@
                 }
 
                 $result = $conn->query($sql);
+                $ctr = 0;
                 if (!empty($result)) 
                 /* if ($result->num_rows > 0 || $result->num_rows <> '' || $result->num_rows <> null)  */
                 {
@@ -28,6 +35,7 @@
                     
                     <th>INSPECT</th>
                     <th>JUDGEMENT</th>
+                    <th>NO</th>
                     <th>LOT CREATED</th>
                     <th style='width:30%'>LOT NUMBER</th>
                     <th>LOT QTY</th>
@@ -41,6 +49,7 @@
                     // output data of each row
                     while($row = $result->fetch_assoc()) 
                     {
+                    $ctr += 1;
                     $decide = $row['LOT_JUDGEMENT'];
                     $epsonjudge = $row['EPSON_QC_APPROVED'];
                     
@@ -131,6 +140,7 @@
                     }
                     /* echo "<td>" . $row['LOT_ID'] . "</td>";
                     echo "<td>" . $row['LOT_JUDGEMENT'] . "</td>"; */
+                    echo "<td>" . $ctr . "</td>";
                     echo "<td>" . $row['PROD_DATE'] . "</td>";
                     echo "<td class='text-left'><button type='button' class='btn btn-outline-secondary bt lotDanpla' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModalDanpla'>VIEW</button>          <strong>". $row['LOT_NUMBER'] . "</strong></td>";
                     echo "<td>" . $row['LOT_QTY'] . "</td>";
@@ -146,6 +156,7 @@
                 else { //if auth is not qc
                   echo "<thead>    
                           <th>JUDGEMENT</th>
+                          <th>NO</th>
                           <th>LOT CREATED</th>
                           <th style='width:30%'>LOT NUMBER</th>
                           <th>LOT QTY</th>
@@ -159,8 +170,10 @@
                     // output data of each row
                     while($row = $result->fetch_assoc()) 
                     {
+                    $ctr += 1;
                     echo " <tbody class='content'>";
                     echo "<td>" . $row['LOT_JUDGEMENT'] . "</td>";
+                    echo "<td>" . $ctr . "</td>";
                     echo "<td>" . $row['PROD_DATE'] . "</td>";
                     echo "<td class='text-left'><button type='button' class='btn btn-outline-secondary bt lotDanpla' id='". $row['LOT_NUMBER'] .'@'. $row['ITEM_CODE'] ."' data-toggle='modal' data-target='#myModalDanpla'>VIEW</button>          <strong>". $row['LOT_NUMBER'] . "</strong></td>";
                     echo "<td>" . $row['LOT_QTY'] . "</td>";
@@ -196,4 +209,4 @@
                     </table>";
                   }
                 $conn->close();
-          ?>
+   
