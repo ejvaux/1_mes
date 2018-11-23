@@ -83,7 +83,7 @@ margin-left:-70%;
 
         <div class="input-group btn-xs pt-2">
           <div class="input-group-prepend">
-            <select name="value" class ="showlimitJudgement form-control" id="showlimit" onchange="filterJudgement()">
+            <select name="value" class ="showlimitJudgement form-control" id="showlimitJudgement" onchange="filterJudgement()">
                   <option value = "100">100</option>
                   <option value = "500">500</option>
                   <option value = "1000">1000</option>
