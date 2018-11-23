@@ -104,7 +104,7 @@
   </div>
 
     <div class="row" >
-      <div class="col-12" id="table_recovery">
+      <div class="col-12 table-wrapper-1" id="table_recovery">
         <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/recovery_table.php"; ?>
       </div>
     </div>

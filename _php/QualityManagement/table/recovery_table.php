@@ -1,4 +1,4 @@
-<table class= "table-wrapper-1 table-bordered table-sm table table-hover table-striped mt-1" id='RecoveryTable'>
+<table class= "table-bordered table-sm table table-hover table-striped mt-1" id='RecoveryTable'>
 <?php       
               include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
               session_start();
