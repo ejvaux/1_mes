@@ -139,7 +139,7 @@ function setJudgementQuery(){
   var d2 = judgementDate2.value;
   var ddFilter = document.getElementById("filterText");
   var ddFilterValue = ddFilter.options[ddFilter.selectedIndex].value;
-  var rowLimit = document.getElementById("showlimit");
+  var rowLimit = document.getElementById("showlimitJudgement");
   var rowLimitValue = rowLimit.options[rowLimit.selectedIndex].value;
   var search = searchText.value;
   var sql = "SELECT * FROM qmd_lot_create WHERE ((LOT_NUMBER IN (SELECT lot_num from mis_product WHERE danpla LIKE '%" + search +
@@ -218,18 +218,18 @@ $(document).on('click', '.lotDanpla', function () {
 }); //end opens modal that displays lot details
 
 function DisplayLotDetails(lotNum, item_code) {
-  var x = lotNum;
-  var y = item_code;
+  var lot = lotNum;
+  var item = item_code;
   /* var z = "SELECT PACKING_NUMBER, SUM(PRINT_QTY) as SUMQ,danpla_reference FROM mis_product WHERE LOT_NUM ='" + x + "' GROUP BY PACKING_NUMBER"; */
-  var z = "SELECT danpla_reference, PACKING_NUMBER, SUM(PRINT_QTY) as SUMQ FROM mis_product WHERE LOT_NUM ='" + x + "' AND ITEM_CODE ='"+ y + "' GROUP BY PACKING_NUMBER";
+  var z = "SELECT danpla_reference, PACKING_NUMBER, SUM(PRINT_QTY) as SUMQ FROM mis_product WHERE LOT_NUM ='" + lot + "' AND ITEM_CODE ='" + item + "' GROUP BY PACKING_NUMBER";
   
   $.ajax({
     url: "/1_mes/_php/QualityManagement/table/LotDanplaList.php",
     method: "POST",
     data: {
       'sql1': z,
-      'item_code': y,
-      'lot_number': x,
+      'item_code': item,
+      'lot_number': lot,
       'ajax': true
       },
     success: function (data) {
@@ -335,34 +335,12 @@ function insertRework(lotNum,item_code, Quantity, reworkRemarks) {
 
 //------------------------------------------------ LOT RECOVERY TAB FUNCTIONS
 function RecoverySearchLot() {
-  var search = RecoverySearch.value;
-  var d1 = recoveryDate1.value;
-  var d2 = recoveryDate2.value;
-  if (d1 != "" && d2 != "") {
-    if (search == "") {
-      var z = "SELECT * FROM qmd_lot_create WHERE (PROD_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
-      //var z = "SELECT * FROM qmd_lot_create WHERE (PROD_DATE BETWEEN '"+ d1 +"' AND '"+ (d2 + 1) +"') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER;";
-      }
-    else {
-      var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) AND (PROD_DATE BETWEEN '%" + d1 + "' AND '%" + (d2 + 1) + "%') GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
-      }
-    }
-  else if (d1 != "" && d2 == "") {
-    if (search == "") {
-      var z = "SELECT * FROM qmd_lot_create WHERE (PROD_DATE LIKE '%" + d1 + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
-      }
-    else {
-      var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) AND (PROD_DATE LIKE '%" + d1 + "%') GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
-      }
-    }
-  else if (search != "") {
-    var z = "SELECT * FROM qmd_lot_create WHERE (LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY) GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
-    }
+  sql = setRecoveryQuery();
   $.ajax({
     method: 'post',
     url: "/1_mes/_php/QualityManagement/table/recovery_table.php",
     data: {
-      'sql': z,
+      'sql': sql,
       'ajax': true
       },
     success: function (data) {
@@ -371,23 +349,32 @@ function RecoverySearchLot() {
     });
   } //search in lot recovery table
 
+function setRecoveryQuery() {
+  var d1 = recoveryDate1.value;
+  var d2 = recoveryDate2.value;
+  var rowLimit = document.getElementById("showlimitRecovery");
+  var rowLimitValue = rowLimit.options[rowLimit.selectedIndex].value;
+  var search = RecoverySearch.value;
+  var sql = "SELECT * FROM qmd_lot_create WHERE ((LOT_NUMBER LIKE '%" + search + "%' OR LOT_CREATOR LIKE '%" + search + 
+            "%' OR ITEM_CODE LIKE '%" + search + "%' OR ITEM_NAME LIKE '%" + search + "%' OR JUDGE_BY LIKE '%" + search + 
+            "%' OR REMARKS LIKE '%" + search + "%') AND (LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY))";
+
+  if (d1 != "" && d2 != "") { sql += " AND (PROD_DATE BETWEEN '" + d1 + "' AND '" + (d2 + 1) + "')"; } 
+  else if (d1 != "" && d2 == "") { sql += " AND (PROD_DATE LIKE '%" + d1 + "%')"; }
+  sql += " ORDER BY PROD_DATE DESC";
+  if (rowLimitValue != "ALL") { sql += " LIMIT " + rowLimitValue; }
+  sql += ";";
+
+  return sql;
+}
+
+$(document).on('click', '.btnExportRecovery', function () { //export recovery table
+  sql = setRecoveryQuery();
+  window.open('/1_mes/_php/QualityManagement/query/export/exportRecovery.php?sql=' + sql);
+}); //export judgement table
+
 function RecoveryClearSearchLot() {
-  var z = "SELECT * FROM qmd_lot_create WHERE LOT_JUDGEMENT = 'DISAPPROVED' AND LOT_QTY != DEFECT_QTY GROUP BY LOT_NUMBER ORDER BY PROD_DATE DESC;";
-  /* var z = "SELECT * FROM qmd_lot_create WHERE DATE(NOW()) = DATE(PROD_DATE);"; */
-  $.ajax({
-    method: 'post',
-    url: "/1_mes/_php/QualityManagement/table/recovery_table.php",
-    data: {
-      'sql': z,
-      'ajax': true
-      },
-    success: function (data) {
-      document.getElementById("table_recovery").innerHTML = data;
-      RecoverySearch.value = "";
-      recoveryDate1.value = "";
-      recoveryDate2.value = "";
-      }
-    });
+  loadDoc('LotRecovery');
   } // clear search in lot recovery table
 
 $(document).on('click', '.scrapbtn', function () {

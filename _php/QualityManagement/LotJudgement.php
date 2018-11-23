@@ -37,20 +37,29 @@ margin-left:-70%;
   margin-bottom:-1%
 }
 
+.dateText{
+  font-size: 12px;
+}
+
+.table-wrapper-1{
+  overflow-x: auto;
+}
+
 /* .btn-toolbar{
   margin-left:-1.2%
 } */
+
 </style>
 
 <!-- <select name="value" id="filterText" onchange="filterText()" style="margin-left:15px;margin-top:8px"> -->
 
-<div class="container-fluid pt-2" style="margin-left:.3%">
+<div class="container-fluid">
 
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 pb-1">
       <div class="btn-toolbar justify-content-between" role="toolbar">
         
-        <div class="input-group btn-xs">
+        <div class="input-group btn-xs pt-2">
           <div class="input-group-prepend">
             <div class="input-group-text" id="btnGroupAddon2">SEARCH</div>
           </div>
@@ -60,7 +69,7 @@ margin-left:-70%;
           </div>
         </div>
 
-        <div class="input-group input-group-xs btn-xs">
+        <div class="input-group input-group-xs btn-xs pt-2">
           <div class="input-group-prepend">
             <div class="input-group-text">FROM</div>
           </div>
@@ -72,9 +81,9 @@ margin-left:-70%;
             <input id="judgementDate2" type="date" class="py-1 form-control dateText" onchange="filterJudgement()">
         </div>
 
-        <div class="input-group btn-xs">
+        <div class="input-group btn-xs pt-2">
           <div class="input-group-prepend">
-            <select name="value" class ="showlimit form-control" id="showlimit" onchange="filterJudgement()">
+            <select name="value" class ="showlimitJudgement form-control" id="showlimit" onchange="filterJudgement()">
                   <option value = "100">100</option>
                   <option value = "500">500</option>
                   <option value = "1000">1000</option>
@@ -86,7 +95,7 @@ margin-left:-70%;
             </div>
         </div>
           
-        <div class="input-group btn-xs">
+        <div class="input-group btn-xs pt-2">
           <!-- <div class="input-group-prepend">
             <div class="input-group-text" id="btnGroupAddon2">FILTER</div>
           </div> -->
@@ -111,7 +120,7 @@ margin-left:-70%;
 
   
   <div class="row mt-2">
-    <div class="col-12 table-wrapper-1" id="table_judgement">
+    <div class="col-12" id="table_judgement">
       <?php include $_SERVER['DOCUMENT_ROOT']."/1_mes/_php/QualityManagement/table/judgement_table.php"; ?>
     </div>
   </div>

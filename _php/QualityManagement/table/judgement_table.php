@@ -1,5 +1,5 @@
  <?php      
-          echo "<table class=' text-center mt-3 table table-striped table-hover table-bordered table-sm nowrap' id='lot_judgement'>";
+          echo "<table class='table-wrapper-1 text-center table table-striped table-hover table-bordered table-sm nowrap' id='lot_judgement'>";
                 
                 if(!isset($_SESSION))
                 {
