@@ -6,18 +6,19 @@
 //WHERE (`ITEM_CODE` LIKE 'PMXF0019ZA-B') AND (CAST(PRINT_DATE as DATE) BETWEEN '2018-10-01' AND '2018-10-28') AND SHIP_STATUS = 'APPROVED'
 
 /* SELECT mis_product.* FROM mis_product 
-LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
-WHERE (mis_product.SHIP_STATUS IS NULL or mis_product.SHIP_STATUS = "")
-AND (qmd_lot_create.LOT_JUDGEMENT = 'APPROVED') AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-19') */
+LEFT JOIN qmd_lot_create 
+ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER AND mis_product.ITEM_CODE = qmd_lot_create.ITEM_CODE 
+WHERE (mis_product.SHIP_STATUS IS NULL or mis_product.SHIP_STATUS = "") AND 
+(qmd_lot_create.LOT_JUDGEMENT = 'APPROVED') AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-19') */
 
 /* UPDATE mis_product 
-LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
+LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER AND mis_product.ITEM_CODE = qmd_lot_create.ITEM_CODE
 SET mis_product.SHIP_STATUS = 'APPROVED'
 WHERE (mis_product.SHIP_STATUS IS NULL or mis_product.SHIP_STATUS = "")
 AND (qmd_lot_create.LOT_JUDGEMENT = 'APPROVED') AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-19') */
 
 /* UPDATE mis_product
-LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
+LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
 SET mis_product.WAREHOUSE_RECEIVE = 'RECEIVED',mis_product.TO_WAREHOUSE = 'FG01',mis_product.QC_SAP_TRANSFER_STATUS = 'TRANSFERED'
 WHERE (mis_product.WAREHOUSE_RECEIVE = 'NOT YET') AND (qmd_lot_create.WAREHOUSE_RECEIVE = 'RECEIVED')
 AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-14') */
