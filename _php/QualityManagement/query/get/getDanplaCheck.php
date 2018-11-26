@@ -12,7 +12,7 @@
                 $lc_result = $conn->query($lc_sql);
                 if ($lc_result->num_rows > 0) 
                 {
-                  while($lc_row = $lc_result->fetch_assoc()){
+                    while($lc_row = $lc_result->fetch_assoc()){
                         /* if($lc_row['LOT_JUDGEMENT'] == 'APPROVED' && $lc_row['EPSON_QC_APPROVED'] == 'APPROVED'){ */
                             if($lc_row['LOT_JUDGEMENT'] == 'APPROVED'){
                                 $mp_sql = "SELECT DANPLA, WAREHOUSE_RECEIVE FROM mis_product WHERE DANPLA = '$danpla'";
@@ -43,9 +43,12 @@
                         /* else if($row1['EPSON_QC_APPROVED'] == 'PENDING'){
                             $x = ('true6');
                         } */
-                        else{
-                        $x = ('true4');
-                        }
+                            elseif($lc_row['LOT_JUDGEMENT'] == 'PENDING'){
+                            $x = ('true4');
+                            }
+                            elseif($lc_row['LOT_JUDGEMENT'] == 'DISAPPROVED'){
+                            $x = ('true4'); 
+                            }
                     }
                 }
               echo json_encode($x,true);
