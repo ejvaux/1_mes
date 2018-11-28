@@ -404,7 +404,7 @@
         {
         
            
-            loadqueue("no");
+            
             var DrDataTypeobj = document.getElementById("DrDataType");
             var selectedOption2 = DrDataTypeobj.options[DrDataTypeobj.selectedIndex].value;
             var strfromobj = document.getElementById("sortfrom").value;
@@ -433,10 +433,12 @@
                        // $("#example-table1").tabulator("destroy");
                         //$("#example-table2").tabulator("destroy");
                         LoadTableOfDrDetails("testing","UnassignedDr");
+                        loadqueue("");
                         
                     }
                     else{
                         LoadTableOfDrDetails("testing","UnassignedDr","no");
+                        loadqueue("no");
                     }
                     
                     initTbl2("Dr-Assign");
@@ -1415,7 +1417,7 @@
                                         
                                         success: function(data) 
                                         {
-                                            alert(data);
+                                            //alert(data);
                                             loadtbl2('Dr-Assign','','dr_assign')  
                                           /*
                                           
