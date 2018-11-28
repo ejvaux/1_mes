@@ -63,15 +63,18 @@ else
         $customername=$row['customer_name'];
         $qty = $row['quantity'];
         $refno = $row['danpla_reference'];
+        
         $sql2="INSERT INTO mis_dr_assigned(dr_number,packing_number,lot_number,jo_number,item_code,machine_code,item_name,dr_date,customer_code,customer_name,Date_Inserted,quantity,danpla_reference,user_ins)
         VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$datenow','$customercode','$customername','$datenow','$qty','$refno','$user')";
         $result2=$conn->query($sql2);
+        
 
-        $sql4="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' WHERE PACKING_NUMBER IN (SELECT packing_number from mis_dr_assigned WHERE dr_number='$groupname')";
-        $result4=$conn->query($sql4);
+            $sql4="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' 
+            WHERE PACKING_NUMBER = '$packingno'";
+            $result4=$conn->query($sql4);   
 
-
-
+        /* $sql5= "UPDATE qmd_lot_create SET LOT_JUDGEMENT='SHIPPED' WHERE LOT_NUMBER='$lotnumber' LIMIT 50";
+        $result4=$conn->query($sql5); */
 
     }
 
@@ -90,5 +93,3 @@ else
 
 
 
-
-?>

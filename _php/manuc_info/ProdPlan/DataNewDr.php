@@ -47,4 +47,15 @@ $sql = "UPDATE mis_dr_assigned SET dr_number = '$new_dr',dr_date='$datenow',Date
         $res = false;
     }
 
+
+
+    $sql3="SELECT * FROM mis_dr_assigned WHERE  dr_number='$new_dr' LIMIT 100";
+    $result3 = $conn->query($sql3);
+    while($row=$result3->fetch_assoc())
+    {
+    $sql2="UPDATE msi_product SET SHIP_STATUS = 'SHIPPED' 
+    WHERE PACKING_NUMBER = '".$row['packing_number']."'";
+    $result2=$conn->query($sql2);
+    }
+
     echo json_encode($res,true);

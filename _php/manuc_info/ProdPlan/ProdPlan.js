@@ -589,7 +589,7 @@
             //layout:"fitColumns", //fit columns to width of table (optional)
             pagination:"local",
             paginationSize:1000,
-            placeholder:"No Data to Display or Today's plan is not yet available.",
+            placeholder:"No Data to Display. Please select the DATE of data to load .",
             movableColumns:true,
             selectable: 1,
             groupBy:"DATE",   
@@ -1415,8 +1415,11 @@
                                         
                                         success: function(data) 
                                         {
-                                            loadtbl2('Dr-Assign','','dr_assign')
-                                          /*   DataToSort=cell.getRow().getData().DR_NO;
+                                            alert(data);
+                                            loadtbl2('Dr-Assign','','dr_assign')  
+                                          /*
+                                          
+                                           DataToSort=cell.getRow().getData().DR_NO;
                                             if(DataToSort=="UNASSIGNED DR")
                                             {
                                                 LoadTableOfDrDetails(cell.getRow().getData().GROUP_NAME,"UnassignedDr");
@@ -1546,6 +1549,7 @@
             {title:"GROUP DATE", field:"GROUP_DATE",headerFilter:true},
             {title:"GROUP NAME", field:"GROUP_NAME",headerFilter:true},
             {title:"ITEM NAME", field:"ITEM_NAME",headerFilter:true},
+            {title:"LOT NUMBER", field:"LOT_NUMBER",headerFilter:true},
             {title:"QUANTITY", field:"QTY"}
           
 

@@ -11,7 +11,14 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if($searchtype == "danpla")
 {
-    $sql="SELECT SHIP_STATUS FROM mis_product WHERE (danpla_reference ='$ref_num' or packing_number ='$ref_num') AND (WAREHOUSE_RECEIVE = 'RECEIVED')  LIMIT 50";
+    /* $sql="SELECT SHIP_STATUS FROM mis_product 
+    WHERE (danpla_reference ='$ref_num' or packing_number ='$ref_num') 
+    AND (WAREHOUSE_RECEIVE = 'RECEIVED')  LIMIT 50"; */
+
+    $sql="SELECT qmd_lot_create.LOT_JUDGEMENT,mis_product.SHIP_STATUS FROM mis_product
+    LEFT JOIN qmd_lot_create ON qmd_lot_create.JO_NUM = mis_product.JO_NUM AND qmd_lot_create.ITEM_CODE = mis_product.ITEM_CODE
+    WHERE (mis_product.danpla_reference ='$ref_num' OR mis_product.packing_number ='$ref_num') 
+    AND (mis_product.WAREHOUSE_RECEIVE = 'RECEIVED')  LIMIT 1";
 
     $result = $conn->query($sql);
 
@@ -19,16 +26,17 @@ if($searchtype == "danpla")
     {
         while($rows = $result->fetch_assoc())
         {
-            if($rows['SHIP_STATUS']=="APPROVED")
+            if($rows['SHIP_STATUS']=="SHIPPED")
+            {
+                $status="shipped";
+            }
+            else if($rows['LOT_JUDGEMENT']=="APPROVED")
             {
                // $status = "exist";
                $status=checkInGroup($ref_num);
              
             }
-           else if($rows['SHIP_STATUS']=="SHIPPED")
-            {
-                $status="shipped";
-            }
+           
             else 
             {
                 $status="pending";
