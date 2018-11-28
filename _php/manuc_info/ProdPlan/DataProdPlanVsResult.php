@@ -78,7 +78,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                               {
                                 $datetoday=date("Y-m-d");
                                 $sql.=" WHERE (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1) = '$deptnum') AND
-                                (mis_prod_plan_dl.DATE_='$datetoday')
+                                (mis_prod_plan_dl.DATE_='2019-11-11')
                                 
                                 ORDER BY mis_prod_plan_dl.DATE_ DESC LIMIT 300";
 
