@@ -69,7 +69,7 @@ $result3 = $conn->query($sql3);
 while($row=$result3->fetch_assoc())
 {
 $sql2="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' 
-WHERE PACKING_NUMBER = '".$row['packing_number']."'";
+WHERE PACKING_NUMBER = '".$row['packing_number']."' LIMIT 1";
 $result2=$conn->query($sql2);
 }
 

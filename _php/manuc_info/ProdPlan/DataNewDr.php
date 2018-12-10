@@ -15,7 +15,7 @@ $user = $_SESSION['text'];
 $datenow=date("Y-m-d");
 
 $sql = "UPDATE mis_dr_assigned SET dr_number = '$new_dr',dr_date='$datenow',Date_Inserted = '$datenow',user_ins = '$user'
-  WHERE item_code = '$itemcode'";
+        WHERE item_code = '$itemcode'";
   
     if($cur_dr=="UNASSIGNED DR")
     {
@@ -53,8 +53,8 @@ $sql = "UPDATE mis_dr_assigned SET dr_number = '$new_dr',dr_date='$datenow',Date
     $result3 = $conn->query($sql3);
     while($row=$result3->fetch_assoc())
     {
-    $sql2="UPDATE msi_product SET SHIP_STATUS = 'SHIPPED' 
-    WHERE PACKING_NUMBER = '".$row['packing_number']."'";
+    $sql2="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' 
+    WHERE PACKING_NUMBER = '".$row['packing_number']."' LIMIT 1";
     $result2=$conn->query($sql2);
     }
 

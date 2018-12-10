@@ -5,11 +5,15 @@ $drno=$_POST['drno'];
 $datasorttype=$_POST['datasorttype'];
 if($datasorttype=="UnassignedDr")
 {
-    $sql="SELECT dr_date,dr_number,Date_Inserted,group_name,item_code,item_name,SUM(quantity) as qty,lot_number FROM mis_dr_assigned WHERE group_name='$drno' GROUP BY item_code";
+    $sql="SELECT dr_date,dr_number,Date_Inserted,group_name,item_code,item_name,SUM(quantity) as qty,lot_number 
+    FROM mis_dr_assigned WHERE group_name='$drno' AND dr_number IS NULL
+    GROUP BY item_code";
 }
 else
 {
-    $sql="SELECT dr_date,dr_number,Date_Inserted,group_name,item_code,item_name,SUM(quantity) as qty,lot_number  FROM mis_dr_assigned WHERE dr_number='$drno' GROUP BY item_code";
+    $sql="SELECT dr_date,dr_number,Date_Inserted,group_name,item_code,item_name,SUM(quantity) as qty,lot_number  
+    FROM mis_dr_assigned WHERE dr_number='$drno' 
+    GROUP BY item_code";
 }
 
 $result = $conn->query($sql);

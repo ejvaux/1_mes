@@ -66,10 +66,7 @@ OR mis_product.SHIP_STATUS LIKE '%$search%' or mis_product.danpla_reference LIKE
 mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty,
 mis_product.danpla_reference,mis_product.WAREHOUSE_RECEIVE FROM mis_product
 LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
-WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
-OR mis_product.ITEM_CODE LIKE '%$search%' OR  mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
-OR mis_product.SHIP_STATUS LIKE '%$search%' or mis_product.danpla_reference LIKE '$search') 
-AND (qmd_lot_create.PROD_DATE LIKE '$datetoday%')";
+WHERE  (qmd_lot_create.PROD_DATE LIKE '$datetoday%')";
 
         if ($shipstat!="ALL DATA") {
             if ($shipstat == "PENDING") {
@@ -79,8 +76,6 @@ AND (qmd_lot_create.PROD_DATE LIKE '$datetoday%')";
             }
         }
     }
-
-
 
 $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
 
@@ -98,7 +93,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
             WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
             OR mis_product.ITEM_CODE LIKE '%$search%' OR mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
             OR mis_product.SHIP_STATUS LIKE '%$search%'  or mis_product.danpla_reference LIKE '$search')
-             AND (DATE(qmd_lot_create.PROD_DATE) = '$strfrom') ";
+             AND (qmd_lot_create.PROD_DATE LIKE= '$strfrom%') ";
             if($shipstat!="ALL DATA")
             {
                 if($shipstat == "PENDING")
@@ -110,14 +105,14 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
                     $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
                 }
             }
-            $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
+            $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC LIMIT 1000";
     }
     else {
         $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
             mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty,
             mis_product.danpla_reference,mis_product.WAREHOUSE_RECEIVE FROM mis_product
-            LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
-            WHERE  (DATE(qmd_lot_create.PROD_DATE) = '$strfrom') ";
+            LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER AND mis_product.ITEM_CODE = qmd_lot_create.ITEM_CODE
+            WHERE  (qmd_lot_create.PROD_DATE LIKE '$strfrom%') ";
             
             if($shipstat!="ALL DATA")
             {
@@ -131,7 +126,7 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
                 }           
              }
 
-            $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
+            $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC LIMIT 1000";
     }
 } elseif ($strfrom!="" && $strto!="") {
     if ($search!="") {

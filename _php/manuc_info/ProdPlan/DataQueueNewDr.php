@@ -17,13 +17,13 @@ $sql = "UPDATE mis_dr_assigned
 $result = $conn->query($sql);
 
 
-$sql3="SELECT * FROM mis_dr_assigned WHERE  dr_number='$new_dr' LIMIT 100";
+$sql3="SELECT packing_number FROM mis_dr_assigned WHERE  dr_number='$new_dr' LIMIT 100";
 $result3 = $conn->query($sql3);
 
 while($row=$result3->fetch_assoc())
 {
 $sql4="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' 
-WHERE PACKING_NUMBER = '".$row['packing_number']."'";
+WHERE PACKING_NUMBER = '".$row['packing_number']."' LIMIT 1";
 $result4=$conn->query($sql4);
 }
 

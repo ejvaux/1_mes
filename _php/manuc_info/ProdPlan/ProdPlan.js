@@ -2678,6 +2678,7 @@ return result;
 
     else
     {
+        $('#exampleModal33').modal('hide');
         $.ajax({
             method:'POST',
             url:'/1_mes/_php/manuc_info/ProdPlan/DataQueueNewDr.php',
