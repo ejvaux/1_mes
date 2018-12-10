@@ -1371,7 +1371,7 @@
         columns:[
             {title:"NO", field:"NO", width:60,align:"center"},
             { title:"CONTROLS",align:"center",columns:[
-                {title:'<i class="fas fa-trash-alt" style="font-size: 1.5em"></i>',align:"center",
+                /* {title:'<i class="fas fa-trash-alt" style="font-size: 1.5em"></i>',align:"center",
                     formatter:function(cell, formatterParams)
                     {
                         
@@ -1380,8 +1380,6 @@
                     },
                     cellClick:function(e, cell)
                         {
-                        
-                            //alert(cell.getRow().getData().DR_NO + "---"+cell.getRow().getData().GROUP_NAME);
                             swal({
                                 title: 'Are you sure you want to remove '+ cell.getRow().getData().ITEM_CODE+" to this group or DR#?  ",
                                 text: "All remove items status will be set to 'UNASSIGNED DR' automatically.",
@@ -1404,12 +1402,6 @@
                                             'itemcode':cell.getRow().getData().ITEM_CODE,
                                             'lotnumber':cell.getRow().getData().LOT_NUMBER,
                                             'rem_type':'WITHOUTPACKINGNO',
-            /*                               'jono': cell.getRow().getData().JO_NO,
-                                            'itemcode':cell.getRow().getData().ITEM_CODE,
-                                            'machinecode': cell.getRow().getData().MACHINE_CODE,
-                                            'itemname': cell.getRow().getData().ITEM_NAME,
-                                            'customercode': cell.getRow().getData().CUSTOMER_CODE,
-                                            'customername': cell.getRow().getData().CUSTOMER_NAME, */
                                             'ajax':true
                             
                                         },
@@ -1417,27 +1409,15 @@
                                         
                                         success: function(data) 
                                         {
-                                            //alert(data);
+                                           
                                             loadtbl2('Dr-Assign','','dr_assign')  
-                                          /*
-                                          
-                                           DataToSort=cell.getRow().getData().DR_NO;
-                                            if(DataToSort=="UNASSIGNED DR")
-                                            {
-                                                LoadTableOfDrDetails(cell.getRow().getData().GROUP_NAME,"UnassignedDr");
-                                            }
-                                            else
-                                            {
-                                                LoadTableOfDrDetails(cell.getRow().getData().DR_NO,"assignedDr");
-                                            } */
 
-                                            
                                         swal(
                                             'SUCCESS!',
                                             cell.getRow().getData().ITEM_CODE+' removed from the list.',
                                             'success'
                                         )
-                                        //alert(data);
+                                      
                                         }
                             
                                     });
@@ -1450,7 +1430,7 @@
 
 
                         }
-            },
+            }, */
 
             { title:'<i class="fas fa-check-circle" style="font-size: 1.5em"></i>',align:"center", align:"center",
             formatter:function(cell, formatterParams)
