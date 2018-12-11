@@ -1403,13 +1403,9 @@
                                             'lotnumber':cell.getRow().getData().LOT_NUMBER,
                                             'rem_type':'WITHOUTPACKINGNO',
                                             'ajax':true
-                            
                                         },
-                                    
-                                        
                                         success: function(data) 
                                         {
-                                           
                                             loadtbl2('Dr-Assign','','dr_assign')  
 
                                         swal(
@@ -1417,18 +1413,10 @@
                                             cell.getRow().getData().ITEM_CODE+' removed from the list.',
                                             'success'
                                         )
-                                      
                                         }
-                            
                                     });
-                            
-
-
                                 }
-                            
                             })
-
-
                         }
             }, */
 
@@ -1526,6 +1514,7 @@
             ]},
           
             {title:"ITEM CODE", field:"ITEM_CODE",headerFilter:true},
+            {title:"FOREIGN NAME", field:"FOREIGN_NAME",headerFilter:true},
             {title:"DR DATE", field:"DR_DATE"},
             {title:"DR NO", field:"DR_NO",headerFilter:true},
             {title:"GROUP DATE", field:"GROUP_DATE",headerFilter:true},
