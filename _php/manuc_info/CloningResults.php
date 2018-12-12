@@ -95,7 +95,7 @@ elseif ($classify=="T") {
 
 
 #below code is for summarizing the log table
-$sql4 ="SELECT DISTINCT(JO_NUM) from mis_product ORDER BY DATE_ DESC LIMIT 500";
+$sql4 ="SELECT DISTINCT(JO_NUM) from mis_product ORDER BY print_date DESC LIMIT 500";
 $res4 = $conn->query($sql4);
 
 while ($row4=$res4->fetch_assoc()) {
@@ -208,6 +208,6 @@ fwrite($myfile, $errorProducts.$errorinsert.$errorsummary);
 #$address=$_GET['address'];
 #header("Location: ".$address);
 $conn->close();
-include 'SyncToProductionOutputDb.php';
+#include 'SyncToProductionOutputDb.php';
 
 ?>

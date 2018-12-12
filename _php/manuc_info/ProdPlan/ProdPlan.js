@@ -2279,11 +2279,7 @@
     {
 
         cancelfilter(modulename,deptname,typename);
-        swal(
-            'SUCCESS!',
-            'Data Synced Successfully!',
-            'success'
-        )
+        swal('SUCCESS!','Data Synced Successfully!','success');
     }
 
     function ShowModal_Upload()
@@ -2673,4 +2669,31 @@ return result;
         });
     }
 
+  }
+
+
+
+  function datasyncing()
+{
+
+            let timerInterval
+            Swal({
+            title: 'SYNCING!',
+            html: 'Data are being sync..Please wait. <strong></strong> seconds.',
+            timer: 2000,
+            onBeforeOpen: () => {
+                Swal.showLoading()
+                timerInterval = setInterval(() => {
+                }, 100)
+            },
+            onClose: () => {
+                clearInterval(timerInterval)
+            }
+            }).then((result) => {
+            if ( result.dismiss === Swal.DismissReason.timer) 
+                {
+                    //console.log('I was closed by the timer')
+                    swal('SUCCESS','Data synced successfully','success');
+                }
+            })
   }

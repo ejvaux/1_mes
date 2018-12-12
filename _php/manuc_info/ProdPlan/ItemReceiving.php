@@ -24,6 +24,7 @@
           <div class="input-group-append">
             <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="ConfirmReceiveBtn" onclick="ApproveTransfer()">TRANSFER</button>
             <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="clearReceive" onclick="clearReceive()">CLEAR TRANSFER</button> 
+            <button style="z-index:0" type="button" class="btn btn-outline-secondary py-1" id="sync" onclick="SyncToProdOutputSystem();datasyncing()">SYNC</button> 
           </div>
         </div>
       </div>
