@@ -16,7 +16,8 @@ if($searchtype == "danpla")
     AND (WAREHOUSE_RECEIVE = 'RECEIVED')  LIMIT 50"; */
 
     $sql="SELECT qmd_lot_create.LOT_JUDGEMENT,mis_product.SHIP_STATUS FROM mis_product
-    LEFT JOIN qmd_lot_create ON qmd_lot_create.JO_NUM = mis_product.JO_NUM AND qmd_lot_create.ITEM_CODE = mis_product.ITEM_CODE
+    LEFT JOIN qmd_lot_create ON qmd_lot_create.JO_NUM = mis_product.JO_NUM 
+    AND qmd_lot_create.ITEM_CODE = mis_product.ITEM_CODE AND qmd_lot_create.LOT_NUMBER = mis_product.LOT_NUM
     WHERE (mis_product.danpla_reference ='$ref_num' OR mis_product.packing_number ='$ref_num') 
     AND (mis_product.WAREHOUSE_RECEIVE = 'RECEIVED')  LIMIT 1";
 
@@ -39,7 +40,8 @@ if($searchtype == "danpla")
            
             else 
             {
-                $status="pending";
+                /* $status="pending"; */
+                $status=$rows['LOT_JUDGEMENT'];
             }
            
         }

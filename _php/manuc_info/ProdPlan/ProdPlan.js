@@ -211,7 +211,7 @@
                 {
                     //initTbl2("PendingProduction");
                     
-                    
+                    alert(data);
                     filterTableSummary();
                     //alert(data);
                     var val = JSON.parse(data);
