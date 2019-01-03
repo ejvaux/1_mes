@@ -67,7 +67,7 @@
             },
             success: function(data) 
             {
-                alert(data);
+                //alert(data);
                 initTbl2("ProdPlanVsResult");
                 var val = JSON.parse(data);
               
