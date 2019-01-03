@@ -61,8 +61,8 @@
                 'sortto': strtoobj,
                 'search': searchobj,
                 'dept': department,
-                'ads':adv,
-               
+                /* 'ads':adv, */
+               'ads':'abcd',
                 'ajax':true
             },
             success: function(data) 
@@ -211,7 +211,7 @@
                 {
                     //initTbl2("PendingProduction");
                     
-                    
+                    alert(data);
                     filterTableSummary();
                     //alert(data);
                     var val = JSON.parse(data);
