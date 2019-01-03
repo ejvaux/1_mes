@@ -61,13 +61,13 @@
                 'sortto': strtoobj,
                 'search': searchobj,
                 'dept': department,
-                'ads':adv,
-               
+                /* 'ads':adv, */
+               'ads':'abcd',
                 'ajax':true
             },
             success: function(data) 
             {
-                //alert(data);
+                alert(data);
                 initTbl2("ProdPlanVsResult");
                 var val = JSON.parse(data);
               
