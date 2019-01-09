@@ -22,6 +22,11 @@
           $auth = $_SESSION['auth'];
           $auth = stripslashes($auth);
         }
+
+        require $_SERVER['DOCUMENT_ROOT']. '/1_mes/vendor/autoload.php';
+
+        $dotenv = new Dotenv\Dotenv($_SERVER['DOCUMENT_ROOT'].'\1_mes');
+        $dotenv->load();
                                 
       ?>
            
@@ -192,7 +197,9 @@
     <body>    
     <script>      
       $body = $("body");
-      $body.addClass("loading"); 
+      $body.addClass("loading");
+      var app_key = "<?php echo getenv('PUSHER_APP_KEY') ?>";
+      var app_cluster = "<?php echo getenv('PUSHER_APP_CLUSTER') ?>";
     </script>
     
     <div class="mdl" style="z-index:5000"><!-- Place at bottom of page --></div>
@@ -277,7 +284,7 @@
             <!-- Clock -->            
             <span class="navbar-text mr-2" id="clockdate" style="display:block"></span>            
             <span class="navbar-text mr-2" id="clocktime" style="display:block"></span>
-            <span class="navbar-text mr-2" id="con" style="display:block;color:orange;" title='Database Connection'><i class="fas fa-plug"></i></span>
+            <!-- <span class="navbar-text mr-2" id="con" style="display:block;color:orange;" title='Database Connection'><i class="fas fa-plug"></i></span> -->
             <span class="navbar-text mr-2" id="" style="display:block">
             <a data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-link p-1 ml-sm-0 mr-1 hvr-icon-wobble-horizontal" href='#' onclick="" id="b_report" style="display:block;" title="Report Bug"><small class='text-muted'><i class="fas fa-bug"></i></small></a>
             </span>  
@@ -341,60 +348,7 @@
             <div class="col-md-5 text-center">
 
               <div class="card-deck mb-3 text-center">
-                <!-- <div class="card mb-4 box-shadow">
-                  <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">Free</h4>
-                  </div>
-                  <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li>10 users included</li>
-                      <li>2 GB of storage</li>
-                      <li>Email support</li>
-                      <li>Help center access</li>
-                    </ul>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
-                  </div>
-                </div> -->
-                <!-- <div class="card mb-4 box-shadow">
-                  <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">AMS</h4>
-                  </div>
-                  <div class="card-body">
-                    <h1 class="card-title pricing-card-title">APPROVAL MANAGEMENT SYSTEM</h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li>20 users included</li>
-                      <li>10 GB of storage</li>
-                      <li>Priority email support</li>
-                      <li>Help center access</li>
-                    </ul> 
-                    <a type="button" class="btn btn-lg btn-block btn-primary" href="/1_ams/public/">Go to</a>                 
-                  </div>
-                </div> -->
-                <!-- <div class="card mb-4 box-shadow">
-                  <div class="card-header">
-                    <h4 class="my-0">ATMS</h4>
-                  </div>
-                  <div class="card-body">
-                    <h1 class="card-title">Approval and Ticket Management System</h1>                    
-                    <a type="button" class="btn btn-lg btn-block btn-primary" href="/1_atms/">Go to</a>                 
-                  </div>
-                </div> -->
-                <!-- <div class="card mb-4 box-shadow">
-                  <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">Enterprise</h4>
-                  </div>
-                  <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$29 <small class="text-muted">/ mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li>30 users included</li>
-                      <li>15 GB of storage</li>
-                      <li>Phone and email support</li>
-                      <li>Help center access</li>
-                    </ul>
-                    <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
-                  </div>
-                </div> -->
+                
               </div>
             </div>
             <div class="col"></div>
@@ -852,6 +806,7 @@
       <script>
         $('.mdl').fadeOut(1000);
       </script>
+    <script src="https://js.pusher.com/4.3/pusher.min.js"></script> 
     <script src="/1_mes/_includes/sessioncheck.js"></script>    
     <script src="/1_mes/_includes/notif/rtnotif.js"></script>
     </body>

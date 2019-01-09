@@ -24,7 +24,7 @@ $(document).on('submit', '#notifform', function(e){
     var formdata =  $('#notifform').serializeArray();
     formdata.push({name: 'action', value: 'update'});
 
-    $.ajax({
+    /* $.ajax({
     type: 'POST',
     url: '/1_mes/database/table_handler/admin/notifHandler.php',
     data: $.param(formdata),
@@ -49,7 +49,47 @@ $(document).on('submit', '#notifform', function(e){
         alert(data);          
         }
     }
-    });
+    }); */
+
+    $.ajax({
+        type: 'POST',
+        url: '/1_mes/database/table_handler/admin/notifHandler.php',
+        data: $.param(formdata),
+        success: function (data) {      
+            if(data==true){
+            
+                $.ajax({
+                    type: 'POST',
+                    url: '/1_mes/mis_admin/notifpush.php',
+                    data: $.param(formdata),
+                    success: function (data) {
+                        if(data=="true"){
+                        
+                        $('#notifform').trigger('reset');        
+                        
+                        iziToast.show({
+                            title: 'NOTICE:',
+                            message: 'Announcement has been published',
+                            position: 'topCenter',
+                            titleSize: '20px',
+                            messageSize: '18px',
+                            transitionIn: 'fadeInDown',
+                            transitionOut:	'fadeOutUp',
+                            timeout: 5000,
+                            pauseOnHover: false
+                        });
+                        }
+                        else{
+                        alert(data);          
+                        }
+                    }
+                });
+            }
+            else{
+            alert(data);          
+            }
+        }
+        });
 });
 
 /* announcement link*/

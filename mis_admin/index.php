@@ -6,7 +6,7 @@
     <?php
       include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php";
       $auth = $_SESSION['auth'];
-      $auth = stripslashes($auth);             
+      $auth = stripslashes($auth);      
     ?>
     <!-- Header end -->
     

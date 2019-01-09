@@ -51,8 +51,6 @@
         case "delete":
             del();
             break;
-    }
-
-    
+    }   
     
 ?>

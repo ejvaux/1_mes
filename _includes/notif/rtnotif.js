@@ -1,7 +1,5 @@
 function checknotif(){
-    
-    /* alert('Boom!'); */
-    
+        
     $.ajax({
         type: 'POST',
         url: '/1_mes/database/table_handler/admin/notifHandler.php',
@@ -36,8 +34,30 @@ function checknotif(){
         
       });
 
-    setTimeout(checknotif,5*1000);
+    /* setTimeout(checknotif,5*1000); */
 
   }
 
   checknotif();
+
+  /* Pusher.logToConsole = true; */
+
+  var pusher = new Pusher(app_key, {
+    cluster: app_cluster,
+    forceTLS: true
+  });
+
+  var channel = pusher.subscribe('notif');
+  channel.bind('my-event', function(data) {
+    /* alert(data.message); */
+    /* iziToast.show({
+      class: 'notifi',
+      title: 'Notice:',
+      message: data.message,
+      image: '/1_mes/_icons/favicon.ico',
+      transitionIn: 'fadeInLeft',
+      transitionOut:	'fadeOutRight',
+      timeout: false
+    }); */
+    checknotif();
+  });

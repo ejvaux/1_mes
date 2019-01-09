@@ -41,7 +41,27 @@
         $_SESSION['text'] = ucwords(strtolower($user_name));
         $_SESSION['auth'] = $user_authority;
         $_SESSION['email'] = $emailadd;
-        $_SESSION['log_alert'] = "login";   
+        $_SESSION['log_alert'] = "login";
+
+        // Pusher
+        require $_SERVER['DOCUMENT_ROOT']. '/1_mes/vendor/autoload.php';
+
+        $dotenv = new Dotenv\Dotenv($_SERVER['DOCUMENT_ROOT'].'\1_mes');
+        $dotenv->load();
+
+        $options = array(
+            'cluster' => getenv('PUSHER_APP_CLUSTER'),
+            'useTLS' => true
+        );
+        $pusher = new Pusher\Pusher(
+            getenv('PUSHER_APP_KEY'),
+            getenv('PUSHER_APP_SECRET'),
+            getenv('PUSHER_APP_ID'),
+            $options
+        );
+
+        $data['message'] = 'success';
+        $pusher->trigger('token-check', 'my-event', $data);
        
         echo "success";           
     }    

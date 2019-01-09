@@ -4,8 +4,18 @@
     session_start();
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/logcheck.php";
     $auth = $_SESSION['auth'];
-    $auth = stripslashes($auth); 
+    $auth = stripslashes($auth);
+    require $_SERVER['DOCUMENT_ROOT']. '/1_mes/vendor/autoload.php';
+
+    $dotenv = new Dotenv\Dotenv($_SERVER['DOCUMENT_ROOT'].'\1_mes');
+    $dotenv->load();
 ?>
+<script>
+
+    var app_key = "<?php echo getenv('PUSHER_APP_KEY') ?>";
+    var app_cluster = "<?php echo getenv('PUSHER_APP_CLUSTER') ?>";
+
+</script>
 <!--  Session Check - END -->
 
 <meta charset="utf-8">
@@ -101,6 +111,7 @@
 <link rel="stylesheet" href="/1_mes/_css/page.css">
 <link rel="icon" href="/1_MES/favicon.ico"/>
 
+<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 <script src="/1_mes/_includes/sessioncheck.js"></script>
 <script src="/1_mes/_includes/notif/rtnotif.js"></script>
 
