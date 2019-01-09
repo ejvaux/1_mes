@@ -61,12 +61,12 @@ WHERE (WAREHOUSE_RECEIVE = 'RECEIVED') ";
             LOT_NUM LIKE '%$search%' OR ITEM_CODE LIKE '%$search%' OR 
             ITEM_NAME LIKE '%$search%' OR MACHINE_CODE LIKE '%$search%' OR 
             RECEIVED_BY LIKE '%$search%') 
-            AND (cast(RECEIVED_DATE as date) BETWEEN '$datefrom' AND '$dateto')";
+            AND (cast(RECEIVED_DATE as date) BETWEEN '$sortfrom' AND '$sortto')";
             
         }
         else
         {
-            $sql.=" AND (cast(RECEIVED_DATE as date) BETWEEN '$datefrom' AND '$dateto')";
+            $sql.=" AND (cast(RECEIVED_DATE as date) BETWEEN '$sortfrom' AND '$sortto')";
         }
     }
 

@@ -61,7 +61,18 @@ else
 }
 $result=$conn->query($sql);
 
-$sql2="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' WHERE PACKING_NUMBER IN (SELECT packing_number from mis_dr_assigned WHERE dr_number='$newdr')";
+/* $sql2="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' WHERE PACKING_NUMBER IN (SELECT packing_number from mis_dr_assigned WHERE dr_number='$newdr')";
+$result2=$conn->query($sql2); */
+
+$sql3="SELECT * FROM mis_dr_assigned WHERE  dr_number='$newdr' LIMIT 100";
+$result3 = $conn->query($sql3);
+while($row=$result3->fetch_assoc())
+{
+$sql2="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' 
+WHERE PACKING_NUMBER = '".$row['packing_number']."' LIMIT 1";
 $result2=$conn->query($sql2);
+}
+
+
 
 

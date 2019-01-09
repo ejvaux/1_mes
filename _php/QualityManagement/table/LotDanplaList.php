@@ -19,32 +19,35 @@
             /* if (!empty($result)) */
             if ($result->num_rows > 0)
             {
-                echo "<table class='table-hover table-bordered table-sm wrap lotTable' id='LotDetails'><thead>    
+                echo "<table class='text-center table-hover table-bordered table-sm wrap lotTable' id='LotDetails'><thead>    
+                <th>NO</th>
                 <th>REFERENCE NUMBER</th>
                 <th>PACKING NUMBER</th>
                 <th>PRINT QTY</th>
                 </thead><tbody>";
                 // output data of each row
-                
+                $ctr = 0;
                 while($row = $result->fetch_assoc()) 
                 {
+                $ctr += 1;
                 echo " <tbody>";
+                echo "<td>". $ctr . "</td>";
                 if($row['danpla_reference'] == "")
                 {
-                    echo "<td class='text-center'> N/A </td>";
+                    echo "<td> N/A </td>";
                 }
                 else
                 {
-                    echo "<td class='text-center'>" . $row['danpla_reference'] . "</td>";
+                    echo "<td>" . $row['danpla_reference'] . "</td>";
                 }
-                echo "<td class='text-center'>" . $row['PACKING_NUMBER'] . "</td>";
-                echo "<td class='text-center'>" . $row['SUMQ'] . "</td>";
+                echo "<td>" . $row['PACKING_NUMBER'] . "</td>";
+                echo "<td>" . $row['SUMQ'] . "</td>";
                 
                 }
                 echo "</tbody></table>";
             } 
             else {
-                echo "<table class='table-hover table-bordered table-sm wrap lotTable' id='LotDetails'><thead>   
+                echo "<table class='text-center table-hover table-bordered table-sm wrap lotTable' id='LotDetails'><thead>   
                 <th>REFERENCE NUMBER</th>
                 <th>PACKING NUMBER</th>
                 <th>PRINT QTY</th>

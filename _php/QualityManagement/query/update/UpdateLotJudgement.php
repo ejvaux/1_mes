@@ -13,42 +13,7 @@ session_start();
         header('Location: /1_mes/');
         exit();
     }
-
-function updateShipStatus($decision, $item, $lot){
-    include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-
-        if($decision == 'PENDING-REWORK')
-    {
-        $decision= 'PENDING';
-    }
-
-        $sql = "UPDATE mis_product SET SHIP_STATUS='$decision' WHERE LOT_NUM ='$lot' AND ITEM_CODE = '$item'";
-        if($conn->query($sql) === TRUE) {
-                echo "SUCCESS";
-                } 
-            else{
-                echo "Error updating record: " . $sql . "<br>" . $conn->error;        
-                }
-        $conn->close();
-}
-
-
-
-// if($decision == "EPSON_APPROVED"){
-//     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
-//         $sql = "UPDATE qmd_lot_create SET EPSON_QC_APPROVED = 'APPROVED' WHERE LOT_NUMBER ='$lot' AND ITEM_CODE = '$item'";
-//         if($conn->query($sql) === TRUE) {
-//                 echo "SUCCESS";
-//                 } 
-//             else{
-//                 echo "Error updating record: " . $sql . "<br>" . $conn->error;        
-//                 }
-    
-//             }
-// else{
-    
-    updateShipStatus($decision, $item, $lot);
-    
+        
     include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";
         
         if($decision=="APPROVED"){

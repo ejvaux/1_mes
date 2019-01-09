@@ -1,3 +1,4 @@
+<table class= "table-bordered table-sm table table-hover table-striped mt-1" id='RecoveryTable'>
 <?php       
               include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/connect.php";  
               session_start();
@@ -17,7 +18,7 @@
               if ($result->num_rows > 0) 
               {
                 if($userAuth == 'CQ' || $userAuth =='C' || $userAuth =='A' || $userAuth == 'CG'){ //if user is authorized
-                  echo "<table class='table-bordered table-sm table table-hover table-striped mt-1 id='RecoveryTable'><thead>    
+                  echo "<thead>    
                   <th style='width:15%'>REJECTION TYPE</th>
                   <th>JUDGEMENT</th>
                   <th>PROD DATE</th>
@@ -50,7 +51,7 @@
                   echo "</tbody></table>";
               }
               else { //user not authorized
-                echo "<table class='table-bordered table-sm table table-hover table-striped mt-1 id='RecoveryTable'><thead>
+                echo "<thead>
                   <th>JUDGEMENT</th>
                   <th>PROD DATE</th>
                   <th>LOT NUMBER</th>
@@ -82,7 +83,7 @@
             }
               else { //no DATA found
                   //echo "Error: " . $sql . "<br>" . $conn->error;
-                  echo "<table class='mt-1 table table-striped table-hover table-bordered table-sm tbl2' id='CreatedLotTable'><thead>    
+                  echo "<thead>    
                   <th>REJECTION TYPE</th>
                   <th>LOT JUDGEMENT</th>
                   <th>PROD DATE</th>

@@ -61,8 +61,8 @@
                 'sortto': strtoobj,
                 'search': searchobj,
                 'dept': department,
-                'ads':adv,
-               
+                /* 'ads':adv, */
+               'ads':'abcd',
                 'ajax':true
             },
             success: function(data) 
@@ -211,7 +211,7 @@
                 {
                     //initTbl2("PendingProduction");
                     
-                    
+                    alert(data);
                     filterTableSummary();
                     //alert(data);
                     var val = JSON.parse(data);
@@ -404,7 +404,7 @@
         {
         
            
-            loadqueue("no");
+            
             var DrDataTypeobj = document.getElementById("DrDataType");
             var selectedOption2 = DrDataTypeobj.options[DrDataTypeobj.selectedIndex].value;
             var strfromobj = document.getElementById("sortfrom").value;
@@ -433,10 +433,12 @@
                        // $("#example-table1").tabulator("destroy");
                         //$("#example-table2").tabulator("destroy");
                         LoadTableOfDrDetails("testing","UnassignedDr");
+                        loadqueue("");
                         
                     }
                     else{
                         LoadTableOfDrDetails("testing","UnassignedDr","no");
+                        loadqueue("no");
                     }
                     
                     initTbl2("Dr-Assign");
@@ -589,7 +591,7 @@
             //layout:"fitColumns", //fit columns to width of table (optional)
             pagination:"local",
             paginationSize:1000,
-            placeholder:"No Data to Display or Today's plan is not yet available.",
+            placeholder:"No Data to Display. Please select the DATE of data to load .",
             movableColumns:true,
             selectable: 1,
             groupBy:"DATE",   
@@ -1369,7 +1371,7 @@
         columns:[
             {title:"NO", field:"NO", width:60,align:"center"},
             { title:"CONTROLS",align:"center",columns:[
-                {title:'<i class="fas fa-trash-alt" style="font-size: 1.5em"></i>',align:"center",
+                /* {title:'<i class="fas fa-trash-alt" style="font-size: 1.5em"></i>',align:"center",
                     formatter:function(cell, formatterParams)
                     {
                         
@@ -1378,8 +1380,6 @@
                     },
                     cellClick:function(e, cell)
                         {
-                        
-                            //alert(cell.getRow().getData().DR_NO + "---"+cell.getRow().getData().GROUP_NAME);
                             swal({
                                 title: 'Are you sure you want to remove '+ cell.getRow().getData().ITEM_CODE+" to this group or DR#?  ",
                                 text: "All remove items status will be set to 'UNASSIGNED DR' automatically.",
@@ -1402,50 +1402,23 @@
                                             'itemcode':cell.getRow().getData().ITEM_CODE,
                                             'lotnumber':cell.getRow().getData().LOT_NUMBER,
                                             'rem_type':'WITHOUTPACKINGNO',
-            /*                               'jono': cell.getRow().getData().JO_NO,
-                                            'itemcode':cell.getRow().getData().ITEM_CODE,
-                                            'machinecode': cell.getRow().getData().MACHINE_CODE,
-                                            'itemname': cell.getRow().getData().ITEM_NAME,
-                                            'customercode': cell.getRow().getData().CUSTOMER_CODE,
-                                            'customername': cell.getRow().getData().CUSTOMER_NAME, */
                                             'ajax':true
-                            
                                         },
-                                    
-                                        
                                         success: function(data) 
                                         {
-                                            loadtbl2('Dr-Assign','','dr_assign')
-                                          /*   DataToSort=cell.getRow().getData().DR_NO;
-                                            if(DataToSort=="UNASSIGNED DR")
-                                            {
-                                                LoadTableOfDrDetails(cell.getRow().getData().GROUP_NAME,"UnassignedDr");
-                                            }
-                                            else
-                                            {
-                                                LoadTableOfDrDetails(cell.getRow().getData().DR_NO,"assignedDr");
-                                            } */
+                                            loadtbl2('Dr-Assign','','dr_assign')  
 
-                                            
                                         swal(
                                             'SUCCESS!',
                                             cell.getRow().getData().ITEM_CODE+' removed from the list.',
                                             'success'
                                         )
-                                        //alert(data);
                                         }
-                            
                                     });
-                            
-
-
                                 }
-                            
                             })
-
-
                         }
-            },
+            }, */
 
             { title:'<i class="fas fa-check-circle" style="font-size: 1.5em"></i>',align:"center", align:"center",
             formatter:function(cell, formatterParams)
@@ -1541,11 +1514,13 @@
             ]},
           
             {title:"ITEM CODE", field:"ITEM_CODE",headerFilter:true},
+            {title:"FOREIGN NAME", field:"FOREIGN_NAME",headerFilter:true},
             {title:"DR DATE", field:"DR_DATE"},
             {title:"DR NO", field:"DR_NO",headerFilter:true},
             {title:"GROUP DATE", field:"GROUP_DATE",headerFilter:true},
             {title:"GROUP NAME", field:"GROUP_NAME",headerFilter:true},
             {title:"ITEM NAME", field:"ITEM_NAME",headerFilter:true},
+            {title:"LOT NUMBER", field:"LOT_NUMBER",headerFilter:true},
             {title:"QUANTITY", field:"QTY"}
           
 
@@ -2304,11 +2279,7 @@
     {
 
         cancelfilter(modulename,deptname,typename);
-        swal(
-            'SUCCESS!',
-            'Data Synced Successfully!',
-            'success'
-        )
+        swal('SUCCESS!','Data Synced Successfully!','success');
     }
 
     function ShowModal_Upload()
@@ -2672,6 +2643,7 @@ return result;
 
     else
     {
+        $('#exampleModal33').modal('hide');
         $.ajax({
             method:'POST',
             url:'/1_mes/_php/manuc_info/ProdPlan/DataQueueNewDr.php',
@@ -2697,4 +2669,31 @@ return result;
         });
     }
 
+  }
+
+
+
+  function datasyncing()
+{
+
+            let timerInterval
+            Swal({
+            title: 'SYNCING!',
+            html: 'Data are being sync..Please wait. <strong></strong> seconds.',
+            timer: 2000,
+            onBeforeOpen: () => {
+                Swal.showLoading()
+                timerInterval = setInterval(() => {
+                }, 100)
+            },
+            onClose: () => {
+                clearInterval(timerInterval)
+            }
+            }).then((result) => {
+            if ( result.dismiss === Swal.DismissReason.timer) 
+                {
+                    //console.log('I was closed by the timer')
+                    swal('SUCCESS','Data synced successfully','success');
+                }
+            })
   }

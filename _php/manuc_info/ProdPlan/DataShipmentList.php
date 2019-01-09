@@ -6,18 +6,19 @@
 //WHERE (`ITEM_CODE` LIKE 'PMXF0019ZA-B') AND (CAST(PRINT_DATE as DATE) BETWEEN '2018-10-01' AND '2018-10-28') AND SHIP_STATUS = 'APPROVED'
 
 /* SELECT mis_product.* FROM mis_product 
-LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
-WHERE (mis_product.SHIP_STATUS IS NULL or mis_product.SHIP_STATUS = "")
-AND (qmd_lot_create.LOT_JUDGEMENT = 'APPROVED') AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-19') */
+LEFT JOIN qmd_lot_create 
+ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER AND mis_product.ITEM_CODE = qmd_lot_create.ITEM_CODE 
+WHERE (mis_product.SHIP_STATUS IS NULL or mis_product.SHIP_STATUS = "") AND 
+(qmd_lot_create.LOT_JUDGEMENT = 'APPROVED') AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-19') */
 
 /* UPDATE mis_product 
-LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
+LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER AND mis_product.ITEM_CODE = qmd_lot_create.ITEM_CODE
 SET mis_product.SHIP_STATUS = 'APPROVED'
 WHERE (mis_product.SHIP_STATUS IS NULL or mis_product.SHIP_STATUS = "")
 AND (qmd_lot_create.LOT_JUDGEMENT = 'APPROVED') AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-19') */
 
 /* UPDATE mis_product
-LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER
+LEFT JOIN qmd_lot_create on mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
 SET mis_product.WAREHOUSE_RECEIVE = 'RECEIVED',mis_product.TO_WAREHOUSE = 'FG01',mis_product.QC_SAP_TRANSFER_STATUS = 'TRANSFERED'
 WHERE (mis_product.WAREHOUSE_RECEIVE = 'NOT YET') AND (qmd_lot_create.WAREHOUSE_RECEIVE = 'RECEIVED')
 AND (mis_product.DATE_ BETWEEN '2018-10-01' AND '2018-11-14') */
@@ -44,42 +45,38 @@ if ($strto == "" && $strfrom=="") {
     # code... condition above is whenever both date range are null are date
 if ($search!="") {
     $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty,
+mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME,
+SUM(mis_product.PRINT_QTY) as Out_Qty,
 mis_product.danpla_reference,mis_product.WAREHOUSE_RECEIVE FROM mis_product
-LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
+LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER AND mis_product.ITEM_CODE = qmd_lot_create.ITEM_CODE
 WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
 OR mis_product.ITEM_CODE LIKE '%$search%' OR  mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
 OR mis_product.SHIP_STATUS LIKE '%$search%' or mis_product.danpla_reference LIKE '$search') ";
 
     if ($shipstat!="ALL DATA") {
         if ($shipstat == "PENDING") {
-            $sql.=" AND ((mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat')) ";
+            $sql.=" AND ((qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat')) ";
         } else  {
-            $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
+            $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
         }
     }
 }
      else{                                
         $datetoday=date("Y-m-d");
         $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty,
+mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty,
 mis_product.danpla_reference,mis_product.WAREHOUSE_RECEIVE FROM mis_product
-LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
-WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
-OR mis_product.ITEM_CODE LIKE '%$search%' OR  mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
-OR mis_product.SHIP_STATUS LIKE '%$search%' or mis_product.danpla_reference LIKE '$search') 
-AND (qmd_lot_create.PROD_DATE LIKE '$datetoday%')";
+LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER AND mis_product.ITEM_CODE = qmd_lot_create.ITEM_CODE
+WHERE  (qmd_lot_create.PROD_DATE LIKE '$datetoday%')";
 
         if ($shipstat!="ALL DATA") {
             if ($shipstat == "PENDING") {
-                $sql.=" AND ((mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat')) ";
+                $sql.=" AND ((qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat')) ";
             } else {
-                $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
+                $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
             }
         }
     }
-
-
 
 $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
 
@@ -91,55 +88,56 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
           # code...
 
         $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty,
+            mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, 
+            SUM(mis_product.PRINT_QTY) as Out_Qty,
             mis_product.danpla_reference,mis_product.WAREHOUSE_RECEIVE FROM mis_product
-            LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
+            LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER AND mis_product.ITEM_CODE = qmd_lot_create.ITEM_CODE
             WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
             OR mis_product.ITEM_CODE LIKE '%$search%' OR mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
             OR mis_product.SHIP_STATUS LIKE '%$search%'  or mis_product.danpla_reference LIKE '$search')
-             AND (DATE(qmd_lot_create.PROD_DATE) = '$strfrom') ";
+             AND (qmd_lot_create.PROD_DATE LIKE= '$strfrom%') ";
             if($shipstat!="ALL DATA")
             {
                 if($shipstat == "PENDING")
                 {
-                    $sql.=" AND ((mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat')) ";
+                    $sql.=" AND ((qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat')) ";
                 }
                 else
                 {
-                    $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
+                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
                 }
             }
-            $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
+            $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC LIMIT 1000";
     }
     else {
         $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty,
+            mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty,
             mis_product.danpla_reference,mis_product.WAREHOUSE_RECEIVE FROM mis_product
-            LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
-            WHERE  (DATE(qmd_lot_create.PROD_DATE) = '$strfrom') ";
+            LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER AND mis_product.ITEM_CODE = qmd_lot_create.ITEM_CODE
+            WHERE  (qmd_lot_create.PROD_DATE LIKE '$strfrom%') ";
             
             if($shipstat!="ALL DATA")
             {
                 if($shipstat == "PENDING")
                 {
-                    $sql.=" AND ((mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat')) ";
+                    $sql.=" AND ((qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat')) ";
                 }
                 else
                 {
-                    $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
+                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
                 }           
              }
 
-            $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
+            $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC LIMIT 1000";
     }
 } elseif ($strfrom!="" && $strto!="") {
     if ($search!="") {
         # code...
 
         $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty,
+            mis_product.MACHINE_CODE,qmd_lot_create.LOT_JUDGEMENT,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty,
             mis_product.danpla_reference,mis_product.WAREHOUSE_RECEIVE FROM mis_product
-            LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
+            LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER AND mis_product.ITEM_CODE = qmd_lot_create.ITEM_CODE
             WHERE (mis_product.PACKING_NUMBER LIKE '%$search%' OR mis_product.LOT_NUM LIKE '%$search%' OR mis_product.JO_NUM LIKE '%$search%'
             OR mis_product.ITEM_CODE LIKE '%$search%' OR mis_product.ITEM_NAME LIKE '%$search%' OR mis_product.MACHINE_CODE LIKE '%$search%'
             OR mis_product.SHIP_STATUS LIKE '%$search%'  or mis_product.danpla_reference LIKE '$search') AND (qmd_lot_create.PROD_DATE BETWEEN '$strfrom' AND '$strto') ";
@@ -148,29 +146,29 @@ $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DE
             {
                 if($shipstat == "PENDING")
                 {
-                    $sql.=" AND ((mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat')) ";
+                    $sql.=" AND ((qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat')) ";
                 }
                 else
                 {   
-                    $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
+                    $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
                 }
             }
             $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
     } else {
         $sql="SELECT mis_product.danpla_reference,mis_product.PACKING_NUMBER, mis_product.LOT_NUM, mis_product.JO_NUM, mis_product.ITEM_CODE, mis_product.ITEM_NAME, 
-            mis_product.MACHINE_CODE, mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty,
+            mis_product.MACHINE_CODE, qmd_lot_create.LOT_JUDGEMENT,mis_product.SHIP_STATUS, qmd_lot_create.PROD_DATE, mis_product.CUST_CODE,mis_product.CUST_NAME, SUM(mis_product.PRINT_QTY) as Out_Qty,
             mis_product.danpla_reference,mis_product.WAREHOUSE_RECEIVE FROM mis_product
-            LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER 
+            LEFT JOIN qmd_lot_create ON mis_product.LOT_NUM = qmd_lot_create.LOT_NUMBER AND mis_product.ITEM_CODE = qmd_lot_create.ITEM_CODE
             WHERE (qmd_lot_create.PROD_DATE BETWEEN '$strfrom' AND '$strto') ";
                        if($shipstat!="ALL DATA")
                        {
                         if($shipstat == "PENDING")
                         {
-                            $sql.=" AND ((mis_product.SHIP_STATUS IS NULL ) OR (mis_product.SHIP_STATUS = '$shipstat')) ";
+                            $sql.=" AND ((qmd_lot_create.LOT_JUDGEMENT IS NULL ) OR (qmd_lot_create.LOT_JUDGEMENT = '$shipstat')) ";
                         }
                         else
                         {
-                            $sql.=" AND (mis_product.SHIP_STATUS = '$shipstat') ";
+                            $sql.=" AND (qmd_lot_create.LOT_JUDGEMENT = '$shipstat') ";
                         }
                        }
                        $sql.=" GROUP BY mis_product.PACKING_NUMBER ORDER BY qmd_lot_create.PROD_DATE DESC";
@@ -188,14 +186,14 @@ while (($row = mysqli_fetch_array($result))) {
         $temp_date = date("d M Y h:i:s A", strtotime($row['PROD_DATE']));
     }
 
-    if ($row['SHIP_STATUS']=="") 
+    if ($row['LOT_JUDGEMENT']!="APPROVED") 
     {
         $lotjudge = "PENDING";
         $shipStat = "WAITING FOR INSPECTION";
     }
      else
     {
-        $lotjudge = $row['SHIP_STATUS'];
+        $lotjudge = $row['LOT_JUDGEMENT'];
 
         if ($lotjudge =="APPROVED") 
         {
@@ -216,7 +214,14 @@ while (($row = mysqli_fetch_array($result))) {
                 {
                     if($row['WAREHOUSE_RECEIVE']=="RECEIVED")
                     {
-                        $shipStat = "WAITING FOR SHIPMENT";
+                        if($row['SHIP_STATUS']=="SHIPPED")
+                        {
+                            $shipStat="ALREADY SHIPPED";
+                        }
+                        else{
+                            $shipStat = "WAITING FOR SHIPMENT";
+                        }
+                       
                     }
                     else
                     {
@@ -272,15 +277,3 @@ while (($row = mysqli_fetch_array($result))) {
             ,"REFERENCE_NUMBER" => $row['danpla_reference']]);
 }
 echo json_encode($datavar, true);
-/* 
-<html>
-
-<head>
-</head>
-
-<body>
-      <div style="padding-top: 20px; margin: 0 auto; x-overflow: hidden; display: inline-block">  </div>          
-</body>
-
-</html>
-*/

@@ -15,7 +15,7 @@ $user = $_SESSION['text'];
 $datenow=date("Y-m-d");
 
 $sql = "UPDATE mis_dr_assigned SET dr_number = '$new_dr',dr_date='$datenow',Date_Inserted = '$datenow',user_ins = '$user'
-  WHERE item_code = '$itemcode'";
+        WHERE item_code = '$itemcode'";
   
     if($cur_dr=="UNASSIGNED DR")
     {
@@ -45,6 +45,17 @@ $sql = "UPDATE mis_dr_assigned SET dr_number = '$new_dr',dr_date='$datenow',Date
     else
     {
         $res = false;
+    }
+
+
+
+    $sql3="SELECT * FROM mis_dr_assigned WHERE  dr_number='$new_dr' LIMIT 100";
+    $result3 = $conn->query($sql3);
+    while($row=$result3->fetch_assoc())
+    {
+    $sql2="UPDATE mis_product SET SHIP_STATUS = 'SHIPPED' 
+    WHERE PACKING_NUMBER = '".$row['packing_number']."' LIMIT 1";
+    $result2=$conn->query($sql2);
     }
 
     echo json_encode($res,true);

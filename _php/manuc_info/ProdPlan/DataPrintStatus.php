@@ -43,9 +43,9 @@ include $_SERVER['DOCUMENT_ROOT'].'/1_mes/_php/manuc_info/1_MES_DB.php';
                                 or mis_product.ITEM_CODE LIKE '%$search%' or mis_product.ITEM_NAME LIKE '%$search%' or mis_product.JO_NUM LIKE '%$search%'
                                 or mis_product.TOOL_NUM LIKE '%$search%' or dmc_item_list.MODEL LIKE '%$search%' or mis_product.reference_num LIKE '$search'
                                 or mis_product.danpla_reference LIKE '$search' or mis_product.LOT_NUM LIKE '$search')  
-                                AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') AND (mis_prod_plan_dl.DATE_ = '$datetoday')
+                                AND (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') AND (mis_prod_plan_dl.DATE_ = '2020-12-25')
                                 ORDER BY mis_prod_plan_dl.DATE_ DESC";
-                
+                                /* AND (mis_prod_plan_dl.DATE_ = '$datetoday') */
                               }
                                             
  
