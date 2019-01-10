@@ -105,8 +105,9 @@ if(isset($_POST['sortfrom']))
 								  FROM mis_prod_plan_dl
 								  LEFT JOIN mis_product ON mis_prod_plan_dl.JOB_ORDER_NO = mis_product.JO_NUM
 								  WHERE  
-								  (mis_prod_plan_dl.DATE_='$strfrom' OR mis_prod_plan_dl.DATE_= '$strfrom') AND                 
-								  ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')  OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
+								  (mis_prod_plan_dl.DATE_='$strfrom') AND                 
+								  ((SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')  
+								  OR (SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType'))
 								  GROUP BY ITEM_NAME";
 
 				$datenow=$strfrom;
@@ -180,7 +181,8 @@ if(isset($_POST['sortfrom']))
 				$sqlitem="SELECT COALESCE(SUM(mis_summarize_results.PROD_RESULT),0)as sumresult, mis_prod_plan_dl.ITEM_NAME,
 				SUM(mis_prod_plan_dl.PLAN_QTY) as PLAN_QTY,mis_prod_plan_dl.DATE_ as DISP_DATE_
 				FROM mis_prod_plan_dl
-				LEFT JOIN mis_summarize_results ON mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
+				LEFT JOIN mis_summarize_results ON 
+				mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO
 				WHERE 
 				((mis_prod_plan_dl.DATE_ BETWEEN '$strfrom' AND '$strto'))
 				AND                 

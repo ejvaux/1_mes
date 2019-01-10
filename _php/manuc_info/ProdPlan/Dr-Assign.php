@@ -43,7 +43,7 @@
                                                                     <div class="input-group btn-sm" style="height: 40px;">
                                                                         <div class="btn-group btn-group-sm">  
                                                                           <button type="button" onclick="cancelfilter('Dr-Assign','','dr_assign')" class="btn btn-outline-secondary btn-export6"><i class="fas fa-ban"></i>&nbspCANCEL FILTER&nbsp&nbsp</button>  
-                                                                          <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();syncdatareload('Dr-Assign','','dr_assign')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button>
+                                                                          <!-- <button type="button" class="btn btn-outline-secondary btn-export6" onclick="SyncToProdOutputSystem();syncdatareload('Dr-Assign','','dr_assign')" ><i class="fas fa-sync-alt"></i>&nbspSYNC&nbsp&nbsp</button> -->
                                                                           <button type="button" class="btn btn-outline-secondary btn-export6" onclick="exportxlsx('Dr-Assign','','dr_assign')"><i class="fas fa-file-excel"></i>&nbspEXPORT&nbsp&nbsp</button>
                                                                           <button type="button" class="btn btn-outline-secondary btn-export6" data-toggle="modal" data-target="#exampleModal33" onclick="loadqueue()"><i class="fas fa-plus-square"></i>&nbspQUEUE&nbsp&nbsp</button>
                                                                         </div>
@@ -53,6 +53,11 @@
                                                                         <option value="ALL DATA">ALL DATA</option>
                                                                         <option value="UNASSIGNED DR">UNASSIGNED DR</option>
                                                                         <option value="ASSIGNED DR">ASSIGNED DR</option>
+                                                                        </select>
+  
+                                                                        <select id="groupingdrp" class="form-control" onchange="showTable('Dr-Assign','','dr_assign')" style="width: 90px;font-size: 10px; height:33px">';
+                                                                        <option value="FOREIGN">FOREIGN NAME</option>
+                                                                        <option value="TOOLING">TOOLING</option>
                                                                         </select>
                                                                        
                                                                     </div>

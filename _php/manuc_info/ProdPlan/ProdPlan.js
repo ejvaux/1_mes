@@ -211,7 +211,7 @@
                 {
                     //initTbl2("PendingProduction");
                     
-                    alert(data);
+                    //alert(data);
                     filterTableSummary();
                     //alert(data);
                     var val = JSON.parse(data);
@@ -1197,11 +1197,11 @@
             {title:"GROUP NAME", field:"GROUP_NAME"},
             {title:"REFERENCE NUMBER", field:"REFERENCE_NUMBER"},
             {title:"PACKING_NUMBER", field:"PACKING_NUMBER"},
-            {title:"LOT_NUMBER", field:"LOT_NUMBER"},
-            {title:"JOB ORDER NO", field:"JOB_ORDER_NO"},
             {title:"ITEM_CODE", field:"ITEM_CODE"},
             {title:"ITEM_NAME", field:"ITEM_NAME"},
+            {title:"LOT_NUMBER", field:"LOT_NUMBER"},
             {title:"QUANTITY", field:"QTY",bottomCalc:"sum"},
+            {title:"JOB ORDER NO", field:"JOB_ORDER_NO"},
             {title:"CUSTOMER CODE", field:"CUSTOMER_CODE"},
             {title:"CUSTOMER NAME", field:"CUSTOMER_NAME"}
         ]
@@ -1794,7 +1794,7 @@
                 
                 success: function(data) 
                 {
-                
+                //alert(data);
                         if(data=="nodata")
                         {
 
@@ -2034,7 +2034,9 @@
     }
     function LoadTableOfDrDetails(Drno,datasorttype,param1)
     {
-
+        var groupdrp = document.getElementById("groupingdrp");
+        var selectedOption = groupdrp.options[groupdrp.selectedIndex].value;
+        // alert(selectedOption);
         if(param1!="no")
         {
             $("#example-table2").tabulator("destroy");
@@ -2048,6 +2050,7 @@
             {
                 'datasorttype': datasorttype,
                 'drno': Drno,
+                'groupby': selectedOption,
                 'ajax':true
 
             },
@@ -2440,7 +2443,7 @@
 
     
 $(document).on('keypress', '#ref_num', function (e) {
-    / alert('test'); /
+    
     
     var keycode = (e.keyCode ? e.keyCode : e.which);
     if (keycode == '13') {
