@@ -976,6 +976,53 @@ function clearReceive() {
   });
 } //clear items in danpla Received table
 
+$(document).on('click', '.deleteReceive', function () {
+  var id = $(this).attr("id");
+
+  swal({
+    title: 'DELETE',
+    text: "Are you sure?",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'DELETE'
+  }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        url: "/1_mes/_php/QualityManagement/query/delete/delete_receive_danpla.php",
+        method: "POST",
+        data: {
+          'id': id
+        },
+        success: function (data) {
+          if(data == "SUCCESS"){
+            iziToast.success({
+              message: data,
+              position: 'topCenter',
+              displayMode: 2,
+            });
+
+            loadReceivingtbl();
+            ReceivingBarcode_text.value = "";
+            ReceivingBarcode_text.focus();
+          }
+
+          else{
+            iziToast.error({
+              message: data,
+              position: 'topCenter',
+              displayMode: 2,
+            });
+          }
+
+        }
+      });
+     
+    }
+  })
+}); // end sets an approved or disapproved lot into pending status again
+
 function DisplayTableItemReceiving(Table_Name, Tablesp, tbluser) {
   var xhttp;
   if (Table_Name.length == 0) {

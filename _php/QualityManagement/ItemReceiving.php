@@ -7,7 +7,11 @@
   overflow-x: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
-
+.bt{
+  width:75px;
+  font-size: 12px;
+  padding: 0px;
+}
 </style>
 <!-- <div style="width: 100%;">
   <div class="row justify-content-between">   

@@ -26,13 +26,14 @@
                         <th>ITEM NAME</th>
                         <th>QUANTITY</th>
                         <th>INSERT USER</th>
+                        <th>CONTROL</th>
                     </thead>";
                     // output data of each row
                     $ctr = 0;
                     while($row = $result->fetch_assoc()) 
                     {
                       $ctr += 1;
-                    echo " <tbody class='content'>";
+                    echo " <tbody class='content text-center'>";
                     echo "<td>" . $ctr . "</td>";
                     echo "<td>" . $row['DANPLA_SERIAL'] . "</td>";
                     echo "<td>" . $row['LOT_NUM'] . "</td>";
@@ -40,6 +41,7 @@
                     echo "<td>" . $row['ITEM_NAME'] . "</td>";
                     echo "<td>" . $row['QUANTITY'] . "</td>";
                     echo "<td>" . $row['INSERT_USER'] . "</td>";
+                    echo "<td><button type='button' class='btn btn-danger bt deleteReceive' id='". $row['TEMP_ID'] ."'><i class='fas fa-times'></i> DELETE</button></td>";
                     }
                     echo "</tbody></table>";
                      
@@ -54,6 +56,7 @@
                         <th>ITEM NAME</th>
                         <th>QUANTITY</th>
                         <th>INSERT USER</th>
+                        <th>CONTROL</th>
                     </thead>
                     <tbody>
 
