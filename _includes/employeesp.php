@@ -22,23 +22,25 @@
 $table = 'dmc_employee';
  
 // Table's primary key
-$primaryKey = 'EMPLOYEE_ID';
+$primaryKey = 'id';
  
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'EMPLOYEE_ID', 'dt' => 0 ),
-    array( 'db' => 'EMPLOYEE_CODE', 'dt' => 1 ),
-    array( 'db' => 'EMPLOYEE_NAME', 'dt' => 2 ),
-    array( 'db' => 'EMPLOYEE_STATUS', 'dt' => 3 ),
-    array( 'db' => 'DATE_HIRED', 'dt' => 4 ),
-    array( 'db' => 'DIVISION', 'dt' => 5 ),
-    array( 'db' => 'INSERT_DATETIME', 'dt' => 6 ),
-    array( 'db' => 'INSERT_USER', 'dt' => 7 ),
-    array( 'db' => 'UPDATE_DATETIME', 'dt' => 8 ),
-    array( 'db' => 'UPDATE_USER', 'dt' => 9 ),
+    array( 'db' => 'id', 'dt' => 0 ),
+    array( 'db' => 'number', 'dt' => 1 ),
+    array( 'db' => 'lname', 'dt' => 2 ),
+    array( 'db' => 'fname', 'dt' => 3 ),
+    array( 'db' => 'mname', 'dt' => 4 ),
+    array( 'db' => 'status', 'dt' => 5 ),
+    array( 'db' => 'date_hired', 'dt' => 6 ),
+    array( 'db' => 'division', 'dt' => 7 ),
+    array( 'db' => 'INSERT_DATETIME', 'dt' => 8 ),
+    array( 'db' => 'INSERT_USER', 'dt' => 9 ),
+    array( 'db' => 'UPDATE_DATETIME', 'dt' => 10 ),
+    array( 'db' => 'UPDATE_USER', 'dt' => 11 ),
           
 );
  
