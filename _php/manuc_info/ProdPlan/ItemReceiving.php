@@ -8,6 +8,12 @@
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
+.bt{
+  width:75px;
+  font-size: 12px;
+  padding: 0px;
+}
+
 </style>
 <div class="container-fluid" style="margin-top:11vh">
     <div class="row">

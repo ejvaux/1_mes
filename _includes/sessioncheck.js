@@ -100,5 +100,6 @@ function checksession(){
   var channel = pusher.subscribe('token-check');
   channel.bind('my-event', function(data) {
     /* alert(data.message); */
-    setTimeout(checksession,5000);
+    /* setTimeout(checksession,5000); */
+    checksession();
   });

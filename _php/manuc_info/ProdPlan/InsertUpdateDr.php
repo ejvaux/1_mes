@@ -14,6 +14,26 @@ $sql4="SELECT ship_group_id FROM mis_temp_ship_group WHERE user_insert = '$user'
 $result4=$conn->query($sql4);
 if($result4->num_rows > 0)
 {
+    $times = (int)($result4->num_rows/24);
+  
+    if($times==0)
+    { 
+        $times=1;
+    }
+
+   /* for($ctr=1;$ctr<=$times;$ctr++)
+   {
+    if($ctr==$times)
+    {
+         //insert remaining
+    }
+    else if($ctr<$times)
+    {
+        //insert 24 rows
+    }
+   } */
+    
+    
 
 if($optiontype=="group")
 {
@@ -22,10 +42,11 @@ if($optiontype=="group")
     $result=$conn->query($sql);
     while($row =  $result->fetch_assoc())
     {
+
         $packingno = $row['packing_number'];
         $lotno=$row['lot_number'];
         $jo=$row['jo_number'];
-        $itemcode=$row['item_code'];
+        $itemcode=$row['item_code'];    
         $machinecode=$row['machine_code'];
         $itemname=$row['item_name'];
         $customercode=$row['customer_code'];
@@ -38,10 +59,13 @@ if($optiontype=="group")
         VALUES('$groupname','$packingno','$lotno','$jo','$itemcode','$machinecode','$itemname','$customercode','$customername','$datenow','$qty','$refno','$user')";
         $result2=$conn->query($sql2);
 
+    
+
+
     }
 
-$sql3="DELETE FROM mis_temp_ship_group WHERE user_insert = '$user'";
-$result3=$conn->query($sql3);
+        $sql3="DELETE FROM mis_temp_ship_group WHERE user_insert = '$user'";
+        $result3=$conn->query($sql3);
 
 }//end of if optionType==group
 
@@ -78,18 +102,16 @@ else
 
     }
 
-$sql3="DELETE FROM mis_temp_ship_group WHERE user_insert = '$user'";
-$result3=$conn->query($sql3);
-
-
+    $sql3="DELETE FROM mis_temp_ship_group WHERE user_insert = '$user'";
+    $result3=$conn->query($sql3);
 
 }
 
+    
 }
 else
 {
     echo "nodata";
 }
-
 
 

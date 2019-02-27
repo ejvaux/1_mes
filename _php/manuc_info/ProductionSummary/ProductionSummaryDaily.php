@@ -386,11 +386,11 @@ if ($datenow == "NONE") {
                                 FROM mis_product
                                 LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
                                  WHERE mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' AND
-                                 (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
+                                 (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') ORDER BY mis_prod_plan_dl.DATE_ DESC LIMIT 5000";
             
             $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl
                              WHERE DATE_='" . $row3['DISP_DATE_'] . "' AND
-                             (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
+                             (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType') ORDER BY mis_prod_plan_dl.DATE_ DESC LIMIT 1000";
 
             $resultbet = $conn->query($sqlresultbetween);
             
@@ -443,9 +443,10 @@ if ($datenow == "NONE") {
             $sqlresultbetween = "SELECT SUM(mis_product.PRINT_QTY) as prodresult2, mis_prod_plan_dl.DATE_ 
             FROM mis_product 
             LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
-            WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME'] . "' AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' 
+            WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME'] . "' 
+            AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "' 
             AND
-            (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType')";
+            (SUBSTRING(mis_product.JO_NUM,1,1)='$PlanType') ORDER BY mis_prod_plan_dl.DATE_ DESC LIMIT 5000";
 
             $resultbet = $conn->query($sqlresultbetween);
             while ($row = $resultbet->fetch_assoc()) {
@@ -453,7 +454,7 @@ if ($datenow == "NONE") {
 
                 $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE ITEM_NAME='" . $row3['ITEM_NAME'] . "' 
                 AND DATE_='" . $row3['DISP_DATE_'] . "'AND
-                (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType')";
+                (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType') ORDER BY mis_prod_plan_dl.DATE_ DESC LIMIT 1000";
 
                 $planbet = $conn2->query($sqlplanbetween);
 
@@ -502,7 +503,7 @@ FROM mis_product
 LEFT JOIN mis_prod_plan_dl on mis_product.JO_NUM = mis_prod_plan_dl.JOB_ORDER_NO
 WHERE mis_prod_plan_dl.ITEM_NAME='" . $row3['ITEM_NAME']."' AND mis_prod_plan_dl.DATE_ ='" . $row3['DISP_DATE_'] . "'
 AND
-(SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType') ";
+(SUBSTRING(mis_prod_plan_dl.JOB_ORDER_NO,1,1)='$PlanType') ORDER BY mis_prod_plan_dl.DATE_ DESC LIMIT 5000";
 
 $resultbet = $conn->query($sqlresultbetween);
 while ($row = $resultbet->fetch_assoc()) {
@@ -511,7 +512,7 @@ while ($row = $resultbet->fetch_assoc()) {
     $sqlplanbetween = "SELECT SUM(PLAN_QTY) as planqty2 FROM mis_prod_plan_dl WHERE
      ITEM_NAME='" . $row3['ITEM_NAME']."' AND DATE_ ='" . $row3['DISP_DATE_'] . "'
      AND
-     (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType') ";
+     (SUBSTRING(JOB_ORDER_NO,1,1)='$PlanType') ORDER BY mis_prod_plan_dl.DATE_ DESC LIMIT 1000";
 
     $planbet = $conn2->query($sqlplanbetween);
 
