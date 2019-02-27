@@ -1123,33 +1123,54 @@ $db = new DBQUERY;
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="employeecode" class="col-form-label-sm">EMPLOYEE CODE:</label>                  
+                  <label for="employeecode" class="col-form-label-sm">EMPLOYEE NUMBER:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="employeecode" type="text" class="form-control form-control-sm" name="employeecode" placeholder="" readonly>                  
+                  <input id="employeecode" type="text" class="form-control form-control-sm" name="employeecode" placeholder="" required>                  
                 </div>
               </div>
             </div>
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="employeename" class="col-form-label-sm">EMPLOYEE NAME:</label>                  
+                  <label for="fname" class="col-form-label-sm">FIRST NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="employeename" type="text" class="form-control form-control-sm" name="employeename" placeholder="" required>
+                  <input id="fname" type="text" class="form-control form-control-sm" name="fname" placeholder="" required>
                 </div>
               </div>
-            </div>
-                                
+            </div>                                
           </div>
           <div class="form-group row">
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="employeestatus" class="col-form-label-sm">EMPLOYEE STATUS:</label>                  
+                  <label for="lname" class="col-form-label-sm">LAST NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="employeestatus" type="text" class="form-control form-control-sm" name="employeestatus" placeholder="" required>                  
+                  <input id="lname" type="text" class="form-control form-control-sm" name="lname" placeholder="" required>                  
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="mname" class="col-form-label-sm">MIDDLE NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="mname" type="text" class="form-control form-control-sm" name="mname" placeholder="">
+                </div>
+              </div>
+            </div>                                
+          </div>
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="employeestatus" class="col-form-label-sm">STATUS:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="employeestatus" type="text" class="form-control form-control-sm" name="status" placeholder="" required>                  
                 
                       <option value="ACTIVE">ACTIVE</option>
                       <option value="RESIGNED">RESIGNED</option>
@@ -1162,10 +1183,10 @@ $db = new DBQUERY;
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="datehired" class="col-form-label-sm">DATE HIRED:</label>                  
+                  <label for="date_hired" class="col-form-label-sm">DATE HIRED:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="datehired" type="date" class="form-control form-control-sm" name="datehired" placeholder="" required>
+                  <input id="date_hired" type="date" class="form-control form-control-sm" name="date_hired" placeholder="" required>
                 </div>
               </div>
             </div>                               
@@ -1177,7 +1198,7 @@ $db = new DBQUERY;
                   <label for="emdivision" class="col-form-label-sm">DIVISION:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="emdivision" type="text" class="form-control form-control-sm" name="division" placeholder="">
+                  <select id="emdivision" type="text" class="form-control form-control-sm" name="division" placeholder="" required>
                   <option value="">-Please select-</option>
                     <?php
 
@@ -2523,20 +2544,20 @@ $db = new DBQUERY;
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="eemployeecode" class="col-form-label-sm">EMPLOYEE CODE:</label>                  
+                  <label for="eemployeecode" class="col-form-label-sm">EMPLOYEE NUMBER:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eemployeecode" type="text" class="form-control form-control-sm" name="employeecode" placeholder="" readonly>                  
+                  <input id="eemployeecode" type="text" class="form-control form-control-sm" name="employeecode" placeholder="" required>                  
                 </div>
               </div>
             </div>
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="eemployeename" class="col-form-label-sm">EMPLOYEE NAME:</label>                  
+                  <label for="efname" class="col-form-label-sm">FIRST NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="eemployeename" type="text" class="form-control form-control-sm" name="employeename" placeholder="" required>
+                  <input id="efname" type="text" class="form-control form-control-sm" name="fname" placeholder="" required>
                 </div>
               </div>
             </div>                                
@@ -2546,10 +2567,33 @@ $db = new DBQUERY;
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="eemployeestatus" class="col-form-label-sm">EMPLOYEE STATUS:</label>                  
+                  <label for="elname" class="col-form-label-sm">LAST NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="eemployeestatus" type="text" class="form-control form-control-sm" name="employeestatus" placeholder="" required>                  
+                  <input id="elname" type="text" class="form-control form-control-sm" name="lname" placeholder="" required>                  
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="emname" class="col-form-label-sm">MIDDLE NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="emname" type="text" class="form-control form-control-sm" name="mname" placeholder="" required>
+                </div>
+              </div>
+            </div>                                
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eemployeestatus" class="col-form-label-sm">STATUS:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="eemployeestatus" type="text" class="form-control form-control-sm" name="status" placeholder="" required>                  
                       
                       <option value="">-Please select-</option>
                       <option value="ACTIVE">ACTIVE</option>
@@ -2566,7 +2610,7 @@ $db = new DBQUERY;
                   <label for="edatehired" class="col-form-label-sm">DATE HIRED:</label>                  
                 </div>
                 <div class="col-7">
-                  <input id="edatehired" type="date" class="form-control form-control-sm" name="datehired" placeholder="" required>
+                  <input id="edatehired" type="date" class="form-control form-control-sm" name="date_hired" placeholder="" required>
                 </div>
               </div>
             </div>                               

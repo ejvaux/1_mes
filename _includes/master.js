@@ -1628,12 +1628,14 @@ function DisplayTable9(Table_Name,Tablesp,tbltitle) {
                 success: function(data1) {
                   var val = JSON.parse(data1);
 
-                  $("#employeeid").val(val['EMPLOYEE_ID']);
-                  $("#eemployeecode").val(val['EMPLOYEE_CODE']);
-                  $("#eemployeename").val(val['EMPLOYEE_NAME']);
-                  $('#eemployeestatus').val(val['EMPLOYEE_STATUS']);
-                  $('#edatehired').val(val['DATE_HIRED']);
-                  $('#eemdivision').val(val['DIVISION']);
+                  $("#employeeid").val(val['id']);
+                  $("#eemployeecode").val(val['number']);
+                  $("#efname").val(val['fname']);
+                  $("#elname").val(val['lname']);
+                  $("#emname").val(val['mname']);
+                  $('#eemployeestatus').val(val['status']);
+                  $('#edatehired').val(val['date_hired']);
+                  $('#eemdivision').val(val['division']);
                   
                   $('#eemployeemod').modal('show');                      
       
@@ -1737,7 +1739,7 @@ function DisplayTable9(Table_Name,Tablesp,tbltitle) {
 
 $.fn.dataTable.ext.buttons.add9 = {
   action: function () {
-    getemployeecode(employeecode);       
+    /* getemployeecode(employeecode);  */      
     $("#employeemod").modal('show');
   }
 };

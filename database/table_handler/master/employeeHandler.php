@@ -10,17 +10,19 @@
  
     $db = new DBQUERY;
     $action = (isset($_POST['action']))?$_POST['action']:$_GET['action'];
-    $col = "EMPLOYEE_ID";
+    $col = "id";
     $tb = 'dmc_employee';
     $user = $_SESSION['text'];
     $datetime = date('Y-m-d H:i:s');    
 
     $form_data = array(                
-        'EMPLOYEE_CODE'=>(isset($_POST['employeecode']))?$_POST['employeecode']:'',
-        'EMPLOYEE_NAME'=>(isset($_POST['employeename']))?$_POST['employeename']:'',
-        'EMPLOYEE_STATUS'=>(isset($_POST['employeestatus']))?$_POST['employeestatus']:'',
-        'DATE_HIRED'=>(isset($_POST['datehired']))?$_POST['datehired']:'',
-        'DIVISION'=>(isset($_POST['division']))?$_POST['division']:''
+        'number'=>(isset($_POST['employeecode']))?$_POST['employeecode']:'',
+        'fname'=>(isset($_POST['fname']))?$_POST['fname']:'',
+        'lname'=>(isset($_POST['lname']))?$_POST['lname']:'',
+        'mname'=>(isset($_POST['mname']))?$_POST['mname']:'',
+        'status'=>(isset($_POST['status']))?$_POST['status']:'',
+        'date_hired'=>(isset($_POST['date_hired']))?$_POST['date_hired']:'',
+        'division'=>(isset($_POST['division']))?$_POST['division']:''
     );
 
     function select(){
