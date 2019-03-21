@@ -33,7 +33,8 @@
         $user_password =  $row['USER_PASSWORD'];
         $user_authority =  $row['USER_AUTHORITY'];
         $user_name =  $row['USER_NAME'];
-        $emailadd = $row['EMAIL_ADDRESS'];        
+        $emailadd = $row['EMAIL_ADDRESS'];
+        $user_num = $row['NO'];
     }
     if ($user_id == $myusername && $user_password == $mypassword) {        
         $_SESSION['username'] = $user_id;
@@ -42,6 +43,7 @@
         $_SESSION['auth'] = $user_authority;
         $_SESSION['email'] = $emailadd;
         $_SESSION['log_alert'] = "login";
+        $_SESSION['user_num'] = $user_num;
 
         // Pusher
         require $_SERVER['DOCUMENT_ROOT']. '/1_mes/vendor/autoload.php';

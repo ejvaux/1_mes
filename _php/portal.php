@@ -247,8 +247,9 @@
                     
                     <!-- Management Indices -->
                     
-                    <a href='/1_MES/_template/pagetemplate.php' class="btn" id="6" >
-                                      
+                    <!-- <a href='/1_MES/_template/pagetemplate.php' class="btn" id="6" > -->
+                    <a href='/1_smt/public/smtmasterdb/<?php echo $_SESSION["user_num"]; ?>' class="btn" id="6" >
+
                     <div class="faa-bounce animated-hover faa-slow">
                         
                         <img src="/1_MES/_icons/portal/management_indices.png" class="rounded img-fluid" alt="Management Indices" width="200" height="200">
