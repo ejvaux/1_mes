@@ -252,7 +252,8 @@
 
                     <div class="faa-bounce animated-hover faa-slow">
                         
-                        <img src="/1_MES/_icons/portal/management_indices.png" class="rounded img-fluid" alt="Management Indices" width="200" height="200">
+                        <!-- <img src="/1_MES/_icons/portal/management_indices.png" class="rounded img-fluid" alt="Management Indices" width="200" height="200"> -->
+                        <img src="/1_MES/_icons/portal/smt.png" class="rounded img-fluid" alt="Management Indices" width="200" height="200">
                         <!-- <p>Management Indices</p> -->
                     
                     </div>
