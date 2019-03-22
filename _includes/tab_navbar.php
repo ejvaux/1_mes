@@ -8,7 +8,7 @@
     <a id="4" class="btn m-0 p-0 tnv" href="/1_mes/_php/mold_maintenance/mold_maintenance.php" data-toggle="tooltip" data-placement="auto" title="Mold Maintenance" ><img src="/1_MES/_icons/nav/mold.png" style="width:25px;height:25px;"></img></a>
     <a id="5" class="btn m-0 p-0 tnv" href="/1_MES/_php/machine_maintenance/machine_maintenance.php" data-toggle="tooltip" data-placement="auto" title="Machine Maintenance" ><img src="/1_MES/_icons/nav/machine.png" style="width:25px;height:25px;"></img></a>
     <!-- <a id="6" class="btn m-0 p-0 tnv" href="" data-toggle="tooltip" data-placement="auto" title="Management Indices" ><img src="/1_MES/_icons/nav/reports.png" style="width:25px;height:25px;"></img></a> -->
-    <a id="6" class="btn m-0 p-0 tnv" href="/1_smt/public/smtmasterdb" data-toggle="tooltip" data-placement="auto" title="SMT Master Database" ><img src="/1_MES/_icons/nav/613756.jpg" style="width:25px;height:25px;"></img></a>
+    <a id="6" class="btn m-0 p-0 tnv" href='/1_smt/public/smtmasterdb/<?php echo $_SESSION["user_num"]; ?>' data-toggle="tooltip" data-placement="auto" title="SMT Master Database" ><img src="/1_MES/_icons/nav/613756.jpg" style="width:25px;height:25px;"></img></a>
 
 <!-- <ul class="navbar-nav">
 
