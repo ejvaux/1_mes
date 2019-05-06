@@ -8,7 +8,7 @@ function hide(val) {
         $('#3').addClass("disabled");
         $('#4').addClass("disabled");
         $('#5').addClass("disabled");
-        $('#6').addClass("disabled");
+        //$('#6').addClass("disabled");
     }
 
     else if (val == "DA" || val == "DC" || val == "DG") {
@@ -19,7 +19,7 @@ function hide(val) {
         $('#3').addClass("disabled");
         // $('#4').addClass("disabled"); 
         $('#5').addClass("disabled");
-        $('#6').addClass("disabled");
+        //$('#6').addClass("disabled");
 
     }
 
@@ -51,7 +51,7 @@ function hide(val) {
         // $('#3').addClass("disabled"); 
         $('#4').addClass("disabled");
         $('#5').addClass("disabled");
-        $('#6').addClass("disabled");
+        //$('#6').addClass("disabled");
     }
 
     else if (val == "KG" || val == "SG" || val == "PG") {
@@ -61,7 +61,7 @@ function hide(val) {
         $('#3').addClass("disabled");
         $('#4').addClass("disabled");
         $('#5').addClass("disabled");
-        $('#6').addClass("disabled");
+        //$('#6').addClass("disabled");
     }
 
     else if (val == "MG") {
@@ -71,7 +71,7 @@ function hide(val) {
         $('#3').addClass("disabled");
         $('#4').addClass("disabled");
         $('#5').addClass("disabled");
-        $('#6').addClass("disabled");
+        //$('#6').addClass("disabled");
     }
 
     else if (val == "SA") {
@@ -80,8 +80,8 @@ function hide(val) {
         $('#2').addClass("disabled");
         $('#3').addClass("disabled");
         $('#4').addClass("disabled");
-        $('#5').addClass("disabled");
-        // $('#6').addClass("disabled");
+        // $('#5').addClass("disabled");
+        //$('#6').addClass("disabled");
 
     }
 
@@ -91,7 +91,7 @@ function hide(val) {
         $('#3').addClass("disabled");
         $('#4').addClass("disabled");
         $('#5').addClass("disabled");
-        $('#6').addClass("disabled");
+        //$('#6').addClass("disabled");
     }
 
 }

@@ -230,11 +230,13 @@
                     
                     <!-- Machine Maintenance -->
                     
-                    <a href='/1_MES/_php/machine_maintenance/machine_maintenance.php' class="btn" id="5" >
-                                        
+                    <!-- <a href='/1_MES/_php/machine_maintenance/machine_maintenance.php' class="btn" id="5" > -->
+                    <a href='/1_smt/public/smtmasterdb' class="btn" id="5" >
+
                     <div class="faa-bounce animated-hover faa-slow">
                         
-                        <img src="/1_MES/_icons/portal/machine_management.png" class="rounded img-fluid" alt="Machine Maintenance" width="200" height="200">
+                        <!-- <img src="/1_MES/_icons/portal/machine_management.png" class="rounded img-fluid" alt="Machine Maintenance" width="200" height="200"> -->
+                        <img src="/1_MES/_icons/portal/smt.png" class="rounded img-fluid" alt="Management Indices" width="200" height="200">
                         <!-- <p>Machine Maintenance</p> -->
                     
                     </div>
@@ -247,13 +249,12 @@
                     
                     <!-- Management Indices -->
                     
-                    <!-- <a href='/1_MES/_template/pagetemplate.php' class="btn" id="6" > -->
-                    <a href='/1_smt/public/smtmasterdb' class="btn" id="6" >
+                    <a href='/1_MES/_template/pagetemplate.php' class="btn" id="6" >
 
                     <div class="faa-bounce animated-hover faa-slow">
                         
-                        <!-- <img src="/1_MES/_icons/portal/management_indices.png" class="rounded img-fluid" alt="Management Indices" width="200" height="200"> -->
-                        <img src="/1_MES/_icons/portal/smt.png" class="rounded img-fluid" alt="Management Indices" width="200" height="200">
+                        <img src="/1_MES/_icons/portal/management_indices.png" class="rounded img-fluid" alt="Management Indices" width="200" height="200">
+                        
                         <!-- <p>Management Indices</p> -->
                     
                     </div>
