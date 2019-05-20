@@ -294,8 +294,8 @@
 
 
 
-	<script>
-var header = document.getElementById("tb");
+  <script>
+  //var header = document.getElementById("tb");
         var btns = header.getElementsByClassName("tbl");
         for (var i = 0; i < btns.length; i++) {
           btns[i].addEventListener("click", function() {
