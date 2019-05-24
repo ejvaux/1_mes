@@ -68,24 +68,21 @@
 
 	<form method="POST">
 
-		<label>From: </label><input type="date" name="from">
-		<label>To: </label><input type="date" name="to">
-		<input type="submit" value="Daily" name="daily">
+<label>From: </label><input type="date" name="from">
+<label>To: </label><input type="date" name="to" >
 
-    <select id="name" name="name">
-    <option value="1">LINE 1</option>
-    <option value="2">LINE 2</option>
-    <option value="3">LINE 3</option>
-		<option value="4">LINE 4</option>
-    <option value="5">LINE 5</option>
-    <option value="6">LINE 6</option>
-		<option value="7">LINE 7</option>
-    <option value="8">LINE 8</option>
-    <option value="9">LINE 9</option>
-		<option value="10">LINE 10</option>
-    </select>
-    <button onclick="inputKelurahan()">Click me!</button>
 
+	<label for='Linename'>Select:</label>
+	<select name="Linename">
+		<option value="">Prod Line</option>
+		<option value="l1">Line 1</option>
+		<option value="l2">Line 2</option>
+		<option value="l3">Line 3</option>
+		<option value="l4">Line 4</option>
+		<option value="l5">Line 5</option>
+		<option value="l6">Line 6</option>
+	</select> 
+	<input type="submit" name="daily" value="Daily" />
 
 <!--<label><input type="checkbox" class="agree">Daily/Monthly  </label> -->
 
@@ -101,17 +98,8 @@
 </div>
       </div>
     </div>
-<script>
-    function inputKelurahan()
-{ 
-  var name = document.getElementById("name");
- // var status = document.getElementById("status");
-  var nameInnerHtml = name.options[name.selectedIndex].textContent; // using textContent as mentioned by james.brndwgn in comments.
- // var statusInnerHtml = status.options[status.selectedIndex].textContent;
- alert("Name is: " + nameInnerHtml); 
- 
-}
-</script>
+
+
 <!-- ---------------------DISPLAY CHART HERE ------------------------------- --> 
 
 <div align = "center">
@@ -158,11 +146,12 @@
 
 <!-- ----------------SUM OF PROD RESULT daily------------------------------------- --> 
 <?php 
+function daymonth(){
 $total = 0;
 $itotal = 0;
 $row = 0;
 	if (isset($_POST['daily'])){
-		include('conn.php');
+		include('conn1.php');
 		$from=date('Y-m-d',strtotime($_POST['from']));
 		$to=date('Y-m-d',strtotime($_POST['to']));
 	
@@ -171,7 +160,7 @@ $row = 0;
 		$php_data_array = Array(); // create PHP array
 
 // over all total of date range,, CASE STATEMENT
-if($stmt = $conn->query("SELECT DATE_, SUM(PLAN_QTY), SUM(PROD_RESULT) FROM mis_prod_plan_dl Where DATE_ between '$from' and '$to' and JOB_ORDER_NO like '1%' group by DATE_ ")){
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY), SUM(PROD_RESULT) FROM mis_prod_plan_dl Where DATE_ between '$from' and '$to' and JOB_ORDER_NO like '1%' group by DATE_ ")){
 
 
 //$php_data_array = Array(); // create PHP array
@@ -209,7 +198,7 @@ echo "<script>
 	// ----------------------------- sum of prod result monthly-------------------------
 
 	if (isset($_POST['monthly'])){
-		include('conn.php');
+		include('conn1.php');
 		$mfrom=date('Y-m-d',strtotime($_POST['monthfrom']));
 		$mto=date('Y-m-d',strtotime($_POST['monthto']));
 	
@@ -218,7 +207,7 @@ echo "<script>
 		$php_data_array = Array(); // create PHP array
 
 // over all total of date range,, CASE STATEMENT
-if($stmt = $conn->query("SELECT MONTH(DATE_), SUM(PLAN_QTY), SUM(PROD_RESULT) FROM mis_prod_plan_dl Where DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like '1%' group by MONTH(DATE_)")){
+if($stmt = $conn1->query("SELECT MONTH(DATE_), SUM(PLAN_QTY), SUM(PROD_RESULT) FROM mis_prod_plan_dl Where DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like '1%' group by MONTH(DATE_)")){
 
 
 //$php_data_array = Array(); // create PHP array
@@ -250,9 +239,70 @@ echo "<script>
         var my_2d = ".json_encode($php_data_array)."
 </script>";
 	}
-	
+  
+}
 ?>
 
+<?php
+//------------------------------------- line query
+if(isset($_POST['daily'])) 
+	{
+		$varLine = $_POST['Linename'];
+		$errorMessage = "";
+		
+		if(empty($varLine)) 
+		{
+			$errorMessage = "<li>Please select a Prod line!</li>";
+		}
+		
+		if($errorMessage != "") 
+		{
+			echo("<p>There was an error with your selections:</p>\n");
+			echo("<ul>" . $errorMessage . "</ul>\n");
+		} 
+		else 
+		{
+			// note that both methods can't be demonstrated at the same time
+			// comment out the method you don't want to demonstrate
+
+			// method 1: switch
+		//	$redir = "US.html";
+			switch($varLine)
+			{
+				case "l1": 
+	
+          daymonth();
+				
+				break; //line1
+
+				case "l2":
+				
+      //	$redir = "UK.html"; 
+      break;
+
+				case "l3": 
+          //$redir = "France.html"; 
+          break;
+
+				case "l4":
+           //$redir = "Mexico.html"; 
+           break;
+
+				case "l5":
+           //$redir = "Russia.html"; 
+           break;
+
+				case "l6":
+        // $redir = "Japan.html"; 
+        break;
+
+				default: echo("Error!"); exit(); break;
+			}
+	
+			exit();
+		}
+	}
+?>
 
  <!-- Optional JavaScript -->
 

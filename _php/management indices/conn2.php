@@ -2,7 +2,7 @@
 $servername = "172.16.1.13";
 $username = "root1";
 $password = "0000";
-$dbname = "masterdatabase";
+$dbname = "1_smt";
 
 // Create connection
 $conn1 = new mysqli($servername, $username, $password, $dbname);
@@ -13,8 +13,3 @@ if ($conn1->connect_error) {
 } 
 else { echo "<br>";}
     ?>
-
-
-
-
-    

@@ -151,7 +151,7 @@
 
           <div class="row">
             <div class="col-sm-3">
-              <label><b>Email:</b></labe>
+              <label><b>Email:</b></label>
             </div>
             <div class="col-sm-9">
               <span>

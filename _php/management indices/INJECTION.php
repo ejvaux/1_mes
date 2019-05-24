@@ -39,12 +39,11 @@
             <ul class="navbar-nav nav-tabs mr-auto mt-1">           
             <li><a id="tb1" class="nav-link tbl" href="INJECTION.php" onclick="">INJECTION</a></li>
               <li><a id="tb2" class="nav-link tbl" href="SMT.php" onclick="">SMT</a></li>
-              <li><a id="tb3" class="nav-link tbl" href="FATP.php" onclick="">FATP</a></li>
-              <li><a id="tb4" class="nav-link tbl" href="DIP.php" onclick="">DIP</a></li>
-              <li><a id="tb5" class="nav-link tbl" href="DIP TEST.php" onclick="">DIP TEST</a></li>
-              <li><a id="tb6" class="nav-link tbl" href="ASSY.php" onclick="">ASSY</a></li>
-              <li><a id="tb7" class="nav-link tbl" href="QUALITY.php" onclick="">QUALITY</a></li>
-              <li><a id="tb8" class="nav-link tbl" href="SALES.php" onclick="">SALES</a></li>
+              <li><a id="tb3" class="nav-link tbl" href="DIP.php" onclick="">DIP</a></li>
+              <li><a id="tb4" class="nav-link tbl" href="DIP TEST.php" onclick="">DIP TEST</a></li>
+              <li><a id="tb5" class="nav-link tbl" href="FATP.php" onclick="">FATP</a></li>
+              <li><a id="tb6" class="nav-link tbl" href="QUALITY.php" onclick="">QUALITY</a></li>
+              <li><a id="tb7" class="nav-link tbl" href="SALES.php" onclick="">SALES</a></li>
             </ul>
 
             <!-- ICONS ON LEFT -->
@@ -70,28 +69,43 @@
 
 	<form method="POST" >
 
-		<label>From: </label><input type="date" name="from">
-		<label>To: </label><input type="date" name="to" >
-		<input type="submit" value="Daily" name="daily" > 
+		<label>From: </label><input type="date" name="from" style="height:25px; width:150px">
+		<label>To: </label><input type="date" name="to" style="height:25px; width:150px" >
+		<input type="submit" value="Daily" name="daily" style="height:30px; width:50px" > 
 
-<!--<label><input type="checkbox" class="agree">Daily/Monthly  </label> -->
+ <label> SHIFT: </label>
+  <select name= "shift">
+  <option value="all"> ALL </option>
+  <option value="6ap"> 6AP </option>
+  <option value="6pa"> 6PA </option>
+  </select>
 
-    <label>From: </label><input type="month" name="monthfrom" >
-		<label >To: </label><input type="month" name="monthto" >
-		<input type="submit" value="Monthly" name="monthly" >
-   
-<!--
-<select>
-		<option value="14">Column Chart</option>
-		<option value="15">Pie Chart</option>
-</select> --> 
+  <label> PROD LINE: </label>
+	<select name="Linename">
+		<option value="overall">OVERALL</option>
+		<option value="l1">Line 1</option>
+		<option value="l2">Line 2</option>
+		<option value="l3">Line 3</option>
+		<option value="l4">Line 4</option>
+		<option value="l5">Line 5</option>
+		<option value="l6">Line 6</option>
+    <option value="l7">Line 7</option>
+		<option value="l8">Line 8</option>
+		<option value="l9">Line 9</option>
+		<option value="l10">Line 10</option>
+	</select> 
 
-
-
-
-<br>
+ 
+    <label>From: </label><input type="month" name="monthfrom" style="height:25px; width:180px" >
+		<label >To: </label><input type="month" name="monthto" style="height:25px; width:180px" >
+		<input type="submit" value="Monthly" name="monthly" width="15px" style="height:30px; width:70px">
+    
 </form>
 </div>
+<select style="height:30px; width:80px">
+<option value="14">Column</option>
+<option value="15">Pie </option>
+</select>
       </div>
     </div>
     <br>
@@ -103,7 +117,7 @@
 <label><b>PRODUCTION SUMMARY OF <i>INJECTION </i></b></label>
 
 <?php 
-
+/*
 include('conn1.php');
     $line = $conn1->query("SELECT id, name FROM smt_line_names where name like 'SMTL%' order by id");
     //or die("Invalid query: " . mysql_query());
@@ -117,7 +131,7 @@ include('conn1.php');
     echo "<option value='".$lrow['id']."'>";
     echo $lrow['name']."</option>"; 
     } //}
-    echo '</select>';//<input type="submit" name="submit" value="submit">';
+    echo '</select>';//<input type="submit" name="submit" value="submit">'; */
 ?>
 
 
@@ -169,43 +183,77 @@ $total = 0;
 $itotal = 0;
 $row = 0;
 	if (isset($_POST['daily'])){
-		include('conn.php');
+		include('conn1.php');
 		$from=date('Y-m-d',strtotime($_POST['from']));
 		$to=date('Y-m-d',strtotime($_POST['to']));
 	
 		$begin = new DateTime( $from );
 		$end   = new DateTime( $to );
-		$php_data_array = Array(); // create PHP array
+    $php_data_array = Array(); 
+    $job_array = Array();// create PHP array
 
-// over all total of date range,, CASE STATEMENT
-if($stmt = $conn->query("SELECT DATE_, SUM(PLAN_QTY), SUM(PROD_RESULT) FROM mis_prod_plan_dl Where DATE_ between '$from' and '$to' and JOB_ORDER_NO like '1%' group by DATE_ ")){
-
-
-//$php_data_array = Array(); // create PHP array
-
-echo "<table border = '2' align = 'center' ><tr align = 'center'> <th width = '100px'>DATE</th><th width = '100px'>PROD PLAN</th><th width = '150px'>PROD RESULT</th><th width = '100px'>GAP</th><th width = '150px'>ACHIEVE RATE %</th><th WIDTH = '100px'>DEFECT</th><th WIDTH = '100px'>INPUT</th><th width = '100px'>YIELD %</th></tr>";
-
-
+if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
+ echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
 while ($row = $stmt->fetch_row()) {
-	$gap = 0; $rate = 0;
-	$gap = $row[1] - $row[2];
-//	$rate = $row[1] / $row[2]; $yield = $out / $in;
-	 echo "<tr align = 'center'><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$gap</td></tr>";
-	 //echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$gap</td><td>$rate</td></tr>";
-	 
- $php_data_array[] = $row; // Adding to array
-
- $total+= $row[1];
- $itotal+=$row[2];
+  echo "<td><b>$row[0]<b></td>";
+ //$php_data_array[] = $row;
+} 
+  echo "<td><b>TOTAL<b></td></tr>";}
+$tplan=0;
+  if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+  and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($row = $stmt->fetch_row()){
+  $tplan+=$row[1];
+  echo "<td>$row[1]</td>";
+ //$php_data_array[] = $row;
 }
- echo "<table border = '1' align = 'center'><tr align = 'center' ><th><table border = '1' align = 'center' width = '898px'>OVERALL TOTAL</th></tr><tr align = 'center'><th width = '100px'>PLAN</th><td>$total</td><th width = '100px'>RESULT</th><td>$itotal</td></tr>"."</br>";
+ echo "<td><b>$tplan<b></td></tr>";}
+$tresult=0;
+ if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
+ echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+while ($row = $stmt->fetch_row()){
+  $tresult+=$row[2];
+   echo "<td>$row[2]</td>";
+   $php_data_array[] = $row;
+ }
+echo "<td><b>$tresult<b></td></tr>";
+}
+ $tgap=0;
+if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
+ echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+while ($row = $stmt->fetch_row()){
+  $gap = $row[1] - $row[2];
+   echo "<td>$gap</td>";
+   $tgap=+$gap;}
+echo "<td><b>$tgap<b></td></tr>";
 }
 
- 
+
+if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
+ echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+  $rate = ($row[2] / $row[1])*100;
+   echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+
+if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$from' and '$to' 
+and JOB_ORDER_NO like'1%' group by PROD_DATE")){
+ echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+   echo "<td>$def[2]</td>";}
+echo "</tr>";
+}
+
+
 //else{ 
 //echo $conn->error;
 //}
-
 // Transfor PHP array to JavaScript two dimensional array 
 echo "<script>
         var my_2d = ".json_encode($php_data_array)."
@@ -217,7 +265,7 @@ echo "<script>
 
 <?php
 	if (isset($_POST['monthly'])){
-		include('conn.php');
+		include('conn1.php');
 		$mfrom=date('Y-m-d',strtotime($_POST['monthfrom']));
 		$mto=date('Y-m-d',strtotime($_POST['monthto']));
 	
@@ -225,30 +273,65 @@ echo "<script>
 		$end   = new DateTime( $mto );
 		$php_data_array = Array(); // create PHP array
 
-// over all total of date range,, CASE STATEMENT
-if($stmt = $conn->query("SELECT MONTH(DATE_), SUM(PLAN_QTY), SUM(PROD_RESULT) FROM mis_prod_plan_dl Where DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like '1%' group by MONTH(DATE_)")){
+
+    if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+    and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by MONTH(mis_prod_plan_dl.DATE_)")){
+     echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($row = $stmt->fetch_row()) {
+      echo "<td>$row[0]</td>";
+     //$php_data_array[] = $row;
+    }
+      echo "<td><b>TOTAL<b></td></tr>";}
+    $tplan=0;
+      if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+      and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by MONTH(mis_prod_plan_dl.DATE_)")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+    while ($row = $stmt->fetch_row()){
+      echo "<td>$row[1]</td>";
+      $tplan+=$row[1];
+     //$php_data_array[] = $row;
+    }
+     echo "<td><b>$tplan<b></td></tr>";}
+    $tresult=0;
+     if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+    and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by MONTH(mis_prod_plan_dl.DATE_)")){
+     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    while ($row = $stmt->fetch_row()){
+       echo "<td>$row[2]</td>";
+       $php_data_array[] = $row;
+      $tresult+=$row[2];}
+    echo "<td><b>$tresult<b></td></tr>";
+    } 
+$tgap=0;
+    if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+    and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by MONTH(mis_prod_plan_dl.DATE_)")){
+     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    while ($row = $stmt->fetch_row()){
+      $gap = $row[1] - $row[2];
+      echo "<td>$gap</td>";
+      $tgap+=$gap;}
+      echo "<td><b>$tgap<b></td></tr>";
+    } 
 
 
-//$php_data_array = Array(); // create PHP array
+    if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+    and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by MONTH(mis_prod_plan_dl.DATE_)")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE</th>";
+    while ($row = $stmt->fetch_row()){
+      $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+    echo "</tr>";
+    } 
 
-echo "<table border = '2' align = 'center' ><tr align = 'center'> <th width = '100px'>DATE</th><th width = '100px'>PROD PLAN</th><th width = '150px'>PROD RESULT</th><th width = '100px'>GAP</th><th width = '150px'>ACHIEVE RATE %</th><th WIDTH = '100px'>DEFECT</th><th WIDTH = '100px'>INPUT</th><th width = '100px'>YIELD %</th></tr>";
 
-
-while ($row = $stmt->fetch_row()) {
-	$gap = 0; $rate = 0;
-	$gap = $row[1] - $row[2];
-//	$rate = $row[1] / $row[2];
-	 echo "<tr align = 'center'><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$gap</td></tr>";
-	 //echo "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$gap</td><td>$rate</td></tr>";
-	 
- $php_data_array[] = $row; // Adding to array
-
- $total+= $row[1];
- $itotal+=$row[2];
+    if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$mfrom' and '$mto' 
+and JOB_ORDER_NO like'1%' group by PROD_DATE")){
+ echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+   echo "<td>$def[2]</td>";}
+echo "</tr>";
 }
- echo "<table border = '1' align = 'center'><tr align = 'center' ><th><table border = '1' align = 'center' width = '898px'>OVERALL TOTAL</th></tr><tr align = 'center'><th width = '200px'>PLAN</th><td>$total</td><th width = '200px'>RESULT</th><td>$itotal</td></tr>"."</br>";
-}
- 
+
 //else{ 
 //echo $conn->error;
 //}
