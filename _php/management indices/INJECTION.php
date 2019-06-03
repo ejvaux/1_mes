@@ -88,58 +88,36 @@
 		<option value="l3">Line 3</option>
 		<option value="l4">Line 4</option>
 		<option value="l5">Line 5</option>
-		<option value="l6">Line 6</option>
-    <option value="l7">Line 7</option>
-		<option value="l8">Line 8</option>
-		<option value="l9">Line 9</option>
-		<option value="l10">Line 10</option>
+	
 	</select> 
 
- 
+  
     <label>From: </label><input type="month" name="monthfrom" style="height:25px; width:180px" >
 		<label >To: </label><input type="month" name="monthto" style="height:25px; width:180px" >
 		<input type="submit" value="Monthly" name="monthly" width="15px" style="height:30px; width:70px">
     
-</form>
 </div>
-<select style="height:30px; width:80px">
-<option value="14">Column</option>
-<option value="15">Pie </option>
+<select id ="chartType" name="chartType" style="height:30px; width:80px">
+<option value="column">Column</option>
+<option value="pie">Pie </option>
 </select>
+</form>
       </div>
     </div>
     <br>
 
 
-<!-- --------------------- line query ------------------------------- --> 
 
 <div align = "center">
 <label><b>PRODUCTION SUMMARY OF <i>INJECTION </i></b></label>
-
-<?php 
-/*
-include('conn1.php');
-    $line = $conn1->query("SELECT id, name FROM smt_line_names where name like 'SMTL%' order by id");
-    //or die("Invalid query: " . mysql_query());
-  //	$rowCount = $line->num_rows;
-    echo '<label>Select Line: </label>';
-    echo '<select name="linename">';
-    //if ($rowCount > 0){
-    echo '<option value=" ">Overall</option>';
-    while ($lrow = $line->fetch_assoc()) {
-  
-    echo "<option value='".$lrow['id']."'>";
-    echo $lrow['name']."</option>"; 
-    } //}
-    echo '</select>';//<input type="submit" name="submit" value="submit">'; */
-?>
-
-
-<!-- ---------------------DISPLAY CHART HERE ------------------------------- --> 
 </div>
-<br>
-<div id="chart_div" >
 
+ <!-----------------------DISPLAY column CHART HERE -----------------------------> 
+
+<?php
+function getColumn(){
+  ?>
+<div id="chart_div" >
 </div>
 </div>
 
@@ -176,11 +154,111 @@ include('conn1.php');
 
 
 </div>
+<?php }
+//--------------------------------------pie chart
+function getPie(){
+?>
+ 
+<div id="chart_div" style="float:left;">
+        <canvas id="chart-area"  >
+    </canvas></div>
+    
+<a href=https://www.plus2net.com/php_tutorial/chart-database.php></a>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+ google.charts.load('current', {'packages':['corechart']});
+     // Draw the pie chart when Charts is loaded.
+      google.charts.setOnLoadCallback(draw_my_chart);
+      // Callback that draws the pie chart
+      function draw_my_chart() {
+        // Create the data table .
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'language');
+        data.addColumn('number', 'Nos');
+		for(i = 0; i < my_2d.length; i++)
+    data.addRow([my_2d[i][0], parseInt(my_2d[i][1]) ]);
+// above row adds the JavaScript two dimensional array data into required chart format
+    var options = {title:' PLAN',
+                       width:600,
+                       height:400};
+
+        // Instantiate and draw the chart
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+
+</script> 
+
+<div id="chart_div1"  style="float:right;">
+        <canvas id="chart-area-km"  >
+    </canvas></div>
+
+<a href=https://www.plus2net.com/php_tutorial/chart-database.php></a>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+ google.charts.load('current', {'packages':['corechart']});
+     // Draw the pie chart when Charts is loaded.
+      google.charts.setOnLoadCallback(draw_chart);
+      // Callback that draws the pie chart
+      function draw_chart() {
+        // Create the data table .
+        var data1 = new google.visualization.DataTable();
+        data1.addColumn('string', 'language');
+        data1.addColumn('number', 'Nos');
+		for(i = 0; i < my_3d.length; i++)
+    data1.addRow([my_3d[i][0], parseInt(my_3d[i][2]) ]);
+// above row adds the JavaScript two dimensional array data into required chart format
+    var options1 = {title:' RESULT',
+                       width:600,
+                       height:400};
+
+        // Instantiate and draw the chart
+        var chart1 = new google.visualization.PieChart(document.getElementById('chart_div1'));
+        chart1.draw(data1, options1);
+      }
+
+
+</script> 
+</div>
+
+    
 <!-- ----------------SUM OF PROD RESULT daily------------------------------------- --> 
 <?php 
-$total = 0;
-$itotal = 0;
+}
+/*
+if(isset($_POST['daily'])) 
+	{
+		$varLine = $_POST['Linename'];
+		$errorMessage = "";
+		
+		if(empty($varLine)) 
+		{
+			$errorMessage = "<li>Please select a Prod line!</li>";
+		}
+		
+		if($errorMessage != "") 
+		{
+			echo("<p>There was an error with your selections:</p>\n");
+			echo("<ul>" . $errorMessage . "</ul>\n");
+		} 
+		else 
+		{
+			
+			switch($varLine)
+			{
+        case "l1":
+        break; 
+        
+        case "l2":
+        break;
+        
+        case "l3":
+        break;*/
+
+
 $row = 0;
 	if (isset($_POST['daily'])){
 		include('conn1.php');
@@ -192,14 +270,15 @@ $row = 0;
     $php_data_array = Array(); 
     $job_array = Array();// create PHP array
 
-if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
 and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
- echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+ echo "<table border = '3' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
 while ($row = $stmt->fetch_row()) {
-  echo "<td><b>$row[0]<b></td>";
+  echo "<td width='80px'><b>$row[0]<b></td>";
  //$php_data_array[] = $row;
 } 
   echo "<td><b>TOTAL<b></td></tr>";}
+
 $tplan=0;
   if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
   and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
@@ -210,6 +289,7 @@ while ($row = $stmt->fetch_row()){
  //$php_data_array[] = $row;
 }
  echo "<td><b>$tplan<b></td></tr>";}
+
 $tresult=0;
  if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
 and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
@@ -218,39 +298,55 @@ while ($row = $stmt->fetch_row()){
   $tresult+=$row[2];
    echo "<td>$row[2]</td>";
    $php_data_array[] = $row;
- }
-echo "<td><b>$tresult<b></td></tr>";
-}
+ } 
+echo "<td><b>$tresult<b></td></tr>";}
+
  $tgap=0;
 if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
 and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
  echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
 while ($row = $stmt->fetch_row()){
   $gap = $row[1] - $row[2];
-   echo "<td>$gap</td>";
-   $tgap=+$gap;}
-echo "<td><b>$tgap<b></td></tr>";
-}
+   echo "<td>$gap</td>";}  $tgap=$tplan-$tresult;
+echo "<td><b>$tgap<b></td></tr>";}
 
-
-if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+$trate=0;
+if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT), FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
 and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
  echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
 while ($row = $stmt->fetch_row()){
   $rate = ($row[2] / $row[1])*100;
+ // $trate+=$rate;
    echo "<td>$rate %</td>";}
 echo "</tr>";
 }
 
+$tdef=0;
 if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$from' and '$to' 
 and JOB_ORDER_NO like'1%' group by PROD_DATE")){
  echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
 while ($def = $stmt->fetch_row()){
-   echo "<td>$def[2]</td>";}
-echo "</tr>";
+  $tdef+=$def[2];
+  echo "<td>$def[2]</td>";}
+echo "<td><b>$tdef<b></td></tr>";
 }
 
+include('conn2.php');
+if($stmt = $conn1->query("SELECT created_at, COUNT(PROCESS_NAME) FROM pcb WHERE created_at between '$from' and '$to' and jo_number like'1%'")){
+ echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+   echo "<td>$input[1]</td>";
+   $in=$input[1];}
+echo "</tr>";}
 
+$yield=0;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT created_at, COUNT(PROCESS_NAME) FROM pcb WHERE created_at between '$from' and '$to' and jo_number like'1%'")){
+ echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+while ($output = $stmt->fetch_row()){
+// $yield=$output[1]/$in;
+   echo "<td>$yield %</td>";}
+echo "</tr>";}
 //else{ 
 //echo $conn->error;
 //}
@@ -258,12 +354,62 @@ echo "</tr>";
 echo "<script>
         var my_2d = ".json_encode($php_data_array)."
 </script>";
-	}
+
+echo "<script>
+        var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+	
+			
+			switch($varchart)
+			{
+        case "column":
+        
+        getColumn();
+        break;
+
+        case "pie":
+
+        getpie();
+        break;
+        default: echo("Error!"); exit(); break;
+  }
+}
+
+  
+
 
 ?>
 	<!------------------------------- sum of prod result monthly------------------------- --> 
 
 <?php
+/*
+if(isset($_POST['monthly'])) 
+	{
+		$varLine = $_POST['Linename'];
+		$errorMessage = "";
+		
+		if(empty($varLine)) 
+		{
+			$errorMessage = "<li>Please select a Prod line!</li>";
+		}
+		
+		if($errorMessage != "") 
+		{
+			echo("<p>There was an error with your selections:</p>\n");
+			echo("<ul>" . $errorMessage . "</ul>\n");
+		} 
+		else 
+		{
+			
+			switch($varLine)
+			{
+        case "l1":
+        break;*/
+
 	if (isset($_POST['monthly'])){
 		include('conn1.php');
 		$mfrom=date('Y-m-d',strtotime($_POST['monthfrom']));
@@ -274,7 +420,7 @@ echo "<script>
 		$php_data_array = Array(); // create PHP array
 
 
-    if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
+    if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
     and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by MONTH(mis_prod_plan_dl.DATE_)")){
      echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($row = $stmt->fetch_row()) {
@@ -340,6 +486,31 @@ echo "</tr>";
 echo "<script>
         var my_2d = ".json_encode($php_data_array)."
 </script>";
+
+
+echo "<script>
+        var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+	
+			
+			switch($varchart)
+			{
+        case "column":
+        
+        getColumn();
+        break;
+
+        case "pie":
+
+        getpie();
+        break;
+        default: echo("Error!"); exit(); break;
+  }
+
 	}
 	
 ?>

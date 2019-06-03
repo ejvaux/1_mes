@@ -102,27 +102,29 @@
 <label >To: </label><input type="month" name="monthto" style="height:25px; width:180px" >
 <input type="submit" value="Monthly" name="monthly" style="height:30px; width:70px">
  
-</form>
+
 
 </div>
 
-<select style="height:30px; width:80px">
-<option value="14">Column</option>
-<option value="15">Pie </option>
+<select id="chartType" name="chartType" style="height:30px; width:80px">
+<option value="column">Column</option>
+<option value="pie">Pie </option>
 </select>
+</form>
       </div>
     </div>
     <br>
 
 
 <div align = "center">
-<label><b>PRODUCTION SUMMARY OF <i>SMT </i></b></label>
+<label size = "20px"><b>PRODUCTION SUMMARY OF <i>SMT </i></b></label>
  
 <!-- ---------------------DISPLAY CHART HERE ------------------------------- --> 
-
+<?php
+function getColumn(){
+  ?>
 
 <div id="chart_div" >
-
 </div>
 </div>
 
@@ -160,580 +162,89 @@
 
 </div>
 
-<!-- --------------------case switch prod line---------------------- --> 
+
+
+<?php }
+//--------------------------------------pie chart--------------------------------
+function getPie(){
+?>
+ 
+<div id="chart_div" style="float:left;">
+        <canvas id="chart-area" width="400" height="450" >
+    </canvas></div>
+    
+<a href=https://www.plus2net.com/php_tutorial/chart-database.php></a>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+ google.charts.load('current', {'packages':['corechart']});
+     // Draw the pie chart when Charts is loaded.
+      google.charts.setOnLoadCallback(draw_my_chart);
+      // Callback that draws the pie chart
+      function draw_my_chart() {
+        // Create the data table .
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'language');
+        data.addColumn('number', 'Nos');
+		for(i = 0; i < my_2d.length; i++)
+    data.addRow([my_2d[i][0], parseInt(my_2d[i][1]) ]);
+// above row adds the JavaScript two dimensional array data into required chart format
+    var options = {title:' PLAN',
+                       width:600,
+                       height:500};
+
+        // Instantiate and draw the chart
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+
+</script> 
+
+<div id="chart_div1"  style="float:right;">
+        <canvas id="chart-area-km" width="400" height="450" >
+    </canvas></div>
+
+<a href=https://www.plus2net.com/php_tutorial/chart-database.php></a>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+ google.charts.load('current', {'packages':['corechart']});
+     // Draw the pie chart when Charts is loaded.
+      google.charts.setOnLoadCallback(draw_chart);
+      // Callback that draws the pie chart
+      function draw_chart() {
+        // Create the data table .
+        var data1 = new google.visualization.DataTable();
+        data1.addColumn('string', 'language');
+        data1.addColumn('number', 'Nos');
+		for(i = 0; i < my_3d.length; i++)
+    data1.addRow([my_3d[i][0], parseInt(my_3d[i][2]) ]);
+// above row adds the JavaScript two dimensional array data into required chart format
+    var options1 = {title:' RESULT',
+                       width:600,
+                       height:500};
+
+        // Instantiate and draw the chart
+        var chart1 = new google.visualization.PieChart(document.getElementById('chart_div1'));
+        chart1.draw(data1, options1);
+      }
+
+
+</script> 
+</div>
+
+
+<!-- ----------------------------------case switch prod line---------------------------------- --> 
 
 <?php 
+}
+
 if(isset($_POST['daily'])) 
 	{
-		$varLine = $_POST['Linename'];
-		$errorMessage = "";
-		
-		if(empty($varLine)) 
-		{
-			$errorMessage = "<li>Please select a Prod line!</li>";
-		}
-		
-		if($errorMessage != "") 
-		{
-			echo("<p>There was an error with your selections:</p>\n");
-			echo("<ul>" . $errorMessage . "</ul>\n");
-		} 
-		else 
-		{
-			
-			switch($varLine)
-			{
-        case "l1": 
-        // smt daily prod line 1---------------------------------------
-        $total = 0;
-        $itotal = 0;
-        $row = 0;
-          if (isset($_POST['daily'])){
-            include('conn1.php');
-            $from=date('Y-m-d',strtotime($_POST['from']));
-            $to=date('Y-m-d',strtotime($_POST['to']));
-          
-            $begin = new DateTime( $from );
-            $end   = new DateTime( $to );
-            $php_data_array = Array(); 
-            $job_array = Array();// create PHP array
-          
-        if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL1' group by DATE_")){
-          echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
-           while ($row = $stmt->fetch_row()) {
-           echo "<td><b>$row[0]<b></td>";
-          //$php_data_array[] = $row;
-           }
-            echo "<td><b>TOTAL<b></td></tr>";}
-            $tplan=0;
-           if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL1' group by DATE_")){
-           echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
-           while ($row = $stmt->fetch_row()){
-           echo "<td>$row[1]</td>";
-           $tplan+=$row[1];
-          $php_data_array[] = $row;
-           }echo "<td><b>$tplan<b></td></tr>";}
-           
-           $tresult=0;
-          if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-           and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL1' group by mis_prod_plan_dl.DATE_")){
-          echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-           while ($row = $stmt->fetch_row()){
-            echo "<td>$row[2]</td>";
-            $tresult+=$row[2];
-            $php_data_array[] = $row;}
-           echo "<td><b>$tresult<b></td></tr>";
-           }
-          
-           $tgap=0;
-           if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-           and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and  mis_prod_plan_dl.MACHINE_CODE like 'SMTL1' group by mis_prod_plan_dl.DATE_")){
-          echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
-           while ($row = $stmt->fetch_row()){
-           $gap = $row[1] - $row[2];
-            echo "<td>$gap</td>";
-            $tgap=+$gap;}
-            echo "<td><b>$tgap<b></td></tr>";
-           }
-           
-           
-           if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-           and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL1' group by mis_prod_plan_dl.DATE_")){
-          echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
-           while ($row = $stmt->fetch_row()){
-           $rate = ($row[2] / $row[1])*100;
-            echo "<td>$rate %</td>";}
-           echo "</tr>";
-           }
-           
-           if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$from' and '$to' 
-           and JOB_ORDER_NO like'2%' group by PROD_DATE")){
-          echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-           while ($row = $stmt->fetch_row()){
-            echo "<td>$row[2]</td>";}
-           echo "</tr>";
-           }
-           
-           //else{ 
-           //echo $conn->error;
-           //}
-           // Transfor PHP array to JavaScript two dimensional array 
-           echo "<script>
-               var my_2d = ".json_encode($php_data_array)."
-           </script>";
-             }
+   getshift();  
 
-
-				break; 
-
-        case "l2":
-        
-
-// smt daily prod line 2---------------------------------------
-$total = 0;
-$itotal = 0;
-$row = 0;
-  if (isset($_POST['daily'])){
-    include('conn1.php');
-    $from=date('Y-m-d',strtotime($_POST['from']));
-    $to=date('Y-m-d',strtotime($_POST['to']));
-  
-    $begin = new DateTime( $from );
-    $end   = new DateTime( $to );
-    $php_data_array = Array(); 
-    $job_array = Array();// create PHP array
-  
-if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL2' group by DATE_")){
-  echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
-   while ($row = $stmt->fetch_row()) {
-   echo "<td><b>$row[0]<b></td>";
-  //$php_data_array[] = $row;
-   }
-    echo "<td><b>TOTAL<b></td></tr>";}
-    $tplan=0;
-   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL2' group by DATE_")){
-   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
-   while ($row = $stmt->fetch_row()){
-   echo "<td>$row[1]</td>";
-   $tplan+=$row[1];
-  $php_data_array[] = $row;
-   }echo "<td><b>$tplan<b></td></tr>";}
-   
-   $tresult=0;
-  if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-   and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL2' group by mis_prod_plan_dl.DATE_")){
-  echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-   while ($row = $stmt->fetch_row()){
-    echo "<td>$row[2]</td>";
-    $tresult+=$row[2];
-    $php_data_array[] = $row;}
-   echo "<td><b>$tresult<b></td></tr>";
-   }
-  
-   $tgap=0;
-   if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-   and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and  mis_prod_plan_dl.MACHINE_CODE like 'SMTL2' group by mis_prod_plan_dl.DATE_")){
-  echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
-   while ($row = $stmt->fetch_row()){
-   $gap = $row[1] - $row[2];
-    echo "<td>$gap</td>";
-    $tgap=+$gap;}
-    echo "<td><b>$tgap<b></td></tr>";
-   }
-   
-   
-   if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-   and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL2' group by mis_prod_plan_dl.DATE_")){
-  echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
-   while ($row = $stmt->fetch_row()){
-   $rate = ($row[2] / $row[1])*100;
-    echo "<td>$rate %</td>";}
-   echo "</tr>";
-   }
-   
-   if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$from' and '$to' 
-   and JOB_ORDER_NO like'2%' group by PROD_DATE")){
-  echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-   while ($row = $stmt->fetch_row()){
-    echo "<td>$row[2]</td>";}
-   echo "</tr>";
-   }
-   
-   //else{ 
-   //echo $conn->error;
-   //}
-   // Transfor PHP array to JavaScript two dimensional array 
-   echo "<script>
-       var my_2d = ".json_encode($php_data_array)."
-   </script>";
-     }
-				 break;
-
-
-        case "l3": 
-        
-
-        // smt daily prod line 3---------------------------------------
-$total = 0;
-$itotal = 0;
-$row = 0;
-  if (isset($_POST['daily'])){
-    include('conn1.php');
-    $from=date('Y-m-d',strtotime($_POST['from']));
-    $to=date('Y-m-d',strtotime($_POST['to']));
-  
-    $begin = new DateTime( $from );
-    $end   = new DateTime( $to );
-    $php_data_array = Array(); 
-    $job_array = Array();// create PHP array
-  
-if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL3' group by DATE_")){
-  echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
-   while ($row = $stmt->fetch_row()) {
-   echo "<td><b>$row[0]<b></td>";
-  //$php_data_array[] = $row;
-   }
-    echo "<td><b>TOTAL<b></td></tr>";}
-    $tplan=0;
-   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL3' group by DATE_")){
-   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
-   while ($row = $stmt->fetch_row()){
-   echo "<td>$row[1]</td>";
-   $tplan+=$row[1];
-  $php_data_array[] = $row;
-   }echo "<td><b>$tplan<b></td></tr>";}
-   
-   $tresult=0;
-  if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-   and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL3' group by mis_prod_plan_dl.DATE_")){
-  echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-   while ($row = $stmt->fetch_row()){
-    echo "<td>$row[2]</td>";
-    $tresult+=$row[2];
-    $php_data_array[] = $row;}
-   echo "<td><b>$tresult<b></td></tr>";
-   }
-  
-   $tgap=0;
-   if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-   and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and  mis_prod_plan_dl.MACHINE_CODE like 'SMTL3' group by mis_prod_plan_dl.DATE_")){
-  echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
-   while ($row = $stmt->fetch_row()){
-   $gap = $row[1] - $row[2];
-    echo "<td>$gap</td>";
-    $tgap=+$gap;}
-    echo "<td><b>$tgap<b></td></tr>";
-   }
-   
-   
-   if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-   and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL3' group by mis_prod_plan_dl.DATE_")){
-  echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
-   while ($row = $stmt->fetch_row()){
-   $rate = ($row[2] / $row[1])*100;
-    echo "<td>$rate %</td>";}
-   echo "</tr>";
-   }
-   
-   if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$from' and '$to' 
-   and JOB_ORDER_NO like'2%' group by PROD_DATE")){
-  echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-   while ($row = $stmt->fetch_row()){
-    echo "<td>$row[2]</td>";}
-   echo "</tr>";
-   }
-   
-   //else{ 
-   //echo $conn->error;
-   //}
-   // Transfor PHP array to JavaScript two dimensional array 
-   echo "<script>
-       var my_2d = ".json_encode($php_data_array)."
-   </script>";
-     }
-
-				  break;
-
-
-				case "l4":
-				   break;
-
-
-				case "l5":
-				    break;
-
-
-				case "l6":
-				 break;
-
-
-         case "l7": 
-
-         break; 
- 
-
-         case "l8":
-         
-           break;
- 
-
-         case "l9": 
-           break;
- 
-
-         case "l10":
-            break;
- 
-
-         case "l11":
-             break;
- 
-
-         case "l12":
-
-
-         // smt daily prod line 12---------------------------------------
-        $total = 0;
-        $itotal = 0;
-        $row = 0;
-          if (isset($_POST['daily'])){
-            include('conn1.php');
-            $from=date('Y-m-d',strtotime($_POST['from']));
-            $to=date('Y-m-d',strtotime($_POST['to']));
-          
-            $begin = new DateTime( $from );
-            $end   = new DateTime( $to );
-            $php_data_array = Array(); 
-            $job_array = Array();// create PHP array
-          
-        if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL12' group by DATE_")){
-          echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
-           while ($row = $stmt->fetch_row()) {
-           echo "<td><b>$row[0]<b></td>";
-          //$php_data_array[] = $row;
-           }
-            echo "<td><b>TOTAL<b></td></tr>";}
-            $tplan=0;
-           if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL12' group by DATE_")){
-           echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
-           while ($row = $stmt->fetch_row()){
-           echo "<td>$row[1]</td>";
-           $tplan+=$row[1];
-          $php_data_array[] = $row;
-           }echo "<td><b>$tplan<b></td></tr>";}
-           
-           $tresult=0;
-          if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-           and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL12' group by mis_prod_plan_dl.DATE_")){
-          echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-           while ($row = $stmt->fetch_row()){
-            echo "<td>$row[2]</td>";
-            $tresult+=$row[2];
-            $php_data_array[] = $row;}
-           echo "<td><b>$tresult<b></td></tr>";
-           }
-          
-           $tgap=0;
-           if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-           and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and  mis_prod_plan_dl.MACHINE_CODE like 'SMTL12' group by mis_prod_plan_dl.DATE_")){
-          echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
-           while ($row = $stmt->fetch_row()){
-           $gap = $row[1] - $row[2];
-            echo "<td>$gap</td>";
-            $tgap=+$gap;}
-            echo "<td><b>$tgap<b></td></tr>";
-           }
-           
-           
-           if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-           and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL12' group by mis_prod_plan_dl.DATE_")){
-          echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
-           while ($row = $stmt->fetch_row()){
-           $rate = ($row[2] / $row[1])*100;
-            echo "<td>$rate %</td>";}
-           echo "</tr>";
-           }
-           
-           if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$from' and '$to' 
-           and JOB_ORDER_NO like'2%' group by PROD_DATE")){
-          echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-           while ($row = $stmt->fetch_row()){
-            echo "<td>$row[2]</td>";}
-           echo "</tr>";
-           }
-           
-           //else{ 
-           //echo $conn->error;
-           //}
-           // Transfor PHP array to JavaScript two dimensional array 
-           echo "<script>
-               var my_2d = ".json_encode($php_data_array)."
-           </script>";
-             }
-
-
-    
-
-          break;
-
-          case "l13":
-
-// smt daily prod line 13---------------------------------------
-$total = 0;
-$itotal = 0;
-$row = 0;
-  if (isset($_POST['daily'])){
-    include('conn1.php');
-    $from=date('Y-m-d',strtotime($_POST['from']));
-    $to=date('Y-m-d',strtotime($_POST['to']));
-  
-    $begin = new DateTime( $from );
-    $end   = new DateTime( $to );
-    $php_data_array = Array(); 
-    $job_array = Array();// create PHP array
-  
-if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL13' group by DATE_")){
-  echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
-   while ($row = $stmt->fetch_row()) {
-   echo "<td><b>$row[0]<b></td>";
-  //$php_data_array[] = $row;
-   }
-    echo "<td><b>TOTAL<b></td></tr>";}
-    $tplan=0;
-   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL13' group by DATE_")){
-   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
-   while ($row = $stmt->fetch_row()){
-   echo "<td>$row[1]</td>";
-   $tplan+=$row[1];
-  $php_data_array[] = $row;
-   }echo "<td><b>$tplan<b></td></tr>";}
-   
-   $tresult=0;
-  if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-   and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL13' group by mis_prod_plan_dl.DATE_")){
-  echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-   while ($row = $stmt->fetch_row()){
-    echo "<td>$row[2]</td>";
-    $tresult+=$row[2];
-    $php_data_array[] = $row;}
-   echo "<td><b>$tresult<b></td></tr>";
-   }
-  
-   $tgap=0;
-   if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-   and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and  mis_prod_plan_dl.MACHINE_CODE like 'SMTL13' group by mis_prod_plan_dl.DATE_")){
-  echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
-   while ($row = $stmt->fetch_row()){
-   $gap = $row[1] - $row[2];
-    echo "<td>$gap</td>";
-    $tgap=+$gap;}
-    echo "<td><b>$tgap<b></td></tr>";
-   }
-   
-   
-   if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-   and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL13' group by mis_prod_plan_dl.DATE_")){
-  echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
-   while ($row = $stmt->fetch_row()){
-   $rate = ($row[2] / $row[1])*100;
-    echo "<td>$rate %</td>";}
-   echo "</tr>";
-   }
-   
-   if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$from' and '$to' 
-   and JOB_ORDER_NO like'2%' group by PROD_DATE")){
-  echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-   while ($row = $stmt->fetch_row()){
-    echo "<td>$row[2]</td>";}
-   echo "</tr>";
-   }
-   
-   //else{ 
-   //echo $conn->error;
-   //}
-   // Transfor PHP array to JavaScript two dimensional array 
-   echo "<script>
-       var my_2d = ".json_encode($php_data_array)."
-   </script>";
-     }
-          break;
-
-      case "overall":
-
-
-
-      // ----------------SUM OF PROD RESULT daily overall------------------------------------- --> 
-    
-      $total = 0;
-      $itotal = 0;
-      $row = 0;
-        if (isset($_POST['daily'])){
-          include('conn1.php');
-          $from=date('Y-m-d',strtotime($_POST['from']));
-          $to=date('Y-m-d',strtotime($_POST['to']));
-        
-          $begin = new DateTime( $from );
-          $end   = new DateTime( $to );
-          $php_data_array = Array(); 
-          $job_array = Array();// create PHP array
-      
-      if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' group by DATE_")){
-       echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
-      while ($row = $stmt->fetch_row()) {
-        echo "<td><b>$row[0]<b></td>";
-       //$php_data_array[] = $row;
-      }
-         echo "<td><b>TOTAL<b></td></tr>";}
-         $tplan=0;
-        if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' group by DATE_")){
-      echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
-      while ($row = $stmt->fetch_row()){
-        echo "<td>$row[1]</td>";
-        $tplan+=$row[1];
-       $php_data_array[] = $row;
-      }echo "<td><b>$tplan<b></td></tr>";}
-      
-      $tresult=0;
-       if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-      and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' group by mis_prod_plan_dl.DATE_")){
-       echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-      while ($row = $stmt->fetch_row()){
-         echo "<td>$row[2]</td>";
-         $tresult+=$row[2];
-         $php_data_array[] = $row;}
-      echo "<td><b>$tresult<b></td></tr>";
-      }
-       
-      $tgap=0;
-      if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-      and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' group by mis_prod_plan_dl.DATE_")){
-       echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
-      while ($row = $stmt->fetch_row()){
-        $gap = $row[1] - $row[2];
-         echo "<td>$gap</td>";
-         $tgap=+$gap;}
-         echo "<td><b>$tgap<b></td></tr>";
-      }
-      
-      
-      if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-      and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' group by mis_prod_plan_dl.DATE_")){
-       echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
-      while ($row = $stmt->fetch_row()){
-        $rate = ($row[2] / $row[1])*100;
-         echo "<td>$rate %</td>";}
-      echo "</tr>";
-      }
-      
-      if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$from' and '$to' 
-      and JOB_ORDER_NO like'2%' group by PROD_DATE")){
-       echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-      while ($row = $stmt->fetch_row()){
-         echo "<td>$row[2]</td>";}
-      echo "</tr>";
-      }
-      
-      //else{ 
-      //echo $conn->error;
-      //}
-      // Transfor PHP array to JavaScript two dimensional array 
-      echo "<script>
-              var my_2d = ".json_encode($php_data_array)."
-      </script>";
-        }
-      
-    
-       
-       break;
-
-				default: echo("Error!"); exit(); break;
-			}
-	
-			exit();
-		}
-	}
-
-
+  }
 ?>
 
 <?php
@@ -766,66 +277,102 @@ if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHER
     
       $begin = new DateTime( $mfrom );
       $end   = new DateTime( $mto );
-      $php_data_array = Array(); // create PHP array
-  
-  
-      if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-      and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL1' group by MONTH(mis_prod_plan_dl.DATE_)")){
-       echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
-      while ($row = $stmt->fetch_row()) {
-        echo "<td>$row[0]</td>";
-       //$php_data_array[] = $row;
-      }echo "<td><b>TOTAL<b></td></tr>";}
-  
-      $tplan=0;
-        if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-        and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL1' group by MONTH(mis_prod_plan_dl.DATE_)")){
-      echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
-      while ($row = $stmt->fetch_row()){
-        echo "<td>$row[1]</td>";
-        $tplan+=$row[1];
-       //$php_data_array[] = $row;
-      }echo "<td><b>$tplan<b></td></tr>";}
-  
-      $tresult=0;
-       if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-      and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL1' group by MONTH(mis_prod_plan_dl.DATE_)")){
-       echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-      while ($row = $stmt->fetch_row()){
-         echo "<td>$row[2]</td>";
-         $php_data_array[] = $row;
-        $tresult+=$row[2];
-      }echo "<td><b>$tresult<b></td></tr>";} 
-  
-      $tgap=0;
-      if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-      and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL1' group by MONTH(mis_prod_plan_dl.DATE_)")){
-       echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
-      while ($row = $stmt->fetch_row()){
-        $gap = $row[1] - $row[2];
-        echo "<td>$gap</td>";
-        $tgap+=$gap;}
-        echo "<td><b>$tgap<b></td></tr>";
-      } 
-  
-  
-      if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-      and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL1' group by MONTH(mis_prod_plan_dl.DATE_)")){
-      echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE</th>";
-      while ($row = $stmt->fetch_row()){
-        $rate = ($row[2] / $row[1])*100;
-        echo "<td>$rate %</td>";}
-      echo "</tr>";
-      } 
-  
-  
-      if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$mfrom' and '$mto' 
-  and JOB_ORDER_NO like'2%' group by PROD_DATE")){
-   echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-  while ($def = $stmt->fetch_row()){
-     echo "<td>$def[2]</td>";}
-  echo "</tr>";
-  }
+      $php_data_array = Array(); 
+      $job_array = Array();
+      $input_array = Array();// create PHP array
+    
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL1' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($row = $stmt->fetch_row()) {
+    echo "<td><b>$row[0]<b></td>";
+    //$php_data_array[] = $row;
+    }
+     echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+     $tplan=0;
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL1' group by DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+    while ($plan = $stmt->fetch_row()){
+    $tplan+=$plan[1];
+    echo "<td>$plan[1]</td>";
+    $job_array[]=$plan[1];
+    //$php_data_array[] = $row;
+    }
+    echo "<td><b>$tplan<b></td></tr>";}
+    //------------------------------------
+    $tresult=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+    while ($row = $stmt->fetch_row()){
+     echo "<td>$row[2]</td>";
+     $tresult+=$row[2];
+     $row[1]=$job_array[$i];
+     $php_data_array[] = $row;
+    $i++;}
+    echo "<td><b>$tresult<b></td></tr>"; 
+    }
+    
+    $tgap=0; //------------------------------------ 
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+    while ($gp = $stmt->fetch_row()){
+    $gap = $job_array[$i] - $gp[2];
+     echo "<td>$gap</td>";
+     $tgap = $tplan - $tresult;
+    $i++;}
+     echo "<td><b>$tgap<b></td></tr>";
+    }
+    
+    
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+    while ($row = $stmt->fetch_row()){
+    $rate = ($row[2] / $row[1])*100;
+     echo "<td>$rate %</td>";}
+    echo "</tr>";
+    }
+    $tdef=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+    and defect like '1' and PDLINE_NAME like 'SMTL1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+    while ($def = $stmt->fetch_row()){
+     echo "<td>$def[2]</td>";
+      $tdef+=$def[2];}
+    echo "<td><b>$tdef<b></td></tr>";
+    }
+    
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+    and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+    and PDLINE_NAME like 'SMTL1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+    while ($input = $stmt->fetch_row()){
+    echo "<td>$input[2]</td>";
+    $input_array[]=$input[2];}
+    echo "</tr>";}
+    
+    $yield;
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+    $i=0;
+    while ($output = $stmt->fetch_row()){
+    $yield=$output[2]/$input_array[$i];
+    //echo $output[2].",,";
+    echo "<td>$yield %</td>";
+    $i++;
+    }echo "</tr>";}      
+     
   //else{ 
   //echo $conn->error;
   //}
@@ -834,6 +381,30 @@ if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHER
   echo "<script>
           var my_2d = ".json_encode($php_data_array)."
   </script>";
+
+  echo "<script>
+  var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+  case "column":
+  
+  getColumn();
+  break;
+
+  case "pie":
+
+  getpie();
+  break;
+  default: echo("Error!"); exit(); break;
+}
+
     }
         break; 
 
@@ -851,66 +422,102 @@ if (isset($_POST['monthly'])){
 
   $begin = new DateTime( $mfrom );
   $end   = new DateTime( $mto );
-  $php_data_array = Array(); // create PHP array
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL2' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+ echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+ $tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL2' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+ echo "<td>$row[2]</td>";
+ $tresult+=$row[2];
+ $row[1]=$job_array[$i];
+ $php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+ echo "<td>$gap</td>";
+ $tgap = $tplan - $tresult;
+$i++;}
+ echo "<td><b>$tgap<b></td></tr>";
+}
 
 
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL2' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
-  while ($row = $stmt->fetch_row()) {
-    echo "<td>$row[0]</td>";
-   //$php_data_array[] = $row;
-  }echo "<td><b>TOTAL<b></td></tr>";}
-
-  $tplan=0;
-    if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-    and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL2' group by MONTH(mis_prod_plan_dl.DATE_)")){
-  echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
-  while ($row = $stmt->fetch_row()){
-    echo "<td>$row[1]</td>";
-    $tplan+=$row[1];
-   //$php_data_array[] = $row;
-  }echo "<td><b>$tplan<b></td></tr>";}
-
-  $tresult=0;
-   if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL2' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-  while ($row = $stmt->fetch_row()){
-     echo "<td>$row[2]</td>";
-     $php_data_array[] = $row;
-    $tresult+=$row[2];
-  }echo "<td><b>$tresult<b></td></tr>";} 
-
-  $tgap=0;
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL2' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
-  while ($row = $stmt->fetch_row()){
-    $gap = $row[1] - $row[2];
-    echo "<td>$gap</td>";
-    $tgap+=$gap;}
-    echo "<td><b>$tgap<b></td></tr>";
-  } 
-
-
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL2' group by MONTH(mis_prod_plan_dl.DATE_)")){
-  echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE</th>";
-  while ($row = $stmt->fetch_row()){
-    $rate = ($row[2] / $row[1])*100;
-    echo "<td>$rate %</td>";}
-  echo "</tr>";
-  } 
-
-
-  if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$mfrom' and '$mto' 
-and JOB_ORDER_NO like'2%' group by PROD_DATE")){
-echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-while ($def = $stmt->fetch_row()){
- echo "<td>$def[2]</td>";}
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+ echo "<td>$rate %</td>";}
 echo "</tr>";
 }
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+ echo "<td>$def[2]</td>";
+  $tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+ 
 //else{ 
 //echo $conn->error;
 //}
@@ -919,6 +526,30 @@ echo "</tr>";
 echo "<script>
       var my_2d = ".json_encode($php_data_array)."
 </script>";
+
+echo "<script>
+        var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+	
+			
+			switch($varchart)
+			{
+        case "column":
+        
+        getColumn();
+        break;
+
+        case "pie":
+
+        getpie();
+        break;
+        default: echo("Error!"); exit(); break;
+  }
+
 }				
 				  break;
 
@@ -934,66 +565,102 @@ if (isset($_POST['monthly'])){
 
   $begin = new DateTime( $mfrom );
   $end   = new DateTime( $mto );
-  $php_data_array = Array(); // create PHP array
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL3' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+ echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+ $tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL3' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+ echo "<td>$row[2]</td>";
+ $tresult+=$row[2];
+ $row[1]=$job_array[$i];
+ $php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+ echo "<td>$gap</td>";
+ $tgap = $tplan - $tresult;
+$i++;}
+ echo "<td><b>$tgap<b></td></tr>";
+}
 
 
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL3' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
-  while ($row = $stmt->fetch_row()) {
-    echo "<td>$row[0]</td>";
-   //$php_data_array[] = $row;
-  }echo "<td><b>TOTAL<b></td></tr>";}
-
-  $tplan=0;
-    if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-    and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL3' group by MONTH(mis_prod_plan_dl.DATE_)")){
-  echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
-  while ($row = $stmt->fetch_row()){
-    echo "<td>$row[1]</td>";
-    $tplan+=$row[1];
-   //$php_data_array[] = $row;
-  }echo "<td><b>$tplan<b></td></tr>";}
-
-  $tresult=0;
-   if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL3' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-  while ($row = $stmt->fetch_row()){
-     echo "<td>$row[2]</td>";
-     $php_data_array[] = $row;
-    $tresult+=$row[2];
-  }echo "<td><b>$tresult<b></td></tr>";} 
-
-  $tgap=0;
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL3' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
-  while ($row = $stmt->fetch_row()){
-    $gap = $row[1] - $row[2];
-    echo "<td>$gap</td>";
-    $tgap+=$gap;}
-    echo "<td><b>$tgap<b></td></tr>";
-  } 
-
-
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL3' group by MONTH(mis_prod_plan_dl.DATE_)")){
-  echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE</th>";
-  while ($row = $stmt->fetch_row()){
-    $rate = ($row[2] / $row[1])*100;
-    echo "<td>$rate %</td>";}
-  echo "</tr>";
-  } 
-
-
-  if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$mfrom' and '$mto' 
-and JOB_ORDER_NO like'2%' group by PROD_DATE")){
-echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-while ($def = $stmt->fetch_row()){
- echo "<td>$def[2]</td>";}
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+ echo "<td>$rate %</td>";}
 echo "</tr>";
 }
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL3' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+ echo "<td>$def[2]</td>";
+  $tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL3' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL3' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+ 
 //else{ 
 //echo $conn->error;
 //}
@@ -1002,35 +669,1166 @@ echo "</tr>";
 echo "<script>
       var my_2d = ".json_encode($php_data_array)."
 </script>";
+
+echo "<script>
+        var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+	
+			
+			switch($varchart)
+			{
+        case "column":
+        
+        getColumn();
+        break;
+
+        case "pie":
+
+        getpie();
+        break;
+        default: echo("Error!"); exit(); break;
+  }
+
 }
 
 				  break;
 
-				case "l4":
-				   break;
+        case "l4":
+        
+    
+     //------------------------------- sum of prod result monthly line 4------------------------- -->       
+     if (isset($_POST['monthly'])){
+      include('conn1.php');
+      $mfrom=date('Y-m-d',strtotime($_POST['monthfrom']));
+      $mto=date('Y-m-d',strtotime($_POST['monthto']));
+    
+      $begin = new DateTime( $mfrom );
+      $end   = new DateTime( $mto );
+      $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();// create PHP array
 
-				case "l5":
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL4' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+ echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+ $tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL4' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+ echo "<td>$row[2]</td>";
+ $tresult+=$row[2];
+ $row[1]=$job_array[$i];
+ $php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+ echo "<td>$gap</td>";
+ $tgap = $tplan - $tresult;
+$i++;}
+ echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+ echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL4' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+ echo "<td>$def[2]</td>";
+  $tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL4' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL4' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+ 
+  //else{ 
+  //echo $conn->error;
+  //}
+  
+  // Transfer PHP array to JavaScript two dimensional array 
+  echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+  </script>";
+
+  echo "<script>
+  var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+  case "column":
+  
+  getColumn();
+  break;
+
+  case "pie":
+
+  getpie();
+  break;
+  default: echo("Error!"); exit(); break;
+}
+
+    }
+        break; 
+
+
+        case "l5":
+        
+
+    
+     //------------------------------- sum of prod result monthly line 5------------------------ -->       
+     if (isset($_POST['monthly'])){
+      include('conn1.php');
+      $mfrom=date('Y-m-d',strtotime($_POST['monthfrom']));
+      $mto=date('Y-m-d',strtotime($_POST['monthto']));
+    
+      $begin = new DateTime( $mfrom );
+      $end   = new DateTime( $mto );
+      $php_data_array = Array(); 
+      $job_array = Array();
+      $input_array = Array();// create PHP array
+    
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL5' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($row = $stmt->fetch_row()) {
+    echo "<td><b>$row[0]<b></td>";
+    //$php_data_array[] = $row;
+    }
+     echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+     $tplan=0;
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL5' group by DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+    while ($plan = $stmt->fetch_row()){
+    $tplan+=$plan[1];
+    echo "<td>$plan[1]</td>";
+    $job_array[]=$plan[1];
+    //$php_data_array[] = $row;
+    }
+    echo "<td><b>$tplan<b></td></tr>";}
+    //------------------------------------
+    $tresult=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+    while ($row = $stmt->fetch_row()){
+     echo "<td>$row[2]</td>";
+     $tresult+=$row[2];
+     $row[1]=$job_array[$i];
+     $php_data_array[] = $row;
+    $i++;}
+    echo "<td><b>$tresult<b></td></tr>"; 
+    }
+    
+    $tgap=0; //------------------------------------ 
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+    while ($gp = $stmt->fetch_row()){
+    $gap = $job_array[$i] - $gp[2];
+     echo "<td>$gap</td>";
+     $tgap = $tplan - $tresult;
+    $i++;}
+     echo "<td><b>$tgap<b></td></tr>";
+    }
+    
+    
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+    while ($row = $stmt->fetch_row()){
+    $rate = ($row[2] / $row[1])*100;
+     echo "<td>$rate %</td>";}
+    echo "</tr>";
+    }
+    $tdef=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+    and defect like '1' and PDLINE_NAME like 'SMTL5' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+    while ($def = $stmt->fetch_row()){
+     echo "<td>$def[2]</td>";
+      $tdef+=$def[2];}
+    echo "<td><b>$tdef<b></td></tr>";
+    }
+    
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+    and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+    and PDLINE_NAME like 'SMTL5' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+    while ($input = $stmt->fetch_row()){
+    echo "<td>$input[2]</td>";
+    $input_array[]=$input[2];}
+    echo "</tr>";}
+    
+    $yield;
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL5' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+    $i=0;
+    while ($output = $stmt->fetch_row()){
+    $yield=$output[2]/$input_array[$i];
+    //echo $output[2].",,";
+    echo "<td>$yield %</td>";
+    $i++;
+    }echo "</tr>";}      
+     
+  //else{ 
+  //echo $conn->error;
+  //}
+  
+  // Transfer PHP array to JavaScript two dimensional array 
+  echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+  </script>";
+
+  echo "<script>
+  var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+  case "column":
+  
+  getColumn();
+  break;
+
+  case "pie":
+
+  getpie();
+  break;
+  default: echo("Error!"); exit(); break;
+}
+
+    }
             break;
             
             case "l6": 
+    
+     //------------------------------- sum of prod result monthly line 6------------------------- -->       
+     if (isset($_POST['monthly'])){
+      include('conn1.php');
+      $mfrom=date('Y-m-d',strtotime($_POST['monthfrom']));
+      $mto=date('Y-m-d',strtotime($_POST['monthto']));
+    
+      $begin = new DateTime( $mfrom );
+      $end   = new DateTime( $mto );
+      $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();// create PHP array
 
-            break; 
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL6' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+ echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+ $tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL6' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+ echo "<td>$row[2]</td>";
+ $tresult+=$row[2];
+ $row[1]=$job_array[$i];
+ $php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+ echo "<td>$gap</td>";
+ $tgap = $tplan - $tresult;
+$i++;}
+ echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+ echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL6' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+ echo "<td>$def[2]</td>";
+  $tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL6' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL6' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+ 
+  //else{ 
+  //echo $conn->error;
+  //}
+  
+  // Transfer PHP array to JavaScript two dimensional array 
+  echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+  </script>";
+
+  echo "<script>
+  var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+  case "column":
+  
+  getColumn();
+  break;
+
+  case "pie":
+
+  getpie();
+  break;
+  default: echo("Error!"); exit(); break;
+}
+
+    }
+        break;  
     
             case "l7":
             
-              break;
+                  
+     //------------------------------- sum of prod result monthly line 7------------------------- -->       
+     if (isset($_POST['monthly'])){
+      include('conn1.php');
+      $mfrom=date('Y-m-d',strtotime($_POST['monthfrom']));
+      $mto=date('Y-m-d',strtotime($_POST['monthto']));
+    
+      $begin = new DateTime( $mfrom );
+      $end   = new DateTime( $mto );
+      $php_data_array = Array(); 
+      $job_array = Array();
+      $input_array = Array();// create PHP array
+    
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL7' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($row = $stmt->fetch_row()) {
+    echo "<td><b>$row[0]<b></td>";
+    //$php_data_array[] = $row;
+    }
+     echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+     $tplan=0;
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL7' group by DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+    while ($plan = $stmt->fetch_row()){
+    $tplan+=$plan[1];
+    echo "<td>$plan[1]</td>";
+    $job_array[]=$plan[1];
+    //$php_data_array[] = $row;
+    }
+    echo "<td><b>$tplan<b></td></tr>";}
+    //------------------------------------
+    $tresult=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+    while ($row = $stmt->fetch_row()){
+     echo "<td>$row[2]</td>";
+     $tresult+=$row[2];
+     $row[1]=$job_array[$i];
+     $php_data_array[] = $row;
+    $i++;}
+    echo "<td><b>$tresult<b></td></tr>"; 
+    }
+    
+    $tgap=0; //------------------------------------ 
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+    while ($gp = $stmt->fetch_row()){
+    $gap = $job_array[$i] - $gp[2];
+     echo "<td>$gap</td>";
+     $tgap = $tplan - $tresult;
+    $i++;}
+     echo "<td><b>$tgap<b></td></tr>";
+    }
+    
+    
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+    while ($row = $stmt->fetch_row()){
+    $rate = ($row[2] / $row[1])*100;
+     echo "<td>$rate %</td>";}
+    echo "</tr>";
+    }
+    $tdef=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+    and defect like '1' and PDLINE_NAME like 'SMTL7' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+    while ($def = $stmt->fetch_row()){
+     echo "<td>$def[2]</td>";
+      $tdef+=$def[2];}
+    echo "<td><b>$tdef<b></td></tr>";
+    }
+    
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+    and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+    and PDLINE_NAME like 'SMTL7' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+    while ($input = $stmt->fetch_row()){
+    echo "<td>$input[2]</td>";
+    $input_array[]=$input[2];}
+    echo "</tr>";}
+    
+    $yield;
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL7' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+    $i=0;
+    while ($output = $stmt->fetch_row()){
+    $yield=$output[2]/$input_array[$i];
+    //echo $output[2].",,";
+    echo "<td>$yield %</td>";
+    $i++;
+    }echo "</tr>";}      
+     
+  //else{ 
+  //echo $conn->error;
+  //}
+  
+  // Transfer PHP array to JavaScript two dimensional array 
+  echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+  </script>";
+  
+echo "<script>
+var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+case "column":
+
+getColumn();
+break;
+
+case "pie":
+
+getpie();
+break;
+default: echo("Error!"); exit(); break;
+}
+    }
+        break; 
     
             case "l8": 
-              break;
+
+                
+     //------------------------------- sum of prod result monthly line 8------------------------- -->       
+     if (isset($_POST['monthly'])){
+      include('conn1.php');
+      $mfrom=date('Y-m-d',strtotime($_POST['monthfrom']));
+      $mto=date('Y-m-d',strtotime($_POST['monthto']));
+    
+      $begin = new DateTime( $mfrom );
+      $end   = new DateTime( $mto );
+      $php_data_array = Array(); 
+      $job_array = Array();
+      $input_array = Array();// create PHP array
+    
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL8' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($row = $stmt->fetch_row()) {
+    echo "<td><b>$row[0]<b></td>";
+    //$php_data_array[] = $row;
+    }
+     echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+     $tplan=0;
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL8' group by DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+    while ($plan = $stmt->fetch_row()){
+    $tplan+=$plan[1];
+    echo "<td>$plan[1]</td>";
+    $job_array[]=$plan[1];
+    //$php_data_array[] = $row;
+    }
+    echo "<td><b>$tplan<b></td></tr>";}
+    //------------------------------------
+    $tresult=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+    while ($row = $stmt->fetch_row()){
+     echo "<td>$row[2]</td>";
+     $tresult+=$row[2];
+     $row[1]=$job_array[$i];
+     $php_data_array[] = $row;
+    $i++;}
+    echo "<td><b>$tresult<b></td></tr>"; 
+    }
+    
+    $tgap=0; //------------------------------------ 
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+    while ($gp = $stmt->fetch_row()){
+    $gap = $job_array[$i] - $gp[2];
+     echo "<td>$gap</td>";
+     $tgap = $tplan - $tresult;
+    $i++;}
+     echo "<td><b>$tgap<b></td></tr>";
+    }
+    
+    
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+    while ($row = $stmt->fetch_row()){
+    $rate = ($row[2] / $row[1])*100;
+     echo "<td>$rate %</td>";}
+    echo "</tr>";
+    }
+    $tdef=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+    and defect like '1' and PDLINE_NAME like 'SMTL8' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+    while ($def = $stmt->fetch_row()){
+     echo "<td>$def[2]</td>";
+      $tdef+=$def[2];}
+    echo "<td><b>$tdef<b></td></tr>";
+    }
+    
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+    and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+    and PDLINE_NAME like 'SMTL8' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+    while ($input = $stmt->fetch_row()){
+    echo "<td>$input[2]</td>";
+    $input_array[]=$input[2];}
+    echo "</tr>";}
+    
+    $yield;
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL8' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+    $i=0;
+    while ($output = $stmt->fetch_row()){
+    $yield=$output[2]/$input_array[$i];
+    //echo $output[2].",,";
+    echo "<td>$yield %</td>";
+    $i++;
+    }echo "</tr>";}      
+     
+  //else{ 
+  //echo $conn->error;
+  //}
+  
+  // Transfer PHP array to JavaScript two dimensional array 
+  echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+  </script>";
+
+  echo "<script>
+  var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+  case "column":
+  
+  getColumn();
+  break;
+
+  case "pie":
+
+  getpie();
+  break;
+  default: echo("Error!"); exit(); break;
+}
+
+    }
+        break; 
     
             case "l9":
-               break;
+                
+     //------------------------------- sum of prod result monthly line 9------------------------- -->       
+     if (isset($_POST['monthly'])){
+      include('conn1.php');
+      $mfrom=date('Y-m-d',strtotime($_POST['monthfrom']));
+      $mto=date('Y-m-d',strtotime($_POST['monthto']));
+    
+      $begin = new DateTime( $mfrom );
+      $end   = new DateTime( $mto );
+      $php_data_array = Array(); 
+      $job_array = Array();
+      $input_array = Array();// create PHP array
+    
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL9' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($row = $stmt->fetch_row()) {
+    echo "<td><b>$row[0]<b></td>";
+    //$php_data_array[] = $row;
+    }
+     echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+     $tplan=0;
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL9' group by DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+    while ($plan = $stmt->fetch_row()){
+    $tplan+=$plan[1];
+    echo "<td>$plan[1]</td>";
+    $job_array[]=$plan[1];
+    //$php_data_array[] = $row;
+    }
+    echo "<td><b>$tplan<b></td></tr>";}
+    //------------------------------------
+    $tresult=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+    while ($row = $stmt->fetch_row()){
+     echo "<td>$row[2]</td>";
+     $tresult+=$row[2];
+     $row[1]=$job_array[$i];
+     $php_data_array[] = $row;
+    $i++;}
+    echo "<td><b>$tresult<b></td></tr>"; 
+    }
+    
+    $tgap=0; //------------------------------------ 
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+    while ($gp = $stmt->fetch_row()){
+    $gap = $job_array[$i] - $gp[2];
+     echo "<td>$gap</td>";
+     $tgap = $tplan - $tresult;
+    $i++;}
+     echo "<td><b>$tgap<b></td></tr>";
+    }
+    
+    
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+    while ($row = $stmt->fetch_row()){
+    $rate = ($row[2] / $row[1])*100;
+     echo "<td>$rate %</td>";}
+    echo "</tr>";
+    }
+    $tdef=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+    and defect like '1' and PDLINE_NAME like 'SMTL9' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+    while ($def = $stmt->fetch_row()){
+     echo "<td>$def[2]</td>";
+      $tdef+=$def[2];}
+    echo "<td><b>$tdef<b></td></tr>";
+    }
+    
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+    and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+    and PDLINE_NAME like 'SMTL9' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+    while ($input = $stmt->fetch_row()){
+    echo "<td>$input[2]</td>";
+    $input_array[]=$input[2];}
+    echo "</tr>";}
+    
+    $yield;
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL9' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+    $i=0;
+    while ($output = $stmt->fetch_row()){
+    $yield=$output[2]/$input_array[$i];
+   // echo $output[2].",,";
+    echo "<td>$yield %</td>";
+    $i++;
+    }echo "</tr>";}      
+     
+  //else{ 
+  //echo $conn->error;
+  //}
+  
+  // Transfer PHP array to JavaScript two dimensional array 
+  echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+  </script>";
+
+  echo "<script>
+  var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+  case "column":
+  
+  getColumn();
+  break;
+
+  case "pie":
+
+  getpie();
+  break;
+  default: echo("Error!"); exit(); break;
+}
+
+    }
+        break; 
     
             case "l10":
+
+                
+     //------------------------------- sum of prod result monthly line 10------------------------- -->       
+     if (isset($_POST['monthly'])){
+      include('conn1.php');
+      $mfrom=date('Y-m-d',strtotime($_POST['monthfrom']));
+      $mto=date('Y-m-d',strtotime($_POST['monthto']));
+    
+      $begin = new DateTime( $mfrom );
+      $end   = new DateTime( $mto );
+      $php_data_array = Array(); 
+      $job_array = Array();
+      $input_array = Array();// create PHP array
+    
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL10' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($row = $stmt->fetch_row()) {
+    echo "<td><b>$row[0]<b></td>";
+    //$php_data_array[] = $row;
+    }
+     echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+     $tplan=0;
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL10' group by DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+    while ($plan = $stmt->fetch_row()){
+    $tplan+=$plan[1];
+    echo "<td>$plan[1]</td>";
+    $job_array[]=$plan[1];
+    //$php_data_array[] = $row;
+    }
+    echo "<td><b>$tplan<b></td></tr>";}
+    //------------------------------------
+    $tresult=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+    while ($row = $stmt->fetch_row()){
+     echo "<td>$row[2]</td>";
+     $tresult+=$row[2];
+     $row[1]=$job_array[$i];
+     $php_data_array[] = $row;
+    $i++;}
+    echo "<td><b>$tresult<b></td></tr>"; 
+    }
+    
+    $tgap=0; //------------------------------------ 
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+    while ($gp = $stmt->fetch_row()){
+    $gap = $job_array[$i] - $gp[2];
+     echo "<td>$gap</td>";
+     $tgap = $tplan - $tresult;
+    $i++;}
+     echo "<td><b>$tgap<b></td></tr>";
+    }
+    
+    
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+    while ($row = $stmt->fetch_row()){
+    $rate = ($row[2] / $row[1])*100;
+     echo "<td>$rate %</td>";}
+    echo "</tr>";
+    }
+    $tdef=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+    and defect like '1' and PDLINE_NAME like 'SMTL10' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+    while ($def = $stmt->fetch_row()){
+     echo "<td>$def[2]</td>";
+      $tdef+=$def[2];}
+    echo "<td><b>$tdef<b></td></tr>";
+    }
+    
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+    and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+    and PDLINE_NAME like 'SMTL10' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+    while ($input = $stmt->fetch_row()){
+    echo "<td>$input[2]</td>";
+    $input_array[]=$input[2];}
+    echo "</tr>";}
+    
+    $yield;
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL10' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+    $i=0;
+    while ($output = $stmt->fetch_row()){
+    $yield=$output[2]/$input_array[$i];
+   // echo $output[2].",,";
+    echo "<td>$yield %</td>";
+    $i++;
+    }echo "</tr>";}      
+     
+  //else{ 
+  //echo $conn->error;
+  //}
+  
+  // Transfer PHP array to JavaScript two dimensional array 
+  echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+  </script>";
+
+  echo "<script>
+  var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+  case "column":
+  
+  getColumn();
+  break;
+
+  case "pie":
+
+  getpie();
+  break;
+  default: echo("Error!"); exit(); break;
+}
+
+    }
                 break;
 
                 case "l11": 
-              break;
+
+                    
+     //------------------------------- sum of prod result monthly line 11------------------------- -->       
+     if (isset($_POST['monthly'])){
+      include('conn1.php');
+      $mfrom=date('Y-m-d',strtotime($_POST['monthfrom']));
+      $mto=date('Y-m-d',strtotime($_POST['monthto']));
+    
+      $begin = new DateTime( $mfrom );
+      $end   = new DateTime( $mto );
+      $php_data_array = Array(); 
+      $job_array = Array();
+      $input_array = Array();// create PHP array
+    
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL11' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($row = $stmt->fetch_row()) {
+    echo "<td><b>$row[0]<b></td>";
+    //$php_data_array[] = $row;
+    }
+     echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+     $tplan=0;
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL11' group by DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+    while ($plan = $stmt->fetch_row()){
+    $tplan+=$plan[1];
+    echo "<td>$plan[1]</td>";
+    $job_array[]=$plan[1];
+    //$php_data_array[] = $row;
+    }
+    echo "<td><b>$tplan<b></td></tr>";}
+    //------------------------------------
+    $tresult=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+    while ($row = $stmt->fetch_row()){
+     echo "<td>$row[2]</td>";
+     $tresult+=$row[2];
+     $row[1]=$job_array[$i];
+     $php_data_array[] = $row;
+    $i++;}
+    echo "<td><b>$tresult<b></td></tr>"; 
+    }
+    
+    $tgap=0; //------------------------------------ 
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+    while ($gp = $stmt->fetch_row()){
+    $gap = $job_array[$i] - $gp[2];
+     echo "<td>$gap</td>";
+     $tgap = $tplan - $tresult;
+    $i++;}
+     echo "<td><b>$tgap<b></td></tr>";
+    }
+    
+    
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+    while ($row = $stmt->fetch_row()){
+    $rate = ($row[2] / $row[1])*100;
+     echo "<td>$rate %</td>";}
+    echo "</tr>";
+    }
+    $tdef=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+    and defect like '1' and PDLINE_NAME like 'SMTL11' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+    while ($def = $stmt->fetch_row()){
+     echo "<td>$def[2]</td>";
+      $tdef+=$def[2];}
+    echo "<td><b>$tdef<b></td></tr>";
+    }
+    
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+    and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+    and PDLINE_NAME like 'SMTL11' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+    while ($input = $stmt->fetch_row()){
+    echo "<td>$input[2]</td>";
+    $input_array[]=$input[2];}
+    echo "</tr>";}
+    
+    $yield;
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+    and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL11' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+    $i=0;
+    while ($output = $stmt->fetch_row()){
+    $yield=$output[2]/$input_array[$i];
+    //echo $output[2].",,";
+    echo "<td>$yield %</td>";
+    $i++;
+    }echo "</tr>";}      
+     
+  //else{ 
+  //echo $conn->error;
+  //}
+  
+  // Transfer PHP array to JavaScript two dimensional array 
+  echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+  </script>";
+
+  echo "<script>
+  var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+  case "column":
+  
+  getColumn();
+  break;
+
+  case "pie":
+
+  getpie();
+  break;
+  default: echo("Error!"); exit(); break;
+}
+
+    }
+        break; 
     
             case "l12":
  //------------------------------- sum of prod result monthly line 12------------------------- --> 
@@ -1043,66 +1841,102 @@ echo "<script>
 
   $begin = new DateTime( $mfrom );
   $end   = new DateTime( $mto );
-  $php_data_array = Array(); // create PHP array
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL12' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+ echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+ $tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL12' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+ echo "<td>$row[2]</td>";
+ $tresult+=$row[2];
+ $row[1]=$job_array[$i];
+ $php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+ echo "<td>$gap</td>";
+ $tgap = $tplan - $tresult;
+$i++;}
+ echo "<td><b>$tgap<b></td></tr>";
+}
 
 
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL12' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
-  while ($row = $stmt->fetch_row()) {
-    echo "<td>$row[0]</td>";
-   //$php_data_array[] = $row;
-  }echo "<td><b>TOTAL<b></td></tr>";}
-
-  $tplan=0;
-    if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-    and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL12' group by MONTH(mis_prod_plan_dl.DATE_)")){
-  echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
-  while ($row = $stmt->fetch_row()){
-    echo "<td>$row[1]</td>";
-    $tplan+=$row[1];
-   //$php_data_array[] = $row;
-  }echo "<td><b>$tplan<b></td></tr>";}
-
-  $tresult=0;
-   if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL12' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-  while ($row = $stmt->fetch_row()){
-     echo "<td>$row[2]</td>";
-     $php_data_array[] = $row;
-    $tresult+=$row[2];
-  }echo "<td><b>$tresult<b></td></tr>";} 
-
-  $tgap=0;
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL12' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
-  while ($row = $stmt->fetch_row()){
-    $gap = $row[1] - $row[2];
-    echo "<td>$gap</td>";
-    $tgap+=$gap;}
-    echo "<td><b>$tgap<b></td></tr>";
-  } 
-
-
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL12' group by MONTH(mis_prod_plan_dl.DATE_)")){
-  echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE</th>";
-  while ($row = $stmt->fetch_row()){
-    $rate = ($row[2] / $row[1])*100;
-    echo "<td>$rate %</td>";}
-  echo "</tr>";
-  } 
-
-
-  if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$mfrom' and '$mto' 
-and JOB_ORDER_NO like'2%' group by PROD_DATE")){
-echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-while ($def = $stmt->fetch_row()){
- echo "<td>$def[2]</td>";}
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+ echo "<td>$rate %</td>";}
 echo "</tr>";
 }
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL12' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+ echo "<td>$def[2]</td>";
+  $tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL12' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL12' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+ 
 //else{ 
 //echo $conn->error;
 //}
@@ -1111,9 +1945,30 @@ echo "</tr>";
 echo "<script>
       var my_2d = ".json_encode($php_data_array)."
 </script>";
+
+echo "<script>
+        var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+	
+			
+			switch($varchart)
+			{
+        case "column":
+        
+        getColumn();
+        break;
+
+        case "pie":
+
+        getpie();
+        break;
+        default: echo("Error!"); exit(); break;
+  }
 }
-
-
                break;
     
             case "l13":
@@ -1127,77 +1982,137 @@ if (isset($_POST['monthly'])){
 
   $begin = new DateTime( $mfrom );
   $end   = new DateTime( $mto );
-  $php_data_array = Array(); // create PHP array
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL13' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+ echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+ $tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL13' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+ echo "<td>$row[2]</td>";
+ $tresult+=$row[2];
+ $row[1]=$job_array[$i];
+ $php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+ echo "<td>$gap</td>";
+ $tgap = $tplan - $tresult;
+$i++;}
+ echo "<td><b>$tgap<b></td></tr>";
+}
 
 
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL13' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
-  while ($row = $stmt->fetch_row()) {
-    echo "<td>$row[0]</td>";
-   //$php_data_array[] = $row;
-  }echo "<td><b>TOTAL<b></td></tr>";}
-
-  $tplan=0;
-    if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-    and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL13' group by MONTH(mis_prod_plan_dl.DATE_)")){
-  echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
-  while ($row = $stmt->fetch_row()){
-    echo "<td>$row[1]</td>";
-    $tplan+=$row[1];
-   //$php_data_array[] = $row;
-  }echo "<td><b>$tplan<b></td></tr>";}
-
-  $tresult=0;
-   if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL13' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-  while ($row = $stmt->fetch_row()){
-     echo "<td>$row[2]</td>";
-     $php_data_array[] = $row;
-    $tresult+=$row[2];
-  }echo "<td><b>$tresult<b></td></tr>";} 
-
-  $tgap=0;
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL13' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
-  while ($row = $stmt->fetch_row()){
-    $gap = $row[1] - $row[2];
-    echo "<td>$gap</td>";
-    $tgap+=$gap;}
-    echo "<td><b>$tgap<b></td></tr>";
-  } 
-
-
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL13' group by MONTH(mis_prod_plan_dl.DATE_)")){
-  echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE</th>";
-  while ($row = $stmt->fetch_row()){
-    $rate = ($row[2] / $row[1])*100;
-    echo "<td>$rate %</td>";}
-  echo "</tr>";
-  } 
-
-
-  if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$mfrom' and '$mto' 
-and JOB_ORDER_NO like'2%' group by PROD_DATE")){
-echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-while ($def = $stmt->fetch_row()){
- echo "<td>$def[2]</td>";}
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+ echo "<td>$rate %</td>";}
 echo "</tr>";
 }
-//else{ 
-//echo $conn->error;
-//}
-
-// Transfer PHP array to JavaScript two dimensional array 
-echo "<script>
-      var my_2d = ".json_encode($php_data_array)."
-</script>";
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL13' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+ echo "<td>$def[2]</td>";
+  $tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
 }
 
-                break;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL13' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL13' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+ 
+ //else{ 
+ //echo $conn->error;
+ //}
+ // Transfor PHP array to JavaScript two dimensional array 
+ echo "<script>
+     var my_2d = ".json_encode($php_data_array)."
+ </script>";
+
+
+ echo "<script>
+ var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+ case "column":
+ 
+ getColumn();
+ break;
+
+ case "pie":
+
+ getpie();
+ break;
+ default: echo("Error!"); exit(); break;
+}
+
+
+   }
+        break;
 
         case "overall":
         
@@ -1209,78 +2124,133 @@ echo "<script>
 
   $begin = new DateTime( $mfrom );
   $end   = new DateTime( $mto );
-  $php_data_array = Array(); // create PHP array
+  $php_data_array = Array(); 
+    $job_array = Array();
+    $input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' group by DATE_")){
+ echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+  echo "<td><b>$row[0]<b></td>";
+ //$php_data_array[] = $row;
+}
+   echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+   $tplan=0;
+  if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$mfrom' and '$mto' and JOB_ORDER_NO like'2%' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+  $tplan+=$plan[1];
+  echo "<td>$plan[1]</td>";
+  $job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+ if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+ on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+ and 1_smt.pcb.jo_number like '2%' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+ echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+ $i=0;
+while ($row = $stmt->fetch_row()){
+   echo "<td>$row[2]</td>";
+   $tresult+=$row[2];
+   $row[1]=$job_array[$i];
+   $php_data_array[] = $row;
+  $i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+ 
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+ echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+ $i=0;
+while ($gp = $stmt->fetch_row()){
+  $gap = $job_array[$i] - $gp[2];
+   echo "<td>$gap</td>";
+   $tgap = $tplan - $tresult;
+  $i++;}
+   echo "<td><b>$tgap<b></td></tr>";
+}
 
 
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
-  while ($row = $stmt->fetch_row()) {
-    echo "<td>$row[0]</td>";
-   //$php_data_array[] = $row;
-  }echo "<td><b>TOTAL<b></td></tr>";}
-
-  $tplan=0;
-    if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-    and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' group by MONTH(mis_prod_plan_dl.DATE_)")){
-  echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
-  while ($row = $stmt->fetch_row()){
-    echo "<td>$row[1]</td>";
-    $tplan+=$row[1];
-   //$php_data_array[] = $row;
-  }echo "<td><b>$tplan<b></td></tr>";}
-
-  $tresult=0;
-   if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-  while ($row = $stmt->fetch_row()){
-     echo "<td>$row[2]</td>";
-     $php_data_array[] = $row;
-    $tresult+=$row[2];
-  }echo "<td><b>$tresult<b></td></tr>";} 
-
-  $tgap=0;
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' group by MONTH(mis_prod_plan_dl.DATE_)")){
-   echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
-  while ($row = $stmt->fetch_row()){
-    $gap = $row[1] - $row[2];
-    echo "<td>$gap</td>";
-    $tgap+=$gap;}
-    echo "<td><b>$tgap<b></td></tr>";
-  } 
-
-
-  if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
-  and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' group by MONTH(mis_prod_plan_dl.DATE_)")){
-  echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE</th>";
-  while ($row = $stmt->fetch_row()){
-    $rate = ($row[2] / $row[1])*100;
-    echo "<td>$rate %</td>";}
-  echo "</tr>";
-  } 
-
-
-  if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$mfrom' and '$mto' 
-and JOB_ORDER_NO like'2%' group by PROD_DATE")){
-echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-while ($def = $stmt->fetch_row()){
- echo "<td>$def[2]</td>";}
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+ echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+  $rate = ($row[2] / $row[1])*100;
+   echo "<td>$rate %</td>";}
 echo "</tr>";
 }
-//else{ 
-//echo $conn->error;
-//}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+ echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+   echo "<td>$def[2]</td>";
+    $tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
 
-// Transfer PHP array to JavaScript two dimensional array 
-echo "<script>
-      var my_2d = ".json_encode($php_data_array)."
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+   
+   //else{ 
+   //echo $conn->error;
+   //}
+   // Transfor PHP array to JavaScript two dimensional array 
+   echo "<script>
+       var my_2d = ".json_encode($php_data_array)."
+   </script>";
+
+
+   echo "<script>
+   var my_3d = ".json_encode($php_data_array)."
 </script>";
+
+$varchart = $_POST['chartType'];
+
+ switch($varchart)
+ {
+   case "column":
+   
+   getColumn();
+   break;
+
+   case "pie":
+
+   getpie();
+   break;
+   default: echo("Error!"); exit(); break;
 }
 
 
-      break;
+     }
+          break;
 
 				default: echo("Error!"); exit(); break;
 			}
@@ -1288,6 +2258,5098 @@ echo "<script>
 			exit();
 		}
 	}
+
+
+?>
+
+
+<?php
+//------------------------shift switch case here--------------------------
+function getshift(){
+ $varshift = $_POST['shift'];
+
+switch ($varshift){
+
+case "6ap":
+/////////////////////////////////////////////////////////////////////////////////////////
+
+$varLine = $_POST['Linename'];
+$errorMessage = "";
+
+if(empty($varLine)) 
+{
+  $errorMessage = "<li>Please select a Prod line!</li>";
+}
+
+if($errorMessage != "") 
+{
+  echo("<p>There was an error with your selections:</p>\n");
+  echo("<ul>" . $errorMessage . "</ul>\n");
+} 
+else 
+{
+  
+  switch($varLine)
+  {
+
+    case "l1": 
+// smt line 1 daily shift 6AP---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL1' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL1' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+     //$row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL1' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+             break;
+//if daily
+
+case "l2":
+// smt line 2 daily shift 6AP---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL2' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL2' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL2' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+case "l3":
+
+// smt line 2 daily shift 6AP---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL3' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL3' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL3' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+
+break;
+
+case "l4":
+break;
+
+case "l5":
+break;
+
+case "l6":
+break;
+
+case "l7":
+break;
+
+case "l8":
+break;
+
+
+case "l9":
+break;
+
+case "l10":
+break;
+
+case "l11":
+break;
+
+case "l12":
+
+// smt line 12 daily shift 6AP---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL12' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL12' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+     //$row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL12' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+case "l13":
+break;
+
+case "overall":
+
+// smt line overall daily shift 6AP---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%'  group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%'  group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' ")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%'  ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' ")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+     //$row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%'  and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
+   and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+
+  }//case line
+}//else
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+break;
+
+case"6pa":
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$varLine = $_POST['Linename'];
+$errorMessage = "";
+
+if(empty($varLine)) 
+{
+  $errorMessage = "<li>Please select a Prod line!</li>";
+}
+
+if($errorMessage != "") 
+{
+  echo("<p>There was an error with your selections:</p>\n");
+  echo("<ul>" . $errorMessage . "</ul>\n");
+} 
+else 
+{
+  
+  switch($varLine)
+  {
+
+    case "l1": 
+// smt line 1 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL1' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL1' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+     //$row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL1' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+             break;
+//if daily
+
+case "l2":
+// smt line 2 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL2' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL2' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL2' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+case "l3":
+
+// smt line 3 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL3' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL3' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL3' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+
+break;
+
+case "l4":
+
+// smt line 4 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL4' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL4' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL4' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+case "l5":
+
+// smt line 5 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL5' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL5' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL5' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+case "l6":
+
+// smt line 3 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL3' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL3' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL3' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+case "l7":
+
+// smt line 7 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL7' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL7' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL7' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+case "l8":
+
+// smt line 8 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL8' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL8' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL8' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+case "l9":
+
+// smt line 9 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL9' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL9' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL9' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+case "l10":
+
+// smt line 10 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL10' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL10' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL10' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+case "l11":
+
+// smt line 11 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL11' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL11' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL11' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+case "l12":
+
+// smt line 12 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL12' group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL12' group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12'")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12'")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+    // $row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PDLINE_NAME like 'SMTL12' and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12'and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+
+break;
+
+case "l13":
+break;
+
+case "overall":
+
+// smt line 1 daily shift 6PA---------------------------------------------------------
+if (isset($_POST['daily'])){
+  include('conn2.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();
+  $result_array = Array();
+  $date_hour_array = Array();// create PHP array
+
+
+   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%'  group by DATE_")){
+    echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+   while ($row = $stmt->fetch_row()) {
+     echo "<td><b>$row[0]<b></td>";
+     $date_hour_array[] = $row[0];
+   }
+      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+
+
+      $tplan=0;
+     if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%'  group by DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+   while ($plan = $stmt->fetch_row()){
+     $tplan+=$plan[1];
+     echo "<td>$plan[1]</td>";
+     $job_array[]=$plan[1];
+     
+   }
+   echo "<td><b>$tplan<b></td></tr>";}
+
+   //------------------------------------
+
+   $i=0;
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%'")){
+    // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($res = $stmt->fetch_row()) {
+     //echo $hour[0].":".$hour[1]."///-";
+    $result_array[] = $res[2];
+    } }
+
+
+   $tresult=0;
+    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' ")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    $i=0;
+   while ($row = $stmt->fetch_row()){
+     $row[2] = $result_array[$i];
+      echo "<td>$row[2]</td>";
+      $tresult+=$row[2];
+      $row[0]=$date_hour_array[$i];
+      $row[1]=$job_array[$i];
+      $php_data_array[] = $row;
+     $i++;
+    //echo ;
+    }
+   echo "<td><b>$tresult<b></td></tr>"; 
+   }
+
+   $tgap=0; //------------------------------------ -----------------------------------------
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%'  ")){
+    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+    $i=0;
+   while ($gp = $stmt->fetch_row()){
+    $gp[2] = $result_array[$i]; //-----------------------
+     $gap = $job_array[$i] - $gp[2];
+      echo "<td>$gap</td>";
+      $tgap = $tplan - $tresult;
+     $i++;}
+      echo "<td><b>$tgap<b></td></tr>";
+   }
+   
+   
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
+   and 1_smt.pcb.jo_number like '2%' ")){
+    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+   while ($row = $stmt->fetch_row()){
+     $row[1] = $job_array[$i];
+     //$row[2] = $result_array[$i];
+     $rate = ($row[2] / $row[1])*100;
+      echo "<td>$rate %</td>";}
+   echo "</tr>";
+   }
+   $tdef=0;
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
+   and 1_smt.pcb.jo_number like '2%'  and 1_smt.pcb.defect like '1'")){
+    echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   while ($def = $stmt->fetch_row()){
+      echo "<td>$def[2]</td>";
+       $tdef+=$def[2];}
+   echo "<td><b>$tdef<b></td></tr>";
+   }
+   
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
+   and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%'")){
+   echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+   while ($input = $stmt->fetch_row()){
+   echo "<td>$input[2]</td>";
+   $input_array[]=$input[2];} 
+   echo "</tr>";}
+   
+   $yield;
+   include('conn2.php');
+   if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+   WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.V/I%'")){
+   echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+   $i=0;
+   while ($output = $stmt->fetch_row()){
+   $yield=$output[2]/$input_array[$i];
+   //echo $output[2].",,";
+   echo "<td>$yield %</td>";
+   $i++;
+   }echo "</tr>";}      
+      
+      //else{ 
+      //echo $conn->error;
+      //}
+      // Transfor PHP array to JavaScript two dimensional array 
+      echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+      </script>";
+
+      echo "<script>
+      var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+    
+    switch($varchart)
+    {
+      case "column":
+      
+      getColumn();
+      break;
+
+      case "pie":
+
+      getpie();
+      break;
+      default: echo("Error!"); exit(); break;
+}
+
+
+        }
+break;
+
+
+  }//case line
+}//else
+//////////////////////////////////////
+break;
+
+case"all": 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$varLine = $_POST['Linename'];
+$errorMessage = "";
+
+if(empty($varLine)) 
+{
+  $errorMessage = "<li>Please select a Prod line!</li>";
+}
+
+if($errorMessage != "") 
+{
+  echo("<p>There was an error with your selections:</p>\n");
+  echo("<ul>" . $errorMessage . "</ul>\n");
+} 
+else 
+{
+  
+  switch($varLine)
+  {
+
+    case "l1": 
+    // smt daily prod line 1---------------------------------------
+    $total = 0;
+    $itotal = 0;
+    $row = 0;
+      if (isset($_POST['daily'])){
+        include('conn1.php');
+        $from=date('Y-m-d',strtotime($_POST['from']));
+        $to=date('Y-m-d',strtotime($_POST['to']));
+      
+        $begin = new DateTime( $from );
+        $end   = new DateTime( $to );
+        $php_data_array = Array(); 
+        $job_array = Array();
+        $input_array = Array();// create PHP array
+    
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL1' group by DATE_")){
+     echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+    while ($row = $stmt->fetch_row()) {
+      echo "<td><b>$row[0]<b></td>";
+     //$php_data_array[] = $row;
+    }
+       echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+       $tplan=0;
+      if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL1' group by DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+    while ($plan = $stmt->fetch_row()){
+      $tplan+=$plan[1];
+      echo "<td>$plan[1]</td>";
+      $job_array[]=$plan[1];
+    //$php_data_array[] = $row;
+    }
+    echo "<td><b>$tplan<b></td></tr>";}
+    //------------------------------------
+    $tresult=0;
+     if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+     and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+     $i=0;
+    while ($row = $stmt->fetch_row()){
+       echo "<td>$row[2]</td>";
+       $tresult+=$row[2];
+       $row[1]=$job_array[$i];
+       $php_data_array[] = $row;
+      $i++;}
+    echo "<td><b>$tresult<b></td></tr>"; 
+    }
+     
+    $tgap=0; //------------------------------------ 
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+     $i=0;
+    while ($gp = $stmt->fetch_row()){
+      $gap = $job_array[$i] - $gp[2];
+       echo "<td>$gap</td>";
+       $tgap = $tplan - $tresult;
+      $i++;}
+       echo "<td><b>$tgap<b></td></tr>";
+    }
+    
+    
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+    and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+    while ($row = $stmt->fetch_row()){
+      $rate = ($row[2] / $row[1])*100;
+       echo "<td>$rate %</td>";}
+    echo "</tr>";
+    }
+    $tdef=0;
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+    and defect like '1' and PDLINE_NAME like 'SMTL1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+     echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+    while ($def = $stmt->fetch_row()){
+       echo "<td>$def[2]</td>";
+        $tdef+=$def[2];}
+    echo "<td><b>$tdef<b></td></tr>";
+    }
+    
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+    and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+    and PDLINE_NAME like 'SMTL1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+    while ($input = $stmt->fetch_row()){
+    echo "<td>$input[2]</td>";
+    $input_array[]=$input[2];}
+    echo "</tr>";}
+    
+    $yield;
+    include('conn2.php');
+    if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+    and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+    $i=0;
+    while ($output = $stmt->fetch_row()){
+    $yield=$output[2]/$input_array[$i];
+    //echo $output[2].",,";
+    echo "<td>$yield %</td>";
+    $i++;
+    }echo "</tr>";}      
+       
+       //else{ 
+       //echo $conn->error;
+       //}
+       // Transfor PHP array to JavaScript two dimensional array 
+       echo "<script>
+           var my_2d = ".json_encode($php_data_array)."
+       </script>";
+
+       echo "<script>
+       var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+ 
+     
+     switch($varchart)
+     {
+       case "column":
+       
+       getColumn();
+       break;
+
+       case "pie":
+
+       getpie();
+       break;
+       default: echo("Error!"); exit(); break;
+ }
+
+
+         }
+              break;
+
+    case "l2":
+    
+
+// smt daily prod line 2---------------------------------------
+$total = 0;
+$itotal = 0;
+$row = 0;
+if (isset($_POST['daily'])){
+include('conn1.php');
+$from=date('Y-m-d',strtotime($_POST['from']));
+$to=date('Y-m-d',strtotime($_POST['to']));
+
+$begin = new DateTime( $from );
+$end   = new DateTime( $to );
+$php_data_array = Array(); 
+$job_array = Array();
+$input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL2' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+$tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL2' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+echo "<td>$row[2]</td>";
+$tresult+=$row[2];
+$row[1]=$job_array[$i];
+$php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+echo "<td>$gap</td>";
+$tgap = $tplan - $tresult;
+$i++;}
+echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+echo "<td>$def[2]</td>";
+$tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+
+//else{ 
+//echo $conn->error;
+//}
+// Transfor PHP array to JavaScript two dimensional array 
+echo "<script>
+   var my_2d = ".json_encode($php_data_array)."
+</script>";
+
+echo "<script>
+var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+case "column":
+
+getColumn();
+break;
+
+case "pie":
+
+getpie();
+break;
+default: echo("Error!"); exit(); break;
+}
+
+ }
+      break;
+
+
+    case "l3": 
+    
+
+    // smt daily prod line 3---------------------------------------
+$total = 0;
+$itotal = 0;
+$row = 0;
+if (isset($_POST['daily'])){
+include('conn1.php');
+$from=date('Y-m-d',strtotime($_POST['from']));
+$to=date('Y-m-d',strtotime($_POST['to']));
+
+$begin = new DateTime( $from );
+$end   = new DateTime( $to );
+$php_data_array = Array(); 
+$job_array = Array();
+$input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL3' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+$tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL3' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+echo "<td>$row[2]</td>";
+$tresult+=$row[2];
+$row[1]=$job_array[$i];
+$php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+echo "<td>$gap</td>";
+$tgap = $tplan - $tresult;
+$i++;}
+echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL3' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+echo "<td>$def[2]</td>";
+$tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL3' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL3' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+
+//else{ 
+//echo $conn->error;
+//}
+// Transfor PHP array to JavaScript two dimensional array 
+echo "<script>
+   var my_2d = ".json_encode($php_data_array)."
+</script>";
+
+echo "<script>
+var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+case "column":
+
+getColumn();
+break;
+
+case "pie":
+
+getpie();
+break;
+default: echo("Error!"); exit(); break;
+}
+
+
+ }
+      break;
+
+
+    case "l4":
+    
+// smt daily prod line 4---------------------------------------
+$total = 0;
+$itotal = 0;
+$row = 0;
+if (isset($_POST['daily'])){
+  include('conn1.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL4' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+ echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+ $tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL4' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+ echo "<td>$row[2]</td>";
+ $tresult+=$row[2];
+ $row[1]=$job_array[$i];
+ $php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+ echo "<td>$gap</td>";
+ $tgap = $tplan - $tresult;
+$i++;}
+ echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+ echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL4' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+ echo "<td>$def[2]</td>";
+  $tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL4' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL4' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+ 
+ //else{ 
+ //echo $conn->error;
+ //}
+ // Transfor PHP array to JavaScript two dimensional array 
+ echo "<script>
+     var my_2d = ".json_encode($php_data_array)."
+ </script>";
+
+ echo "<script>
+ var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+ case "column":
+ 
+ getColumn();
+ break;
+
+ case "pie":
+
+ getpie();
+ break;
+ default: echo("Error!"); exit(); break;
+}
+
+
+   }
+        break;
+
+
+    case "l5":
+    
+    // smt daily prod line 5---------------------------------------
+$total = 0;
+$itotal = 0;
+$row = 0;
+if (isset($_POST['daily'])){
+  include('conn1.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL5' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+ echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+ $tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL5' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+ echo "<td>$row[2]</td>";
+ $tresult+=$row[2];
+ $row[1]=$job_array[$i];
+ $php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+ echo "<td>$gap</td>";
+ $tgap = $tplan - $tresult;
+$i++;}
+ echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+ echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL5' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+ echo "<td>$def[2]</td>";
+  $tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL5' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL5' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+///echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+ 
+ //else{ 
+ //echo $conn->error;
+ //}
+ // Transfor PHP array to JavaScript two dimensional array 
+ echo "<script>
+     var my_2d = ".json_encode($php_data_array)."
+ </script>";
+
+ echo "<script>
+ var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+ case "column":
+ 
+ getColumn();
+ break;
+
+ case "pie":
+
+ getpie();
+ break;
+ default: echo("Error!"); exit(); break;
+}
+
+
+   }
+        break;
+
+
+    case "l6":
+    
+// smt daily prod line 6---------------------------------------
+$total = 0;
+$itotal = 0;
+$row = 0;
+if (isset($_POST['daily'])){
+include('conn1.php');
+$from=date('Y-m-d',strtotime($_POST['from']));
+$to=date('Y-m-d',strtotime($_POST['to']));
+
+$begin = new DateTime( $from );
+$end   = new DateTime( $to );
+$php_data_array = Array(); 
+$job_array = Array();
+$input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL6' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+$tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL6' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+echo "<td>$row[2]</td>";
+$tresult+=$row[2];
+$row[1]=$job_array[$i];
+$php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+echo "<td>$gap</td>";
+$tgap = $tplan - $tresult;
+$i++;}
+echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL6' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+echo "<td>$def[2]</td>";
+$tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL6' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL6' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+
+//else{ 
+//echo $conn->error;
+//}
+// Transfor PHP array to JavaScript two dimensional array 
+echo "<script>
+   var my_2d = ".json_encode($php_data_array)."
+</script>";
+
+echo "<script>
+var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+case "column":
+
+getColumn();
+break;
+
+case "pie":
+
+getpie();
+break;
+default: echo("Error!"); exit(); break;
+}
+
+
+ }
+      break;
+
+
+     case "l7": 
+
+     // smt daily prod line 7---------------------------------------
+$total = 0;
+$itotal = 0;
+$row = 0;
+if (isset($_POST['daily'])){
+  include('conn1.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL7' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+ echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+ $tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL7' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+ echo "<td>$row[2]</td>";
+ $tresult+=$row[2];
+ $row[1]=$job_array[$i];
+ $php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+ echo "<td>$gap</td>";
+ $tgap = $tplan - $tresult;
+$i++;}
+ echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+ echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL7' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+ echo "<td>$def[2]</td>";
+  $tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL7' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL7' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+ 
+ //else{ 
+ //echo $conn->error;
+ //}
+ // Transfor PHP array to JavaScript two dimensional array 
+ echo "<script>
+     var my_2d = ".json_encode($php_data_array)."
+ </script>";
+
+ echo "<script>
+ var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+ case "column":
+ 
+ getColumn();
+ break;
+
+ case "pie":
+
+ getpie();
+ break;
+ default: echo("Error!"); exit(); break;
+}
+
+
+   }
+        break;
+
+
+     case "l8":
+
+     // smt daily prod line 8---------------------------------------
+$total = 0;
+$itotal = 0;
+$row = 0;
+if (isset($_POST['daily'])){
+  include('conn1.php');
+  $from=date('Y-m-d',strtotime($_POST['from']));
+  $to=date('Y-m-d',strtotime($_POST['to']));
+
+  $begin = new DateTime( $from );
+  $end   = new DateTime( $to );
+  $php_data_array = Array(); 
+  $job_array = Array();
+  $input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL8' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+ echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+ $tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL8' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+ echo "<td>$row[2]</td>";
+ $tresult+=$row[2];
+ $row[1]=$job_array[$i];
+ $php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+ echo "<td>$gap</td>";
+ $tgap = $tplan - $tresult;
+$i++;}
+ echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+ echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL8' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+ echo "<td>$def[2]</td>";
+  $tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL8' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL8' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+ 
+ //else{ 
+ //echo $conn->error;
+ //}
+ // Transfor PHP array to JavaScript two dimensional array 
+ echo "<script>
+     var my_2d = ".json_encode($php_data_array)."
+ </script>";
+
+ echo "<script>
+ var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+ case "column":
+ 
+ getColumn();
+ break;
+
+ case "pie":
+
+ getpie();
+ break;
+ default: echo("Error!"); exit(); break;
+}
+
+
+
+   }
+        break;
+
+
+     case "l9": 
+
+// smt daily prod line 9---------------------------------------
+$total = 0;
+$itotal = 0;
+$row = 0;
+if (isset($_POST['daily'])){
+include('conn1.php');
+$from=date('Y-m-d',strtotime($_POST['from']));
+$to=date('Y-m-d',strtotime($_POST['to']));
+
+$begin = new DateTime( $from );
+$end   = new DateTime( $to );
+$php_data_array = Array(); 
+$job_array = Array();
+$input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL9' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+$tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL9' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+echo "<td>$row[2]</td>";
+$tresult+=$row[2];
+$row[1]=$job_array[$i];
+$php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+echo "<td>$gap</td>";
+$tgap = $tplan - $tresult;
+$i++;}
+echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL9' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+echo "<td>$def[2]</td>";
+$tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL9' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL9' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+
+//else{ 
+//echo $conn->error;
+//}
+// Transfor PHP array to JavaScript two dimensional array 
+echo "<script>
+   var my_2d = ".json_encode($php_data_array)."
+</script>";
+
+echo "<script>
+var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+case "column":
+
+getColumn();
+break;
+
+case "pie":
+
+getpie();
+break;
+default: echo("Error!"); exit(); break;
+}
+
+
+ }
+      break;
+
+
+     case "l10":
+
+// smt daily prod line 10---------------------------------------
+$total = 0;
+$itotal = 0;
+$row = 0;
+if (isset($_POST['daily'])){
+include('conn1.php');
+$from=date('Y-m-d',strtotime($_POST['from']));
+$to=date('Y-m-d',strtotime($_POST['to']));
+
+$begin = new DateTime( $from );
+$end   = new DateTime( $to );
+$php_data_array = Array(); 
+$job_array = Array();
+$input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL10' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+$tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL10' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+echo "<td>$row[2]</td>";
+$tresult+=$row[2];
+$row[1]=$job_array[$i];
+$php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+echo "<td>$gap</td>";
+$tgap = $tplan - $tresult;
+$i++;}
+echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL10' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+echo "<td>$def[2]</td>";
+$tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL10' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL10' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+
+//else{ 
+//echo $conn->error;
+//}
+// Transfor PHP array to JavaScript two dimensional array 
+echo "<script>
+   var my_2d = ".json_encode($php_data_array)."
+</script>";
+
+echo "<script>
+var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+case "column":
+
+getColumn();
+break;
+
+case "pie":
+
+getpie();
+break;
+default: echo("Error!"); exit(); break;
+}
+
+ }
+      break;
+
+
+     case "l11":
+
+// smt daily prod line 11---------------------------------------
+$total = 0;
+$itotal = 0;
+$row = 0;
+if (isset($_POST['daily'])){
+include('conn1.php');
+$from=date('Y-m-d',strtotime($_POST['from']));
+$to=date('Y-m-d',strtotime($_POST['to']));
+
+$begin = new DateTime( $from );
+$end   = new DateTime( $to );
+$php_data_array = Array(); 
+$job_array = Array();
+$input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL11' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+$tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL11' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+echo "<td>$row[2]</td>";
+$tresult+=$row[2];
+$row[1]=$job_array[$i];
+$php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+echo "<td>$gap</td>";
+$tgap = $tplan - $tresult;
+$i++;}
+echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL11' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+echo "<td>$def[2]</td>";
+$tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL11' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL11' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+
+//else{ 
+//echo $conn->error;
+//}
+// Transfor PHP array to JavaScript two dimensional array 
+echo "<script>
+   var my_2d = ".json_encode($php_data_array)."
+</script>";
+
+echo "<script>
+var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+case "column":
+
+getColumn();
+break;
+
+case "pie":
+
+getpie();
+break;
+default: echo("Error!"); exit(); break;
+}
+
+
+ }
+      break;
+
+
+     case "l12":
+
+
+     // smt daily prod line 12---------------------------------------
+    $total = 0;
+    $itotal = 0;
+    $row = 0;
+      if (isset($_POST['daily'])){
+        include('conn1.php');
+        $from=date('Y-m-d',strtotime($_POST['from']));
+        $to=date('Y-m-d',strtotime($_POST['to']));
+      
+        $begin = new DateTime( $from );
+        $end   = new DateTime( $to );
+        $php_data_array = Array(); 
+$job_array = Array();
+$input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL12' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+$tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL12' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+echo "<td>$row[2]</td>";
+$tresult+=$row[2];
+$row[1]=$job_array[$i];
+$php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+echo "<td>$gap</td>";
+$tgap = $tplan - $tresult;
+$i++;}
+echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL12' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+echo "<td>$def[2]</td>";
+$tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL12' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL12' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+
+//else{ 
+//echo $conn->error;
+//}
+// Transfor PHP array to JavaScript two dimensional array 
+echo "<script>
+   var my_2d = ".json_encode($php_data_array)."
+</script>";
+
+echo "<script>
+var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+case "column":
+
+getColumn();
+break;
+
+case "pie":
+
+getpie();
+break;
+default: echo("Error!"); exit(); break;
+}
+
+
+
+ }
+      break;
+
+      case "l13":
+
+// smt daily prod line 13---------------------------------------
+$total = 0;
+$itotal = 0;
+$row = 0;
+if (isset($_POST['daily'])){
+include('conn1.php');
+$from=date('Y-m-d',strtotime($_POST['from']));
+$to=date('Y-m-d',strtotime($_POST['to']));
+
+$begin = new DateTime( $from );
+$end   = new DateTime( $to );
+$php_data_array = Array(); 
+$job_array = Array();
+$input_array = Array();// create PHP array
+
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL13' group by DATE_")){
+echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+while ($row = $stmt->fetch_row()) {
+echo "<td><b>$row[0]<b></td>";
+//$php_data_array[] = $row;
+}
+echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+$tplan=0;
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL13' group by DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+while ($plan = $stmt->fetch_row()){
+$tplan+=$plan[1];
+echo "<td>$plan[1]</td>";
+$job_array[]=$plan[1];
+//$php_data_array[] = $row;
+}
+echo "<td><b>$tplan<b></td></tr>";}
+//------------------------------------
+$tresult=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+$i=0;
+while ($row = $stmt->fetch_row()){
+echo "<td>$row[2]</td>";
+$tresult+=$row[2];
+$row[1]=$job_array[$i];
+$php_data_array[] = $row;
+$i++;}
+echo "<td><b>$tresult<b></td></tr>"; 
+}
+
+$tgap=0; //------------------------------------ 
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+$i=0;
+while ($gp = $stmt->fetch_row()){
+$gap = $job_array[$i] - $gp[2];
+echo "<td>$gap</td>";
+$tgap = $tplan - $tresult;
+$i++;}
+echo "<td><b>$tgap<b></td></tr>";
+}
+
+
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+while ($row = $stmt->fetch_row()){
+$rate = ($row[2] / $row[1])*100;
+echo "<td>$rate %</td>";}
+echo "</tr>";
+}
+$tdef=0;
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
+and defect like '1' and PDLINE_NAME like 'SMTL13' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+while ($def = $stmt->fetch_row()){
+echo "<td>$def[2]</td>";
+$tdef+=$def[2];}
+echo "<td><b>$tdef<b></td></tr>";
+}
+
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+and PDLINE_NAME like 'SMTL13' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
+and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' and PDLINE_NAME like 'SMTL13' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+
+//else{ 
+//echo $conn->error;
+//}
+// Transfor PHP array to JavaScript two dimensional array 
+echo "<script>
+   var my_2d = ".json_encode($php_data_array)."
+</script>";
+
+echo "<script>
+var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+case "column":
+
+getColumn();
+break;
+
+case "pie":
+
+getpie();
+break;
+default: echo("Error!"); exit(); break;
+}
+
+
+ }
+      break;
+
+  case "overall":
+
+  // ----------------SUM OF PROD RESULT daily overall------------------------------------- --> 
+
+
+    if (isset($_POST['daily'])){
+      include('conn2.php');
+      $from=date('Y-m-d',strtotime($_POST['from']));
+      $to=date('Y-m-d',strtotime($_POST['to']));
+    
+      $begin = new DateTime( $from );
+      $end   = new DateTime( $to );
+      $php_data_array = Array(); 
+      $job_array = Array();
+      $input_array = Array();// create PHP array
+  
+  if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' group by DATE_")){
+   echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+  while ($row = $stmt->fetch_row()) {
+    echo "<td><b>$row[0]<b></td>";
+   //$php_data_array[] = $row;
+  }
+     echo "<td width='100px'><b>TOTAL<b></td></tr>";}
+     $tplan=0;
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' group by DATE_")){
+  echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+  while ($plan = $stmt->fetch_row()){
+    $tplan+=$plan[1];
+    echo "<td>$plan[1]</td>";
+    $job_array[]=$plan[1];
+//$php_data_array[] = $row;
+  }
+  echo "<td><b>$tplan<b></td></tr>";}
+  //------------------------------------
+  $tresult=0;
+   if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+   on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' and 1_smt.pcb.jo_number like '2%' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+   $i=0;
+  while ($row = $stmt->fetch_row()){
+     echo "<td>$row[2]</td>";
+     $tresult+=$row[2];
+     $row[1]=$job_array[$i];
+     $php_data_array[] = $row;
+    $i++;}
+  echo "<td><b>$tresult<b></td></tr>"; 
+  }
+   
+  $tgap=0; //------------------------------------ 
+  if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+  WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' and 1_smt.pcb.jo_number like '2%' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+   $i=0;
+  while ($gp = $stmt->fetch_row()){
+    $gap = $job_array[$i] - $gp[2];
+     echo "<td>$gap</td>";
+     $tgap = $tplan - $tresult;
+    $i++;}
+     echo "<td><b>$tgap<b></td></tr>";
+  }
+  
+  
+  if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, SUM(PLAN_QTY), COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
+  WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' and 1_smt.pcb.jo_number like '2%' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
+  while ($row = $stmt->fetch_row()){
+    $rate = ($row[2] / $row[1])*100;
+     echo "<td>$rate %</td>";}
+  echo "</tr>";
+  }
+  $tdef=0;
+  if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.defect) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and defect like '1' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+   echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+  while ($def = $stmt->fetch_row()){
+     echo "<td>$def[2]</td>";
+      $tdef+=$def[2];}
+  echo "<td><b>$tdef<b></td></tr>";
+  }
+
+include('conn2.php');
+  if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+while ($input = $stmt->fetch_row()){
+echo "<td>$input[2]</td>";
+$input_array[]=$input[2];}
+echo "</tr>";}
+
+$yield;
+include('conn2.php');
+if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.V/I%' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+$i=0;
+while ($output = $stmt->fetch_row()){
+$yield=$output[2]/$input_array[$i];
+//echo $output[2].",,";
+echo "<td>$yield %</td>";
+$i++;
+}echo "</tr>";}      
+  //else{ 
+  //echo $conn->error;
+  //}
+  // Transfor PHP array to JavaScript two dimensional array 
+  echo "<script>
+          var my_2d = ".json_encode($php_data_array)."
+  </script>";
+
+  echo "<script>
+  var my_3d = ".json_encode($php_data_array)."
+</script>";
+
+
+
+$varchart = $_POST['chartType'];
+
+
+switch($varchart)
+{
+  case "column":
+  
+  getColumn();
+  break;
+
+  case "pie":
+
+  getpie();
+  break;
+  default: echo("Error!"); exit(); break;
+}
+
+
+    }
+   
+   break;
+
+    default: echo("Error!"); exit(); break;
+  }
+  
+
+  exit();
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+break;
+
+default: echo("Error!"); 
+exit();
+break;
+      }
+    }
+//---------------------
+
+
 
 
 ?>

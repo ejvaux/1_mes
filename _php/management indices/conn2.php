@@ -2,10 +2,12 @@
 $servername = "172.16.1.13";
 $username = "root1";
 $password = "0000";
-$dbname = "1_smt";
+$dbname1 = "masterdatabase";
+$dbname2 = "1_smt";
 
 // Create connection
-$conn1 = new mysqli($servername, $username, $password, $dbname);
+$conn1 = new mysqli($servername, $username, $password, $dbname1);
+$conn2 = new mysqli($servername, $username, $password, $dbname2);
 
 // Check connection
 if ($conn1->connect_error) {

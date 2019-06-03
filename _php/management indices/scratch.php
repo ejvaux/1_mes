@@ -42,6 +42,7 @@
 	<?php		
 $total = 0;
 $itotal = 0;
+$ototal = 0;
 $row = 0;
 	if (isset($_POST['daily'])){
 		include('conn.php');
@@ -72,14 +73,16 @@ while ($row = $stmt->fetch_row()) {
 
  $total+= $row[1];
  $itotal+=$row[2];
+ $ototal = $total+$itotal;
 }
+echo $ototal;
  echo "<table border = '1' align = 'center'><tr align = 'center' ><th><table border = '1' align = 'center' width = '898px'>OVERALL TOTAL</th></tr><tr align = 'center'><th width = '100px'>PLAN</th><td>$total</td><th width = '100px'>RESULT</th><td>$itotal</td></tr>"."</br>";
 }
 
  
 //else{ 
 //echo $conn->error;
-//}
+//}  
 
 // Transfor PHP array to JavaScript two dimensional array 
 echo "<script>

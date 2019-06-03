@@ -14,6 +14,11 @@ label,a
 </head>
 
 <body>
+<select id="chartType" name="chart Type" style="height:30px; width:80px">
+<option value="column">Column</option>
+<option value="pie">Pie </option>
+</select>
+
 
 
 <div id="chart_div" >
@@ -52,8 +57,6 @@ label,a
 	
 </script>
 
-
-
 <?php
 	if(isset($_POST['daily'])) 
 	{
@@ -77,9 +80,6 @@ label,a
 			{
 				case "l1": 
 	//query of line 1 ----------------------------------------------------------
-
-$total = 0;
-$itotal = 0;
 $row = 0;
 	if (isset($_POST['daily'])){
 		include('conn1.php');
@@ -96,7 +96,8 @@ if($stmt = $conn1->query("SELECT DATE_ FROM mis_prod_plan_dl WHERE DATE_ between
    while ($row = $stmt->fetch_row()) {
 	 echo "<td><b>$row[0]<b></td>";
 	//$php_data_array[] = $row;
-   }
+	 }
+	 
 	  echo "<td><b>TOTAL<b></td></tr>";}
 	  $tplan=0;
 	 if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE like 'SMTL1' group by DATE_")){
@@ -106,7 +107,8 @@ if($stmt = $conn1->query("SELECT DATE_ FROM mis_prod_plan_dl WHERE DATE_ between
 	 $tplan+=$row[1];
 	$php_data_array[] = $row;
    }echo "<td><b>$tplan<b></td></tr>";}
-   
+	 
+	 
    $tresult=0;
 	if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
    and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL1' group by mis_prod_plan_dl.DATE_")){
@@ -127,8 +129,8 @@ if($stmt = $conn1->query("SELECT DATE_ FROM mis_prod_plan_dl WHERE DATE_ between
 	  echo "<td>$gap</td>";
 	  $tgap=+$gap;}
 	  echo "<td><b>$tgap<b></td></tr>";
-   }
-   
+	 }
+	 
    
    if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
    and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'2%' and mis_prod_plan_dl.MACHINE_CODE like 'SMTL1' group by mis_prod_plan_dl.DATE_")){
@@ -138,7 +140,9 @@ if($stmt = $conn1->query("SELECT DATE_ FROM mis_prod_plan_dl WHERE DATE_ between
 	  echo "<td>$rate %</td>";}
    echo "</tr>";
    }
-   
+	 
+	 
+
    if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$from' and '$to' 
    and JOB_ORDER_NO like'2%' group by PROD_DATE")){
 	echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
@@ -146,10 +150,10 @@ if($stmt = $conn1->query("SELECT DATE_ FROM mis_prod_plan_dl WHERE DATE_ between
 	  echo "<td>$row[2]</td>";}
    echo "</tr>";
    }
-   
-   //else{ 
+
+   //else{
    //echo $conn->error;
-   //}
+   //} 
    // Transfor PHP array to JavaScript two dimensional array 
    echo "<script>
 		   var my_2d = ".json_encode($php_data_array)."
@@ -157,8 +161,7 @@ if($stmt = $conn1->query("SELECT DATE_ FROM mis_prod_plan_dl WHERE DATE_ between
 	   }
 				
 				break; 
-
-
+				
 
 				case "l2":
 				
