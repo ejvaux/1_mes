@@ -118,7 +118,7 @@
 
 <div align = "center">
 <label size = "20px"><b>PRODUCTION SUMMARY OF <i>SMT </i></b></label>
- 
+</div>
 <!-- ---------------------DISPLAY CHART HERE ------------------------------- --> 
 <?php
 function getColumn(){
@@ -126,7 +126,7 @@ function getColumn(){
 
 <div id="chart_div" >
 </div>
-</div>
+
 
 <a href=https://www.plus2net.com/php_tutorial/chart-column-database.php></a>
 
