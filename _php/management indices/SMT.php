@@ -5427,10 +5427,7 @@ if(isset($_POST['daily']))
     }
     
     
-    }
-    
-    
-    
+    }    
           break;
     
     
@@ -9772,20 +9769,22 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL1'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, IFNULL(COUNT(RESULT),0) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL1' group by DATE(created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
+      echo $res[2]."//";
      //echo $hour[0].":".$hour[1]."///-";
     $result_array[] = $res[2];
     } }
 
 
-   $tresult=0;
+   $tresult=0; $i=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
     and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL1'")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
-    $i=0;
+    
    while ($row = $stmt->fetch_row()){
      $row[2] = $result_array[$i];
       echo "<td>$row[2]</td>";
@@ -9834,8 +9833,16 @@ if (isset($_POST['daily'])){
    if($stmt = $conn1->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' group by DATE(updated_at)")){
     echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
    while ($def = $stmt->fetch_row()){
+    $numRow = mysql_num_rows($def);
+    if($numRow > 0){
+      echo $def[1]."//";
       echo "<td>$def[0]</td>";
-       $tdef+=$def[0];}
+       $tdef+=$def[0];//your code
+  }else{
+       echo "<td> 0 </td>";
+                }
+
+    }
    echo "<td><b>$tdef<b></td></tr>";
    }
    
@@ -9863,7 +9870,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}      
@@ -10034,7 +10041,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}      
@@ -10205,7 +10212,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}        
@@ -10377,7 +10384,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}       
@@ -10548,7 +10555,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}      
@@ -10719,7 +10726,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}      
@@ -10890,7 +10897,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}       
@@ -11061,7 +11068,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}        
@@ -11232,7 +11239,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}       
@@ -11403,7 +11410,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}       
@@ -11574,7 +11581,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   ///echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}     
@@ -11745,7 +11752,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}     
@@ -11917,7 +11924,7 @@ if (isset($_POST['daily'])){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}         
@@ -12088,7 +12095,7 @@ if (isset($_POST['daily'])){
    $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}      
