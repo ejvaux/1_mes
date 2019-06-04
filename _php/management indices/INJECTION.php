@@ -268,7 +268,8 @@ $row = 0;
 		$begin = new DateTime( $from );
 		$end   = new DateTime( $to );
     $php_data_array = Array(); 
-    $job_array = Array();// create PHP array
+    $job_array = Array();
+    $in = Array();// create PHP array
 
 if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
 and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
@@ -310,43 +311,50 @@ while ($row = $stmt->fetch_row()){
    echo "<td>$gap</td>";}  $tgap=$tplan-$tresult;
 echo "<td><b>$tgap<b></td></tr>";}
 
-$trate=0;
+$trate=0; $i=0;
 if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT), FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
 and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
  echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
 while ($row = $stmt->fetch_row()){
   $rate = ($row[2] / $row[1])*100;
- // $trate+=$rate;
-   echo "<td>$rate %</td>";}
-echo "</tr>";
+  $trate+=$rate;
+  echo "<td>". round($rate,3) ."%</td>";
+  $i++;}
+echo "<td><b>". round($trate,3) ."%<b></td></tr>";
 }
 
 $tdef=0;
-if($stmt = $conn1->query("SELECT PROD_DATE, JOB_ORDER_NO, SUM(DEF_QUANTITY) FROM qmd_defect_dl WHERE PROD_DATE between '$from' and '$to' 
-and JOB_ORDER_NO like'1%' group by PROD_DATE")){
- echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
-while ($def = $stmt->fetch_row()){
-  $tdef+=$def[2];
-  echo "<td>$def[2]</td>";}
-echo "<td><b>$tdef<b></td></tr>";
-}
+include('conn2.php');
+  if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE created_at BETWEEN '$from%' and '$to%' group by DATE(updated_at)")){
+   echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+  while ($def = $stmt->fetch_row()){
+     echo "<td>$def[0]</td>";
+      $tdef+=$def[0];}
+  echo "<td><b>$tdef<b></td></tr>";
+  }
 
 include('conn2.php');
+$tinput=0;
 if($stmt = $conn1->query("SELECT created_at, COUNT(PROCESS_NAME) FROM pcb WHERE created_at between '$from' and '$to' and jo_number like'1%'")){
  echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
 while ($input = $stmt->fetch_row()){
    echo "<td>$input[1]</td>";
-   $in=$input[1];}
-echo "</tr>";}
+   $input_array[]=$input[1];
+$tinput+=$input[1];}
+echo "<td><b>$tinput<b></td></tr>";}
 
 $yield=0;
+$tyield=0;
 include('conn2.php');
-if($stmt = $conn1->query("SELECT created_at, COUNT(PROCESS_NAME) FROM pcb WHERE created_at between '$from' and '$to' and jo_number like'1%'")){
+if($stmt = $conn1->query("SELECT created_at, COUNT(PROCESS_NAME) FROM pcb WHERE created_at between '$from' and '$to' and jo_number like'1%' and PROCESS_NAME  like 'SMT.INPUT%'")){
  echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
 while ($output = $stmt->fetch_row()){
-// $yield=$output[1]/$in;
-   echo "<td>$yield %</td>";}
-echo "</tr>";}
+$yield=($output[1]/$in[$i])*100;
+   echo "<td>". round($yield,3)." %</td>";
+   $tyield+=$yield;
+   $i++;
+   }echo "<td><b>". round($tyield,3) ."%<b></td></tr>";}      
+     //else{ 
 //else{ 
 //echo $conn->error;
 //}
