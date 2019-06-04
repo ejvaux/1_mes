@@ -7308,7 +7308,7 @@ else
 
 
     case "l1": 
-// smt line 1 daily shift 6PA---------------------------------------------------------
+// smt line 1 daily shift 6Ap---------------------------------------------------------
 if (isset($_POST['daily'])){
   include('conn2.php');
   $from=date('Y-m-d',strtotime($_POST['from']));
@@ -7346,10 +7346,11 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL1'")){
+   if($stmt = $conn2->query("SELECT updated_at, jo_number, COUNT(created_at) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%'
+    and PDLINE_NAME like 'SMTL1' group by DATE(created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
-     //echo $hour[0].":".$hour[1]."///-";
+     //echo $res[0]."///";
     $result_array[] = $res[2];
     } }
 
@@ -7357,7 +7358,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL1'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL1' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -7376,7 +7377,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -7392,7 +7393,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -7417,7 +7418,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' group by DATE(1_smt.pcb.created_at) ")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -7430,14 +7431,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL1'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL1' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}      
@@ -7479,7 +7480,7 @@ $varchart = $_POST['chartType'];
 //if daily
 
 case "l2":
-// smt line 2 daily shift 6PA---------------------------------------------------------
+// smt line 2 daily shift 6Ap---------------------------------------------------------
 if (isset($_POST['daily'])){
   include('conn2.php');
   $from=date('Y-m-d',strtotime($_POST['from']));
@@ -7517,7 +7518,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL2'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL2' group by DATE(created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -7528,7 +7530,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL2'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL2' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -7547,7 +7549,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BBETWEEN '$from 6:%' and '$to 18:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -7563,7 +7565,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -7576,7 +7578,7 @@ if (isset($_POST['daily'])){
    }
 
    $tdef=0;
-   if($stmt = $conn1->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' group by DATE(updated_at)")){
+   if($stmt = $conn1->query("SELECT COUNT(created_at) FROM defect_mats WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' group by DATE(updated_at)")){
     echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
    while ($def = $stmt->fetch_row()){
       echo "<td>$def[0]</td>";
@@ -7588,7 +7590,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' group by DATE(1_smt.pcb.created_at) ")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -7601,14 +7603,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL2'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL2' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}      
@@ -7688,7 +7690,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL3'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL3' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -7699,7 +7702,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL3'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL3' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -7718,7 +7721,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3'group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -7734,7 +7737,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -7759,7 +7762,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' group by DATE(1_smt.pcb.created_at) ")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -7772,14 +7775,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL3'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL3' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}        
@@ -7860,7 +7863,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL4'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%'
+    and PDLINE_NAME like 'SMTL4' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -7871,7 +7875,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL4'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL4' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -7890,7 +7894,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -7906,7 +7910,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -7931,7 +7935,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -7944,14 +7948,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL4'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL4' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}       
@@ -8031,7 +8035,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL5'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL5' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -8042,7 +8047,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL5'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL5' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -8061,7 +8066,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -8077,7 +8082,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -8102,7 +8107,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' group by DATE(1_smt.pcb.created_at) ")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -8115,14 +8120,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL5'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL5' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}      
@@ -8202,7 +8207,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL6'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL6' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -8213,7 +8219,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL6'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL6' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -8232,7 +8238,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -8248,7 +8254,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -8273,7 +8279,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' group by DATE(1_smt.pcb.created_at) ")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -8286,14 +8292,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL6'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL6' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}      
@@ -8373,7 +8379,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL7'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL7' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -8384,7 +8391,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL7'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL7' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -8403,7 +8410,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -8419,7 +8426,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -8444,7 +8451,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' group by DATE(1_smt.pcb.created_at) ")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -8457,14 +8464,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL7'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL7' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}       
@@ -8544,7 +8551,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL8'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL8' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -8555,7 +8563,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL8'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL8' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -8574,7 +8582,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -8590,7 +8598,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -8615,7 +8623,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -8628,14 +8636,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL8'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL8' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}        
@@ -8715,7 +8723,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL9'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL9' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -8726,7 +8735,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL9'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL9' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -8745,7 +8754,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -8761,7 +8770,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -8786,7 +8795,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -8799,14 +8808,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL9'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL9' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}       
@@ -8886,7 +8895,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL10'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL10' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -8897,7 +8907,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL10'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL10' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -8916,7 +8926,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -8932,7 +8942,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -8957,7 +8967,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' group by DATE(1_smt.pcb.created_at) ")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -8970,14 +8980,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL10'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL10' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}       
@@ -9057,7 +9067,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL11'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL11' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -9068,7 +9079,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL11'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL11'group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -9087,7 +9098,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -9103,7 +9114,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -9128,7 +9139,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' group by DATE(1_smt.pcb.created_at) ")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -9141,14 +9152,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL11'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL11' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}     
@@ -9228,7 +9239,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL12'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL12' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -9239,7 +9251,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL12'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL12' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -9258,7 +9270,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -9274,7 +9286,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -9299,7 +9311,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -9312,14 +9324,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL12'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL12' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}     
@@ -9400,7 +9412,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL13'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL13' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -9411,7 +9424,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL13'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL13' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -9430,7 +9443,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -9446,7 +9459,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -9471,7 +9484,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -9484,14 +9497,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL13'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL13' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
     $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}         
@@ -9571,7 +9584,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' ")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 6:%' and '$to 18:%' and PROCESS_NAME like 'SMT.INPUT%' 
+   and jo_number like '2%' group by DATE(created_at) ")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -9581,7 +9595,8 @@ if (isset($_POST['daily'])){
 
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
-    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' ")){
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%' and 1_smt.pcb.jo_number like '2%' 
+    and PROCESS_NAME like 'SMT.INPUT%' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -9600,7 +9615,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  ")){
+   and 1_smt.pcb.jo_number like '2%' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -9616,7 +9631,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' ")){
+   and 1_smt.pcb.jo_number like '2%' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -9641,7 +9656,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%' ")){
+   and 1_smt.pcb.jo_number like '2%' group by DATE(1_smt.pcb.created_at)")){
      
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
@@ -9655,14 +9670,14 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 6:%' and '$to 18:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
    $yield=($output[2]/$input_array[$i])*100;
    //echo $output[2].",,";
    echo "<td>". round($yield,3)." %</td>";
-   echo "<td>$yield %</td>";
+   //echo "<td>$yield %</td>";
    $tyield+=$yield;
    $i++;
    }echo "<td><b>". round($tyield,3) ."%</tr>";}      
@@ -9773,8 +9788,7 @@ if (isset($_POST['daily'])){
    and PDLINE_NAME like 'SMTL1' group by DATE(created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
-      echo $res[2]."//";
-     //echo $hour[0].":".$hour[1]."///-";
+      //echo $res[2]."//";
     $result_array[] = $res[2];
     } }
 
@@ -9782,7 +9796,7 @@ if (isset($_POST['daily'])){
    $tresult=0; $i=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL1'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL1' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     
    while ($row = $stmt->fetch_row()){
@@ -9801,7 +9815,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' group by DATE(1_smt.pcb.created_at) ")){ //
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -9817,7 +9831,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -9850,7 +9864,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL1' group by DATE(1_smt.pcb.created_at) ")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -9863,7 +9877,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL1'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL1' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -9950,7 +9964,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL2'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL2' group by DATE(created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -9961,7 +9976,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL2'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL2' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -9980,7 +9995,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -9996,7 +10011,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -10021,7 +10036,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL2' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -10034,7 +10049,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL2'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL2' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -10121,7 +10136,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL3'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL3' group by DATE(created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -10132,7 +10148,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL3'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL3' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -10151,7 +10167,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -10167,7 +10183,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -10192,7 +10208,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL3' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -10205,7 +10221,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL3'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL3' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -10293,7 +10309,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL4'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL4' group by DATE(created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -10304,7 +10321,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL4'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL4' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -10323,7 +10340,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -10339,7 +10356,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -10364,7 +10381,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL4' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -10377,7 +10394,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL4'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL4' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -10424,7 +10441,7 @@ $varchart = $_POST['chartType'];
         }
 break;
 
-case "l5":
+case "l5": //========================================================================================
 
 // smt line 5 daily shift 6PA---------------------------------------------------------
 if (isset($_POST['daily'])){
@@ -10464,7 +10481,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL5'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL5' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -10475,7 +10493,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL5'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL5' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -10494,7 +10512,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -10510,7 +10528,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -10535,7 +10553,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL5' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -10548,7 +10566,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL5'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL5' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -10597,7 +10615,7 @@ break;
 
 case "l6":
 
-// smt line 6 daily shift 6PA---------------------------------------------------------
+// smt line 6 daily shift 6Ap---------------------------------------------------------
 if (isset($_POST['daily'])){
   include('conn2.php');
   $from=date('Y-m-d',strtotime($_POST['from']));
@@ -10635,7 +10653,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL6'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL6' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -10646,7 +10665,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL6'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL6' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -10665,7 +10684,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -10681,7 +10700,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -10706,7 +10725,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL6' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -10719,7 +10738,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL6'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL6' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -10806,7 +10825,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL7'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL7' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -10817,7 +10837,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL7'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL7' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -10836,7 +10856,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -10852,7 +10872,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -10877,7 +10897,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL7' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -10890,7 +10910,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL7'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL7' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -10939,7 +10959,7 @@ break;
 
 case "l8":
 
-// smt line 8 daily shift 6PA---------------------------------------------------------
+// smt line 8 daily shift 6pA---------------------------------------------------------
 if (isset($_POST['daily'])){
   include('conn2.php');
   $from=date('Y-m-d',strtotime($_POST['from']));
@@ -10977,7 +10997,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL8'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL8' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -10988,7 +11009,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL8'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL8' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -11007,7 +11028,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -11023,7 +11044,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -11048,7 +11069,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL8' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -11061,7 +11082,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL8'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL8' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -11148,7 +11169,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL9'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL9' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -11159,7 +11181,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL9'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL9' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -11178,7 +11200,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -11194,7 +11216,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -11219,7 +11241,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL9' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -11232,7 +11254,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL9'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL9' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -11319,7 +11341,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL10'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL10' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -11330,7 +11353,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL10'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL10' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -11349,7 +11372,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -11365,7 +11388,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -11390,7 +11413,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL10' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -11403,7 +11426,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL10'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL10' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -11490,7 +11513,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL11'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL11' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -11501,7 +11525,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL11'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL11' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -11520,7 +11544,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -11536,7 +11560,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -11561,7 +11585,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL11' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -11574,7 +11598,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL11'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL11' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -11661,7 +11685,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL12'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL12' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -11672,7 +11697,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL12'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL12' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -11691,7 +11716,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -11707,7 +11732,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -11732,7 +11757,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL12' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -11745,7 +11770,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL12'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL12' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -11833,7 +11858,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' and PDLINE_NAME like 'SMTL13'")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' 
+   and PDLINE_NAME like 'SMTL13' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -11844,7 +11870,7 @@ if (isset($_POST['daily'])){
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
     on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' 
-    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL13'")){
+    and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL13' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -11863,7 +11889,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -11879,7 +11905,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -11904,7 +11930,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' ")){
+   and 1_smt.pcb.jo_number like '2%' and PDLINE_NAME like 'SMTL13' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
    echo "<td>$input[2]</td>";
@@ -11917,7 +11943,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL13'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL13' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
@@ -12004,7 +12030,8 @@ if (isset($_POST['daily'])){
    //------------------------------------
 
    $i=0;
-   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' and jo_number like '2%' ")){
+   if($stmt = $conn2->query("SELECT created_at, jo_number, COUNT(RESULT) FROM pcb WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' and PROCESS_NAME like 'SMT.INPUT%' 
+   and jo_number like '2%' group by DATE(1_smt.pcb.created_at)")){
     // echo "<table border = '2' ><tr align = 'center'> <th width = '100px'>DATE</th>"; 
     while ($res = $stmt->fetch_row()) {
      //echo $hour[0].":".$hour[1]."///-";
@@ -12014,7 +12041,8 @@ if (isset($_POST['daily'])){
 
    $tresult=0;
     if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
-    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' ")){
+    on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' and 1_smt.pcb.jo_number like '2%' and PROCESS_NAME like 'SMT.INPUT%' 
+    group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     $i=0;
    while ($row = $stmt->fetch_row()){
@@ -12033,7 +12061,7 @@ if (isset($_POST['daily'])){
    $tgap=0; //------------------------------------ -----------------------------------------
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%'  ")){
+   and 1_smt.pcb.jo_number like '2%'  group by DATE(1_smt.pcb.created_at)")){
     echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     $i=0;
    while ($gp = $stmt->fetch_row()){
@@ -12049,7 +12077,7 @@ if (isset($_POST['daily'])){
    $i=0; $trate=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%' ")){
+   and 1_smt.pcb.jo_number like '2%' group by DATE(1_smt.pcb.created_at) ")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
    while ($row = $stmt->fetch_row()){
      $row[1] = $job_array[$i];
@@ -12062,7 +12090,7 @@ if (isset($_POST['daily'])){
    }
 
    $tdef=0;
-   if($stmt = $conn1->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' group by DATE(updated_at)")){
+   if($stmt = $conn1->query("SELECT COUNT(created_at) FROM defect_mats WHERE created_at BETWEEN '$from 19:%' and '$to 05:%' group by DATE(updated_at)")){
     echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
    while ($def = $stmt->fetch_row()){
       echo "<td>$def[0]</td>";
@@ -12074,7 +12102,7 @@ if (isset($_POST['daily'])){
    $tinput=0;
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%' 
-   and 1_smt.pcb.jo_number like '2%' ")){
+   and 1_smt.pcb.jo_number like '2%' group by DATE(1_smt.pcb.created_at)")){
      
    echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
    while ($input = $stmt->fetch_row()){
@@ -12088,7 +12116,7 @@ if (isset($_POST['daily'])){
    include('conn2.php');
    if($stmt = $conn1->query("SELECT 1_smt.pcb.created_at, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
    WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and 1_smt.pcb.created_at BETWEEN '$from 19:%' and '$to 05:%'
-   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%'")){
+   and 1_smt.pcb.jo_number like '2%'  and PROCESS_NAME like 'SMT.INPUT%' group by DATE(1_smt.pcb.created_at)")){
    echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
    $i=0;
    while ($output = $stmt->fetch_row()){
