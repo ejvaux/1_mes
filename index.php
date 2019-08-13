@@ -87,7 +87,7 @@
         <style>
 
           body{
-            padding-top: 63px;
+            padding-top: 62px;
           }
           .notifi{
             width: 500px;
@@ -170,8 +170,8 @@
           }
 
           .parallax-container {
-            height: 800px;
-            width: 100%;
+            height: 900px;
+            width: auto;
           }
 
           .mdl {
@@ -330,7 +330,7 @@
           
           <!-- End of Navbar -->
 
-      <div  class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="0" data-image-src='/1_MES/_images/DSC_3967.jpg' data-natural-width="800" data-natural-height="400"></div>
+      <div  class="parallax-container" data-parallax="scroll" data-position="top" data-bleed="0" data-image-src='/1_MES/_images/DSC_3967.jpg' data-natural-width="790" data-natural-height="380"></div>
 
       <div class="container">
 
