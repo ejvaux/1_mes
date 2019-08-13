@@ -248,8 +248,8 @@
                 <div class="col-md-4">
                     
                     <!-- Management Indices -->
-                    
-                    <a href='/1_MES/_template/pagetemplate.php' class="btn" id="6" >
+                    <a href='/1_MES/_php/management indices/INJECTION.php' class="btn" id="6" >
+                  <!--  <a href='/1_MES/_php/management indices/mngment_indices.php' class="btn" id="6" > --> 
 
                     <div class="faa-bounce animated-hover faa-slow">
                         
