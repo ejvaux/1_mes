@@ -37,13 +37,13 @@
           </button>
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1">           
-            <li><a id="tb1" class="nav-link tbl" href="INJECTION.php" onclick="">INJECTION</a></li>
+            <li><a id="tb1" class="nav-link tbl" href="#INJECTION.php" onclick="">INJECTION</a></li>
               <li><a id="tb2" class="nav-link tbl" href="SMT.php" onclick="" style="color: white; background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">SMT</a></li>
-              <li><a id="tb3" class="nav-link tbl" href="DIP.php" onclick="">DIP</a></li>
-              <li><a id="tb4" class="nav-link tbl" href="DIP TEST.php" onclick="">DIP TEST</a></li>
-              <li><a id="tb5" class="nav-link tbl" href="FATP.php" onclick="">FATP</a></li>
-              <li><a id="tb6" class="nav-link tbl" href="QUALITY.php" onclick="">QUALITY</a></li>
-              <li><a id="tb7" class="nav-link tbl" href="SALES.php" onclick="">SALES</a></li>
+              <li><a id="tb3" class="nav-link tbl" href="#DIP.php" onclick="">DIP</a></li>
+              <li><a id="tb4" class="nav-link tbl" href="#DIP TEST.php" onclick="">DIP TEST</a></li>
+              <li><a id="tb5" class="nav-link tbl" href="#FATP.php" onclick="">FATP</a></li>
+              <li><a id="tb6" class="nav-link tbl" href="#QUALITY.php" onclick="">QUALITY</a></li>
+              <li><a id="tb7" class="nav-link tbl" href="#SALES.php" onclick="">SALES</a></li>
             </ul> 
 
             <!-- ICONS ON LEFT -->
@@ -72,13 +72,14 @@
     <span class="input-group-text" style="width: 60px;">SHIFT</span>
   </div>
    <select name= "shift" class="form-control" aria-describedby="basic-addon1"   style="font-size: 12px; width: 70px;">
-  <option value="all">ALL </option>
+
   <option value="6ap"> 1 </option>
   <option value="6pa"> 2 </option>
+    <option value="all">ALL </option>
   </select>
   <div class="input-group-append">
     <span class="input-group-text" style="margin-left: 0.2%; "> PROD.LINE</span>
-    <select name="Linename" class="form-control" aria-describedby="basic-addon1" style="font-size: 12px; width: 100px;">
+    <select name="Linename" class="form-control" aria-describedby="basic-addon1" style="font-size: 12px; width: 100px;" selected='overall'>
 
 <option value="l1">SMTL1</option>
 <option value="l2">SMTL2</option>
@@ -96,7 +97,7 @@
 <option value="overall">OVERALL</option>
 </select> 
 <select id ="chartType" name="chartType" style="height:26px; width:80px; display:none;">
-<option value="column"> Bar </option></select>
+<option value="column"> Bar </option></select>  
 
 
 <div class="input-group-prepend">
@@ -298,9 +299,9 @@ function getColumn(){
         data.addColumn('number', 'PLAN');
         data.addColumn('number', 'RESULT');
 
-        for(i = 0; i < my_2d.length; i++)
+        for(i = 0; i < PLAN.length; i++)
 
-    data.addRow([my_2d[i][0], parseInt(my_2d[i][1]), parseInt(my_2d[i][2]) ]);
+    data.addRow([PLAN[i][0], parseInt(PLAN[i][1]), parseInt(RESULT[i]) ]);
   data.addRows(4);
        var options = {
          legend: {position: 'none'},
@@ -356,6 +357,7 @@ if (isset($_POST['daily'])){
       $job_array = Array();
       $input_array = Array();
       $result_array = Array();// create PHP array
+      $date_array=Array();
      // echo $from."/".$to."/";
 
 if($line==='overall' && $shift==='all')

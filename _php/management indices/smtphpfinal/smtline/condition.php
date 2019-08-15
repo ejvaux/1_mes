@@ -94,7 +94,7 @@ include("perlineoverall.php");
 }
 if($line==='l11' && $shift==='all')
 {
-$line_id='11';$shift='1';
+$line_id='16';$shift='1';
 $line='SMTL11';
 
 include("perlineoverall.php");
@@ -103,7 +103,7 @@ include("perlineoverall.php");
 }
 if($line==='l12' && $shift==='all')
 {
-$line_id='12';
+$line_id='17';
 $line='SMTL12';$shift='1';
 
 include("perlineoverall.php");
@@ -112,7 +112,7 @@ include("perlineoverall.php");
 }
 if($line==='l13' && $shift==='all')
 {
-$line_id='13';
+$line_id='18';
 $line='SMTL13';
 $shift='1';
 include("perlineoverall.php");
@@ -240,7 +240,7 @@ include("perlineday.php");
 }
 if($line==='l11' && $shift==='6ap')
 {
-$line_id='11';$shift='1';
+$line_id='16';$shift='1';
 $line='SMTL11';
 
 include("perlineday.php");
@@ -249,7 +249,7 @@ include("perlineday.php");
 }
 if($line==='l12' && $shift==='6ap')
 {
-$line_id='12';
+$line_id='17';
 $line='SMTL12';$shift='1';
 
 include("perlineday.php");
@@ -258,7 +258,7 @@ include("perlineday.php");
 }
 if($line==='l13' && $shift==='6ap')
 {
-$line_id='13';
+$line_id='18';
 $line='SMTL13';
 $shift='1';
 include("perlineday.php");
@@ -384,7 +384,7 @@ include("perlinenight.php");
 }
 if($line==='l11' && $shift==='6pa')
 {
-$line_id='11';
+$line_id='16';
 $line='SMTL11';
 $shift='2';
 include("perlinenight.php");
@@ -393,7 +393,7 @@ include("perlinenight.php");
 }
 if($line==='l12' && $shift==='6pa')
 {
-$line_id='12';
+$line_id='17';
 $line='SMTL12';
 $shift='2';
 include("perlinenight.php");
@@ -402,7 +402,7 @@ include("perlinenight.php");
 }
 if($line==='l13' && $shift==='6pa')
 {
-$line_id='13';
+$line_id='18';
 $line='SMTL13';
 $shift='2';
 include("perlinenight.php");

@@ -2,24 +2,18 @@
 
 
 
-  if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY), COUNT(DATE_) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' group by DATE_")){
-     echo "
-
-
-
-
-   <table class='table table-sm table-responsive' >
-<tr align = 'center' ><td rowspan='9' width = '100px'><h4 style='margin-top:80%; font-size:auto;'>$line</h4></td> </tr>
-
-   <tr align = 'center'><th width = '100px'>DATE</th>"; 
+  if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' group by DATE_")){
+    
+   echo "  <table class='table table-sm table-responsive' >
+<tr align = 'center' ><td rowspan='9' width = '100px'><h4 style='margin-top:80%; font-size:auto;'>$line</h4><i>(night shift)</i></td> </tr><tr align = 'center'> <th width = '100px'>DATE</th>"; 
   while ($date = $stmt->fetch_row()) {
     echo "<td><b>$date[0]<b></td>";
-   //$php_data_array[] = $row;
+  $date_array[] = $date;
   }
      echo "<td width='100px'><b>TOTAL<b></td></tr>";}
    
 $tplan=0;
-    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%'  group by DATE_")){
+    if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%'   group by DATE_")){
   echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
   while ($plan = $stmt->fetch_row()){
     $tplan+=$plan[1];
@@ -29,37 +23,35 @@ $tplan=0;
   }
   echo "<td><b>".number_format($tplan,0,'.',',')."<b></td></tr>";}
 
-    
-    $tresult=0;
-   if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
-   on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number where masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' and 1_smt.pcb.jo_number like '2%' 
-   and PROCESS_NAME like 'SMT.INPUT%' and 1_smt.pcb.shift = '2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+
+ $tresult=0;
+   if($stmt = $conn2->query("SELECT COUNT(RESULT) FROM pcb 
+   where cast(created_at + 0.25 as date) BETWEEN  '$from' and '$to' and jo_number like '2%' 
+   and  shift = '2'  and type = '1' group by cast(created_at + 0.25 as date) ")){
    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
    $i=0;
   while ($result = $stmt->fetch_row()){
-     echo "<td>".number_format($result[2],0,'.',',') ."</td>";
-      $result_array[] = $result[2];
-     $tresult+=$result[2];
-     $result[1]=$job_array[$i];
-     $php_data_array[] = $result;
+     echo "<td>".number_format($result[0],0,'.',',') ."</td>";
+      $result_array[] = $result[0];
+     $tresult+=$result[0];
+
+     $php_data_array[] =$result;
     $i++;}
   echo "<td><b>".number_format($tresult,0,'.',',')."<b></td></tr>"; 
   }
 
 
-
-
 $tgap=0; //------------------------------------ 
-  if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
-  WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' and '$to' and 1_smt.pcb.jo_number 
-  like '2%'  and 1_smt.pcb.shift = '2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+  if($stmt = $conn2->query("SELECT  COUNT(RESULT) FROM pcb 
+  WHERE cast(created_at + 0.25 as date) BETWEEN '$from' and '$to' and jo_number 
+  like '2%'   and  shift = '2'  and type = '1'  group by cast(created_at + 0.25 as date)")){
    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
    $i=0;
   while ($gp = $stmt->fetch_row()){
-    $gp[1]=$job_array[$i];
-    $gp[2]=$result_array[$i];
+    $job_array[$i];
+    $gp[0]=$result_array[$i];
     //echo $gp[1]."//".$gp[2]."///";
-    $gap = $gp[1] - $gp[2];
+    $gap = $job_array[$i] - $gp[0];
      echo "<td>".number_format($gap,0,'.',',')."</td>";
      $tgap = $tplan - $tresult;
     $i++;}
@@ -68,17 +60,17 @@ $tgap=0; //------------------------------------
 
 
 $trate=0; //------------------------------------ 
-  if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.RESULT)  FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
-  WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number AND masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' AND '$to' AND 1_smt.pcb.jo_number 
-  LIKE '2%' and 1_smt.pcb.shift = '2' GROUP BY masterdatabase.mis_prod_plan_dl.DATE_")){
+  if($stmt = $conn2->query("SELECT  COUNT(RESULT)  FROM pcb 
+  WHERE  cast(created_at + 0.25 as date) BETWEEN '$from' AND '$to' AND jo_number 
+  LIKE '2%'  and  shift = '2'  and type = '1'  GROUP BY cast(created_at + 0.25 as date)")){
    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE</th>";
    $i=0;
   while ($rate = $stmt->fetch_row()){
-    $rate[1]=$job_array[$i];
-   $rate[2]=$result_array[$i];
+    $job_array[$i];
+   $rate[0]=$result_array[$i];
    // echo $gp[1]."//".$gp[2]."///";
 
-    $rate = (($rate[2] / $rate[1])*100);
+    $rate = (($rate[0] /  $job_array[$i])*100);
 
     $trate += $rate;
 
@@ -89,8 +81,9 @@ $trate=0; //------------------------------------
   }
 
 
-    $tdef=0;
-if($stmt = $conn2->query("SELECT COUNT(1_smt.defect_mats.created_at), 1_smt.defect_mats.updated_at FROM 1_smt.defect_mats WHERE 1_smt.defect_mats.created_at BETWEEN '$from 00%' and '$to 23%' and 1_smt.defect_mats.shift = '2' group by DATE(1_smt.defect_mats.created_at)")){
+
+$tdef=0;
+if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE cast(created_at + 0.25 as date) BETWEEN '$from' and '$to'  and  shift = '2'     group by cast(created_at + 0.25 as date)")){
 echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[0],0,'.',',')."</td>";
@@ -101,30 +94,31 @@ while ($def = $stmt->fetch_row()){
 
 
 $tinput=0;
-  if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, 1_smt.pcb.jo_number, COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb 
-  WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number AND masterdatabase.mis_prod_plan_dl.DATE_ BETWEEN '$from' AND '$to'
-   AND 1_smt.pcb.jo_number LIKE '2%' and 1_smt.pcb.shift = '2'   GROUP BY masterdatabase.mis_prod_plan_dl.DATE_")){
+  if($stmt = $conn2->query("SELECT jo_number, COUNT(PROCESS_NAME) FROM pcb 
+  WHERE    cast(created_at + 0.25 as date) BETWEEN '$from' AND '$to'
+   AND jo_number LIKE '2%' and shift = '2'  and PROCESS_NAME  like 'SMT.INPUT%' GROUP BY cast(created_at + 0.25 as date)")){
 echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
 while ($input = $stmt->fetch_row()){
-$input_array[]=$input[2];
-$tinput+=$input[2];
-echo "<td>". number_format($input[2],0,".",",")."</td>";}
+$input_array[]=$input[1];
+$tinput+=$input[1];
+echo "<td>". number_format($input[1],0,".",",")."</td>";}
 echo "<td><b>". number_format($tinput,0,".",",")."<b></td></tr>";}
+
 
 
 
 $yield;
 $tyield=0;
-if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.DATE_, COUNT(1_smt.pcb.RESULT), COUNT(1_smt.pcb.PROCESS_NAME) FROM masterdatabase.mis_prod_plan_dl, 1_smt.pcb
-WHERE masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number and masterdatabase.mis_prod_plan_dl.DATE_ between '$from' and '$to' 
-and 1_smt.pcb.jo_number like '2%' and 1_smt.pcb.PROCESS_NAME  like 'SMT.INPUT%' and PDLINE_NAME like 'SMTL%' and 1_smt.pcb.shift = '2' group by masterdatabase.mis_prod_plan_dl.DATE_")){
+if($stmt = $conn2->query("SELECT  COUNT(RESULT), COUNT(PROCESS_NAME) FROM pcb
+WHERE  cast(created_at + 0.25 as date) between '$from' and '$to' 
+and jo_number like '2%' and PROCESS_NAME  like 'SMT.INPUT%'  and shift = '2' group by cast(created_at + 0.25 as date)")){
 echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
 $i=0;
 while ($output = $stmt->fetch_row()){
-  $output[1]= $result_array[$i];
-$output[2]=$input_array[$i];
+  $output[0]= $result_array[$i];
+$output[1]=$input_array[$i];
 
- $yield=($output[1]/$output[2])*100;
+ $yield=($output[0]/$output[1])*100;
 //echo $output[2]."//";
 echo "<td>". number_format($yield,2,".",",")." %</td>";
 
@@ -132,18 +126,19 @@ $i++;
 }
 $tyield=(($tresult/$tinput)*100);
 
-echo "<td><b>". number_format($tyield,2,".",",")."%<b></td></tr>";}   
+echo "<td><b>". number_format($tyield,2,".",",")."%<b></td></tr>";}  
 
 
-    echo "<script>
-          var my_2d = ".json_encode($php_data_array)."
+ echo "<script>
+          var PLAN = ".json_encode($date_array)."
     </script>";
     
     echo "<script>
-    var my_3d = ".json_encode($php_data_array)."
+    var RESULT = ".json_encode($php_data_array)."
     </script>";
     
     getColumn();
+
 
 
 
