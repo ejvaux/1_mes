@@ -20,7 +20,7 @@
 
   </head>
 
-	<body>
+    <body>
     
     <!-- Navbar - START -->
         <?php
@@ -64,15 +64,27 @@
 
 <div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >
       <div class="row text-left">
-        <div class="col-11" >
-			
 
-	<form method="POST" >
 
-		<label>From: </label><input type="date" name="from" style="height:25px; width:150px">
-		<label>To: </label><input type="date" name="to" style="height:25px; width:150px" >
-		<input type="submit" value="Daily" name="daily" style="height:30px; width:50px" > 
 
+ <div class="col-11" >
+            
+
+    <form method="POST" >
+
+
+<div class="modal" id="mymodal" style="width:1000px; ">
+   <div class="modal-dialog" >
+  <div class="modal-content" style="width:1000px; ">
+  <div class="modal-header">
+    <h2 class="modal-title">DAILY SUMMARY MODE</h2>
+  </div>
+  <div class="modal-body" style="margin-left:10%; ">
+
+       
+
+      
+      
  <label> SHIFT: </label>
   <select name= "shift">
   <option value="all"> ALL </option>
@@ -80,34 +92,97 @@
   <option value="6pa"> 6PA </option>
   </select>
 
-  <label> PROD LINE: </label>
-	<select name="Linename">
-		<option value="overall">OVERALL</option>
-		<option value="l1">Line 1</option>
-		<option value="l2">Line 2</option>
-		<option value="l3">Line 3</option>
-		<option value="l4">Line 4</option>
-		<option value="l5">Line 5</option>
-	
-	</select> 
-
-  
-    <label>From: </label><input type="month" name="monthfrom" style="height:25px; width:180px" >
-		<label >To: </label><input type="month" name="monthto" style="height:25px; width:180px" >
-		<input type="submit" value="Monthly" name="monthly" width="15px" style="height:30px; width:70px">
+  <label>PROD. LINE:</label>
+    <select name="Linename">
+        <option value="overall">OVERALL</option>
+        <option value="l1">Line 1</option>
+        <option value="l2">Line 2</option>
+        <option value="l3">Line 3</option>
+        <option value="l4">Line 4</option>
+        <option value="l5">Line 5</option>
     
-</div>
-<select id ="chartType" name="chartType" style="height:30px; width:80px">
-<option value="column">Column</option>
-<option value="pie">Pie </option>
-</select>
+    </select> 
+   <label>Chart Type:</label>
+    <select id ="chartType" name="chartType" style="height:26px; width:80px; display: inline-flex;">
+  <option value="pie"> Pie </option>
+<option value="column"> Bar </option></select>
+<br>
+<style type="text/css">
+input[type=date],input[type=month],input[type=submit], select {
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+text-decoration: none; color: black;border-style: groove; border-radius: 5px;
+}
+
+input[type=submit]:hover{ border-style: double;color: white; background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%); font-size: 16.5px;  }
+
+</style>
+
+
+        <label>From: </label><input type="date" name="from" id="today" style="height:25px; width:150px">
+        <label>To: </label><input type="date" name="to" id="today2" style="height:25px; width:150px" >
+        <input type="submit" value="DAILY" name="daily" style="height:30px; width:100px" > 
+<script type="text/javascript">let today = new Date().toISOString().substr(0, 10);
+document.querySelector("#today").value = today;
+document.querySelector("#today2").value = today;
+
+</script>
+
+</div></div></div></div>
 </form>
+    <form method="POST" >
+<div class="modal" id="mymodal1" style="width:1000px; ">
+   <div class="modal-dialog" >
+  <div class="modal-content" style="width:1000px; ">
+  <div class="modal-header">
+    <h2 class="modal-title">MONTHLY SUMMARY MODE</h2>
+  </div>
+  <div class="modal-body" style="margin-left:10%; ">
+
+      
+ <label> SHIFT: </label>
+  <select name= "shift">
+  <option value="all"> ALL </option>
+  <option value="6ap"> 6AP </option>
+  <option value="6pa"> 6PA </option>
+  </select>
+
+  <label>PROD. LINE:</label>
+    <select name="Linename">
+        <option value="overall">OVERALL</option>
+        <option value="l1">Line 1</option>
+        <option value="l2">Line 2</option>
+        <option value="l3">Line 3</option>
+        <option value="l4">Line 4</option>
+        <option value="l5">Line 5</option>
+    
+    </select> 
+   <label>Chart Type:</label>
+    <select id ="chartType" name="chartType" style="height:26px; width:80px; display: inline-flex;">
+  <option value="pie"> Pie </option>
+<option value="column"> Bar </option></select>
+  <br>
+    <label>From: </label><input type="month" name="monthfrom" style="height:25px; width:180px" >
+        <label >To: </label><input type="month" name="monthto" style="height:25px; width:180px" >
+        <input type="submit" value="MONTHLY" name="monthly" width="15px" style="height:30px; width:100px">
+
+
+
+
+</div></div></div></div>
+
+    </form>
+</div>
+<style type="text/css">
+  #daily{text-decoration: none; color: black;border-style: ridge; border-color: darkgray; border-radius: 5px; margin-left: 10px;  font-size: 16.5px;  }
+  #daily:hover{border-style: double;color: white; background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%); font-size: 16.5px;}
+</style>
+<pre style="margin-left: 10%; display: inline-flex;   font-size: 16.5px;">Summarize Mode : <a id="daily" href="#" data-toggle="modal" data-target="#mymodal" >  Daily  </a><a href="#" data-toggle="modal" data-target="#mymodal1" id="daily"> Monthly </a>
+</pre>
       </div>
     </div>
-    <br>
-
-
-
 <div align = "center">
 <label><b>PRODUCTION SUMMARY OF <i>INJECTION </i></b></label>
 </div>
@@ -316,12 +391,18 @@ if($stmt = $conn1->query("SELECT mis_prod_plan_dl.DATE_, SUM(mis_prod_plan_dl.PL
 and mis_prod_plan_dl.DATE_ between '$from' and '$to' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by mis_prod_plan_dl.DATE_")){
  echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE %</th>";
 while ($row = $stmt->fetch_row()){
-  $rate = ($row[2] / $row[1])*100;
+ $number = ($row[2] / $row[1])*100;
+      $rate = number_format($number, 2, '.', ',');
   $trate+=$rate;
-  echo "<td>". round($rate,3) ."%</td>";
+  echo "<td>".number_format($rate, 2, '.', ',')."%</td>";
   $i++;}
-echo "<td><b>". round($trate,3) ."%<b></td></tr>";
+echo "<td><b>".number_format($trate, 2, '.', ',')."%<b></td></tr>";
 }
+
+ 
+
+
+
 
 $tdef=0;
 include('conn2.php');
@@ -441,20 +522,20 @@ if(isset($_POST['monthly']))
       and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by MONTH(mis_prod_plan_dl.DATE_)")){
     echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
     while ($row = $stmt->fetch_row()){
-      echo "<td>$row[1]</td>";
+      echo "<td>".number_format($row[1], 0, '.', ',')."</td>";
       $tplan+=$row[1];
      //$php_data_array[] = $row;
     }
-     echo "<td><b>$tplan<b></td></tr>";}
+     echo "<td><b>".number_format($tplan, 0, '.',',')."<b></td></tr>";}
     $tresult=0;
      if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
     and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by MONTH(mis_prod_plan_dl.DATE_)")){
      echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
     while ($row = $stmt->fetch_row()){
-       echo "<td>$row[2]</td>";
+       echo "<td>".number_format($row[2], 0, '.', ',')."</td>";
        $php_data_array[] = $row;
       $tresult+=$row[2];}
-    echo "<td><b>$tresult<b></td></tr>";
+    echo "<td><b>".number_format($tresult, 0, '.', ',')."<b></td></tr>";
     } 
 $tgap=0;
     if($stmt = $conn1->query("SELECT MONTH(mis_prod_plan_dl.DATE_), SUM(mis_prod_plan_dl.PLAN_QTY), SUM(mis_summarize_results.PROD_RESULT) FROM mis_prod_plan_dl, mis_summarize_results WHERE mis_prod_plan_dl.JOB_ORDER_NO = mis_summarize_results.JOB_ORDER_NO 
@@ -462,9 +543,10 @@ $tgap=0;
      echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
     while ($row = $stmt->fetch_row()){
       $gap = $row[1] - $row[2];
-      echo "<td>$gap</td>";
+      echo "<td>".number_format($gap, 0, '.', ',')."</td>";
       $tgap+=$gap;}
-      echo "<td><b>$tgap<b></td></tr>";
+
+      echo "<td><b>".number_format($tgap, 0, '.', ',')."<b></td></tr>";
     } 
 
 
@@ -472,8 +554,15 @@ $tgap=0;
     and mis_prod_plan_dl.DATE_ between '$mfrom' and '$mto' and mis_prod_plan_dl.JOB_ORDER_NO like'1%' group by MONTH(mis_prod_plan_dl.DATE_)")){
     echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE</th>";
     while ($row = $stmt->fetch_row()){
-      $rate = ($row[2] / $row[1])*100;
-      echo "<td>$rate %</td>";}
+      $number = ($row[2] / $row[1])*100;
+      $trate=+$number;
+     
+      $rate = number_format($number, 2, '.', ',');
+      echo "<td>$rate %</td>";
+       
+      } 
+
+     
     echo "</tr>";
     } 
 

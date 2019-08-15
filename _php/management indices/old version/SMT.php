@@ -19,9 +19,6 @@
     <!-- Custom CSS - END -->
 
 
-  </head>
-
-	<body>
     
     <!-- Navbar - START -->
         <?php
@@ -65,7 +62,7 @@
 
 
 $(document).ready(function(){
-  $("#caldaily").hide();
+  $("#caldaily").show();
   $("#calmonthly").hide();  });
   
   $(document).ready(function(){
@@ -74,7 +71,7 @@ $(document).ready(function(){
     $("#calmonthly").hide();
     $("#caldaily").show();
   });
-  
+
   $("#monthly").click(function(){
   // $("#calendar_tab").show();
     $("#caldaily").hide();
@@ -89,7 +86,7 @@ $(document).ready(function(){
       <div class="row text-left">
         <div class="col-11" >
 			
-<form method="POST" >
+<form method="POST" onsubmit="setDate()">
 
 
 <table id="calendar" > <tr>
@@ -127,8 +124,8 @@ $(document).ready(function(){
 </td>
 
 <td id="caldaily">&nbsp; &nbsp;&nbsp; &nbsp;
-<label>From: </label><input id ="d1" type="date" name="from" value = "" class="datepicker" style="height:25px; width:150px">
-<label>To: </label><input id ="d2" type="date" name="to" value ="" class = "datepicker" style="height:25px; width:150px" >
+<label>From: </label><input id ="from" type="date" name="from" value = " <?php $date1;?> " class="datepicker" style="height:25px; width:150px">
+<label>To: </label><input id ="d2" type="date" name="to" value ="<?php echo date("Y-m-d");?>" class = "datepicker" style="height:25px; width:150px" >
 <input type="submit" id ="daily" value="Search" name="daily" style="height:30px; width:50px " >
 </td>
 
@@ -154,6 +151,11 @@ $(document).ready(function(){
     <br>
 
 
+    </head>
+
+<body>
+
+
 <div align = "center">
 <label size = "20px"><b>PRODUCTION SUMMARY OF <i>SMT </i></b></label>
 </div>
@@ -161,14 +163,12 @@ $(document).ready(function(){
 
 <div id="content">
             <form action=""  id="info" method="POST">
- <!-- -----------------------content here--------------------------->              
 
-               
+ <!-- -----------------------content here--------------------------->              
+            <?php include('smt2.php'); ?>
 
             </form>
-        </div>
-
-
+</div>
 
 
  <!-- Optional JavaScript -->
@@ -183,7 +183,7 @@ $(document).ready(function(){
 	</html>
 
     <script type="text/javascript">
-  var postData = "text";
+  var postData = "submit";
   $('#daily').on('click',function(){
       $.ajax({
             type: "post",
@@ -198,5 +198,19 @@ $(document).ready(function(){
             }
         })
     });
+
+    <?php
+    if(isset($_POST['daily']))
+    {
+    $date = date('Y-m-d', strtotime($_POST['to']));
+    $date1 = date('Y-m-d', strtotime($_POST['from']));
+   //echo "Today is $date";
+  }
+
+  if(isset($_POST['Linename'])){
+
+
+  }
+?>
 
 </script>
