@@ -42,7 +42,7 @@
               <li><a id="tb3" class="nav-link tbl" href="#DIP.php" onclick="">DIP</a></li>
               <li><a id="tb4" class="nav-link tbl" href="#DIP TEST.php" onclick="">DIP TEST</a></li>
               <li><a id="tb5" class="nav-link tbl" href="#FATP.php" onclick="">FATP</a></li>
-              <li><a id="tb6" class="nav-link tbl" href="#QUALITY.php" onclick="">QUALITY</a></li>
+              <li><a id="tb6" class="nav-link tbl" href="QUALITY.php" onclick="">QUALITY</a></li>
               <li><a id="tb7" class="nav-link tbl" href="#SALES.php" onclick="">SALES</a></li>
             </ul> 
 
@@ -72,10 +72,11 @@
     <span class="input-group-text" style="width: 60px;">SHIFT</span>
   </div>
    <select name= "shift" class="form-control" aria-describedby="basic-addon1"   style="font-size: 12px; width: 70px;">
-
-  <option value="6ap"> 1 </option>
+        <option value="all">ALL </option>
+      <option value="6ap"> 1 </option>
   <option value="6pa"> 2 </option>
-    <option value="all">ALL </option>
+
+
   </select>
   <div class="input-group-append">
     <span class="input-group-text" style="margin-left: 0.2%; "> PROD.LINE</span>
@@ -351,14 +352,24 @@ if (isset($_POST['daily'])){
       $to=date('Y-m-d',strtotime($_POST['to']));
       $line=$_POST['Linename'];
       $shift=$_POST['shift'];
-      $begin = new DateTime( $from );
-      $end   = new DateTime( $to );
+   //   $begin = new DateTime( $from );
+    //  $end   = new DateTime( $to );
       $php_data_array = Array(); 
       $job_array = Array();
       $input_array = Array();
       $result_array = Array();// create PHP array
       $date_array=Array();
      // echo $from."/".$to."/";
+
+
+
+
+
+
+
+
+
+
 
 if($line==='overall' && $shift==='all')
 {

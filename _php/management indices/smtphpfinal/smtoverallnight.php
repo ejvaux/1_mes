@@ -1,6 +1,18 @@
 <?php
-
-
+$fromstart=date('d',strtotime($_POST['from']));
+$toend=date('d',strtotime($_POST['to']));
+$start=date('Y-m-d H:i:s',strtotime($_POST['from'].' 18:00:00'));
+$end=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
+$to=date($_POST['to']);
+  
+$fromstart1=date('d',strtotime($_POST['from']));
+$toend1=date('d',strtotime($_POST['to']));
+$start1=date('Y-m-d H:i:s',strtotime($_POST['from'].' 18:00:00'));
+$end1=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
+$fromstart2=date('d',strtotime($_POST['from']));
+$toend2=date('d',strtotime($_POST['to']));
+$start2=date('Y-m-d H:i:s',strtotime($_POST['from'].' 18:00:00'));
+$end2=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
 
   if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' group by DATE_")){
     
@@ -24,21 +36,30 @@ $tplan=0;
   echo "<td><b>".number_format($tplan,0,'.',',')."<b></td></tr>";}
 
 
- $tresult=0;
-   if($stmt = $conn2->query("SELECT COUNT(RESULT) FROM pcb 
-   where cast(created_at + 0.25 as date) BETWEEN  '$from' and '$to' and jo_number like '2%' 
-   and  shift = '2'  and type = '1' group by cast(created_at + 0.25 as date) ")){
-   echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+  $tresult=0;
+         echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+      for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
+   if($stmt = $conn2->query("SELECT count(id), Month(created_at),day(created_at),time(created_at), created_at FROM pcb WHERE created_at>='$start' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end' and jo_number like '2%' 
+    and type = '1' ")){
+
    $i=0;
   while ($result = $stmt->fetch_row()){
-     echo "<td>".number_format($result[0],0,'.',',') ."</td>";
-      $result_array[] = $result[0];
-     $tresult+=$result[0];
 
-     $php_data_array[] =$result;
-    $i++;}
-  echo "<td><b>".number_format($tresult,0,'.',',')."<b></td></tr>"; 
-  }
+ echo "<td>".number_format($result[0],0,'.',',') ."</td>";
+
+
+
+ $tresult+=$result[0];
+      $result_array[] = $result[0];
+$php_data_array[] =$result[0];   $i++;
+
+$start=date('Y-m-d H:i:s',strtotime("$start +1 days"));
+$end=date('Y-m-d H:i:s',strtotime("$end +1 days"));
+
+}}}
+
+
+echo "<td><b>".number_format($tresult,0,'.',',')."<b></td></tr>";
 
 
 $tgap=0; //------------------------------------ 
@@ -82,27 +103,38 @@ $trate=0; //------------------------------------
 
 
 
-$tdef=0;
-if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE cast(created_at + 0.25 as date) BETWEEN '$from' and '$to'  and  shift = '2'     group by cast(created_at + 0.25 as date)")){
-echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+$tdef=0;echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+   for ($fromstart2; $fromstart2 <=$toend2 ; $fromstart2++) { 
+if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2'  ")){
+
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[0],0,'.',',')."</td>";
-  $tdef+=$def[0];}
+  $tdef+=$def[0];
+$start2=date('Y-m-d H:i:s',strtotime("$start2 +1 days"));
+$end2=date('Y-m-d H:i:s',strtotime("$end2 +1 days"));
+
+}}}
   echo "<td><b>".number_format($tdef,0,'.',',')."<b></td></tr>";
-}
 
 
 
-$tinput=0;
-  if($stmt = $conn2->query("SELECT jo_number, COUNT(PROCESS_NAME) FROM pcb 
-  WHERE    cast(created_at + 0.25 as date) BETWEEN '$from' AND '$to'
-   AND jo_number LIKE '2%' and shift = '2'  and PROCESS_NAME  like 'SMT.INPUT%' GROUP BY cast(created_at + 0.25 as date)")){
+
+$tinput=0;     
 echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+ for ($fromstart1; $fromstart1 <=$toend1 ; $fromstart1++) { 
+  if($stmt = $conn2->query("SELECT jo_number, COUNT(PROCESS_NAME) FROM pcb WHERE created_at>='$start1' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end1'
+   AND jo_number LIKE '2%' and PROCESS_NAME  like 'SMT.INPUT%' and shift='2' ")){
+
 while ($input = $stmt->fetch_row()){
 $input_array[]=$input[1];
 $tinput+=$input[1];
-echo "<td>". number_format($input[1],0,".",",")."</td>";}
-echo "<td><b>". number_format($tinput,0,".",",")."<b></td></tr>";}
+echo "<td>". number_format($input[1],0,".",",")."</td>";
+$start1=date('Y-m-d H:i:s',strtotime("$start1 +1 days"));
+$end1=date('Y-m-d H:i:s',strtotime("$end1 +1 days"));
+
+}}}
+echo "<td><b>". number_format($tinput,0,".",",")."<b></td></tr>";
+
 
 
 
