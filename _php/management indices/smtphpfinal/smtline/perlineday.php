@@ -2,10 +2,10 @@
 
 
 
-  if($stmt = $conn1->query("SELECT DATE_, PLAN_QTY FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' group by DATE_")){
+  if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ between '$from' and '$to' and JOB_ORDER_NO like'2%' and MACHINE_CODE='$line' group by DATE_")){
     
    echo "  <table class='table table-sm table-responsive' >
-<tr align = 'center' ><td rowspan='9' width = '100px'><h4 style='margin-top:80%; font-size:auto;'>$line</h4><i>(night shift)</i></td> </tr><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+<tr align = 'center' ><td rowspan='9' width = '100px'><h4 style='margin-top:80%; font-size:auto;'>$line</h4><i>(day shift)</i></td> </tr><tr align = 'center'> <th width = '100px'>DATE</th>"; 
   while ($date = $stmt->fetch_row()) {
     echo "<td><b>$date[0]<b></td>";
   $date_array[] = $date;

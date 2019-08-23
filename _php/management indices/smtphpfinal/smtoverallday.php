@@ -19,15 +19,49 @@ $tplan=0;
     $tplan+=$plan[1];
     echo "<td>".number_format($plan[1],0,'.',',')."</td>";
     $job_array[]=$plan[1];
-//$php_data_array[] = $row;
+//$php_data_array[] = $plan;
   }
   echo "<td><b>".number_format($tplan,0,'.',',')."<b></td></tr>";}
 
+    //1363 accurate 966 mine.. testing on prod result
+      //1363 accurate 966 mine.. testing on prod result
+      //1363 accurate 966 mine.. testing on prod result
 
-    $tresult=0;
+      //1363 accurate 966 mine.. testing on prod result
+      //1363 accurate 966 mine.. testing on prod result
+      //1363 accurate 966 mine.. testing on prod result    //1363 accurate 966 mine.. testing on prod result
+      //1363 accurate 966 mine.. testing on prod result
+  
+   // $tresult=0;
+     //if($stmt = $conn1->query("SELECT masterdatabase.mis_prod_plan_dl.PLAN_QTY, COUNT(1_smt.pcb.id) FROM masterdatabase.mis_prod_plan_dl left join 1_smt.pcb 
+    // on masterdatabase.mis_prod_plan_dl.JOB_ORDER_NO = 1_smt.pcb.jo_number 
+    
+     // where DATE(1_smt.pcb.created_at) BETWEEN '$from 06%' and '$to 05%' and 1_smt.pcb.jo_number like '2%' 
+     //and PROCESS_NAME like 'SMT.INPUT%' and 1_smt.pcb.shift = '$shift' and PDLINE_NAME like '$line' group by DATE(1_smt.pcb.masterdatabase.mis_prod_plan_dl.DATE_)")){
+     //echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+    // $i=0;
+    //while ($result = $stmt->fetch_row()){
+    //   echo "<td>".number_format($result[1],0,'.',',') ."</td>";
+    //    $result_array[] = $result[1];
+    //   $tresult+=$result[1];
+    //   $result[0]=$job_array[$i];
+    //   $php_data_array[] = $result;
+    //  $i++;}
+    //echo "<td><b>".number_format($tresult,0,'.',',')."<b></td></tr>"; 
+    //}
+    //1363 accurate 966 mine.. testing on prod result
+      //1363 accurate 966 mine.. testing on prod result
+      //1363 accurate 966 mine.. testing on prod result
+
+      //1363 accurate 966 mine.. testing on prod result
+      //1363 accurate 966 mine.. testing on prod result
+      //1363 accurate 966 mine.. testing on prod result    //1363 accurate 966 mine.. testing on prod result
+      //1363 accurate 966 mine.. testing on prod result
+  
+      $tresult=0;
    if($stmt = $conn2->query("SELECT COUNT(RESULT) FROM pcb 
    where cast(created_at + 0.25 as date) BETWEEN  '$from' and '$to' and jo_number like '2%' 
-   and  shift = '1'  and type = '1'  group by cast(created_at + 0.25 as date) ")){
+   and shift = '1'  and type = '1'  group by cast(created_at + 0.25 as date) ")){
    echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
    $i=0;
   while ($result = $stmt->fetch_row()){
@@ -44,7 +78,7 @@ $tplan=0;
 $tgap=0; //------------------------------------ 
   if($stmt = $conn2->query("SELECT  COUNT(RESULT) FROM pcb 
   WHERE cast(created_at + 0.25 as date) BETWEEN '$from' and '$to' and jo_number 
-  like '2%'   and  shift = '1'  and type = '1'  group by cast(created_at + 0.25 as date)")){
+  like '2%'   and shift = '1'  and type = '1'  group by cast(created_at + 0.25 as date)")){
    echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
    $i=0;
   while ($gp = $stmt->fetch_row()){
@@ -62,7 +96,7 @@ $tgap=0; //------------------------------------
 $trate=0; //------------------------------------ 
   if($stmt = $conn2->query("SELECT  COUNT(RESULT)  FROM pcb 
   WHERE  cast(created_at + 0.25 as date) BETWEEN '$from' AND '$to' AND jo_number 
-  LIKE '2%'  and  shift = '1'  and type = '1'  GROUP BY cast(created_at + 0.25 as date)")){
+  LIKE '2%'    and type = '1' and shift = '1' GROUP BY cast(created_at + 0.25 as date)")){
    echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE</th>";
    $i=0;
   while ($rate = $stmt->fetch_row()){
@@ -83,7 +117,7 @@ $trate=0; //------------------------------------
 
 
 $tdef=0;
-if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE cast(created_at + 0.25 as date) BETWEEN '$from' and '$to'  and  shift = '1'     group by cast(created_at + 0.25 as date)")){
+if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE cast(created_at + 0.25 as date) BETWEEN '$from' and '$to'  and shift = '1'   group by cast(created_at + 0.25 as date)")){
 echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[0],0,'.',',')."</td>";
@@ -111,7 +145,7 @@ $yield;
 $tyield=0;
 if($stmt = $conn2->query("SELECT  COUNT(RESULT), COUNT(PROCESS_NAME) FROM pcb
 WHERE  cast(created_at + 0.25 as date) between '$from' and '$to' 
-and jo_number like '2%' and PROCESS_NAME  like 'SMT.INPUT%'  and shift = '1' group by cast(created_at + 0.25 as date)")){
+and jo_number like '2%' and PROCESS_NAME  like 'SMT.INPUT%' and shift = '1' group by cast(created_at + 0.25 as date)")){
 echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
 $i=0;
 while ($output = $stmt->fetch_row()){
@@ -128,6 +162,7 @@ $tyield=(($tresult/$tinput)*100);
 
 echo "<td><b>". number_format($tyield,2,".",",")."%<b></td></tr>";}  
 
+
  echo "<script>
           var PLAN = ".json_encode($date_array)."
     </script>";
@@ -137,7 +172,6 @@ echo "<td><b>". number_format($tyield,2,".",",")."%<b></td></tr>";}
     </script>";
     
     getColumn();
-
 
 
 
