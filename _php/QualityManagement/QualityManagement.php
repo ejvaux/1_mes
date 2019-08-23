@@ -3,7 +3,10 @@
   <head>
     <!-- Required meta tags -->
     <?php
-            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php";            
+        include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/header.php";
+        if($auth == 'SQ') {          
+            echo "<script type='text/javascript'>window.location.href='/1_smt/public/qc';</script>";        
+        } 
     ?>
 
     <!-- Custom JS -->
@@ -52,6 +55,13 @@
               <li><a class="nav-link tbl" id='tb2' href="#" onclick="loadDoc('LotJudgement');">Lot Judgement</a></li>
               <li><a class="nav-link tbl" id='tb3' href="#" onclick="loadDoc('LotRecovery')">Lot Reject Recovery</a></li>
               <li><a class="nav-link tbl" id='tb4' href="#" onclick="DisplayTableDefect('DefectTable','DefectTableSP','Defective_List')">Defect Management</a></li>
+              <?php
+                 $_ENV['APP_URL'];
+                if($auth == 'A') {          
+                  echo '<li><a class="nav-link tbl" href="'. $_ENV['APP_URL2'] .'1_smt/public/qc">SMT QC</a></li>';
+                }
+              ?>
+              <!-- <li><a class="nav-link tbl" href="http://172.16.4.32/1_smt/public/qc">SMT QC</a></li> -->
               <!--<li><a class="nav-link tbl" id='tb6' href="#" onclick="loadDoc('ItemReceiving','<?php echo $_SESSION["text"];?>')">Item Receiving</a></li>
               <li><a class="nav-link tbl" id='tb5' href="#" onclick="notWorking()">Initial Sample List</a></li>
               <li><a class="nav-link" href="#" onclick="">Tab 6</a></li>
