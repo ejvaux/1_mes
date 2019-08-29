@@ -1215,3 +1215,17 @@ function getitemdetails(id){
 }
 
 /* GET ITEM DETAILS - ITEM MOLD MATCHING */
+
+/* Insert defect drop down event */
+
+$('#mod').on('change','#divisioncode', function (e) {
+  $('#d_division_id').val($(this).children("option:selected").data('div_id'));
+  $('#d_division_code').val($(this).children("option:selected").data('def_group'));
+  /* alert($(this).children("option:selected").data('def_group')); */
+});
+
+$('#mod').on('change','#eddivisioncode', function (e) {
+  $('#ed_division_id').val($(this).children("option:selected").data('div_id'));
+  $('#ed_division_code').val($(this).children("option:selected").data('def_group'));
+  /* alert($(this).children("option:selected").data('def_group')+' '+$(this).children("option:selected").data('div_id')); */
+});

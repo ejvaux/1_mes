@@ -42,14 +42,18 @@ function checknotif(){
 
   /* Pusher.logToConsole = true; */
 
-  var pusher = new Pusher(app_key, {
+  /* var pusher = new Pusher(app_key, {
     cluster: app_cluster,
     forceTLS: true
   });
 
   var channel = pusher.subscribe('notif');
   channel.bind('my-event', function(data) {
-    /* alert(data.message); */
+    
+    checknotif();
+  }); */
+
+  /* alert(data.message); */
     /* iziToast.show({
       class: 'notifi',
       title: 'Notice:',
@@ -59,5 +63,3 @@ function checknotif(){
       transitionOut:	'fadeOutRight',
       timeout: false
     }); */
-    checknotif();
-  });
