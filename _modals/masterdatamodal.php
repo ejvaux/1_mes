@@ -788,6 +788,8 @@ $db = new DBQUERY;
       </div>
       <form id="defectform"  method="post">
       <input type="hidden" id="" name="">
+      <input type="hidden" id="d_division_id" name="division_id">
+      <input type="hidden" id="d_division_code" name="defectgroup">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
 
@@ -805,19 +807,47 @@ $db = new DBQUERY;
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="divisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
+                  <label for="defectname" class="col-form-label-sm">DEFECT NAME:</label>                  
                 </div>
                 <div class="col-7">
-                  <select id="divisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder="" required>
+                  <input id="defectname" type="text" class="form-control form-control-sm" name="defectname" placeholder="">                  
+                </div>
+              </div>
+            </div>
+                                
+          </div>
+
+          <div class="form-group row">
+            <!-- <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="defectgroup" class="col-form-label-sm">DEFECT GROUP:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="defectgroup" type="text" class="form-control form-control-sm" name="defectgroup" placeholder="">                  
+                </div>
+              </div>
+            </div> -->
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="divisioncode" class="col-form-label-sm">DIVISION:</label>                  
+                </div>
+                <div class="col-7">
+                  <select id="divisioncode" type="text" class="form-control form-control-sm" name="divisioncode" placeholder="" required>
                   <option value="">-Please select-</option>
                   <?php
 
-                  $row = $db->get_rows3('dmc_division_code' ,'ORDER BY DIVISION_CODE ASC',false,'DIVISION_CODE');                   
+                  $row = $db->get_rows3('dmc_division_code' ,'ORDER BY DIVISION_CODE ASC',false,'DIVISION_NAME,DIVISION_CODE,DIVISION_ID');                   
                   foreach($row as $rows){
                     echo "<option value='";
                     echo $rows->DIVISION_CODE;
+                    echo "' data-div_id='";
+                    echo $rows->DIVISION_ID;
+                    echo "' data-def_group='";
+                    echo $rows->DIVISION_NAME;
                     echo "'>";
-                    echo $rows->DIVISION_CODE;
+                    echo $rows->DIVISION_NAME;
                     echo "</option>";
                   }
 
@@ -840,29 +870,6 @@ $db = new DBQUERY;
                   ?>
 
                   </select>
-                </div>
-              </div>
-            </div>                    
-          </div>
-
-          <div class="form-group row">
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="defectgroup" class="col-form-label-sm">DEFECT GROUP:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="defectgroup" type="text" class="form-control form-control-sm" name="defectgroup" placeholder="">                  
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="defectname" class="col-form-label-sm">DEFECT NAME:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="defectname" type="text" class="form-control form-control-sm" name="defectname" placeholder="">                  
                 </div>
               </div>
             </div>                    
@@ -2198,7 +2205,9 @@ $db = new DBQUERY;
         </button>
       </div>
       <form id="edefectform"  method="post">
-      <input type="hidden" id="iddefect" name="id">
+      <input type="hidden" id="iddefect" name="id">      
+      <input type="hidden" id="ed_division_id" name="division_id">
+      <input type="hidden" id="ed_division_code" name="defectgroup">
       <div class="modal-body" style="">
           <!-- ____________ FORM __________________ -->
 
@@ -2216,19 +2225,46 @@ $db = new DBQUERY;
             <div class="col-6">
               <div class="row">
                 <div class="col-5">
-                  <label for="eddivisioncode" class="col-form-label-sm">DIVISION CODE:</label>                  
+                  <label for="eddefectname" class="col-form-label-sm">DEFECT NAME:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eddefectname" type="text" class="form-control form-control-sm" name="defectname" placeholder="">                  
+                </div>
+              </div>
+            </div>                               
+          </div>
+
+          <div class="form-group row">
+            <!-- <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eddefectgroup" class="col-form-label-sm">DEFECT GROUP:</label>                  
+                </div>
+                <div class="col-7">
+                  <input id="eddefectgroup" type="text" class="form-control form-control-sm" name="defectgroup" placeholder="">                  
+                </div>
+              </div>
+            </div> -->            
+            <div class="col-6">
+              <div class="row">
+                <div class="col-5">
+                  <label for="eddivisioncode" class="col-form-label-sm">DIVISION:</label>                  
                 </div>
                 <div class="col-7">
                   <select id="eddivisioncode" type="text" class="form-control form-control-sm sel" name="divisioncode" placeholder=""  required>
-                  <option value="">-Please select-</option>
+                  <!-- <option value="">-Please select-</option> -->
                   <?php
 
-                  $row = $db->get_rows3('dmc_division_code' ,'ORDER BY DIVISION_CODE ASC',false,'DIVISION_CODE');                   
+                  $row = $db->get_rows3('dmc_division_code' ,'ORDER BY DIVISION_CODE ASC',false,'DIVISION_NAME,DIVISION_CODE,DIVISION_ID');                   
                   foreach($row as $rows){
                     echo "<option value='";
                     echo $rows->DIVISION_CODE;
+                    echo "' data-div_id='";
+                    echo $rows->DIVISION_ID;
+                    echo "' data-def_group='";
+                    echo $rows->DIVISION_NAME;
                     echo "'>";
-                    echo $rows->DIVISION_CODE;
+                    echo $rows->DIVISION_NAME;
                     echo "</option>";
                   }
 
@@ -2253,30 +2289,7 @@ $db = new DBQUERY;
                   </select>
                 </div>
               </div>
-            </div>                    
-          </div>
-
-          <div class="form-group row">
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="eddefectgroup" class="col-form-label-sm">DEFECT GROUP:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="eddefectgroup" type="text" class="form-control form-control-sm" name="defectgroup" placeholder="">                  
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="row">
-                <div class="col-5">
-                  <label for="eddefectname" class="col-form-label-sm">DEFECT NAME:</label>                  
-                </div>
-                <div class="col-7">
-                  <input id="eddefectname" type="text" class="form-control form-control-sm" name="defectname" placeholder="">                  
-                </div>
-              </div>
-            </div>                    
+            </div>                   
           </div>
 
           <!-- ____________ FORM END __________________ -->

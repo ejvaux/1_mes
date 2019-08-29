@@ -111,7 +111,7 @@
 <link rel="stylesheet" href="/1_mes/_css/page.css">
 <link rel="icon" href="/1_MES/favicon.ico"/>
 
-<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
+<!-- <script src="https://js.pusher.com/4.3/pusher.min.js"></script> -->
 <script src="/1_mes/_includes/sessioncheck.js"></script>
 <script src="/1_mes/_includes/notif/rtnotif.js"></script>
 

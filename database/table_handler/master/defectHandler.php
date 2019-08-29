@@ -20,6 +20,7 @@
         'DIVISION_CODE'=>(isset($_POST['divisioncode']))?$_POST['divisioncode']:'',
         'DEFECT_GROUP'=>(isset($_POST['defectgroup']))?$_POST['defectgroup']:'',
         'DEFECT_NAME'=>(isset($_POST['defectname']))?$_POST['defectname']:'',
+        'division_id'=>(isset($_POST['division_id']))?$_POST['division_id']:'',
     );
 
     function select(){
