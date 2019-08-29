@@ -1,4 +1,6 @@
 <?php
+//RESULT/RESULT+DEFECT * 100;
+
 $fromstart=date('d',strtotime($_POST['from']));
 $toend=date('d',strtotime($_POST['to']));
 $start=date('Y-m-d',strtotime($_POST['from']));

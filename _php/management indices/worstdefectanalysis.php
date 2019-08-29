@@ -36,7 +36,10 @@
     justify-content: center;
     align-items: center;
 }
+th,td{
 
+  border-style: groove;
+}
 .loader > img {
     width: 100px;
 }
@@ -83,7 +86,7 @@
               <li><a id="tb5" class="nav-link tbl" href="#FATP.php" onclick="">FATP</a></li>
                    <li class="nav-item dropdown" style="overflow:visible;">
      <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">
-     QUALITY - REPAIR STATUS - SMT
+     QUALITY - WORST DEFECT ANALYSIS - SMT
      </a>
       <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown" >                  
          <div class="container dropdown-header text-left">
@@ -144,7 +147,7 @@
   <div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >
 
       <div class="row text-left" >
- <form method="POST" id="contactForm1" action="qualityajax.php" style="margin-left: 14%;margin-right: 14%; display: inline-flex;" >
+ <form id="contactForm1" method="POST" action="worstdefectanalysisajax.php" style="margin-left: 8%;margin-right: 8%; display: inline-flex;" >
 
 <!--<div class="input-group-append">
   <div class="input-group-prepend">
@@ -180,8 +183,47 @@
 <option value="SMTL13">SMTL13</option>
 
 </select> 
+
+
 <select id ="chartType" name="chartType" style="height:26px; width:80px; display:none;">
 <option value="column"> Bar </option></select>  
+
+
+    <span class="input-group-text" style="margin-left: 0.2%; "> PROCESS </span>
+    <select name="process" class="form-control" aria-describedby="basic-addon1" style="font-size: 13px; width: 150px;" required>
+<option value="OVERALL">OVERALL</option>
+<option value="AOI">AOI</option>
+<option value="FUNCTION TEST">FUNCTION TEST</option>
+<option value="FVI">FVI</option>
+<option value="FVI2">FVI2</option>
+<option value="VI AFTER REFLOW">VI AFTER REFLOW</option>
+<option value="VI BEFORE REFLOW">VI BEFORE REFLOW</option>
+<option value="FVI2">FVI2</option>
+ <!-- 
+5=AOI
+6=FUNCTION TEST
+7=FVI
+9=VI AFTER REFLOW
+10=VI BEFORE REFLOW
+11=X RAY
+66=FVI2
+
+ -->
+<?php 
+//$servername = "172.16.1.13";
+//$username = "root1";
+//$password = "0000";
+//$dbname1 = "masterdatabase";
+//$conn1 = new mysqli($servername, $username, $password, $dbname1);
+//if($stmt = $conn1->query("SELECT name, id FROM  smt_processes WHERE division_id='2'" )){
+//while ($row = $stmt->fetch_row()){
+//    echo "<option value='";
+//    echo "".$row[1]."'>";
+//    echo "".$row[0]."</option>";
+//     }}
+
+?>
+</select> 
 <div class="input-group-prepend">
     <span class="input-group-text" style="margin-left: 2%;">From</span>
   </div><input class="form-control" type="date" name="from" id="today" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required>
@@ -203,9 +245,12 @@
 </div>
 <div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >  
 <div align = "center" >
-<label><b>REPAIR STATUS OF <i>SMT </i></b></label>
- <script  type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<div id="chart_div"  class="table table-sm"></div>  
+<label><b>WORST DEFECT ANALYSIS OF <i>SMT </i></b></label>
+
+ 
+<div id="chart_div"  class="table table-sm"></div>
+
+<script  type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
 
@@ -245,7 +290,6 @@
 
 <!-- FOR TABLE DIV -->
 <div class="table table-lg table-responsive" >
-
 <div id="show" class="table table-lg"></div>
 <script type="text/javascript">
     var frm = $('#contactForm1');
@@ -272,15 +316,7 @@
     });
 </script>
 
-
-
-
-
-
-
-
-
-
+  
 
 
 

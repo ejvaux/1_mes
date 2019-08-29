@@ -169,7 +169,8 @@ else{
 
 
 
- echo "<script>
+ 
+echo "<script>
           var DATE_ = ".json_encode( $date_array)."
     </script>";
  echo "<script>
@@ -184,5 +185,6 @@ else{
 
 
 
-
  ?>
+
+ 
