@@ -6,8 +6,9 @@ $end=date('Y-m-d',strtotime($_POST['from'].'+1 days'));
 $to=date($_POST['to']);
 
 
- echo "  <table class='table table-sm table-responsive' >
-<tr align = 'center' ><td rowspan='9' width = '100px'><h4 style='margin-top:80%; font-size:auto;'>$line</h4><i>(all shift)</i></td> </tr><tr align = 'center'> <th width = '100px'>DATE</th>"; 
+  echo "  <table class='table table-sm table-responsive' >
+<tr align = 'center' > <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>DATE</th><td style='  padding-left: 90px;'></td>";
       for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
 if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ >='$start' AND DATE_ADD(DATE_, INTERVAL 1 DAY) <='$end' and JOB_ORDER_NO like'2%'  ")){
     
@@ -30,7 +31,8 @@ $toend1=date('d',strtotime($_POST['to']));
 $start1=date('Y-m-d',strtotime($_POST['from']));
 $end1=date('Y-m-d',strtotime($_POST['from'].'+1 days' ));
 $tplan=0;  
-  echo "<tr align = 'center'> <th width = '100px'>PROD PLAN</th>";
+  echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>PROD PLAN</th><td style='  padding-left: 90px;'></td>";
     for ($fromstart1; $fromstart1 <=$toend1 ; $fromstart1++) { 
     if($stmt = $conn1->query("SELECT COUNT(DATE_), SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ >='$start1' AND DATE_ADD(DATE_, INTERVAL 1 DAY) <='$end1' and JOB_ORDER_NO like'2%'  ")){
 
@@ -54,7 +56,8 @@ $toend2=date('d',strtotime($_POST['to']));
 $start2=date('Y-m-d H:i:s',strtotime($_POST['from'].' 06:00:00'));
 $end2=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
   $tresult=0;
-         echo "<tr align = 'center'> <th width = '100px'>PROD RESULT</th>";
+           echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>PROD RESULT</th><td style='  padding-left: 90px;'></td>";
       for ($fromstart2; $fromstart2 <=$toend2 ; $fromstart2++) { 
    if($stmt = $conn2->query("SELECT count(id), Month(created_at),day(created_at),time(created_at), created_at FROM pcb WHERE created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2' and jo_number like '2%' 
      and type = '1'  ")){
@@ -84,7 +87,8 @@ $toend7=date('d',strtotime($_POST['to']));
 $start7=date('Y-m-d H:i:s',strtotime($_POST['from'].' 18:00:00'));
 $end7=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
 $tgap=0;$i=0; //------------------------------------ 
-   echo "<tr align = 'center'> <th width = '100px'>GAP</th>";
+   echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>GAP</th><td style='  padding-left: 90px;'></td>";
       for ($fromstart7; $fromstart7 <=$toend7 ; $fromstart7++) { 
   if($stmt = $conn2->query("SELECT  COUNT(RESULT) FROM pcb WHERE created_at>='$start7' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end7' and jo_number 
   like '2%'     and type = '1'  ")){
@@ -118,7 +122,8 @@ $toend3=date('d',strtotime($_POST['to']));
 $start3=date('Y-m-d H:i:s',strtotime($_POST['from'].' 06:00:00'));
 $end3=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
 $trate=0;    $i=0; //------------------------------------ 
-   echo "<tr align = 'center'> <th width = '100px'>ACHIEVE RATE</th>";
+   echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>ACHIEVE RATE</th><td style='  padding-left: 90px;'></td>";
       for ($fromstart3; $fromstart3 <=$toend3 ; $fromstart3++) { 
    if($stmt = $conn2->query("SELECT COUNT(RESULT) FROM pcb WHERE created_at>='$start3' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end3' and jo_number like '2%' 
      and type = '1'  ")){
@@ -160,7 +165,9 @@ $fromstart4=date('d',strtotime($_POST['from']));
 $toend4=date('d',strtotime($_POST['to']));
 $start4=date('Y-m-d H:i:s',strtotime($_POST['from'].' 06:00:00'));
 $end4=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
- $tdef=0;echo "<tr align = 'center'> <th width = '100px'>DEFECT</th>";
+ $tdef=0;
+  echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>DEFECT</th><td style='  padding-left: 90px;'></td>";
    for ($fromstart4; $fromstart4 <=$toend4 ; $fromstart4++) { 
 if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE created_at>='$start4' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end4'   ")){
 
@@ -186,7 +193,8 @@ $toend5=date('d',strtotime($_POST['to']));
 $start5=date('Y-m-d H:i:s',strtotime($_POST['from'].' 06:00:00'));
 $end5=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
 $tinput=0;     
-echo "<tr align = 'center'> <th width = '100px'>INPUT</th>";
+echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>INPUT</th><td style='  padding-left: 90px;'></td>";
  for ($fromstart5; $fromstart5 <=$toend5 ; $fromstart5++) { 
   if($stmt = $conn2->query("SELECT jo_number, COUNT(PROCESS_NAME) FROM pcb 
   WHERE created_at>='$start5' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end5'
@@ -208,7 +216,8 @@ echo "<td><b>". number_format($tinput,0,".",",")."<b></td></tr>";
 
 $yield;
 $tyield=0;
-echo "<tr align = 'center'> <th width = '100px'>YIELD %</th>";
+echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>YIELD</th><td style='  padding-left: 90px;'></td>";
 
 $fromstart6=date('d',strtotime($_POST['from']));
 $toend6=date('d',strtotime($_POST['to']));

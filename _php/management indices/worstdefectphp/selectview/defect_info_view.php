@@ -80,7 +80,7 @@ th,td{
  <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1">           
             <li><a id="tb1" class="nav-link tbl" href="#INJECTION.php" onclick="">INJECTION</a></li>
-              <li><a id="tb2" class="nav-link tbl" href="SMT.php" onclick="" >SMT</a></li>
+              <li><a id="tb2" class="nav-link tbl" href="../../SMT.php" onclick="" >SMT</a></li>
               <li><a id="tb3" class="nav-link tbl" href="#DIP.php" onclick="">DIP</a></li>
               <li><a id="tb4" class="nav-link tbl" href="#DIP TEST.php" onclick="">DIP TEST</a></li>
               <li><a id="tb5" class="nav-link tbl" href="#FATP.php" onclick="">FATP</a></li>
@@ -101,7 +101,7 @@ th,td{
                       <div class="col">
                         <h6 class="text-left">
                         <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
-                        <a style="color: black" class="linkcollapse" href="QUALITY.php" >REPAIR STATUS - SMT</a>                     
+                        <a style="color: black" class="linkcollapse" href="../../QUALITY.php" >REPAIR STATUS - SMT</a>                     
                         </h6>
                       </div>                      
                     </div>
@@ -109,7 +109,7 @@ th,td{
                       <div class="col">
                         <h6 class="text-left">
                         <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
-                        <a style="color: black" class="linkcollapse" href="worstdefectanalysis.php" >WORST DEFECT ANALYSIS - SMT</a>                     
+                        <a style="color: black" class="linkcollapse" href="../../worstdefectanalysis.php" >WORST DEFECT ANALYSIS - SMT</a>                     
                         </h6>
                       </div>                      
                     </div>
@@ -244,13 +244,11 @@ $i='1';
 .tableFix th,
 .tableFix td{
   padding: 8px;
-  text-align: left;
+  text-align: center;
 }
 
 .tableFix thead th {
-  position: sticky;  /* Edge, Chrome, FF */
-  top: 0px;
-  background: #fff;  /* Some background is needed */
+  position: sticky; top: 0px; background: #fff; 
 }
 </style>
 <div class="tableFix">

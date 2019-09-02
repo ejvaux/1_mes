@@ -12,8 +12,8 @@ function getColumn(){
 <script type="text/javascript" >
 
       // Load the Visualization API and the corechart package.
-      google.charts.load('current', {packages: ['corechart', 'bar']});
-      google.charts.setOnLoadCallback(drawChart);
+      google.load('visualization', '1', {'packages':['corechart']});
+       google.setOnLoadCallback(drawChart);
     
       function drawChart() {   
 
@@ -30,9 +30,9 @@ function getColumn(){
   data.addRows(4);
        var options = {
          legend: {position: 'none'},
-          title: 'Production Summary',
+          title: '',
           vAxis: {minValue: 0, maxValue: 9},
-           isStacked: true,
+          
         hAxis: {
               title: '',
               format: 'h:mm a',
@@ -40,13 +40,17 @@ function getColumn(){
                 min: [0, 10, 0],
                 max: [10, 10, 0]
               }},
+                       seriesType:'bars',
+                                      series: {
+    0:{color:'#1e90ff'},
+    1:{color:'#FF6347'}}
         };
 
 
            
             
-        var chart = new google.charts.Bar(document.getElementById('chart_div'));
-        chart.draw(data, options);
+      var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
 
        }
   

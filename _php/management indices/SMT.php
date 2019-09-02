@@ -21,8 +21,9 @@
   </head>
 
     <body>
-<div class="loader">
+ <div class="loader">
     <img src="loading1.gif" alt="Loading..." height="350" style="width: 800px" /></div>
+    
     <script type="text/javascript">
       window.addEventListener("load", function () {
     const loader = document.querySelector(".loader");
@@ -32,7 +33,53 @@
 
 
 
-    <style type="text/css">
+     <style type="text/css">
+      .wait {
+        margin-top: -4%; margin-left: -16%;
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 180%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.wait.hidden {
+    animation: fadeOut 1s;
+    animation-fill-mode: forwards;
+}
+      .loader {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       .loader {
     position: fixed;
     z-index: 99;
@@ -151,7 +198,7 @@
             ?>
             <!-- ICONS ON LEFT END -->
 
-          </div>  
+          </div> 
         </nav>
       </div>
 
@@ -164,7 +211,8 @@
 <div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >
 
       <div class="row text-left">
- <form id="contactForm1" method="POST" action="SMTajax.php" style="margin-left: 14%;margin-right: 14%; display: inline-flex;" >
+ <form id="contactForm1" method="POST" action="SMTajax.php" style="margin-left: 14%;margin-right: 14%; position: fixed;
+    display: flex;" >
 
 <div class="input-group mb-3">
   <div class="input-group-prepend">
@@ -177,7 +225,7 @@
 
 
   </select>
-  <div class="input-group-append">
+  <div class="input-group-append" style="">
     <span class="input-group-text" style="margin-left: 0.2%; "> PROD.LINE</span>
     <select name="Linename" class="form-control" aria-describedby="basic-addon1" style="font-size: 12px; width: 100px;" selected='overall' required>
 <option value="OVERALL">OVERALL</option>
@@ -204,8 +252,8 @@
 <div class="input-group-prepend">
     <span class="input-group-text">To:</span>
   </div><input class="form-control" type="date" name="to" id="today2" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required>
- <input class="btn btn-outline-primary" type="submit" value="DAILY" name="daily" width="15px" 
- style=" width:100px; ">
+<button type="submit" name="daily"  class="btn btn-outline-secondary btn-ladda" data-style="expand-left"> 
+    <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;width: 155px " /> Show Result</button>
 
 
  
@@ -221,7 +269,7 @@
    
       </div>
     </div>
-<div align = "center" >
+<div align = "center" style="margin-top: 5%;" >
 <label><b>PRODUCTION SUMMARY OF <i>SMT </i></b></label>
 
 
@@ -243,7 +291,7 @@
 
 
 <!-- FOR TABLE DIV -->
-<div class="table table-lg table-responsive" >
+<div class="table table-lg table-responsive " >
 <div id="show" class="table table-lg"></div>
 <script type="text/javascript">
 
@@ -257,23 +305,30 @@
     frm.submit(function (e) {
 
         e.preventDefault();
-
+$('.wait').show();
         $.ajax({
             type: frm.attr('method'),
+            
             url: frm.attr('action'),
             data: frm.serialize(),
+              
             success: function (data) {
+               $('.wait').hide();
                 console.log('Submission was successful.');
                 console.log(data);
                           $("#show").html(data);
             },
             error: function (data) {
+                                      $('.wait').hide();      
                 console.log('An error occurred.');
                 console.log(data);
                  $("#show").html(data);
             },
+            
+               
+  });
         });
-    });
+
 
 
 

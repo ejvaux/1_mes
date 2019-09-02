@@ -3,7 +3,7 @@
 $date_array=array();
 
 echo "  <table class='table table-sm table-responsive' >
-<tr align = 'center' ><td rowspan='7' width = '100px'><h4 style='margin-top:45%; font-size:auto;'>OVERALL</h4><i>(all shift)</i></td> </tr><tr align = 'center'> <th width = '100px'>WORST RANKING</th>";
+<tr align = 'center'> <th width = '100px'>WORST RANKING</th>";
 
 
 
@@ -264,6 +264,84 @@ $rate3=$rate2;
 }
 
 
+
+
+
+
+
+ $accu_rate=0;
+echo "  
+ </tr><tr align = 'center'> <th width = '100px'>ACCUMULATIVE RATE</th>";
+
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'       group by defect_id ORDER BY COUNT(defect_id) DESC LIMIT 0,9 " )){
+
+while ($def = $stmt->fetch_row()){
+  if ($tdqtywithother<='0') {
+    echo "<td> N/A </td>";
+  }
+  else
+  {
+$accumulated_rate=$def[0]/$tdqtywithother*100;
+ 
+ $accu_rate+=$accumulated_rate;
+ $accumulated_rate_array[]=$accu_rate;
+ echo "<td>".number_format($accu_rate,2,'.',',')."%</td>";
+
+  }
+
+ // $accumulated_rate_array[]=$def[0];
+}}
+
+
+
+
+
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'    group by defect_id  ORDER BY COUNT(defect_id) DESC " )){
+
+while ($def = $stmt->fetch_row()){
+
+
+}}
+if ($tdqtywithother==='0') {
+  echo '<td><i>0</i></td>';
+
+}
+else{
+ $tdqtywithotherresult= $tdqtywithother-$tdqty;
+
+$tdqty+=$tdqtywithotherresult;
+$accumulated_rate_others=$tdqtywithotherresult/$tdqtywithother*100;
+
+ $accu_rate+=number_format($accumulated_rate_others,2,'.',',');
+$accumulated_rate_array[]+=$accu_rate;
+ echo "<td><i>".number_format($accu_rate,2,'.',',')."%</i></td>";
+
+
+$tdqty_accumulated_rate=$tdqtywithother/$tdqtywithother*100;
+ echo "<td>-</td>";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
 echo "<script>
           var DEFECTNAME = ".json_encode($defectname_array)."
@@ -271,6 +349,10 @@ echo "<script>
     
     echo "<script>
     var DEFECTQTY = ".json_encode($defectqty_array)."
+    </script>";
+
+        echo "<script>
+    var ACCUMULATIVE = ".json_encode($accumulated_rate_array)."
     </script>";
     
     getColumn();

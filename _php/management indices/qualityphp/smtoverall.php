@@ -25,8 +25,9 @@ $end5=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
 
 
 
-echo "  <table class='table table-sm table-responsive' >
-<tr align = 'center' ><td rowspan='7' width = '100px'><h4 style='margin-top:45%; font-size:auto;'>$line</h4><i>(all shift)</i></td> </tr><tr align = 'center'> <th width = '100px'>DATE</th>";
+ echo "  <table class='table table-sm table-responsive' >
+<tr align = 'center' > <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>DATE</th><td style='  margin-left: 90px;'></td>"; 
 
 if($stmt = $conn2->query("SELECT created_at  FROM defect_mats WHERE date(created_at) BETWEEN '$from' AND '$to' GROUP BY date(created_at) ")){
 
@@ -46,8 +47,8 @@ $end4=date('Y-m-d H:i:s',strtotime("$end4 +1 days"));
 
 
 
-
-echo "  <tr align = 'center'> <th width = '100px'>REPAIR PLAN</th>";
+echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>REPAIR PLAN</th><td style='  padding-left: 90px;'></td>";
 $repairplan=200;
 $trp=0; $i=1;
 if($stmt = $conn2->query("SELECT created_at  FROM defect_mats WHERE date(created_at) BETWEEN '$from' AND '$to' GROUP BY date(created_at) ")){
@@ -89,8 +90,11 @@ $i++;
 
 
 
+ echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>DEFECT QTY</th><td style='  padding-left: 90px;'></td>";
 
- $tdef=0;echo "<tr align = 'center'> <th width = '100px'>DEFECT QTY</th>";
+
+ $tdef=0;
    for ($fromstart2; $fromstart2 <=$toend2 ; $fromstart2++) { 
 if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2'  ")){
 
@@ -105,8 +109,10 @@ $defect_array[]=$def[0];
 
 
 
+ echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>REPAIRED</th><td style='  padding-left: 90px;'></td>";
 
- $trep=0;echo "<tr align = 'center'> <th width = '100px'>REPAIRED</th>";
+ $trep=0;
    for ($fromstart1; $fromstart1 <=$toend1 ; $fromstart1++) { 
 if($stmt = $conn2->query("SELECT date(created_at),COUNT(repaired_at) FROM defect_mats WHERE created_at>='$start1' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end1' and repair='1'  ")){
 
@@ -122,8 +128,9 @@ $end1=date('Y-m-d H:i:s',strtotime("$end1 +1 days"));
   echo "<td><b>".number_format( $trep,0,'.',',')."<b></td></tr>";
 
 
-
- $tunrep=0;echo "<tr align = 'center'> <th width = '100px'>UNREPAIRED</th>";
+echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>UNREPAIRED</th><td style='  padding-left: 90px;'></td>";
+ $tunrep=0;
    for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
 if($stmt = $conn2->query("SELECT COUNT(repair), updated_at FROM defect_mats WHERE created_at>='$start' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end' and repair='0'  ")){
 
@@ -143,7 +150,12 @@ $start3=date('Y-m-d H:i:s',strtotime($_POST['from'].' 06:00:00'));
 $end3=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
 
  
- $tdef=0;echo "<tr align = 'center'> <th width = '100px'>REPAIR RATE %</th>";
+
+
+
+  echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff;'>REPAIR RATE %</th><td style='  padding-left: 90px;'></td>";
+ $tdef=0;
 
 
 

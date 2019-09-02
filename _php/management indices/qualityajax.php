@@ -10,8 +10,8 @@ function getColumn(){
 <script type="text/javascript" >
 
       // Load the Visualization API and the corechart package.
-      google.charts.load('current', {packages: ['corechart', 'bar']});
-      google.charts.setOnLoadCallback(drawChart);
+      google.load('visualization', '1', {'packages':['corechart']});
+       google.setOnLoadCallback(drawChart);
     
       function drawChart() {   
 
@@ -28,9 +28,9 @@ function getColumn(){
   data.addRows(6);
        var options = {
          legend: {position: 'none'},
-          title: 'Repair Status',
+
           vAxis: {minValue: 0, maxValue: 9},
-           stacked: true,
+           
         hAxis: {
               title: '',
               format: 'h:mm a',
@@ -38,6 +38,8 @@ function getColumn(){
                 min: [0, 30, 0],
                 max: [10, 30, 0]
               }},
+         seriesType:'bars',
+isStacked: true,
                series: {
     0:{color:'#1e90ff'},
     1:{color:'#FF6347'}}
@@ -46,8 +48,8 @@ function getColumn(){
 
            
             
-        var chart = new google.charts.Bar(document.getElementById('chart_div'));
-        chart.draw(data, options);
+      var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
 
        }
   

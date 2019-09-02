@@ -21,9 +21,39 @@
   </head>
 
     <body>
-      <div class="loader">
-  <img src="loading1.gif" alt="Loading..." height="350" style="width: 800px" /></div>
+ <div class="loader">
+    <img src="loading1.gif" alt="Loading..." height="350" style="width: 800px" /></div>
+    
+    <script type="text/javascript">
+      window.addEventListener("load", function () {
+    const loader = document.querySelector(".loader");
+    loader.className += " hidden"; // class "loader hidden"
+});
+    </script>
+
+
+
     <style type="text/css">
+      .wait {
+        margin-top: -4%; margin-left: -20%;
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 180%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.wait.hidden {
+    animation: fadeOut 1s;
+    animation-fill-mode: forwards;
+}
       .loader {
     position: fixed;
     z-index: 99;
@@ -144,7 +174,8 @@
   <div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >
 
       <div class="row text-left" >
- <form method="POST" id="contactForm1" action="qualityajax.php" style="margin-left: 14%;margin-right: 14%; display: inline-flex;" >
+ <form method="POST" id="contactForm1" action="qualityajax.php" style="margin-left: 14%;margin-right: 14%; position: fixed;
+    display: flex;" >
 
 <!--<div class="input-group-append">
   <div class="input-group-prepend">
@@ -188,8 +219,8 @@
 <div class="input-group-prepend">
     <span class="input-group-text">To</span>
   </div><input class="form-control" type="date" name="to" id="today2" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required>
- <input class="btn btn-outline-secondary" type="submit" value="DAILY" name="daily" width="15px" style=" width:100px; border-bottom-right-radius: 7%;border-top-right-radius: 7%;  ">
-
+<button type="submit" name="daily"  class="btn btn-outline-secondary btn-ladda" data-style="expand-left"> 
+    <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;width: 155px " /> Show Result</button>
 
 <!--<div class="input-group-prepend">
     <span class="input-group-text" style="margin-left: 2%;">From:</span>
@@ -202,7 +233,7 @@
 
 </div>
 <div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >  
-<div align = "center" >
+<div align = "center" style="margin-top: 2%;" >
 <label><b>REPAIR STATUS OF <i>SMT </i></b></label>
  <script  type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <div id="chart_div"  class="table table-sm"></div>  
@@ -253,17 +284,19 @@
     frm.submit(function (e) {
 
         e.preventDefault();
-
+$('.wait').show();
         $.ajax({
             type: frm.attr('method'),
             url: frm.attr('action'),
             data: frm.serialize(),
             success: function (data) {
+              $('.wait').hide();
                 console.log('Submission was successful.');
                 console.log(data);
                           $("#show").html(data);
             },
             error: function (data) {
+                            $('.wait').hide();
                 console.log('An error occurred.');
                 console.log(data);
                  $("#show").html(data);

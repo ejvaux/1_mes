@@ -9,8 +9,8 @@ function getColumn(){
 <script type="text/javascript" >
 
       // Load the Visualization API and the corechart package.
-      google.charts.load('current', {packages: ['corechart', 'bar']});
-      google.charts.setOnLoadCallback(drawChart);
+      google.load('visualization', '1', {'packages':['corechart']});
+       google.setOnLoadCallback(drawChart);
     
       function drawChart() {   
 
@@ -19,35 +19,31 @@ function getColumn(){
       
         data.addColumn('string', '');
         data.addColumn('number', 'DEFECT QTY');
-
+        data.addColumn('number', 'ACCUMULATIVE RATE %');
         for(i = 0; i < DEFECTNAME.length; i++)
 
-    data.addRow([DEFECTNAME[i], parseInt(DEFECTQTY[i]) ]);
-  data.addRows(6);
-       var options = {
-         legend: {position: 'none'},
-          title: 'Repair Status',
-          vAxis: {minValue: 0, maxValue: 9},
-           stacked: true,
-        hAxis: {
-              title: '',
-              format: 'h:mm a',
-              viewWindow: {
-                min: [0, 30, 0],
-                max: [10, 30, 0]
-              }},
-               series: {
-    0:{color:'#1e90ff'},
-    1:{color:'#FF6347'}}
+    data.addRow([DEFECTNAME[i], parseInt(DEFECTQTY[i]),parseFloat(ACCUMULATIVE[i].toFixed(2)) ]);
+  data.addRows(2);
+  var options = {
+    vAxes: [{ 0: {format: '#,###'}, 1: {format: '#%'} }],
+        title: '',
+        seriesType:'bars',
+                       series: {
+    0:{color:'#1e90ff',targetAxisIndex: 0,},
+    1:{type: 'line',targetAxisIndex: 1,}}
+//        width: 800,
+//        height: 600
         };
+      // Instantiate and draw our chart, passing in some options.
+      // Do not forget to check your div ID
+      var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
 
 
            
             
-        var chart = new google.charts.Bar(document.getElementById('chart_div'));
-        chart.draw(data, options);
-
-       }
+       
   
 //=================================chart and table on another page======================
 
@@ -98,7 +94,7 @@ include('conn2.php');
 //      $shift=$_POST['shift'];
 $defectqty_array=array();
 $defectname_array=array();
-
+$accumulated_rate_array=array();
 $result_array=array();
 $shift='all';
 
