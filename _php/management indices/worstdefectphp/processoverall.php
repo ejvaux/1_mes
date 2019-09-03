@@ -1,8 +1,29 @@
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+            </div>
+            <div class="modal-body">
+
+             
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div> 
+</div>
+
+
+
 <?php
 
 $date_array=array();
 
-echo "  <table class='table table-sm table-responsive' >
+echo "  <table class='table table-sm' >
 <tr align = 'center'> <th width = '100px'>WORST RANKING</th>";
 
 
@@ -16,12 +37,59 @@ echo "  <table class='table table-sm table-responsive' >
 
 
 $i=1;
-if($stmt = $conn2->query("SELECT masterdatabase.dmc_defect_code.DEFECT_NAME FROM masterdatabase.dmc_defect_code JOIN 1_smt.defect_mats ON  masterdatabase.dmc_defect_code.DEFECT_ID=1_smt.defect_mats.defect_id WHERE 1_smt.defect_mats.created_at BETWEEN'$from' AND '$to'     group by 1_smt.defect_mats.defect_id ORDER BY COUNT(1_smt.defect_mats.process_id) DESC LIMIT 0,9 " )){
+if($stmt = $conn2->query("SELECT masterdatabase.dmc_defect_code.DEFECT_NAME, masterdatabase.dmc_defect_code.DEFECT_ID, count(1_smt.defect_mats.process_id) FROM masterdatabase.dmc_defect_code JOIN 1_smt.defect_mats ON  masterdatabase.dmc_defect_code.DEFECT_ID=1_smt.defect_mats.defect_id WHERE 1_smt.defect_mats.created_at BETWEEN '$from' AND '$to' AND 1_smt.defect_mats.division_id='2'    group by 1_smt.defect_mats.defect_id ORDER BY COUNT(1_smt.defect_mats.process_id) DESC LIMIT 0,9 " )){
 
-while ($def_id = $stmt->fetch_row()){
+while ($worstranking = $stmt->fetch_row()){
 
- echo "<td><medium><i>#". $i."</i></medium></td>";
-$defectname_array[]=$def_id['0'];
+?>
+
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('.<?php echo $i; ?>').on('submit', function(e){
+                    //Stop the form from submitting itself to the server.
+                    e.preventDefault();
+                     $('.modal-body').html('loading');
+                     
+                //    var name = $('#name').val();
+                 //   var id = $('#id').val();
+                //    var from = $('#from').val();
+                //    var to = $('#to').val();
+               //     var line_id = $('#line_id').val();
+               //     var process_id = $('#process_id').val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: './worstdefectphp/selectview/defect_info_view_processoverall.php',
+                        data :     $('.<?php echo $i; ?>').serialize(),
+                        success: function(data){
+                             $('.modal-body').html(data);
+                        }
+                    });
+                });
+            });
+        </script>
+
+ 
+
+
+
+
+<?php
+  echo '<i><td>        <form class="'.$i.'">
+  <input type="hidden" id="name" name="name" value="'.$worstranking[0].'">
+    <input type="hidden" id="id" name="id" value="'.$worstranking[1].'">
+    <input type="hidden" id="from" name="from" value="'.$f.'">
+      <input type="hidden" id="to" name="to" value="'.$t.'">
+                    <input type="hidden" id="process_id" name="process_id" value="'.$process_id.'">
+ <button data-toggle="modal" data-target="#myModal"  type="submit" style="hidden-decoration:none; color:blue; border:none; background:none; font-size:18px;">#'.$i.'</button>
+</form></td></i>
+';
+
+
+
+$defectname_array[]=$worstranking['0'];
 $i++;
 }}
 // echo "<td>OTHERS</td>";
@@ -58,7 +126,7 @@ $defectname_array[]=$others;
 echo "  
  </tr><tr align = 'center'> <th width = '100px'>DEFECT QTY</th>";
 $tdqty='0';
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'       group by defect_id ORDER BY COUNT(defect_id) DESC LIMIT 0,9 " )){
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'   AND division_id='2'     group by defect_id ORDER BY COUNT(defect_id) DESC LIMIT 0,9 " )){
 
 while ($def = $stmt->fetch_row()){
 
@@ -71,7 +139,7 @@ while ($def = $stmt->fetch_row()){
 
 
 $tdqtywithother='0';
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'    group by defect_id  ORDER BY COUNT(defect_id) DESC " )){
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to' AND division_id='2'    group by defect_id  ORDER BY COUNT(defect_id) DESC " )){
 
 while ($def = $stmt->fetch_row()){
   $tdqtywithother+=$def[0];
@@ -112,7 +180,7 @@ while ($def = $stmt->fetch_row()){
 echo "  
  </tr><tr align = 'center'> <th width = '100px'>DEFECT RATE</th>";
 $tdqty='0';
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'     group by defect_id  ORDER BY COUNT(defect_id) DESC LIMIT 0,9" )){
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'  AND division_id='2'   group by defect_id  ORDER BY COUNT(defect_id) DESC LIMIT 0,9" )){
 
 while ($def = $stmt->fetch_row()){
 
@@ -191,7 +259,7 @@ $rate3=$rate2;
 echo "  
  </tr><tr align = 'center'> <th width = '100px'>DPM</th>";
 $tdqty='0';
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'     group by defect_id  ORDER BY COUNT(defect_id) DESC LIMIT 0,9" )){
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to' AND division_id='2'    group by defect_id  ORDER BY COUNT(defect_id) DESC LIMIT 0,9" )){
 
 while ($def = $stmt->fetch_row()){
   //$def[0]<=is_bool('0')||
@@ -273,7 +341,7 @@ $rate3=$rate2;
 echo "  
  </tr><tr align = 'center'> <th width = '100px'>ACCUMULATIVE RATE</th>";
 
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'       group by defect_id ORDER BY COUNT(defect_id) DESC LIMIT 0,9 " )){
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'   AND division_id='2'    group by defect_id ORDER BY COUNT(defect_id) DESC LIMIT 0,9 " )){
 
 while ($def = $stmt->fetch_row()){
   if ($tdqtywithother<='0') {
@@ -294,14 +362,6 @@ $accumulated_rate=$def[0]/$tdqtywithother*100;
 
 
 
-
-
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'    group by defect_id  ORDER BY COUNT(defect_id) DESC " )){
-
-while ($def = $stmt->fetch_row()){
-
-
-}}
 if ($tdqtywithother==='0') {
   echo '<td><i>0</i></td>';
 

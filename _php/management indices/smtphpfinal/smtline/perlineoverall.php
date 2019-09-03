@@ -170,7 +170,7 @@ $end4=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
   echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DEFECT</th><td style='  padding-left: 90px;'></td>";
    for ($fromstart4; $fromstart4 <=$toend4 ; $fromstart4++) { 
-if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE created_at>='$start4' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end4' and line_id='$line_id'  ")){
+if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE division_id='2' AND created_at>='$start4' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end4' and line_id='$line_id'  ")){
 
 while ($def = $stmt->fetch_row()){
     $defect_array[]=$def[0];

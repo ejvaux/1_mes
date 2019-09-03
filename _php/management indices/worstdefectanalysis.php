@@ -245,7 +245,7 @@ font-size: 17px;
 <option value="FVI2">FVI2</option>
 <option value="VI AFTER REFLOW">VI AFTER REFLOW</option>
 <option value="VI BEFORE REFLOW">VI BEFORE REFLOW</option>
-<option value="FVI2">FVI2</option>
+
  <!-- 
 5=AOI
 6=FUNCTION TEST
@@ -337,7 +337,7 @@ font-size: 17px;
 
 
 <!-- FOR TABLE DIV -->
-<div class="table table-lg table-responsive" >
+<div class="table table-lg" >
 <div id="show" class="table table-lg"></div>
 <script type="text/javascript">
     var frm = $('#contactForm1');

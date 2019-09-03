@@ -25,6 +25,12 @@ function getColumn(){
     data.addRow([DEFECTNAME[i], parseInt(DEFECTQTY[i]),parseFloat(ACCUMULATIVE[i].toFixed(2)) ]);
   data.addRows(2);
   var options = {
+    hAxis : { 
+        textStyle : {
+            fontSize: 9 // or the number you want
+        }
+
+    },
     vAxes: [{ 0: {format: '#,###'}, 1: {format: '#%'} }],
         title: '',
         seriesType:'bars',
