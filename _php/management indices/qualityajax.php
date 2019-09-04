@@ -28,10 +28,15 @@ function getColumn(){
   data.addRows(6);
        var options = {
          legend: {position: 'none'},
-
           vAxis: {minValue: 0, maxValue: 9},
            
-        hAxis: {
+      height: 340,  //theme: 'maximized',
+    hAxis : { 
+        textStyle : {
+            fontSize: 9 , bold: true, // or the number you want
+        },
+
+
               title: '',
               format: 'h:mm a',
               viewWindow: {

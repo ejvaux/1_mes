@@ -34,6 +34,9 @@ function getColumn(){
           vAxis: {minValue: 0, maxValue: 9},
           
         hAxis: {
+                    textStyle : {
+            fontSize:9 // or the number you want
+        },
               title: '',
               format: 'h:mm a',
               viewWindow: {

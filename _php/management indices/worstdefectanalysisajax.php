@@ -25,13 +25,14 @@ function getColumn(){
     data.addRow([DEFECTNAME[i], parseInt(DEFECTQTY[i]),parseFloat(ACCUMULATIVE[i].toFixed(2)) ]);
   data.addRows(2);
   var options = {
+     height: 340,  //theme: 'maximized',
     hAxis : { 
         textStyle : {
-            fontSize: 9 // or the number you want
+            fontSize: 8 , bold: true, // or the number you want
         }
 
     },
-    vAxes: [{ 0: {format: '#,###'}, 1: {format: '#%'} }],
+    vAxes: [{ 0: {format: '#,###'}, 1: {format: '#%'}  }],
         title: '',
         seriesType:'bars',
                        series: {
@@ -100,6 +101,7 @@ include('conn2.php');
 //      $shift=$_POST['shift'];
 $defectqty_array=array();
 $defectname_array=array();
+$defectid_array=array();
 $accumulated_rate_array=array();
 $result_array=array();
 $shift='all';

@@ -40,7 +40,7 @@ $start4=date('Y-m-d H:i:s',strtotime("$start4 +1 days"));
 $end4=date('Y-m-d H:i:s',strtotime("$end4 +1 days"));
 
 }}}
-     echo "<td width='100px'><b>TOTAL<b></td></tr>";
+     echo "<td width='100px' ><b>TOTAL<b></td></tr>";
 
 
 
