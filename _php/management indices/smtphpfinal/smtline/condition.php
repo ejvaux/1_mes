@@ -187,7 +187,7 @@ include("perlineday.php");
 if($line==='SMTL5' && $shift==='1')
 {
 $line_id='5';
-$line='SMTL5';$shift='1';
+$line='SMTL5'; $shift='1';
 
 include("perlineday.php");
 
@@ -196,7 +196,7 @@ include("perlineday.php");
 if($line==='SMTL6' && $shift==='1')
 {
 $line_id='6';
-$line='SMTL6';$shift='1';
+$line='SMTL6'; $shift='1';
 
 include("perlineday.php");
 

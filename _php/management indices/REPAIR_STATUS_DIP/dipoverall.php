@@ -3,7 +3,6 @@ $fromstart2=date('d',strtotime($_POST['from']));
 $toend2=date('d',strtotime($_POST['to']));
 $start2=date('Y-m-d H:i:s',strtotime($_POST['from'].' 06:00:00'));
 $end2=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
-
 $fromstart1=date('d',strtotime($_POST['from']));
 $toend1=date('d',strtotime($_POST['to']));
 $start1=date('Y-m-d H:i:s',strtotime($_POST['from'].' 06:00:00'));
@@ -25,7 +24,6 @@ $start5=date('Y-m-d H:i:s',strtotime($_POST['from'].' 06:00:00'));
 $end5=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
 
 
-$date_array=array();
 
  echo "  <table class='table table-sm table-responsive' >
 <tr align = 'center' > <th width = '100px' style='position: absolute;
@@ -42,20 +40,15 @@ $start4=date('Y-m-d H:i:s',strtotime("$start4 +1 days"));
 $end4=date('Y-m-d H:i:s',strtotime("$end4 +1 days"));
 
 }}}
-     echo "<td width='100px'><b>TOTAL<b></td></tr>";
+     echo "<td width='100px' ><b>TOTAL<b></td></tr>";
 
 
 
 
 
 
-
-
-
-
- echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>REPAIR PLAN</th><td style='  padding-left: 90px;'></td>";
-//echo "  <tr align = 'center'> <th width = '100px'>REPAIR PLAN</th>";
 $repairplan=200;
 $trp=0; $i=1;
 if($stmt = $conn2->query("SELECT created_at  FROM defect_mats WHERE date(created_at) BETWEEN '$from' AND '$to' GROUP BY date(created_at) ")){
@@ -70,7 +63,18 @@ $start5=date('Y-m-d H:i:s',strtotime("$start5 +1 days"));
 $end5=date('Y-m-d H:i:s',strtotime("$end5 +1 days"));
 $i++;
 }}}
-     echo "<td width='100px'><b> $trp<b></td></tr>";
+     echo "<td width='100px'><b>".number_format($trp,0,'.',',')."<b></td></tr>";
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -89,9 +93,10 @@ $i++;
  echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DEFECT QTY</th><td style='  padding-left: 90px;'></td>";
 
- $tdef=0;//echo "<tr align = 'center'> <th width = '100px'>DEFECT QTY</th>";
+
+ $tdef=0;
    for ($fromstart2; $fromstart2 <=$toend2 ; $fromstart2++) { 
-if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE division_id='2' AND created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2' and line_id='$line_id'  ")){
+if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE division_id='18' AND created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2'  ")){
 
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[0],0,'.',',')."</td>";
@@ -107,9 +112,9 @@ $defect_array[]=$def[0];
  echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>REPAIRED</th><td style='  padding-left: 90px;'></td>";
 
- $trep=0;//echo "<tr align = 'center'> <th width = '100px'>REPAIRED</th>";
+ $trep=0;
    for ($fromstart1; $fromstart1 <=$toend1 ; $fromstart1++) { 
-if($stmt = $conn2->query("SELECT date(created_at),COUNT(repaired_at) FROM defect_mats WHERE division_id='2' AND created_at>='$start1' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end1' and repair='1' and line_id='$line_id'  ")){
+if($stmt = $conn2->query("SELECT date(created_at),COUNT(repaired_at) FROM defect_mats WHERE division_id='18' AND created_at>='$start1' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end1' and repair='1'  ")){
 
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[1],0,'.',',')."</td>";
@@ -123,12 +128,11 @@ $end1=date('Y-m-d H:i:s',strtotime("$end1 +1 days"));
   echo "<td><b>".number_format( $trep,0,'.',',')."<b></td></tr>";
 
 
- echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
+echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>UNREPAIRED</th><td style='  padding-left: 90px;'></td>";
-
- $tunrep=0;//echo "<tr align = 'center'> <th width = '100px'>UNREPAIRED</th>";
+ $tunrep=0;
    for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
-if($stmt = $conn2->query("SELECT COUNT(repair), updated_at FROM defect_mats WHERE division_id='2' AND created_at>='$start' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end' and repair='0' and line_id='$line_id'  ")){
+if($stmt = $conn2->query("SELECT COUNT(repair), updated_at FROM defect_mats WHERE division_id='18' AND created_at>='$start' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end' and repair='0'  ")){
 
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[0],0,'.',',')."</td>";
@@ -145,14 +149,19 @@ $toend3=date('d',strtotime($_POST['to']));
 $start3=date('Y-m-d H:i:s',strtotime($_POST['from'].' 06:00:00'));
 $end3=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
 
+ 
+
+
+
   echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>REPAIR RATE %</th><td style='  padding-left: 90px;'></td>";
+ $tdef=0;
 
- $tdef=0;//echo "<tr align = 'center'> <th width = '100px'>REPAIR RATE %</th>";
+
 
  $i=0;
    for ($fromstart3; $fromstart3 <=$toend3 ; $fromstart3++) { 
-if($stmt = $conn2->query("SELECT COUNT(created_at),count(repair) updated_at FROM defect_mats WHERE division_id='2' AND created_at>='$start3' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end3' and line_id='$line_id'   ")){
+if($stmt = $conn2->query("SELECT COUNT(created_at),count(repair) updated_at FROM defect_mats WHERE division_id='18' AND created_at>='$start3' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end3'   ")){
 
 while ($def = $stmt->fetch_row()){
 if ($def[0]==='0') {
@@ -160,7 +169,7 @@ if ($def[0]==='0') {
 }
 else{
  // $rate=$repair_array[$i]/$def[0]*100;
-  $rate=$repair_array[$i]/$defect_array[$i]*100;
+  $rate=$repair_array[$i]/200*100;
  echo "<td>".number_format($rate,2,'.',',')."%</td>";
   $tdef+=$def[0];
  }
@@ -175,18 +184,16 @@ if ($trep===0 || $tdef===0) {
 }
 else{
  //$trate=$trep/$tdef*100; 
-  $trate=$trep/$tdef*100;
+  $trate=$trep/$trp*100;
   echo "<td><b>".number_format($trate,2,'.',',')."%<b></td></tr>";
 }
 
 
-
- 
-echo "<script>
-          var DATE_ = ".json_encode( $date_array)."
+ echo "<script>
+          var DATE_ = ".json_encode($date_array)."
     </script>";
  echo "<script>
-          var REPAIRED = ".json_encode( $repaired_array)."
+          var REPAIRED = ".json_encode($repaired_array)."
     </script>";
     
     echo "<script>
@@ -194,9 +201,6 @@ echo "<script>
     </script>";
     
     getColumn();
-
-
-
  ?>
 
- 
+

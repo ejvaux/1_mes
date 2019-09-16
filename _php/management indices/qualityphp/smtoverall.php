@@ -49,7 +49,7 @@ $end4=date('Y-m-d H:i:s',strtotime("$end4 +1 days"));
 
 echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>REPAIR PLAN</th><td style='  padding-left: 90px;'></td>";
-$repairplan=200;
+$repairplan=1200;
 $trp=0; $i=1;
 if($stmt = $conn2->query("SELECT created_at  FROM defect_mats WHERE date(created_at) BETWEEN '$from' AND '$to' GROUP BY date(created_at) ")){
 
@@ -169,7 +169,7 @@ if ($def[0]==='0') {
 }
 else{
  // $rate=$repair_array[$i]/$def[0]*100;
-  $rate=$repair_array[$i]/200*100;
+  $rate=$repair_array[$i]/$defect_array[$i]*100;
  echo "<td>".number_format($rate,2,'.',',')."%</td>";
   $tdef+=$def[0];
  }
@@ -184,7 +184,7 @@ if ($trep===0 || $tdef===0) {
 }
 else{
  //$trate=$trep/$tdef*100; 
-  $trate=$trep/$trp*100;
+  $trate=$trep/$tdef*100;
   echo "<td><b>".number_format($trate,2,'.',',')."%<b></td></tr>";
 }
 

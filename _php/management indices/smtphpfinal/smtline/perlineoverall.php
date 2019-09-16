@@ -4,10 +4,10 @@ $toend=date('d',strtotime($_POST['to']));
 $start=date('Y-m-d',strtotime($_POST['from']));
 $end=date('Y-m-d',strtotime($_POST['from'].'+1 days'));
 $to=date($_POST['to']);
-
-
-  echo "  <table class='table table-sm table-responsive' >
-<tr align = 'center' > <th width = '100px' style='position: absolute;
+$Linename=$_POST['Linename'];
+    
+  echo "<table class='table table-sm table-responsive' >
+<tr align = 'center' ><strong> $Linename </strong><th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DATE</th><td style='  padding-left: 90px;'></td>"; 
       for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
 if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ >='$start' AND DATE_ADD(DATE_, INTERVAL 1 DAY) <='$end' and JOB_ORDER_NO like'2%' and MACHINE_CODE='$line'  ")){
@@ -131,7 +131,7 @@ $trate=0;    $i=0; //------------------------------------
 
 
   while ($rate = $stmt->fetch_row()){
-if ($job_array[$i]<='0'||$rate[0]==='0'||$result_array[$i]==='0') {
+if ($job_array[$i]<='0'||$result_array[$i]<='0') {
   echo "<td>N/A</td>";
 }
 

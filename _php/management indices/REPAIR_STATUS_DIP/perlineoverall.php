@@ -91,7 +91,7 @@ $i++;
 
  $tdef=0;//echo "<tr align = 'center'> <th width = '100px'>DEFECT QTY</th>";
    for ($fromstart2; $fromstart2 <=$toend2 ; $fromstart2++) { 
-if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE division_id='2' AND created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2' and line_id='$line_id'  ")){
+if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE division_id='18' AND created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2' and line_id='$line_id'  ")){
 
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[0],0,'.',',')."</td>";
@@ -109,7 +109,7 @@ $defect_array[]=$def[0];
 
  $trep=0;//echo "<tr align = 'center'> <th width = '100px'>REPAIRED</th>";
    for ($fromstart1; $fromstart1 <=$toend1 ; $fromstart1++) { 
-if($stmt = $conn2->query("SELECT date(created_at),COUNT(repaired_at) FROM defect_mats WHERE division_id='2' AND created_at>='$start1' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end1' and repair='1' and line_id='$line_id'  ")){
+if($stmt = $conn2->query("SELECT date(created_at),COUNT(repaired_at) FROM defect_mats WHERE division_id='18' AND created_at>='$start1' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end1' and repair='1' and line_id='$line_id'  ")){
 
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[1],0,'.',',')."</td>";
@@ -128,7 +128,7 @@ $end1=date('Y-m-d H:i:s',strtotime("$end1 +1 days"));
 
  $tunrep=0;//echo "<tr align = 'center'> <th width = '100px'>UNREPAIRED</th>";
    for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
-if($stmt = $conn2->query("SELECT COUNT(repair), updated_at FROM defect_mats WHERE division_id='2' AND created_at>='$start' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end' and repair='0' and line_id='$line_id'  ")){
+if($stmt = $conn2->query("SELECT COUNT(repair), updated_at FROM defect_mats WHERE division_id='18' AND created_at>='$start' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end' and repair='0' and line_id='$line_id'  ")){
 
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[0],0,'.',',')."</td>";
@@ -152,7 +152,7 @@ $end3=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
 
  $i=0;
    for ($fromstart3; $fromstart3 <=$toend3 ; $fromstart3++) { 
-if($stmt = $conn2->query("SELECT COUNT(created_at),count(repair) updated_at FROM defect_mats WHERE division_id='2' AND created_at>='$start3' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end3' and line_id='$line_id'   ")){
+if($stmt = $conn2->query("SELECT COUNT(created_at),count(repair) updated_at FROM defect_mats WHERE division_id='18' AND created_at>='$start3' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end3' and line_id='$line_id'   ")){
 
 while ($def = $stmt->fetch_row()){
 if ($def[0]==='0') {
@@ -160,7 +160,7 @@ if ($def[0]==='0') {
 }
 else{
  // $rate=$repair_array[$i]/$def[0]*100;
-  $rate=$repair_array[$i]/$defect_array[$i]*100;
+  $rate=$repair_array[$i]/200*100;
  echo "<td>".number_format($rate,2,'.',',')."%</td>";
   $tdef+=$def[0];
  }
@@ -175,7 +175,7 @@ if ($trep===0 || $tdef===0) {
 }
 else{
  //$trate=$trep/$tdef*100; 
-  $trate=$trep/$tdef*100;
+  $trate=$trep/$trp*100;
   echo "<td><b>".number_format($trate,2,'.',',')."%<b></td></tr>";
 }
 

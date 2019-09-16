@@ -6,12 +6,33 @@
             <div class="modal-header">
 
             </div>
-            <div class="modal-body">
+            <div class="modal-body" >
 
              
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 150px">CLOSE</button>
+            </div>
+        </div>
+    </div> 
+</div>
+
+
+
+
+
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+            </div>
+            <div class="modal-body" id="body">
+
+             
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="width: 150px">CLOSE</button>
             </div>
         </div>
     </div> 
@@ -86,7 +107,7 @@ while ($worstranking = $stmt->fetch_row()){
 if ($i>9) {
   echo '<i><td>        <form class="'.$i.'">
     <input type="hidden" id="i" name="i" value="'.$i.'">
-  <input type="hidden" id="name" name="name" value="'.$worstranking[0].'">
+    <input type="hidden" id="name" name="name" value="'.$worstranking[0].'">
     <input type="hidden" id="id" name="id" value="'.$defectid_array[0].'">
     <input type="hidden" id="id1" name="id1" value="'.$defectid_array[1].'">
     <input type="hidden" id="id2" name="id2" value="'.$defectid_array[2].'">
@@ -112,7 +133,7 @@ if ($i>9) {
 else{
   echo '<i><td>        <form class="'.$i.'">
     <input type="hidden" id="i" name="i" value="'.$i.'">
-  <input type="hidden" id="name" name="name" value="'.$worstranking[0].'">
+    <input type="hidden" id="name" name="name" value="'.$worstranking[0].'">
     <input type="hidden" id="id" name="id" value="'.$worstranking[1].'">
     <input type="hidden" id="id1" name="id1" value="'.$worstranking[1].'">
     <input type="hidden" id="id2" name="id2" value="'.$worstranking[1].'">
@@ -138,7 +159,92 @@ $i++;
 // echo "<td>OTHERS</td>";
 $others='OTHERS';
 $defectname_array[]=$others;
-  echo "<td><b>TOTAL<b></td></tr>";
+if ($i<=10) {
+  echo "<td><i>OTHERS</i></td>";
+}
+
+
+
+
+
+
+
+
+
+$ii=1;
+if($stmt = $conn2->query("SELECT masterdatabase.dmc_defect_code.DEFECT_NAME, masterdatabase.dmc_defect_code.DEFECT_ID, count(1_smt.defect_mats.process_id) FROM masterdatabase.dmc_defect_code JOIN 1_smt.defect_mats ON  masterdatabase.dmc_defect_code.DEFECT_ID=1_smt.defect_mats.defect_id WHERE 1_smt.defect_mats.created_at BETWEEN'$from' AND '$to' and 1_smt.defect_mats.process_id='$process_id'    group by 1_smt.defect_mats.defect_id ORDER BY COUNT(1_smt.defect_mats.process_id) DESC LIMIT 0,1 " )){
+
+while ($worstranking = $stmt->fetch_row()){
+
+?>
+
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('.<?php echo $ii; ?>').on('submit', function(e){
+                    //Stop the form from submitting itself to the server.
+                    e.preventDefault();
+                     $('#body').html('loading');
+                     
+                //    var name = $('#name').val();
+                 //   var id = $('#id').val();
+                //    var from = $('#from').val();
+                //    var to = $('#to').val();
+               //     var line_id = $('#line_id').val();
+               //     var process_id = $('#process_id').val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: './worstdefectphp/selectview/defect_info_view_total_smtoverall.php',
+                        data :     $('.<?php echo $ii; ?>').serialize(),
+                        success: function(data){
+                             $('#body').html(data);
+                        }
+                    });
+                });
+            });
+        </script>
+
+ 
+
+
+
+
+<?php
+  echo '<i><td>        <form class="'.$ii.'">
+  <input type="hidden" id="i" name="i" value="'.$ii.'">
+  <input type="hidden" id="name" name="name" value="'.$worstranking[0].'">
+    <input type="hidden" id="id" name="id" value="'.$worstranking[1].'">
+    <input type="hidden" id="from" name="from" value="'.$f.'">
+      <input type="hidden" id="to" name="to" value="'.$t.'">
+                    <input type="hidden" id="process_id" name="process_id" value="'.$process_id.'">
+ <button data-toggle="modal" data-target="#myModal1"  type="submit" style="hidden-decoration:none; color:blue; border:none; background:none; font-size:18px;"><b>TOTAL<b></button>
+</form></td></i>
+';
+$ii++;
+}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

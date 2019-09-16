@@ -9,7 +9,6 @@
 
 
 <?php
-
 $i=$_POST['i'];
   $defect_name=$_POST['name'];
   $defect_id=$_POST['id'];
@@ -24,7 +23,15 @@ $i=$_POST['i'];
     $from=date('Y-m-d H:i:s', strtotime($_POST['from'].' 06:00:00'));
     $to=date('Y-m-d H:i:s', strtotime($_POST['to'].' 05:59:59'));
 
-            $process_id=$_POST['process_id'];
+
+
+
+
+
+
+
+
+
  //            echo "<br>";
  //             echo $process_id."<br>";
  //             echo $line_id."<br>";
@@ -66,17 +73,7 @@ else { echo "<br>";}
 
 
 
-
-
-
-
-
-
-
-
-if ($i>9) {
-
-
+if ($i==10) {
 if($stmt = $connect->query("
   SELECT 
   masterdatabase.dmc_defect_code.DEFECT_NAME, 1_smt.pcb.serial_number, 1_smt.pcb.PDLINE_NAME, masterdatabase.smt_processes.name, 1_smt.defect_mats.created_at
@@ -90,8 +87,7 @@ if($stmt = $connect->query("
   masterdatabase.smt_processes ON masterdatabase.smt_processes.id=1_smt.defect_mats.process_id
   WHERE 
 
-  1_smt.defect_mats.created_at BETWEEN '$from' AND '$to' 
-  AND 1_smt.defect_mats.process_id='$process_id'   
+  1_smt.defect_mats.created_at BETWEEN '$from' AND '$to'   
   AND 1_smt.defect_mats.defect_id !='$defect_id' 
   AND 1_smt.defect_mats.defect_id !='$defect_id1' 
   AND 1_smt.defect_mats.defect_id !='$defect_id2' 
@@ -100,8 +96,9 @@ if($stmt = $connect->query("
   AND 1_smt.defect_mats.defect_id !='$defect_id5' 
   AND 1_smt.defect_mats.defect_id !='$defect_id6' 
   AND 1_smt.defect_mats.defect_id !='$defect_id7' 
-  AND 1_smt.defect_mats.defect_id !='$defect_id8'
-    AND 1_smt.defect_mats.division_id='2' 
+  AND 1_smt.defect_mats.defect_id !='$defect_id8' 
+
+  AND 1_smt.defect_mats.division_id='18'
   ORDER BY 1_smt.defect_mats.created_at
   ASC  " )){
 
@@ -173,6 +170,8 @@ echo "<tr style='font-size:20px;'>
 $i++;
 $defectname_array[]=$def_id['0'];
 }}
+
+
 }
 
 
@@ -200,7 +199,8 @@ $defectname_array[]=$def_id['0'];
 
 else{
 
-if($stmt = $connect->query("
+
+  if($stmt = $connect->query("
   SELECT 
   masterdatabase.dmc_defect_code.DEFECT_NAME, 1_smt.pcb.serial_number, 1_smt.pcb.PDLINE_NAME, masterdatabase.smt_processes.name, 1_smt.defect_mats.created_at
   FROM 
@@ -213,10 +213,9 @@ if($stmt = $connect->query("
   masterdatabase.smt_processes ON masterdatabase.smt_processes.id=1_smt.defect_mats.process_id
   WHERE 
 
-  1_smt.defect_mats.created_at BETWEEN '$from' AND '$to' 
-  AND 1_smt.defect_mats.process_id='$process_id'   
+  1_smt.defect_mats.created_at BETWEEN '$from' AND '$to'   
   AND 1_smt.defect_mats.defect_id='$defect_id' 
-    AND 1_smt.defect_mats.division_id='2'
+  AND 1_smt.defect_mats.division_id='18'
   ORDER BY 1_smt.defect_mats.created_at
   ASC  " )){
 
@@ -288,11 +287,11 @@ echo "<tr style='font-size:20px;'>
 $i++;
 $defectname_array[]=$def_id['0'];
 }}
+
+
+
+
 }
-
-
-
-
 
 
 

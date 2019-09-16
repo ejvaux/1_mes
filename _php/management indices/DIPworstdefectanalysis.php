@@ -125,7 +125,15 @@ font-size: 17px;
  </button>
  <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1">           
-            <li><a id="tb1" class="nav-link tbl" href="#INJECTION.php" onclick="">INJECTION</a></li>
+
+
+
+
+
+
+
+
+             <li><a id="tb1" class="nav-link tbl" href="#INJECTION.php" onclick="">INJECTION</a></li>
 
 
 
@@ -143,14 +151,19 @@ font-size: 17px;
 
 
 
-      
+
+
+
+
+
+
               <li><a id="tb2" class="nav-link tbl" href="SMT.php" onclick="" >SMT</a></li>
               <li><a id="tb3" class="nav-link tbl" href="DIP.php" onclick="">DIP</a></li>
               <li><a id="tb4" class="nav-link tbl" href="#DIP TEST.php" onclick="">DIP TEST</a></li>
 <!-- <li><a id="tb5" class="nav-link tbl" href="FATP.php" onclick="">FATP</a></li>-->
                    <li class="nav-item dropdown" style="overflow:visible;">
      <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">
-     QUALITY - WORST DEFECT ANALYSIS - SMT
+     QUALITY - WORST DEFECT ANALYSIS - DIP
      </a>
       <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown" >                  
          <div class="container dropdown-header text-left">
@@ -174,7 +187,7 @@ font-size: 17px;
                       <div class="col">
                         <h6 class="text-left">
                         <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
-                        <a style="color: black" class="linkcollapse" href="DIPworstdefectanalysis.php" >WORST DEFECT ANALYSIS - DIP</a>                     
+                        <a style="color: black" class="linkcollapse" href="worstdefectanalysis.php" >WORST DEFECT ANALYSIS - SMT</a>                     
                         </h6>
                       </div>                      
                     </div>
@@ -211,7 +224,7 @@ font-size: 17px;
   <div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >
 
       <div class="row text-left" >
- <form id="contactForm1" method="POST" action="worstdefectanalysisajax.php" style="margin-left: 4%;margin-right: 8%; position: fixed;
+ <form id="contactForm1" method="POST" action="DIPworstdefectanalysisajax.php" style="margin-left: 4%;margin-right: 8%; position: fixed;
     display: flex;" >
 
 
@@ -220,19 +233,10 @@ font-size: 17px;
     <span class="input-group-text" style="margin-left: 0.2%; "> PROD.LINE </span>
     <select name="Linename" class="form-control" aria-describedby="basic-addon1" style="font-size: 13px; width: 100px;" required>
 <option value="OVERALL">OVERALL</option>
-<option value="SMTL1">SMTL1</option>
-<option value="SMTL2">SMTL2</option>
-<option value="SMTL3">SMTL3</option>
-<option value="SMTL4">SMTL4</option>
-<option value="SMTL5">SMTL5</option>
-<option value="SMTL6">SMTL6</option>
-<option value="SMTL7">SMTL7</option>
-<option value="SMTL8">SMTL8</option>
-<option value="SMTL9">SMTL9</option>
-<option value="SMTL10">SMTL10</option>
-<option value="SMTL11">SMTL11</option>
-<option value="SMTL12">SMTL12</option>
-<option value="SMTL13">SMTL13</option>
+<option value="DIPL1">DIPL1</option>
+<option value="DIPL2">DIPL2</option>
+<option value="DIPL3">DIPL3</option>
+
 
 </select> 
 
@@ -244,16 +248,11 @@ font-size: 17px;
     <span class="input-group-text" style="margin-left: 0.2%; "> PROCESS </span>
     <select name="process" class="form-control" aria-describedby="basic-addon1" style="font-size: 13px; width: 150px;" required>
 <option value="OVERALL">OVERALL</option>
-<option value="AOI">AOI</option>
+<!--<option value="AOI">AOI</option> -->
 <option value="FUNCTION TEST">FUNCTION TEST</option>
 <option value="FVI">FVI</option>
 <option value="FVI2">FVI2</option>
-<option value="VI AFTER REFLOW">VI AFTER REFLOW</option>
-<option value="VI BEFORE REFLOW">VI BEFORE REFLOW</option>
-
- 
 <?php 
-
 ?>
 </select> 
 <div class="input-group-prepend">
@@ -265,14 +264,12 @@ font-size: 17px;
 <button type="submit" name="daily"  class="btn btn-outline-secondary btn-ladda" data-style="expand-left"> 
     <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;width: 155px " /> Show Result</button>
 
-
-
  </form>
 
 </div>
 <div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >  
 <div align = "center" >
-<label><b>WORST DEFECT ANALYSIS OF <i>SMT </i></b></label>
+<label><b>WORST DEFECT ANALYSIS OF <i>DIP </i></b></label>
 
  
 <div id="chart_div"  class="table table-sm"></div>
@@ -350,6 +347,8 @@ $('.wait').show();
 
 
 </div>
+
+
 
 
 

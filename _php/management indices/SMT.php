@@ -151,11 +151,20 @@
  </button>
  <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1">           
-            <li><a id="tb1" class="nav-link tbl" href="#INJECTION.php" onclick="">INJECTION</a></li>
+<li><a id="tb1" class="nav-link tbl" href="#" onclick="">INJECTION</a></li>
+
+
+
+
+
+
+
+
+      
               <li><a id="tb2" class="nav-link tbl" href="SMT.php" onclick="" style="color: white; background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">SMT</a></li>
-              <li><a id="tb3" class="nav-link tbl" href="#DIP.php" onclick="">DIP</a></li>
+              <li><a id="tb3" class="nav-link tbl" href="DIP.php" onclick="">DIP</a></li>
               <li><a id="tb4" class="nav-link tbl" href="#DIP TEST.php" onclick="">DIP TEST</a></li>
-              <li><a id="tb5" class="nav-link tbl" href="#FATP.php" onclick="">FATP</a></li>
+<!-- <li><a id="tb5" class="nav-link tbl" href="FATP.php" onclick="">FATP</a></li>--> 
                    <li class="nav-item dropdown" style="overflow:visible;">
      <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
      QUALITY
@@ -177,7 +186,15 @@
                         </h6>
                       </div>                      
                     </div>
-                            <div class="row">
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
+                        <a style="color: black" class="linkcollapse" href="REPAIR_STATUS_DIP.php" >REPAIR STATUS - DIP</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
                       <div class="col">
                         <h6 class="text-left">
                         <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
@@ -185,7 +202,14 @@
                         </h6>
                       </div>                      
                     </div>
-
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
+                        <a style="color: black" class="linkcollapse" href="DIPworstdefectanalysis.php" >WORST DEFECT ANALYSIS - DIP</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
          </div>
       </div>
       </li>
@@ -270,7 +294,7 @@
       </div>
     </div>
 <div align = "center" style="margin-top: 5%;" >
-<label><b>PRODUCTION SUMMARY OF <i>SMT </i></b></label>
+<label><b>PRODUCTION SUMMARY OF <i>SMT  </i></b></label>
 
 
 </div>
@@ -316,7 +340,13 @@ $('.wait').show();
                $('.wait').hide();
                 console.log('Submission was successful.');
                 console.log(data);
-                          $("#show").html(data);
+                           $("#show").prepend('<div>'+data+'<button class="remove_field btn btn-sm btn-outline-danger">Remove</button></div>');
+                              //when user click on remove button "btn btn-outline-danger"
+    $("#show").on("click",".remove_field", function(e){ 
+        e.preventDefault();
+ $(this).parent('div').remove(); //remove inout field
+
+    })
             },
             error: function (data) {
                                       $('.wait').hide();      
