@@ -151,7 +151,7 @@
  </button>
  <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1">           
-<li><a id="tb1" class="nav-link tbl" href="#" onclick="">INJECTION</a></li>
+<li><a id="tb2" class="nav-link tbl" href="#.php" onclick="" >INJECTION</a></li>
 
 
 
@@ -256,14 +256,7 @@
 <option value="SMTL1">SMTL1</option>
 <option value="SMTL2">SMTL2</option>
 <option value="SMTL3">SMTL3</option>
-<option value="SMTL4">SMTL4</option>
-<option value="SMTL5">SMTL5</option>
 <option value="SMTL6">SMTL6</option>
-<option value="SMTL7">SMTL7</option>
-<option value="SMTL8">SMTL8</option>
-<option value="SMTL9">SMTL9</option>
-<option value="SMTL0">SMTL10</option>
-<option value="SMTL11">SMTL11</option>
 <option value="SMTL12">SMTL12</option>
 <option value="SMTL13">SMTL13</option>
 

@@ -6,7 +6,7 @@ $toend=date('d',strtotime($_POST['to']));
 $start=date('Y-m-d',strtotime($_POST['from']));
 $end=date('Y-m-d',strtotime($_POST['from'].'+1 days'));
 $to=date($_POST['to']);
-$Linename=$_POST['Linename'];
+$Linename=$_POST['Linename'].' (Day)';
 ?>
 
 

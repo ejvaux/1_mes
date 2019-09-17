@@ -152,25 +152,7 @@
  <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1">           
 
-
-
-
-
-
-
-<li><a id="tb1" class="nav-link tbl" href="#" onclick="">INJECTION</a></li>
-
-      </li>
-
-
-
-
-
-
-
-
-
-
+<li><a id="tb2" class="nav-link tbl" href="#.php" onclick="" >INJECTION</a></li>
 
               <li><a id="tb2" class="nav-link tbl" href="SMT.php" onclick="" >SMT</a></li>
               <li><a id="tb3" class="nav-link tbl" href="DIP.php" onclick="" style="color: white; background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">DIP</a></li>
