@@ -7,7 +7,7 @@ $to=date($_POST['to']);
 $Linename=$_POST['Linename'];
     
   echo "<table class='table table-sm table-responsive' >
-<tr align = 'center' ><strong> $Linename </strong><th width = '100px' style='position: absolute;
+<tr align = 'center' ><strong> $Linename (OVERALL)</strong><th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DATE</th><td style='  padding-left: 90px;'></td>"; 
       for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
 if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ >='$start' AND DATE_ADD(DATE_, INTERVAL 1 DAY) <='$end' and JOB_ORDER_NO like'2%' and MACHINE_CODE='$line'  ")){

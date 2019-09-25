@@ -152,7 +152,71 @@
  <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1">           
 
-<li><a id="tb2" class="nav-link tbl" href="#.php" onclick="" >INJECTION</a></li>
+
+
+
+
+
+
+ <li class="nav-item dropdown" style="overflow:visible;">
+     <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     INJECTION
+     </a>
+      <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">                  
+         <div class="container dropdown-header text-left">
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <a style="color: black" class="linkcollapse" href="#" ></a>                      
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
+                        <a style="color: black" class="linkcollapse" href="INJECTION.php" >INJECTION</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
+                        <a style="color: black" class="linkcollapse" href="PRINTING.php" >PRINTING</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
+                        <a style="color: black" class="linkcollapse" href="ASSY.php" >ASSY</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
+                        <a style="color: black" class="linkcollapse" href="SAMPLES.php" >SAMPLES</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
+                    
+         </div>
+      </div>
+      </li>
+
+
+
+
+
+
+
+
+
+
 
               <li><a id="tb2" class="nav-link tbl" href="SMT.php" onclick="" >SMT</a></li>
               <li><a id="tb3" class="nav-link tbl" href="DIP.php" onclick="" style="color: white; background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">DIP</a></li>
@@ -244,7 +308,7 @@
 
   </select>
   <div class="input-group-append" style="">
-    <span class="input-group-text" style="margin-left: 0.2%; "> PROD.LINE</span>
+    <span class="input-group-text" style="margin-left: 0.2%; "> PROD.LINE</span> </div>
     <select name="Linename" class="form-control" aria-describedby="basic-addon1" style="font-size: 12px; width: 100px;" selected='overall' required>
 <option value="OVERALL">OVERALL</option>
 <option value="DIPL1">DIPL1</option>
@@ -255,13 +319,15 @@
 <select id ="chartType" name="chartType" style="height:26px; width:80px; display:none;">
 <option value="column"> Bar </option></select>  
 <div class="input-group-prepend">
-    <span class="input-group-text" style="margin-left: 2%;">From:</span>
+    <span class="input-group-text" >FROM</span>
   </div><input class="form-control" type="date" name="from" id="today" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required>
 <div class="input-group-prepend">
-    <span class="input-group-text">To:</span>
+    <span class="input-group-text">TO</span>
   </div><input class="form-control" type="date" name="to" id="today2" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required>
 <button type="submit" name="daily"  class="btn btn-outline-secondary btn-ladda" data-style="expand-left"> 
-    <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;width: 155px " /> Show Result</button>
+  <div class="input-group-prepend">
+
+    <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="margin-left: 730px;margin-top:-3px;  display: none;width: 155px " /> Show Result</button>
 
 
  
@@ -325,7 +391,7 @@ $('.wait').show();
                 console.log('Submission was successful.');
                 console.log(data);
 
-                $("#show").prepend('<div>'+data+'<button class="remove_field btn btn-sm btn-outline-danger">Remove</button></div>');
+                $("#show").prepend('<div>'+data+'<button class="remove_field btn btn-sm btn-outline-danger">CLEAR</button></div>');
                               //when user click on remove button "btn btn-outline-danger"
     $("#show").on("click",".remove_field", function(e){ 
         e.preventDefault();
@@ -364,40 +430,5 @@ $('.wait').show();
 </script>
 
 
-<?php
-
-     
-
-
-
-?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  </div>
+ <?php include ('footer.php'); ?>

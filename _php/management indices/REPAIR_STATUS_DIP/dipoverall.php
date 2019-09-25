@@ -26,7 +26,7 @@ $end5=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
 
 
  echo "  <table class='table table-sm table-responsive' >
-<tr align = 'center' > <th width = '100px' style='position: absolute;
+<tr align = 'center' > <strong> $line </strong> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DATE</th><td style='  margin-left: 90px;'></td>"; 
 
 if($stmt = $conn2->query("SELECT created_at  FROM defect_mats WHERE date(created_at) BETWEEN '$from' AND '$to' GROUP BY date(created_at) ")){

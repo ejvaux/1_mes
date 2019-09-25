@@ -125,7 +125,55 @@ font-size: 17px;
  </button>
  <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1">           
-            <li><a id="tb1" class="nav-link tbl" href="#INJECTION.php" onclick="">INJECTION</a></li>
+<li class="nav-item dropdown" style="overflow:visible;">
+     <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     INJECTION
+     </a>
+      <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">                  
+         <div class="container dropdown-header text-left">
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <a style="color: black" class="linkcollapse" href="#" ></a>                      
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
+                        <a style="color: black" class="linkcollapse" href="INJECTION.php" >INJECTION</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
+                        <a style="color: black" class="linkcollapse" href="PRINTING.php" >PRINTING</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
+                        <a style="color: black" class="linkcollapse" href="ASSY.php" >ASSY</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
+                        <a style="color: black" class="linkcollapse" href="SAMPLES.php" >SAMPLES</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
+                    
+         </div>
+      </div>
+      </li>
 
 
 
@@ -214,34 +262,39 @@ font-size: 17px;
  <form id="contactForm1" method="POST" action="worstdefectanalysisajax.php" style="margin-left: 4%;margin-right: 8%; position: fixed;
     display: flex;" >
 
+<!--<div class="input-group-append">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="inputGroupSelect01">REPAIR STATUS OF</label>
+  </div>
+  <select class="custom-select" name="statusOf" id="inputGroupSelect01">
+        <option value="SMT" hidden="" >SMT</option>
+    <option value="SMT">SMT</option>
+    <option value="DIP">DIP</option>
+
+  </select>
+</div>
+-->
 
 
-  <div class="input-group-append">
-    <span class="input-group-text" style="margin-left: 0.2%; "> PROD.LINE </span>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" style="margin-left: 0.2%; "> PROD.LINE </span></div>
     <select name="Linename" class="form-control" aria-describedby="basic-addon1" style="font-size: 13px; width: 100px;" required>
 <option value="OVERALL">OVERALL</option>
 <option value="SMTL1">SMTL1</option>
 <option value="SMTL2">SMTL2</option>
 <option value="SMTL3">SMTL3</option>
-<option value="SMTL4">SMTL4</option>
-<option value="SMTL5">SMTL5</option>
 <option value="SMTL6">SMTL6</option>
-<option value="SMTL7">SMTL7</option>
-<option value="SMTL8">SMTL8</option>
-<option value="SMTL9">SMTL9</option>
-<option value="SMTL10">SMTL10</option>
-<option value="SMTL11">SMTL11</option>
 <option value="SMTL12">SMTL12</option>
 <option value="SMTL13">SMTL13</option>
 
 </select> 
 
 
-<select id ="chartType" name="chartType" style="height:26px; width:80px; display:none;">
-<option value="column"> Bar </option></select>  
 
+ <div class="input-group-prepend">
+    <span class="input-group-text" > PROCESS </span></div>
 
-    <span class="input-group-text" style="margin-left: 0.2%; "> PROCESS </span>
     <select name="process" class="form-control" aria-describedby="basic-addon1" style="font-size: 13px; width: 150px;" required>
 <option value="OVERALL">OVERALL</option>
 <option value="AOI">AOI</option>
@@ -251,22 +304,48 @@ font-size: 17px;
 <option value="VI AFTER REFLOW">VI AFTER REFLOW</option>
 <option value="VI BEFORE REFLOW">VI BEFORE REFLOW</option>
 
- 
+ <!-- 
+5=AOI
+6=FUNCTION TEST
+7=FVI
+9=VI AFTER REFLOW
+10=VI BEFORE REFLOW
+11=X RAY
+66=FVI2
+
+ -->
 <?php 
+//$servername = "172.16.1.13";
+//$username = "root1";
+//$password = "0000";
+//$dbname1 = "masterdatabase";
+//$conn1 = new mysqli($servername, $username, $password, $dbname1);
+//if($stmt = $conn1->query("SELECT name, id FROM  smt_processes WHERE division_id='2'" )){
+//while ($row = $stmt->fetch_row()){
+//    echo "<option value='";
+//    echo "".$row[1]."'>";
+//    echo "".$row[0]."</option>";
+//     }}
 
 ?>
 </select> 
 <div class="input-group-prepend">
-    <span class="input-group-text" style="margin-left: 2%;">From</span>
+    <span class="input-group-text">FROM</span>
   </div><input class="form-control" type="date" name="from" id="today" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required>
 <div class="input-group-prepend">
-    <span class="input-group-text">To</span>
+    <span class="input-group-text">TO</span>
   </div><input class="form-control" type="date" name="to" id="today2" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required>
 <button type="submit" name="daily"  class="btn btn-outline-secondary btn-ladda" data-style="expand-left"> 
-    <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;width: 155px " /> Show Result</button>
+    <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;margin-left: 62.7vw; width: 113px; margin-top: -0.3vw; "  /> Show Result</button>
 
 
-
+<!--<div class="input-group-prepend">
+    <span class="input-group-text" style="margin-left: 2%;">From:</span>
+  </div><input type="month" name="monthfrom" style=" width:150px" >
+<div class="input-group-prepend">
+    <span class="input-group-text">To:</span>
+  </div><input type="month" name="monthto" style=" width:150px" >
+<input class="btn btn-outline-primary" type="submit" value="MONTHLY" name="monthly" width="15px" style=" width:100px">-->
  </form>
 
 </div>
@@ -346,10 +425,60 @@ $('.wait').show();
 </script>
 
   
+ </div>
+ <?php include ('footer.php'); ?>
 
 
 
-</div>
+<!--<div class="container-fluid">
+<div class="white_bkg">
+<div class="row">
+<div class="col-md"></div> 
+<div class="col-md-8">
+<div class="card">
+<div class="card-header">
+<h5>Line Scan Results</h5></div> 
+<div class="card-body">
+<form method="get" action="http://172.16.1.13:8000/1_smt/public/lr" class="form_to_submit">
+<div class="row form-group">
+<div class="col-md-5">
+<div class="input-group">
+<div class="input-group-prepend">
+<div id="" class="input-group-text">Date :</div></div> 
+<input type="date" id="date" name="date" value="2019-08-05" class="form-control"></div></div> 
+<div class="col-md-4">
+<div class="input-group">
+<div class="input-group-prepend">
+<div id="" class="input-group-text">Line :</div></div> 
+<select name="line" id="line" class="form-control">
+<option value="1" selected="selected">SMTL1</option>
+<option value="2">SMTL2</option> <option value="3">SMTL3</option> 
+<option value="6">SMTL6</option> <option value="17">SMTL12</option> 
+<option value="18">SMTL13</option> <option value="19">DIPL1</option></select></div></div> 
+<div class="col-md">
+<button type="submit" id="date-btn" class="btn btn-outline-secondary form-control form_submit_button">GO</button></div></div></form> 
+<div class="row"><div class="col-md text-center">
+<div id="lr_div"><div class="card">
+<div class="card-body"><div class="row">
+<div class="col-md"><h5 class="text-center font-weight-bold">SMTL1</h5></div></div> 
+<div class="row mb-1"><div class="table-responsive-lg w-100 text-nowrap">
+<table id="" class="table">
+<thead><tr class="text-center">
+<th>SHIFT</th> <th>INPUT</th> 
+<th>OUTPUT</th></tr></thead> 
+<tbody class="text-center">
+<tr>
+<th>DAY</th> 
+<td>1503</td> 
+<td>1349</td></tr> 
+<tr><th>NIGHT</th> 
+<td>1672</td> 
+<td>1587</td></tr> 
+<tr><th>TOTALS</th> 
+<td>3175</td> 
+<td>2936</td></tr></tbody></table></div></div></div></div></div></div></div></div></div></div>
+<div class="col-md"></div></div></div></div> -->
+
 
 
 

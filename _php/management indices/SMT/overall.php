@@ -9,15 +9,13 @@ $to=date($_POST['from']);
   echo "  <table class='table table-md table-responsive' >
 <tr align = 'center' > <strong>DATE </strong> <medium>$start</medium> <th width = '150px' style='position: absolute;
     display: flex;  background: #fff; font-size:25px;'>SMT LINE</th><td style='  padding-left: 180px;'></td>";
-      for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
-if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY), MACHINE_CODE FROM mis_prod_plan_dl WHERE DATE_ >='$start' AND DATE_ADD(DATE_, INTERVAL 0 DAY) <='$end' and JOB_ORDER_NO like'2%' GROUP by MACHINE_CODE  ")){
-  while ($date = $stmt->fetch_row()) {
-    echo "<td  style='font-size:25px;'><b>".$date[2]."<b></td>";
-  $date_array[] = $date;
-  $start=date('Y-m-d',strtotime("$start +1 days"));
-  $end=date('Y-m-d',strtotime("$end +1 days"));
-}}}
-     echo "<td  width='100px' style='font-size:25px;'><b>TOTAL<b></td></tr>";
+      echo "<td  style='font-size:25px;'><b>SMTL1<b></td>";
+      echo "<td  style='font-size:25px;'><b>SMTL12<b></td>";
+      echo "<td  style='font-size:25px;'><b>SMTL13<b></td>";
+      echo "<td  style='font-size:25px;'><b>SMTL2<b></td>";
+      echo "<td  style='font-size:25px;'><b>SMTL3<b></td>";
+      echo "<td  style='font-size:25px;'><b>SMTL6<b></td>";
+      echo "<td  width='100px' style='font-size:25px;'><b>TOTAL<b></td></tr>";
 
 
 $fromstart1=date('d',strtotime($_POST['from']));
