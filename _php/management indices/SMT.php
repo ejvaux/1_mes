@@ -367,6 +367,7 @@
 
 
 
+
     var frm = $('#contactForm1');
 
     frm.submit(function (e) {
@@ -383,7 +384,7 @@ $('.wait').show();
                $('.wait').hide();
                 console.log('Submission was successful.');
                 console.log(data);
-                           $("#show").prepend('<div>'+data+'<button class="remove_field btn btn-sm btn-outline-danger">CLEAR</button></div>');
+                          $("#show").prepend('<div>'+data+'<button class="remove_field btn btn-sm btn-outline-danger">CLEAR</button></div>');
                               //when user click on remove button "btn btn-outline-danger"
     $("#show").on("click",".remove_field", function(e){ 
         e.preventDefault();

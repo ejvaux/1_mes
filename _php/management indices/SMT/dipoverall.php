@@ -4,9 +4,13 @@ $toend=date('d',strtotime($_POST['from']));
 $start=date('Y-m-d',strtotime($_POST['from']));
 $end=date('Y-m-d',strtotime($_POST['from'].'+1 days'));
 $to=date($_POST['from']);
+$day=date('d',strtotime($_POST['from']));
 
-
-  echo "  <table class='table table-md table-responsive' >
+  echo "  <a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportDIP".$day."'>
+Export 
+    </a>
+    <div id='dvDataDIP".$day."'>
+    <table  class='table table-md table-responsive' >
 <tr align = 'center' > <strong>DATE </strong> <medium>$start</medium> <th width = '150px' style='position: absolute;
     display: flex;  background: #fff; font-size:25px;'>DIP LINE</th><td style='  padding-left: 180px;'></td>";
     
@@ -170,7 +174,7 @@ $start4=date('Y-m-d H:i:s',strtotime("$start4 +1 days"));
 $end4=date('Y-m-d H:i:s',strtotime("$end4 +1 days"));
 
 }}}
-echo "<td style='font-size:25px;'><b>".number_format($tdef,0,'.',',')."<b></td></tr>";
+echo "<td style='font-size:25px;'><b>".number_format($tdef,0,'.',',')."<b></td></tr></table>";
 
 
 
@@ -183,3 +187,9 @@ echo "<td style='font-size:25px;'><b>".number_format($tdef,0,'.',',')."<b></td><
 
 
 ?>
+<script type="text/javascript">$('#btnExportDIP'+<?php echo $day;?>+'').click(function (e) {
+    $(this).attr({
+        'download': "DIP <?php echo $_POST['from']; ?>.xls",
+            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataDIP'+<?php echo $day;?>+'').html())
+    })
+});</script>

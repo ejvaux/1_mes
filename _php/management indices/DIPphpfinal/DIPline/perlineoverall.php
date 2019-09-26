@@ -5,8 +5,11 @@ $start=date('Y-m-d',strtotime($_POST['from']));
 $end=date('Y-m-d',strtotime($_POST['from'].'+1 days'));
 $to=date($_POST['to']);
 $Linename=$_POST['Linename'];
+$day=date('d',strtotime($_POST['from']));
 
-  echo "  <table class='table table-sm table-responsive' >
+
+echo "
+    <div id='dvDataDIP".$day."'>  <table class='table table-sm table-responsive' >
 <tr align = 'center' ><strong> $Linename (OVERALL) </strong> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DATE</th><td style='  padding-left: 90px;'></td>"; 
       for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
@@ -82,81 +85,12 @@ echo "<td><b>".number_format($tresult,0,'.',',')."<b></td></tr>";
 
 
 
-$fromstart7=date('d',strtotime($_POST['from']));
-$toend7=date('d',strtotime($_POST['to']));
-$start7=date('Y-m-d H:i:s',strtotime($_POST['from'].' 18:00:00'));
-$end7=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
-$tgap=0;$i=0; //------------------------------------ 
-   echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
-    display: flex;  background: #fff;'>GAP</th><td style='  padding-left: 90px;'></td>";
-      for ($fromstart7; $fromstart7 <=$toend7 ; $fromstart7++) { 
-  if($stmt = $conn2->query("SELECT  COUNT(RESULT) FROM pcb WHERE created_at>='$start7' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end7' and jo_number 
-  like '8%'     and type = '1' and PDLINE_NAME like '$line' ")){
 
 
-  while ($gp = $stmt->fetch_row()){
-    $job_array[$i];
-    $gp[0]=$result_array[$i];
-    //echo $gp[1]."//".$gp[2]."///";
-    $gap = $job_array[$i] - $gp[0];
-     echo "<td>".number_format($gap,0,'.',',')."</td>";
-     $tgap = $tplan - $tresult;
-
-
-     $start7=date('Y-m-d H:i:s',strtotime("$start7 +1 days"));
-$end7=date('Y-m-d H:i:s',strtotime("$end7 +1 days"));
-    $i++;}}}
-     echo "<td><b>".number_format($tgap,0,'.',',')."<b></td></tr>";
-  
+include ('smtgapachievedrate.php');
 
 
 
-
-
-
-
-
-
-
-$fromstart3=date('d',strtotime($_POST['from']));
-$toend3=date('d',strtotime($_POST['to']));
-$start3=date('Y-m-d H:i:s',strtotime($_POST['from'].' 18:00:00'));
-$end3=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
-$trate=0;    $i=0; //------------------------------------ 
-   echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
-    display: flex;  background: #fff;'>ACHIEVE RATE</th><td style='  padding-left: 90px;'></td>";
-      for ($fromstart3; $fromstart3 <=$toend3 ; $fromstart3++) { 
-   if($stmt = $conn2->query("SELECT COUNT(RESULT) FROM pcb WHERE created_at>='$start3' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end3' and jo_number like '8%' 
-     and type = '1' and PDLINE_NAME like '$line' ")){
-
-
-  while ($rate = $stmt->fetch_row()){
-if ($job_array[$i]<='0') {
-  echo "<td>N/A</td>";
-}
-
-else{
-   $job_array[$i];
-   $rate[0]=$result_array[$i];
-   // echo $gp[1]."//".$gp[2]."///";
-    $rate1 = $rate[0] /  $job_array[$i]*100;
-    $trate += $rate1;
-  echo "<td>".number_format($rate1,2,'.',',')."%</td>";
-
-   }
-$start3=date('Y-m-d H:i:s',strtotime("$start3 +1 days"));
-$end3=date('Y-m-d H:i:s',strtotime("$end3 +1 days"));
- $i++;
-}}}
-if ($tplan===0) {
-
-     echo "<td><b>N/A</b></td></tr>";
-}
-else{
-$w=(($tresult/$tplan)*100);
-     echo "<td><b>".number_format($w,2,".",',')."%</b></td></tr>";
-}
- //number_format($trate,2,'.',',')."% of ".
 
 
 
@@ -216,54 +150,19 @@ echo "<td><b>". number_format($tinput,0,".",",")."<b></td></tr>";
 
 
 
-$yield;
-$tyield=0;
-echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
-    display: flex;  background: #fff;'>YIELD</th><td style='  padding-left: 90px;'></td>";
-$fromstart6=date('d',strtotime($_POST['from']));
-$toend6=date('d',strtotime($_POST['to']));
-$start6=date('Y-m-d H:i:s',strtotime($_POST['from'].' 06:00:00'));
-$end6=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
-
-if($stmt = $conn2->query("SELECT  COUNT(RESULT), COUNT(PROCESS_NAME) FROM pcb
-WHERE  cast(created_at + 0.25 as date) between '$from' and '$to' 
-and jo_number like '8%' and PROCESS_NAME  like 'DIP.INPUT%' and PDLINE_NAME like '$line'  group by cast(created_at + 0.25 as date)")){
-
-$i=0;
-while ($output = $stmt->fetch_row()){
-
-   for ($fromstart6; $fromstart6 <=$toend6 ; $fromstart6++) {
-  $output[0]= $result_array[$i] + $defect_array[$i];
-//$output[1]=$input_array[$i];
-$output[1]=$result_array[$i];
-if ($output[1]==='0') {
-  echo "<td>0.00%</td>";
-}
-else{
-
- $yield=($output[1]/$output[0])*100;
-//echo $output[2]."//";
-echo "<td>". number_format($yield,2,".",",")." %</td>";
- }
-$start6=date('Y-m-d H:i:s',strtotime("$start6 +1 days"));
-$end6=date('Y-m-d H:i:s',strtotime("$end6 +1 days"));
-
-$i++;
-}}}
-
-if ($tresult===0 || $tinput===0) {
-  echo "<td>0.00%</td>";
-}
-else{
-  $tresdef=$tresult+$tdef;
-$tyield=(($tresult/$tresdef)*100);
-
-echo "<td><b>". number_format($tyield,2,".",",")."%<b></td></tr>";  
-}
+include ('yield.php');
 
 
 
- echo "<script>
+
+ echo "
+
+</div>
+ <a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportDIP".$day."'>
+EXPORT 
+    </a>
+
+ <script>
           var PLAN = ".json_encode($date_array)."
     </script>";
     
@@ -273,3 +172,10 @@ echo "<td><b>". number_format($tyield,2,".",",")."%<b></td></tr>";
     
     getColumn();
 ?>
+
+<script type="text/javascript">$('#btnExportDIP'+<?php echo $day;?>+'').click(function (e) {
+    $(this).attr({
+        'download': "<?php echo $_POST['Linename']; ?> (DAY&NIGHT) <?php echo $_POST['from']; ?>.xls",
+            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataDIP'+<?php echo $day;?>+'').html())
+    })
+});</script>

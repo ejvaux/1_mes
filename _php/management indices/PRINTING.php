@@ -301,9 +301,10 @@
 
 
   </select>-->
-
- <div class="input-group-append" style="">
-    <span class="input-group-text" style="margin-left: 0.2%; ">MACHINE GROUP</span>
+ <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" >MACHINE GROUP</span>
+  </div>
     <select name="MACHINE_GROUP" id="MACHINE_GROUP" class="form-control" aria-describedby="basic-addon1" style="font-size: 12px; width: 110px;" selected='overall' required>
       
 <option value="OVERALL">OVERALL</option>
@@ -323,9 +324,10 @@
 
    
 
-  <div class="input-group-append" style="">
-    <span class="input-group-text" style="margin-left: 0.2%; ">MACHINE LINE</span>
-    <select name="MACHINE_CODE" id="MACHINE_CODE" class="form-control" aria-describedby="basic-addon1" style="font-size: 12px; width: 100px;"  required>
+  <div class="input-group-prepend">
+    <span class="input-group-text">MACHINE LINE</span>
+  </div>
+    <select name="MACHINE_CODE" id="MACHINE_CODE" class="form-control" aria-describedby="basic-addon1" style="font-size: 12px; width: 95px;"  required>
 
 <option value="OVERALL">OVERALL</option>
 
@@ -333,13 +335,13 @@
 <select id ="chartType" name="chartType" style="height:26px; width:80px; display:none;">
 <option value="column"> Bar </option></select>  
 <div class="input-group-prepend">
-    <span class="input-group-text" style="margin-left: 2%;">FROM</span>
+    <span class="input-group-text">FROM</span>
   </div><input class="form-control" type="date" name="from" id="today" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required>
 <div class="input-group-prepend">
     <span class="input-group-text">TO</span>
   </div><input class="form-control" type="date" name="to" id="today2" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required>
 <button type="submit" name="daily"  class="btn btn-outline-secondary btn-ladda" data-style="expand-left"> 
-    <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;width: 155px " /> Show Result</button>
+    <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;width: 125px;margin-left: 89%;margin-top: -4px;" /> Show Result</button>
 
 
  

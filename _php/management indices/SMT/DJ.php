@@ -184,11 +184,11 @@
 <!-- ------------------------selections----------------------- -->
 
 
-<div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >
+<div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%; " >
 
  <div class="row text-left">
  <form id="contactForm2" method="POST" action="DIPajax.php" style="margin-left: 60%;margin-right: 14%; position: fixed;
-    display: flex;" >
+    display: none;" >
 
 
 <div class="input-group-prepend">
@@ -286,12 +286,12 @@ $('.wait').show();
                $('.wait').hide();
                 console.log('Submission was successful.');
                 console.log(data);
-   $("#show").prepend('<div>'+data+' <button class="remove_field btn btn-sm btn-outline-danger">Remove</button></div>');
+   $("#show").prepend('<div> <button class="remove_field btn btn-sm btn-outline-danger">CLEAR</button>'+data+'</div>');
                               //when user click on remove button "btn btn-outline-danger"
     $("#show").on("click",".remove_field", function(e){ 
         e.preventDefault();
  $(this).parent('div').remove(); //remove inout field
-
+ 
     })
             },
             error: function (data) {
@@ -334,7 +334,7 @@ $('.wait1').show();
                $('.wait1').hide();
                 console.log('Submission was successful.');
                 console.log(data);
-   $("#show").prepend('<div>'+data+' <button class="remove_field btn btn-sm btn-outline-danger">Remove</button></div>');
+   $("#show").prepend('<div> <button class="remove_field btn btn-sm btn-outline-danger">CLEAR </button>'+data+'</div>');
                               //when user click on remove button "btn btn-outline-danger"
     $("#show").on("click",".remove_field", function(e){ 
         e.preventDefault();
@@ -363,20 +363,19 @@ $('.wait1').show();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  </div>
+
+
+
+
+<?php include ('../footer.php'); ?>
+
+
+
+
+
+
+
+
+
+
