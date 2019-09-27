@@ -557,7 +557,7 @@ echo "<td style='font-size:25px;'><b>".number_format($tdef,0,'.',',')."<b></td><
 
 <script type="text/javascript">$('#btnExportSMT'+<?php echo $day;?>+'').click(function (e) {
     $(this).attr({
-        'download': "SMT <?php echo $_POST['from']; ?>.xls",
+        'download': "SMTL & DIPL <?php echo $_POST['from']; ?>.xls",
             'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataSMT'+<?php echo $day;?>+'').html())
     })
 });</script>
