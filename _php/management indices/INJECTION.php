@@ -66,20 +66,6 @@
     justify-content: center;
     align-items: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       .loader {
     position: fixed;
     z-index: 99;
@@ -287,7 +273,7 @@
 <div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >
 
       <div class="row text-left">
- <form id="contactForm1" method="POST" action="INJECTIONajax.php" style="margin-left: 13%;margin-right: 13%; position: fixed;
+ <form id="contactForm1" method="POST" action="INJECTIONajax.php" style="margin-left: 10%;margin-right: 10%; position: fixed;
     display: flex;" >
 
  <div class="input-group mb-3">
@@ -354,13 +340,49 @@
 
 </div>
 <!-- FOR GRAPH DIV -->
-<div id="chart_div"  class="table table-sm"></div>
+<div id="chart_div"  class="chart"  class="table table-sm">
+   <div id="chart_div1" class="chart"></div>
+  
+</div>
 
 <script  type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
 
+<style type="text/css">
+    .chart {
+  width: 100%; 
+  min-height: 300px;
+}
+.row {
+  margin:0 !important;
+}
+  </style>
+<script type="text/javascript">
+ google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart1);
+function drawChart1() {
+  var data = google.visualization.arrayToDataTable([
+    ['DATE', 'PLAN', 'RESULT'],
+    ['Sample',  0,      0],
+    ['Sample',  0,      0],
+    ['Sample',  0,       0],
+    ['Sample',  0,      0]
+  ]);
 
+  var options = {
+    title: 'PLAN VS RESULT - INJECTION',
+    hAxis: {title: 'DATA PLAN AND RESULT WILL DISPLAYED HERE', titleTextStyle: {color: 'red'}}
+ };
+
+var chart = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+  chart.draw(data, options);
+}
+$(window).resize(function(){
+  drawChart1();
+  drawChart2();
+});
+</script>
 
 
 
@@ -371,7 +393,16 @@
 
 <!-- FOR TABLE DIV -->
 <div class="table table-lg table-responsive " >
-<div id="show" class="table table-lg "></div>
+<div id="show" class="table table-lg ">
+  
+</div>
+
+
+
+
+
+
+</div>
 <script type="text/javascript">
 
 

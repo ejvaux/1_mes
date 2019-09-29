@@ -295,10 +295,47 @@
 <div align = "center" style="margin-top: 2%;" >
 <label><b>REPAIR STATUS OF <i>DIP </i></b></label>
  <script  type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<div id="chart_div"  class="table table-sm"></div>  
+<div id="chart_div"  class="table table-sm">
+  
+     <div id="chart_div1" class="chart"></div>
+
+</div>  
 
 
+<style type="text/css">
+    .chart {
+  width: 100%; 
+  min-height: 300px;
+}
+.row {
+  margin:0 !important;
+}
+  </style>
+<script type="text/javascript">
+ google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart1);
+function drawChart1() {
+  var data = google.visualization.arrayToDataTable([
+    ['DATE', 'REPAIR', 'UNREPAIR'],
+    ['Sample',  0,      0],
+    ['Sample',  0,      0],
+    ['Sample',  0,       0],
+    ['Sample',  0,      0]
+  ]);
 
+  var options = {
+    title: 'REPAIR VS UNREPAIR - DIP',
+    hAxis: {title: 'DATA REPAIR AND UNREPAIR WILL DISPLAYED HERE', titleTextStyle: {color: 'red'}}
+ };
+
+var chart = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+  chart.draw(data, options);
+}
+$(window).resize(function(){
+  drawChart1();
+  drawChart2();
+});
+</script>
 
 
 
@@ -337,6 +374,18 @@
 <div class="table table-lg table-responsive" >
 
 <div id="show" class="table table-lg"></div>
+
+
+
+
+
+
+
+
+
+
+
+
 <script type="text/javascript">
     var frm = $('#contactForm1');
 

@@ -366,12 +366,56 @@ font-size: 17px;
 <label><b>WORST DEFECT ANALYSIS OF <i>DIP </i></b></label>
 
  
-<div id="chart_div"  class="table table-sm"></div>
+<div id="chart_div"  class="table table-sm">
+
+       <div id="chart_div1" class="chart"></div>  
+
+</div>
 
 <script  type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
+<style type="text/css">
+    .chart {
+  width: 100%; 
+  min-height: 300px;
+}
+.row {
+  margin:0 !important;
+}
+  </style>
+<script type="text/javascript">
+ google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart1);
+function drawChart1() {
+  var data = google.visualization.arrayToDataTable([
+    ['DATE', 'DEFECT QTY', 'ACCUMULATIVE RATE %'],
+    ['Sample',  0,      0],
+    ['Sample',  0,      0],
+    ['Sample',  0,       0],
+    ['Sample',  0,      0]
+  ]);
 
+  var options = {
+    hAxis: [{ 0: {format: '#,###'}, 1: {format: '#%'}  }],
+
+      title: 'TOP 3 WORST DEFECT - DIP', titleTextStyle: {color: 'red'},
+
+    seriesType:'bars',
+                       series: {
+    0:{color:'#1e90ff',targetAxisIndex: 0,},
+    1:{type: 'line',targetAxisIndex: 1,}},
+
+ };
+
+var chart = new google.visualization.ComboChart(document.getElementById('chart_div1'));
+  chart.draw(data, options);
+}
+$(window).resize(function(){
+  drawChart1();
+  drawChart2();
+});
+</script>
 
 
 
