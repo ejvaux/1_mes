@@ -1,32 +1,16 @@
 <?php
-$fromstart=date('d',strtotime($_POST['from']));
-$toend=date('d',strtotime($_POST['to']));
-$start=date('Y-m-d',strtotime($_POST['from']));
-$end=date('Y-m-d',strtotime($_POST['from'].'+1 days'));
-$to=date($_POST['to']);
-
-
-echo "   <table class='table table-sm table-responsive' >
-<tr align = 'center' ><th width = '100px' style='position: absolute;
-    display: flex;  background: #fff; font-size:12px; height:20px;'>SMTL 2</th><td style='  padding-left: 100px;'></td>";
-
-    for ($fromstart; $fromstart <=$toend ; $fromstart++) {
-      echo "<td  style='font-size:12px; height:20px;'><strong> $start </strong></td>";
-
-  $start=date('Y-m-d',strtotime("$start +1 days"));
-$end=date('Y-m-d',strtotime("$end +1 days"));
-}
-
-      echo "<td  width='100px' style='font-size:12px; height:20px;'><b>TOTAL<b></td></tr>";
-
-
 $fromstart1=date('d',strtotime($_POST['from']));
 $toend1=date('d',strtotime($_POST['to']));
 $start1=date('Y-m-d',strtotime($_POST['from']));
 $end1=date('Y-m-d',strtotime($_POST['from'].'+1 days' ));
 $tplan=0;  
-  echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
-    display: flex;  background: #fff; font-size:12px; height:20px;'>PROD PLAN</th><td style='  padding-left: 90px;'></td>";
+ ?>
+<tr>
+        <th colspan="<?php echo $colspan; ?>" style='border-style: none; background-color: gray;'><span>SMTL2</span></th>
+      </tr>
+
+  <tr align = 'center'> <th width = '100px' style='position: absolute;
+    display: flex;  background: #fff; font-size:12px; height:20px;'>PROD PLAN</th><td style='  padding-left: 90px;'></td><?php
     for ($fromstart1; $fromstart1 <=$toend1 ; $fromstart1++) { 
     if($stmt = $conn1->query("SELECT COUNT(DATE_), SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ >='$start1' AND DATE_ADD(DATE_, INTERVAL 1 DAY) <='$end1' and JOB_ORDER_NO like'2%' AND MACHINE_CODE LIKE 'SMTL2' ")){while ($plan = $stmt->fetch_row()){
     $tplan+=$plan[1];
@@ -102,5 +86,5 @@ $end4=date('Y-m-d H:i:s',strtotime("$end4 +1 days"));
 
 
 
-echo "<td style='font-size:12px; height:20px;'><b>".number_format($tdef,0,'.',',')."<b></td></tr></table>";
+echo "<td style='font-size:12px; height:20px;'><b>".number_format($tdef,0,'.',',')."<b></td></tr>";
 ?>

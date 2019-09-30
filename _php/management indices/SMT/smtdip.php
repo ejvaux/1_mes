@@ -13,8 +13,9 @@ include ('SMTL12.php');
 include ('SMTL13.php');
 include ('DIPL1.php');
 include ('DIPL2.php');
-?>
 
+?>
+</table>
 
 
 
