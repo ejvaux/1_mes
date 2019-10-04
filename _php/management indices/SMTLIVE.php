@@ -69,17 +69,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
       .loader {
     position: fixed;
     z-index: 99;

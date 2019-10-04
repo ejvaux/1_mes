@@ -21,8 +21,23 @@ include ('DIPL2.php');
 
 
 
+<!-- 
 
+$link = mysql_connect("localhost", "mysql_user", "mysql_password");
+mysql_select_db("database", $link);
 
+$sql = "SELECT id, name FROM myTable";
+
+$result = mysql_query($sql, $link);
+
+$rowCount = mysql_num_rows($result);
+
+while($row = mysql_fetch_object){
+    echo "id: ".$row->id." name: ".$row->name."<BR>";
+}
+echo "total: ".$rowCount;
+
+ -->
 
 
 

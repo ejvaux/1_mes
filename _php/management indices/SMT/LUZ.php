@@ -238,7 +238,7 @@
       </div>
     </div>
 <div align = "center" style="margin-top: 5%;" >
-<label><b>PRODUCTION SUMMARY OF <i>SMT & DIP  </i></b></label>
+<label><b>SMT/DIP MES USAGE MONITORING MODULE </i></b></label>
 
 
 </div>

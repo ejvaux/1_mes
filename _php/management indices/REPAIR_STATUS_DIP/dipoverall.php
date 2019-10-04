@@ -25,7 +25,7 @@ $end5=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
 
 
 
- echo "  <table class='table table-sm table-responsive' >
+ echo "<div id='dvDataDIPOVERALL'> <table class='table table-sm table-responsive' >
 <tr align = 'center' > <strong> $line </strong> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DATE</th><td style='  margin-left: 90px;'></td>"; 
 
@@ -189,7 +189,14 @@ else{
 }
 
 
- echo "<script>
+ echo "
+</div>
+ <a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportDIPOVERALL'>
+EXPORT 
+    </a>
+
+
+ <script>
           var DATE_ = ".json_encode($date_array)."
     </script>";
  echo "<script>
@@ -204,3 +211,9 @@ else{
  ?>
 
 
+<script type="text/javascript">$('#btnExportDIPOVERALL').click(function (e) {
+    $(this).attr({
+        'download': "REPAIR STATUS - DIP OVERALL (DAY&NIGHT) <?php echo $_POST['from']; ?>.xls",
+            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataDIPOVERALL').html())
+    })
+});</script>

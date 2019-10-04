@@ -7,11 +7,10 @@ $start=date('Y-m-d',strtotime($_POST['from']));
 $end=date('Y-m-d',strtotime($_POST['from'].'+1 days'));
 $to=date($_POST['to']);
 $Linename=$_POST['Linename'].' (DAY)';
-$day=date('d',strtotime($_POST['from']));
 
 
 echo "
-    <div id='dvDataSMT".$day."'> <table class='table table-sm table-responsive' >
+    <div id='dvDataSMT'> <table class='table table-sm table-responsive' >
 <tr align = 'center' ><strong> $Linename</strong> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DATE</th><td style='  margin-left: 90px;'></td>"; 
       for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
@@ -158,7 +157,7 @@ include ('yield.php');
 
 
  echo "</div>
-<a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportSMT".$day."'>
+<a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportSMT'>
 EXPORT 
     </a>
  <script>
@@ -171,9 +170,9 @@ EXPORT
     
     getColumn();
 ?>
-<script type="text/javascript">$('#btnExportSMT'+<?php echo $day;?>+'').click(function (e) {
+<script type="text/javascript">$('#btnExportSMT').click(function (e) {
     $(this).attr({
         'download': "<?php echo $_POST['Linename']; ?> (DAY) <?php echo $_POST['from']; ?>.xls",
-            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataSMT'+<?php echo $day;?>+'').html())
+            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataSMT').html())
     })
 });</script>

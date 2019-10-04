@@ -5,11 +5,10 @@ $start=date('Y-m-d',strtotime($_POST['from']));
 $end=date('Y-m-d',strtotime($_POST['from'].'+1 days'));
 $to=date($_POST['to']);
 $Linename=$_POST['Linename'];
-$day=date('d',strtotime($_POST['from']));
 
 
 echo "
-    <div id='dvDataDIP".$day."'>  <table class='table table-sm table-responsive' >
+    <div id='dvDataDIP'>  <table class='table table-sm table-responsive' >
 <tr align = 'center' ><strong> $Linename (OVERALL) </strong> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DATE</th><td style='  padding-left: 90px;'></td>"; 
       for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
@@ -158,7 +157,7 @@ include ('yield.php');
  echo "
 
 </div>
- <a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportDIP".$day."'>
+ <a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportDIP'>
 EXPORT 
     </a>
 
@@ -173,9 +172,9 @@ EXPORT
     getColumn();
 ?>
 
-<script type="text/javascript">$('#btnExportDIP'+<?php echo $day;?>+'').click(function (e) {
+<script type="text/javascript">$('#btnExportDIP').click(function (e) {
     $(this).attr({
         'download': "<?php echo $_POST['Linename']; ?> (DAY&NIGHT) <?php echo $_POST['from']; ?>.xls",
-            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataDIP'+<?php echo $day;?>+'').html())
+            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataDIP').html())
     })
 });</script>

@@ -248,18 +248,7 @@
  <form method="POST" id="contactForm1" action="qualityajax.php" style="margin-left: 14%;margin-right: 14%; position: fixed;
     display: flex;" >
 
-<!--<div class="input-group-append">
-  <div class="input-group-prepend">
-    <label class="input-group-text" for="inputGroupSelect01">REPAIR STATUS OF</label>
-  </div>
-  <select class="custom-select" name="statusOf" id="inputGroupSelect01">
-        <option value="SMT" hidden="" >SMT</option>
-    <option value="SMT">SMT</option>
-    <option value="DIP">DIP</option>
 
-  </select>
-</div>
--->
 
 
 <div class="input-group mb-3">
@@ -289,13 +278,6 @@
 <button type="submit" name="daily"  class="btn btn-outline-secondary btn-ladda" data-style="expand-left"> 
     <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;width: 155px; margin-left: 82%; margin-top: -3px; " /> Show Result</button>
 
-<!--<div class="input-group-prepend"
-    <span class="input-group-text" style="margin-left: 2%;">From:</span>
-  </div><input type="month" name="monthfrom" style=" width:150px" >
-<div class="input-group-prepend">
-    <span class="input-group-text">To:</span>
-  </div><input type="month" name="monthto" style=" width:150px" >
-<input class="btn btn-outline-primary" type="submit" value="MONTHLY" name="monthly" width="15px" style=" width:100px">-->
  </form>
 
 </div>
@@ -421,54 +403,6 @@ $('.wait').show();
  </div>
  <?php include ('footer.php'); ?>
 
-<!--<div class="container-fluid">
-<div class="white_bkg">
-<div class="row">
-<div class="col-md"></div> 
-<div class="col-md-8">
-<div class="card">
-<div class="card-header">
-<h5>Line Scan Results</h5></div> 
-<div class="card-body">
-<form method="get" action="http://172.16.1.13:8000/1_smt/public/lr" class="form_to_submit">
-<div class="row form-group">
-<div class="col-md-5">
-<div class="input-group">
-<div class="input-group-prepend">
-<div id="" class="input-group-text">Date :</div></div> 
-<input type="date" id="date" name="date" value="2019-08-05" class="form-control"></div></div> 
-<div class="col-md-4">
-<div class="input-group">
-<div class="input-group-prepend">
-<div id="" class="input-group-text">Line :</div></div> 
-<select name="line" id="line" class="form-control">
-<option value="1" selected="selected">SMTL1</option>
-<option value="2">SMTL2</option> <option value="3">SMTL3</option> 
-<option value="6">SMTL6</option> <option value="17">SMTL12</option> 
-<option value="18">SMTL13</option> <option value="19">DIPL1</option></select></div></div> 
-<div class="col-md">
-<button type="submit" id="date-btn" class="btn btn-outline-secondary form-control form_submit_button">GO</button></div></div></form> 
-<div class="row"><div class="col-md text-center">
-<div id="lr_div"><div class="card">
-<div class="card-body"><div class="row">
-<div class="col-md"><h5 class="text-center font-weight-bold">SMTL1</h5></div></div> 
-<div class="row mb-1"><div class="table-responsive-lg w-100 text-nowrap">
-<table id="" class="table">
-<thead><tr class="text-center">
-<th>SHIFT</th> <th>INPUT</th> 
-<th>OUTPUT</th></tr></thead> 
-<tbody class="text-center">
-<tr>
-<th>DAY</th> 
-<td>1503</td> 
-<td>1349</td></tr> 
-<tr><th>NIGHT</th> 
-<td>1672</td> 
-<td>1587</td></tr> 
-<tr><th>TOTALS</th> 
-<td>3175</td> 
-<td>2936</td></tr></tbody></table></div></div></div></div></div></div></div></div></div></div>
-<div class="col-md"></div></div></div></div> -->
 
 
 

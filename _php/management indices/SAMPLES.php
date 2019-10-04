@@ -401,7 +401,7 @@ var chart = new google.visualization.ColumnChart(document.getElementById('chart_
 }
 $(window).resize(function(){
   drawChart1();
-  drawChart2();
+ 
 });
 </script>
 

@@ -9,7 +9,7 @@ $day=date('d',strtotime($_POST['from']));
 
 
 echo "
-    <div id='dvDataSMT".$day."'> <table class='table table-sm table-responsive' >
+    <div id='dvDataSMT'> <table class='table table-sm table-responsive' >
 <tr align = 'center' ><strong> $Linename (OVERALL)</strong><th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DATE</th><td style='  padding-left: 90px;'></td>"; 
       for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
@@ -239,7 +239,7 @@ echo "<td><b>". number_format($tyield,2,".",",")."%<b></td></tr>";
 
 
  echo "</div>
-<a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportSMT".$day."'>
+<a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportSMT'>
 EXPORT 
     </a>
  <script>
@@ -252,9 +252,9 @@ EXPORT
     
     getColumn();
 ?>
-<script type="text/javascript">$('#btnExportSMT'+<?php echo $day;?>+'').click(function (e) {
+<script type="text/javascript">$('#btnExportSMT').click(function (e) {
     $(this).attr({
         'download': "<?php echo $_POST['Linename']; ?> (DAY&NIGHT) <?php echo $_POST['from']; ?>.xls",
-            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataSMT'+<?php echo $day;?>+'').html())
+            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataSMT').html())
     })
 });</script>

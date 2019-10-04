@@ -1,12 +1,23 @@
+
 <?php
+
+
+
+
+
+
+
+
+
+
 $fromstart1=date('d',strtotime($_POST['from']));
 $toend1=date('d',strtotime($_POST['to']));
 $start1=date('Y-m-d',strtotime($_POST['from']));
 $end1=date('Y-m-d',strtotime($_POST['from'].'+1 days' ));
 $tplan=0;  
- ?>
+?>
 <tr>
-        <th colspan="<?php echo $colspan; ?>" style='border-style: none; background-color: gray;'><span>SMTL12</span></th>
+        <th colspan="<?php echo $colspan; ?>" style="background-color: gray;"><span>SMTL12</span></th>
       </tr>
 
   <tr align = 'center'> <th width = '100px' style='position: absolute;
@@ -34,30 +45,15 @@ $end2=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
            echo "<tr align = 'center'> <th w2dth = '100px' style='position: absolute;
     display: flex;  background: #fff; font-size:12px; height:20px;'>PROD RESULT</th><td style='  padding-left: 90px;'></td>";
       for ($fromstart2; $fromstart2 <=$toend2 ; $fromstart2++) { 
-   if($stmt = $conn2->query("SELECT count(id), Month(created_at),day(created_at),time(created_at), created_at FROM pcb WHERE created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2' and jo_number like '2%' 
+   if($stmt = $conn2->query("SELECT sum(type) FROM pcb WHERE created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2' and jo_number like '2%' 
      and type = '1' AND line_id='17'  ")){
-   $i=0;
   while ($result = $stmt->fetch_row()){
  echo "<td style='font-size:12px; height:20px;'>".number_format($result[0],0,'.',',') ."</td>";
  $tresult+=$result[0];
- $result_array[] = $result[0];
- $php_data_array[] =$result[0];   
- $i++;
 $start2=date('Y-m-d H:i:s',strtotime("$start2 +1 days"));
 $end2=date('Y-m-d H:i:s',strtotime("$end2 +1 days"));
 }}}
 echo "<td style='font-size:12px; height:20px;'><b>".number_format($tresult,0,'.',',')."<b></td></tr>"; 
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -72,11 +68,11 @@ $end4=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
   echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff; font-size:12px; height:20px;'>DEFECT</th><td style='  padding-left: 90px;'></td>";
        for ($fromstart4; $fromstart4 <=$toend4 ; $fromstart4++) { 
-if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE division_id='2' AND created_at>='$start4' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end4'   AND line_id='17' ")){
+if($stmt = $conn2->query("SELECT SUM(division_id) FROM defect_mats WHERE division_id='2' AND created_at>='$start4' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end4'   AND line_id='17' ")){
 while ($def = $stmt->fetch_row()){
-          $defect_array[]=$def[0];
- echo "<td style='font-size:12px; height:20px;'>".number_format($def[0],0,'.',',')."</td>";
- $tdef+=$def[0];
+  $defect=$def[0]/2;
+ echo "<td style='font-size:12px; height:20px;'>".number_format($defect,0,'.',',')."</td>";
+ $tdef+=$defect;
 $start4=date('Y-m-d H:i:s',strtotime("$start4 +1 days"));
 $end4=date('Y-m-d H:i:s',strtotime("$end4 +1 days"));
 
@@ -88,3 +84,7 @@ $end4=date('Y-m-d H:i:s',strtotime("$end4 +1 days"));
 
 echo "<td style='font-size:12px; height:20px;'><b>".number_format($tdef,0,'.',',')."<b></td></tr>";
 ?>
+
+
+s
+
