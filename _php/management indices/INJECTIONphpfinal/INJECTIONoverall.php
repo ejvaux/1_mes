@@ -1,5 +1,5 @@
 <?php
-  echo "  <table class='table table-sm table-responsive' >
+  echo " <div id='dvDataINJ'>  <table class='table table-sm table-responsive' >
 <tr align = 'center' ><strong>OVERALL </strong> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DATE</th><td style='  padding-left:90px;'></td>";
  
@@ -110,7 +110,10 @@ echo "<td><b>".number_format($tyield, 2, '.', ',')."%<b></td></tr>";
 
 
 
- echo "<script>
+ echo "</div>
+<a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportINJ'>
+EXPORT 
+    </a><script>
           var PLAN = ".json_encode(@$date_array)."
     </script>";
     
@@ -121,4 +124,9 @@ echo "<td><b>".number_format($tyield, 2, '.', ',')."%<b></td></tr>";
     getColumn();
 ?>
 
-
+<script type="text/javascript">$('#btnExportINJ').click(function (e) {
+    $(this).attr({
+        'download': "INJ OVERALL (ALL GROUP MACHINES) <?php echo $_POST['from']; ?>.xls",
+            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataINJ').html())
+    })
+});</script>

@@ -79,6 +79,3 @@ $end4=date('Y-m-d H:i:s',strtotime("$end4 +1 days"));
 echo "<td style='font-size:12px; height:20px;'><b>".number_format($tdef,0,'.',',')."<b></td></tr>";
 ?>
 
-
-?>
-

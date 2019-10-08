@@ -387,7 +387,7 @@ function drawChart1() {
     ['DATE', 'PLAN', 'RESULT'],
     ['Sample',  0,      0],
     ['Sample',  0,      0],
-    ['Sample',  0,       0],
+    ['Sample',  0,      0],
     ['Sample',  0,      0]
   ]);
 

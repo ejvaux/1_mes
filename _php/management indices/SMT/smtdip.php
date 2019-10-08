@@ -1,10 +1,10 @@
 <?php
 $day=date('d',strtotime($_POST['from']));
 
-echo "<a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportSMT".$day."'>
+echo "<a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportSMT'>
 Export 
     </a>
-    <div id='dvDataSMT".$day."'>";
+    <div id='dvDataSMT'>";
 include ('SMTL1.php');
 include ('SMTL2.php');
 include ('SMTL3.php');
@@ -54,9 +54,9 @@ echo "total: ".$rowCount;
 
 
 
-<script type="text/javascript">$('#btnExportSMT'+<?php echo $day;?>+'').click(function (e) {
+<script type="text/javascript">$('#btnExportSMT').click(function (e) {
     $(this).attr({
         'download': "SMTL & DIPL <?php echo $_POST['from']; ?> upto <?php echo $_POST['to']; ?>.xls",
-            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataSMT'+<?php echo $day;?>+'').html())
+            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataSMT').html())
     })
 });</script>

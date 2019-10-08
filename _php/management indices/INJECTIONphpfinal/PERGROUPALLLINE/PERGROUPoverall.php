@@ -1,5 +1,5 @@
 <?php
-  echo "  <table class='table table-sm table-responsive' >
+  echo "<div id='dvDataINJPGAL'>   <table class='table table-sm table-responsive' >
 <tr align = 'center' ><strong>$MACHINE_GROUP ( $MACHINE_CODE )</strong> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DATE</th><td style='  padding-left:90px;'></td>";
  
@@ -107,7 +107,7 @@ while ($row = $stmt->fetch_row()){
 $yield=($php_data_array[$i]/$row[0])*100;
 
 echo "<td>".number_format($yield, 2, '.', ',')."%</td>";
-$i++;
+@$i++;
 }}
 if ($tinput<=0) {
   echo "<td><b>0<b></td></tr>";
@@ -121,7 +121,11 @@ if (empty($php_data_array)) {
   
 }
 else{
- echo "<script>
+ echo " </table></div>
+<a href='x' class='btn btn-sm btn-outline-info' download='down.xls' id='btnExportINJPGAL'>
+EXPORT 
+    </a>
+ <script>
           var PLAN = ".json_encode($date_array)."
     </script>";
     
@@ -134,3 +138,9 @@ else{
 ?>
 
 
+<script type="text/javascript">$('#btnExportINJPGAL').click(function (e) {
+    $(this).attr({
+        'download': "INJ OVERALL (<?php echo $MACHINE_GROUP ?>) <?php echo $_POST['from']; ?>.xls",
+            'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvDataINJPGAL').html())
+    })
+});</script>

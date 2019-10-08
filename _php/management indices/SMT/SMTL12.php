@@ -86,5 +86,4 @@ echo "<td style='font-size:12px; height:20px;'><b>".number_format($tdef,0,'.',',
 ?>
 
 
-s
 
