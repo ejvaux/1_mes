@@ -21,7 +21,7 @@
   </head>
 
     <body>
-    <div class="loader">
+ <div class="loader">
     <img src="loading1.gif" alt="Loading..." height="350" style="width: 800px" /></div>
     
     <script type="text/javascript">
@@ -33,8 +33,21 @@
 
 
 
-    <style type="text/css">
+     <style type="text/css">
       .wait {
+        margin-top: -4%; margin-left: -16%;
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 180%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wait1 {
         margin-top: -4%; margin-left: -16%;
     position: absolute;
     z-index: 99;
@@ -49,8 +62,11 @@
 }
 
 
-
-.wait.hidden {
+.wait.hidden{
+    animation: fadeOut 1s;
+    animation-fill-mode: forwards;
+}
+.wait1.hidden{
     animation: fadeOut 1s;
     animation-fill-mode: forwards;
 }
@@ -69,6 +85,17 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
       .loader {
     position: fixed;
     z-index: 99;
@@ -81,11 +108,7 @@
     justify-content: center;
     align-items: center;
 }
-th,td{
-column-width: 200px;
-font-size: 17px;
 
-}
 .loader > img {
     width: 100px;
 }
@@ -102,21 +125,39 @@ font-size: 17px;
     }
 }
     </style>
-    <script type="text/javascript">
-      window.addEventListener("load", function () {
-    const loader = document.querySelector(".loader");
-    loader.className += " hidden"; // class "loader hidden"
-});
-    </script>
+
+
+
+
+
+
+
+
+
+
     
+
+
+
+
+
+
+
+
+
+
+
     <!-- Navbar - START -->
         <?php
-            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/navbar.php";            
+            include $_SERVER['DOCUMENT_ROOT']."/1_mes/_includes/navbar.php";
+
+                    
         ?>
+
     <!-- Navbar - END -->
 
     <!-- Page specific Navbar START-->
-      <div class="mod_menu" style="position: absolute;padding-left: -15px;padding-top: -22px; margin-top: -14px;" >
+     <div class="mod_menu" style="position: absolute;padding-left: -15px;padding-top: -22px; margin-top: -14px;" >
 
  
 <nav class="navbar navbar-brdr navbar-expand-xl navbar-light bg-light m-0 px-2 pb-1 pt-0" style="position:fixed;width: 100%; z-index:2; ">
@@ -125,15 +166,7 @@ font-size: 17px;
  </button>
  <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav nav-tabs mr-auto mt-1">           
-
-
-
-
-
-
-
-
- <li class="nav-item dropdown" style="overflow:visible;">
+<li class="nav-item dropdown" style="overflow:visible;">
      <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
      INJECTION
      </a>
@@ -190,31 +223,24 @@ font-size: 17px;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      
               <li><a id="tb2" class="nav-link tbl" href="SMT.php" onclick="" >SMT</a></li>
               <li><a id="tb3" class="nav-link tbl" href="DIP.php" onclick="">DIP</a></li>
-              <li><a id="tb4" class="nav-link tbl" href="USAGE.php" onclick="">USAGE MONITORING</a></li>
-<!-- <li><a id="tb5" class="nav-link tbl" href="FATP.php" onclick="">FATP</a></li>-->
+              <li><a id="tb4" class="nav-link tbl" href="USAGE.php" onclick="" style="color: white; background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">USAGE MONITORING</a></li>
+<!-- <li><a id="tb5" class="nav-link tbl" href="FATP.php" onclick="">FATP</a></li>--> 
                    <li class="nav-item dropdown" style="overflow:visible;">
-     <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">
-     QUALITY - WORST DEFECT ANALYSIS - DIP
+     <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     QUALITY
      </a>
-      <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown" >                  
+      <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">                  
          <div class="container dropdown-header text-left">
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <a style="color: black" class="linkcollapse" href="#" ></a>                      
+                        </h6>
+                      </div>                      
+                    </div>
                     <div class="row">
                       <div class="col">
                         <h6 class="text-left">
@@ -223,7 +249,7 @@ font-size: 17px;
                         </h6>
                       </div>                      
                     </div>
-                                        <div class="row">
+                    <div class="row">
                       <div class="col">
                         <h6 class="text-left">
                         <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
@@ -239,12 +265,19 @@ font-size: 17px;
                         </h6>
                       </div>                      
                     </div>
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="text-left">
+                        <!-- underConstruct() loadtbl2('ViewReceived','','view_received') -->
+                        <a style="color: black" class="linkcollapse" href="DIPworstdefectanalysis.php" >WORST DEFECT ANALYSIS - DIP</a>                     
+                        </h6>
+                      </div>                      
+                    </div>
          </div>
       </div>
       </li>
-   <li><a id="tb7" class="nav-link tbl" href="machine_material.php" onclick="">MATERIAL SCAN</a></li>
+              <li><a id="tb7" class="nav-link tbl" href="machine_material.php" onclick="" >MATERIAL SCAN</a></li>
             </ul> 
-
 
             <!-- ICONS ON LEFT -->
             <?php
@@ -252,192 +285,78 @@ font-size: 17px;
             ?>
             <!-- ICONS ON LEFT END -->
 
-          </div>  
+          </div> 
         </nav>
       </div>
 
     <!-- Page specific Navbar END -->
 
 
-
 <!-- ------------------------selections----------------------- -->
 
 
+<div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%; " >
 
-<div class="container">
+ <div class="row text-left">
+ <form id="contactForm2" method="POST" action="DIPajax.php" style="margin-left: 60%;margin-right: 14%; position: fixed;
+    display: none;" >
 
-    
+
+<div class="input-group-prepend">
+    <span class="input-group-text" style="margin-left: 2%;">DIP</span>
+  </div><input class="form-control" type="date" name="from" id="today" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required><div style="display: none;">
+<div class="input-group-prepend">
+    <span class="input-group-text">To:</span>
+  </div><input class="form-control" type="date" name="to" id="today2" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required></div>
+<button type="submit" name="daily"  class="btn btn-outline-secondary btn-ladda" data-style="expand-left"> 
+    <img src="loading1.gif" alt="Loading..."  id="wait1" class="wait1" style="display: none;width: 116px; margin-left: 197px; " /> Show Result</button>
 
 
-  <div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >
+ 
 
-      <div class="row text-left" >
- <form id="contactForm1" method="POST" action="DIPworstdefectanalysisajax.php" style="margin-left: 4%;margin-right: 8%; position: fixed;
+           </form>
+
+
+ <form id="contactForm1" method="POST" action="SMT/ajax.php" style="margin-left: 14%;margin-right: 14%; position: fixed;
     display: flex;" >
 
-<!--<div class="input-group-append">
-  <div class="input-group-prepend">
-    <label class="input-group-text" for="inputGroupSelect01">REPAIR STATUS OF</label>
-  </div>
-  <select class="custom-select" name="statusOf" id="inputGroupSelect01">
-        <option value="SMT" hidden="" >SMT</option>
-    <option value="SMT">SMT</option>
-    <option value="DIP">DIP</option>
 
-  </select>
-</div>
--->
-
-
-<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" > PROD.LINE </span></div>
-    <select name="Linename" class="form-control" aria-describedby="basic-addon1" style="font-size: 13px; width: 100px;" required>
-<option value="OVERALL">OVERALL</option>
-<option value="DIPL1">DIPL1</option>
-<option value="DIPL2">DIPL2</option>
-<option value="DIPL3">DIPL3</option>
-
-
-</select> 
-
-  <div class="input-group-prepend">
-<select id ="chartType" name="chartType" style="height:26px; width:80px; display:none;">
-<option value="column"> Bar </option></select>  
-
-
-    <span class="input-group-text"> PROCESS </span></div>
-    <select name="process" class="form-control" aria-describedby="basic-addon1" style="font-size: 13px; width: 140px;" required>
-<option value="OVERALL">OVERALL</option>
-<!--<option value="AOI">AOI</option> -->
-<option value="FUNCTION TEST">FUNCTION TEST</option>
-<option value="FVI">FVI</option>
-<option value="FVI2">FVI2</option>
-<!--<option value="VI AFTER REFLOW">VI AFTER REFLOW</option>
-<option value="VI BEFORE REFLOW">VI BEFORE REFLOW</option>
--->
- <!-- 
-5=AOI
-6=FUNCTION TEST
-7=FVI
-9=VI AFTER REFLOW
-10=VI BEFORE REFLOW
-11=X RAY
-66=FVI2
-
- -->
-<?php 
-//$servername = "172.16.1.13";
-//$username = "root1";
-//$password = "0000";
-//$dbname1 = "masterdatabase";
-//$conn1 = new mysqli($servername, $username, $password, $dbname1);
-//if($stmt = $conn1->query("SELECT name, id FROM  smt_processes WHERE division_id='2'" )){
-//while ($row = $stmt->fetch_row()){
-//    echo "<option value='";
-//    echo "".$row[1]."'>";
-//    echo "".$row[0]."</option>";
-//     }}
-
-?>
-</select> 
 <div class="input-group-prepend">
-    <span class="input-group-text" >FROM</span>
+    <span class="input-group-text" style="margin-left: 2%;">FROM</span>
   </div><input class="form-control" type="date" name="from" id="today" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required>
 <div class="input-group-prepend">
     <span class="input-group-text">TO</span>
   </div><input class="form-control" type="date" name="to" id="today2" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required>
 <button type="submit" name="daily"  class="btn btn-outline-secondary btn-ladda" data-style="expand-left"> 
-    <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;margin-left: 62vw; width: 113px; margin-top: -0.3vw; " /> Show Result</button>
+    <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;width: 116px; margin-left: 411px; " /> Show Result</button>
 
-
-<!--<div class="input-group-prepend">
-    <span class="input-group-text" style="margin-left: 2%;">From:</span>
-  </div><input type="month" name="monthfrom" style=" width:150px" >
-<div class="input-group-prepend">
-    <span class="input-group-text">To:</span>
-  </div><input type="month" name="monthto" style=" width:150px" >
-<input class="btn btn-outline-primary" type="submit" value="MONTHLY" name="monthly" width="15px" style=" width:100px">-->
- </form>
-
-</div>
-<div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >  
-<div align = "center" >
-<label><b>WORST DEFECT ANALYSIS OF <i>DIP </i></b></label>
 
  
-<div id="chart_div"  class="table table-sm">
 
-       <div id="chart_div1" class="chart"></div>  
+           </form>
+
+
+
 
 </div>
+
+
+
+
+
+
+
+      </div>
+    </div>
+<div align = "center" style="margin-top: 5%;" >
+<label><b>SMT/DIP MES USAGE MONITORING MODULE </i></b></label>
+
+
+</div>
+<!-- FOR GRAPH DIV -->
+<div id="chart_div"  class="table table-sm"></div>
 
 <script  type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-
-<style type="text/css">
-    .chart {
-  width: 100%; 
-  min-height: 300px;
-}
-.row {
-  margin:0 !important;
-}
-  </style>
-<script type="text/javascript">
- google.load("visualization", "1", {packages:["corechart"]});
-google.setOnLoadCallback(drawChart1);
-function drawChart1() {
-  var data = google.visualization.arrayToDataTable([
-    ['DATE', 'DEFECT QTY', 'ACCUMULATIVE RATE %'],
-    ['Sample',  0,      0],
-    ['Sample',  0,      0],
-    ['Sample',  0,       0],
-    ['Sample',  0,      0]
-  ]);
-
-  var options = {
-    hAxis: [{ 0: {format: '#,###'}, 1: {format: '#%'}  }],
-
-      title: 'TOP 3 WORST DEFECT - DIP', titleTextStyle: {color: 'red'},
-
-    seriesType:'bars',
-                       series: {
-    0:{color:'#1e90ff',targetAxisIndex: 0,},
-    1:{type: 'line',targetAxisIndex: 1,}},
-
- };
-
-var chart = new google.visualization.ComboChart(document.getElementById('chart_div1'));
-  chart.draw(data, options);
-}
-$(window).resize(function(){
-  drawChart1();
-  drawChart2();
-});
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-</div>
-
-
-
-
-
-
-
 
 
 
@@ -451,8 +370,17 @@ $(window).resize(function(){
 
 
 <!-- FOR TABLE DIV -->
-<div class="table table-lg" >
+<div class="table table-lg table-responsive " >
+  <div class="container">
 <div id="show" class="table table-lg"></div>
+</div>
+
+
+
+
+
+
+
 <script type="text/javascript">
     var frm = $('#contactForm1');
 
@@ -462,28 +390,100 @@ $(window).resize(function(){
 $('.wait').show();
         $.ajax({
             type: frm.attr('method'),
+            
             url: frm.attr('action'),
             data: frm.serialize(),
+              
             success: function (data) {
-              $('.wait').hide();
+               $('.wait').hide();
                 console.log('Submission was successful.');
                 console.log(data);
-                          $("#show").html(data);
+   $("#show").prepend('<div> <button class="remove_field btn btn-sm btn-outline-danger">CLEAR</button>'+data+'</div>');
+                              //when user click on remove button "btn btn-outline-danger"
+    $("#show").on("click",".remove_field", function(e){ 
+        e.preventDefault();
+ $(this).parent('div').remove(); //remove inout field
+ 
+    })
             },
             error: function (data) {
-                            $('.wait').hide();
+                                      $('.wait').hide();      
                 console.log('An error occurred.');
                 console.log(data);
                  $("#show").html(data);
             },
+            
+               
+  });
         });
-    });
+
 </script>
 
-  
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    var frm1 = $('#contactForm2');
+
+    frm1.submit(function (e) {
+
+        e.preventDefault();
+$('.wait1').show();
+        $.ajax({
+            type: frm1.attr('method'),
+            
+            url: frm1.attr('action'),
+            data: frm1.serialize(),
+              
+            success: function (data) {
+               $('.wait1').hide();
+                console.log('Submission was successful.');
+                console.log(data);
+   $("#show").prepend('<div> <button class="remove_field btn btn-sm btn-outline-danger">CLEAR </button>'+data+'</div>');
+                              //when user click on remove button "btn btn-outline-danger"
+    $("#show").on("click",".remove_field", function(e){ 
+        e.preventDefault();
+ $(this).parent('div').remove(); //remove inout field
+
+    })
+            },
+            error: function (data) {
+                                      $('.wait1').hide();      
+                console.log('An error occurred.');
+                console.log(data);
+                 $("#show").html(data);
+            },
+            
+               
+  });
+        });
+</script>
+
+
+
+
+
+
+
+
+
 
  </div>
- <?php include ('footer.php'); ?>
+
+
+
+
+<?php include ('footer.php'); ?>
+
+
+
 
 
 

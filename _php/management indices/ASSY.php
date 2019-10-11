@@ -215,7 +215,7 @@
 
               <li><a id="tb2" class="nav-link tbl" href="SMT.php" onclick="" >SMT</a></li>
               <li><a id="tb3" class="nav-link tbl" href="DIP.php" onclick="">DIP</a></li>
-              <li><a id="tb4" class="nav-link tbl" href="#DIP TEST.php" onclick="">DIP TEST</a></li>
+              <li><a id="tb4" class="nav-link tbl" href="USAGE.php" onclick="">USAGE MONITORING</a></li>
              <!-- <li><a id="tb5" class="nav-link tbl" href="FATP.php" onclick="">FATP</a></li>-->
                    <li class="nav-item dropdown" style="overflow:visible;">
      <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -265,7 +265,7 @@
          </div>
       </div>
       </li>
-              <li><a id="tb7" class="nav-link tbl" href="#SALES.php" onclick="">SALES</a></li>
+ <li><a id="tb7" class="nav-link tbl" href="machine_material.php" onclick="" >MATERIAL SCAN</a></li>
             </ul> 
 
             <!-- ICONS ON LEFT -->
@@ -388,7 +388,9 @@ $(window).resize(function(){
 
 <!-- FOR TABLE DIV -->
 <div class="table table-lg table-responsive " >
+  <div class="container">
 <div id="show" class="table table-lg"></div>
+</div>
 <script type="text/javascript">
 
 

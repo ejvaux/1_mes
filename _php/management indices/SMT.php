@@ -211,7 +211,7 @@
       
               <li><a id="tb2" class="nav-link tbl" href="SMT.php" onclick="" style="color: white; background: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">SMT</a></li>
               <li><a id="tb3" class="nav-link tbl" href="DIP.php" onclick="">DIP</a></li>
-              <li><a id="tb4" class="nav-link tbl" href="#DIP TEST.php" onclick="">DIP TEST</a></li>
+              <li><a id="tb4" class="nav-link tbl" href="USAGE.php" onclick="">USAGE MONITORING</a></li>
 <!-- <li><a id="tb5" class="nav-link tbl" href="FATP.php" onclick="">FATP</a></li>--> 
                    <li class="nav-item dropdown" style="overflow:visible;">
      <a class="nav-link tbl dropdown-toggle bar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -261,7 +261,7 @@
          </div>
       </div>
       </li>
-              <li><a id="tb7" class="nav-link tbl" href="#SALES.php" onclick="">SALES</a></li>
+              <li><a id="tb7" class="nav-link tbl" href="machine_material.php" onclick="">MATERIAL SCAN</a></li>
             </ul> 
 
             <!-- ICONS ON LEFT -->
@@ -280,7 +280,7 @@
 <!-- ------------------------selections----------------------- -->
 
 
-<div class="container-fluid mt-5 ml-0 pl-0" id="table_display" style="width: 100%;" >
+<div class="container-fluid mt-5 ml-0 pl-2 pr-2" id="table_display" style="width: 70%;" >
 
       <div class="row text-left">
  <form id="contactForm1" method="POST" action="SMTajax.php" style="margin-left: 14%;margin-right: 14%; position: fixed;
@@ -396,7 +396,10 @@ $(window).resize(function(){
 
 <!-- FOR TABLE DIV -->
 <div class="table table-lg table-responsive " >
+  <div class="container">
 <div id="show" class="table table-lg"></div>
+</div>
+
 <script type="text/javascript">
 
 

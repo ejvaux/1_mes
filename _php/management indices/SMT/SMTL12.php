@@ -21,7 +21,9 @@ $tplan=0;
       </tr>
 
   <tr align = 'center'> <th width = '100px' style='position: absolute;
-    display: flex;  background: #fff; font-size:12px; height:20px;'>PROD PLAN</th><td style='  padding-left: 90px;'></td><?php
+    display: flex;  background: #fff; font-size:12px; height:20px;'>PROD PLAN</th><td style='  padding-left: 90px;'></td>
+
+    <?php
     for ($fromstart1; $fromstart1 <=$toend1 ; $fromstart1++) { 
     if($stmt = $conn1->query("SELECT COUNT(DATE_), SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ >='$start1' AND DATE_ADD(DATE_, INTERVAL 1 DAY) <='$end1' and JOB_ORDER_NO like'2%' AND MACHINE_CODE LIKE 'SMTL12' ")){while ($plan = $stmt->fetch_row()){
     $tplan+=$plan[1];
