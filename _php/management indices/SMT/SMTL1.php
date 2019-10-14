@@ -44,7 +44,7 @@ $tplan=0;
   <tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff; font-size:12px; height:20px;'>PROD PLAN</th><td style='  padding-left: 90px;'></td><?php
     for ($fromstart1; $fromstart1 <=$toend1 ; $fromstart1++) { 
-    if($stmt = $conn1->query("SELECT COUNT(DATE_), SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ >='$start1' AND DATE_ADD(DATE_, INTERVAL 1 DAY) <='$end1' and JOB_ORDER_NO like'2%' AND MACHINE_CODE LIKE 'SMTL1' ")){while ($plan = $stmt->fetch_row()){
+    if($stmt = $conn1->query("SELECT COUNT(DATE_), SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ >='$start1' AND DATE_ADD(DATE_, INTERVAL 1 DAY) <='$end1' and JOB_ORDER_NO like'2%' AND MACHINE_CODE LIKE 'SMTL1' and SALES_ORDER NOT LIKE 'M%'  ")){while ($plan = $stmt->fetch_row()){
     $tplan+=$plan[1];
  echo "<td style='font-size:12px; height:20px;'>".number_format(@$plan[1],0,'.',',')."</td>";
     $job_array[]=$plan[1];
@@ -67,7 +67,7 @@ $end2=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
     display: flex;  background: #fff; font-size:12px; height:20px;'>PROD RESULT</th><td style='  padding-left: 90px;'></td>";
       for ($fromstart2; $fromstart2 <=$toend2 ; $fromstart2++) { 
    if($stmt = $conn2->query("SELECT sum(type) FROM pcb WHERE created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2' and jo_number like '2%' 
-     and type = '1' AND line_id='1'  ")){
+     and type = '1' AND line_id='1'  and `work_order` NOT LIKE 'M%' ")){
   while ($result = $stmt->fetch_row()){
  echo "<td style='font-size:12px; height:20px;'>".number_format($result[0],0,'.',',') ."</td>";
  $tresult+=$result[0];

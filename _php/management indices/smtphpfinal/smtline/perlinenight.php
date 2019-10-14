@@ -12,7 +12,7 @@ echo "
 <tr align = 'center' > <strong> $Linename </strong><th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DATE</th><td style='  padding-left: 90px;'></td>"; 
       for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
-if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ >='$start' AND DATE_ADD(DATE_, INTERVAL 1 DAY) <='$end' and JOB_ORDER_NO like'2%' and MACHINE_CODE='$line' 	")){
+if($stmt = $conn1->query("SELECT DATE_, SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ >='$start' AND DATE_ADD(DATE_, INTERVAL 1 DAY) <='$end' and JOB_ORDER_NO like'2%' and MACHINE_CODE='$line' and SALES_ORDER NOT LIKE 'M%'	")){
     
   
   while ($date = $stmt->fetch_row()) {
@@ -36,7 +36,7 @@ $tplan=0;
    echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>PROD PLAN</th><td style='  padding-left: 90px;'></td>";
     for ($fromstart1; $fromstart1 <=$toend1 ; $fromstart1++) { 
-    if($stmt = $conn1->query("SELECT COUNT(DATE_), SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ >='$start1' AND DATE_ADD(DATE_, INTERVAL 1 DAY) <='$end1' and JOB_ORDER_NO like'2%' and MACHINE_CODE like '$line' ")){
+    if($stmt = $conn1->query("SELECT COUNT(DATE_), SUM(PLAN_QTY) FROM mis_prod_plan_dl WHERE DATE_ >='$start1' AND DATE_ADD(DATE_, INTERVAL 1 DAY) <='$end1' and JOB_ORDER_NO like'2%' and MACHINE_CODE like '$line' and SALES_ORDER NOT LIKE 'M%' ")){
 
   while ($plan = $stmt->fetch_row()){
     $tplan+=$plan[1];
@@ -62,7 +62,7 @@ $end2=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
     display: flex;  background: #fff;'>PROD RESULT</th><td style='  padding-left: 90px;'></td>";
       for ($fromstart2; $fromstart2 <=$toend2 ; $fromstart2++) { 
    if($stmt = $conn2->query("SELECT count(id), Month(created_at),day(created_at),time(created_at), created_at FROM pcb WHERE created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2' and jo_number like '2%' 
-   and  shift = '$shift'  and type = '1' and PDLINE_NAME like '$line' ")){
+   and  shift = '$shift'  and type = '1' and PDLINE_NAME like '$line' and `work_order` NOT LIKE 'M%' ")){
 
    $i=0;
   while ($result = $stmt->fetch_row()){
