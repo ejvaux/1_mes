@@ -106,32 +106,43 @@ $accumulated_rate_array=array();
 $result_array=array();
 $shift='all';
 
+
  $f=date('Y-m-d',strtotime($_POST['from']));
  $t=date('Y-m-d',strtotime($_POST['to'].'+1 day'));
 
 
 $process_id=$_POST['process'];
-
-if ($process_id==='FUNCTION TEST') {
-  $process_id='1';  
-include ("DIPworstdefectphp/condition.php");
-
-}
-if ($process_id==='FVI') {
-  $process_id='2'; 
-include ("DIPworstdefectphp/condition.php");
-
+if ($process_id==='OVERALL' && $line==='OVERALL')
+{
+  include ("DIPworstdefectphp/dipoverall.php");
 }
 
-if ($process_id==='FVI2') {
-  $process_id='65'; 
-include ("DIPworstdefectphp/condition.php");
 
-}
-if ($process_id==='OVERALL') {
-include ("DIPworstdefectphp/processcondition.php");
 
-}
+
+// if ($process_id==='FUNCTION TEST') {
+//   $process_id='1';  
+// include ("DIPworstdefectphp/condition.php");
+
+// }
+// if ($process_id==='FVI') {
+//   $process_id='2'; 
+// include ("DIPworstdefectphp/condition.php");
+
+// }
+
+// if ($process_id==='FVI2') {
+//   $process_id='65'; 
+// include ("DIPworstdefectphp/condition.php");
+
+// }
+
+
+
+// else  {
+// include ("DIPworstdefectphp/processcondition.php");
+
+// }
 
 
 

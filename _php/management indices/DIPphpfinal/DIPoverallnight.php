@@ -93,6 +93,33 @@ include ('smtgapachievedrate.php');
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $fromstart4=date('d',strtotime($_POST['from']));
 $toend4=date('d',strtotime($_POST['to']));
 $start4=date('Y-m-d H:i:s',strtotime($_POST['from'].' 06:00:00'));
@@ -101,7 +128,7 @@ $end4=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
   echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>DEFECT</th><td style='  padding-left: 90px;'></td>";
    for ($fromstart4; $fromstart4 <=$toend4 ; $fromstart4++) { 
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE  division_id='18' AND created_at>='$start4' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end4' AND shift='2'    ")){
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE  line_id  in (19,20)  AND created_at>='$start4' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end4' and shift='2'  ")){
 
 while ($def = $stmt->fetch_row()){
         $defect_array[]=$def[0];
@@ -112,6 +139,52 @@ $end4=date('Y-m-d H:i:s',strtotime("$end4 +1 days"));
 
 }}}
   echo "<td><b>".number_format($tdef,0,'.',',')."<b></td></tr>";
+
+// 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

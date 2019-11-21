@@ -96,7 +96,7 @@ $i++;
 
  $tdef=0;
    for ($fromstart2; $fromstart2 <=$toend2 ; $fromstart2++) { 
-if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE division_id='18' AND created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2'  ")){
+if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE line_id  in (19,20)   AND created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2'  ")){
 
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[0],0,'.',',')."</td>";
@@ -114,7 +114,7 @@ $defect_array[]=$def[0];
 
  $trep=0;
    for ($fromstart1; $fromstart1 <=$toend1 ; $fromstart1++) { 
-if($stmt = $conn2->query("SELECT date(created_at),COUNT(repaired_at) FROM defect_mats WHERE division_id='18' AND created_at>='$start1' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end1' and repair='1'  ")){
+if($stmt = $conn2->query("SELECT date(created_at),COUNT(repaired_at) FROM defect_mats WHERE line_id  in (19,20) AND created_at>='$start1' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end1' and repair='1'  ")){
 
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[1],0,'.',',')."</td>";
@@ -132,7 +132,7 @@ echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff;'>UNREPAIRED</th><td style='  padding-left: 90px;'></td>";
  $tunrep=0;
    for ($fromstart; $fromstart <=$toend ; $fromstart++) { 
-if($stmt = $conn2->query("SELECT COUNT(repair), updated_at FROM defect_mats WHERE division_id='18' AND created_at>='$start' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end' and repair='0'  ")){
+if($stmt = $conn2->query("SELECT COUNT(repair), updated_at FROM defect_mats WHERE line_id  in (19,20) AND created_at>='$start' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end' and repair='0'  ")){
 
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[0],0,'.',',')."</td>";
@@ -161,7 +161,7 @@ $end3=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
 
  $i=0;
    for ($fromstart3; $fromstart3 <=$toend3 ; $fromstart3++) { 
-if($stmt = $conn2->query("SELECT COUNT(created_at),count(repair) updated_at FROM defect_mats WHERE division_id='18' AND created_at>='$start3' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end3'   ")){
+if($stmt = $conn2->query("SELECT COUNT(created_at),count(repair) updated_at FROM defect_mats WHERE line_id  in (19,20) AND created_at>='$start3' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end3'   ")){
 
 while ($def = $stmt->fetch_row()){
 if ($def[0]==='0') {

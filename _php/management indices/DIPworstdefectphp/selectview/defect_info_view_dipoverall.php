@@ -91,7 +91,7 @@ if($stmt = $connect->query("
   WHERE 
 
   1_smt.defect_mats.created_at BETWEEN '$from' AND '$to' 
-  AND 1_smt.defect_mats.process_id='$process_id'   
+  AND 1_smt.defect_mats.line_id  in (19,20)   
   AND 1_smt.defect_mats.defect_id !='$defect_id' 
   AND 1_smt.defect_mats.defect_id !='$defect_id1' 
   AND 1_smt.defect_mats.defect_id !='$defect_id2' 
@@ -101,7 +101,7 @@ if($stmt = $connect->query("
   AND 1_smt.defect_mats.defect_id !='$defect_id6' 
   AND 1_smt.defect_mats.defect_id !='$defect_id7' 
   AND 1_smt.defect_mats.defect_id !='$defect_id8'
-    AND 1_smt.defect_mats.division_id='18' 
+     
   ORDER BY 1_smt.defect_mats.created_at
   ASC  " )){
 
@@ -110,7 +110,7 @@ if($stmt = $connect->query("
 
 
 
-//if($stmt = $conn2->query("SELECT masterdatabase.dmc_defect_code.DEFECT_NAME, masterdatabase.dmc_defect_code.DEFECT_ID FROM 1_smt.,masterdatabase.dmc_defect_code JOIN 1_smt.defect_mats ON  masterdatabase.dmc_defect_code.DEFECT_ID=1_smt.defect_mats.defect_id WHERE 1_smt.defect_mats.created_at BETWEEN'$from' AND '$to' AND 1_smt.defect_mats.line_id='$line_id' AND 1_smt.defect_mats.process_id='$process_id'   and 1_smt.defect_mats.defect_id='$defect_id' ORDER BY COUNT(1_smt.defect_mats.process_id) DESC LIMIT 0,9 " )){
+//if($stmt = $conn2->query("SELECT masterdatabase.dmc_defect_code.DEFECT_NAME, masterdatabase.dmc_defect_code.DEFECT_ID FROM 1_smt.,masterdatabase.dmc_defect_code JOIN 1_smt.defect_mats ON  masterdatabase.dmc_defect_code.DEFECT_ID=1_smt.defect_mats.defect_id WHERE 1_smt.defect_mats.created_at BETWEEN'$from' AND '$to' AND 1_smt.defect_mats.line_id='$line_id' AND 1_smt.defect_mats.line_id  in (19,20)   and 1_smt.defect_mats.defect_id='$defect_id' ORDER BY COUNT(1_smt.defect_mats.process_id) DESC LIMIT 0,9 " )){
 $i='1';
 ?>
 <style type="text/css">
@@ -214,9 +214,9 @@ if($stmt = $connect->query("
   WHERE 
 
   1_smt.defect_mats.created_at BETWEEN '$from' AND '$to' 
-  AND 1_smt.defect_mats.process_id='$process_id'   
+  AND 1_smt.defect_mats.line_id  in (19,20)   
   AND 1_smt.defect_mats.defect_id='$defect_id' 
-    AND 1_smt.defect_mats.division_id='18'
+    
   ORDER BY 1_smt.defect_mats.created_at
   ASC  " )){
 
@@ -225,7 +225,7 @@ if($stmt = $connect->query("
 
 
 
-//if($stmt = $conn2->query("SELECT masterdatabase.dmc_defect_code.DEFECT_NAME, masterdatabase.dmc_defect_code.DEFECT_ID FROM 1_smt.,masterdatabase.dmc_defect_code JOIN 1_smt.defect_mats ON  masterdatabase.dmc_defect_code.DEFECT_ID=1_smt.defect_mats.defect_id WHERE 1_smt.defect_mats.created_at BETWEEN'$from' AND '$to' AND 1_smt.defect_mats.line_id='$line_id' AND 1_smt.defect_mats.process_id='$process_id'   and 1_smt.defect_mats.defect_id='$defect_id' ORDER BY COUNT(1_smt.defect_mats.process_id) DESC LIMIT 0,9 " )){
+//if($stmt = $conn2->query("SELECT masterdatabase.dmc_defect_code.DEFECT_NAME, masterdatabase.dmc_defect_code.DEFECT_ID FROM 1_smt.,masterdatabase.dmc_defect_code JOIN 1_smt.defect_mats ON  masterdatabase.dmc_defect_code.DEFECT_ID=1_smt.defect_mats.defect_id WHERE 1_smt.defect_mats.created_at BETWEEN'$from' AND '$to' AND 1_smt.defect_mats.line_id='$line_id' AND 1_smt.defect_mats.line_id  in (19,20)   and 1_smt.defect_mats.defect_id='$defect_id' ORDER BY COUNT(1_smt.defect_mats.process_id) DESC LIMIT 0,9 " )){
 $i='1';
 ?>
 <style type="text/css">

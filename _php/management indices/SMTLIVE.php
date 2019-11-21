@@ -246,6 +246,7 @@ $('.wait').show();
 var i = setInterval(function(){
    //Call ajax here
  $.ajax({
+  
             type: frm.attr('method'),         
             url: frm.attr('action'),
             data: frm.serialize(),
@@ -255,11 +256,14 @@ var i = setInterval(function(){
                 console.log(data);
                           $("#show").html(data);
             },
+
             error: function (data) {
                $('.wait').hide();      
                 console.log('An error occurred.');
                 console.log(data);
-               $("#show").html(data);}, }); },60000)    });
+               $("#show").html(data);},
+
+                });},60000)    });
 
 
 

@@ -77,7 +77,7 @@ else { echo "<br>";}
   WHERE 
 
   1_smt.defect_mats.created_at BETWEEN '$from' AND '$to'   
-  AND 1_smt.defect_mats.division_id='18'
+  
     AND 1_smt.defect_mats.line_id='$line_id' 
   ORDER BY 1_smt.defect_mats.created_at
   ASC  " )){

@@ -91,7 +91,7 @@ $i++;
 
  $tdef=0;//echo "<tr align = 'center'> <th width = '100px'>DEFECT QTY</th>";
    for ($fromstart2; $fromstart2 <=$toend2 ; $fromstart2++) { 
-if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE division_id='18' AND created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2' and line_id='$line_id'  ")){
+if($stmt = $conn2->query("SELECT COUNT(created_at), updated_at FROM defect_mats WHERE  created_at>='$start2' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end2' and line_id='$line_id'  ")){
 
 while ($def = $stmt->fetch_row()){
  echo "<td>".number_format($def[0],0,'.',',')."</td>";

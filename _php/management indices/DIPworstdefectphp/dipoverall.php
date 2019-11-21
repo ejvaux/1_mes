@@ -65,7 +65,7 @@ echo "  <table class='table table-sm' >
 
 
 $i=1;
-if($stmt = $conn2->query("SELECT masterdatabase.dmc_defect_code.DEFECT_NAME, masterdatabase.dmc_defect_code.DEFECT_ID, count(1_smt.defect_mats.process_id) FROM masterdatabase.dmc_defect_code JOIN 1_smt.defect_mats ON  masterdatabase.dmc_defect_code.DEFECT_ID=1_smt.defect_mats.defect_id WHERE 1_smt.defect_mats.created_at BETWEEN'$from' AND '$to' and 1_smt.defect_mats.process_id='$process_id'    group by 1_smt.defect_mats.defect_id ORDER BY COUNT(1_smt.defect_mats.process_id) DESC LIMIT 0,10 " )){
+if($stmt = $conn2->query("SELECT masterdatabase.dmc_defect_code.DEFECT_NAME, masterdatabase.dmc_defect_code.DEFECT_ID, count(1_smt.defect_mats.process_id) FROM masterdatabase.dmc_defect_code JOIN 1_smt.defect_mats ON  masterdatabase.dmc_defect_code.DEFECT_ID=1_smt.defect_mats.defect_id WHERE 1_smt.defect_mats.created_at BETWEEN'$from' AND '$to' and 1_smt.defect_mats.line_id  in (19,20)    group by 1_smt.defect_mats.defect_id ORDER BY COUNT(1_smt.defect_mats.process_id) DESC LIMIT 0,10 " )){
 
 while ($worstranking = $stmt->fetch_row()){
 ?>
@@ -172,7 +172,7 @@ if ($i<=10) {
 
 
 $ii=1;
-if($stmt = $conn2->query("SELECT masterdatabase.dmc_defect_code.DEFECT_NAME, masterdatabase.dmc_defect_code.DEFECT_ID, count(1_smt.defect_mats.process_id) FROM masterdatabase.dmc_defect_code JOIN 1_smt.defect_mats ON  masterdatabase.dmc_defect_code.DEFECT_ID=1_smt.defect_mats.defect_id WHERE 1_smt.defect_mats.created_at BETWEEN'$from' AND '$to' and 1_smt.defect_mats.process_id='$process_id'    group by 1_smt.defect_mats.defect_id ORDER BY COUNT(1_smt.defect_mats.process_id) DESC LIMIT 0,1 " )){
+if($stmt = $conn2->query("SELECT masterdatabase.dmc_defect_code.DEFECT_NAME, masterdatabase.dmc_defect_code.DEFECT_ID, count(1_smt.defect_mats.process_id) FROM masterdatabase.dmc_defect_code JOIN 1_smt.defect_mats ON  masterdatabase.dmc_defect_code.DEFECT_ID=1_smt.defect_mats.defect_id WHERE 1_smt.defect_mats.created_at BETWEEN'$from' AND '$to' and 1_smt.defect_mats.line_id  in (19,20)    group by 1_smt.defect_mats.defect_id ORDER BY COUNT(1_smt.defect_mats.process_id) DESC LIMIT 0,1 " )){
 
 while ($worstranking = $stmt->fetch_row()){
 
@@ -275,7 +275,7 @@ $ii++;
 echo "  
  </tr><tr align = 'center'> <th width = '100px'>DEFECT QTY</th>";
 $tdqty='0';
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'    and process_id='$process_id'   group by defect_id ORDER BY COUNT(defect_id) DESC LIMIT 0,9 " )){
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'    and line_id  in (19,20)   group by defect_id ORDER BY COUNT(defect_id) DESC LIMIT 0,9 " )){
 
 while ($def = $stmt->fetch_row()){
 
@@ -288,7 +288,7 @@ while ($def = $stmt->fetch_row()){
 
 
 $tdqtywithother='0';
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to' and process_id='$process_id'    group by defect_id  ORDER BY COUNT(defect_id) DESC " )){
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to' and line_id  in (19,20)    group by defect_id  ORDER BY COUNT(defect_id) DESC " )){
 
 while ($def = $stmt->fetch_row()){
   $tdqtywithother+=$def[0];
@@ -329,7 +329,7 @@ while ($def = $stmt->fetch_row()){
 echo "  
  </tr><tr align = 'center'> <th width = '100px'>DEFECT RATE</th>";
 $tdqty='0';
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'  and process_id='$process_id'    group by defect_id  ORDER BY COUNT(defect_id) DESC LIMIT 0,9" )){
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'  and line_id  in (19,20)    group by defect_id  ORDER BY COUNT(defect_id) DESC LIMIT 0,9" )){
 
 while ($def = $stmt->fetch_row()){
 
@@ -408,7 +408,7 @@ $rate3=$rate2;
 echo "  
  </tr><tr align = 'center'> <th width = '100px'>DPM</th>";
 $tdqty='0';
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'  and process_id='$process_id'    group by defect_id  ORDER BY COUNT(defect_id) DESC LIMIT 0,9" )){
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'  and line_id  in (19,20)    group by defect_id  ORDER BY COUNT(defect_id) DESC LIMIT 0,9" )){
 
 while ($def = $stmt->fetch_row()){
   //$def[0]<=is_bool('0')||
@@ -490,7 +490,7 @@ $rate3=$rate2;
 echo "  
  </tr><tr align = 'center'> <th width = '100px'>ACCUMULATIVE RATE</th>";
 
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'     and process_id='$process_id'   group by defect_id ORDER BY COUNT(defect_id) DESC LIMIT 0,9 " )){
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to'     and line_id  in (19,20)   group by defect_id ORDER BY COUNT(defect_id) DESC LIMIT 0,9 " )){
 
 while ($def = $stmt->fetch_row()){
   if ($tdqtywithother<='0') {
@@ -513,7 +513,7 @@ $accumulated_rate=$def[0]/$tdqtywithother*100;
 
 
 
-if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to' and process_id='$process_id'     group by defect_id  ORDER BY COUNT(defect_id) DESC " )){
+if($stmt = $conn2->query("SELECT  count(defect_id), date(created_at) FROM defect_mats WHERE created_at>='$from' AND created_at <='$to' and line_id  in (19,20)     group by defect_id  ORDER BY COUNT(defect_id) DESC " )){
 
 while ($def = $stmt->fetch_row()){
 

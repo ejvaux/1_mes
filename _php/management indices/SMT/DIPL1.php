@@ -63,7 +63,7 @@ echo "<td style='font-size:12px; height:20px;'><b>".number_format($tresult,0,'.'
 
 
 
-
+// division_id='18' AND
 $fromstart4=date('d',strtotime($_POST['from']));
 $toend4=date('d',strtotime($_POST['to']));
 $start4=date('Y-m-d H:i:s',strtotime($_POST['from'].' 06:00:00'));
@@ -72,11 +72,11 @@ $end4=date('Y-m-d H:i:s',strtotime($_POST['from'].'+1 days'.' 05:59:59' ));
   echo "<tr align = 'center'> <th width = '100px' style='position: absolute;
     display: flex;  background: #fff; font-size:12px; height:20px;'>DEFECT</th><td style='  padding-left: 90px;'></td>";
        for ($fromstart4; $fromstart4 <=$toend4 ; $fromstart4++) { 
-if($stmt = $conn2->query("SELECT SUM(division_id) FROM defect_mats WHERE division_id='18' AND created_at>='$start4' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end4'   AND line_id='19' ")){
+if($stmt = $conn2->query("SELECT COUNT(line_id) FROM defect_mats WHERE  created_at>='$start4' AND DATE_ADD(created_at, INTERVAL 0 DAY) <='$end4'   AND line_id='19' ")){
 while ($def = $stmt->fetch_row()){
-          $defect_array[]=@$def[0]/18;
- echo "<td style='font-size:12px; height:20px;'>".number_format(@$def[0]/18,0,'.',',')."</td>";
- $tdef+=@$def[0]/18;
+          $defect_array[]=@$def[0];
+ echo "<td style='font-size:12px; height:20px;'>".number_format(@$def[0],0,'.',',')."</td>";
+ $tdef+=@$def[0];
 $start4=date('Y-m-d H:i:s',strtotime("$start4 +1 days"));
 $end4=date('Y-m-d H:i:s',strtotime("$end4 +1 days"));
 
