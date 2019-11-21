@@ -101,7 +101,7 @@ if($stmt = $connect->query("
   AND 1_smt.defect_mats.defect_id !='$defect_id6' 
   AND 1_smt.defect_mats.defect_id !='$defect_id7' 
   AND 1_smt.defect_mats.defect_id !='$defect_id8'
-     
+      AND 1_smt.defect_mats.division_id='18'
   ORDER BY 1_smt.defect_mats.created_at
   ASC  " )){
 
@@ -214,7 +214,7 @@ if($stmt = $connect->query("
   WHERE 
 
   1_smt.defect_mats.created_at BETWEEN '$from' AND '$to' 
-  AND 1_smt.defect_mats.line_id  in (19,20)   
+  AND 1_smt.defect_mats.line_id  in (19,20)   AND 1_smt.defect_mats.division_id='18'
   AND 1_smt.defect_mats.defect_id='$defect_id' 
     
   ORDER BY 1_smt.defect_mats.created_at
