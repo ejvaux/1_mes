@@ -2,7 +2,7 @@
 if($line==='DIPL1' && $shift==='all')
 {
 $line_id='19';
-$line='DIPL1';
+$line='SMTL2';
 
 include("perlineoverall.php");
 
@@ -11,7 +11,7 @@ include("perlineoverall.php");
 if($line==='DIPL2' && $shift==='all')
 {
 $line_id='20';
-$line='DIPL2';
+$line='SMTl6';
 
 include("perlineoverall.php");
 

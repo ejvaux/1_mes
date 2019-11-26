@@ -115,34 +115,39 @@ $process_id=$_POST['process'];
 if ($process_id==='OVERALL' && $line==='OVERALL')
 {
   include ("DIPworstdefectphp/dipoverall.php");
+
+  return 0;
 }
+if ($process_id==='FUNCTION TEST') {
+  $process_id='1';  
+include ("DIPworstdefectphp/condition.php");
+ return 0;
+}
+if ($process_id==='FVI') {
+  $process_id='4'; 
+include ("DIPworstdefectphp/condition.php");
+ return 0;
+}
+if ($process_id==='FVI1') {
+  $process_id='2'; 
+include ("DIPworstdefectphp/condition.php");
+ return 0;
+}
+if ($process_id==='AOI') {
+  $process_id='3'; 
+include ("DIPworstdefectphp/condition.php");
+ return 0;
+}
+if ($process_id==='FVI2') {
+  $process_id='65'; 
+include ("DIPworstdefectphp/condition.php");
+ return 0;
+}
+else  {
+include ("DIPworstdefectphp/processcondition.php");
 
-
-
-
-// if ($process_id==='FUNCTION TEST') {
-//   $process_id='1';  
-// include ("DIPworstdefectphp/condition.php");
-
-// }
-// if ($process_id==='FVI') {
-//   $process_id='2'; 
-// include ("DIPworstdefectphp/condition.php");
-
-// }
-
-// if ($process_id==='FVI2') {
-//   $process_id='65'; 
-// include ("DIPworstdefectphp/condition.php");
-
-// }
-
-
-
-// else  {
-// include ("DIPworstdefectphp/processcondition.php");
-
-// }
+ return 0;
+}
 
 
 

@@ -135,17 +135,28 @@ while ($def_id = $stmt->fetch_row()){
  //echo "<td><medium><button style='color:darkblue; border-style:none; background-color:transparent;' data-toggle='modal' data-target='#".$def_id['1']."' ><i>". strtoupper($def_id['0'])."</button></i></medium></td>";
 
 
-
 echo "<tr style='font-size:20px;'>
 
       <td>".$i."</td>
-      <td>".$def_id[1]."</td>
-      <td>".$def_id[2]."</td>
-      <td>".$def_id[0]."</td>
+      <td>".$def_id[1]."</td>";
+?>
+
+      <td><?php 
+if ($def_id[2]==='SMTL6') {
+  echo "DIPL2";
+}else{echo "DIPL1";}
+
+      ?></td>
+
+<?php
+
+
+      echo "<td>".$def_id[0]."</td>
       <td>".$def_id[3]."</td>
       <td>".$def_id[4]."</td>
 
     </tr>";
+
 
 
 

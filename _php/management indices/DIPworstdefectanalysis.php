@@ -306,12 +306,13 @@ font-size: 17px;
 <option value="column"> Bar </option></select>  
 
 
-    <span class="input-group-text"> PROCESS </span></div>
-    <select name="process" class="form-control" aria-describedby="basic-addon1" style="font-size: 13px; width: 140px;" required>
+    <span class="input-group-text" style="display: none;"> PROCESS </span></div>
+    <select name="process" class="form-control" aria-describedby="basic-addon1" style="display: none;font-size: 13px; width: 140px;" required>
 <option value="OVERALL">OVERALL</option>
-<!--<option value="AOI">AOI</option> -->
+<option value="AOI">AOI</option> 
 <option value="FUNCTION TEST">FUNCTION TEST</option>
 <option value="FVI">FVI</option>
+<option value="FVI1">FVI1</option>
 <option value="FVI2">FVI2</option>
 <!--<option value="VI AFTER REFLOW">VI AFTER REFLOW</option>
 <option value="VI BEFORE REFLOW">VI BEFORE REFLOW</option>
@@ -348,8 +349,8 @@ font-size: 17px;
     <span class="input-group-text">TO</span>
   </div><input class="form-control" type="date" name="to" id="today2" style="font-size: 14px; width:150px" value="<?php echo date('Y-m-d'); ?>" required>
 <button type="submit" name="daily"  class="btn btn-outline-secondary btn-ladda" data-style="expand-left"> 
-    <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;margin-left: 62vw; width: 113px; margin-top: -0.3vw; " /> Show Result</button>
-
+    <img src="loading1.gif" alt="Loading..."  id="wait" class="wait" style="display: none;margin-left: 45vw; width: 113px; margin-top: -0.3vw; " /> Show Result</button>
+<!-- margin-left: 62vw; -->
 
 <!--<div class="input-group-prepend">
     <span class="input-group-text" style="margin-left: 2%;">From:</span>
@@ -392,7 +393,7 @@ function drawChart1() {
     ['DATE', 'DEFECT QTY', 'ACCUMULATIVE RATE %'],
     ['Sample',  0,      0],
     ['Sample',  0,      0],
-    ['Sample',  0,       0],
+    ['Sample',  0,      0],
     ['Sample',  0,      0]
   ]);
 
