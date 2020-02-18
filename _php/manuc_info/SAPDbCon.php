@@ -2,7 +2,7 @@
 
 #(localdb)\MSSQLLocalDB
 $serverName="SAPSERVER";
-$connectionInfo=array('Database'=>'PTPI_GOLIVE', "UID"=>"user1", "PWD"=>"Password1");
+$connectionInfo=array('Database'=>'PTPI_GOLIVE', "UID"=>"user1", "PWD"=>"P@sswordAdmin");
 
 $SAPconn = sqlsrv_connect($serverName,$connectionInfo);
 
@@ -11,9 +11,9 @@ $SAPconn = sqlsrv_connect($serverName,$connectionInfo);
 #$conn = new PDO($dsn, "e.rubio", "prima");
 #$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
-if($conn)
+if($SAPconn)
 {
-
+echo "Connection Successfully</br>";
 }
 else
 {
