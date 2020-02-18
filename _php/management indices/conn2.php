@@ -19,3 +19,16 @@ if ($conn2->connect_error) {
 } 
 else { echo "<br>";}
     ?>
+<!-- 
+	BARCODE DATA AND DANPLA BARCODE
+   		 AA16 = Barcode
+   		 191209 = Date
+   		 D = Day shift
+   		 T or D or P = Per Tray, or Danpla, or Polybag
+   		 0001 = Count Number/Peices
+
+
+   	LOT NUMBER
+   	191209 = Date
+   	L02 = MOLD/MACHINE NO.
+-->
