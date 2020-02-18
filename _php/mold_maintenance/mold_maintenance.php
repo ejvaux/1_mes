@@ -114,8 +114,9 @@
           $('#tb3').hide();
           $('#tb4').hide();
         }        
-        var dtdt =moment(Date()).format('YYYY-MM-DD');
-        checkuserauth(dtdt,dtdt); 
+        /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+        checkuserauth(dtdt,dtdt);  */
+        checkuserauth();
 
          /* Add JS functions below */
          
@@ -136,8 +137,9 @@
         }
            
         $('#tb1').click(function(){
-          var dtdt =moment(Date()).format('YYYY-MM-DD');
-          checkuserauth(dtdt,dtdt);
+          /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+          checkuserauth(dtdt,dtdt); */
+          checkuserauth();
         });
         
         $('#tb2').click(function(){

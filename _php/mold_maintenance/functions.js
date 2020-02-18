@@ -147,8 +147,9 @@ function listchange(){
           /* alert("Checklist Saved Successfully!"); */
           $('#checklistform').trigger('reset');
           $('#chcklist').modal('hide');
-          var dtdt =moment(Date()).format('YYYY-MM-DD');
-          checkuserauth(dtdt,dtdt);
+          /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+          checkuserauth(dtdt,dtdt); */
+          checkuserauth();
           loadmodal('moldrepairmodal');
 
           $.notify({
@@ -202,8 +203,9 @@ function listchange(){
             if(data==true){
 
               $('#chcklist').modal('hide');
-                    var dtdt =moment(Date()).format('YYYY-MM-DD');
-                    checkuserauth(dtdt,dtdt);
+                    /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+                    checkuserauth(dtdt,dtdt); */
+                    checkuserauth();
                     loadmodal('moldrepairmodal');
           
                     $.notify({
@@ -310,8 +312,9 @@ function listchange(){
                     success: function (data2) {    
                       if(data2==true){
                         $('#qcchcklist').modal('hide');
-                        var dtdt =moment(Date()).format('YYYY-MM-DD');
-                        checkuserauth(dtdt,dtdt);
+                        /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+                        checkuserauth(dtdt,dtdt); */
+                        checkuserauth();
                         loadmodal('moldrepairmodal');
               
                         $.notify({
@@ -390,8 +393,9 @@ function listchange(){
           /* alert("Record Updated Successfully!"); */
           $('#editform').trigger('reset');
           $('#editmoldrepair').modal('hide');
-          var dtdt =moment(Date()).format('YYYY-MM-DD');
-          checkuserauth(dtdt,dtdt);          
+          /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+          checkuserauth(dtdt,dtdt); */
+          checkuserauth();        
           loadmodal('moldrepairmodal');
 
           $.notify({
@@ -452,8 +456,9 @@ function listchange(){
               if(data1==true){
                 $('#addformA').trigger('reset');
                 $('#addmoldrepairA').modal('hide');
-                var dtdt =moment(Date()).format('YYYY-MM-DD');
-                checkuserauth(dtdt,dtdt);    
+                /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+                checkuserauth(dtdt,dtdt); */
+                checkuserauth();    
                 loadmodal('moldrepairmodal');
 
                 $.notify({
@@ -538,8 +543,9 @@ function listchange(){
               if(data1==true){
                 $('#addform').trigger('reset');
                 $('#addmoldrepair').modal('hide');
-                var dtdt =moment(Date()).format('YYYY-MM-DD');
-                checkuserauth(dtdt,dtdt);    
+                /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+                checkuserauth(dtdt,dtdt); */
+                checkuserauth();
                 loadmodal('moldrepairmodal');
 
                 $.notify({
