@@ -1,14 +1,15 @@
 <?php
  
- if(isset($_POST['sday'])){
-    $sday = $_POST['sday'];
+ if(!isset($_POST['sday']) || $_POST['sday'] == ''){
+    $sday = "none";
  }
- else{
-     $sday = "none";
+ else{     
+     $sday = $_POST['sday'];
  }
 
- if(isset($_POST['eday'])){
-    $eday = $_POST['eday'];
+ if(!isset($_POST['eday']) || $_POST['eday']==''){
+    /* $eday = $_POST['eday']; */
+    $eday = "none";
  }
  else{
      $eday = $_POST['eday'];

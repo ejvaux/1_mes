@@ -1,7 +1,7 @@
 
 /* ____________ Table Init ________________ */
 
-function checkuserauth(sd,ed){
+function checkuserauth(sd = '',ed = ''){
   if(val=="A" || val=="G"){
     DisplayTble('mold_repair_table','mold_repairsp','Mold Repair',sd,ed);
   }
@@ -193,8 +193,9 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
                       success: function(data) {
 
                         if(data==true){
-                          var dtdt =moment(Date()).format('YYYY-MM-DD');
-                          checkuserauth(dtdt,dtdt);
+                          /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+                          checkuserauth(dtdt,dtdt); */
+                          checkuserauth();
                           $.notify({
                             icon: 'fas fa-info-circle',
                             title: 'System Notification: ',
@@ -376,8 +377,8 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       dt.setMonth(dt.getMonth() - 1);
       dt.setDate(1);
       $("div.dd").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Status</div></div><select class="form-control p-1" id="sortstatus" style="height: 31px;"><option>ALL</option><option>FOR PM</option><option>WAITING</option><option>ON-GOING</option><option>FOR MOLD TRIAL</option><option>QC APPROVED</option></select></div>');
-      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min" min="'+ moment(dt).format('YYYY-MM-DD') +'"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
-      
+      $("div.dr").html('<div class="input-group"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">Date</div></div><input type="date" id="min"><div class="input-group-prepend"><div class="input-group-text m-0" style="height: 31px;">to</div></div><input type="date" id="max" min="'+ moment(dt).format('YYYY-MM-DD') +'"><button type="button" id="refresh" ><i class="fas fa-sync-alt"></i></button></div>');
+      /* min="'+ moment(dt).format('YYYY-MM-DD') +'" */
       $('#min').val(startdate);
       $('#max').val(enddate);
 
@@ -416,8 +417,9 @@ function DisplayTble(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        var dtdt =moment(Date()).format('YYYY-MM-DD');
-        checkuserauth(dtdt,dtdt);
+        /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+        checkuserauth(dtdt,dtdt); */
+        checkuserauth();
       });
 
         /* ____________________________ FUNCTIONS _________________________ */
@@ -676,8 +678,9 @@ function DisplayTbleG(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        var dtdt =moment(Date()).format('YYYY-MM-DD');
-        checkuserauth(dtdt,dtdt);
+        /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+        checkuserauth(dtdt,dtdt); */
+        checkuserauth();
       });
 
       /* ____________________________ FUNCTIONS _________________________ */
@@ -993,8 +996,9 @@ function DisplayTbleC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        var dtdt =moment(Date()).format('YYYY-MM-DD');
-        checkuserauth(dtdt,dtdt);
+        /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+        checkuserauth(dtdt,dtdt); */
+        checkuserauth();
       });
 
       /* ____________________________ FUNCTIONS _________________________ */
@@ -1314,8 +1318,9 @@ function DisplayTbleA(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        var dtdt =moment(Date()).format('YYYY-MM-DD');
-        checkuserauth(dtdt,dtdt);
+        /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+        checkuserauth(dtdt,dtdt); */
+        checkuserauth();
       });
 
 
@@ -1578,8 +1583,9 @@ function DisplayTbleQC(Table_Name,Tablesp,tbltitle,startdate,enddate) {
       });
 
       $('#refresh').on('click',function(){
-        var dtdt =moment(Date()).format('YYYY-MM-DD');
-        checkuserauth(dtdt,dtdt);
+        /* var dtdt =moment(Date()).format('YYYY-MM-DD');
+        checkuserauth(dtdt,dtdt); */
+        checkuserauth();
       });
 
       /* ____________________________ FUNCTIONS _________________________ */
