@@ -79,5 +79,5 @@ $('#loginform').on('submit', function (e) {
    });
 
    function redirect(){
-    window.location.href='/1_mes/';
+    window.location.href='/1_mes/_php/portal.php';
    }
