@@ -3,8 +3,8 @@
 ## Developers:
 
 * Edmund O. Mati Jr.
-* ~~Eugene Rubio~~
-* ~~Jefferson Gernale~~
+* Eugene Rubio
+* Jefferson Gernale
 <!---
 ## SDLC - Methodology
 
