@@ -5,6 +5,7 @@
 * Edmund O. Mati Jr.
 * Eugene Rubio
 * Jefferson Gernale
+* Nil Tenorio
 <!---
 ## SDLC - Methodology
 
